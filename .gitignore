@@ -20,3 +20,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+# template
+src/demo/public/media/philbert
+src/demo/public/media/vendors
+src/demo/public/media/teskalabs
