@@ -8,7 +8,7 @@
     "build": "node asab-webui-kit/script/build.js -r $(pwd) -p $(pwd)/public -s $(pwd)/src",
     "start": "node asab-webui-kit/script/start.js -r $(pwd) -p $(pwd)/public -s $(pwd)/src"
   },
-  "author": "",
+  "author": "TeskaLabs Ltd.",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.1.2",
@@ -19,6 +19,7 @@
     "babel-loader": "^8.0.4",
     "extend": "^3.0.2",
     "file-loader": "^2.0.0",
+    "fs-extra": "^7.0.0",
     "html-webpack-plugin": "^3.2.0",
     "interpolate-html-plugin": "^3.0.0",
     "react": "^16.6.0",
