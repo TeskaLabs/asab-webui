@@ -14,7 +14,8 @@ module.exports = {
 
 		return {
 			entry: entry_path,
-			mode: 'production',
+			mode: 'development',
+			watch: true,
 			output: {
 				filename: 'static/js/bundle.js',
 				chunkFilename: 'static/js/[name].chunk.js',

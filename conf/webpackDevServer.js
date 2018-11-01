@@ -1,3 +1,5 @@
+const ignoredFiles = require('./lib/ignoredFiles');
+
 module.exports = {
 	build: function(config) {
 		// var disableHostCheck = !proxy || process.env.DANGEROUSLY_DISABLE_HOST_CHECK === 'true';
@@ -11,9 +13,9 @@ module.exports = {
 			hot: true,
 			publicPath: '/', // the dafault is '/'
 			quiet: true,
-			// watchOptions: {
-			// 	ignored: ignoredFiles(paths.appSrc),
-			// },
+			watchOptions: {
+				ignored: ignoredFiles(config.src_dir),
+			},
 			https: config.dev_https,
 			host: config.dev_host,
 			overlay: false,
