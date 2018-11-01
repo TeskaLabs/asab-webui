@@ -10,4 +10,5 @@ module.exports = {
 
 	dev_https: false, // Whether or not the dev server should run in https mode
 	dev_host: '0.0.0.0', // Host where dev server listens at
+	dev_port: 3000, // Dev server port
 }
