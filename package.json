@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node asab-webui-kit/script/build.js -r $(pwd) -p $(pwd)/public -s $(pwd)/src",
-    "start": "node asab-webui-kit/script/start.js -r $(pwd) -p $(pwd)/public -s $(pwd)/src"
+    "build": "node ./asab-webui-kit-lite/script/build.js",
+    "start": "node ./asab-webui-kit-lite/script/start.js"
   },
   "author": "TeskaLabs Ltd.",
   "license": "ISC",
