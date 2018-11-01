@@ -1,21 +1,16 @@
 // imports
 const path = require('path');
-const extend = require('extend');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
-const common = require('./common');
+const constants = require('./constants');
 
 
 module.exports = {
-	build: function(_config) {
-		// Enrich given config with default values
-		var config = {}
-		extend(config, common.configDefaults, _config);
+	build: function(config) {
 		// paths
 		const entry_path = path.resolve(config.src_dir, 'index.js');
 		const html_template_path = path.resolve(config.public_dir, 'index.html');
-
 
 		return {
 			entry: entry_path,
@@ -30,7 +25,7 @@ module.exports = {
 					'node_modules',
 				],
 				alias: {
-					'asab-webui-kit': common.constants.lib_src_dir,
+					'asab-webui-kit': constants.lib_src_dir,
 				}
 			},
 			module: {
@@ -38,7 +33,7 @@ module.exports = {
 					{
 						test: /\.js$/,
 						loader: 'babel-loader',
-						options: require(common.constants.babel_conf_path)
+						options: require(constants.babel_conf_path)
 					},
 				]
 			},

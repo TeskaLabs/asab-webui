@@ -7,13 +7,8 @@ const common = require('./common');
 var parser = common.getArgumentParser();
 var args = parser.parseArgs();
 
-// Prepare config
-var config = args;
-if (args.config_file) {
-	config = common.extendConfigWithSiteConfig(config, args.config_file)
-	if (config == null)
-		process.exit();
-}
+// Load config
+var config = common.loadConfig(args)
 
 // Copy public folder
 console.log("Copying public folder...");

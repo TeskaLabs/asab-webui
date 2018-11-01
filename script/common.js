@@ -15,46 +15,58 @@ exports.getArgumentParser = function() {
 			help: 'Config file'
 		}
 	);
-	parser.addArgument(['-r', '--root-dir'], {
-			defaultValue: CWD,
-			help: 'Root directory of your project',
-		}
-	);
 	parser.addArgument(['-s', '--src-dir'], {
-			defaultValue: path.resolve(CWD, 'src'),
 			help: 'Directory with jsx sources where index.js resides.',
 		}
 	);
 	parser.addArgument(['-p', '--public-dir'], {
-			defaultValue: path.resolve(CWD, 'public'),
 			help: 'Directory with public files like index.html.',
 		}
 	);
 	parser.addArgument(['-d', '--dist-dir'], {
-			defaultValue: path.resolve(CWD, 'dist'),
 			help: 'Distribution directory where application is going to be built to.',
 		}
 	);
 	return parser;
 }
 
-exports.extendConfigWithSiteConfig = function(config, configFile) {
-	// Extend config with site configuration
+var getSiteConfig = function(configFile) {
 	var _config = {};
 	try {
 		if (configFile.startsWith('/'))
-			extend(_config, config, require(configFile))
+			return require(configFile)
 		else
-			extend(_config, config, require(path.resolve(process.cwd(), configFile)))
+			return require(path.resolve(process.cwd(), configFile));
 	} catch (err) {
 		if (configFile.length > 0) {
 			console.error("Couldn't load config file \""+configFile+"\". "+err);
 		}
 		return null;
 	}
-	return _config;
-
 }
+
+exports.loadConfig = function(args) {
+	// Prepare config
+	var config = {}
+	// Defaults
+	extend(config, require(path.resolve(__dirname, '..', 'conf', 'configDefaults')));
+	// Site config
+	if (args.config_file) {
+		var siteConfig = getSiteConfig(args.config_file)
+		if (siteConfig)
+			extend(config, siteConfig)
+		else
+			process.exit();
+	}
+	// Args
+	for (key in args) {
+		if (args[key] != null && args.isset(key)) {
+			config[key] = args[key]
+		}
+	}
+	return config
+}
+
 
 exports.getBuildMessages = function(err, stats) {
 	var messages;
