@@ -61,7 +61,7 @@ var getSiteConfig = function(configFile) {
 exports.loadConfig = function(args) {
 	// Prepare config
 	var config = {
-		conf_dir: path.resolve(CWD, 'conf'),		// --conf-dir CONF_DIR
+		conf_dir: args.conf_dir ? args.conf_dir : path.resolve(CWD, 'conf'),		// --conf-dir CONF_DIR
 		dist_dir: path.resolve(CWD, 'dist'),		// -d --dist-dir DIST_DIR
 		public_dir: path.resolve(CWD, 'public'),	// -p --public-dir PUBLIC_DIR
 		src_dir: path.resolve(CWD, 'src'),			// -s --src-dir SRC_DIR
