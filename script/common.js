@@ -75,7 +75,7 @@ exports.loadConfig = function(args) {
 		resolve: {},
 	}
 	// Defaults
-	extend(config, require(path.resolve(conf_dir, 'defaults')));
+	extend(config, require(path.resolve(config.conf_dir, 'defaults')));
 	// Site config
 	if (args.config_file) {
 		var siteConfig = getSiteConfig(args.config_file)
