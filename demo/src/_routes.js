@@ -4,10 +4,7 @@ const routes =  [
 	{
 		path: '/',
 		exact: true,
-		component: HomeContainer,
-		fetchInitialData: (request) => {
-			return fetchItems()
-		}
+		component: HomeContainer
 	},
 ]
 
