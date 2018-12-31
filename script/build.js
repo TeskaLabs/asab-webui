@@ -17,7 +17,7 @@ console.log("OK");
 
 // Build with webpack
 console.log("Building sources...");
-const webpackConf = require(path.resolve(__dirname, '..', 'conf', 'webpack.build.js')).build(config);
+const webpackConf = require(path.resolve(__dirname, '..', 'webpack', 'webpack.build.js')).build(config);
 webpack(webpackConf).run((err, stats) => {
 	var messages = common.getBuildMessages(err, stats);
 	if (messages.errors.length) {

@@ -1,14 +1,17 @@
 // imports
+const webpack = require('webpack');
 const path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
-const constants = require('./constants');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const common = require("./common");
+// const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 
 module.exports = {
 	build: function(config) {
 		// paths
+		console.log(config);
 		const entry_path = path.resolve(config.src_dir, 'index.js');
 		const html_template_path = path.resolve(config.public_dir, 'index.html');
 
@@ -25,29 +28,31 @@ module.exports = {
 					path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
 			},
 			resolve: {
-				modules: [
-					'node_modules',
-				],
 				alias: {
-					'asab-webui-kit': constants.lib_src_dir,
+					"asab-webui-kit": path.resolve('asab-webui-kit/asab-webui-kit/index.js')
 				}
 			},
 			module: {
-				rules: [
-					{
-						test: /\.js$/,
-						loader: 'babel-loader',
-						options: require(constants.babel_conf_path)
-					},
-				]
+				rules: common.getRules(config)
 			},
 			plugins: [
+				new webpack.DefinePlugin(
+					common.JSONStringifyValues(Object.assign({
+						"__PUBLIC_URL__": config.public_url.replace(/\/+$/, '')
+					}), config.define)
+				),
 				new HtmlWebpackPlugin({
 					template: html_template_path
 				}),
-				new InterpolateHtmlPlugin({
-					'PUBLIC_URL': config.public_url.replace(/\/+$/, '')
-				})
+				new InterpolateHtmlPlugin(
+					Object.assign({
+						"__PUBLIC_URL__": config.public_url.replace(/\/+$/, ''),
+					}, config.define)
+				),
+				// Extracts file styles.css
+				new ExtractTextPlugin('static/css/styles.css'),
+				// Minimizes styles.css
+				// new OptimizeCssAssetsPlugin()
 			]
 		};
 	}

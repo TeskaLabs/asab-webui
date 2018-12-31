@@ -1,0 +1,12 @@
+// Import styles
+@import "~@coreui/coreui/scss/coreui.scss";
+
+// Temp fix for reactstrap
+@import '~@coreui/coreui/scss/_dropdown-menu-right.scss';
+
+
+// CoreUI Icons Set
+@import '~@coreui/icons/css/coreui-icons.css';
+
+// Import Simple Line Icons Set
+@import '~simple-line-icons/css/simple-line-icons.css';
