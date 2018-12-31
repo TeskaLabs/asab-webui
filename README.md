@@ -1,49 +1,48 @@
-asab-webui-kit
+ASAB WebUI Starter Kit
 ===
 
-A javascript library project with minimum node packages requirements.
+## Start a project
 
-## Create an asab-webui-kit-lite based application
-
-**1)** Create a project and add `asab-webui-kit-lite` as a submodule.
+Add this repo as a submodule to your project.
 
 ```
-$ git init app
-$ cd app
-$ git submodule add git@gitlab.teskalabs.int:teskalabs/asab-webui-kit-lite.git
+$ git init .
+$ git submodule add [THIS_REPO]
 ```
 
-**2)** Then copy the demo files
+Bootstrap your project with example files.
 
 ```
-$ cp -r ./asab-webui-kit-lite/src/demo/* .
-$ cp ./asab-webui-kit-lite/package.json .
+$ rsync -a --ignore-existing ./asab-webui-kit-lite/demo/* .
 ```
 
-**3)** Download Philbert
+Install dependencies
 
 ```
-$ wget http://wiki.teskalabs.int/_media/rd/asab/philbert-media-package.zip
-$ unzip -d ./public philbert-media-package.zip
-$ rm ./philbert-media-package.zip
+$ yarn install
 ```
 
-**4)** Install dependencies
+## Run
 
 ```
-$ npm install
+$ yarn start
 ```
 
-### Start application
+## Build
 
 ```
-$ npm start
+$ yarn build
 ```
 
-### Build application
-
-This will build the application to `./dist`
+Build for deployment to a specific public url
 
 ```
-$ npm run build
+$ yarn build -p https://example.com/app
 ```
+
+or
+
+```
+$ yarn build -c ./conf/example.site.js
+```
+
