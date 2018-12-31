@@ -23,6 +23,7 @@ module.exports = {
 				filename: 'static/js/bundle.js',
 				chunkFilename: 'static/js/[name].chunk.js',
 				path: config.dist_dir,
+				publicPath: '/',
 				// Point sourcemap entries to original disk location (format as URL on Windows)
 				devtoolModuleFilenameTemplate: info =>
 					path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
