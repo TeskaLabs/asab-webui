@@ -36,7 +36,7 @@ module.exports = {
 				new webpack.DefinePlugin(
 					common.JSONStringifyValues(Object.assign({
 						"__PUBLIC_URL__": config.public_url.replace(/\/+$/, '')
-					}), config.define)
+					}, config.define))
 				),
 				new HtmlWebpackPlugin({
 					template: html_template_path,
