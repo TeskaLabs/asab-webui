@@ -1,6 +1,5 @@
 const path = require('path');
 const CWD = process.cwd();
-const extend = require('extend');
 const fs = require('fs-extra');
 const ArgumentParser = require('argparse').ArgumentParser;
 const formatWebpackMessages = require('./lib/formatWebpackMessages');
@@ -75,12 +74,11 @@ exports.loadConfig = function(args) {
 		resolve: {},
 	}
 	// Defaults
-	extend(config, require(path.resolve(config.conf_dir, 'defaults')));
 	// Site config
-	if (args.config_file) {
-		var siteConfig = getSiteConfig(args.config_file)
+	if (args.conf_file) {
+		var siteConfig = getSiteConfig(args.conf_file)
 		if (siteConfig)
-			extend(config, siteConfig)
+			config = Object.assign(config, siteConfig);
 		else
 			process.exit();
 	}
