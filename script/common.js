@@ -74,6 +74,7 @@ exports.loadConfig = function(args) {
 		resolve: {},
 	}
 	// Defaults
+	config = Object.assign(config, require(path.resolve(config.conf_dir, 'defaults')));
 	// Site config
 	if (args.conf_file) {
 		var siteConfig = getSiteConfig(args.conf_file)
