@@ -7,7 +7,7 @@ Add this repo as a submodule to your project.
 
 ```
 $ git init .
-$ git submodule add [THIS_REPO]
+$ git submodule add https://github.com/TeskaLabs/asab-webui-kit-lite.git
 ```
 
 Bootstrap your project with example files.
