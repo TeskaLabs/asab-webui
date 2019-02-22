@@ -20,8 +20,8 @@ module.exports = {
 			entry: entry_path,
 			mode: 'production',
 			output: {
-				filename: 'static/js/[name].[chunkhash:8].js',
-				chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
+				filename: 'assets/js/[name].[chunkhash:8].js',
+				chunkFilename: 'assets/js/[name].[chunkhash:8].chunk.js',
 				path: path.resolve(config.dist_dir)
 			},
 			resolve: {
@@ -59,7 +59,7 @@ module.exports = {
 					}, config.define)
 				),
 				// Extracts file styles.css
-				new ExtractTextPlugin('static/css/styles.css'),
+				new ExtractTextPlugin('assets/css/styles.css'),
 				new UglifyJsPlugin({
 					uglifyOptions: {
 						output: {
