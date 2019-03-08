@@ -35,8 +35,8 @@ module.exports = {
 			plugins: [
 				new webpack.DefinePlugin(
 					common.JSONStringifyValues(Object.assign({
-						"__PUBLIC_URL__": config.public_url.replace(/\/+$/, '')
-					}, config.define))
+						"__CONFIG__": config.config
+					})
 				),
 				new HtmlWebpackPlugin({
 					template: html_template_path,
@@ -55,7 +55,7 @@ module.exports = {
 				}),
 				new InterpolateHtmlPlugin(
 					Object.assign({
-						"__PUBLIC_URL__": config.public_url.replace(/\/+$/, ''),
+						"__PUBLIC_URL__": config.config.public_url.replace(/\/+$/, ''),
 					}, config.define)
 				),
 				// Extracts file styles.css
