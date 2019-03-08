@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux'
+import { createStore } from 'redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import {
 	AppAside,
@@ -14,11 +16,26 @@ import {
 import Header from './Header';
 import routes from './_routes';
 import navigation from './_navigation';
+import reducer from './reducers'
+import {TenantService} from './TenantService'
+import Config from './Config';
 
+
+let store = createStore(
+	reducer
+  );
 
 class App extends Component {
+
+	componentWillMount() {
+		if (Config.multitenancy){
+			let tenantService = new TenantService(store);
+		}
+	}
+
 	render() {
 		return (
+			<Provider store={store}>
 			<div className="app">
 				 <AppHeader fixed>
 					<Header/>
@@ -55,6 +72,7 @@ class App extends Component {
 					Powered by TeskaLabs
 				</AppFooter>
 			</div>
+			</Provider>
 		);
 	}
 }
