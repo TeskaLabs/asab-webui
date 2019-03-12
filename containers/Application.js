@@ -126,7 +126,7 @@ class Application extends Component {
 
 class Config {
 	constructor(app, defaults) {
-		this._config = Object.extend({}, defaults);
+		this._config = Object.assign({}, defaults);
 	}
 
 	addDefaults(defaults) {

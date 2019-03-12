@@ -5,7 +5,6 @@ module.exports = {
 	config: {
 		"publicUrl": "",
 		"apiUrl": "",
-		"multitenancy": false,
 	},
 	resolve: {
 		alias: {
