@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node ./script/start.js",
-    "build": "node ./script/build.js",
+    "start": "node ./script/start.js -s ./demo/src -c ./demo/config.js",
+    "build": "node ./script/build.js -s ./demo/src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -37,9 +37,12 @@
   "dependencies": {
     "@coreui/coreui": "2.1.4",
     "@coreui/react": "^2.1.1",
+    "axios": "^0.18.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-redux": "^6.0.1",
     "reactstrap": "^6.5.0",
+    "redux": "^4.0.1",
     "simple-line-icons": "^2.4.1"
   }
 }

@@ -9,7 +9,8 @@ module.exports = {
 	},
 	resolve: {
 		alias: {
-			"asab-webui-kit": path.resolve('asab-webui-kit/index.js')
+			"asab-webui-kit": path.resolve('asab-webui-kit/index.js'),
+			"asab-webui-kit-lite": path.resolve('asab-webui-kit/index.js')
 		}
 	},
 	dev_proxy: {
