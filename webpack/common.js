@@ -2,6 +2,10 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 ///
 var exports = module.exports = {}
+
+var camelToUnderscore = function(str) {
+	return str.split(/(?=[A-Z])/).join('_');
+}
 ///
 
 
@@ -41,4 +45,13 @@ exports.getRules = function(config) {
 			}]
 		},
 	]
+}
+
+exports.convertKeysForHtml = function(obj){
+	var ret = {}
+	Object.keys(obj).map(function(k){
+		ret["__"+camelToUnderscore(k).toUpperCase()+"__"] = obj[k];
+	})
+	// TODO: remove trailing slash from URLs
+	return ret;
 }
