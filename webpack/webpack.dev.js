@@ -35,16 +35,17 @@ module.exports = {
 			plugins: [
 				new webpack.DefinePlugin(
 					common.JSONStringifyValues(Object.assign({
-						"__CONFIG__": config.config
+						"__CONFIG__": config.app
 					}))
 				),
 				new HtmlWebpackPlugin({
 					template: html_template_path
 				}),
 				new InterpolateHtmlPlugin(
-					Object.assign({
-						"__PUBLIC_URL__": config.config.publicUrl.replace(/\/+$/, ''),
-					}, config.define)
+					common.convertKeysForHtml(config.app)
+					// Converts keys like this:
+					// "publicUrl" -> "__PUBLIC_URL__"
+					// "apiUrl" -> "__API_URL__"
 				),
 				// Extracts file styles.css
 				new ExtractTextPlugin('static/css/styles.css'),
