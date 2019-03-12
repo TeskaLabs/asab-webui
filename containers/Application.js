@@ -26,6 +26,7 @@ class Application extends Component {
 		this.Modules = [];
 		this.Services = {};
 
+		this.Config = new Config(__CONFIG__);
 		this.Router = new Router();
 		this.Navigation = new Navigation();
 
@@ -60,7 +61,6 @@ class Application extends Component {
 		this.store = createStore(
 			combineReducers(this.ReduxService.Reducers)
 		);
-
 	}
 
 	registerService(service) {
@@ -120,6 +120,25 @@ class Application extends Component {
 			</Provider>
 
 		);
+	}
+}
+
+
+class Config {
+	constructor(app, defaults) {
+		this._config = Object.extend({}, defaults);
+	}
+
+	addDefaults(defaults) {
+		for (key in defaults) {
+			if (key in this._config)
+				continue
+			this._config[key] = defaults[key];
+		}
+	}
+
+	get(key) {
+		return this._config[key];
 	}
 }
 
