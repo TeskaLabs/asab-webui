@@ -2,9 +2,10 @@ const path = require('path');
 
 
 module.exports = {
-	public_url: "",
-	define: {
-		"__API_URL__": "",
+	config: {
+		"publicUrl": "",
+		"apiUrl": "",
+		"multitenancy": false,
 	},
 	resolve: {
 		alias: {
