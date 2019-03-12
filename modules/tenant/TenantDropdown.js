@@ -5,7 +5,6 @@ import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, Nav
 import PropTypes from 'prop-types';
 import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import Api from './Api';
-import Config from './Config';
 import { selectTenant } from './actions';
 
 
