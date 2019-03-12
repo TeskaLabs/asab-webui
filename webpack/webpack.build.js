@@ -24,11 +24,7 @@ module.exports = {
 				chunkFilename: 'assets/js/[name].[chunkhash:8].chunk.js',
 				path: path.resolve(config.dist_dir)
 			},
-			resolve: {
-				alias: {
-					"asab-webui-kit": path.resolve('asab-webui-kit/asab-webui-kit/index.js')
-				}
-			},
+			resolve: config.resolve,
 			module: {
 				rules: common.getRules(config)
 			},

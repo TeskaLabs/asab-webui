@@ -28,11 +28,7 @@ module.exports = {
 				devtoolModuleFilenameTemplate: info =>
 					path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
 			},
-			resolve: {
-				alias: {
-					"asab-webui-kit": path.resolve('asab-webui-kit/asab-webui-kit/index.js')
-				}
-			},
+			resolve: config.resolve,
 			module: {
 				rules: common.getRules(config)
 			},

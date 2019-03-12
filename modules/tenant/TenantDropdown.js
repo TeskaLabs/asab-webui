@@ -10,15 +10,13 @@ import { selectTenant } from './actions';
 
 
 
-class Header extends Component {
+class TenantDropdown extends Component {
 
   constructor(props) {
 		super(props);
 		this.state = {
-      tenants: [],
-      currentTenant: '',
-      tenantDropdownOpen: false
-    }
+            tenantDropdownOpen: false
+        }
 
     this.toggleTenantDropdown = this.toggleTenantDropdown.bind(this);
     this.changeTenant = this.changeTenant.bind(this);
@@ -37,27 +35,18 @@ class Header extends Component {
   render() {
 
     return (
-      <React.Fragment>
-        <AppNavbarBrand>ASAB WebUI</AppNavbarBrand>
-        <AppSidebarToggler className="d-md-down-none" display="lg" />
-        <Nav className="d-md-down-none" navbar>
-        </Nav> 
-    
-        <Nav className="ml-auto" navbar>
-        {Config.multitenancy && <Dropdown className="tenantDropdown" isOpen={this.state.tenantDropdownOpen} toggle={this.toggleTenantDropdown}>
-        <DropdownToggle caret>
-          {this.props.tenantState.currentTenant}
-        </DropdownToggle>
-        <DropdownMenu>
-        {this.props.tenantState.tenants && this.props.tenantState.tenants.map((tenant, i) => (
-        <DropdownItem>
-            <div onClick={this.changeTenant}>{tenant}</div>
-        </DropdownItem>
-          ))}
-        </DropdownMenu>
-      </Dropdown>}
-        </Nav>
-      </React.Fragment>
+          <Dropdown className="tenantDropdown" isOpen={this.state.tenantDropdownOpen} toggle={this.toggleTenantDropdown}>
+              <DropdownToggle caret>
+                {this.props.tenantState.currentTenant}
+              </DropdownToggle>
+              <DropdownMenu>
+              {this.props.tenantState.tenants && this.props.tenantState.tenants.map((tenant, i) => (
+              <DropdownItem>
+                  <div onClick={this.changeTenant}>{tenant}</div>
+              </DropdownItem>
+                ))}
+              </DropdownMenu>
+          </Dropdown>
     );
   }
 }
@@ -79,4 +68,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Header);
+)(TenantDropdown);
