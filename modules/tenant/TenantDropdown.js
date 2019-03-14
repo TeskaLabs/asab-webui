@@ -7,6 +7,7 @@ import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler }
 import Api from './Api';
 import { selectTenant } from './actions';
 
+import './style.css';
 
 
 class TenantDropdown extends Component {
