@@ -39,7 +39,7 @@ exports.getRules = function(config) {
 					loader: 'file-loader',
 					options: {
 						name: '[name].[hash].[ext]',
-						publicPath: config.public_url.replace(/\/+$/, '')+'/assets/',
+						publicPath: config.app.publicUrl.replace(/\/+$/, '')+'/assets/',
 						outputPath: 'assets/',
 					}
 			}]

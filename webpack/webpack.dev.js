@@ -12,8 +12,8 @@ module.exports = {
 	build: function(config) {
 		// paths
 		console.log(config);
-		const entry_path = path.resolve(config.src_dir, 'index.js');
-		const html_template_path = path.resolve(config.public_dir, 'index.html');
+		const entry_path = path.resolve(config.dirs.src, 'index.js');
+		const html_template_path = path.resolve(config.dirs.public, 'index.html');
 
 		return {
 			entry: entry_path,
@@ -22,7 +22,7 @@ module.exports = {
 			output: {
 				filename: 'static/js/bundle.js',
 				chunkFilename: 'static/js/[name].chunk.js',
-				path: config.dist_dir,
+				path: config.dirs.dist,
 				publicPath: '/',
 				// Point sourcemap entries to original disk location (format as URL on Windows)
 				devtoolModuleFilenameTemplate: info =>
