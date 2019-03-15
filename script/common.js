@@ -3,6 +3,7 @@ const CWD = process.cwd();
 const fs = require('fs-extra');
 const ArgumentParser = require('argparse').ArgumentParser;
 const formatWebpackMessages = require('./lib/formatWebpackMessages');
+const assigndeep = require('assign-deep');
 
 ///
 var exports = module.exports = {}
@@ -16,7 +17,7 @@ exports.getArgumentParser = function() {
 		}
 	);
 	parser.addArgument(['-c', '--conf-file'], {
-			help: 'Full or relative path to a config file that extends defaults.'
+			help: 'Full or relative path to a config file that extends defaults. (Default: ./config/config.js)'
 		}
 	);
 	parser.addArgument(['-d', '--dist-dir'], {
@@ -42,59 +43,140 @@ exports.getArgumentParser = function() {
 	return parser;
 }
 
-var getSiteConfig = function(configFile) {
-	var _config = {};
+var loadConfigFromFile = function(configFile) {
 	try {
 		if (configFile.startsWith('/'))
 			return require(configFile)
 		else
 			return require(path.resolve(process.cwd(), configFile));
 	} catch (err) {
-		if (configFile.length > 0) {
-			console.error("Couldn't load config file \""+configFile+"\". "+err);
-		}
 		return null;
 	}
 }
 
+var evalFuncInObj = function(obj) {
+	var ret = {}
+	var keys = Object.keys(obj);
+	for (var i in keys) {
+		var key = keys[i];
+		console.log(key);
+		if (key && typeof obj[key] === "function")
+			ret[key] = obj[key](config)
+		else if (key && typeof obj[key] === "object")
+			ret[key] = evalFuncInObj(obj[key])
+		else
+			ret[key] = obj[key]
+	}
+	return ret;
+}
+
+// var deepAssign = function() {
+// 	ret = {};
+// 	function r(origobj, nextobj) {
+// 		var ret = Object.assign({}, origobj);
+// 		var keys = Object.keys(nextobj);
+// 		for (var i in keys) {
+// 			var key = keys[i];
+// 			if (!key)
+// 				continue;
+
+// 			// Orig obj doesn't contain the key
+// 			if (!key in origobj) {
+// 				ret[key] = origobj[key];
+// 				continue
+// 			}
+
+// 			// If value of this key is object, call recursively
+// 			else if (typeof origobj[key] == "object" && typeof nextobj[key] == "object") {
+// 				ret[key] = r(origobj[key], nextobj[key]);
+// 			}
+
+// 			// Otherwise just assign value that comes from the next object
+// 			else {
+// 				ret[key] = nextobj[key]
+// 			}
+// 		}
+// 		return ret;
+// 	}
+// 	for (x in arguments) {
+// 		console.log(arguments[x]);
+// 		var ret = r(ret, arguments[x]);
+// 	}
+// 	return ret;
+// }
+
 exports.loadConfig = function(args) {
 	// Prepare config
-	var config = {
-		conf_dir: args.conf_dir ? args.conf_dir : path.resolve(CWD, 'conf'),		// --conf-dir CONF_DIR
-		dist_dir: path.resolve(CWD, 'dist'),		// -d --dist-dir DIST_DIR
-		public_dir: path.resolve(CWD, 'public'),	// -p --public-dir PUBLIC_DIR
-		src_dir: path.resolve(CWD, 'src'),			// -s --src-dir SRC_DIR
-		public_url: '',								// -u --public-url PUBLIC_URL
+	// var config = {
+	// 	conf_dir: args.conf_dir ? args.conf_dir : path.resolve(CWD, 'conf'),		// --conf-dir CONF_DIR
+	// 	dist_dir: path.resolve(CWD, 'dist'),		// -d --dist-dir DIST_DIR
+	// 	public_dir: path.resolve(CWD, 'public'),	// -p --public-dir PUBLIC_DIR
+	// 	src_dir: path.resolve(CWD, 'src'),			// -s --src-dir SRC_DIR
+	// 	public_url: '',								// -u --public-url PUBLIC_URL
 
-		dev_https: false,
-		dev_listen: '0.0.0.0:3000',					// --dev-listen DEV_LISTEN
-		dev_proxy: {},
+	// 	dev_https: false,
+	// 	dev_listen: '0.0.0.0:3000',					// --dev-listen DEV_LISTEN
+	// 	dev_proxy: {},
 
-		define: {},
-		resolve: {},
-	}
-	// Defaults
-	config = Object.assign(config, require(path.resolve(config.conf_dir, 'defaults')));
-	// Site config
-	if (args.conf_file) {
-		var siteConfig = getSiteConfig(args.conf_file)
-		if (siteConfig)
-			config = Object.assign(config, siteConfig);
-		else
+	// }
+
+	var config = {};
+
+	// Load defaults
+	config = Object.assign(config, require(path.resolve(__dirname, '..', 'config','defaults')));
+
+	// Load config file, if specified in command line argument
+	// arg: -c [FILE] / --conf-file [FILE]
+	if(args.conf_file) {
+		var confFileConfig = loadConfigFromFile(args.conf_file);
+		if (confFileConfig) {
+			console.log("-------------");
+			// config = assigndeep({"kek":2, "kekk":{"kek":43}}, {"kek":2, "kekk":{"kek":453}});
+			config = assigndeep(config, confFileConfig);
+			console.log("-------------");
+			console.log("-------------");
+			console.log(config)
+			console.log("-------------");
+			console.log("-------------");
+		}
+		else {
+			console.error("Couldn't load config file: "+args.conf_file);
 			process.exit();
-	}
-	// Args
-	for (key in args) {
-		if (args[key] != null && args.isset(key)) {
-			config[key] = args[key]
 		}
 	}
-	// Expand functions
-	for (key in config) {
-		if (key && typeof config[key] === "function")
-			config[key] = config[key](config)
+
+	// Otherwise attempt to load ${conf_dir}/config.js
+	// arg: --conf-dir [DIR]
+	else {
+		confDir = args.conf_dir ?
+				  args.conf_dir : path.resolve(CWD, 'conf');
+		confDirConfig = loadConfigFromFile(path.resolve(configDir, 'config.js'));
+		if (confDirConfig !== null)
+			config = assigndeep(config, confDirConfig);
 	}
-	return config
+
+	console.log("KKKKKKKKK")
+	
+	// Load args
+	if (args.public_dir)	config["dirs"]["public"] = args.public_dir;
+	if (args.dist_dir)		config["dirs"]["dist"] = args.dist_dir;
+	if (args.src_dir)		config["dirs"]["src"] = args.src_dir;
+	if (args.public_url)	config["app"]["publicUrl"] = args.public_url;
+	if (args.dev_listen) {
+		config["webpackDevServer"]["host"] = args.dev_listen.split(":")[0];
+		config["webpackDevServer"]["port"] = parseInt(args.dev_listen.split(":")[1]);
+	}
+
+	console.log("asdfasdfasdfasdf")
+
+	// Expand functions
+	config = evalFuncInObj(config);
+
+
+	console.log("config:");
+	console.log(config);
+
+	return config;
 }
 
 

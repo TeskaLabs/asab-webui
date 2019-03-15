@@ -12,17 +12,7 @@ function ignoredFiles(appSrc) {
 
 module.exports = {
 	build: function(config) {
-
-		const listenParts = config.dev_listen.split(":");
-		const listenHost = listenParts[0],
-			  listenPort = parseInt(listenParts[1]);
-
-		if (!config.dev_host)
-			config.dev_host = listenHost;
-		if (!config.dev_port)
-			config.dev_port = listenPort;
-
-		return {
+		var c = Object.assign({
 			// var disableHostCheck = !proxy || process.env.DANGEROUSLY_DISABLE_HOST_CHECK === 'true';
 			// disableHostCheck: disableHostCheck
 			compress: true,
@@ -33,15 +23,15 @@ module.exports = {
 			publicPath: '/',
 			quiet: true,
 			watchOptions: {
-				ignored: ignoredFiles(config.src_dir),
+				ignored: ignoredFiles(config.dirs.src),
 			},
 			overlay: false,
 			historyApiFallback: {
 				disableDotRule: true,
 			},
-			https: config.dev_https,
-			host: config.dev_host,
-			proxy: config.dev_proxy,
-		};
+		}, config.webpackDevServer);
+
+		console.log(c);
+		return c;
 	}
 }
