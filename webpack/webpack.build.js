@@ -30,7 +30,7 @@ module.exports = {
 			},
 			plugins: [
 				new webpack.DefinePlugin(
-					common.JSONStringifyValues(Object.assign({
+					common.JSONStringifyValues({
 						"__CONFIG__": config.config
 					})
 				),
@@ -51,7 +51,12 @@ module.exports = {
 				}),
 				new InterpolateHtmlPlugin(
 					Object.assign({
-						"__PUBLIC_URL__": config.config.public_url.replace(/\/+$/, ''),
+						"__PUBLIC_URL__": config.config.publicUrl.replace(/\/+$/, ''),
+					}, config.define)
+				),
+				new InterpolateHtmlPlugin(
+					Object.assign({
+						"__PUBLIC_URL__": config.config.publicUrl.replace(/\/+$/, ''),
 					}, config.define)
 				),
 				// Extracts file styles.css
@@ -63,7 +68,8 @@ module.exports = {
 						}
 					}
 				}),
-				new OptimizeCssAssetsPlugin()
+				new OptimizeCssAssetsPlugin(),
+				new ExtractTextPlugin('assets/css/styles.css'),
 			],
 			optimization: {
 				minimize: true,
