@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
-    "start": "node ./script/start.js -s ./demo/src -c ./demo/config.js",
-    "build": "node ./script/build.js -s ./demo/src -c ./demo/config.js -p ./demo/public",
+    "start": "node ./script/start.js -s ./demo/src -c ./config/demo.js",
+    "build": "node ./script/build.js -s ./demo/src -c ./config/demo.js -p ./demo/public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -39,6 +39,7 @@
     "@coreui/coreui": "2.1.4",
     "@coreui/react": "^2.1.1",
     "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-redux": "^6.0.1",

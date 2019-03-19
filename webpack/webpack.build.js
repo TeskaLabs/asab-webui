@@ -13,8 +13,8 @@ const common = require("./common");
 module.exports = {
 	build: function(config) {
 		// paths
-		const entry_path = path.resolve(config.src_dir, 'index.js');
-		const html_template_path = path.resolve(config.public_dir, 'index.html');
+		const entry_path = path.resolve(config["dirs"]["src"], 'index.js');
+		const html_template_path = path.resolve(config["dirs"]["public"], 'index.html');
 
 		return {
 			entry: entry_path,
@@ -22,16 +22,17 @@ module.exports = {
 			output: {
 				filename: 'assets/js/[name].[chunkhash:8].js',
 				chunkFilename: 'assets/js/[name].[chunkhash:8].chunk.js',
-				path: path.resolve(config.dist_dir)
+				path: path.resolve(config["dirs"]["dist"]),
+				publicPath: config["app"]["publicUrl"],
 			},
-			resolve: config.resolve,
+			resolve: config["webpack"]["resolve"],
 			module: {
 				rules: common.getRules(config)
 			},
 			plugins: [
 				new webpack.DefinePlugin(
 					common.JSONStringifyValues({
-						"__CONFIG__": config.config
+						"__CONFIG__": config["app"]
 					})
 				),
 				new HtmlWebpackPlugin({
@@ -50,14 +51,10 @@ module.exports = {
 					},
 				}),
 				new InterpolateHtmlPlugin(
-					Object.assign({
-						"__PUBLIC_URL__": config.config.publicUrl.replace(/\/+$/, ''),
-					}, config.define)
-				),
-				new InterpolateHtmlPlugin(
-					Object.assign({
-						"__PUBLIC_URL__": config.config.publicUrl.replace(/\/+$/, ''),
-					}, config.define)
+					common.convertKeysForHtml(config["app"])
+					// Converts keys like this:
+					// "publicUrl" -> "__PUBLIC_URL__"
+					// "apiUrl" -> "__API_URL__"
 				),
 				// Extracts file styles.css
 				new ExtractTextPlugin('assets/css/styles.css'),
@@ -69,7 +66,6 @@ module.exports = {
 					}
 				}),
 				new OptimizeCssAssetsPlugin(),
-				new ExtractTextPlugin('assets/css/styles.css'),
 			],
 			optimization: {
 				minimize: true,

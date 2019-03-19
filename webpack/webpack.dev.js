@@ -28,21 +28,21 @@ module.exports = {
 				devtoolModuleFilenameTemplate: info =>
 					path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
 			},
-			resolve: config.resolve,
+			resolve: config["webpack"]["resolve"],
 			module: {
 				rules: common.getRules(config)
 			},
 			plugins: [
 				new webpack.DefinePlugin(
 					common.JSONStringifyValues(Object.assign({
-						"__CONFIG__": config.app
+						"__CONFIG__": config["app"]
 					}))
 				),
 				new HtmlWebpackPlugin({
 					template: html_template_path
 				}),
 				new InterpolateHtmlPlugin(
-					common.convertKeysForHtml(config.app)
+					common.convertKeysForHtml(config["app"])
 					// Converts keys like this:
 					// "publicUrl" -> "__PUBLIC_URL__"
 					// "apiUrl" -> "__API_URL__"
