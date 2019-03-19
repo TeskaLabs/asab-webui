@@ -5,6 +5,7 @@ const CWD = process.cwd();
 module.exports = {
 	app: {
 		"publicUrl": "",	// Overriden by --public-url [PUBLIC_URL] command line argument
+		"title": "TeskaLabs Web UI",
 	},
 
 	webpack: {
