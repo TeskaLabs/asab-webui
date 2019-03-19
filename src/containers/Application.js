@@ -114,7 +114,7 @@ class Application extends Component {
 					</AppAside>
 				</div>
 				<AppFooter>
-					Powered by TeskaLabs
+					{this.props.footer ? this.props.footer : "Powered by TeskaLabs"}
 				</AppFooter>
 			</div>
 			</Provider>
