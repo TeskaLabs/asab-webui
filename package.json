@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./script/start.js -s ./demo/src -c ./demo/config.js",
-    "build": "node ./script/build.js -s ./demo/src",
+    "build": "node ./script/build.js -s ./demo/src -c ./demo/config.js -p ./demo/public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

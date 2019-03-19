@@ -59,7 +59,6 @@ var evalFuncInObj = function(obj) {
 	var keys = Object.keys(obj);
 	for (var i in keys) {
 		var key = keys[i];
-		console.log(key);
 		if (key && typeof obj[key] === "function")
 			ret[key] = obj[key](config)
 		else if (key && typeof obj[key] === "object")
@@ -69,41 +68,6 @@ var evalFuncInObj = function(obj) {
 	}
 	return ret;
 }
-
-// var deepAssign = function() {
-// 	ret = {};
-// 	function r(origobj, nextobj) {
-// 		var ret = Object.assign({}, origobj);
-// 		var keys = Object.keys(nextobj);
-// 		for (var i in keys) {
-// 			var key = keys[i];
-// 			if (!key)
-// 				continue;
-
-// 			// Orig obj doesn't contain the key
-// 			if (!key in origobj) {
-// 				ret[key] = origobj[key];
-// 				continue
-// 			}
-
-// 			// If value of this key is object, call recursively
-// 			else if (typeof origobj[key] == "object" && typeof nextobj[key] == "object") {
-// 				ret[key] = r(origobj[key], nextobj[key]);
-// 			}
-
-// 			// Otherwise just assign value that comes from the next object
-// 			else {
-// 				ret[key] = nextobj[key]
-// 			}
-// 		}
-// 		return ret;
-// 	}
-// 	for (x in arguments) {
-// 		console.log(arguments[x]);
-// 		var ret = r(ret, arguments[x]);
-// 	}
-// 	return ret;
-// }
 
 exports.loadConfig = function(args) {
 	// Prepare config
@@ -130,14 +94,7 @@ exports.loadConfig = function(args) {
 	if(args.conf_file) {
 		var confFileConfig = loadConfigFromFile(args.conf_file);
 		if (confFileConfig) {
-			console.log("-------------");
-			// config = assigndeep({"kek":2, "kekk":{"kek":43}}, {"kek":2, "kekk":{"kek":453}});
 			config = assigndeep(config, confFileConfig);
-			console.log("-------------");
-			console.log("-------------");
-			console.log(config)
-			console.log("-------------");
-			console.log("-------------");
 		}
 		else {
 			console.error("Couldn't load config file: "+args.conf_file);
@@ -150,13 +107,11 @@ exports.loadConfig = function(args) {
 	else {
 		confDir = args.conf_dir ?
 				  args.conf_dir : path.resolve(CWD, 'conf');
-		confDirConfig = loadConfigFromFile(path.resolve(configDir, 'config.js'));
+		confDirConfig = loadConfigFromFile(path.resolve(confDir, 'config.js'));
 		if (confDirConfig !== null)
 			config = assigndeep(config, confDirConfig);
 	}
 
-	console.log("KKKKKKKKK")
-	
 	// Load args
 	if (args.public_dir)	config["dirs"]["public"] = args.public_dir;
 	if (args.dist_dir)		config["dirs"]["dist"] = args.dist_dir;
@@ -167,15 +122,8 @@ exports.loadConfig = function(args) {
 		config["webpackDevServer"]["port"] = parseInt(args.dev_listen.split(":")[1]);
 	}
 
-	console.log("asdfasdfasdfasdf")
-
 	// Expand functions
 	config = evalFuncInObj(config);
-
-
-	console.log("config:");
-	console.log(config);
-
 	return config;
 }
 
@@ -200,8 +148,8 @@ exports.getBuildMessages = function(err, stats) {
 }
 
 exports.copyPublicFolder = function(config) {
-	fs.copySync(config.public_dir, config.dist_dir, {
+	fs.copySync(config["dirs"]["public"], config["dirs"]["dist"], {
 		dereference: true,
-		filter: file => file !== path.resolve(config.public_dir, 'index.html'),
+		filter: file => file !== path.resolve(config["dirs"]["public"], 'index.html'),
 	});
 }

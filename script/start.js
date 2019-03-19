@@ -19,4 +19,4 @@ const compiler = webpack(webpackConf)
 
 // Dev server
 const devServer = new WebpackDevServer(compiler, webpackDevServerConf);
-devServer.listen(config.dev_port)
+devServer.listen(config.webpackDevServer.port)
