@@ -18,7 +18,7 @@ class Header extends Component {
 
     return (
       <React.Fragment>
-        <AppNavbarBrand>ASAB WebUI</AppNavbarBrand>
+        <AppNavbarBrand>{this.HeaderService.BrandComponent}</AppNavbarBrand>
         <AppSidebarToggler className="d-md-down-none" display="lg" />
         <Nav className="d-md-down-none" navbar>
             {this.HeaderService.Items

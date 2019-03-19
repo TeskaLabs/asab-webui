@@ -7,6 +7,7 @@ export default class HeaderService extends Service{
 
     constructor(app, serviceName="HeaderService"){
         super(app, serviceName)
+        this.BrandComponent = __CONFIG__.title;
         this.Items = [];
     }
 
@@ -16,4 +17,8 @@ export default class HeaderService extends Service{
             'component': component,
         })
 	}
+
+    setBrandComponent(component) {
+        this.BrandComponent = component;
+    }
 }
