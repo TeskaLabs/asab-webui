@@ -1,7 +1,7 @@
 {
-  "name": "asab-webui-kit-demo",
+  "name": "asab-webui-kit-lite",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "node ./script/start.js -s ./demo/src -c ./demo/config.js",
     "build": "node ./script/build.js -s ./demo/src -c ./demo/config.js -p ./demo/public",

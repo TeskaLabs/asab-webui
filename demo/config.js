@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
 	resolve: {
 		alias: {
-			"asab-webui-kit-lite": path.resolve('.')
+			"asab-webui-kit-lite": path.resolve('.', 'src')
 		},
 		// modules: [
 		// 	path.resolve('..'),

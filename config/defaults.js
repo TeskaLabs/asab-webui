@@ -10,7 +10,7 @@ module.exports = {
 	webpack: {
 		resolve: {
 			alias: {
-				"asab-webui-kit-lite": path.resolve('asab-webui-kit-lite')
+				"asab-webui-kit-lite": path.resolve('asab-webui-kit-lite', 'src')
 			}
 		}
 	},
