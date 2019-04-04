@@ -42,7 +42,7 @@ class TenantDropdown extends Component {
               <DropdownMenu>
               {this.props.tenantState.tenants && this.props.tenantState.tenants.map((tenant, i) => (
               <DropdownItem>
-                  <div onClick={this.changeTenant}>{tenant}</div>
+                  <div onClick={this.changeTenant}>{tenant.id}</div>
               </DropdownItem>
                 ))}
               </DropdownMenu>

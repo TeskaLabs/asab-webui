@@ -14,7 +14,7 @@ export default function reducer(state = initialState, action) {
         return {
             error: null,
             tenants: action.payload,
-            currentTenant: action.payload[0]
+            currentTenant: action.payload[0].id
         }
         
       case types.GET_TENANTS_ERROR:
