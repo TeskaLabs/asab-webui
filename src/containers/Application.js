@@ -41,9 +41,9 @@ class Application extends Component {
 		}
 
 		// Create store
-		this.Store = createStore(
-			combineReducers(this.ReduxService.Reducers)
-		);
+		this.Store = Object.keys(this.ReduxService.Reducers).length > 0
+					? createStore(combineReducers(this.ReduxService.Reducers))
+					: createStore((state) => state)
 
 		// Initialize service
 		for (var i in this.Services) {
@@ -55,12 +55,6 @@ class Application extends Component {
 			this.Modules[i].initialize();
 		}
 
-		// TODO: this.Reducers.push(tenantReducer)
-
-		// Create store
-		this.store = createStore(
-			combineReducers(this.ReduxService.Reducers)
-		);
 	}
 
 	registerService(service) {
