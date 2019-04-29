@@ -33,19 +33,22 @@ class TenantDropdown extends Component {
   }
   
   render() {
+    var currentTenant = this.props.tenantState.currentTenant
 
     return (
           <Dropdown className="tenantDropdown" isOpen={this.state.tenantDropdownOpen} toggle={this.toggleTenantDropdown}>
               <DropdownToggle caret>
-                {this.props.tenantState.currentTenant}
+                {currentTenant ? currentTenant.id : "-"}
               </DropdownToggle>
-              <DropdownMenu>
-              {this.props.tenantState.tenants && this.props.tenantState.tenants.map((tenant, i) => (
-              <DropdownItem>
-                  <div onClick={this.changeTenant}>{tenant.id}</div>
-              </DropdownItem>
-                ))}
-              </DropdownMenu>
+              {this.props.tenantState.tenants && this.props.tenantState.tenants.length>0 ?
+                <DropdownMenu>
+                  {this.props.tenantState.tenants.map((tenant, i) => (
+                    <DropdownItem key={i}>
+                        <div onClick={() => {this.changeTenant(tenant.id)}}>{tenant.id}</div>
+                    </DropdownItem>
+                  ))}
+                </DropdownMenu>
+               : null}
           </Dropdown>
     );
   }
