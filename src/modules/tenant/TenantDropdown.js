@@ -28,8 +28,8 @@ class TenantDropdown extends Component {
     }));
   }
 
-  changeTenant(e){
-    this.props.changeTenant(e.currentTarget.textContent);
+  changeTenant(id){
+    this.props.changeTenant(id);
   }
   
   render() {
