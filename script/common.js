@@ -92,7 +92,11 @@ exports.loadConfig = function(args) {
 	// Load config file, if specified in command line argument
 	// arg: -c [FILE] / --conf-file [FILE]
 	if(args.conf_file) {
-		var confFileConfig = loadConfigFromFile(args.conf_file);
+		var cf = args.conf_file
+		if (!cf.startsWith('/'))
+			cf = path.resolve(CWD, cf)
+
+		var confFileConfig = loadConfigFromFile(cf)
 		if (confFileConfig) {
 			config = assigndeep(config, confFileConfig);
 		}
