@@ -37,7 +37,7 @@ class TimeFormat extends Component {
 
 		var ago_string = ago;
 		if (ago === undefined || ago === null) {
-			ago_string = "milliseconds ago";
+			ago_string = "milliseconds";
 		}
 
 		const difference = Math.abs(Date.now() - datetime.getTime());
