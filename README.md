@@ -39,7 +39,7 @@ $ yarn build
 Build for deployment to a specific public url
 
 ```
-$ yarn build -p https://example.com/app
+$ yarn build --public-url https://example.com/app
 ```
 
 or
