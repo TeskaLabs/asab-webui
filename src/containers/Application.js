@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from "react-router";
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
@@ -75,45 +76,70 @@ class Application extends Component {
 
 	render() {
 		return (
-			<Provider store={this.Store}>
-			<div className="app">
-				 <AppHeader fixed>
-					<Header app={this}/>
-				</AppHeader>
-				<div className="app-body">
-					<AppSidebar fixed display="lg">
-						<AppSidebarNav navConfig={this.Navigation.getItems()} {...this.props} />
-						<AppSidebarFooter />
-						<AppSidebarMinimizer />
-					</AppSidebar>
-					<main className="main">
-						<AppBreadcrumb appRoutes={this.Router.Routes}/>
+			<Provider store={this.Store}>							
+					<div className="app">
 						<Switch>
 							{this.Router.Routes.map((route, idx) => {
-								return route.component ? (
-									<Route
-										key={idx}
-										path={`${route.path}`}
-										exact={route.exact}
-										name={route.name}
-										render={props => (
-											<route.component {...props} />
-										)} />
-									
-								) : (null);
-							})}
-						</Switch>
-					</main>
-					<AppAside fixed>
-					</AppAside>
-				</div>
-				<AppFooter>
-					{this.props.footer ? this.props.footer : "Powered by TeskaLabs"}
-				</AppFooter>
-			</div>
-			</Provider>
+								return route.component ? (							
+										<Route
+											key={idx}
+											path={`${route.path}`}
+											exact={route.exact}
+											name={route.name}
+											render={props => (
+												<React.Fragment>
+													{/* {route.loginRequired && userSVC.currentUser && userSVC == null ? (
+														<Redirect from="current-path" to="/login" />
+													): null} */}
+														
+													{!route.hasNoHeader ? (
+														<AppHeader fixed>
+															<Header app={this}/>
+														</AppHeader>
+													) : null}
 
-		);
+													<div className="app-body">
+
+														{!route.hasNoSidebar ? (
+															<AppSidebar fixed display="lg">
+																<AppSidebarNav 
+																	navConfig={this.Navigation.getItems()} 
+																	{...this.props} 
+																/>
+																<AppSidebarFooter />
+																<AppSidebarMinimizer />
+															</AppSidebar>
+														) : null}
+
+														<main className="main">
+															
+															{!route.hasNoBreadcrumb ? (
+																<AppBreadcrumb appRoutes={this.Router.Routes}/>
+															) : null}
+															
+															<route.component {...props} />
+
+														</main>
+														<AppAside fixed>
+														</AppAside>
+													</div>
+
+													{!route.hasNoFooter ? (
+														<AppFooter>
+															{this.props.footer ? this.props.footer : "Powered by TeskaLabs"}
+														</AppFooter>
+													) : null}
+												</React.Fragment>
+											)} 
+										/>										
+								) : (null);
+
+							})}									
+						</Switch>
+					</div>
+
+			</Provider>
+		)
 	}
 }
 
@@ -171,6 +197,16 @@ class Navigation {
                 component: ReactComponent // Component to be rendered
             }
         */
+	//    console.log ("*************************** adding item")
+	// 	if (item.children){
+			
+	// 		console.log (item.children)
+	// 		for (var i in item.children){
+	// 			console.log (item.children[i])
+	// 			this.addItem (item.children[i])
+	// 		}
+	// 		console.log ("*************************** stika over")
+	// 	}
         this.Items.push(item);
     }
 
@@ -181,4 +217,5 @@ class Navigation {
     }
 }
 
+// export default withRouter(Application);
 export default Application;
