@@ -35,16 +35,18 @@ class Application extends Component {
 		this.HeaderService = new HeaderService(this, "HeaderService");
 		this.ReduxService = new ReduxService(this, "ReduxService");
 
+		
+		// Create store
+		this.Store = Object.keys(this.ReduxService.Reducers).length > 0
+					? createStore(combineReducers(this.ReduxService.Reducers))
+					: createStore((state) => state)		
+		
 		// Instantiate modules
 		for (var i in props.modules) {
 			const module = new props.modules[i](this);
 			this.Modules.push(module);
 		}
 
-		// Create store
-		this.Store = Object.keys(this.ReduxService.Reducers).length > 0
-					? createStore(combineReducers(this.ReduxService.Reducers))
-					: createStore((state) => state)
 
 		// Initialize service
 		for (var i in this.Services) {
