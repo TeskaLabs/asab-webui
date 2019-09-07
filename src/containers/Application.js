@@ -116,8 +116,7 @@ class Application extends Component {
 															{!route.hasNoBreadcrumb ? (
 																<AppBreadcrumb appRoutes={this.Router.Routes}/>
 															) : null}
-															
-															<route.component {...props} />
+															<route.component {...props} {...route.props} />
 
 														</main>
 														<AppAside fixed>
