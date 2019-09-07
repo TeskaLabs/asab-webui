@@ -218,5 +218,5 @@ class Navigation {
     }
 }
 
-// export default withRouter(Application);
-export default Application;
+export default withRouter(Application);
+//export default Application;
