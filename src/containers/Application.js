@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router";
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import {
@@ -35,17 +35,18 @@ class Application extends Component {
 		this.HeaderService = new HeaderService(this, "HeaderService");
 		this.ReduxService = new ReduxService(this, "ReduxService");
 
-		
-		// Create store
-		this.Store = Object.keys(this.ReduxService.Reducers).length > 0
-					? createStore(combineReducers(this.ReduxService.Reducers))
-					: createStore((state) => state)		
+				
 		
 		// Instantiate modules
 		for (var i in props.modules) {
 			const module = new props.modules[i](this);
 			this.Modules.push(module);
 		}
+
+		// Create store		
+		this.Store = Object.keys(this.ReduxService.Reducers).length > 0
+					? createStore(combineReducers(this.ReduxService.Reducers))
+					: createStore((state) => state)		
 
 
 		// Initialize service
@@ -77,6 +78,9 @@ class Application extends Component {
 	}
 
 	render() {
+		//const authn = useSelector(state => state.authn);
+		console.log("this.Store",this.Store)
+		console.log("store state", this.Store.getState())
 		return (
 			<Provider store={this.Store}>							
 					<div className="app">
@@ -89,10 +93,10 @@ class Application extends Component {
 											exact={route.exact}
 											name={route.name}
 											render={props => (
-												<React.Fragment>
-													{/* {route.loginRequired && userSVC.currentUser && userSVC == null ? (
-														<Redirect from="current-path" to="/login" />
-													): null} */}
+												<React.Fragment>													
+													{route.authn && this.props.authn == null ? (
+														<Redirect from="current-path" to="/auth" />
+													): null}
 														
 													{!route.hasNoHeader ? (
 														<AppHeader fixed>
@@ -217,6 +221,16 @@ class Navigation {
         }
     }
 }
+
+
+// const mapStateToProps = state => {
+// 	return {
+// 	  authn: state.authn
+// 	};
+//   };
+
+
+//export default connect(mapStateToProps)(Application);
 
 export default withRouter(Application);
 //export default Application;
