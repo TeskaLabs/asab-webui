@@ -81,6 +81,8 @@ class Application extends Component {
 		//const authn = useSelector(state => state.authn);
 		console.log("this.Store",this.Store)
 		console.log("store state", this.Store.getState())
+		var body = document.getElementsByTagName("BODY")[0];
+		body.setAttribute("class", "")
 		return (
 			<Provider store={this.Store}>							
 					<div className="app">
