@@ -97,9 +97,8 @@ class Application extends Component {
 												<React.Fragment>													
 													{route.authn && authentication == null ? (
 														<Redirect from="current-path" to="/auth" />
-													): null}
-														
-													{!route.hasNoHeader ? (
+													): null}													
+													{(route.hasHeader == true || route.hasHeader == undefined) ? (
 														<AppHeader fixed>
 															<Header app={this}/>
 														</AppHeader>
@@ -107,7 +106,7 @@ class Application extends Component {
 
 													<div className="app-body">
 
-														{!route.hasNoSidebar ? (
+														{(route.hasSidebar == true || route.hasSidebar == undefined) ? (
 															<AppSidebar fixed display="lg">
 																<AppSidebarNav 
 																	navConfig={this.Navigation.getItems()} 
@@ -120,7 +119,7 @@ class Application extends Component {
 
 														<main className="main">
 															
-															{!route.hasNoBreadcrumb ? (
+															{(route.hasBreadcrumb == true || route.hasBreadcrumb == undefined) ? (
 																<AppBreadcrumb appRoutes={this.Router.Routes}/>
 															) : null}
 															<route.component {...props} {...route.props} />
@@ -130,7 +129,7 @@ class Application extends Component {
 														</AppAside>
 													</div>
 
-													{!route.hasNoFooter ? (
+													{(route.hasFooter == true || route.hasFooter == undefined) ? (
 														<AppFooter>
 															{this.props.footer ? this.props.footer : "Powered by TeskaLabs"}
 														</AppFooter>
