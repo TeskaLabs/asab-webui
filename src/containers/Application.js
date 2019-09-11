@@ -77,10 +77,9 @@ class Application extends Component {
 		return this.Services[name];
 	}
 
-	render() {
-		//const authn = useSelector(state => state.authn);
-		console.log("this.Store",this.Store)
-		console.log("store state", this.Store.getState())
+	render() {				
+		const authentication = this.Store.getState() != undefined ? this.Store.getState().AuthService : "not required in this app";
+		
 		var body = document.getElementsByTagName("BODY")[0];
 		body.setAttribute("class", "")
 		return (
@@ -96,7 +95,7 @@ class Application extends Component {
 											name={route.name}
 											render={props => (
 												<React.Fragment>													
-													{route.authn && this.props.authn == null ? (
+													{route.authn && authentication == null ? (
 														<Redirect from="current-path" to="/auth" />
 													): null}
 														
