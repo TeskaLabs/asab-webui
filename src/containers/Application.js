@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
+import { withRouter } from "react-router";
+import { Provider, connect } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { withRouter } from "react-router";
@@ -35,6 +36,8 @@ class Application extends Component {
 		this.HeaderService = new HeaderService(this, "HeaderService");
 		this.ReduxService = new ReduxService(this, "ReduxService");
 
+
+
 		// Instantiate modules
 		for (var i in props.modules) {
 			const module = new props.modules[i](this);
@@ -45,6 +48,7 @@ class Application extends Component {
 		this.Store = Object.keys(this.ReduxService.Reducers).length > 0
 					? createStore(combineReducers(this.ReduxService.Reducers))
 					: createStore((state) => state)
+
 
 		// Initialize service
 		for (var i in this.Services) {
@@ -75,46 +79,73 @@ class Application extends Component {
 	}
 
 	render() {
+		const authentication = this.Store.getState() != undefined ? this.Store.getState().AuthService : "not required in this app";
+
+		var body = document.getElementsByTagName("BODY")[0];
+		body.setAttribute("class", "")
 		return (
 			<Provider store={this.Store}>
-			<div className="app">
-				 <AppHeader fixed>
-					<Header app={this}/>
-				</AppHeader>
-				<div className="app-body">
-					<AppSidebar fixed display="lg">
-						<AppSidebarNav navConfig={this.Navigation.getItems()} {...this.props} />
-						<AppSidebarFooter />
-						<AppSidebarMinimizer />
-					</AppSidebar>
-					<main className="main">
-						<AppBreadcrumb appRoutes={this.Router.Routes}/>
+					<div className="app">
 						<Switch>
 							{this.Router.Routes.map((route, idx) => {
 								return route.component ? (
-									<Route
-										key={idx}
-										path={`${route.path}`}
-										exact={route.exact}
-										name={route.name}
-										render={props => (
-											<route.component {...props} />
-										)} />
-									
+										<Route
+											key={idx}
+											path={`${route.path}`}
+											exact={route.exact}
+											name={route.name}
+											render={props => (
+												<React.Fragment>
+													{route.authn && authentication == null ? (
+														<Redirect from="current-path" to="/auth" />
+													): null}
+													{(route.hasHeader == true || route.hasHeader == undefined) ? (
+														<AppHeader fixed>
+															<Header app={this}/>
+														</AppHeader>
+													) : null}
+
+													<div className="app-body">
+
+														{(route.hasSidebar == true || route.hasSidebar == undefined) ? (
+															<AppSidebar fixed display="lg">
+																<AppSidebarNav
+																	navConfig={this.Navigation.getItems()}
+																	{...this.props}
+																/>
+																<AppSidebarFooter />
+																<AppSidebarMinimizer />
+															</AppSidebar>
+														) : null}
+
+														<main className="main">
+
+															{(route.hasBreadcrumb == true || route.hasBreadcrumb == undefined) ? (
+																<AppBreadcrumb appRoutes={this.Router.Routes}/>
+															) : null}
+															<route.component app={this} {...props} {...route.props} />
+
+														</main>
+														<AppAside fixed>
+														</AppAside>
+													</div>
+
+													{(route.hasFooter == true || route.hasFooter == undefined) ? (
+														<AppFooter>
+															{this.props.footer ? this.props.footer : "Powered by TeskaLabs"}
+														</AppFooter>
+													) : null}
+												</React.Fragment>
+											)}
+										/>
 								) : (null);
+
 							})}
 						</Switch>
-					</main>
-					<AppAside fixed>
-					</AppAside>
-				</div>
-				<AppFooter>
-					{this.props.footer ? this.props.footer : "Powered by TeskaLabs"}
-				</AppFooter>
-			</div>
-			</Provider>
+					</div>
 
-		);
+			</Provider>
+		)
 	}
 }
 
