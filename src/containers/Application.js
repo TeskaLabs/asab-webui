@@ -202,16 +202,6 @@ class Navigation {
                 component: ReactComponent // Component to be rendered
             }
         */
-	//    console.log ("*************************** adding item")
-	// 	if (item.children){
-
-	// 		console.log (item.children)
-	// 		for (var i in item.children){
-	// 			console.log (item.children[i])
-	// 			this.addItem (item.children[i])
-	// 		}
-	// 		console.log ("*************************** stika over")
-	// 	}
         this.Items.push(item);
     }
 
@@ -222,15 +212,5 @@ class Navigation {
     }
 }
 
-
-// const mapStateToProps = state => {
-// 	return {
-// 	  authn: state.authn
-// 	};
-//   };
-
-
-//export default connect(mapStateToProps)(Application);
-
 export default withRouter(Application);
-//export default Application;
+
