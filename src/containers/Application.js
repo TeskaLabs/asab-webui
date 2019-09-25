@@ -35,18 +35,18 @@ class Application extends Component {
 		this.HeaderService = new HeaderService(this, "HeaderService");
 		this.ReduxService = new ReduxService(this, "ReduxService");
 
-				
-		
+
+
 		// Instantiate modules
 		for (var i in props.modules) {
 			const module = new props.modules[i](this);
 			this.Modules.push(module);
 		}
 
-		// Create store		
+		// Create store
 		this.Store = Object.keys(this.ReduxService.Reducers).length > 0
 					? createStore(combineReducers(this.ReduxService.Reducers))
-					: createStore((state) => state)		
+					: createStore((state) => state)
 
 
 		// Initialize service
@@ -77,27 +77,27 @@ class Application extends Component {
 		return this.Services[name];
 	}
 
-	render() {				
+	render() {
 		const authentication = this.Store.getState() != undefined ? this.Store.getState().AuthService : "not required in this app";
-		
+
 		var body = document.getElementsByTagName("BODY")[0];
 		body.setAttribute("class", "")
 		return (
-			<Provider store={this.Store}>							
+			<Provider store={this.Store}>
 					<div className="app">
 						<Switch>
 							{this.Router.Routes.map((route, idx) => {
-								return route.component ? (							
+								return route.component ? (
 										<Route
 											key={idx}
 											path={`${route.path}`}
 											exact={route.exact}
 											name={route.name}
 											render={props => (
-												<React.Fragment>													
+												<React.Fragment>
 													{route.authn && authentication == null ? (
 														<Redirect from="current-path" to="/auth" />
-													): null}													
+													): null}
 													{(route.hasHeader == true || route.hasHeader == undefined) ? (
 														<AppHeader fixed>
 															<Header app={this}/>
@@ -108,9 +108,9 @@ class Application extends Component {
 
 														{(route.hasSidebar == true || route.hasSidebar == undefined) ? (
 															<AppSidebar fixed display="lg">
-																<AppSidebarNav 
-																	navConfig={this.Navigation.getItems()} 
-																	{...this.props} 
+																<AppSidebarNav
+																	navConfig={this.Navigation.getItems()}
+																	{...this.props}
 																/>
 																<AppSidebarFooter />
 																<AppSidebarMinimizer />
@@ -118,7 +118,7 @@ class Application extends Component {
 														) : null}
 
 														<main className="main">
-															
+
 															{(route.hasBreadcrumb == true || route.hasBreadcrumb == undefined) ? (
 																<AppBreadcrumb appRoutes={this.Router.Routes}/>
 															) : null}
@@ -135,11 +135,11 @@ class Application extends Component {
 														</AppFooter>
 													) : null}
 												</React.Fragment>
-											)} 
-										/>										
+											)}
+										/>
 								) : (null);
 
-							})}									
+							})}
 						</Switch>
 					</div>
 
@@ -204,7 +204,7 @@ class Navigation {
         */
 	//    console.log ("*************************** adding item")
 	// 	if (item.children){
-			
+
 	// 		console.log (item.children)
 	// 		for (var i in item.children){
 	// 			console.log (item.children[i])
