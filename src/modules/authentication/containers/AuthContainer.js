@@ -9,12 +9,17 @@ class AuthContainer extends React.Component {
 
     constructor(props) {
       super(props);
-      this.AuthService =  this.props.app.locateService("AuthService")
-      this.toggleForgot = this.toggleForgot.bind(this)
-      console.log("APPPPPPP",props.app)
+      this.AuthService =  this.props.app.locateService("AuthService");
+      this.toggleRestore = this.toggleRestore.bind(this);
       this.state = {
         active: "login"
       };
+
+      // registrationEndpoint
+      // requestIDEndpoint
+      // requestTokenEndpoint
+      // // restorePasswordEndpoint
+
     }
 
 
@@ -39,8 +44,8 @@ class AuthContainer extends React.Component {
       this.setActive("register")
     }
 
-    toggleForgot() {
-      this.setActive ("forgot")
+    toggleRestore() {
+      this.setActive ("restore")
     }
 
 
@@ -61,9 +66,9 @@ class AuthContainer extends React.Component {
                       <Button color={this.isActive("register")} onClick={this.toggleRegister.bind(this)}>Register</Button>
                     </ButtonGroup>
                   </CardHeader>
-                  {this.state.active == "login" &&<LoginBox authService = {this.AuthService} toggleForgot = {this.toggleForgot} />}
+                  {this.state.active == "login" &&<LoginBox loginReqUrl = {this.props.loginReqUrl} authService = {this.AuthService} toggleRestore = {this.toggleRestore} />}
                   {this.state.active == "register" &&<RegisterBox toggleLogin={this.toggleLogin.bind(this)}/>}
-                  {this.state.active == "forgot" &&<RestoreBox/>}
+                  {this.state.active == "restore" &&<RestoreBox/>}
                 </Card>
               </CardGroup>
             </Col>
