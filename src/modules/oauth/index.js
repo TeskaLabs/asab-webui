@@ -5,8 +5,11 @@ import Module from '../../abc/Module';
 import {HEADER_POS_RIGHT} from '../../services/HeaderService';
 
 import UserDropdown from './containers/UserDropdown';
+import RegisterContainer from './containers/RegisterContainer'
 import AuthContainer from './containers/AuthContainer'
+import TeskalabsAuth from './containers/TeskalabsAuth'
 import AuthService from './services/AuthService'
+
 
 
 export default class AuthenticationModule extends Module {
@@ -24,6 +27,31 @@ export default class AuthenticationModule extends Module {
             hasFooter: true,
             authn: false,
         });
+
+        app.Router.addRoute({
+            path: '/teskalabs',
+            exact: true,
+            name: 'TL Authentication',
+            component: TeskalabsAuth,
+            hasHeader: false,
+            hasSidebar: false,
+            hasBreadcrumb: false,
+            hasFooter: true,
+            authn: false,
+        });
+
+        app.Router.addRoute({
+            path: '/register',
+            exact: true,
+            name: 'TL Registration',
+            component: RegisterContainer,
+            hasHeader: false,
+            hasSidebar: false,
+            hasBreadcrumb: false,
+            hasFooter: true,
+            authn: false,
+        });
+
 
 
         // Custom userdropdown Component in header

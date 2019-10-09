@@ -34,7 +34,6 @@ class UserDropdown extends Component {
   logout(){
     this.props.logout()
     //window.location.reload (false)
-    //this.setState ({kapr:"stika"})
     this.props.history.push('/')
   }
 
@@ -44,7 +43,7 @@ class UserDropdown extends Component {
       return (
             <Dropdown className="userDropdown" isOpen={this.state.userDropdownOpen} toggle={this.toggleUserDropdown}>
                 <DropdownToggle caret>
-                   User {/* { authServiceState.email } */}
+                   { authServiceState.username }
                 </DropdownToggle>
                   <DropdownMenu>
                       <DropdownItem>
