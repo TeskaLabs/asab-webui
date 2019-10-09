@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router";
 import { Provider, connect } from 'react-redux';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import {
 	AppAside,
@@ -44,9 +44,10 @@ class Application extends Component {
 		}
 
 		// Create store
+		const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 		this.Store = Object.keys(this.ReduxService.Reducers).length > 0
-					? createStore(combineReducers(this.ReduxService.Reducers))
-					: createStore((state) => state)
+					? createStore(combineReducers(this.ReduxService.Reducers), composeEnhancers(applyMiddleware()))
+					: createStore((state) => state, composeEnhancers(applyMiddleware()))
 
 
 		// Initialize service
