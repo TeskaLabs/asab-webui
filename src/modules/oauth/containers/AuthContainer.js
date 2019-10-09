@@ -3,8 +3,6 @@ import { Button, Card, CardBody, CardHeader, CardFooter, CardGroup, Col, Contain
 import { Link } from 'react-router-dom';
 import OauthPopup from 'react-oauth-popup';
 
-import requestToken from './TLAuth'
-
 
 class AuthContainer extends React.Component {
 
