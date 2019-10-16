@@ -11,10 +11,11 @@ export default class HeaderService extends Service{
         this.Items = [];
     }
 
-    addComponent(position, component) {
+    addComponent(position, component, componentProps) {
 		this.Items.push({
             'position': position,
             'component': component,
+            'componentProps':componentProps,
         })
 	}
 

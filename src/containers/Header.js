@@ -24,15 +24,15 @@ class Header extends Component {
             {this.HeaderService.Items
                 .filter((i)=>i.position == HEADER_POS_LEFT)
                 .map((i, key) => (
-                    <i.component key={key}/>
+                    <i.component key={key} {...i.componentProps}/>
                 ))}
-        </Nav> 
-    
+        </Nav>
+
         <Nav className="ml-auto" navbar>
             {this.HeaderService.Items
                 .filter((i)=>i.position == HEADER_POS_RIGHT)
                 .map((i, key) => (
-                    <i.component key={key}/>
+                    <i.component key={key} {...i.componentProps}/>
                 ))}
         </Nav>
       </React.Fragment>
