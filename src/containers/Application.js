@@ -3,7 +3,6 @@ import { withRouter } from "react-router";
 import { Provider, connect } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { withRouter } from "react-router";
 import {
 	AppAside,
 	AppBreadcrumb,
