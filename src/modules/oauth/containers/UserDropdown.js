@@ -13,12 +13,16 @@ class UserDropdown extends Component {
 
   constructor(props) {
     super(props);
+    this.AuthService = props.app.locateService("AuthService");
     this.state = {
             userDropdownOpen: false
         }
 
     this.toggleUserDropdown = this.toggleUserDropdown.bind(this);
     this.logout = this.logout.bind(this);
+
+
+
 	}
 
   toggleUserDropdown() {
@@ -32,7 +36,8 @@ class UserDropdown extends Component {
   }
 
   logout(){
-    this.props.logout()
+    this.AuthService.logout()
+    //this.props.logout()
     //window.location.reload (false)
     this.props.history.push('/')
   }
@@ -73,20 +78,20 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    logout: () => {
-      dispatch(logout());
-    }
-  };
-};
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     logout: () => {
+//       dispatch(logout());
+//     }
+//   };
+// };
 
-export const logout = () => ({ type:"LOGOUT" })
+// export const logout = () => ({ type:"LOGOUT" })
 
 export default withRouter (
   connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps//,
+    // mapDispatchToProps
   ) (UserDropdown)
 );
 

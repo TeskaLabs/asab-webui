@@ -8,6 +8,7 @@ import UserDropdown from './containers/UserDropdown';
 import RegisterContainer from './containers/RegisterContainer'
 import AuthContainer from './containers/AuthContainer'
 import TeskalabsAuth from './containers/TeskalabsAuth'
+import GitHubAuth from './containers/GitHubAuth'
 import AuthService from './services/AuthService'
 
 
@@ -29,7 +30,7 @@ export default class AuthenticationModule extends Module {
         });
 
         app.Router.addRoute({
-            path: '/teskalabs',
+            path: '/auth/teskalabs',
             exact: true,
             name: 'TL Authentication',
             component: TeskalabsAuth,
@@ -41,7 +42,20 @@ export default class AuthenticationModule extends Module {
         });
 
         app.Router.addRoute({
-            path: '/register',
+            path: '/auth/github',
+            exact: true,
+            name: 'GH Authentication',
+            component: GitHubAuth,
+            hasHeader: false,
+            hasSidebar: false,
+            hasBreadcrumb: false,
+            hasFooter: true,
+            authn: false,
+        });
+
+
+        app.Router.addRoute({
+            path: '/auth/register',
             exact: true,
             name: 'TL Registration',
             component: RegisterContainer,
@@ -56,9 +70,11 @@ export default class AuthenticationModule extends Module {
 
         // Custom userdropdown Component in header
         const headerService = app.locateService("HeaderService");
-        headerService.addComponent(HEADER_POS_RIGHT, UserDropdown);
+        const userDropdownProps = {"app":app};
+        headerService.addComponent(HEADER_POS_RIGHT, UserDropdown, userDropdownProps);
 
         // Add AuthService
+
         this.AuthService = new AuthService(app, "AuthService");
         app.ReduxService.addReducer("AuthService", reducer);
     }

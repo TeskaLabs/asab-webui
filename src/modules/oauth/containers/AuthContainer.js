@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Button, Card, CardBody, CardHeader, CardFooter, CardGroup, Col, Container, Row } from 'reactstrap';
+import { Button, ButtonGroup, ButtonToolbar,Card, CardBody, CardHeader, CardFooter, CardGroup, Col, Container, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import OauthPopup from 'react-oauth-popup';
+import queryString from 'query-string'
 
 
 class AuthContainer extends React.Component {
@@ -12,53 +13,85 @@ class AuthContainer extends React.Component {
 
       this.state = {};
 
-      const responseType = "code";
-      const clientID = "kapr";
-      const scope = "openid%20profile&state=EqlqtwjhZZ6Vd41Z";
-      //const redirect = "http%3A%2F%2Flocalhost:3000/auth";
-      const redirect = "http%3A%2F%2Flocalhost:3000/teskalabs";
-      const domain = "https://via.teskalabs.com/seacat-auth";
-      this.teskalabsAuthProvider = `${domain}/authorization_endpoint/authentication_request?response_type=${responseType}&client_id=${clientID}&scope=${scope}&redirect_uri=${redirect}`;
+      const TLdomain = "https://via.teskalabs.com/seacat-auth";
+      const TLendpoint = "/authorization_endpoint/authentication_request"
+      const TLparams = {
+        response_type:"code",
+        client_id: "???",
+        scope: "openid profile",
+        state:"EqlqtwjhZZ6Vd41Z",
+        redirect_uri: "http://localhost:3000/auth/teskalabs",
+      };
+      this.TeskalabsURL = `${TLdomain}${TLendpoint}?${queryString.stringify(TLparams)}`
+
+      // console.log("================================")
+      // //console.log (queryString.stringify(t))
+      // console.log(this.TeskalabsURL)
+      // console.log("================================")
+
+
+
+      const GHdomain = "https://github.com/login/oauth/authorize";
+      const GHparams = {
+        client_id: "20bf68701659753e6960",
+        //scope: "openid profile",
+        //state:"EqlqtwjhZZ6Vd41Z",
+        redirect_uri: "http://localhost:3000/auth/github",
+      };
+      this.GitHubURL = `${GHdomain}?${queryString.stringify(GHparams)}`
+
     }
 
-    s(code, elsething) {
-      console.log("******* FUCNIKG DID IT ******");
+    onTeskalabs(code) {
       console.log ("code:",code);
-      console.log (elsething);
-      console.log(this);
-      this.props.history.push(`/teskalabs?code=${code}`);
+      this.props.history.push(`/auth/teskalabs?code=${code}`);
+    }
 
-      console.log ("(***************************");
+    onGitHub(code) {
+      console.log ("code:",code);
+      this.props.history.push(`/auth/github?code=${code}`);
     }
 
     render() {
       return (
         <Container>
 				  <Row className="justify-content-center">
-            <Col md="6">
+            <Col md="5">
               <CardGroup>
                 <Card className="p-6">
                   <CardHeader>
-                  	Sign in with
+                  	<h4>Sign in with</h4>
                   </CardHeader>
                   <CardBody className="justify-content-center">
                     {/* <a href = {this.teskalabsAuthProvider}> */}
-                    <OauthPopup
-                      url = {this.teskalabsAuthProvider}
-                      title = "Login with Teskalabs"
-                      onCode = {this.s.bind(this)}
-                    >
-                      <Button
-                        color="primary"
-                      >
-                        Teskalabs
-                      </Button>
-                    </OauthPopup>
+                    {/* <ButtonToolbar> */}
+                    {/* <ButtonGroup> */}
+                        <OauthPopup
+                          url = {this.TeskalabsURL}
+                          title = "Login with Teskalabs"
+                          onCode = {this.onTeskalabs.bind(this)}
+                        >
+                          <Button className="tlbtn" size="lg" block>
+                            Teskalabs
+                          </Button>
+                        </OauthPopup>
+                        <OauthPopup
+                          url = {this.GitHubURL}
+                          title = "Login with GitHub"
+                          onCode = {this.onGitHub.bind(this)}
+                        >
+                          <br/>
+                          <Button className="githubbtn" size="lg"  block>
+                            GitHub
+                          </Button>
+                        </OauthPopup>
+                      {/* </ButtonGroup> */}
+                    {/* </ButtonToolbar> */}
                     {/* </a> */}
                   </CardBody>
                   <CardFooter>
                     Or you can
-                    <Link to={`/register`}> register</Link>
+                    <Link to={`/auth/register`}> register</Link>
 
                   </CardFooter>
                 </Card>

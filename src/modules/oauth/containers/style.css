@@ -5,3 +5,22 @@
 .userLoginBtn {
     margin-right: 16px;
 }
+
+.githubbtn {
+    color: white;
+    background-color: #24292E;
+}
+.githubbtn:hover {
+    color: white;
+    background-color: #394047;
+}
+
+.tlbtn {
+    color: white;
+    background-color: #314D61;
+}
+.tlbtn:hover {
+    color: white;
+    background-color: #3C596D;
+}
+

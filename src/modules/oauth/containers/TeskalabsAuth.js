@@ -27,14 +27,12 @@ class TeskalabsAuth extends React.Component {
           'client_id': 'kapr',
           'scope': '?',
           'grant_type': 'authorization_code',
-          'redirect_uri':"http://localhost:3000/teskalabs",
+          'redirect_uri':"http://localhost:3000/auth/teskalabs",
           'client_secret': 'secret',
           'state': "?????",
           'code': urlParams.code,
 
         }
-        console.log ("requestBody",requestBody);
-        ;
 
         this.sendReq(
           url,
@@ -52,7 +50,7 @@ class TeskalabsAuth extends React.Component {
           'X-OAuthServerId': 'teskalabs.com',
         }
       }
-      console.log("SENDING REQ")
+      console.log("SENDING TOKEN REQ")
       axios.post(
         url, req_data,config
       ).then(
@@ -63,8 +61,9 @@ class TeskalabsAuth extends React.Component {
     }
 
     tokenRequestSucceeded (login, resp) {
-      console.log ("REQUEST SUCCESSFUL");
-      const respData = resp.data;
+      console.log ("TOKEN REQUEST SUCCESSFUL");
+      //const respData = resp.data;
+      const respData = JSON.parse(resp.data);
       const user = {
         access_token: respData.access_token,
         expires_in: respData.expires_in,
@@ -73,7 +72,6 @@ class TeskalabsAuth extends React.Component {
         token_type: respData.token_type,
         auth_server: "teskalabs.com"
       };
-      console.log(user);
 
       const url = "/identity"
       const config = {
@@ -94,7 +92,7 @@ class TeskalabsAuth extends React.Component {
     saveUser(user, resp){
      console.log ("SAVE USER");
      user["username"] = resp.data.identity;
-     console.log(user);
+     console.log("USER: ",user);
      this.AuthService.login (user);
      this.props.history.push('/imgviewer')
     }
