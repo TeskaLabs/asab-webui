@@ -171,7 +171,7 @@ import ServerInteractionBox from "./ServerInteractionBox";
             responseText: "Registration successfull",
             responseSuccess: true
           })
-          setTimeout(() => this.props.history.push('/imgviewer'), 3000);
+          setTimeout(() => this.props.history.push('/auth'), 3000);
         } else {
           this.setState({
             responseText: "This username is already taken",

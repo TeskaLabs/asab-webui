@@ -94,7 +94,7 @@ class TeskalabsAuth extends React.Component {
      user["username"] = resp.data.identity;
      console.log("USER: ",user);
      this.AuthService.login (user);
-     this.props.history.push('/imgviewer')
+     this.props.history.push('/')
     }
 
     tokenRequestFailed (login, error) {
@@ -120,7 +120,7 @@ class TeskalabsAuth extends React.Component {
                   	Sign in with
                   </CardHeader> */}
                   <CardBody className="justify-content-center">
-                    Signing in via Teksalabs
+                    Signing in via Teskalabs
                   </CardBody>
                   {/* <CardFooter>
 

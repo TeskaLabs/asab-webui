@@ -18,7 +18,7 @@ class GitHubAuth extends React.Component {
 
       console.log(user);
       this.AuthService.login (user);
-      this.props.history.push('/imgviewer')
+      this.props.history.push('/')
 
     }
 
