@@ -10,6 +10,7 @@ import AuthContainer from './containers/AuthContainer'
 import TeskalabsAuth from './containers/TeskalabsAuth'
 import GitHubAuth from './containers/GitHubAuth'
 import AuthService from './services/AuthService'
+// import GitHubAuthMethod from './services/GitHubAuthMethod/GitHubAuthMethod';
 
 
 
@@ -76,6 +77,11 @@ export default class AuthenticationModule extends Module {
         // Add AuthService
 
         this.AuthService = new AuthService(app, "AuthService");
+        // this.AuthService.addAuthMethods (
+        //     new GitHubAuthMethod(app)
+        // )
+
+
         app.ReduxService.addReducer("AuthService", reducer);
     }
 }

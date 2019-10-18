@@ -53,6 +53,10 @@ class AuthContainer extends React.Component {
     }
 
     render() {
+
+      const links = this.AuthService.getLinks();
+      console.log (links)
+
       return (
         <Container>
 				  <Row className="justify-content-center">
