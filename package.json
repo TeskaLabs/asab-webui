@@ -40,6 +40,7 @@
     "@coreui/react": "^2.1.1",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
+    "query-string": "^6.8.3",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-redux": "^6.0.1",
