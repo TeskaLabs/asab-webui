@@ -38,6 +38,10 @@ class Application extends Component {
 
 
 		// Instantiate modules
+		console.log ("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+		console.log ("INITIATING MODULES")
+		console.log ("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+
 		for (var i in props.modules) {
 			const module = new props.modules[i](this);
 			this.Modules.push(module);
@@ -213,4 +217,5 @@ class Navigation {
     }
 }
 
+//export default Application;
 export default withRouter(Application);

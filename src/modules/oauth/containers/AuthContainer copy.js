@@ -12,9 +12,7 @@ class AuthContainer extends React.Component {
       this.AuthService =  this.props.app.locateService("AuthService");
 
 
-      this.state = {
-        buttons:[]
-      };
+      this.state = {};
 
       const TLdomain = "https://via.teskalabs.com/seacat-auth";
       const TLendpoint = "/authorization_endpoint/authentication_request"
@@ -33,46 +31,32 @@ class AuthContainer extends React.Component {
       // console.log("================================")
 
 
+
+      const GHdomain = "https://github.com/login/oauth/authorize";
+      const GHparams = {
+        client_id: "20bf68701659753e6960",
+        //scope: "openid profile",
+        //state:"EqlqtwjhZZ6Vd41Z",
+        redirect_uri: "http://localhost:3000/auth/github",
+      };
+      this.GitHubURL = `${GHdomain}?${queryString.stringify(GHparams)}`
+
     }
 
-    async onCode(key, code){
-      const path = await this.AuthService.login(key, code)
-      console.log ('***********************************')
-      console.log (path)
-      console.log ('*********************************** kapr')
-      this.props.history.push(path);
-
+    onTeskalabs(code) {
+      console.log ("code:",code);
+      this.props.history.push(`/auth/teskalabs?code=${code}`);
     }
 
-
-    componentDidMount() {
-      const links = this.AuthService.getButtonsInfo();
-      const buttons = Object.keys (links)
-      .sort((a, b) => { return a.order - b.order})
-      .map(
-        (key)=> {
-          return (
-            <OauthPopup
-              key = {links[key].order}
-              url = {links[key].link}
-              title = {key}
-              onCode = {(code) => this.onCode(key, code)}
-            >
-              <Button className="tlbtn" size="lg" block>
-                {key}
-              </Button>
-            </OauthPopup>
-          )
-        }
-      )
-      this.setState ({buttons})
-
+    onGitHub(code) {
+      console.log ("code:",code);
+      this.props.history.push(`/auth/github?code=${code}`);
     }
 
     render() {
 
-
-      const buttons = this.state.buttons;
+      const links = this.AuthService.getAuthLinks();
+      console.log (links)
 
       return (
         <Container>
@@ -87,8 +71,7 @@ class AuthContainer extends React.Component {
                     {/* <a href = {this.teskalabsAuthProvider}> */}
                     {/* <ButtonToolbar> */}
                     {/* <ButtonGroup> */}
-                        {buttons}
-                        {/* <OauthPopup
+                        <OauthPopup
                           url = {this.TeskalabsURL}
                           title = "Login with Teskalabs"
                           onCode = {this.onTeskalabs.bind(this)}
@@ -106,7 +89,7 @@ class AuthContainer extends React.Component {
                           <Button className="githubbtn" size="lg"  block>
                             GitHub
                           </Button>
-                        </OauthPopup> */}
+                        </OauthPopup>
                       {/* </ButtonGroup> */}
                     {/* </ButtonToolbar> */}
                     {/* </a> */}

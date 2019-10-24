@@ -6,48 +6,59 @@ import AbcAuthMethod from '../AbcAuthMethod';
 
 export default class GitHubAuthMethod extends AbcAuthMethod {
 
-    constructor(app) {
+    constructor(app, order) {
       const  serviceName = "GitHubAuthMethod"
-      super(app, serviceName, props);
+      super(app, serviceName);
+      this.AuthService = app.locateService("AuthService");
+      this.Order = order;
     }
 
-    async login() {
-      const respData = await this.requestToken();
+    getName () {
+      return "GitHub"
+    }
+
+    async login(code) {
+      const respData = await this.requestToken(code);
       const user = this.parseTokenData(respData);
       const identity = await this.requestIdentity(user.token_type, user.access_token);
       user["username"] = identity;
 
       console.log(user);
       this.saveUser(user);
-      this.props.history.push('/')
+      this.AuthService.setActiveAuthMethod(this);
+      return '/'
+      //this.props.history.push('/');
 
     }
 
 
-    getLink () {
+    getButtonInfo () {
       const domain = "https://github.com/login/oauth/authorize";
       const params = {
         client_id: "20bf68701659753e6960",
         //scope: "openid profile",
         //state:"EqlqtwjhZZ6Vd41Z",
-        redirect_uri: "http://localhost:3000/auth/github",
+        redirect_uri: "http://localhost:3000/auth",
+        //redirect_uri: "http://localhost:3000/auth/github",
       };
-      return `${domain}?${queryString.stringify(params)}`
+      const link = `${domain}?${queryString.stringify(params)}`;
+      return {"link":link,"order":this.Order};
     }
 
-    async requestToken() {
-      const urlParams = queryString.parse(this.props.location.search);
+    async requestToken(code) {
+      console.log("REQUESTING TOKEN")
+      //const urlParams = queryString.parse(this.props.location.search);
 
 
-      if (urlParams.code) {
+      if (code) {
         console.log ("GOT AUTHORIZATION CODE");
-        console.log("code: ",urlParams.code);
+        console.log("code: ",code);
         const url = "/token";
 
         const requestBody = {
           'client_id': __CONFIG__.GITHUB_CLIENT_ID,
           'client_secret': __CONFIG__.GITHUB_CLIENT_SECRET,
-          'code': urlParams.code,
+          'code': code,
           'redirect_uri':"http://localhost:3000/auth/github",
           'state': "12354377234253745634"
         };
@@ -70,8 +81,9 @@ export default class GitHubAuthMethod extends AbcAuthMethod {
 
     parseTokenData (respData) {
       console.log ("REQUEST SUCCESSFUL");
-      console.log (respData)
-      const parsedRespData = queryString.parse(respData);
+      console.log (respData.content)
+      const parsedRespData = queryString.parse(respData.content);
+      console.log ('parsedRespData',parsedRespData)
       const user = {
         access_token: parsedRespData.access_token,
         scope:parsedRespData.scope,
@@ -96,7 +108,7 @@ export default class GitHubAuthMethod extends AbcAuthMethod {
       };
       const resp = await axios.get(url, config);
       console.log (resp.data);
-      const identity = resp.data.login;
+      const identity = resp.data.content.login;
       return identity;
     }
   }

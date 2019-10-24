@@ -7,17 +7,15 @@ import Service from '../../../abc/Service'
 export default class AbcAuthMethod extends Service {
 
   constructor(app, name) {
-    super(props, name);
-    this.AuthService =  this.props.app.locateService("AuthService");
+    super(app, name);
+    this.AuthService =  app.locateService("AuthService");
   }
 
   saveUser(user) {
-      this.App.Store.dispatch(loginAction(user));
+    this.App.Store.dispatch(loginAction(user));
   }
 
   forgetUser() {
-      // revoke access token
-      // revoke refresh token
       const user = this.App.Store.getState().AuthService;
 
       this.revokeRequest(user.token_type, user.auth_server, user.access_token,  user.refresh_token);

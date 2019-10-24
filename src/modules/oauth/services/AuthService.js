@@ -5,38 +5,47 @@ import Service from '../../../abc/Service';
 
 
 
-export default class AuthService extends Service{
+export default class AuthService extends Service {
 
-    constructor(app, serviceName="AuthService"){
+    constructor(app, serviceName = "AuthService") {
         super(app, serviceName)
         this.App = app
-        this.AuthMethods = [];
+        this.AuthMethods = {};
         this.ActiveAuthMethod = null
     }
 
 
-    addAuthMethods(authMethods) {
-        this.AuthMethods.concat(authMethods);
+    addAuthMethods(authMethod) {
+        const authMethodName = authMethod.getName()
+        this.AuthMethods[authMethodName] = authMethod
+        console.log(this.AuthMethods)
     }
 
-    setActiveAuthMethod (authMethod) {
-        ths.ActiveAuthMethod = authMethod;add
+    setActiveAuthMethod(authMethod) {
+        this.ActiveAuthMethod = authMethod;
     }
 
-    getAuthLinks() {
-        const links = []
-        for (const [index, authMethod] of this.AuthMethods.entries()) {
-            links.append (authMethod.getLink ());
-        }
+    getButtonsInfo() {
+        const links = {}
+
+        Object.keys (this.AuthMethods).forEach (
+            key => {
+                links[key] = this.AuthMethods[key].getButtonInfo()
+            }
+        )
         return links
     }
 
-    login () {
-        this.ActiveAuthMethod.login ()
+    async login(authMethod, code) {
+        console.log("LOGGING IN WITH AUTHSERVICE")
+        console.log("authMethod",authMethod)
+        console.log("code",code)
+        const path = await this.AuthMethods[authMethod].login(code)
+        return path
     }
 
-    logout () {
-        this.ActiveAuthMethod.logout ()
+    logout() {
+        this.ActiveAuthMethod.logout()
     }
 
 }

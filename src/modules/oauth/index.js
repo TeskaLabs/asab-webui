@@ -10,13 +10,16 @@ import AuthContainer from './containers/AuthContainer'
 import TeskalabsAuth from './containers/TeskalabsAuth'
 import GitHubAuth from './containers/GitHubAuth'
 import AuthService from './services/AuthService'
-// import GitHubAuthMethod from './services/GitHubAuthMethod/GitHubAuthMethod';
+import GitHubAuthMethod from './services/GitHubAuthMethod/GitHubAuthMethod';
+import SignWithContainer from './containers/SignWithContainer';
 
 
 
 export default class AuthenticationModule extends Module {
     constructor(app, name){
         super(app, "Authentication");
+        console.log ("app",app);
+        console.log ("app.Router",app.Router);
 
         app.Router.addRoute({
             path: '/auth',
@@ -54,6 +57,18 @@ export default class AuthenticationModule extends Module {
             authn: false,
         });
 
+        app.Router.addRoute({
+            path: '/auth/signin',
+            exact: true,
+            name: 'Sing in',
+            component: SignWithContainer,
+            hasHeader: false,
+            hasSidebar: false,
+            hasBreadcrumb: false,
+            hasFooter: true,
+            authn: false,
+        });
+
 
         app.Router.addRoute({
             path: '/auth/register',
@@ -75,13 +90,14 @@ export default class AuthenticationModule extends Module {
         headerService.addComponent(HEADER_POS_RIGHT, UserDropdown, userDropdownProps);
 
         // Add AuthService
-
         this.AuthService = new AuthService(app, "AuthService");
-        // this.AuthService.addAuthMethods (
-        //     new GitHubAuthMethod(app)
-        // )
 
 
         app.ReduxService.addReducer("AuthService", reducer);
+    }
+
+    addAuthMethods(method){
+        console.log ("ADDING AUTH METHOD")
+        this.AuthService.addAuthMethods (method);
     }
 }
