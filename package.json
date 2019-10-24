@@ -43,6 +43,7 @@
     "query-string": "^6.8.3",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-oauth-popup": "^0.1.0",
     "react-redux": "^6.0.1",
     "reactstrap": "^6.5.0",
     "redux": "^4.0.1",
