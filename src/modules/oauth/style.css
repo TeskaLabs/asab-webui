@@ -6,20 +6,12 @@
     margin-right: 16px;
 }
 
-.githubbtn {
-    color: white;
-    background-color: #24292E;
-}
-.githubbtn:hover {
-    color: white;
-    background-color: #394047;
-}
-
-.tlbtn {
+.loginBtn {
     color: white;
     background-color: #314D61;
+    margin-bottom: 10px;
 }
-.tlbtn:hover {
+.loginBtn:hover {
     color: white;
     background-color: #3C596D;
 }

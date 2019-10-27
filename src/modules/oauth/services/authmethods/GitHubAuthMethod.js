@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, CardBody, Col, Container, Row } from 'reactstrap';
 import queryString from 'query-string'
 import axios from 'axios'
-import AbcAuthMethod from '../AbcAuthMethod';
+import AbcAuthMethod from './AbcAuthMethod';
 
 export default class GitHubAuthMethod extends AbcAuthMethod {
 
@@ -13,11 +13,12 @@ export default class GitHubAuthMethod extends AbcAuthMethod {
       this.Order = order;
     }
 
-    getName () {
+    getName() {
       return "GitHub"
     }
 
     async login(code) {
+      console.log("GITHUB AUTH METHOD LOGIN")
       const respData = await this.requestToken(code);
       const user = this.parseTokenData(respData);
       const identity = await this.requestIdentity(user.token_type, user.access_token);
@@ -26,13 +27,10 @@ export default class GitHubAuthMethod extends AbcAuthMethod {
       console.log(user);
       this.saveUser(user);
       this.AuthService.setActiveAuthMethod(this);
-      return '/'
-      //this.props.history.push('/');
-
     }
 
 
-    getButtonInfo () {
+    getButtonInfo() {
       const domain = "https://github.com/login/oauth/authorize";
       const params = {
         client_id: "20bf68701659753e6960",
@@ -47,12 +45,11 @@ export default class GitHubAuthMethod extends AbcAuthMethod {
 
     async requestToken(code) {
       console.log("REQUESTING TOKEN")
-      //const urlParams = queryString.parse(this.props.location.search);
 
 
       if (code) {
-        console.log ("GOT AUTHORIZATION CODE");
-        console.log("code: ",code);
+        // console.log("GOT AUTHORIZATION CODE");
+        // console.log("code: ",code);
         const url = "/token";
 
         const requestBody = {
@@ -71,7 +68,7 @@ export default class GitHubAuthMethod extends AbcAuthMethod {
         };
 
         const resp = await axios.post(url, queryString.stringify(requestBody), config)
-        console.log (resp.data)
+        // console.log(resp.data)
         const respData = resp.data
         return respData
       }
@@ -79,11 +76,11 @@ export default class GitHubAuthMethod extends AbcAuthMethod {
 
 
 
-    parseTokenData (respData) {
-      console.log ("REQUEST SUCCESSFUL");
-      console.log (respData.content)
+    parseTokenData(respData) {
+      console.log("REQUEST SUCCESSFUL");
+      console.log(respData.content)
       const parsedRespData = queryString.parse(respData.content);
-      console.log ('parsedRespData',parsedRespData)
+      // console.log('parsedRespData',parsedRespData)
       const user = {
         access_token: parsedRespData.access_token,
         scope:parsedRespData.scope,
@@ -95,8 +92,8 @@ export default class GitHubAuthMethod extends AbcAuthMethod {
     }
 
 
-    async requestIdentity (tokenType,accessToken) {
-      console.log ("REQUEST IDENTITY");
+    async requestIdentity(tokenType,accessToken) {
+      console.log("REQUEST IDENTITY");
 
       const url = '/identity';
 
@@ -107,7 +104,7 @@ export default class GitHubAuthMethod extends AbcAuthMethod {
         }
       };
       const resp = await axios.get(url, config);
-      console.log (resp.data);
+      // console.log(resp.data);
       const identity = resp.data.content.login;
       return identity;
     }

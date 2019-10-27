@@ -5,21 +5,16 @@ import Module from '../../abc/Module';
 import {HEADER_POS_RIGHT} from '../../services/HeaderService';
 
 import UserDropdown from './containers/UserDropdown';
-import RegisterContainer from './containers/RegisterContainer'
 import AuthContainer from './containers/AuthContainer'
-import TeskalabsAuth from './containers/TeskalabsAuth'
-import GitHubAuth from './containers/GitHubAuth'
 import AuthService from './services/AuthService'
-import GitHubAuthMethod from './services/GitHubAuthMethod/GitHubAuthMethod';
-import SignWithContainer from './containers/SignWithContainer';
+// import SignWithContainer from './containers/SignWithContainer';
 
-
+import './style.css';
 
 export default class AuthenticationModule extends Module {
     constructor(app, name){
         super(app, "Authentication");
-        console.log ("app",app);
-        console.log ("app.Router",app.Router);
+        this.App = app
 
         app.Router.addRoute({
             path: '/auth',
@@ -33,58 +28,19 @@ export default class AuthenticationModule extends Module {
             authn: false,
         });
 
-        app.Router.addRoute({
-            path: '/auth/teskalabs',
-            exact: true,
-            name: 'TL Authentication',
-            component: TeskalabsAuth,
-            hasHeader: false,
-            hasSidebar: false,
-            hasBreadcrumb: false,
-            hasFooter: true,
-            authn: false,
-        });
+        // app.Router.addRoute({
+        //     path: '/auth/signin',
+        //     exact: true,
+        //     name: 'Sing in',
+        //     component: SignWithContainer,
+        //     hasHeader: false,
+        //     hasSidebar: false,
+        //     hasBreadcrumb: false,
+        //     hasFooter: true,
+        //     authn: false,
+        // });
 
-        app.Router.addRoute({
-            path: '/auth/github',
-            exact: true,
-            name: 'GH Authentication',
-            component: GitHubAuth,
-            hasHeader: false,
-            hasSidebar: false,
-            hasBreadcrumb: false,
-            hasFooter: true,
-            authn: false,
-        });
-
-        app.Router.addRoute({
-            path: '/auth/signin',
-            exact: true,
-            name: 'Sing in',
-            component: SignWithContainer,
-            hasHeader: false,
-            hasSidebar: false,
-            hasBreadcrumb: false,
-            hasFooter: true,
-            authn: false,
-        });
-
-
-        app.Router.addRoute({
-            path: '/auth/register',
-            exact: true,
-            name: 'TL Registration',
-            component: RegisterContainer,
-            hasHeader: false,
-            hasSidebar: false,
-            hasBreadcrumb: false,
-            hasFooter: true,
-            authn: false,
-        });
-
-
-
-        // Custom userdropdown Component in header
+        // Add UserDropdown Component in header
         const headerService = app.locateService("HeaderService");
         const userDropdownProps = {"app":app};
         headerService.addComponent(HEADER_POS_RIGHT, UserDropdown, userDropdownProps);
@@ -92,12 +48,13 @@ export default class AuthenticationModule extends Module {
         // Add AuthService
         this.AuthService = new AuthService(app, "AuthService");
 
-
         app.ReduxService.addReducer("AuthService", reducer);
+
+        console.log("ADD AUTH METHODS")
+        this.addAuthMethods()
     }
 
-    addAuthMethods(method){
-        console.log ("ADDING AUTH METHOD")
-        this.AuthService.addAuthMethods (method);
+    addAuthMethods () {
+        console.error("AddAuthMethod not implemented in custom oauth module");
     }
 }

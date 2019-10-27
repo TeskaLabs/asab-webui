@@ -11,46 +11,24 @@ class AuthContainer extends React.Component {
       super(props);
       this.AuthService =  this.props.app.locateService("AuthService");
 
+      this.RedirectRoute = this.AuthService.getRedirectRoute();
+      this.RegisterAllowed = this.AuthService.getRegisterAllowed();
 
       this.state = {
-        buttons:[]
+        buttons: [],
       };
-
-      const TLdomain = "https://via.teskalabs.com/seacat-auth";
-      const TLendpoint = "/authorization_endpoint/authentication_request"
-      const TLparams = {
-        response_type:"code",
-        client_id: "???",
-        scope: "openid profile",
-        state:"EqlqtwjhZZ6Vd41Z",
-        redirect_uri: "http://localhost:3000/auth/teskalabs",
-      };
-      this.TeskalabsURL = `${TLdomain}${TLendpoint}?${queryString.stringify(TLparams)}`
-
-      // console.log("================================")
-      // //console.log (queryString.stringify(t))
-      // console.log(this.TeskalabsURL)
-      // console.log("================================")
-
-
     }
 
     async onCode(key, code){
-      const path = await this.AuthService.login(key, code)
-      console.log ('***********************************')
-      console.log (path)
-      console.log ('*********************************** kapr')
-      this.props.history.push(path);
-
+      await this.AuthService.login(key, code);
+      this.props.history.push(this.RedirectRoute);
     }
-
 
     componentDidMount() {
       const links = this.AuthService.getButtonsInfo();
-      const buttons = Object.keys (links)
+      const buttons = Object.keys(links)
       .sort((a, b) => { return a.order - b.order})
-      .map(
-        (key)=> {
+      .map((key)=> {
           return (
             <OauthPopup
               key = {links[key].order}
@@ -58,20 +36,17 @@ class AuthContainer extends React.Component {
               title = {key}
               onCode = {(code) => this.onCode(key, code)}
             >
-              <Button className="tlbtn" size="lg" block>
+              <Button className="loginBtn" size="lg" block>
                 {key}
               </Button>
             </OauthPopup>
           )
         }
       )
-      this.setState ({buttons})
-
+      this.setState({buttons})
     }
 
     render() {
-
-
       const buttons = this.state.buttons;
 
       return (
@@ -84,38 +59,14 @@ class AuthContainer extends React.Component {
                   	<h4>Sign in with</h4>
                   </CardHeader>
                   <CardBody className="justify-content-center">
-                    {/* <a href = {this.teskalabsAuthProvider}> */}
-                    {/* <ButtonToolbar> */}
-                    {/* <ButtonGroup> */}
                         {buttons}
-                        {/* <OauthPopup
-                          url = {this.TeskalabsURL}
-                          title = "Login with Teskalabs"
-                          onCode = {this.onTeskalabs.bind(this)}
-                        >
-                          <Button className="tlbtn" size="lg" block>
-                            Teskalabs
-                          </Button>
-                        </OauthPopup>
-                        <OauthPopup
-                          url = {this.GitHubURL}
-                          title = "Login with GitHub"
-                          onCode = {this.onGitHub.bind(this)}
-                        >
-                          <br/>
-                          <Button className="githubbtn" size="lg"  block>
-                            GitHub
-                          </Button>
-                        </OauthPopup> */}
-                      {/* </ButtonGroup> */}
-                    {/* </ButtonToolbar> */}
-                    {/* </a> */}
                   </CardBody>
-                  <CardFooter>
-                    Or you can
-                    <Link to={`/auth/register`}> register</Link>
-
-                  </CardFooter>
+                  {this.RegisterAllowed ?
+                    <CardFooter>
+                      Or you can
+                      <Link to={`/auth/register`}> register</Link>
+                    </CardFooter>
+                  : null}
                 </Card>
               </CardGroup>
             </Col>
@@ -123,7 +74,6 @@ class AuthContainer extends React.Component {
 			  </Container>
       );
     }
-
   }
 
 

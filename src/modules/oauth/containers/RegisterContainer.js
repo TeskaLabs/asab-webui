@@ -6,10 +6,8 @@ import { Row, Col, Container, Alert, Button, CardGroup, Card, CardHeader, CardBo
 import axios from 'axios'
 import queryString from 'query-string'
 
-import ServerInteractionBox from "./ServerInteractionBox";
 
-
-  class RegisterContainer extends ServerInteractionBox {
+  class RegisterContainer extends Component {
 
     constructor(props) {
       super(props);
@@ -38,7 +36,7 @@ import ServerInteractionBox from "./ServerInteractionBox";
       email.value = event.target.value
       this.setState({ email });
       if (email.validate) {
-        this.doValidateEmail (event.target.value);
+        this.doValidateEmail(event.target.value);
       }
     }
 
@@ -46,10 +44,10 @@ import ServerInteractionBox from "./ServerInteractionBox";
       const { email } = this.state
       email.validate = true
       this.setState({email});
-      this.doValidateEmail (event.target.value);
+      this.doValidateEmail(event.target.value);
     }
 
-    doValidateEmail (value) {
+    doValidateEmail(value) {
       const { email } = this.state;
       const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if (emailRex.test(email.value)) {
@@ -58,7 +56,7 @@ import ServerInteractionBox from "./ServerInteractionBox";
         email.valid = false;
       }
       this.setState({ email });
-      this.doValidateSubmit ()
+      this.doValidateSubmit()
     }
 
     handlePwdInput(event) {
@@ -66,10 +64,10 @@ import ServerInteractionBox from "./ServerInteractionBox";
       pwd.value = event.target.value
       this.setState({ pwd });
       if (pwd.validate) {
-        this.doValidatePwd (event.target.value);
+        this.doValidatePwd(event.target.value);
       }
       if (repPwd.validate) {
-        this.doValidateRepPwd (repPwd.value)
+        this.doValidateRepPwd(repPwd.value)
       }
     }
 
@@ -77,20 +75,20 @@ import ServerInteractionBox from "./ServerInteractionBox";
       const { pwd } = this.state
       pwd.validate = true
       this.setState({pwd});
-      this.doValidatePwd (event.target.value);
+      this.doValidatePwd(event.target.value);
     }
 
-    doValidatePwd (value) {
+    doValidatePwd(value) {
       const { pwd } = this.state;
       const pwdRex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&\.]{8,}$/;
 
-      if (pwdRex.test (pwd.value)) {
+      if (pwdRex.test(pwd.value)) {
         pwd.valid = true;
       } else {
         pwd.valid = false;
       }
       this.setState({ pwd });
-      this.doValidateSubmit ()
+      this.doValidateSubmit()
     }
 
     handleRepPwdInput(event) {
@@ -99,11 +97,11 @@ import ServerInteractionBox from "./ServerInteractionBox";
       repPwd.value = event.target.value
       this.setState({ repPwd });
       if (repPwd.validate) {
-        this.doValidateRepPwd (event.target.value);
+        this.doValidateRepPwd(event.target.value);
       }
     }
 
-    doValidateRepPwd (value) {
+    doValidateRepPwd(value) {
       const { repPwd, pwd } = this.state;
       if (pwd.value == repPwd.value) {
         repPwd.valid = true;
@@ -111,21 +109,21 @@ import ServerInteractionBox from "./ServerInteractionBox";
         repPwd.valid = false;
       }
       this.setState({ repPwd });
-      this.doValidateSubmit ()
+      this.doValidateSubmit()
     }
 
-    doValidateSubmit () {
+    doValidateSubmit() {
       const {email, pwd, repPwd, submitPossible} = this.state
       if (email.valid == true && pwd.valid == true && repPwd.valid == true) {
-        this.setState ({ submitPossible: true })
+        this.setState({ submitPossible: true })
       }
 
     }
 
-    handleSubmit () {
+    handleSubmit() {
       event.preventDefault();
       const {email, pwd} = this.state
-      this.setState ({responseText:null})
+      this.setState({responseText:null})
 
       const url = "/seacat/identityprovider/identity"
 
@@ -133,7 +131,7 @@ import ServerInteractionBox from "./ServerInteractionBox";
         'username': email.value,
         'password': pwd.value,
       }
-      console.log ("requestBody",requestBody);
+      console.log("requestBody",requestBody);
 
       this.sendReq(
         url,
@@ -146,7 +144,7 @@ import ServerInteractionBox from "./ServerInteractionBox";
     }
 
 
-    sendReq (url, req_data, successProcess, failProcess) {
+    sendReq(url, req_data, successProcess, failProcess) {
       const config = {
         headers:{
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -163,8 +161,8 @@ import ServerInteractionBox from "./ServerInteractionBox";
     }
 
 
-      reqSucceeded (login, resp) {
-        console.log (resp.data)
+      reqSucceeded(login, resp) {
+        console.log(resp.data)
 
         if (resp.status == "200"){
           this.setState({

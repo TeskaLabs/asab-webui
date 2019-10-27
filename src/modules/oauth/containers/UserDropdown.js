@@ -6,8 +6,6 @@ import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Button } from 're
 import PropTypes from 'prop-types';
 import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 
-import './style.css';
-
 
 class UserDropdown extends Component {
 
