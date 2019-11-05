@@ -41,8 +41,7 @@ export default class TeskalabsAuthMethod extends AbcAuthMethod {
         redirect_uri: "http://localhost:3000/auth/",
       };
       const link = `${domain}${endpoint}?${queryString.stringify(params)}`;
-      console.log ("KAAAAAAAAAAAAAAAAAPPPPPPPPPR")
-      console.log(link);
+      console.log("link: ", link);
       return {"link":link,"order":this.Order};
     }
 

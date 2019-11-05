@@ -5,7 +5,7 @@ import Service from '../../../abc/Service';
 import RegisterContainer from '../containers/RegisterContainer'
 
 
-export default class AuthService extends Service {
+export default class OAuthService extends Service {
 
     constructor(app, serviceName = "AuthService") {
         super(app, serviceName)

@@ -5,7 +5,7 @@ import OauthPopup from 'react-oauth-popup';
 import queryString from 'query-string'
 
 
-class AuthContainer extends React.Component {
+export default class OAuthContainer extends React.Component {
 
     constructor(props) {
       super(props);
@@ -76,5 +76,3 @@ class AuthContainer extends React.Component {
     }
   }
 
-
-  export default AuthContainer;

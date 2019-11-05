@@ -5,13 +5,13 @@ import Module from '../../abc/Module';
 import {HEADER_POS_RIGHT} from '../../services/HeaderService';
 
 import UserDropdown from './containers/UserDropdown';
-import AuthContainer from './containers/AuthContainer'
-import AuthService from './services/AuthService'
+import OAuthContainer from './containers/OAuthContainer'
+import OAuthService from './services/OAuthService'
 // import SignWithContainer from './containers/SignWithContainer';
 
 import './style.css';
 
-export default class AuthenticationModule extends Module {
+export default class OAuthModule extends Module {
     constructor(app, name){
         super(app, "Authentication");
         this.App = app
@@ -20,7 +20,7 @@ export default class AuthenticationModule extends Module {
             path: '/auth',
             exact: true,
             name: 'Authentication',
-            component: AuthContainer,
+            component: OAuthContainer,
             hasHeader: false,
             hasSidebar: false,
             hasBreadcrumb: false,
@@ -46,7 +46,7 @@ export default class AuthenticationModule extends Module {
         headerService.addComponent(HEADER_POS_RIGHT, UserDropdown, userDropdownProps);
 
         // Add AuthService
-        this.AuthService = new AuthService(app, "AuthService");
+        this.AuthService = new OAuthService(app, "AuthService");
 
         app.ReduxService.addReducer("AuthService", reducer);
 
@@ -54,7 +54,4 @@ export default class AuthenticationModule extends Module {
         this.addAuthMethods()
     }
 
-    addAuthMethods () {
-        console.error("AddAuthMethod not implemented in custom oauth module");
-    }
 }
