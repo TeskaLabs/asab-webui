@@ -1,2 +1,5 @@
 import "babel-polyfill";
-export {default as Application} from './containers/Application';
+export {
+	default as Application,
+	ApplicationContext
+} from './containers/Application';

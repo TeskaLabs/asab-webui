@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from "react-router";
 import { Provider, connect } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, BrowserRouter } from 'react-router-dom';
 import {
 	AppAside,
 	AppBreadcrumb,
@@ -18,12 +18,13 @@ import Header from './Header';
 import HeaderService from '../services/HeaderService';
 import ReduxService from '../services/ReduxService';
 
-
+export const ApplicationContext = React.createContext(null);
 
 class Application extends Component {
 
 	constructor(props){
 		super(props);
+
 		this.Modules = [];
 		this.Services = {};
 
@@ -35,8 +36,6 @@ class Application extends Component {
 		this.HeaderService = new HeaderService(this, "HeaderService");
 		this.ReduxService = new ReduxService(this, "ReduxService");
 
-
-
 		// Instantiate modules
 		for (var i in props.modules) {
 			const module = new props.modules[i](this);
@@ -47,7 +46,6 @@ class Application extends Component {
 		this.Store = Object.keys(this.ReduxService.Reducers).length > 0
 					? createStore(combineReducers(this.ReduxService.Reducers))
 					: createStore((state) => state)
-
 
 		// Initialize service
 		for (var i in this.Services) {
@@ -78,72 +76,64 @@ class Application extends Component {
 	}
 
 	render() {
-		const authentication = this.Store.getState() != undefined ? this.Store.getState().AuthService : "not required in this app";
-
 		var body = document.getElementsByTagName("BODY")[0];
 		body.setAttribute("class", "")
+
 		return (
-			<Provider store={this.Store}>
-					<div className="app">
-						<Switch>
-							{this.Router.Routes.map((route, idx) => {
-								return route.component ? (
-										<Route
-											key={idx}
-											path={`${route.path}`}
-											exact={route.exact}
-											name={route.name}
-											render={props => (
-												<React.Fragment>
-													{route.authn && authentication == null ? (
-														<Redirect from="current-path" to="/auth" />
-													): null}
-													{(route.hasHeader == true || route.hasHeader == undefined) ? (
-														<AppHeader fixed>
-															<Header app={this}/>
-														</AppHeader>
-													) : null}
+			<BrowserRouter>
+				<ApplicationContext.Provider value={this}>
+					<Provider store={this.Store}>
+						<div className="app">
 
-													<div className="app-body">
+							<AppHeader fixed>
+								<Header app={this}/>
+							</AppHeader>
 
-														{(route.hasSidebar == true || route.hasSidebar == undefined) ? (
-															<AppSidebar fixed display="lg">
-																<AppSidebarNav
-																	navConfig={this.Navigation.getItems()}
-																	{...this.props}
-																/>
-																<AppSidebarFooter />
-																<AppSidebarMinimizer />
-															</AppSidebar>
-														) : null}
+							<div className="app-body">
 
-														<main className="main">
+								<AppSidebar fixed display="lg">
+									<AppSidebarNav
+										navConfig={this.Navigation.getItems()}
+										{...this.props}
+									/>
+									<AppSidebarFooter>
+										<a href="https://teskalabs.com" target="_blank">
+											Crafted by TeskaLabs
+										</a>
+									</AppSidebarFooter>
+								</AppSidebar>
 
-															{(route.hasBreadcrumb == true || route.hasBreadcrumb == undefined) ? (
-																<AppBreadcrumb appRoutes={this.Router.Routes}/>
-															) : null}
+								<main className="main">
+									<Switch>
+										{this.Router.Routes.map((route, idx) => {
+											return route.component ? (
+												<Route
+													key={idx}
+													path={`${route.path}`}
+													exact={route.exact}
+													name={route.name}
+													render={props => (
+														<React.Fragment>
+															<AppBreadcrumb appRoutes={this.Router.Routes} />
 															<route.component app={this} {...props} {...route.props} />
+														</React.Fragment>
+													)}
+												/>
 
-														</main>
-														<AppAside fixed>
-														</AppAside>
-													</div>
+											) : (null);
+										})}
+										<Redirect from='*' to='/' />
+									</Switch>
+								</main>
 
-													{(route.hasFooter == true || route.hasFooter == undefined) ? (
-														<AppFooter>
-															{this.props.footer ? this.props.footer : "Powered by TeskaLabs"}
-														</AppFooter>
-													) : null}
-												</React.Fragment>
-											)}
-										/>
-								) : (null);
+								<AppAside fixed>
+								</AppAside>
 
-							})}
-						</Switch>
-					</div>
-
-			</Provider>
+							</div>
+						</div>
+					</Provider>
+				</ApplicationContext.Provider>
+			</BrowserRouter>
 		)
 	}
 }
@@ -212,4 +202,4 @@ class Navigation {
     }
 }
 
-export default withRouter(Application);
+export default Application;

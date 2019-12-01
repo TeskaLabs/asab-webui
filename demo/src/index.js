@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Application } from 'asab-webui-kit-lite';
-import { BrowserRouter } from 'react-router-dom';
 
 // SCSS
 import './index.scss'
@@ -18,7 +17,5 @@ modules.push(SampleModule);
 
 // Render
 ReactDOM.render((
-	<BrowserRouter>
-		<Application modules={modules} />
-	</BrowserRouter>
+	<Application modules={modules} />
 ), document.getElementById('app'));
