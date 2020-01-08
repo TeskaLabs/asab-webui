@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router";
 import { Provider, connect } from 'react-redux';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import {
 	AppAside,
@@ -38,15 +38,20 @@ class Application extends Component {
 
 
 		// Instantiate modules
+		console.log ("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+		console.log ("INITIATING MODULES")
+		console.log ("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+
 		for (var i in props.modules) {
 			const module = new props.modules[i](this);
 			this.Modules.push(module);
 		}
 
 		// Create store
+		const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 		this.Store = Object.keys(this.ReduxService.Reducers).length > 0
-					? createStore(combineReducers(this.ReduxService.Reducers))
-					: createStore((state) => state)
+					? createStore(combineReducers(this.ReduxService.Reducers), composeEnhancers(applyMiddleware()))
+					: createStore((state) => state, composeEnhancers(applyMiddleware()))
 
 
 		// Initialize service
@@ -212,4 +217,5 @@ class Navigation {
     }
 }
 
+//export default Application;
 export default withRouter(Application);

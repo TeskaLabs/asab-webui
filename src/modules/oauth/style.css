@@ -1,0 +1,18 @@
+.userDropdown {
+    padding-right: 16px;
+}
+
+.userLoginBtn {
+    margin-right: 16px;
+}
+
+.loginBtn {
+    color: white;
+    background-color: #314D61;
+    margin-bottom: 10px;
+}
+.loginBtn:hover {
+    color: white;
+    background-color: #3C596D;
+}
+

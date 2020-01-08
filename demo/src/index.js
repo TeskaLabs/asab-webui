@@ -12,7 +12,11 @@ const modules = [];
 import TenantModule from 'asab-webui-kit-lite/modules/tenant/module';
 modules.push(TenantModule);
 
-// Add custom module 
+// Add custom oAuth Module
+import MyOAuthModule from './modules/myoauthmodule';
+modules.push(MyOAuthModule);
+
+// Add custom module
 import SampleModule from './modules/sample';
 modules.push(SampleModule);
 
