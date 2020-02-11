@@ -13,15 +13,19 @@ class UserDropdown extends Component {
     super(props);
     this.AuthService = props.app.locateService("AuthService");
     this.state = {
-            userDropdownOpen: false
+            userDropdownOpen: false,
+            userCredentials: null
         }
 
     this.toggleUserDropdown = this.toggleUserDropdown.bind(this);
     this.logout = this.logout.bind(this);
 
+  }
 
-
-	}
+  componentDidMount() {
+    const userCredentials = this.AuthService.getUserCredentials();
+    this.setState({userCredentials:userCredentials});
+  }
 
   toggleUserDropdown() {
     this.setState(prevState => ({
@@ -35,18 +39,17 @@ class UserDropdown extends Component {
 
   logout(){
     this.AuthService.logout()
-    //this.props.logout()
     //window.location.reload (false)
     this.props.history.push('/')
   }
 
   render() {
-    const authServiceState = this.props.AuthServiceState
-    if (authServiceState){
+    const {userCredentials} = this.state;
+    if (this.AuthService.loggedIn()){
       return (
             <Dropdown className="userDropdown" isOpen={this.state.userDropdownOpen} toggle={this.toggleUserDropdown}>
                 <DropdownToggle caret>
-                   { authServiceState.username }
+                   {userCredentials ? userCredentials.username : "-"}
                 </DropdownToggle>
                   <DropdownMenu>
                       <DropdownItem>
@@ -70,28 +73,9 @@ class UserDropdown extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    AuthServiceState: state.AuthService
-  };
-};
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     logout: () => {
-//       dispatch(logout());
-//     }
-//   };
-// };
 
-// export const logout = () => ({ type:"LOGOUT" })
-
-export default withRouter (
-  connect(
-    mapStateToProps//,
-    // mapDispatchToProps
-  ) (UserDropdown)
-);
+export default withRouter (UserDropdown);
 
 
 

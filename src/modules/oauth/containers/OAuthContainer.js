@@ -25,6 +25,10 @@ export default class OAuthContainer extends React.Component {
     }
 
     componentDidMount() {
+      if (this.AuthService.loggedIn()){
+        this.props.history.push(this.RedirectRoute);
+      }
+
       const links = this.AuthService.getButtonsInfo();
       const buttons = Object.keys(links)
       .sort((a, b) => { return a.order - b.order})

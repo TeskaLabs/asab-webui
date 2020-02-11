@@ -11,22 +11,40 @@ export default class GitHubAuthMethod extends AbcAuthMethod {
       super(app, serviceName);
       this.AuthService = app.locateService("AuthService");
       this.Order = order;
-    }
-
-    getName() {
-      return "GitHub"
+      this.MethodName = "GitHub"
+      this.MethodUrlId = "github.com"
     }
 
     async login(code) {
       console.log("GITHUB AUTH METHOD LOGIN")
       const respData = await this.requestToken(code);
-      const user = this.parseTokenData(respData);
-      const identity = await this.requestIdentity(user.token_type, user.access_token);
-      user["username"] = identity;
+      const tokenData = this.parseTokenData(respData);
+      const identity = await this.requestIdentity(tokenData.token_type, tokenData.access_token);
+      const userCredentials = this.parseIdentityData(identity, tokenData);
 
-      console.log(user);
-      this.saveUser(user);
+
+      // console.log(user);
+      this.saveUser(userCredentials, identity);
       this.AuthService.setActiveAuthMethod(this);
+    }
+
+    parseIdentityData (identity, userCredentials) {
+      userCredentials["username"] = identity.login
+      return userCredentials
+    }
+
+    saveUser(userCredentials, identity){
+      super.saveUser(identity);
+      this.saveCredentialsToLocalStorage(userCredentials);
+    }
+
+    async saveCredentialsToLocalStorage(userCredentials) {
+      localStorage.setItem("access_token", userCredentials.access_token);
+      localStorage.setItem("token_type", userCredentials.token_type);
+      localStorage.setItem("username", userCredentials.username);
+      localStorage.setItem("auth_server", this.getName());
+      localStorage.setItem("auth_server_url", this.getUrlId());
+      console.log("saveCredentialsToLocalStorage DONE");
     }
 
 
@@ -48,8 +66,6 @@ export default class GitHubAuthMethod extends AbcAuthMethod {
 
 
       if (code) {
-        // console.log("GOT AUTHORIZATION CODE");
-        // console.log("code: ",code);
         const url = "/token";
 
         const requestBody = {
@@ -63,7 +79,7 @@ export default class GitHubAuthMethod extends AbcAuthMethod {
         const config = {
           headers:{
             'Content-Type': 'application/x-www-form-urlencoded',
-            'X-OAuthServerId': 'github.com',
+            'X-OAuthServerId': this.MethodUrlId,
           }
         };
 
@@ -74,39 +90,43 @@ export default class GitHubAuthMethod extends AbcAuthMethod {
       }
     }
 
-
-
     parseTokenData(respData) {
       console.log("REQUEST SUCCESSFUL");
-      console.log(respData.content)
+      // console.log(respData.content)
       const parsedRespData = queryString.parse(respData.content);
       // console.log('parsedRespData',parsedRespData)
-      const user = {
+      const userCredentials = {
         access_token: parsedRespData.access_token,
         scope:parsedRespData.scope,
         token_type: parsedRespData.token_type,
-        auth_server: "github.com"
+        auth_server_url: this.getUrlId(),
+        auth_server: this.getName()
       };
-      console.log(user);
-      return user
+      // console.log(userCredentials);
+      return userCredentials
     }
 
 
-    async requestIdentity(tokenType,accessToken) {
+    async requestIdentity(tokenType, accessToken) {
       console.log("REQUEST IDENTITY");
 
       const url = '/identity';
-
       const config = {
         headers:{
-          'X-OAuthServerId': 'github.com',
+          'X-OAuthServerId': this.MethodUrlId,
           "Authorization":`${tokenType} ${accessToken}`,
         }
       };
-      const resp = await axios.get(url, config);
-      // console.log(resp.data);
-      const identity = resp.data.content.login;
+      const resp = await axios.get(url, config).catch((error)=>{
+        console.log("error", error)
+      });
+
+      if (resp == undefined) {
+        return null
+      }
+      const identity = resp.data.content;
       return identity;
     }
+
   }
 
