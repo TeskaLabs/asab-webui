@@ -50,8 +50,12 @@ export default class OAuthModule extends Module {
 
         app.ReduxService.addReducer("AuthService", reducer);
 
-        console.log("ADD AUTH METHODS")
         this.addAuthMethods()
+
+    }
+
+    initialize(){
+        this.AuthService.initializeFromStorage()
     }
 
 }

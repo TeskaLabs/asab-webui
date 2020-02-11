@@ -38,10 +38,6 @@ class Application extends Component {
 
 
 		// Instantiate modules
-		console.log ("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
-		console.log ("INITIATING MODULES")
-		console.log ("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
-
 		for (var i in props.modules) {
 			const module = new props.modules[i](this);
 			this.Modules.push(module);
@@ -83,7 +79,9 @@ class Application extends Component {
 	}
 
 	render() {
-		const authentication = this.Store.getState() != undefined ? this.Store.getState().AuthService : "not required in this app";
+		//const authentication = this.Store.getState() != undefined ? this.Store.getState().AuthService : "not required in this app";
+		const credentialsPresent = localStorage.getItem("username");
+
 
 		var body = document.getElementsByTagName("BODY")[0];
 		body.setAttribute("class", "")
@@ -100,7 +98,7 @@ class Application extends Component {
 											name={route.name}
 											render={props => (
 												<React.Fragment>
-													{route.authn && authentication == null ? (
+													{route.authn && credentialsPresent == null ? (
 														<Redirect from="current-path" to="/auth" />
 													): null}
 													{(route.hasHeader == true || route.hasHeader == undefined) ? (

@@ -6,29 +6,55 @@ import Service from '../../../../abc/Service'
 
 export default class AbcAuthMethod extends Service {
 
-  constructor(app, name) {
+  constructor(app, name, url) {
     super(app, name);
     this.AuthService =  app.locateService("AuthService");
+    this.MethodName = "method name not implemented in specific Auth Method"
+    this.MethodUrlId = "method url id not implemented in specific Auth Method"
   }
 
   getName() {
     return this.MethodName;
   }
 
+  getUrlId() {
+    return this.MethodUrlId
+  }
+
   saveUser(user) {
-    this.App.Store.dispatch(loginAction(user));
+    // TODO: implement saving additional user data in redux
+    console.log("SAVING USER DATA")
+    // this.App.Store.dispatch(loginAction(user));
+
   }
 
   logout() {
-      const user = this.App.Store.getState().AuthService;
+      const userCredentials = this.AuthService.getUserCredentials();
 
-      this.revokeRequest(user.token_type, user.auth_server, user.access_token,  user.refresh_token);
-      this.revokeRequest(user.token_type, user.auth_server, user.access_token,  user.access_token);
-      this.App.Store.dispatch(logoutAction());
+      if (userCredentials.refresh_token){
+        this.revokeRequest(
+          userCredentials.token_type,
+          userCredentials.auth_server_url,
+          userCredentials.access_token,
+          userCredentials.refresh_token
+        );
+      }
+      this.revokeRequest(
+        userCredentials.token_type,
+        userCredentials.auth_server_url,
+        userCredentials.access_token,
+        userCredentials.access_token
+      );
+      this.removeUserFromStore()
+
+  }
+
+  removeUserFromStore() {
+    this.App.Store.dispatch(logoutAction());
   }
 
 
-  async revokeRequest(tokenType, authServer, accessToken,tokenToRevoke) {
+  async revokeRequest(tokenType, authServerUrl, accessToken,tokenToRevoke) {
 
     console.log("REVOKING REQUEST")
     const url = "/invalidate";
@@ -41,7 +67,7 @@ export default class AbcAuthMethod extends Service {
     const config = {
         headers:{
             'Content-Type': 'application/x-www-form-urlencoded',
-            'X-OAuthServerId': authServer,
+            'X-OAuthServerId': authServerUrl,
             'Authorization': `${tokenType} ${accessToken}`,
         }
     }
