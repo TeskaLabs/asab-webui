@@ -4,6 +4,8 @@ import queryString from 'query-string'
 import axios from 'axios'
 import AbcAuthMethod from './AbcAuthMethod';
 
+var public_url = self.origin;
+
 export default class TeskalabsAuthMethod extends AbcAuthMethod {
 
     constructor(app, order) {
@@ -38,7 +40,7 @@ export default class TeskalabsAuthMethod extends AbcAuthMethod {
         client_id: "???",
         scope: "openid profile",
         state:"EqlqtwjhZZ6Vd41Z",
-        redirect_uri: "http://localhost:3000/auth/",
+        redirect_uri:  public_url + "/auth/",
       };
       const link = `${domain}${endpoint}?${queryString.stringify(params)}`;
       console.log("link: ", link);
@@ -58,7 +60,7 @@ export default class TeskalabsAuthMethod extends AbcAuthMethod {
           'client_id': 'kapr',
           'scope': '?',
           'grant_type': 'authorization_code',
-          'redirect_uri':"http://localhost:3000/auth/",
+          'redirect_uri': public_url + "/auth/",
           'client_secret': 'secret',
           'state': "?????",
           'code': code,
