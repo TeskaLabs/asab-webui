@@ -50,12 +50,11 @@ export default class OAuthModule extends Module {
 
         app.ReduxService.addReducer("AuthService", reducer);
 
-        this.addAuthMethods()
-
+        this.addAuthMethods();
     }
 
     initialize(){
-        this.AuthService.initializeFromStorage()
+        this.AuthService.initializeFromStorage();
     }
 
 }
