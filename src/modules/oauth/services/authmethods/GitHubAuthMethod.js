@@ -4,7 +4,7 @@ import queryString from 'query-string'
 import axios from 'axios'
 import AbcAuthMethod from './AbcAuthMethod';
 
-var public_url = self.origin;
+var PUBLIC_URL = self.origin;
 
 export default class GitHubAuthMethod extends AbcAuthMethod {
 
@@ -38,7 +38,7 @@ export default class GitHubAuthMethod extends AbcAuthMethod {
         client_id: "20bf68701659753e6960",
         //scope: "openid profile",
         //state:"EqlqtwjhZZ6Vd41Z",
-        redirect_uri: public_url + "/auth",
+        redirect_uri: PUBLIC_URL + "/auth",
         //redirect_uri: "http://localhost:3000/auth/github",
       };
       const link = `${domain}?${queryString.stringify(params)}`;
@@ -58,7 +58,7 @@ export default class GitHubAuthMethod extends AbcAuthMethod {
           client_id: __CONFIG__.GITHUB_CLIENT_ID,
           client_secret: __CONFIG__.GITHUB_CLIENT_SECRET,
           code: code,
-          redirect_uri: public_url + "/auth/github",
+          redirect_uri: PUBLIC_URL + "/auth/github",
           state: "12354377234253745634"
         };
 

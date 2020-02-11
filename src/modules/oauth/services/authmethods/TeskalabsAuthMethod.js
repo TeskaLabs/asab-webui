@@ -4,7 +4,7 @@ import queryString from 'query-string'
 import axios from 'axios'
 import AbcAuthMethod from './AbcAuthMethod';
 
-var public_url = self.origin;
+var PUBLIC_URL = self.origin;
 
 export default class TeskalabsAuthMethod extends AbcAuthMethod {
 
@@ -40,7 +40,7 @@ export default class TeskalabsAuthMethod extends AbcAuthMethod {
         client_id: "???",
         scope: "openid profile",
         state:"EqlqtwjhZZ6Vd41Z",
-        redirect_uri:  public_url + "/auth/",
+        redirect_uri:  PUBLIC_URL + "/auth/",
       };
       const link = `${domain}${endpoint}?${queryString.stringify(params)}`;
       console.log("link: ", link);
@@ -60,7 +60,7 @@ export default class TeskalabsAuthMethod extends AbcAuthMethod {
           'client_id': 'kapr',
           'scope': '?',
           'grant_type': 'authorization_code',
-          'redirect_uri': public_url + "/auth/",
+          'redirect_uri': PUBLIC_URL + "/auth/",
           'client_secret': 'secret',
           'state': "?????",
           'code': code,
