@@ -134,7 +134,7 @@ class Application extends Component {
 
 													{(route.hasFooter == true || route.hasFooter == undefined) ? (
 														<AppFooter>
-															{this.props.footer ? this.props.footer : "Powered by TeskaLabs"}
+															{this.props.footer ? this.props.footer : "Powered by ASAB"}
 														</AppFooter>
 													) : null}
 												</React.Fragment>
