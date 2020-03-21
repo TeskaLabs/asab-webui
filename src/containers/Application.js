@@ -19,23 +19,21 @@ import HeaderService from '../services/HeaderService';
 import ReduxService from '../services/ReduxService';
 
 
-
 class Application extends Component {
 
 	constructor(props){
 		super(props);
+
 		this.Modules = [];
 		this.Services = {};
 
-		this.Config = new Config(__CONFIG__);
-		this.Router = new Router();
-		this.Navigation = new Navigation();
+		this.Config = new Config(this, __CONFIG__);
+		this.Router = new Router(this);
+		this.Navigation = new Navigation(this);
 
 		// Core services
 		this.HeaderService = new HeaderService(this, "HeaderService");
 		this.ReduxService = new ReduxService(this, "ReduxService");
-
-
 
 		// Instantiate modules
 		for (var i in props.modules) {
@@ -79,9 +77,7 @@ class Application extends Component {
 	}
 
 	render() {
-		//const authentication = this.Store.getState() != undefined ? this.Store.getState().AuthService : "not required in this app";
 		const credentialsPresent = localStorage.getItem("username");
-
 
 		var body = document.getElementsByTagName("BODY")[0];
 		body.setAttribute("class", "")
@@ -98,9 +94,6 @@ class Application extends Component {
 											name={route.name}
 											render={props => (
 												<React.Fragment>
-													{route.authn && credentialsPresent == null ? (
-														<Redirect from="current-path" to="/auth" />
-													): null}
 													{(route.hasHeader == true || route.hasHeader == undefined) ? (
 														<AppHeader fixed>
 															<Header app={this}/>
@@ -173,47 +166,46 @@ class Config {
 
 class Router {
 
-    constructor(app){
-        this.Routes = []
-    }
+	constructor(app){		
+		this.Routes = []
+	}
 
-    addRoute(route){
-        /* Example route:
-            {
-                path: '/some/path', // Url path
-                exact: true,        // Whether path must be matched exactly
-                name: 'Some Name',  // Route name
-                component: ReactComponent // Component to be rendered
-            }
-        */
-        this.Routes.push(route);
-    }
+	addRoute(route){
+		/* Example route:
+			{
+				path: '/some/path', // Url path
+				exact: true,        // Whether path must be matched exactly
+				name: 'Some Name',  // Route name
+				component: ReactComponent // Component to be rendered
+			}
+		*/
+		this.Routes.push(route);
+	}
 }
 
 class Navigation {
 
-    constructor(){
-        this.Items = []
-    }
+	constructor(app){
+		this.Items = []
+	}
 
-    addItem(item){
+	addItem(item){
 		/* Example item:
-            {
-                path: '/some/path', // Url path
-                exact: true,        // Whether path must be matched exactly
-                name: 'Some Name',  // Route name
-                component: ReactComponent // Component to be rendered
-            }
-        */
-        this.Items.push(item);
-    }
+			{
+				path: '/some/path', // Url path
+				exact: true,        // Whether path must be matched exactly
+				name: 'Some Name',  // Route name
+				component: ReactComponent // Component to be rendered
+			}
+		*/
+		this.Items.push(item);
+	}
 
-    getItems() {
-        return {
-            items: this.Items
-        }
-    }
+	getItems() {
+		return {
+			items: this.Items
+		}
+	}
 }
 
-//export default Application;
 export default withRouter(Application);
