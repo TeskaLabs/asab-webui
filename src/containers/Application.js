@@ -44,9 +44,8 @@ class Application extends Component {
 		// Create store
 		const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 		this.Store = Object.keys(this.ReduxService.Reducers).length > 0
-					? createStore(combineReducers(this.ReduxService.Reducers), composeEnhancers(applyMiddleware()))
-					: createStore((state) => state, composeEnhancers(applyMiddleware()))
-
+			? createStore(combineReducers(this.ReduxService.Reducers), composeEnhancers(applyMiddleware()))
+			: createStore((state) => state, composeEnhancers(applyMiddleware()))
 
 		// Initialize service
 		for (var i in this.Services) {
@@ -77,68 +76,62 @@ class Application extends Component {
 	}
 
 	render() {
-		const credentialsPresent = localStorage.getItem("username");
-
 		var body = document.getElementsByTagName("BODY")[0];
 		body.setAttribute("class", "")
 		return (
 			<Provider store={this.Store}>
-					<div className="app">
-						<Switch>
-							{this.Router.Routes.map((route, idx) => {
-								return route.component ? (
-										<Route
-											key={idx}
-											path={`${route.path}`}
-											exact={route.exact}
-											name={route.name}
-											render={props => (
-												<React.Fragment>
-													{(route.hasHeader == true || route.hasHeader == undefined) ? (
-														<AppHeader fixed>
-															<Header app={this}/>
-														</AppHeader>
+				<div className="app">
+					<Switch>
+						{this.Router.Routes.map((route, idx) => {
+							return route.component ? (
+								<Route
+									key={idx}
+									path={`${route.path}`}
+									exact={route.exact}
+									name={route.name}
+									render={props => (
+										<React.Fragment>
+											{(route.hasHeader == true || route.hasHeader == undefined) ? (
+											<AppHeader fixed>
+												<Header app={this}/>
+											</AppHeader>
+											) : null}
+
+											<div className="app-body">
+												{(route.hasSidebar == true || route.hasSidebar == undefined) ? (
+												<AppSidebar fixed display="lg">
+													<AppSidebarNav
+														navConfig={this.Navigation.getItems()}
+														{...this.props}
+													/>
+													<AppSidebarFooter />
+													<AppSidebarMinimizer />
+												</AppSidebar>
+												) : null}
+
+												<main className="main">
+													{(route.hasBreadcrumb == true || route.hasBreadcrumb == undefined) ? (
+													<AppBreadcrumb appRoutes={this.Router.Routes}/>
 													) : null}
+													<route.component app={this} {...props} {...route.props} />
+												</main>
 
-													<div className="app-body">
+												<AppAside fixed>
+												</AppAside>
+											</div>
 
-														{(route.hasSidebar == true || route.hasSidebar == undefined) ? (
-															<AppSidebar fixed display="lg">
-																<AppSidebarNav
-																	navConfig={this.Navigation.getItems()}
-																	{...this.props}
-																/>
-																<AppSidebarFooter />
-																<AppSidebarMinimizer />
-															</AppSidebar>
-														) : null}
-
-														<main className="main">
-
-															{(route.hasBreadcrumb == true || route.hasBreadcrumb == undefined) ? (
-																<AppBreadcrumb appRoutes={this.Router.Routes}/>
-															) : null}
-															<route.component app={this} {...props} {...route.props} />
-
-														</main>
-														<AppAside fixed>
-														</AppAside>
-													</div>
-
-													{(route.hasFooter == true || route.hasFooter == undefined) ? (
-														<AppFooter>
-															{this.props.footer ? this.props.footer : "Powered by ASAB"}
-														</AppFooter>
-													) : null}
-												</React.Fragment>
-											)}
-										/>
-								) : (null);
-
-							})}
-						</Switch>
-					</div>
-
+											{(route.hasFooter == true || route.hasFooter == undefined) ? (
+											<AppFooter>
+												{this.props.footer ? this.props.footer : "Powered by ASAB"}
+											</AppFooter>
+											) : null}
+										</React.Fragment>
+									)}
+								/>
+							) : (null);
+						})}
+					</Switch>
+				</div>
 			</Provider>
 		)
 	}
@@ -183,6 +176,7 @@ class Router {
 	}
 }
 
+
 class Navigation {
 
 	constructor(app){
@@ -207,5 +201,6 @@ class Navigation {
 		}
 	}
 }
+
 
 export default withRouter(Application);
