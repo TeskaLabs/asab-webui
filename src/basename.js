@@ -14,7 +14,6 @@ ReactDOM.render((
 
 export const getBaseName = () => {
 	var publicUrl = __CONFIG__["publicUrl"];
-	console.log(publicUrl);
 	if (publicUrl == "") {
 		return "";
 	}

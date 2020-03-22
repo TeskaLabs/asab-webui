@@ -18,6 +18,6 @@ export default class TenantService extends Service {
             this.Store.dispatch({ type: types.GET_TENANTS_SUCCESS, payload });
           }).catch((error) => {
             this.Store.dispatch({ type: types.GET_TENANTS_ERROR, error });
-          });	
+          });
     }
 }

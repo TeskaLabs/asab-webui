@@ -20,6 +20,12 @@ export default class HeaderService extends Service{
 	}
 
     setBrandComponent(component) {
+        /*
+        Example of the use:
+
+        headerService.setBrandComponent("SeaCat Auth");
+        */
+
         this.BrandComponent = component;
     }
 }

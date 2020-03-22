@@ -8,36 +8,37 @@ import {HEADER_POS_LEFT, HEADER_POS_RIGHT} from '../services/HeaderService';
 
 class Header extends Component {
 
-  constructor(props) {
+	constructor(props) {
 		super(props);
-        this.App = props.app;
-        this.HeaderService = this.App.locateService("HeaderService");
+		this.App = props.app;
+		this.HeaderService = this.App.locateService("HeaderService");
 	}
 
-  render() {
+	render() {
+		return (<React.Fragment>
+			<AppNavbarBrand>{this.HeaderService.BrandComponent}</AppNavbarBrand>
 
-    return (
-      <React.Fragment>
-        <AppNavbarBrand>{this.HeaderService.BrandComponent}</AppNavbarBrand>
-        <AppSidebarToggler className="d-md-down-none" display="lg" />
-        <Nav className="d-md-down-none" navbar>
-            {this.HeaderService.Items
-                .filter((i)=>i.position == HEADER_POS_LEFT)
-                .map((i, key) => (
-                    <i.component key={key} {...i.componentProps}/>
-                ))}
-        </Nav>
+			<AppSidebarToggler className="d-md-down-none" display="lg" />
 
-        <Nav className="ml-auto" navbar>
-            {this.HeaderService.Items
-                .filter((i)=>i.position == HEADER_POS_RIGHT)
-                .map((i, key) => (
-                    <i.component key={key} {...i.componentProps}/>
-                ))}
-        </Nav>
-      </React.Fragment>
-    );
-  }
+			<Nav className="d-md-down-none" navbar>
+				{this.HeaderService.Items
+					.filter((i)=>i.position == HEADER_POS_LEFT)
+					.map((i, key) => (
+						<i.component key={key} {...i.componentProps}/>
+					))}
+			</Nav>
+
+			<Nav className="ml-auto" navbar>
+				{this.HeaderService.Items
+					.filter((item)=>item.position == HEADER_POS_RIGHT)
+					.map((item, idx) => (
+						<item.component key={idx} {...item.componentProps} app={this.App}/>
+					)
+				)}
+			</Nav>
+
+		</React.Fragment>);
+	}
 }
 
 export default Header;
