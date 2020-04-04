@@ -14,7 +14,9 @@ import {
 	AppSidebarMinimizer,
 	AppSidebarNav,
 } from '@coreui/react';
+
 import Header from './Header';
+import SplashScreen from './SplashScreen';
 import HeaderService from '../services/HeaderService';
 import ReduxService from '../services/ReduxService';
 
@@ -31,9 +33,14 @@ class Application extends Component {
 		this.Router = new Router(this);
 		this.Navigation = new Navigation(this);
 
+		this.SplashscreenRequestors = new Set(); // If not empty, the splash screen will be rendered
+
 		// Core services
 		this.HeaderService = new HeaderService(this, "HeaderService");
 		this.ReduxService = new ReduxService(this, "ReduxService");
+
+		this.state = {
+		}
 
 		// Instantiate modules
 		for (var i in props.modules) {
@@ -57,6 +64,7 @@ class Application extends Component {
 			this.Modules[i].initialize();
 		}
 
+		this.state.SplashscreenRequestors = this.SplashscreenRequestors.size;
 	}
 
 	registerService(service) {
@@ -75,12 +83,46 @@ class Application extends Component {
 		return this.Services[name];
 	}
 
+	// Splash screen
+
+	addSplashScreenRequestor(obj) {
+		const origLen = this.SplashscreenRequestors.size;
+		this.SplashscreenRequestors.add(obj);
+		if (origLen != this.SplashscreenRequestors.size) {
+			this.setState({
+				SplashscreenRequestors: this.SplashscreenRequestors.size
+			});
+		}
+	}
+
+	removeSplashScreenRequestor(obj) {
+		const origLen = this.SplashscreenRequestors.size;
+		this.SplashscreenRequestors.delete(obj);
+		if (origLen != this.SplashscreenRequestors.size) {
+			this.setState({
+				SplashscreenRequestors: this.SplashscreenRequestors.size
+			});
+		}
+	}
+
+
 	render() {
 		var body = document.getElementsByTagName("BODY")[0];
 		body.setAttribute("class", "")
-		return (
+
+		// Render the splash screen if needed
+		if (this.state.SplashscreenRequestors > 0) return (
 			<Provider store={this.Store}>
 				<div className="app">
+					<SplashScreen />
+				</div>
+			</Provider>
+		)
+
+		else return (
+			<Provider store={this.Store}>
+				<div className="app">
+
 					<Switch>
 						{this.Router.Routes.map((route, idx) => {
 							return route.component ? (
