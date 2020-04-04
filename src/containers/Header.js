@@ -16,7 +16,11 @@ class Header extends Component {
 
 	render() {
 		return (<React.Fragment>
-			<AppNavbarBrand>{this.HeaderService.BrandComponent}</AppNavbarBrand>
+
+			<AppNavbarBrand>
+				{(this.HeaderService.BrandLogoURL) ? <img src={this.HeaderService.BrandLogoURL} className="d-inline-block align-top" width="30" height="30" alt="" /> : null}
+				{this.HeaderService.BrandTitle}
+			</AppNavbarBrand>
 
 			<AppSidebarToggler className="d-md-down-none" display="lg" />
 

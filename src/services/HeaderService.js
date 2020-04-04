@@ -5,27 +5,26 @@ export const HEADER_POS_RIGHT = 1;
 
 export default class HeaderService extends Service{
 
-    constructor(app, serviceName="HeaderService"){
-        super(app, serviceName)
-        this.BrandComponent = __CONFIG__.title;
-        this.Items = [];
-    }
-
-    addComponent(position, component, componentProps) {
-		this.Items.push({
-            'position': position,
-            'component': component,
-            'componentProps':componentProps,
-        })
+	constructor(app, serviceName="HeaderService"){
+		super(app, serviceName)
+		this.BrandTitle = app.Config.get('title');
+		this.BrandLogoURL = "public/media/teskalabs/img/logos/logo.svg";
+		this.Items = [];
 	}
 
-    setBrandComponent(component) {
-        /*
-        Example of the use:
+	addComponent(position, component, componentProps) {
+		this.Items.push({
+			'position': position,
+			'component': component,
+			'componentProps':componentProps,
+		})
+	}
 
-        headerService.setBrandComponent("SeaCat Auth");
-        */
+	setBrandTitle(title) {
+		this.BrandTitle = title;
+	}
 
-        this.BrandComponent = component;
-    }
+	setBrandLogo(url) {
+		this.BrandLogoURL = url;
+	}
 }
