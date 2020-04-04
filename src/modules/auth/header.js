@@ -7,7 +7,6 @@ import {
 	DropdownItem
 } from 'reactstrap';
 
-
 class HeaderComponent extends Component {
 
 	constructor(props) {
@@ -18,7 +17,6 @@ class HeaderComponent extends Component {
 	}
 
 	logout() {
-	
 		this.AuthModule.logout()
 	}
 
@@ -29,9 +27,11 @@ class HeaderComponent extends Component {
 		return (
 			<UncontrolledDropdown nav direction="down" className="pr-3">
 				<DropdownToggle nav title={this.props.sub}>
-					{this.props.username}
+					{(this.props.picture) ? <img src={this.props.picture} className="img-avatar" alt={this.props.username}/> : <span>&#128100;</span>}
+					<span className="pl-2" title={this.props.sub}>{this.props.username}</span>
 				</DropdownToggle>
 				<DropdownMenu right>
+					<DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem>
 					<DropdownItem>
 						<div onClick={() => {this.logout()}}>Logout</div>
 					</DropdownItem>
@@ -44,14 +44,36 @@ class HeaderComponent extends Component {
 const mapStateToProps = state => {
 	var username = "-";
 	var sub = "-";
+	var picture = null;
+
 	const userinfo = state.auth.userinfo;
 	if (userinfo != null) {
-		sub = userinfo.sub;
-		username = userinfo.preferred_username;
+
+		if (userinfo.sub) {
+			sub = userinfo.sub;
+		} else {
+			sub = userinfo.id;	
+		}
+
+		if (userinfo.name) {
+			username = userinfo.name;
+		}
+		else if (userinfo.preferred_username) {
+			username = userinfo.preferred_username;	
+		}
+		else {
+			username = userinfo.id;	
+		}
+
+		if (userinfo.picture) {
+			picture = userinfo.picture;
+		}
+
 	}
 	return {
 		sub: sub,
 		username: username,
+		picture: picture,
 	};
 };
 
