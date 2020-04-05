@@ -16,6 +16,10 @@ export class SeaCatAuthApi {
 
 	constructor(config) {
 		this.BaseURL = config.get('seacat.auth.oidc_url');
+		if ((this.BaseURL == undefined) || (this.BaseURL == null)) {
+			console.log("Provide config value seacat.auth.oidc_url");
+			this.BaseURL = "/openidconnect";
+		}
 		this.Axios = axios.create({
 			timeout: 10000,
 			baseURL: this.BaseURL,

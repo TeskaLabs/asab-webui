@@ -12,6 +12,7 @@ export default class AuthModule extends Module {
 		super(app, "AuthModule");
 
 		this.App = app;
+		this.RedirectURL = window.location.href;
 
 		// Request the splash screen
 		this.App.addSplashScreenRequestor(this);
@@ -42,7 +43,7 @@ export default class AuthModule extends Module {
 	}
 
 	login() {
-		this.Api.login("http://localhost:3000/");
+		this.Api.login(this.RedirectURL);
 	}
 
 	logout() {
@@ -79,7 +80,7 @@ export default class AuthModule extends Module {
 	}
 
 	updateToken(authorization_code) {
-		this.Api.token_authorization_code(authorization_code, "http://localhost:3000/").then(response => {
+		this.Api.token_authorization_code(authorization_code, this.RedirectURL).then(response => {
 			this.OAuthToken = response.data;
 			sessionStorage.setItem('SeaCat::OAuth::Token', JSON.stringify(response.data));
 			
