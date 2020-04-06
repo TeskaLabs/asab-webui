@@ -48,12 +48,6 @@ class Application extends Component {
 			this.Modules.push(module);
 		}
 
-		// Create store
-		const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-		this.Store = Object.keys(this.ReduxService.Reducers).length > 0
-			? createStore(combineReducers(this.ReduxService.Reducers), composeEnhancers(applyMiddleware()))
-			: createStore((state) => state, composeEnhancers(applyMiddleware()))
-
 		// Initialize service
 		for (var i in this.Services) {
 			this.Services[i].initialize();
@@ -65,6 +59,12 @@ class Application extends Component {
 		}
 
 		this.state.SplashscreenRequestors = this.SplashscreenRequestors.size;
+
+		// Create store
+		const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+		this.Store = Object.keys(this.ReduxService.Reducers).length > 0
+			? createStore(combineReducers(this.ReduxService.Reducers), composeEnhancers(applyMiddleware()))
+			: createStore((state) => state, composeEnhancers(applyMiddleware()))
 	}
 
 	registerService(service) {
