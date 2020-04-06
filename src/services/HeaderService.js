@@ -27,4 +27,11 @@ export default class HeaderService extends Service{
 	setBrandLogo(url) {
 		this.BrandLogoURL = url;
 	}
+
+	// Obsolete function
+	setBrandComponent(title) {
+		console.log("setBrandComponent() method is obsoleted and will be removed");
+		this.setBrandTitle(title);
+	}
+
 }
