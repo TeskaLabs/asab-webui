@@ -138,7 +138,11 @@ class Application extends Component {
 												<Header app={this}/>
 											</AppHeader>
 											) : null}
-
+											{(route.customHeader !== undefined && route.hasHeader == false) ? (
+											<AppHeader fixed>
+												<route.customHeader app={this}/>
+											</AppHeader>
+											) : null}
 											<div className="app-body">
 												{(route.hasSidebar == true || route.hasSidebar == undefined) ? (
 												<AppSidebar fixed display="lg">
