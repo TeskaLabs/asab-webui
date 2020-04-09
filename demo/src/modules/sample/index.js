@@ -9,7 +9,7 @@ export default class SampleModule extends Module {
         app.Navigation.addItem({
 			name: 'Sample Module',
 			url: '/ca',
-			icon: 'icon-shield',
+			icon: 'cil-shield',
         },)
 
         // Custom Brand Component in header
