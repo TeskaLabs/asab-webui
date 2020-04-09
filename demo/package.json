@@ -38,6 +38,9 @@
   "dependencies": {
     "@coreui/coreui": "2.1.4",
     "@coreui/react": "^2.1.1",
+    "@coreui/icons": "^1.0.1",
+    "query-string": "^6.11.1",
+    "react-oauth-popup": "^0.1.0",
     "axios": "^0.18.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
