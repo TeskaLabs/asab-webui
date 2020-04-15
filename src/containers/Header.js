@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink } from 'reactstrap';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink, NavbarToggler, Collapse, Navbar, NavbarBrand  } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import {HEADER_POS_LEFT, HEADER_POS_RIGHT} from '../services/HeaderService';
@@ -12,7 +12,18 @@ class Header extends Component {
 		super(props);
 		this.App = props.app;
 		this.HeaderService = this.App.locateService("HeaderService");
+		this.state = {
+			isOpen: false,
+			setIsOpen: false,
+		};
+		this.toggle = this.toggle.bind(this);
 	}
+
+	toggle() {
+    	this.setState({
+      		isOpen: !this.state.isOpen
+    	});
+  	}
 
 	render() {
 		return (<React.Fragment>
@@ -24,23 +35,25 @@ class Header extends Component {
 
 			<AppSidebarToggler className="d-md-down-none" display="lg" />
 
-			<Nav className="d-md-down-none" navbar>
-				{this.HeaderService.Items
-					.filter((i)=>i.position == HEADER_POS_LEFT)
-					.map((i, key) => (
-						<i.component key={key} {...i.componentProps}/>
-					))}
-			</Nav>
+			{(this.HeaderService.Items.length > 0) ? <NavbarToggler onClick={this.toggle}/> : null}
+		    <Collapse isOpen={this.state.isOpen} navbar>
+				<Nav className="d-md-down-none" navbar>
+					{this.HeaderService.Items
+						.filter((i)=>i.position == HEADER_POS_LEFT)
+						.map((i, key) => (
+							<i.component key={key} {...i.componentProps}/>
+						))}
+				</Nav>
 
-			<Nav className="ml-auto" navbar>
-				{this.HeaderService.Items
-					.filter((item)=>item.position == HEADER_POS_RIGHT)
-					.map((item, idx) => (
-						<item.component key={idx} {...item.componentProps} app={this.App}/>
-					)
-				)}
-			</Nav>
-
+				<Nav className="ml-auto" navbar>
+					{this.HeaderService.Items
+						.filter((item)=>item.position == HEADER_POS_RIGHT)
+						.map((item, idx) => (
+							<item.component key={idx} {...item.componentProps} app={this.App}/>
+						)
+					)}
+				</Nav>
+			</Collapse>
 		</React.Fragment>);
 	}
 }
