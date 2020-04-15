@@ -32,16 +32,18 @@ class Header extends Component {
 					{(this.HeaderService.BrandLogoURL) ? <img src={this.HeaderService.BrandLogoURL} className="d-inline-block align-top" width="30" height="30" alt="" /> : null}
 					{this.HeaderService.BrandTitle}
 				</NavbarBrand>
-
+			
 				<AppSidebarToggler className="d-md-down-none" display="lg" />
 
-				{(this.HeaderService.Items.length > 0) ? <NavbarToggler onClick={this.toggle}/> : null}
-			    <Collapse isOpen={this.state.isOpen} navbar>
+	            {(this.HeaderService.Items.length > 0) ? <NavbarToggler onClick={this.toggle}/> : null}
+	            <Collapse isOpen={this.state.isOpen} navbar>
 					<Nav className="d-md-down-none" navbar>
 						{this.HeaderService.Items
 							.filter((i)=>i.position == HEADER_POS_LEFT)
 							.map((i, key) => (
-								<i.component key={key} {...i.componentProps}/>
+								<NavItem key={key}>
+									<i.component key={key} {...i.componentProps}/>
+								</NavItem>
 							))}
 					</Nav>
 
@@ -49,9 +51,10 @@ class Header extends Component {
 						{this.HeaderService.Items
 							.filter((item)=>item.position == HEADER_POS_RIGHT)
 							.map((item, idx) => (
-								<item.component key={idx} {...item.componentProps} app={this.App}/>
-							)
-						)}
+								<NavItem key={idx}>
+									<item.component key={idx} {...item.componentProps} app={this.App}/>
+								</NavItem>
+							))}
 					</Nav>
 				</Collapse>
 			</Navbar>
