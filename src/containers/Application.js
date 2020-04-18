@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
+import * as router from 'react-router-dom';
 import { withRouter } from "react-router";
 import { Provider, connect } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
+
+import { Container, Nav, NavItem, NavLink, Badge, DropdownToggle, DropdownMenu } from 'reactstrap';
 import {
 	AppAside,
-	AppBreadcrumb,
-	AppFooter,
-	AppHeader,
-	AppSidebar,
-	AppSidebarFooter,
-	AppSidebarHeader,
-	AppSidebarMinimizer,
-	AppSidebarNav,
+	AppAsideToggler,
+	AppBreadcrumb2 as AppBreadcrumb,
+	AppNavbarBrand,
 } from '@coreui/react';
 
 import Header from './Header';
+import Footer from './Footer';
+import Sidebar from './Sidebar';
+
 import SplashScreen from './SplashScreen';
 import HeaderService from '../services/HeaderService';
+import FooterService from '../services/FooterService';
 import ReduxService from '../services/ReduxService';
 
 
@@ -37,7 +39,10 @@ class Application extends Component {
 
 		// Core services
 		this.HeaderService = new HeaderService(this, "HeaderService");
+		this.FooterService = new FooterService(this, "FooterService");
 		this.ReduxService = new ReduxService(this, "ReduxService");
+
+		this.DefaultPath = props.defaultpath
 
 		this.state = {
 		}
@@ -107,9 +112,6 @@ class Application extends Component {
 
 
 	render() {
-		var body = document.getElementsByTagName("BODY")[0];
-		body.setAttribute("class", "")
-
 		// Render the splash screen if needed
 		if (this.state.SplashscreenRequestors > 0) return (
 			<Provider store={this.Store}>
@@ -122,61 +124,37 @@ class Application extends Component {
 		else return (
 			<Provider store={this.Store}>
 				<div className="app">
-
-					<Switch>
-						{this.Router.Routes.map((route, idx) => {
-							return route.component ? (
-								<Route
-									key={idx}
-									path={`${route.path}`}
-									exact={route.exact}
-									name={route.name}
-									render={props => (
-										<React.Fragment>
-											{(route.hasHeader == true || route.hasHeader == undefined) ? (
-											<AppHeader fixed>
-												<Header app={this}/>
-											</AppHeader>
-											) : null}
-
-											<div className="app-body">
-												{(route.hasSidebar == true || route.hasSidebar == undefined) ? (
-												<AppSidebar fixed display="lg">
-													<AppSidebarNav
-														navConfig={this.Navigation.getItems()}
-														{...this.props}
-													/>
-													<AppSidebarFooter />
-													<AppSidebarMinimizer />
-												</AppSidebar>
-												) : null}
-
-												<main className="main">
-													{(route.hasBreadcrumb == true || route.hasBreadcrumb == undefined) ? (
-													<AppBreadcrumb appRoutes={this.Router.Routes}/>
-													) : null}
+					<Header app={this}/>
+					<div className="app-body">
+						<Sidebar app={this} navigation={this.Navigation}/>
+						<main className="main">
+							<AppBreadcrumb appRoutes={this.Router.Routes} router={router}/>
+							<Container fluid>
+								<Switch>
+									{this.Router.Routes.map((route, idx) => {
+										return route.component ? (
+											<Route
+												key={idx}
+												path={`${route.path}`}
+												exact={route.exact}
+												name={route.name}
+												render={props => (
 													<route.component app={this} {...props} {...route.props} />
-												</main>
-
-												<AppAside fixed>
-												</AppAside>
-											</div>
-
-											{(route.hasFooter == true || route.hasFooter == undefined) ? (
-											<AppFooter>
-												{this.props.footer ? this.props.footer : "Powered by ASAB"}
-											</AppFooter>
-											) : null}
-										</React.Fragment>
-									)}
-								/>
-							) : (null);
-						})}
-					</Switch>
+												)}
+											/>
+										) : (null);
+									})}
+									(this.DefaultPath != undefined ? <Redirect from="/" to={this.DefaultPath} />: null)
+								</Switch>
+							</Container>
+						</main>
+					</div>
+					<Footer app={this}/>
 				</div>
 			</Provider>
 		)
 	}
+
 }
 
 
