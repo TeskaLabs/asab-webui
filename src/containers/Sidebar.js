@@ -23,16 +23,18 @@ class Sidebar extends Component {
 
 	render() {
 		return (<React.Fragment>
-			<AppSidebar fixed display="lg">
-				<AppSidebarHeader />
-				<AppSidebarForm />
-				<AppSidebarNav
-					navConfig={this.Navigation.getItems()}
-					router={router}
-				/>
-				<AppSidebarFooter />
-				<AppSidebarMinimizer />
-			</AppSidebar>
+			{this.props.hasSidebar ? 
+				<AppSidebar fixed display="lg">
+					<AppSidebarHeader />
+					<AppSidebarForm />
+					<AppSidebarNav
+						navConfig={this.Navigation.getItems()}
+						router={router}
+					/>
+					<AppSidebarFooter />
+					<AppSidebarMinimizer />
+				</AppSidebar> : 
+			null}
 		</React.Fragment>);
 	}
 

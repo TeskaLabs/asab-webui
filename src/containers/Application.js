@@ -126,9 +126,9 @@ class Application extends Component {
 				<div className="app">
 					<Header app={this}/>
 					<div className="app-body">
-						<Sidebar app={this} navigation={this.Navigation}/>
+						<Sidebar hasSidebar={this.props.hasSidebar} app={this} navigation={this.Navigation}/>
 						<main className="main">
-							<AppBreadcrumb appRoutes={this.Router.Routes} router={router}/>
+							{this.props.hasBreadcrumb ? <AppBreadcrumb appRoutes={this.Router.Routes} router={router}/> : null}
 							<Container fluid>
 								<Switch>
 									{this.Router.Routes.map((route, idx) => {
