@@ -11,7 +11,8 @@ module.exports = {
 	webpack: {
 		resolve: {
 			alias: {
-				"asab-webui-kit-lite": path.resolve('asab-webui-kit-lite', 'src')
+				"asab-webui-kit-lite": path.resolve('asab-webui-kit-lite', 'src'),
+				"bitswan-webui": path.resolve(__dirname, '..', '..', 'bitswan-webui', 'src', 'modules')
 			}
 		}
 	},
