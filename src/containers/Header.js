@@ -23,7 +23,8 @@ class Header extends Component {
 		return (<React.Fragment>
 			<AppHeader fixed>
 				
-				<AppSidebarToggler className="d-lg-none" display="md" mobile />
+				{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ? 
+					<AppSidebarToggler className="d-lg-none" display="md" mobile />  : null}
 				<AppNavbarBrand full={this.HeaderService.BrandImageFull} minimized={this.HeaderService.BrandImageMinimized} />
 				<AppSidebarToggler className="d-md-down-none" display="lg" />
 
