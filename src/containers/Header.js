@@ -22,18 +22,27 @@ class Header extends Component {
 	render() {
 		return (<React.Fragment>
 			<AppHeader fixed>
-				
-				{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ? 
-					<AppSidebarToggler className="d-lg-none" display="md" mobile />  : null}
-				<AppNavbarBrand full={this.HeaderService.BrandImageFull} minimized={this.HeaderService.BrandImageMinimized} />
-				<AppSidebarToggler className="d-md-down-none" display="lg" />
+				<Navbar className="nav-fill w-100 h-100" color="light" expand="md">
 
-				<Nav className="ml-auto" navbar>
-					{this.HeaderService.Items.map((item, idx) => (
-						<item.component key={idx} {...item.componentProps} app={this.App}/>
-					))}
-				</Nav>
+					<AppNavbarBrand full={this.HeaderService.BrandImageFull} minimized={this.HeaderService.BrandImageMinimized} />
+					{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ? 
+						<React.Fragment>
+							<AppSidebarToggler className="d-lg-none" display="md" mobile />
+							<AppSidebarToggler className="d-md-down-none" display="lg" />
+						</React.Fragment>  
+					: null}
 
+					{(this.HeaderService.Items.length > 0) ? <NavbarToggler onClick={this.toggle} id="toggler"/> : null}
+					<Collapse isOpen={this.state.isOpen} navbar expand="md">
+						<Nav className="ml-auto" navbar>
+							{this.HeaderService.Items.map((item, idx) => (
+								<NavItem key={idx}>
+									<item.component key={idx} {...item.componentProps} app={this.App}/>
+								</NavItem>
+							))}
+						</Nav>
+					</Collapse>
+				</Navbar>
 			</AppHeader>
 		</React.Fragment>);
 	}
