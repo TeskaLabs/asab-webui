@@ -25,6 +25,28 @@ import ReduxService from '../services/ReduxService';
 
 class Application extends Component {
 
+	/*
+	Example of use hasSidebar and hasBreadcrumb.
+	It must be set in Application.
+	If not set, it is considered as true.
+
+...
+
+	const config = {
+		hasSidebar: false,
+		hasBreadcrumb: false
+	}
+
+
+	ReactDOM.render((
+		<BrowserRouter>
+			<Application modules={modules} {...config}/>
+		</BrowserRouter>
+	), document.getElementById('app'));
+
+...
+	*/
+
 	constructor(props){
 		super(props);
 
