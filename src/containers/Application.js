@@ -124,11 +124,12 @@ class Application extends Component {
 		else return (
 			<Provider store={this.Store}>
 				<div className="app">
-					<Header app={this}/>
+					<Header hasSidebar={this.props.hasSidebar} app={this}/>
 					<div className="app-body">
 						<Sidebar hasSidebar={this.props.hasSidebar} app={this} navigation={this.Navigation}/>
 						<main className="main">
-							{this.props.hasBreadcrumb ? <AppBreadcrumb appRoutes={this.Router.Routes} router={router}/> : null}
+							{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ? 
+								<AppBreadcrumb appRoutes={this.Router.Routes} router={router}/> : null}
 							<Container fluid>
 								<Switch>
 									{this.Router.Routes.map((route, idx) => {
