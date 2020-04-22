@@ -23,7 +23,7 @@ class Sidebar extends Component {
 
 	render() {
 		return (<React.Fragment>
-			{this.props.hasSidebar ? 
+			{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ? 
 				<AppSidebar fixed display="lg">
 					<AppSidebarHeader />
 					<AppSidebarForm />
@@ -33,8 +33,8 @@ class Sidebar extends Component {
 					/>
 					<AppSidebarFooter />
 					<AppSidebarMinimizer />
-				</AppSidebar> : 
-			null}
+				</AppSidebar>
+			: null}
 		</React.Fragment>);
 	}
 
