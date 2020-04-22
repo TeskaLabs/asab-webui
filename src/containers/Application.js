@@ -144,7 +144,7 @@ class Application extends Component {
 											/>
 										) : (null);
 									})}
-									(this.DefaultPath != undefined ? <Redirect from="/" to={this.DefaultPath} />: null)
+									{this.DefaultPath != undefined ? <Redirect from="/" to={this.DefaultPath} />: null}
 								</Switch>
 							</Container>
 						</main>
