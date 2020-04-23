@@ -24,27 +24,16 @@ class Sidebar extends Component {
 	render() {
 		return (
 			<React.Fragment>
-				{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ? 
-					<AppSidebar fixed display="lg">
-						<AppSidebarHeader />
-						<AppSidebarForm />
-						<AppSidebarNav
-							navConfig={this.Navigation.getItems()}
-							router={router}
-						/>
-						<AppSidebarFooter />
-						<AppSidebarMinimizer />
-					</AppSidebar> : 
-					<AppSidebar fixed display="xs">
-						<AppSidebarHeader />
-						<AppSidebarForm />
-						<AppSidebarNav
-							navConfig={this.Navigation.getItems()}
-							router={router}
-						/>
-						<AppSidebarFooter />
-						<AppSidebarMinimizer />
-					</AppSidebar>}
+				<AppSidebar fixed display={this.props.display}>
+					<AppSidebarHeader />
+					<AppSidebarForm />
+					<AppSidebarNav
+						navConfig={this.Navigation.getItems()}
+						router={router}
+					/>
+					<AppSidebarFooter />
+					<AppSidebarMinimizer />
+				</AppSidebar>
 			</React.Fragment>
 		);
 	}
