@@ -23,19 +23,16 @@ class Header extends Component {
 	render() {
 		return (<React.Fragment>
 			<AppHeader fixed>
-			
 				{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ? 
 					<AppSidebarToggler className="d-lg-none" display="md" mobile />
 				: this.HeaderService.Items.length > 0 ?
 					<AppSidebarToggler className="d-lg-none" display="md" mobile />
 				: null
 				}
-
 				<AppNavbarBrand full={this.HeaderService.BrandImageFull} minimized={this.HeaderService.BrandImageMinimized} />
 				{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ? 
 					<AppSidebarToggler className="d-md-down-none" display="lg" />
 				: null}
-
 				{this.HeaderService.Items.length > 0 ?
 					<Nav className="d-md d-md-down-none" display="lg" navbar>
 						{this.HeaderService.Items.map((item, idx) => (
@@ -45,7 +42,6 @@ class Header extends Component {
 						))}
 					</Nav>
 				: null}
-
 			</AppHeader>
 		</React.Fragment>);
 	}
