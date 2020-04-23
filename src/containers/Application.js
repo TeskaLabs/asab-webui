@@ -167,7 +167,9 @@ class Application extends Component {
 				<div className="app">
 					<Header hasSidebar={this.props.hasSidebar} app={this}/>
 					<div className="app-body">
-						<Sidebar hasSidebar={this.props.hasSidebar} app={this} navigation={this.Navigation}/>
+						{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ? 
+							<Sidebar app={this} navigation={this.Navigation} display="lg"/> : 
+							<Sidebar app={this} navigation={this.Navigation} display="xs"/>}
 						<main className="main">
 							{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ? 
 								<AppBreadcrumb appRoutes={this.Router.Routes} router={router}/> : null}
