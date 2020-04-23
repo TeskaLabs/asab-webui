@@ -23,20 +23,28 @@ class Header extends Component {
 	render() {
 		return (<React.Fragment>
 			<AppHeader fixed>
+			
+				{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ? 
+					<AppSidebarToggler className="d-lg-none" display="md" mobile />
+				: this.HeaderService.Items.length > 0 ?
+					<AppSidebarToggler className="d-lg-none" display="md" mobile />
+				: null
+				}
 
-				<AppSidebarToggler className="d-lg-none" display="md" mobile />
 				<AppNavbarBrand full={this.HeaderService.BrandImageFull} minimized={this.HeaderService.BrandImageMinimized} />
 				{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ? 
 					<AppSidebarToggler className="d-md-down-none" display="lg" />
 				: null}
 
-				<Nav className="d-md d-md-down-none" display="lg" navbar>
-					{this.HeaderService.Items.map((item, idx) => (
-						<NavItem key={idx}>
-							<item.component key={idx} {...item.componentProps} app={this.App}/>
-						</NavItem>
-					))}
-				</Nav>
+				{this.HeaderService.Items.length > 0 ?
+					<Nav className="d-md d-md-down-none" display="lg" navbar>
+						{this.HeaderService.Items.map((item, idx) => (
+							<NavItem key={idx}>
+								<item.component key={idx} {...item.componentProps} app={this.App}/>
+							</NavItem>
+						))}
+					</Nav>
+				: null}
 
 			</AppHeader>
 		</React.Fragment>);
