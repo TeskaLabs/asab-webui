@@ -45,6 +45,25 @@ class Application extends Component {
 	), document.getElementById('app'));
 
 ...
+
+	Example of settings in Module of the Application
+	Following above settings, this will show the item in
+	the header and when the screen is diminished (e.g. screening
+	using the mobile phone), the item is moved to the sidebar and
+	it is accessible by the sidebar toggler button.
+
+...
+
+	    app.Navigation.addItem({
+            name: 'Item 1',
+            url: '',
+        });
+
+
+        const headerService = app.locateService("HeaderService");
+        headerService.addComponent(NavLink,{children: "Item 1", href: "", style: {marginRight: "2rem"}});
+
+...
 	*/
 
 	constructor(props){
