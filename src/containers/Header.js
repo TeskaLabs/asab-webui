@@ -23,14 +23,14 @@ class Header extends Component {
 	render() {
 		return (<React.Fragment>
 			<AppHeader fixed>
-				{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ? 
+				{(this.App.props.hasSidebar || typeof this.App.props.hasSidebar === 'undefined') ? 
 					<AppSidebarToggler className="d-lg-none" display="md" mobile />
 				: this.HeaderService.Items.length > 0 ?
 					<AppSidebarToggler className="d-lg-none" display="md" mobile />
 				: null
 				}
 				<AppNavbarBrand full={this.HeaderService.BrandImageFull} minimized={this.HeaderService.BrandImageMinimized} />
-				{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ? 
+				{(this.App.props.hasSidebar || typeof this.App.props.hasSidebar === 'undefined') ? 
 					<AppSidebarToggler className="d-md-down-none" display="lg" />
 				: null}
 				{this.HeaderService.Items.length > 0 ?
