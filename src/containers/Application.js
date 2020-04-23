@@ -165,7 +165,7 @@ class Application extends Component {
 		else return (
 			<Provider store={this.Store}>
 				<div className="app">
-					<Header hasSidebar={this.props.hasSidebar} app={this}/>
+					<Header app={this}/>
 					<div className="app-body">
 						{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ? 
 							<Sidebar app={this} navigation={this.Navigation} display="lg"/> : 
