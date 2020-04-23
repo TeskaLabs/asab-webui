@@ -7,7 +7,8 @@ import {
 } from '@coreui/react';
 
 import {
-	Nav
+	Nav,
+	NavItem
 } from 'reactstrap';
 
 class Header extends Component {
@@ -22,27 +23,21 @@ class Header extends Component {
 	render() {
 		return (<React.Fragment>
 			<AppHeader fixed>
-				<Navbar className="nav-fill w-100 h-100" color="light" expand="md">
 
-					<AppNavbarBrand full={this.HeaderService.BrandImageFull} minimized={this.HeaderService.BrandImageMinimized} />
-					{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ? 
-						<React.Fragment>
-							<AppSidebarToggler className="d-lg-none" display="md" mobile />
-							<AppSidebarToggler className="d-md-down-none" display="lg" />
-						</React.Fragment>  
-					: null}
+				<AppSidebarToggler className="d-lg-none" display="md" mobile />
+				<AppNavbarBrand full={this.HeaderService.BrandImageFull} minimized={this.HeaderService.BrandImageMinimized} />
+				{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ? 
+					<AppSidebarToggler className="d-md-down-none" display="lg" />
+				: null}
 
-					{(this.HeaderService.Items.length > 0) ? <NavbarToggler onClick={this.toggle} id="toggler"/> : null}
-					<Collapse isOpen={this.state.isOpen} navbar expand="md">
-						<Nav className="ml-auto" navbar>
-							{this.HeaderService.Items.map((item, idx) => (
-								<NavItem key={idx}>
-									<item.component key={idx} {...item.componentProps} app={this.App}/>
-								</NavItem>
-							))}
-						</Nav>
-					</Collapse>
-				</Navbar>
+				<Nav className="d-md d-md-down-none" display="lg" navbar>
+					{this.HeaderService.Items.map((item, idx) => (
+						<NavItem key={idx}>
+							<item.component key={idx} {...item.componentProps} app={this.App}/>
+						</NavItem>
+					))}
+				</Nav>
+
 			</AppHeader>
 		</React.Fragment>);
 	}
