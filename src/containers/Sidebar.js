@@ -22,18 +22,20 @@ class Sidebar extends Component {
 	}
 
 	render() {
-		return (<React.Fragment>
-			<AppSidebar fixed display="lg">
-				<AppSidebarHeader />
-				<AppSidebarForm />
-				<AppSidebarNav
-					navConfig={this.Navigation.getItems()}
-					router={router}
-				/>
-				<AppSidebarFooter />
-				<AppSidebarMinimizer />
-			</AppSidebar>
-		</React.Fragment>);
+		return (
+			<React.Fragment>
+				<AppSidebar fixed display={this.props.display}>
+					<AppSidebarHeader />
+					<AppSidebarForm />
+					<AppSidebarNav
+						navConfig={this.Navigation.getItems()}
+						router={router}
+					/>
+					<AppSidebarFooter />
+					<AppSidebarMinimizer />
+				</AppSidebar>
+			</React.Fragment>
+		);
 	}
 
 }

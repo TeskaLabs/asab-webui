@@ -25,6 +25,47 @@ import ReduxService from '../services/ReduxService';
 
 class Application extends Component {
 
+	/*
+	Example of use hasSidebar and hasBreadcrumb.
+	It must be set in Application.
+	If not set, it is considered as true.
+
+...
+
+	const config = {
+		hasSidebar: false,
+		hasBreadcrumb: false
+	}
+
+
+	ReactDOM.render((
+		<BrowserRouter>
+			<Application modules={modules} {...config}/>
+		</BrowserRouter>
+	), document.getElementById('app'));
+
+...
+
+	Example of settings in Module of the Application
+	Following above settings, this will show the item in
+	the header and when the screen is diminished (e.g. screening
+	using the mobile phone), the item is moved to the sidebar and
+	it is accessible by the sidebar toggler button.
+
+...
+
+	    app.Navigation.addItem({
+            name: 'Item 1',
+            url: '',
+        });
+
+
+        const headerService = app.locateService("HeaderService");
+        headerService.addComponent(NavLink,{children: "Item 1", href: "", style: {marginRight: "2rem"}});
+
+...
+	*/
+
 	constructor(props){
 		super(props);
 
@@ -126,9 +167,12 @@ class Application extends Component {
 				<div className="app">
 					<Header app={this}/>
 					<div className="app-body">
-						<Sidebar app={this} navigation={this.Navigation}/>
+						{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ? 
+							<Sidebar app={this} navigation={this.Navigation} display="lg"/> : 
+							<Sidebar app={this} navigation={this.Navigation} display="xs"/>}
 						<main className="main">
-							<AppBreadcrumb appRoutes={this.Router.Routes} router={router}/>
+							{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ? 
+								<AppBreadcrumb appRoutes={this.Router.Routes} router={router}/> : null}
 							<Container fluid>
 								<Switch>
 									{this.Router.Routes.map((route, idx) => {
