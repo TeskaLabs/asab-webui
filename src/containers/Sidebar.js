@@ -30,6 +30,7 @@ class Sidebar extends Component {
 					<AppSidebarNav
 						navConfig={this.Navigation.getItems()}
 						router={router}
+						location={window.location}
 					/>
 					<AppSidebarFooter />
 					<AppSidebarMinimizer />
