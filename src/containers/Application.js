@@ -74,7 +74,9 @@ class Application extends Component {
 
 		this.Config = new Config(this, __CONFIG__);
 		const ConfigDefaults = props.configdefaults;
-		this.Config.addDefaults(ConfigDefaults);
+		if (ConfigDefaults != undefined) {
+			this.Config.addDefaults(ConfigDefaults);
+		}
 
 		this.Router = new Router(this);
 		this.Navigation = new Navigation(this);
