@@ -18,12 +18,6 @@ module.exports = {
 	webpackDevServer: {
 		host: "0.0.0.0", 	// Overriden by --dev-listen [HOST]:[PORT] command line argument
 		port: 3000, 		// Overriden by --dev-listen [HOST]:[PORT] command line argument
-		proxy: {
-			'/api': {
-				target: 'http://localhost:8080',
-				ws: true,
-			},
-		}
 	},
 
 	dirs: {
