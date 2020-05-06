@@ -73,6 +73,9 @@ class Application extends Component {
 		this.Services = {};
 
 		this.Config = new Config(this, __CONFIG__);
+		const ConfigDefaults = props.configdefaults;
+		this.Config.addDefaults(ConfigDefaults);
+
 		this.Router = new Router(this);
 		this.Navigation = new Navigation(this);
 
@@ -203,12 +206,12 @@ class Application extends Component {
 
 
 class Config {
-	constructor(app, defaults) {
-		this._config = Object.assign({}, defaults);
+	constructor(app, values) {
+		this._config = Object.assign({}, values);
 	}
 
 	addDefaults(defaults) {
-		for (key in defaults) {
+		for (var key in defaults) {
 			if (key in this._config)
 				continue
 			this._config[key] = defaults[key];
