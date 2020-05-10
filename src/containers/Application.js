@@ -17,6 +17,10 @@ import Header from './Header';
 import Footer from './Footer';
 import Sidebar from './Sidebar';
 
+import AlertsComponent from './../alerts/AlertsComponent';
+import AlertsReducer from './../alerts/reducer';
+import { AlertsTypes } from './../alerts/actions';
+
 import SplashScreen from './SplashScreen';
 import HeaderService from '../services/HeaderService';
 import FooterService from '../services/FooterService';
@@ -88,6 +92,8 @@ class Application extends Component {
 		this.FooterService = new FooterService(this, "FooterService");
 		this.ReduxService = new ReduxService(this, "ReduxService");
 
+		this.ReduxService.addReducer("alerts", AlertsReducer);
+
 		this.DefaultPath = props.defaultpath
 
 		this.state = {
@@ -157,6 +163,17 @@ class Application extends Component {
 	}
 
 
+	// Alerts
+
+	addAlert(level, message) {
+		this.Store.dispatch({
+			type: AlertsTypes.ADD_ALERT,
+			level: level,
+			message: message,
+		});
+	}
+
+
 	render() {
 		// Render the splash screen if needed
 		if (this.state.SplashscreenRequestors > 0) return (
@@ -171,6 +188,7 @@ class Application extends Component {
 			<Provider store={this.Store}>
 				<div className="app">
 					<Header app={this}/>
+					<AlertsComponent app={this}/>
 					<div className="app-body">
 						{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ? 
 							<Sidebar app={this} navigation={this.Navigation} display="lg"/> : 
