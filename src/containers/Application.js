@@ -4,6 +4,8 @@ import { withRouter } from "react-router";
 import { Provider, connect } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import Axios from 'axios';
+
 import {
 	Container,
 	Nav, NavItem, NavLink,
@@ -103,6 +105,7 @@ class Application extends Component {
 		this.DefaultPath = props.defaultpath
 
 		this.state = {
+			networking: 0, // If more than zero, some networking activity is happening
 		}
 
 		// Instantiate modules
@@ -128,6 +131,39 @@ class Application extends Component {
 		this.Store = Object.keys(this.ReduxService.Reducers).length > 0
 			? createStore(combineReducers(this.ReduxService.Reducers), composeEnhancers(applyMiddleware()))
 			: createStore((state) => state, composeEnhancers(applyMiddleware()))
+	}
+
+	axiosCreate(path, props) {
+		var axios = Axios.create({
+			...props,
+			baseURL: this.Config.get('LMIO_URL') + path,
+		});
+
+		var that = this;
+
+		// We want to be notified when networking activity is taking place
+		axios.interceptors.request.use(function (config) {
+			that.setState((prevState, props) => ({
+				networking: prevState.networking + 1,
+			}));
+			return config;
+		}, function (error) {
+			return Promise.reject(error);
+		});
+
+		axios.interceptors.response.use(function (response) {
+			that.setState((prevState, props) => ({
+				networking: prevState.networking - 1,
+			})); 
+			return response;
+		}, function (error) {
+			that.setState((prevState, props) => ({
+				networking: prevState.networking - 1,
+			})); 
+			return Promise.reject(error);
+		});
+
+		return axios;
 	}
 
 	registerService(service) {
@@ -194,6 +230,9 @@ class Application extends Component {
 		else return (
 			<Provider store={this.Store}>
 				<div className="app">
+					<Fade in={this.state.networking > 0} timeout={50} >
+						<div className="networking-indicator progress-bar progress-bar-animated progress-bar-striped" ></div>
+					</Fade>
 					<Header app={this}/>
 					<AlertsComponent app={this}/>
 					<div className="app-body">
