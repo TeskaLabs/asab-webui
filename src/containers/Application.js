@@ -4,13 +4,19 @@ import { withRouter } from "react-router";
 import { Provider, connect } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import {
+	Container,
+	Nav, NavItem, NavLink,
+	Badge,
+	DropdownToggle, DropdownMenu,
+	Progress, Fade
+} from 'reactstrap';
 
-import { Container, Nav, NavItem, NavLink, Badge, DropdownToggle, DropdownMenu } from 'reactstrap';
 import {
 	AppAside,
 	AppAsideToggler,
 	AppBreadcrumb2 as AppBreadcrumb,
-	AppNavbarBrand,
+	AppNavbarBrand
 } from '@coreui/react';
 
 import Header from './Header';
@@ -140,6 +146,7 @@ class Application extends Component {
 		return this.Services[name];
 	}
 
+
 	// Splash screen
 
 	addSplashScreenRequestor(obj) {
@@ -195,7 +202,8 @@ class Application extends Component {
 							<Sidebar app={this} navigation={this.Navigation} display="xs"/>}
 						<main className="main">
 							{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ? 
-								<AppBreadcrumb appRoutes={this.Router.Routes} router={router}/> : null}
+								<AppBreadcrumb appRoutes={this.Router.Routes} router={router}/>
+							: null}
 							<Container fluid>
 								<Switch>
 									{this.Router.Routes.map((route, idx) => {
