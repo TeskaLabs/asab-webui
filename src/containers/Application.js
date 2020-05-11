@@ -233,8 +233,8 @@ class Application extends Component {
 					<Fade in={this.state.networking > 0} timeout={50} >
 						<div className="networking-indicator progress-bar progress-bar-animated progress-bar-striped" ></div>
 					</Fade>
-					<Header app={this}/>
 					<AlertsComponent app={this}/>
+					<Header app={this}/>
 					<div className="app-body">
 						{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ? 
 							<Sidebar app={this} navigation={this.Navigation} display="lg"/> : 
