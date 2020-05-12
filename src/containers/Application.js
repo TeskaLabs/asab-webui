@@ -136,7 +136,7 @@ class Application extends Component {
 	axiosCreate(path, props) {
 		var axios = Axios.create({
 			...props,
-			baseURL: this.Config.get('LMIO_URL') + path,
+			baseURL: this.Config.get('API_URL') + path,
 		});
 
 		var that = this;

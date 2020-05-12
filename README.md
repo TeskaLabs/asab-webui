@@ -12,6 +12,21 @@ ASAB WebUI Kit Lite is a library of webpack build scripts and React components b
  - Sidebar
  - Alerts
  - Network activity indicator
+ - Axios based REST API configuration
+
+
+## REST API design
+
+TODO ...
+
+```
+[ASAB UI App] -- [ HTTP proxy (API_URL) ] -- [ actual microservices ]
+```
+
+TODO: Example of `webpackDevServer` proxy config.
+
+The default `API_URL` is `/api`, it means that it uses the HTTP location of the application itself.
+
 
 
 ## Start a project
