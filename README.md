@@ -25,7 +25,7 @@ TODO ...
 
 TODO: Example of `webpackDevServer` proxy config.
 
-The default `API_URL` is `/api`, it means that it uses the HTTP location of the application itself.
+The default `API_URL` is `/api/`, it means that it uses the HTTP location of the application itself.
 
 
 

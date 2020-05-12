@@ -90,6 +90,13 @@ class Application extends Component {
 			this.Config.addDefaults(ConfigDefaults);
 		}
 
+		// Set API URL, if not configured
+		if (this.Config.get('API_URL') == undefined) {
+			this.Config.addDefaults({
+				API_URL: window.location.protocol + '//' + window.location.host + '/api/',
+			});
+		}
+
 		this.Router = new Router(this);
 		this.Navigation = new Navigation(this);
 
