@@ -27,12 +27,13 @@ import Sidebar from './Sidebar';
 
 import AlertsComponent from './../alerts/AlertsComponent';
 import AlertsReducer from './../alerts/reducer';
-import { AlertsTypes } from './../alerts/actions';
 
 import SplashScreen from './SplashScreen';
 import HeaderService from '../services/HeaderService';
 import FooterService from '../services/FooterService';
 import ReduxService from '../services/ReduxService';
+
+import { ON_TICK, ADD_ALERT } from '../actions';
 
 
 class Application extends Component {
@@ -113,6 +114,7 @@ class Application extends Component {
 
 		this.state = {
 			networking: 0, // If more than zero, some networking activity is happening
+			tickTimer: null,
 		}
 
 		// Instantiate modules
@@ -215,11 +217,30 @@ class Application extends Component {
 
 	// Alerts
 
-	addAlert(level, message) {
+	addAlert(level, message, expire=5) {
 		this.Store.dispatch({
-			type: AlertsTypes.ADD_ALERT,
+			type: ADD_ALERT,
 			level: level,
 			message: message,
+			expire: expire
+		});
+	}
+
+
+	// Ticking
+
+	componentDidMount() {
+		let tickTimer = setInterval(this.onTick, 1000, this.Store);
+		this.setState({tickTimer});
+	}
+
+	componentWillUnmount() {
+		this.clearInterval(this.state.tickTimer);
+	}
+
+	onTick(store) {
+		store.dispatch({
+			type: ON_TICK,
 		});
 	}
 

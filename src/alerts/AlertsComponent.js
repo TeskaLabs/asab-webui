@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux'
 
-import { AlertsTypes } from './actions';
+import { DEL_ALERT } from '../actions';
 
 import {
 	Alert,
@@ -17,15 +17,17 @@ class AlertsComponent extends Component {
 		this.onDismiss = this.onDismiss.bind(this);
 	}
 
+
 	onDismiss(alert_key) {
 		const store = this.App.Store;
 		return function() {
 			store.dispatch({
-				type: AlertsTypes.DEL_ALERT,
+				type: DEL_ALERT,
 				key: alert_key,
 			});
 		};
 	}
+
 
 	// Render function
 	render() {
