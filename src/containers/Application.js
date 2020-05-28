@@ -152,28 +152,36 @@ class Application extends Component {
 
 		// We want to be notified when networking activity is taking place
 		axios.interceptors.request.use(function (config) {
-			that.setState((prevState, props) => ({
-				networking: prevState.networking + 1,
-			}));
+			that.pushNetworkingIndicator();
 			return config;
 		}, function (error) {
 			return Promise.reject(error);
 		});
 
 		axios.interceptors.response.use(function (response) {
-			that.setState((prevState, props) => ({
-				networking: prevState.networking - 1,
-			})); 
+			that.popNetworkingIndicator();
 			return response;
 		}, function (error) {
-			that.setState((prevState, props) => ({
-				networking: prevState.networking - 1,
-			})); 
+			that.popNetworkingIndicator();
 			return Promise.reject(error);
 		});
 
 		return axios;
 	}
+
+	// Display and hide networking indicator
+	pushNetworkingIndicator() {
+		this.setState((prevState, props) => ({
+			networking: prevState.networking + 1,
+		}));
+	}
+
+	popNetworkingIndicator() {
+		this.setState((prevState, props) => ({
+			networking: prevState.networking - 1,
+		}));
+	}
+
 
 	registerService(service) {
 		if (service.Name in this.Services) {
