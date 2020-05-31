@@ -45,13 +45,13 @@ Add this repo as a submodule to your project.
 
 ```
 $ git init .
-$ git submodule add https://github.com/TeskaLabs/asab-webui-kit-lite.git
+$ git submodule add https://github.com/TeskaLabs/asab-webui.git
 ```
 
 Bootstrap your project with example files.
 
 ```
-$ rsync -a --ignore-existing ./asab-webui-kit-lite/demo/* .
+$ rsync -a --ignore-existing ./asab-webui/demo/* .
 ```
 
 Install dependencies

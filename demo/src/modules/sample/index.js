@@ -1,5 +1,5 @@
 import HomeContainer from './containers/HomeContainer'
-import Module from 'asab-webui-kit-lite/abc/Module';
+import Module from 'asab-webui/abc/Module';
 
 
 export default class SampleModule extends Module {

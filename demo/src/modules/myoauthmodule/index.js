@@ -1,6 +1,6 @@
-import AuthenticationModule from 'asab-webui-kit-lite/modules/oauth';
-import GitHubAuthMethod from 'asab-webui-kit-lite/modules/oauth/services/authmethods/GitHubAuthMethod';
-import TeskalabsAuthMethod from 'asab-webui-kit-lite/modules/oauth/services/authmethods/TeskalabsAuthMethod';
+import AuthenticationModule from 'asab-webui/modules/oauth';
+import GitHubAuthMethod from 'asab-webui/modules/oauth/services/authmethods/GitHubAuthMethod';
+import TeskalabsAuthMethod from 'asab-webui/modules/oauth/services/authmethods/TeskalabsAuthMethod';
 
 
 

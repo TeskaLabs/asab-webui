@@ -1,5 +1,5 @@
 {
-	"name": "asab-webui-kit-lite",
+	"name": "asab-webui",
 	"version": "20.3.1",
 	"main": "src/index.js",
 	"scripts": {

@@ -1,7 +1,7 @@
 /*
  This function to be used with Browser router:
 
-import { Application, getBaseName } from 'asab-webui-kit-lite';
+import { Application, getBaseName } from 'asab-webui';
 ...
 
 // Render

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Application } from 'asab-webui-kit-lite';
+import { Application } from 'asab-webui';
 import { BrowserRouter } from 'react-router-dom';
 
 // SCSS
@@ -9,7 +9,7 @@ import './index.scss'
 const modules = [];
 
 // Add TenantModule
-import TenantModule from 'asab-webui-kit-lite/modules/tenant/module';
+import TenantModule from 'asab-webui/modules/tenant/module';
 modules.push(TenantModule);
 
 // Add custom oAuth Module

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node ./asab-webui-kit-lite/script/start.js",
-    "build": "node ./asab-webui-kit-lite/script/build.js"
+    "start": "node ./asab-webui/script/start.js",
+    "build": "node ./asab-webui/script/build.js"
   },
   "author": "",
   "license": "MIT",
