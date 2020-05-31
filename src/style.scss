@@ -1,0 +1,19 @@
+.networking-indicator {
+	position: absolute;
+	z-index: 1400;
+	top: 50px;
+
+	width: 100%;
+	height: 5px;
+}
+
+
+.alerts {
+	position: absolute;
+	z-index: 1500;
+	top: 40px;
+	
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
+}

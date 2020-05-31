@@ -3,6 +3,40 @@ ASAB WebUI Kit Lite
 
 ASAB WebUI Kit Lite is a library of webpack build scripts and React components built on top of [CoreUI for React.js](https://coreui.io/react/) and [reactstrap](https://reactstrap.github.io/). It is inspired by the architecture of [ASAB](https://github.com/teskalabs/asab) python project.
 
+
+## Quick links
+
+ - https://getbootstrap.com - Bootstrap
+ - https://reactstrap.github.io - ReactStrap
+ - https://coreui.io/react/demo/#/dashboard - Core UI preview
+ - https://github.com/coreui/coreui-react - Core UI for React GitHub
+
+
+## Unified Features
+
+ - Admin UI template
+ - Header
+ - Footer
+ - Sidebar
+ - Alerts
+ - Network activity indicator
+ - Axios based REST API configuration
+
+
+## REST API design
+
+TODO ...
+
+```
+[ASAB UI App] -- [ HTTP proxy (API_URL) ] -- [ actual microservices ]
+```
+
+TODO: Example of `webpackDevServer` proxy config.
+
+The default `API_URL` is `/api/`, it means that it uses the HTTP location of the application itself.
+
+
+
 ## Start a project
 
 Add this repo as a submodule to your project.

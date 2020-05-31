@@ -18,7 +18,7 @@ module.exports = {
 				// disableHostCheck: disableHostCheck
 				compress: true,
 				clientLogLevel: 'none',
-				contentBase: config.public_dir,
+				contentBase: config.dirs.public,
 				watchContentBase: true,
 				hot: true,
 				publicPath: '/',
