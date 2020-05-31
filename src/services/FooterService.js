@@ -18,7 +18,7 @@ export default class FooterService extends Service {
 			width: 120,
 			height: 16,
 			alt: "Created by",
-			href: "https://github.com/TeskaLabs/asab-webui-kit-lite",
+			href: "https://github.com/TeskaLabs/asab-webui",
 		};
 
 		this.Items = [];
