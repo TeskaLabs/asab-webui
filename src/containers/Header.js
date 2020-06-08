@@ -32,8 +32,8 @@ class Header extends Component {
 				<AppNavbarBrand full={this.HeaderService.BrandImageFull} minimized={this.HeaderService.BrandImageMinimized} />
 				{(this.App.props.hasSidebar || typeof this.App.props.hasSidebar === 'undefined') ? 
 					[
-						<AppSidebarToggler className="d-md-down-none" display="lg" />,
-						<Nav className="ml-auto" navbar>
+						<AppSidebarToggler key="sidebarToggler" className="d-md-down-none" display="lg" />,
+						<Nav key="navigation" className="ml-auto" navbar>
 							{this.HeaderService.Items.map((item, idx) => (
 								<NavItem key={idx}>
 									<item.component key={idx} {...item.componentProps} app={this.App}/>
