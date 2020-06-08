@@ -10,7 +10,7 @@ export default class FooterService extends Service {
 
 	*/
 
-	constructor(app, serviceName="HeaderService"){
+	constructor(app, serviceName="FooterService"){
 		super(app, serviceName)
 
 		this.FooterImage = {
