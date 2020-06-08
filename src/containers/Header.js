@@ -36,7 +36,7 @@ class Header extends Component {
 						<Nav key="navigation" className="ml-auto" navbar>
 							{this.HeaderService.Items.map((item, idx) => (
 								<NavItem key={idx}>
-									<item.component key={idx} {...item.componentProps} app={this.App}/>
+									<item.component key={item} {...item.componentProps} app={this.App}/>
 								</NavItem>
 							))}
 						</Nav>
@@ -45,7 +45,7 @@ class Header extends Component {
 					<Nav className="d-md-down-none" navbar>
 						{this.HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>
-								<item.component key={idx} {...item.componentProps} app={this.App}/>
+								<item.component key={item} {...item.componentProps} app={this.App}/>
 							</NavItem>
 						))}
 					</Nav>
