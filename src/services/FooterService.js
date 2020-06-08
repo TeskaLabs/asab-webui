@@ -25,6 +25,19 @@ export default class FooterService extends Service {
 	}
 
 
+	/*
+		Example of the call:
+
+		FooterService.setFooterImage({
+			src: "public/media/logo/my-super-footer.svg",
+			width: 120,
+			height: 16,
+			alt: "Created by Foo Bar Ltd",
+			href: "https://example.com/",
+		});
+	*/
+
+
 	setFooterImage(image) {
 		this.FooterImage = image;
 	}
