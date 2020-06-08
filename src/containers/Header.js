@@ -29,7 +29,7 @@ class Header extends Component {
 					<AppSidebarToggler className="d-lg-none" display="md" mobile />
 				: null
 				}
-				<AppNavbarBrand full={this.HeaderService.BrandImageFull} minimized={this.HeaderService.BrandImageMinimized} />
+				<AppNavbarBrand href={this.HeaderService.BrandImageFull.href} full={this.HeaderService.BrandImageFull} minimized={this.HeaderService.BrandImageMinimized} />
 				{(this.App.props.hasSidebar || typeof this.App.props.hasSidebar === 'undefined') ? 
 					[
 						<AppSidebarToggler key="sidebarToggler" className="d-md-down-none" display="lg" />,
