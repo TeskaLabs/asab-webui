@@ -35,15 +35,15 @@ export default class HeaderService extends Service {
 
 	/*
 		Example of the call:
-
-		FooterService.setFooterImage({
-			src: "public/media/logo/my-super-footer.svg",
-			width: 120,
-			height: 16,
-			alt: "Created by Foo Bar Ltd",
-			href: "https://example.com/",
+		HeaderService.setBrandImages({
+			src: "public/media/logo/my-super-header.svg", 
+			width: 120, 
+			height: 30, 
+			href: "/homepage"
 		});
 	*/
+
+
 	setBrandImages(full, minimalized) {
 		this.BrandImageFull = full;
 		this.BrandImageMinimized = minimalized;

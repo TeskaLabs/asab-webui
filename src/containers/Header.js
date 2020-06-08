@@ -29,14 +29,14 @@ class Header extends Component {
 					<AppSidebarToggler className="d-lg-none" display="md" mobile />
 				: null
 				}
-				<AppNavbarBrand full={this.HeaderService.BrandImageFull} minimized={this.HeaderService.BrandImageMinimized} />
+				<AppNavbarBrand href={this.HeaderService.BrandImageFull.href} full={this.HeaderService.BrandImageFull} minimized={this.HeaderService.BrandImageMinimized} />
 				{(this.App.props.hasSidebar || typeof this.App.props.hasSidebar === 'undefined') ? 
 					[
-						<AppSidebarToggler className="d-md-down-none" display="lg" />,
-						<Nav className="ml-auto" navbar>
+						<AppSidebarToggler key="sidebarToggler" className="d-md-down-none" display="lg" />,
+						<Nav key="navigation" className="ml-auto" navbar>
 							{this.HeaderService.Items.map((item, idx) => (
 								<NavItem key={idx}>
-									<item.component key={idx} {...item.componentProps} app={this.App}/>
+									<item.component key={item} {...item.componentProps} app={this.App}/>
 								</NavItem>
 							))}
 						</Nav>
@@ -45,7 +45,7 @@ class Header extends Component {
 					<Nav className="d-md-down-none" navbar>
 						{this.HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>
-								<item.component key={idx} {...item.componentProps} app={this.App}/>
+								<item.component key={item} {...item.componentProps} app={this.App}/>
 							</NavItem>
 						))}
 					</Nav>

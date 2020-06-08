@@ -10,7 +10,7 @@ export default class FooterService extends Service {
 
 	*/
 
-	constructor(app, serviceName="HeaderService"){
+	constructor(app, serviceName="FooterService"){
 		super(app, serviceName)
 
 		this.FooterImage = {
@@ -23,6 +23,19 @@ export default class FooterService extends Service {
 
 		this.Items = [];
 	}
+
+
+	/*
+		Example of the call:
+
+		FooterService.setFooterImage({
+			src: "public/media/logo/my-super-footer.svg",
+			width: 120,
+			height: 16,
+			alt: "Created by Foo Bar Ltd",
+			href: "https://example.com/",
+		});
+	*/
 
 
 	setFooterImage(image) {
