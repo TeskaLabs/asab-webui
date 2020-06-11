@@ -243,7 +243,7 @@ class Application extends Component {
 	}
 
 	componentWillUnmount() {
-		this.clearInterval(this.state.tickTimer);
+		clearInterval(this.state.tickTimer);
 	}
 
 	onTick(store) {
