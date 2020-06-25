@@ -1,5 +1,4 @@
 import Module from '../../abc/Module';
-import {HEADER_POS_LEFT, HEADER_POS_RIGHT} from '../../services/HeaderService';
 
 import HeaderComponent from './header'
 import reducer from './reducer';
@@ -18,7 +17,7 @@ export default class AuthModule extends Module {
 		this.App.addSplashScreenRequestor(this);
 
 		const headerService = app.locateService("HeaderService");
-		headerService.addComponent(HEADER_POS_RIGHT, HeaderComponent, {AuthModule: this});
+		headerService.addComponent(HeaderComponent, {AuthModule: this});
 
 		app.ReduxService.addReducer("auth", reducer);
 
