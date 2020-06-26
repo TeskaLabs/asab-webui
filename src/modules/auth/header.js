@@ -25,12 +25,12 @@ class HeaderComponent extends Component {
 
 	render() {
 		return (
-			<UncontrolledDropdown nav direction="down" className="pr-3">
-				<DropdownToggle nav title={this.props.sub}>
+			<UncontrolledDropdown direction="down" className="pr-3">
+				<DropdownToggle nav title={this.props.sub} caret>
 					{(this.props.picture) ? <img src={this.props.picture} className="img-avatar" alt={this.props.username}/> : <span>&#128100;</span>}
 					<span className="pl-2" title={this.props.sub}>{this.props.username}</span>
 				</DropdownToggle>
-				<DropdownMenu right>
+				<DropdownMenu>
 					<DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem>
 					<DropdownItem>
 						<div onClick={() => {this.logout()}}>Logout</div>

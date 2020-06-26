@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import reducer from './services/reducer'
 
 import Module from '../../abc/Module';
-import {HEADER_POS_RIGHT} from '../../services/HeaderService';
 
 import UserDropdown from './containers/UserDropdown';
 import OAuthContainer from './containers/OAuthContainer'
@@ -43,7 +42,7 @@ export default class OAuthModule extends Module {
         // Add UserDropdown Component in header
         const headerService = app.locateService("HeaderService");
         const userDropdownProps = {"app":app};
-        headerService.addComponent(HEADER_POS_RIGHT, UserDropdown, userDropdownProps);
+        headerService.addComponent(UserDropdown, userDropdownProps);
 
         // Add AuthService
         this.AuthService = new OAuthService(app, "AuthService");
