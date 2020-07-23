@@ -206,9 +206,7 @@ class Application extends Component {
 		const origLen = this.SplashscreenRequestors.size;
 		this.SplashscreenRequestors.add(obj);
 		if (origLen != this.SplashscreenRequestors.size) {
-			this.setState({
-				SplashscreenRequestors: this.SplashscreenRequestors.size
-			});
+			this.state.SplashscreenRequestors = this.SplashscreenRequestors.size;
 		}
 	}
 
