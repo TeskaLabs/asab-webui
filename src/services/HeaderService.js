@@ -16,14 +16,14 @@ export default class HeaderService extends Service {
 		super(app, serviceName)
 
 		this.BrandImageFull = {
-			src: "public/media/logo/header-full.svg",
+			src: "media/logo/header-full.svg",
 			width: 120,
 			height: 30,
 			alt: app.Config.get('title')
 		};
 
 		this.BrandImageMinimized = {
-			src: "public/media/logo/header-minimized.svg",
+			src: "media/logo/header-minimized.svg",
 			width: 30,
 			height: 30,
 			alt: app.Config.get('title')
