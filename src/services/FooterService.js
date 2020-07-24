@@ -14,7 +14,7 @@ export default class FooterService extends Service {
 		super(app, serviceName)
 
 		this.FooterImage = {
-			src: "public/media/logo/footer.svg",
+			src: "media/logo/footer.svg",
 			width: 120,
 			height: 16,
 			alt: "Created by",
