@@ -6,7 +6,7 @@ import { types } from './actions'
 import { SeaCatAuthApi, GoogleOAuth2Api } from './api';
 
 export default class AuthModule extends Module {
-	
+
 	constructor(app, name){
 		super(app, "AuthModule");
 
@@ -31,9 +31,18 @@ export default class AuthModule extends Module {
 			const qs = new URLSearchParams(window.location.search);
 			const code = qs.get('code');
 			if (code != null) {
+				// TODO: delete code from url params
+				// const publicUrl = __CONFIG__["publicUrl"];
+				// const url = window.location.origin;
+				this.App.props.history.push("/");
 				this.updateToken(code);
-			} else {
+			}
+
+			if (__CONFIG__.REQUIRE_LOGIN){
 				this.login();
+			}
+			else{
+				this.App.removeSplashScreenRequestor(this);
 			}
 
 		} else {
@@ -82,7 +91,7 @@ export default class AuthModule extends Module {
 		this.Api.token_authorization_code(authorization_code, this.RedirectURL).then(response => {
 			this.OAuthToken = response.data;
 			sessionStorage.setItem('SeaCat::OAuth::Token', JSON.stringify(response.data));
-			
+
 			this.App.props.history.push('/');
 			this.updateUserInfo()
 

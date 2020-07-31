@@ -93,10 +93,19 @@ class Application extends Component {
 
 		// Set API URL, if not configured
 		if (this.Config.get('API_URL') == undefined) {
-			this.Config.addDefaults({
-				API_URL: window.location.protocol + '//' + window.location.host + '/api/',
-			});
+			const publicUrl = __CONFIG__["publicUrl"];
+			if (publicUrl != ""){
+				this.Config.addDefaults({
+					API_URL: publicUrl + '/api/',
+				});
+			}
+			else {
+				this.Config.addDefaults({
+					API_URL: window.location.protocol + '//' + window.location.host + '/api/',
+				});
+			}
 		}
+		console.log("passed");
 
 		this.Router = new Router(this);
 		this.Navigation = new Navigation(this);
@@ -270,11 +279,11 @@ class Application extends Component {
 					<AlertsComponent app={this}/>
 					<Header app={this}/>
 					<div className="app-body">
-						{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ? 
-							<Sidebar app={this} navigation={this.Navigation} display="lg"/> : 
+						{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ?
+							<Sidebar app={this} navigation={this.Navigation} display="lg"/> :
 							<Sidebar app={this} navigation={this.Navigation} display="xs"/>}
 						<main className="main">
-							{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ? 
+							{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ?
 								<AppBreadcrumb appRoutes={this.Router.Routes} router={router}/>
 							: null}
 							<Container fluid>
@@ -327,7 +336,7 @@ class Config {
 
 class Router {
 
-	constructor(app){		
+	constructor(app){
 		this.Routes = []
 	}
 
