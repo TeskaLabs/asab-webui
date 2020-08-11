@@ -14,6 +14,6 @@ export default class SampleModule extends Module {
 
         // Custom Brand Component in header
         const headerService = app.locateService("HeaderService");
-        headerService.setBrandImages({alt: "ASAB Web UI"});
+        headerService.setBrandImages({alt: "ASAB Web UI", href: "#/"});
     }
 }
