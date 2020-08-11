@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Application } from 'asab-webui';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 // SCSS
 import './index.scss'
@@ -14,7 +14,7 @@ modules.push(SampleModule);
 
 // Render
 ReactDOM.render((
-	<BrowserRouter>
+	<HashRouter>
 		<Application modules={modules} />
-	</BrowserRouter>
+	</HashRouter>
 ), document.getElementById('app'));
