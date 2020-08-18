@@ -32,6 +32,7 @@ import SplashScreen from './SplashScreen';
 import HeaderService from '../services/HeaderService';
 import FooterService from '../services/FooterService';
 import ReduxService from '../services/ReduxService';
+import ConfigService from '../config/ConfigService';
 
 import { ON_TICK, ADD_ALERT } from '../actions';
 
@@ -107,6 +108,7 @@ class Application extends Component {
 		this.HeaderService = new HeaderService(this, "HeaderService");
 		this.FooterService = new FooterService(this, "FooterService");
 		this.ReduxService = new ReduxService(this, "ReduxService");
+		this.ConfigService = new ConfigService(this, "ConfigService");
 
 		this.ReduxService.addReducer("alerts", AlertsReducer);
 
