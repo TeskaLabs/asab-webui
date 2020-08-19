@@ -3,7 +3,16 @@ import Axios from 'axios';
 import ConfigReducer from './ConfigReducer';
 import { CHANGE_CONFIG } from '../actions';
 
+/*
+	Example of use:
 
+	module.exports = {
+		app: {
+			configUrl: 'configuration/config/',
+		},
+	}
+
+*/
 export default class ConfigService extends Service {
 
 	constructor(app, serviceName="ConfigService") {
