@@ -12,23 +12,26 @@ export default class ConfigService extends Service {
 	}
 
 	initialize() {
-		this.App.addSplashScreenRequestor(this);
-		// TODO test it on empty configuration / no configuration
-		this.Axios = this.App.axiosCreate(this.App.Config._config.configUrl);
-		this.Axios.get().then(response => {
-				// TODO implement check on status codes
-				if (response.statusText === 'OK') {
-					this.inject(response.data);
-				} else {
-					this.App.addAlert("danger", "Something went wrong. Config file could not have been loaded.");
-				}
-				console.log(response)
-			})
-			.catch(error => {
-				console.log(error); 
-				this.App.addAlert("danger", "File not found. The path might be corrupted.");
-			})
-			.then(() => this.App.removeSplashScreenRequestor(this));
+		// Check on undefined configuration
+		if (this.App.Config._config.configUrl !== undefined) {
+			this.App.addSplashScreenRequestor(this);
+			this.Axios = this.App.axiosCreate(this.App.Config._config.configUrl);
+			this.Axios.get().then(response => {
+					// TODO implement check on status codes
+					if (response.statusText === 'OK') {
+						this.inject(response.data);
+					} else {
+						this.App.addAlert("danger", "Something went wrong. Config file could not have been loaded.");
+					}
+				})
+				.catch(error => {
+					console.log(error);
+					this.App.addAlert("danger", "File not found. The path might be corrupted.");
+				})
+				.then(() => this.App.removeSplashScreenRequestor(this));
+		} else {
+			return
+		}
 	}
 
 	// Inject configuration from site to the App Store
