@@ -9,11 +9,11 @@ export default class SampleModule extends Module {
         app.Navigation.addItem({
 			name: 'Sample Module',
 			url: '/ca',
-			icon: 'cil-shield',
-        },)
+			icon: 'cil-shield-alt',
+        });
 
         // Custom Brand Component in header
         const headerService = app.locateService("HeaderService");
-        headerService.setBrandImages({alt: "ASAB Web UI"});
+        headerService.setBrandImages({alt: "ASAB Web UI", href: "#/"});
     }
 }
