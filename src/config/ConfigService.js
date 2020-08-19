@@ -12,7 +12,14 @@ import { CHANGE_CONFIG } from '../actions';
 		},
 	}
 
+...
+
+	Example of config.json file content:
+
+	{"kibanaUrl":"http://1.1.1.1:5601/app/kibana", "appSettings":{"onetwothree":123}}
+
 */
+
 export default class ConfigService extends Service {
 
 	constructor(app, serviceName="ConfigService") {
@@ -28,14 +35,18 @@ export default class ConfigService extends Service {
 			this.Axios.get().then(response => {
 					// TODO implement check on status codes
 					if (response.statusText === 'OK') {
-						this.inject(response.data);
+						if (typeof(response.data) === "object" && Object.keys(response.data).length !== 0) {
+							this.inject(response.data);
+						} else {
+							this.App.addAlert("danger", "Data of the config file is not in the required form or the file is empty.")
+						}
 					} else {
 						this.App.addAlert("danger", "Something went wrong. Config file could not have been loaded.");
 					}
 				})
 				.catch(error => {
 					console.log(error);
-					this.App.addAlert("danger", "File not found. The path might be corrupted.");
+					this.App.addAlert("danger", "Config file not found. The path might be corrupted.");
 				})
 				.then(() => this.App.removeSplashScreenRequestor(this));
 		} else {
