@@ -7,7 +7,7 @@
     "build": "node ./asab-webui/script/build.js"
   },
   "author": "",
-  "license": "MIT",
+  "license": "",
   "description": "",
   "devDependencies": {
     "@babel/core": "^7.1.6",
