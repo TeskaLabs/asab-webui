@@ -10,13 +10,13 @@ export default class BrandingModule extends Module {
 			src: "media/logo/header-full.svg",
 			width: 120,
 			height: 30,
-			alt: "LogMan.io"
+			alt: "ASAB App"
 		},
 		{
 			src: "media/logo/header-minimized.svg",
 			width: 30,
 			height: 30,
-			alt: "LogMan.io"
+			alt: "ASAB App"
 		});
 
 		const FooterService = app.locateService("FooterService");

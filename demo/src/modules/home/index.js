@@ -9,7 +9,7 @@ export default class HomeModule extends Module {
         app.Navigation.addItem({
 			name: 'Home',
 			url: '/',
-			icon: 'cil-shield-alt',
+			icon: 'cil-home',
         });
     }
 }
