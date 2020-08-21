@@ -8,7 +8,7 @@ export default function ConfigReducer(state = initialState, action) {
 	switch (action.type) {
 		
 		case CHANGE_CONFIG: {
-			return action.config
+			return action.config;
 		}
 
 		default:

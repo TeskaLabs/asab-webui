@@ -21,8 +21,10 @@ export default class TenantService extends Service {
 		.then(response => {
 			let payload = response.data; 
 
+			// If tenant has not been provided in access URL, pick a first tenant from a list 
 			if (tenant_id == null) {
 				tenant_id = payload[0].id;
+				// ... and refresh (reload) the whole web app
 				window.location.replace('?tenant='+tenant_id+'#/');
 				return;
 			}

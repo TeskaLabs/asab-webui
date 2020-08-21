@@ -24,54 +24,54 @@ import {
 import Header from './Header';
 import Footer from './Footer';
 import Sidebar from './Sidebar';
-
-import AlertsComponent from './../alerts/AlertsComponent';
-import AlertsReducer from './../alerts/reducer';
-
 import SplashScreen from './SplashScreen';
-import HeaderService from '../services/HeaderService';
-import FooterService from '../services/FooterService';
+
+import AlertsComponent from '../alerts/AlertsComponent';
+import AlertsReducer from '../alerts/reducer';
+
 import ReduxService from '../services/ReduxService';
 import ConfigService from '../config/ConfigService';
+import HeaderService from '../services/HeaderService';
+import FooterService from '../services/FooterService';
 
 import { ON_TICK, ADD_ALERT } from '../actions';
 
 
 class Application extends Component {
 
-	/*
-	Example of use hasSidebar and hasBreadcrumb.
-	It must be set in Application.
-	If not set, it is considered as true.
+/*
+Example of use hasSidebar and hasBreadcrumb.
+It must be set in Application.
+If not set, it is considered as true.
 
 ...
 
-	const config = {
-		hasSidebar: false,
-		hasBreadcrumb: false
-	}
+const config = {
+	hasSidebar: false,
+	hasBreadcrumb: false
+}
 
 
-	ReactDOM.render((
-		<BrowserRouter>
-			<Application modules={modules} {...config}/>
-		</BrowserRouter>
-	), document.getElementById('app'));
-
-...
-
-	Example of settings in Module of the Application
-	Following above settings, this will show the item in
-	the header and when the screen is diminished (e.g. screening
-	using the mobile phone), the item is moved to the sidebar and
-	it is accessible by the sidebar toggler button.
+ReactDOM.render((
+	<BrowserRouter>
+		<Application modules={modules} {...config}/>
+	</BrowserRouter>
+), document.getElementById('app'));
 
 ...
 
-	    app.Navigation.addItem({
-            name: 'Item 1',
-            url: '',
-        });
+Example of settings in Module of the Application
+Following above settings, this will show the item in
+the header and when the screen is diminished (e.g. screening
+using the mobile phone), the item is moved to the sidebar and
+it is accessible by the sidebar toggler button.
+
+...
+
+	app.Navigation.addItem({
+		name: 'Item 1',
+		url: '',
+	});
 
 ...
 	*/
@@ -82,15 +82,15 @@ class Application extends Component {
 		this.Modules = [];
 		this.Services = {};
 
-		this.Config = new Config(this, __CONFIG__);
-		const ConfigDefaults = props.configdefaults;
-		if (ConfigDefaults != undefined) {
-			this.Config.addDefaults(ConfigDefaults);
-		}
+		this.ReduxService = new ReduxService(this, "ReduxService");
+		
+		this.ConfigService = new ConfigService(this, "ConfigService");
+		this.ConfigService.addDefaults(props.configdefaults);
+		this.Config = this.ConfigService.Config
 
 		// Set API URL, if not configured
 		if (this.Config.get('API_URL') == undefined) {
-			this.Config.addDefaults({
+			this.ConfigService.addDefaults({
 				API_URL: window.location.protocol + '//' + window.location.host + '/api/',
 			});
 		}
@@ -100,11 +100,8 @@ class Application extends Component {
 
 		this.SplashscreenRequestors = new Set(); // If not empty, the splash screen will be rendered
 
-		// Core services
 		this.HeaderService = new HeaderService(this, "HeaderService");
 		this.FooterService = new FooterService(this, "FooterService");
-		this.ReduxService = new ReduxService(this, "ReduxService");
-		this.ConfigService = new ConfigService(this, "ConfigService");
 
 		this.ReduxService.addReducer("alerts", AlertsReducer);
 
@@ -137,7 +134,10 @@ class Application extends Component {
 		const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 		this.Store = Object.keys(this.ReduxService.Reducers).length > 0
 			? createStore(combineReducers(this.ReduxService.Reducers), composeEnhancers(applyMiddleware()))
-			: createStore((state) => state, composeEnhancers(applyMiddleware()))
+			: createStore((state) => state, composeEnhancers(applyMiddleware()));
+
+		// Ensure that the config is propagated to the redux tree
+		this.Config.dispatch(this.Store);
 	}
 
 	axiosCreate(path, props) {
@@ -302,25 +302,6 @@ class Application extends Component {
 		)
 	}
 
-}
-
-
-class Config {
-	constructor(app, values) {
-		this._config = Object.assign({}, values);
-	}
-
-	addDefaults(defaults) {
-		for (var key in defaults) {
-			if (key in this._config)
-				continue
-			this._config[key] = defaults[key];
-		}
-	}
-
-	get(key) {
-		return this._config[key];
-	}
 }
 
 
