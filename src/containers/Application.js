@@ -72,10 +72,6 @@ class Application extends Component {
             url: '',
         });
 
-
-        const headerService = app.locateService("HeaderService");
-        headerService.addComponent(NavLink,{children: "Item 1", href: "", style: {marginRight: "2rem"}});
-
 ...
 	*/
 
@@ -256,7 +252,8 @@ class Application extends Component {
 		if (this.state.SplashscreenRequestors > 0) return (
 			<Provider store={this.Store}>
 				<div className="app">
-					<SplashScreen />
+					<AlertsComponent app={this}/>
+					<SplashScreen app={this}/>
 				</div>
 			</Provider>
 		)

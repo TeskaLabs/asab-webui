@@ -1,14 +1,9 @@
-import axios from 'axios';
+export default class Api {
+    constructor(axios) {
+        this.Axios = axios;
+    }
 
-const ApiAxios = axios.create({
-	baseURL: __CONFIG__.apiUrl,
-	timeout: 10000,
-})
-
-const Api = {
-
-    get_tenants: () => ApiAxios.get('/tenants'),
-
+    get_tenants() {
+        return this.Axios.get('/tenants')
+    }
 }
-
-export default Api;
