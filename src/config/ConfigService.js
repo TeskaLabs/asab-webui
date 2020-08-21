@@ -8,7 +8,7 @@ import { CHANGE_CONFIG } from '../actions';
 
 	module.exports = {
 		app: {
-			configUrl: 'configuration/config/',
+			CONFIG_URL: 'configuration/config/',
 		},
 	}
 
@@ -16,7 +16,7 @@ import { CHANGE_CONFIG } from '../actions';
 
 	Example of config.json file content:
 
-	{"kibanaUrl":"http://1.1.1.1:5601/app/kibana", "appSettings":{"onetwothree":123}}
+	{"KIBANA_URL":"http://1.1.1.1:5601/app/kibana", "APP_SETTINGS":{"onetwothree":123}}
 
 */
 
@@ -28,27 +28,24 @@ export default class ConfigService extends Service {
 	}
 
 	initialize() {
+		const config_url = this.App.Config.get('CONFIG_URL');
 		// Check on undefined configuration
-		if (this.App.Config._config.configUrl !== undefined) {
+		if (config_url !== undefined) {
 			this.App.addSplashScreenRequestor(this);
-			this.Axios = this.App.axiosCreate(this.App.Config._config.configUrl);
+			this.Axios = this.App.axiosCreate(config_url);
 			this.Axios.get().then(response => {
-					// TODO implement check on status codes
-					if (response.statusText === 'OK') {
-						if (typeof(response.data) === "object" && Object.keys(response.data).length !== 0) {
-							this.inject(response.data);
-						} else {
-							this.App.addAlert("danger", "Data of the config file is not in the required form or the file is empty.")
-						}
-					} else {
-						this.App.addAlert("danger", "Something went wrong. Config file could not have been loaded.");
-					}
-				})
-				.catch(error => {
-					console.log(error);
-					this.App.addAlert("danger", "Config file not found. The path might be corrupted.");
-				})
-				.then(() => this.App.removeSplashScreenRequestor(this));
+				// Check on status and content-type
+				if (response.status === 200 && response.headers["content-type"] === "application/json") {
+					this.inject(response.data);
+				} else {
+					this.App.addAlert("danger", "Something went wrong. Config file could not have been loaded.");
+				}
+			})
+			.catch(error => {
+				console.log(error);
+				this.App.addAlert("danger", "Config file not found. The path might be corrupted.");
+			})
+			.then(() => this.App.removeSplashScreenRequestor(this));
 		} else {
 			return
 		}
