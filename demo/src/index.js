@@ -6,15 +6,22 @@ import { HashRouter } from 'react-router-dom';
 // SCSS
 import './index.scss'
 
+// Configuration
+const ConfigDefaults = {
+};
+
+// Modules
 const modules = [];
 
-// Add custom module
-import SampleModule from './modules/sample';
-modules.push(SampleModule);
+import BrandingModule from './modules/branding';
+modules.push(BrandingModule);
+
+import HomeModule from './modules/home';
+modules.push(HomeModule);
 
 // Render
 ReactDOM.render((
 	<HashRouter>
-		<Application modules={modules} />
+		<Application modules={modules} defaultpath="/" configdefaults={ConfigDefaults}/>
 	</HashRouter>
 ), document.getElementById('app'));
