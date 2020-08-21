@@ -6,6 +6,11 @@ import { HashRouter } from 'react-router-dom';
 // SCSS
 import './index.scss'
 
+// Configuration
+const ConfigDefaults = {
+};
+
+// Modules
 const modules = [];
 
 import BrandingModule from './modules/branding';
@@ -17,6 +22,6 @@ modules.push(HomeModule);
 // Render
 ReactDOM.render((
 	<HashRouter>
-		<Application modules={modules} />
+		<Application modules={modules} defaultpath="/" configdefaults={ConfigDefaults}/>
 	</HashRouter>
 ), document.getElementById('app'));
