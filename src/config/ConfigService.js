@@ -49,6 +49,9 @@ export default class ConfigService extends Service {
 				// Check on status and content-type
 				if ((response.status === 200) && (response.headers["content-type"] === "application/json")) {
 					this.Config._remote_config = response.data;
+					if (this.App.Store !== undefined) {
+						this.Config.dispatch(this.App.Store);
+					}
 				} else {
 					this.App.addAlert("danger", "Incorrect/invalid config file downloaded.");
 				}
