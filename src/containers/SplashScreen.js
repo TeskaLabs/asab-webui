@@ -13,9 +13,7 @@ class SplashScreen extends React.Component {
 		return (
 			<div className="text-center" style={{marginTop: "20%"}}>
 				<img src={this.HeaderService.BrandImageFull.src} style={{maxWidth: "38%"}} />
-				<div className="text-center" style={{marginTop: "20px"}}>
-					Loading ...
-				</div>
+				<div style={{maxWidth: "38%", height: "8px", margin: "20px auto 0 auto"}}className="progress-bar progress-bar-animated progress-bar-striped" ></div>
 			</div>
 		);
 	}
