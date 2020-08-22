@@ -1,15 +1,20 @@
 {
 	"name": "asab-webui",
+
+	"author": "TeskaLabs Ltd",
+	"license": "MIT",
+	"description": "The UI library for the ASAB.",
+
 	"version": "20.3.1",
+
 	"main": "src/index.js",
 	"scripts": {
 		"start": "node ./script/start.js -s ./demo/src -c ./config/demo.js",
 		"build": "node ./script/build.js -s ./demo/src -c ./config/demo.js -p ./demo/public",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	"author": "",
-	"license": "MIT",
-	"description": "",
+
+
 	"devDependencies": {
 		"@babel/core": "^7.9.0",
 		"@babel/preset-env": "^7.9.0",
@@ -35,6 +40,7 @@
 		"webpack-node-externals": "^1.7.2",
 		"window": "^4.2.7"
 	},
+
 	"dependencies": {
 		"@coreui/coreui": "3.0.0",
 		"@coreui/react": "^2.5.7",
@@ -45,6 +51,7 @@
 		"react-redux": "^7.2.0",
 		"react-router-dom": "^5.1.2",
 		"reactstrap": "^8.4.1",
-		"redux": "^4.0.5"
+		"redux": "^4.0.5",
+		"moment": "^2.24.0"
 	}
 }
