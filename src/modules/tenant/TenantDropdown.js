@@ -1,74 +1,105 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink } from 'reactstrap';
-import PropTypes from 'prop-types';
-import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
-import Api from './api';
-import { selectTenant } from './actions';
 
-import './style.css';
+import {
+	Dropdown,
+	DropdownItem,
+	DropdownMenu, 
+	DropdownToggle,
+	Nav, NavItem, NavLink
+} from 'reactstrap';
 
+import {
+	AppAsideToggler,
+	AppHeaderDropdown,
+	AppNavbarBrand,
+	AppSidebarToggler
+} from '@coreui/react';
+
+import {types} from './actions';
 
 class TenantDropdown extends Component {
 
-  constructor(props) {
+	constructor(props) {
 		super(props);
-		this.state = {
-            tenantDropdownOpen: false
-        }
 
-    this.toggleTenantDropdown = this.toggleTenantDropdown.bind(this);
-    this.changeTenant = this.changeTenant.bind(this);
+		this.TenantService = props.app.locateService("TenantService");
+
+		this.state = {
+			tenantDropdownOpen: false
+		}
+
+		this.toggleTenantDropdown = this.toggleTenantDropdown.bind(this);
+		this.changeTenant = this.changeTenant.bind(this);
 	}
 
-  toggleTenantDropdown() {
-    this.setState(prevState => ({
-      tenantDropdownOpen: !prevState.tenantDropdownOpen
-    }));
-  }
+	toggleTenantDropdown() {
+		this.setState(prevState => ({
+			tenantDropdownOpen: !prevState.tenantDropdownOpen
+		}));
+	}
 
-  changeTenant(id){
-    this.props.changeTenant(id);
-  }
-  
-  render() {
-    var currentTenant = this.props.tenantState.currentTenant
+	changeTenant(id){
+		this.props.changeTenant(id);
+	}
 
-    return (
-          <Dropdown className="tenantDropdown" isOpen={this.state.tenantDropdownOpen} toggle={this.toggleTenantDropdown}>
-              <DropdownToggle caret>
-                {currentTenant ? currentTenant.id : "-"}
-              </DropdownToggle>
-              {this.props.tenantState.tenants && this.props.tenantState.tenants.length>0 ?
-                <DropdownMenu>
-                  {this.props.tenantState.tenants.map((tenant, i) => (
-                    <DropdownItem key={i}>
-                        <div onClick={() => {this.changeTenant(tenant.id)}}>{tenant.id}</div>
-                    </DropdownItem>
-                  ))}
-                </DropdownMenu>
-               : null}
-          </Dropdown>
-    );
-  }
+	render() {
+		return (
+			<AppHeaderDropdown style={{ paddingRight: '16px' }}>
+				<DropdownToggle nav caret>
+					<TenantLabel tenant={this.props.current}/>
+				</DropdownToggle>
+				{ (this.props.tenants && this.props.tenants.length > 0) ?
+					<DropdownMenu right
+						modifiers={{
+							setMaxHeight: {
+								enabled: true,
+								order: 890,
+								fn: (data) => {
+									return {
+										...data,
+										styles: {
+											...data.styles,
+											overflow: 'auto',
+											maxHeight: '400px',
+										},
+									};
+								},
+							},
+						}}
+					>
+						<DropdownItem header>Tenants</DropdownItem>
+						{this.props.tenants.map((tenant, i) => (
+							<DropdownItem key={i} tag="a" href={'?tenant='+tenant.id+'#/'}>
+								<TenantLabel tenant={tenant}/>
+							</DropdownItem>
+						))}
+					</DropdownMenu>
+				 : null}
+			</AppHeaderDropdown>
+		);
+	}
 }
 
-const mapStateToProps = state => {
-  return {
-    tenantState: state.tenant
-  };
-};
 
-const mapDispatchToProps = dispatch => {
-  return {
-    changeTenant: tenant => {
-      dispatch(selectTenant(tenant));
-    }
-  };
+class TenantLabel extends Component {
+
+	render() {
+		return (
+			<React.Fragment>{this.props.tenant.id}</React.Fragment>
+		);
+	}
+}
+
+
+const mapStateToProps = state => {
+	return {
+		current: state.tenant.current,
+		tenants: state.tenant.tenants,
+	};
 };
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+	mapStateToProps,
+	null
 )(TenantDropdown);
