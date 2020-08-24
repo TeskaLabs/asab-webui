@@ -7,6 +7,9 @@ It also display the relative time in the hover/title.
 
 Usage:
 
+import { DateTime } from 'asab-webui';
+...
+
 <DateTime value="2020-08-22T00:00:00+00:00"/>
 
 
