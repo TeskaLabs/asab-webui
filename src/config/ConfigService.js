@@ -47,7 +47,7 @@ export default class ConfigService extends Service {
 			this.Axios = this.App.axiosCreate(config_url);
 			this.Axios.get().then(response => {
 				// Check on status and content-type
-				if ((response.status === 200) && (response.headers["content-type"] === "application/json")) {
+				if ((response.status === 200) && (response.headers["content-type"] !== undefined && response.headers["content-type"].includes("application/json"))) {
 					this.Config._remote_config = response.data;
 					if (this.App.Store !== undefined) {
 						this.Config.dispatch(this.App.Store);
@@ -93,12 +93,13 @@ class Config {
 		if (value != undefined) return value;
 
 		// And finally, iterate thru provided defaults
+		var _default = undefined;
 		this._defaults.forEach((entry) => {
 			value = entry[key];
-			if (value != undefined) return value;
+			if (value != undefined)
+				_default = value;
 		});
-
-		return undefined;
+		return _default;
 	}
 
 
