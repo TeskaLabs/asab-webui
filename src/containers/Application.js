@@ -220,6 +220,13 @@ it is accessible by the sidebar toggler button.
 
 
 	// Alerts
+	/*
+		levels:
+		* danger
+		* warning
+		* info
+		* success
+	*/
 
 	addAlert(level, message, expire=5) {
 		this.Store.dispatch({
