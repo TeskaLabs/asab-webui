@@ -29,6 +29,12 @@ The default format is `lll` -> `Aug 22, 2020 1:13 PM`
 
 export function DateTime(props) {
 
+	if ((props.value === null) || (props.value === undefined)) {
+		return (
+			<span className="datetime">{' '}</span>
+		)
+	}
+
 	let m = null;
 	if (isNaN(props.value)) {
 		m = moment(props.value);
@@ -38,7 +44,7 @@ export function DateTime(props) {
 
 	return (
 		<span className="datetime" title={m.fromNow()}>
-			<i className="cil-clock"></i>
+			<i className="cil-clock pr-1"></i>
 			{m.format(props.format || 'lll')}
 		</span>
 	)
