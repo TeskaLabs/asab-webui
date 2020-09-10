@@ -17,7 +17,12 @@
 	margin-right: 10%;
 }
 
-// We are in control of the space
+// Add a vertical space for a standard screen layout
+main > .container-fluid, main > .container {
+	margin-top: 1rem; // basically mt-3
+}
+
+// We are in control of the vertical space
 .breadcrumb {
 	margin: 0 !important;
 }
