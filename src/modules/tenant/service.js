@@ -21,6 +21,11 @@ export default class TenantService extends Service {
 		.then(response => {
 			let payload = response.data; 
 
+			if (payload.length == 0) {
+				this.App.addAlert("danger", "No tenants avaiable, got an empty tenant list.", 40000);
+				return;
+			}
+
 			// If tenant has not been provided in access URL, pick a first tenant from a list 
 			if (tenant_id == null) {
 				tenant_id = payload[0]._id;
