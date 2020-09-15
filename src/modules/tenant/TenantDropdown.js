@@ -70,7 +70,7 @@ class TenantDropdown extends Component {
 					>
 						<DropdownItem header>Tenants</DropdownItem>
 						{this.props.tenants.map((tenant, i) => (
-							<DropdownItem key={i} tag="a" href={'?tenant='+tenant.id+'#/'}>
+							<DropdownItem key={i} tag="a" href={'?tenant='+tenant._id+'#/'}>
 								<TenantLabel tenant={tenant}/>
 							</DropdownItem>
 						))}
@@ -86,7 +86,7 @@ class TenantLabel extends Component {
 
 	render() {
 		return (
-			<React.Fragment>{this.props.tenant.id}</React.Fragment>
+			<React.Fragment>{this.props.tenant._id}</React.Fragment>
 		);
 	}
 }

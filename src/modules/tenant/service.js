@@ -23,14 +23,14 @@ export default class TenantService extends Service {
 
 			// If tenant has not been provided in access URL, pick a first tenant from a list 
 			if (tenant_id == null) {
-				tenant_id = payload[0].id;
+				tenant_id = payload[0]._id;
 				// ... and refresh (reload) the whole web app
 				window.location.replace('?tenant='+tenant_id+'#/');
 				return;
 			}
 
 			// Find the current tenant in the list and extract its
-			let x = payload.filter((item) => { return item.id == tenant_id } );
+			let x = payload.filter((item) => { return item._id == tenant_id } );
 			if (x.length < 1) {
 				this.App.addAlert("danger", "Invalid tenant :-(", 40000);
 				return;

@@ -4,6 +4,6 @@ export default class Api {
     }
 
     get_tenants() {
-        return this.Axios.get('/tenants')
+        return this.Axios.get('/tenant')
     }
 }
