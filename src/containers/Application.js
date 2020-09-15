@@ -283,24 +283,22 @@ it is accessible by the sidebar toggler button.
 							{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ? 
 								<AppBreadcrumb appRoutes={this.Router.Routes} router={router}/>
 							: null}
-							<Container fluid>
-								<Switch>
-									{this.Router.Routes.map((route, idx) => {
-										return route.component ? (
-											<Route
-												key={idx}
-												path={`${route.path}`}
-												exact={route.exact}
-												name={route.name}
-												render={props => (
-													<route.component app={this} {...props} {...route.props} />
-												)}
-											/>
-										) : (null);
-									})}
-									{this.DefaultPath != undefined ? <Redirect from="/" to={this.DefaultPath} />: null}
-								</Switch>
-							</Container>
+							<Switch>
+								{this.Router.Routes.map((route, idx) => {
+									return route.component ? (
+										<Route
+											key={idx}
+											path={`${route.path}`}
+											exact={route.exact}
+											name={route.name}
+											render={props => (
+												<route.component app={this} {...props} {...route.props} />
+											)}
+										/>
+									) : (null);
+								})}
+								{this.DefaultPath != undefined ? <Redirect from="/" to={this.DefaultPath} />: null}
+							</Switch>
 						</main>
 					</div>
 					<Footer app={this}/>
