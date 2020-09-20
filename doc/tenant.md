@@ -1,6 +1,6 @@
-# ASAB UI and Tenants
+# Use of Tenants
 
-The multitenancy in ASAB UI is supported via the _Tenant module_.
+The multitenancy in ASAB Web UI is supported via the _Tenant module_.
 
 It provides two main functions:
 
