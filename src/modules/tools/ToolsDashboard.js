@@ -9,7 +9,7 @@ export default class ToolsDashboard extends Component {
 
 	/* Example of use
 
-	{"tools":[{"name":"Kibana","url":127.0.0.1.,"path":"tools/kibana.svg"}}}
+	{"tools":[{"name":"Kibana","url":127.0.0.1.,"path":"tools/kibana.svg"}]}
 
 	*/
 
