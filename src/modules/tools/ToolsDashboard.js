@@ -23,7 +23,7 @@ export default class ToolsDashboard extends Component {
 	render() {
 		let config = undefined;
 		if (this.Config === undefined) {
-			config = undefined;
+			config = config;
 			this.App.addAlert("warning", 'Unable to load the data from site.');
 		} else {
 			config = this.Config.get('TOOLS');
