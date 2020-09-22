@@ -28,10 +28,10 @@ To load the configuration, external url's and paths of the image locations must 
 
 ```
 {
-	"TOOLS":{
-		"Kibana":{"url":"http://127.0.0.1.:5601/kibana","path":"tools/kibana.svg"},
-		"Grafana":{"url":"http://127.0.0.1.:3000/grafana","path":"tools/grafana.png"}
-	}
+	"tools":[
+		{"name":"Kibana","url":"http://127.0.0.1.:5601/kibana","path":"tools/kibana.svg"},
+		{"name":"Grafana","url":"http://127.0.0.1.:3000/grafana","path":"tools/grafana.png"}
+	]
 }
 ```
 
