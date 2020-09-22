@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import Module from 'asab-webui/abc/Module';
-import {
-	Container, Col,
-	Link
-} from "reactstrap";
 import ToolsDashboard from "./ToolsDashboard";
 
 export default class ToolsModule extends Module {
