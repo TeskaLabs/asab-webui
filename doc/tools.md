@@ -48,4 +48,4 @@ Example explanation:
 ## Image settings
 
 Images are stored in `/public/tools/` folder of your ASAB UI application, but it can be anywhere on site, depends on the image location set in the config file.
-Size of the image is restricted to `200x200px` and it can be either .svg or .png format. Other formats are not recommended.
+Size of the image is restricted to `128x128px` and it can be either .svg or .png format. Other formats are not recommended.
