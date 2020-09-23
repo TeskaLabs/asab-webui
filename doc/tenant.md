@@ -47,17 +47,17 @@ The tenant information is available in the application Redux store at `state.ten
 {
 
 	"current": {
-		"id":"tr-069-demo",
+		"_id":"tr-069-demo",
 		"parameters":{}
 	},
 
 	"tenants":[
 		{
-			"id":"test",
+			"_id":"test",
 			"parameters":{}
 		},
 		{
-			"id":"test1",
+			"_id":"test1",
 			"parameters":{}
 		},
 	]
@@ -85,7 +85,7 @@ function TenantExample(props) {
 }
 
 function mapStateToProps(state) {
-	return { tenant: state.tenant.current.id }
+	return { tenant: state.tenant.current._id }
 }
 
 export default connect(mapStateToProps)(TenantExample);
