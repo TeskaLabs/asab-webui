@@ -37,7 +37,7 @@ To load the configuration, external url's and paths of the image locations must 
 
 Example explanation: 
 
-- `"Kibana"` - the name of the tool you want to redirect to
+- `"name"` - the name of the tool you want to redirect to
 
 - `"url"` - url of the tool to redirect to
 
