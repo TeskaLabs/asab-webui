@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {
-	Container, Col, Row
+	Container, Col, Row, Button
 } from "reactstrap";
 
 
@@ -36,19 +36,19 @@ export default class ToolsDashboard extends Component {
 					{Object.keys(config).map((key, idx) => {
 						return(
 							<React.Fragment key={key}>
-								<Col sm={3} className="text-center">
+								<Col lg={4} className="text-center pt-5 pb-5">
 									<Row className="justify-content-center">
-										<a href={config[key].url} target="_blank">
-											<img
-												src={config[key].path}
-												style={{width:200+"px", height:200+"px"}}
-												title={config[key].url}
-												>
-											</img>
-										</a>
-									</Row>
-									<Row className="justify-content-center pt-2">
-										<h1>{config[key].name}</h1>
+										<Button color="outline-dark" style={{ border: '4px solid', borderRadius: 20, width: 350, height: 350, padding: 0 }} >
+											<a href={config[key].url} target="_blank" rel="noopener">
+												<img
+													src={config[key].path}
+													style={{width:200+"px", height:200+"px"}}
+													title={config[key].url}
+													>
+												</img>
+											</a>
+											<h1 className="pt-2">{config[key].name}</h1>
+										</Button>
 									</Row>
 								</Col>
 							</React.Fragment>
