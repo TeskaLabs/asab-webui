@@ -28,26 +28,27 @@ export default class ToolsDashboard extends Component {
 		} else {
 			config = this.Config.get('tools');
 		}
+
 		return (
 			config !== undefined ?
 			<React.Fragment>
-				<Container fluid className="animated fadeIn">
+				<Container fluid className="animated fadeIn flex">
 					<Row>
 					{Object.keys(config).map((key, idx) => {
 						return(
 							<React.Fragment key={key}>
-								<Col lg={4} className="text-center pt-5 pb-5">
+								<Col lg={2} className="text-center pt-5 pb-5">
 									<Row className="justify-content-center">
-										<Button color="outline-dark" style={{ border: '4px solid', borderRadius: 20, width: 350, height: 350, padding: 0 }} >
-											<a href={config[key].url} target="_blank" rel="noopener">
+										<Button color="outline-dark" style={{ border: '4px solid', borderRadius: 20, width: 200, height: 200, padding: 0 }} >
+											<a href={config[key].url} target="_blank" rel="noopener noreferrer">
 												<img
 													src={config[key].path}
-													style={{width:200+"px", height:200+"px"}}
+													style={{width:128+"px", height:128+"px"}}
 													title={config[key].url}
 													>
 												</img>
 											</a>
-											<h1 className="pt-2">{config[key].name}</h1>
+											<h4 className="pt-2">{config[key].name}</h4>
 										</Button>
 									</Row>
 								</Col>
