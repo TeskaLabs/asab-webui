@@ -20,7 +20,7 @@ export default class I18nService extends Service {
 		.use(HttpBackend)
 		.use(initReactI18next)
 		.use(LanguageDetector)
-		.init(app.Config.i18n, (err, t) => {
+		.init(config, (err, t) => {
 			this.App.removeSplashScreenRequestor(this);
 
 			if (err) {
