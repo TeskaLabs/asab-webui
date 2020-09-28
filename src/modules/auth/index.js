@@ -16,22 +16,21 @@ export default class AuthModule extends Module {
 		// Request the splash screen
 		this.App.addSplashScreenRequestor(this);
 
-		const headerService = app.locateService("HeaderService");
-		headerService.addComponent(HeaderComponent, {AuthModule: this});
 
 		app.ReduxService.addReducer("auth", reducer);
 
 		this.Api = new SeaCatAuthApi(app.Config);
 
 		this.UserInfo = null;
-		this.OAuthToken = JSON.parse(sessionStorage.getItem('SeaCat::OAuth::Token'));
+		this.OAuthToken = JSON.parse(sessionStorage.getItem('SeaCatOAuth2Token'));
 		if (this.OAuthToken == null) {
 
 			// Check the query string for 'code'
 			const qs = new URLSearchParams(window.location.search);
-			const code = qs.get('code');
-			if (code != null) {
-				this.updateToken(code);
+			const authorization_code = qs.get('code');
+
+			if (authorization_code !== null) {
+				this.updateToken(authorization_code);
 			} else {
 				this.login();
 			}
@@ -41,14 +40,22 @@ export default class AuthModule extends Module {
 		}
 	}
 
-	login() {
-		this.Api.login(this.RedirectURL);
+
+	initialize() {
+		const headerService = this.App.locateService("HeaderService");
+		headerService.addComponent(HeaderComponent, {AuthModule: this});
+	}
+
+
+	login(force_login_prompt) {
+		if (force_login_prompt === undefined) force_login_prompt = false;
+		this.Api.login(this.RedirectURL, force_login_prompt);
 	}
 
 	logout() {
 		this.App.addSplashScreenRequestor(this);
 
-		sessionStorage.removeItem('SeaCat::OAuth::Token');
+		sessionStorage.removeItem('SeaCatOAuth2Token');
 		const promise = this.Api.logout(this.OAuthToken['access_token'])
 		if (promise == null) {
 			this.login();
@@ -74,14 +81,14 @@ export default class AuthModule extends Module {
 			this.App.removeSplashScreenRequestor(this);
 		}).catch((error) => {
 			console.log(error);
-			this.login();
+			this.login(true); // This login call should force re-authentication to prevent infinite looping
 		});
 	}
 
 	updateToken(authorization_code) {
 		this.Api.token_authorization_code(authorization_code, this.RedirectURL).then(response => {
 			this.OAuthToken = response.data;
-			sessionStorage.setItem('SeaCat::OAuth::Token', JSON.stringify(response.data));
+			sessionStorage.setItem('SeaCatOAuth2Token', JSON.stringify(response.data));
 			
 			this.App.props.history.push('/');
 			this.updateUserInfo()

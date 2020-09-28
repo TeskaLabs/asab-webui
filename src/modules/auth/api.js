@@ -32,13 +32,16 @@ export class SeaCatAuthApi {
 	}
 
 	// This method will cause a navigation from the app to the OAuth2 login screen
-	login(redirect_uri) {
+	login(redirect_uri, force_login_prompt) {
 		const params = new URLSearchParams({
 			response_type: "code",
 			scope: this.Scope,
 			client_id: this.ClientId,
 			redirect_uri: redirect_uri
 		});
+		if (force_login_prompt === true) {
+			params.append("prompt", "login");
+		}
 		window.location.replace(this.BaseURL + "/authorize?" + params.toString());
 	}
 
