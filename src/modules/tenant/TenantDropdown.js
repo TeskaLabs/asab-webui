@@ -47,6 +47,7 @@ class TenantDropdown extends Component {
 		return (
 			<AppHeaderDropdown style={{ paddingRight: '16px' }}>
 				<DropdownToggle nav caret>
+					<i className="cil-apps pr-2"></i>
 					<TenantLabel tenant={this.props.current}/>
 				</DropdownToggle>
 				{ (this.props.tenants && this.props.tenants.length > 0) ?
