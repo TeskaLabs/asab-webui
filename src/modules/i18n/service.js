@@ -10,7 +10,7 @@ export default class I18nService extends Service {
 		super(app, name);
 		this.App.addSplashScreenRequestor(this);
 
-		{/* TODO: reinitialize i18n when dynamic configuration is made available */}
+		// TODO: reinitialize i18n when dynamic configuration is made available
 		let config = app.Config.get('i18n');
 		if (config === undefined) {
 			config = {debug: true}
@@ -22,10 +22,10 @@ export default class I18nService extends Service {
 		.use(LanguageDetector)
 		.init(config, (err, t) => {
 			this.App.removeSplashScreenRequestor(this);
-
 			if (err) {
-				app.addAlert("warning", "Failed to load localizations.");
-				return console.log('something went wrong loading', err);
+				//TODO: only in case of final error, show: app.addAlert("warning", "Failed to load localizations.");
+				console.log('Failed to load localizations:', err);
+				return;
 			}
 		});
 	}
