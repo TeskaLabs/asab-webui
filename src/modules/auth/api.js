@@ -16,7 +16,7 @@ export class SeaCatAuthApi {
 
 	constructor(config) {
 		this.BaseURL = config.get('seacat.auth.oidc_url');
-		if ((this.BaseURL == undefined) || (this.BaseURL == null)) {
+		if (this.BaseURL == null) {
 			console.log("Provide config value seacat.auth.oidc_url");
 			this.BaseURL = "/openidconnect";
 		}
@@ -25,10 +25,10 @@ export class SeaCatAuthApi {
 			baseURL: this.BaseURL,
 		});
 
-		const scope = config.get('seacat.auth.scope');
-		this.Scope = scope ? scope : "openid";
-		this.ClientId = "TODO";
-		this.ClientSecret = "TODO";
+		// const scope = config.get('seacat.auth.scope');
+		// this.Scope = scope ? scope : "openid";
+		// this.ClientId = "TODO";
+		// this.ClientSecret = "TODO";
 	}
 
 	// This method will cause a navigation from the app to the OAuth2 login screen
@@ -54,10 +54,11 @@ export class SeaCatAuthApi {
 
 
 	userinfo(access_token) {
-		return this.Axios.get(
-			'/userinfo',
-			{ headers: { 'Authorization': 'Bearer ' + access_token }}
-		);
+		headers = {}
+		if (access_token != null) {
+			headers.Authorization = 'Bearer ' + access_token;
+		}
+		return this.Axios.get('/userinfo', {headers: headers});
 	}
 
 
