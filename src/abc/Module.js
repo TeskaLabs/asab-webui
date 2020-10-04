@@ -1,4 +1,8 @@
 export default class Module {
-    constructor(app, name) {}
-    initialize(app) {}
+    constructor(app, name) {
+    	this.App = app;
+    }
+
+    initialize() {
+    }
 }
