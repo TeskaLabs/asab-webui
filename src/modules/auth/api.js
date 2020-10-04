@@ -55,7 +55,7 @@ export class SeaCatAuthApi {
 
 
 	userinfo(access_token) {
-		headers = {}
+		let headers = {}
 		if (access_token != null) {
 			headers.Authorization = 'Bearer ' + access_token;
 		}
