@@ -10,12 +10,17 @@ export class SeaCatAuthApi {
 
 	module.exports = {
 		app: {
-			"seacat.auth.oidc_url": 'http://localhost:3000/openidconnect',
+			"OIDC_URL": 'http://localhost:3000/openidconnect',
 			...
 	*/
 
 	constructor(config) {
-		this.BaseURL = config.get('seacat.auth.oidc_url');
+		
+		this.BaseURL = config.get('OIDC_URL');
+		if (this.BaseURL == null) {
+			// This is here for a backward compatibility
+			this.BaseURL = config.get('seacat.auth.oidc_url');
+		}
 		if (this.BaseURL == null) {
 			console.log("Provide config value seacat.auth.oidc_url");
 			this.BaseURL = "/openidconnect";

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux';
 import {
 	UncontrolledDropdown,
@@ -7,41 +7,45 @@ import {
 	DropdownItem
 } from 'reactstrap';
 
-class HeaderComponent extends Component {
+function HeaderComponent(props) {
 
-	constructor(props) {
-		super(props);
+	let user_auth_url = props.app.Config.get('USER_AUTH_URL');
 
-		this.App = props.app;
-		this.AuthModule = props.AuthModule;
+	const logout = () => {
+		props.AuthModule.logout()
 	}
-
-	logout() {
-		this.AuthModule.logout()
-	}
-
 
 	// See https://github.com/coreui/coreui-free-react-admin-template/blob/b9626a8ae66834006ee86b758cdc81f74fb20531/src/containers/DefaultLayout/DefaultHeader.js#L52
 
-	render() {
-		return (
-			<UncontrolledDropdown direction="down" className="pr-3">
-				<DropdownToggle nav title={this.props.sub} caret>
-					{(this.props.picture)
-						? <img src={this.props.picture} className="img-avatar" alt={this.props.username}/>
-						: <i alt={this.props.username} className="cil-user"></i>
-					}
-					<span className="pl-2" title={this.props.sub}>{this.props.username}</span>
-				</DropdownToggle>
-				<DropdownMenu>
-					<DropdownItem header tag="div" className="text-center"><strong>Your account</strong></DropdownItem>
-					<DropdownItem>
-						<div onClick={() => {this.logout()}}>Logout</div>
-					</DropdownItem>
-				</DropdownMenu>
-			</UncontrolledDropdown>
-		)
-	}
+	return (
+		<UncontrolledDropdown direction="down" className="pr-3">
+			<DropdownToggle nav title={props.sub} caret>
+				{(props.picture)
+					? <img src={props.picture} className="img-avatar" alt={props.username}/>
+					: <i alt={props.username} className="cil-user"></i>
+				}
+				<span className="pl-2" title={props.sub}>{props.username}</span>
+			</DropdownToggle>
+			<DropdownMenu>
+				<DropdownItem header tag="div" className="text-center"><strong>My account</strong></DropdownItem>
+				{user_auth_url != null &&
+					<React.Fragment>
+						<DropdownItem tag="a" href={user_auth_url}>
+							Manage
+						</DropdownItem>
+						<DropdownItem tag="a" href={user_auth_url + '#/pwd'}>
+							Change a password
+						</DropdownItem>
+					</React.Fragment>
+				}
+				<DropdownItem onClick={() => {logout()}}>
+					<span className="text-danger">
+						Logout
+					</span>
+				</DropdownItem>
+			</DropdownMenu>
+		</UncontrolledDropdown>
+	)
 }
 
 const mapStateToProps = state => {
@@ -80,12 +84,7 @@ const mapStateToProps = state => {
 	};
 };
 
-const mapDispatchToProps = dispatch => {
-	return {
-	};
-};
-
 export default connect(
 	mapStateToProps,
-	mapDispatchToProps
+	null
 )(HeaderComponent);
