@@ -11,9 +11,11 @@ export default class AuthModule extends Module {
 	constructor(app, name){
 		super(app, "AuthModule");
 
+		this.OAuthToken = JSON.parse(sessionStorage.getItem('SeaCatOAuth2Token'));
 		this.UserInfo = null;
 		this.Api = new SeaCatAuthApi(app.Config);
 		this.RedirectURL = window.location.href;
+		this.MustAuthenticate = true; // Setting this to false means, that we can operate without authenticated user
 
 		app.ReduxService.addReducer("auth", reducer);
 		this.App.addSplashScreenRequestor(this);
@@ -28,19 +30,33 @@ export default class AuthModule extends Module {
 		const qs = new URLSearchParams(window.location.search);
 		const authorization_code = qs.get('code');
 		if (authorization_code !== null) {
-			await this._updateToken(authorization_code);			
+			await this._updateToken(authorization_code);
+
+			// Remove 'code' from a query string
+			qs.delete('code');
+
+			// And reload the app
+			window.location.replace('?' + qs.toString() + window.location.hash);
 			return;
 		}
 		
-		await this._updateUserInfo();
+		if (this.OAuthToken != null) {
+			let result = await this._updateUserInfo();
+			if (!result) {
+				sessionStorage.removeItem('SeaCatOAuth2Token');
+				console.log("!!! failed to _updateUserInfo()");
+				return;
+			}
+		}
+
+		if ((this.UserInfo == null) && (this.MustAuthenticate)) {
+			// TODO: force_login_prompt = true to break authentication failure loop
+			let force_login_prompt = false;
+			this.Api.login(this.RedirectURL, force_login_prompt);
+			return;
+		}
 		
-		// await this._login();
-	}
-
-
-	async _login(force_login_prompt) {
-		if (force_login_prompt === undefined) force_login_prompt = false;
-		this.Api.login(this.RedirectURL, force_login_prompt);
+		this.App.removeSplashScreenRequestor(this);
 	}
 
 
@@ -50,13 +66,13 @@ export default class AuthModule extends Module {
 		sessionStorage.removeItem('SeaCatOAuth2Token');
 		const promise = this.Api.logout(this.OAuthToken['access_token'])
 		if (promise == null) {
-			this._login();
+			window.location.reload();
 		}
 
 		promise.then(response => {
-			this._login();
+			window.location.reload();
 		}).catch((error) => {
-			this._login();
+			window.location.reload();
 		});
 	}
 
@@ -64,34 +80,36 @@ export default class AuthModule extends Module {
 	async _updateUserInfo() {
 		let response;
 		try {
-			response = await this.Api.userinfo();
+			response = await this.Api.userinfo(this.OAuthToken.access_token);
 		}
-		catch {
-			// This login call should force re-authentication to prevent infinite looping
-			await this._login(true);
-			return;
+		catch (err) {
+			this.UserInfo = null;
+			if (this.App.Store != null) {
+				this.App.Store.dispatch({ type: types.AUTH_USERINFO, payload: this.UserInfo });
+			}
+			return false;
 		}
 
 		this.UserInfo = response.data;
-		this.App.Store.dispatch({ type: types.AUTH_USERINFO, payload: this.UserInfo });
-		this.App.removeSplashScreenRequestor(this);
+		if (this.App.Store != null) {
+			this.App.Store.dispatch({ type: types.AUTH_USERINFO, payload: this.UserInfo });
+		}
+
+		return true;
 	}
 
 
 	async _updateToken(authorization_code) {
-		
-		let response = await this.Api.token_authorization_code(authorization_code, this.RedirectURL);
+		let response;
+		try {
+			response = await this.Api.token_authorization_code(authorization_code, this.RedirectURL);
+		}
+		catch {
+			return false;
+		}
 
 		this.OAuthToken = response.data;
 		sessionStorage.setItem('SeaCatOAuth2Token', JSON.stringify(response.data));
-		
-		this.App.props.history.push('/');
-		await this._updateUserInfo()
-
-		// }).catch((error) => {
-		// 	console.log(error);
-		// 	await this._login();
-		// });
 	}
 
 }
