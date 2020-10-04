@@ -10,9 +10,11 @@ function SplashScreen(props) {
 				src={header_service.BrandImageFull.src}
 				style={{maxWidth: "38%"}}
 			/>
-			<div
-				style={{maxWidth: "38%", height: "8px", margin: "20px auto 0 auto"}}
-				className="progress-bar progress-bar-animated progress-bar-striped" >
+			<div className="progress mt-3" style={{maxWidth: "38%", margin: "20px auto 0 auto"}}>
+				<div
+					style={{width: "100%"}}
+					className="progress-bar progress-bar-animated progress-bar-striped" >
+				</div>
 			</div>
 		</div>
 	);
