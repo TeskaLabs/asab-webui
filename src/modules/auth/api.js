@@ -25,10 +25,11 @@ export class SeaCatAuthApi {
 			baseURL: this.BaseURL,
 		});
 
-		// const scope = config.get('seacat.auth.scope');
-		// this.Scope = scope ? scope : "openid";
-		// this.ClientId = "TODO";
-		// this.ClientSecret = "TODO";
+		const scope = config.get('seacat.auth.scope');
+		this.Scope = scope ? scope : "openid";
+		
+		this.ClientId = "asab-webui-auth";
+		this.ClientSecret = "TODO";
 	}
 
 	// This method will cause a navigation from the app to the OAuth2 login screen
