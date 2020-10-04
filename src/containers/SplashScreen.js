@@ -1,22 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class SplashScreen extends React.Component {
+function SplashScreen(props) {
 
-	constructor(props) {
-		super(props);
-
-		this.App = props.app;
-		this.HeaderService = this.App.locateService("HeaderService");
-	}
-
-	render() {
-		return (
-			<div className="text-center" style={{marginTop: "20%"}}>
-				<img src={this.HeaderService.BrandImageFull.src} style={{maxWidth: "38%"}} />
-				<div style={{maxWidth: "38%", height: "8px", margin: "20px auto 0 auto"}}className="progress-bar progress-bar-animated progress-bar-striped" ></div>
+	let header_service = props.app.locateService("HeaderService");
+	
+	return (
+		<div className="text-center animated fadeIn" style={{marginTop: "20%"}}>
+			<img
+				src={header_service.BrandImageFull.src}
+				style={{maxWidth: "38%"}}
+			/>
+			<div
+				style={{maxWidth: "38%", height: "8px", margin: "20px auto 0 auto"}}
+				className="progress-bar progress-bar-animated progress-bar-striped" >
 			</div>
-		);
-	}
+		</div>
+	);
 }
 
 export default SplashScreen;
