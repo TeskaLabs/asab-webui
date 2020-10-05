@@ -37,17 +37,16 @@ export default class ToolsDashboard extends Component {
 					{Object.keys(config).map((key, idx) => {
 						return(
 							<React.Fragment key={key}>
-								<Col lg={2} className="text-center pt-5 pb-5">
+								<Col className="text-center pt-5 pb-5 pl-5 pr-5">
 									<Row className="justify-content-center">
 										<a href={config[key].url} target="_blank" rel="noopener noreferrer">
-											<Button color="outline-dark" style={{ border: '4px solid', borderRadius: 20, width: 200, height: 200, padding: 0 }} >
+											<Button title={config[key].url} color="light" style={{ border: '1.5px solid', borderRadius: 15, width: 130, height: 130, padding: 0 }} >
 												<img
 													src={config[key].path}
-													style={{width:128+"px", height:128+"px"}}
-													title={config[key].url}
+													style={{width:72+"px", height:72+"px", padding: 5}}
 													>
 												</img>
-												<h4 className="pt-2">{config[key].name}</h4>
+												<h6 className="pt-2">{config[key].name}</h6>
 											</Button>
 										</a>
 									</Row>
