@@ -29,8 +29,8 @@ To load the configuration, external url's and paths of the image locations must 
 ```
 {
 	"tools":[
-		{"name":"Kibana","url":"http://127.0.0.1.:5601/kibana","path":"tools/kibana.svg"},
-		{"name":"Grafana","url":"http://127.0.0.1.:3000/grafana","path":"tools/grafana.png"}
+		{"name":"Kibana","url":"http://127.0.0.1.:5601/kibana","src":"tools/kibana.svg"},
+		{"name":"Grafana","url":"http://127.0.0.1.:3000/grafana","src":"tools/grafana.png"}
 	]
 }
 ```
@@ -41,11 +41,11 @@ Example explanation:
 
 - `"url"` - url of the tool to redirect to
 
-- `"path"` - path to the location of the tool's logo/image
+- `"src"` - source path of the tool's logo/image location
 
 
 
 ## Image settings
 
 Images are stored in `/public/tools/` folder of your ASAB UI application, but it can be anywhere on site, depends on the image location set in the config file.
-Size of the image is restricted to `128x128px` and it can be either .svg or .png format. Other formats are not recommended.
+Size of the image is restricted to `72x72px` and it can be either .svg or .png format. Other formats are not recommended.
