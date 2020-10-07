@@ -9,7 +9,7 @@ export default class ToolsDashboard extends Component {
 
 	/* Example of use
 
-	{"tools":[{"name":"Kibana","url":127.0.0.1/kibana,"src":"tools/kibana.svg"}]}
+	{"tools":[{"name":"Kibana","url":127.0.0.1/kibana,"image":"tools/kibana.svg"}]}
 
 	*/
 
@@ -42,7 +42,7 @@ export default class ToolsDashboard extends Component {
 										<a href={config[key].url} target="_blank" rel="noopener noreferrer">
 											<Button title={config[key].url} color="light" style={{ border: '1.5px solid', borderRadius: 15, width: 130, height: 130, padding: 0 }} >
 												<img
-													src={config[key].src}
+													src={config[key].image}
 													style={{width:72+"px", height:72+"px", padding: 5}}
 													>
 												</img>

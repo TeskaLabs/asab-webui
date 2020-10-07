@@ -29,8 +29,8 @@ To load the configuration, external url's and paths of the image locations must 
 ```
 {
 	"tools":[
-		{"name":"Kibana","url":"http://127.0.0.1.:5601/kibana","src":"tools/kibana.svg"},
-		{"name":"Grafana","url":"http://127.0.0.1.:3000/grafana","src":"tools/grafana.png"}
+		{"name":"Kibana","url":"http://127.0.0.1.:5601/kibana","image":"tools/kibana.svg"},
+		{"name":"Grafana","url":"http://127.0.0.1.:3000/grafana","image":"tools/grafana.png"}
 	]
 }
 ```
@@ -41,7 +41,7 @@ Example explanation:
 
 - `"url"` - url of the tool to redirect to
 
-- `"src"` - source path of the tool's logo/image location
+- `"image"` - source path of the tool's logo/image location
 
 
 
