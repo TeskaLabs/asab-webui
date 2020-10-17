@@ -109,7 +109,6 @@ it is accessible by the sidebar toggler button.
 
 		this.state = {
 			networking: 0, // If more than zero, some networking activity is happening
-			tickTimer: null,
 		}
 
 		// Instantiate modules
@@ -234,24 +233,6 @@ it is accessible by the sidebar toggler button.
 			level: level,
 			message: message,
 			expire: expire
-		});
-	}
-
-
-	// Ticking
-
-	componentDidMount() {
-		let tickTimer = setInterval(this.onTick, 1000, this.Store);
-		this.setState({tickTimer});
-	}
-
-	componentWillUnmount() {
-		clearInterval(this.state.tickTimer);
-	}
-
-	onTick(store) {
-		store.dispatch({
-			type: ON_TICK,
 		});
 	}
 
