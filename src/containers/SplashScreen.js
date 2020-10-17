@@ -5,11 +5,12 @@ function SplashScreen(props) {
 	
 	return (
 		<div className="text-center animated fadeIn" style={{marginTop: "20%"}}>
+			{props.brand_image != null ?
 			<img
 				src={props.brand_image.full}
 				alt={props.title}
 				style={{maxWidth: "38%"}}
-			/>
+			/> : <h1>Loading ...</h1>}
 			<div className="progress mt-3" style={{maxWidth: "38%", margin: "20px auto 0 auto"}}>
 				<div
 					style={{width: "100%"}}
