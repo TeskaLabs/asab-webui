@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import {
+	UncontrolledDropdown,
 	Dropdown,
 	DropdownItem,
 	DropdownMenu, 
@@ -45,7 +46,7 @@ class TenantDropdown extends Component {
 
 	render() {
 		return (
-			<AppHeaderDropdown style={{ paddingRight: '16px' }}>
+			<UncontrolledDropdown direction="down" className="pr-3">
 				<DropdownToggle nav caret>
 					<i className="cil-apps pr-2"></i>
 					<TenantLabel tenant={this.props.current}/>
@@ -77,7 +78,7 @@ class TenantDropdown extends Component {
 						))}
 					</DropdownMenu>
 				 : null}
-			</AppHeaderDropdown>
+			</UncontrolledDropdown>
 		);
 	}
 }
