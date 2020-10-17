@@ -65,9 +65,24 @@ export default class ConfigService extends Service {
 	}
 
 
-	addDefaults(defaults) {
-		if (defaults == undefined) return;
-		this.Config._defaults.push(defaults);
+	addDefaults(defaults, override) {
+		if (defaults === undefined) return;
+		if (defaults === null) return;
+
+		if (override === false) {
+			for (var key in defaults) {
+				if (this.Config._defaults[key] === undefined) {
+					this.Config._defaults[key] = defaults[key];
+				}
+			}
+		} else {
+			for (var key in defaults) {
+				this.Config._defaults[key] = defaults[key];
+			}
+		}
+
+		
+		this.Config.dispatch(this.App.Store);
 	}
 
 }
@@ -77,7 +92,7 @@ class Config {
 	
 	constructor(app) {
 		this._remote_config = {};
-		this._defaults = [];
+		this._defaults = {};
 	}
 
 
@@ -86,33 +101,22 @@ class Config {
 
 		// First check the remote config
 		value = this._remote_config[key];
-		if (value != undefined) return value;
+		if (value !== undefined) return value;
 
 		// Then check the local config
 		value = __CONFIG__[key];
-		if (value != undefined) return value;
+		if (value !== undefined) return value;
 
-		// And finally, iterate thru provided defaults
-		var _default = undefined;
-		this._defaults.forEach((entry) => {
-			value = entry[key];
-			if (value != undefined)
-				_default = value;
-		});
-		return _default;
+		// And finally, check defaults
+		value = this._defaults[key];
+		if (value !== undefined) return value;
+
+		return undefined;
 	}
 
 
 	dispatch(store) {
-		var config = Object.assign({}, __CONFIG__, this._remote_config);
-		this._defaults.forEach((entry) => {
-			for (var key in entry) {
-				if ((entry.hasOwnProperty(key)) && (!config.hasOwnProperty(key))) {
-					config[key] = entry[key];
-				}
-			}
-		});
-
+		var config = Object.assign({}, __CONFIG__, this._remote_config, this._defaults);
 		store.dispatch({
 			type: CHANGE_CONFIG,
 			config: config
