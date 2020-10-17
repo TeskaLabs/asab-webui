@@ -34,7 +34,7 @@ import ConfigService from '../config/ConfigService';
 import HeaderService from '../services/HeaderService';
 import FooterService from '../services/FooterService';
 
-import { ON_TICK, ADD_ALERT } from '../actions';
+import { ADD_ALERT } from '../actions';
 
 
 class Application extends Component {

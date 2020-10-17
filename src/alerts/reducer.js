@@ -1,5 +1,5 @@
 // Actions
-import { ADD_ALERT, DEL_ALERT, ON_TICK } from '../actions';
+import { ADD_ALERT, DEL_ALERT } from '../actions';
 
 const initialState = {
 		alerts: [],
@@ -29,21 +29,6 @@ export default function AlertsReducer(state = initialState, action) {
 			const newAlerts = [...state.alerts];
 			for(var i = newAlerts.length - 1; i >= 0; i--) {
 				if (newAlerts[i].key === action.key) {
-					newAlerts.splice(i, 1);
-				}
-			}
-
-			return {
-				...state,
-				alerts: newAlerts
-			}
-		}
-			
-		case ON_TICK: {
-			const newAlerts = [...state.alerts];
-			const now = new Date();
-			for(var i = newAlerts.length - 1; i >= 0; i--) {
-				if (newAlerts[i].expire < now) {
 					newAlerts.splice(i, 1);
 				}
 			}
