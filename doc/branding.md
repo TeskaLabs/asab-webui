@@ -34,6 +34,9 @@ Two sizes:
  * 30x30 (minimized)
 
 
+Note: A full image is also used on the splash screen, 30% of the width of the screen.
+
+
 ### Footer image
 
 Bottom-right location.
