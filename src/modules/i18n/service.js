@@ -11,10 +11,20 @@ export default class I18nService extends Service {
 		this.App.addSplashScreenRequestor(this);
 
 		// TODO: reinitialize i18n when dynamic configuration is made available
-		let config = app.Config.get('i18n');
+		var config = app.Config.get('i18n');
 		if (config === undefined) {
-			config = {debug: true}
+			config = {
+				debug: true
+			}
 		}
+
+		// config.supportedLngs is not an array but some faked array crap
+		// so we need to convert that
+		var supportedLngs = []
+		for (var i in config.supportedLngs) {
+			supportedLngs.push(config.supportedLngs[i]);
+		}
+		config.supportedLngs = supportedLngs;
 
 		i18n
 		.use(HttpBackend)
@@ -25,7 +35,6 @@ export default class I18nService extends Service {
 			if (err) {
 				//TODO: only in case of final error, show: app.addAlert("warning", "Failed to load localizations.");
 				console.log('Failed to load localizations:', err);
-				return;
 			}
 		});
 	}

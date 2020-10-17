@@ -23,10 +23,15 @@ function LanguageDropdown(props) {
 
 	const { t, i18n } = useTranslation();
 
-	const logout = (language) => {
+	const changeLanguage = (language) => {
 		i18n.changeLanguage(language).then(() => {
 			window.location.reload(false);
 		});
+	}
+
+	// This means that we basically don't know what languages are supported
+	if ((i18n.options.supportedLngs == null) || (i18n.options.supportedLngs == false)) {
+		return null;
 	}
 
 	return (
@@ -37,12 +42,15 @@ function LanguageDropdown(props) {
 			<DropdownMenu right>
 				<DropdownItem header>Language</DropdownItem>
 
-				{i18n.options.supportedLngs.map((language, i) => (
-					<DropdownItem key={language} title={language} onClick={() => {logout(language)}}>
-						<LanguageFlag language={language}/>
-						{t('i18n|language|'+language)}
-					</DropdownItem>
-				))}
+				{i18n.options.supportedLngs.map((language, i) => {
+					if (language != 'cimode') return (
+						<DropdownItem key={language} title={language} onClick={() => {changeLanguage(language)}}>
+							<LanguageFlag language={language}/>
+							{t('i18n|language|'+language)}
+						</DropdownItem>
+					);
+					return null;
+				})}
 
 			</DropdownMenu>
 		</UncontrolledDropdown>
