@@ -1,13 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 function SplashScreen(props) {
-
-	let header_service = props.app.locateService("HeaderService");
 	
 	return (
 		<div className="text-center animated fadeIn" style={{marginTop: "20%"}}>
 			<img
-				src={header_service.BrandImageFull.src}
+				src={props.brand_image.full}
+				alt={props.title}
 				style={{maxWidth: "38%"}}
 			/>
 			<div className="progress mt-3" style={{maxWidth: "38%", margin: "20px auto 0 auto"}}>
@@ -20,4 +20,11 @@ function SplashScreen(props) {
 	);
 }
 
-export default SplashScreen;
+function mapStateToProps(state) {
+	return {
+		brand_image: state.config.brand_image,
+		title: state.config.title,
+	}
+}
+
+export default connect(mapStateToProps)(SplashScreen);

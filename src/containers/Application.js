@@ -83,17 +83,8 @@ it is accessible by the sidebar toggler button.
 		this.Services = {};
 
 		this.ReduxService = new ReduxService(this, "ReduxService");
-		
 		this.ConfigService = new ConfigService(this, "ConfigService");
-		this.ConfigService.addDefaults(props.configdefaults);
 		this.Config = this.ConfigService.Config
-
-		// Set API URL, if not configured
-		if (this.Config.get('API_URL') == undefined) {
-			this.ConfigService.addDefaults({
-				API_URL: window.location.protocol + '//' + window.location.host + '/api/',
-			});
-		}
 
 		this.Router = new Router(this);
 		this.Navigation = new Navigation(this);
@@ -105,39 +96,62 @@ it is accessible by the sidebar toggler button.
 
 		this.ReduxService.addReducer("alerts", AlertsReducer);
 
-		this.DefaultPath = props.defaultpath
+		this.DefaultPath = props.defaultpath;
 
 		this.state = {
 			networking: 0, // If more than zero, some networking activity is happening
+			SplashscreenRequestors: 0,
 		}
 
-		// Instantiate modules
-		for (var i in props.modules) {
-			const module = new props.modules[i](this);
-			this.Modules.push(module);
+		const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+		this.Store = createStore(combineReducers(this.ReduxService.Reducers), composeEnhancers(applyMiddleware()));
+
+		this.ConfigService.addDefaults(props.configdefaults);
+		
+		// Set API URL, if not configured
+		if (this.Config.get('API_URL') == undefined) {
+			this.ConfigService.addDefaults({
+				API_URL: window.location.protocol + '//' + window.location.host + '/api/',
+			});
 		}
 
-		// Initialize service
-		for (var i in this.Services) {
-			this.Services[i].initialize();
-		}
+		this.Config.dispatch(this.Store);
 
-		// Initialize modules
-		for (var i in this.Modules) {
-			this.Modules[i].initialize();
-		}
-
+		this.addSplashScreenRequestor(this);
 		this.state.SplashscreenRequestors = this.SplashscreenRequestors.size;
 
-		// Create store
-		const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-		this.Store = Object.keys(this.ReduxService.Reducers).length > 0
-			? createStore(combineReducers(this.ReduxService.Reducers), composeEnhancers(applyMiddleware()))
-			: createStore((state) => state, composeEnhancers(applyMiddleware()));
+		var that = this;
 
-		// Ensure that the config is propagated to the redux tree
-		this.Config.dispatch(this.Store);
+		async function modules_init() {
+			// Instantiate statically imported modules
+			for (var i in props.modules) {
+				const module = new props.modules[i](that);
+				that.Modules.push(module);
+
+				that.Store.replaceReducer(combineReducers(that.ReduxService.Reducers));
+				that.Config.dispatch(that.Store);
+			}
+
+			// Initialize statically imported modules
+			for (var i in that.Modules) {
+				that.Modules[i].initialize();
+			}
+		}
+		
+		modules_init().then(async function() {
+			that.Store.replaceReducer(combineReducers(that.ReduxService.Reducers));
+			that.Config.dispatch(that.Store);
+
+			// Initialize all services
+			for (var i in that.Services) {
+				that.Services[i].initialize();
+				that.Config.dispatch(that.Store);
+			}
+
+			that.removeSplashScreenRequestor(that);
+		});
 	}
+
 
 	axiosCreate(path, props) {
 		var axios = Axios.create({

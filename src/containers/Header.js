@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 
 import {
 	AppHeader,
@@ -11,55 +12,65 @@ import {
 	NavItem
 } from 'reactstrap';
 
-class Header extends Component {
+export function Header(props) {
 
-	constructor(props) {
-		super(props);
+	let HeaderService = props.app.locateService("HeaderService");
 
-		this.App = props.app;
-		this.HeaderService = this.App.locateService("HeaderService");
-	}
+	return (
+		<AppHeader fixed>
+			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
+				<AppSidebarToggler className="d-lg-none" display="md" mobile />
+			: HeaderService.Items.length > 0 ?
+				<AppSidebarToggler className="d-lg-none" display="md" mobile />
+			: null
+			}
 
-	render() {
-		return (<React.Fragment>
-			<AppHeader fixed>
-				{(this.App.props.hasSidebar || typeof this.App.props.hasSidebar === 'undefined') ? 
-					<AppSidebarToggler className="d-lg-none" display="md" mobile />
-				: this.HeaderService.Items.length > 0 ?
-					<AppSidebarToggler className="d-lg-none" display="md" mobile />
-				: null
-				}
+			<AppNavbarBrand
+				href={props.brand_image.href}
+				full={{
+					src: props.brand_image.full,
+					alt: props.title,
+					width: 120,
+					height: 30,
+				}}
+				minimized={{
+					src: props.brand_image.minimized,
+					alt: props.title,
+					width: 30,
+					height: 30,
+				}}
+			/>
 
-				<AppNavbarBrand
-					href={this.HeaderService.BrandImageFull.href}
-					full={this.HeaderService.BrandImageFull}
-					minimized={this.HeaderService.BrandImageMinimized}
-				/>
-
-				{(this.App.props.hasSidebar || typeof this.App.props.hasSidebar === 'undefined') ? 
-					[
-						<AppSidebarToggler key="sidebarToggler" className="d-md-down-none" display="lg" />,
-						<Nav key="navigation" className="ml-auto" navbar>
-							{this.HeaderService.Items.map((item, idx) => (
-								<NavItem key={idx}>
-									<item.component key={item} {...item.componentProps} app={this.App}/>
-								</NavItem>
-							))}
-						</Nav>
-					]
-				: 
-					<Nav className="d-md-down-none" navbar>
-						{this.HeaderService.Items.map((item, idx) => (
+			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
+				[
+					<AppSidebarToggler key="sidebarToggler" className="d-md-down-none" display="lg" />,
+					<Nav key="navigation" className="ml-auto" navbar>
+						{HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>
-								<item.component key={item} {...item.componentProps} app={this.App}/>
+								<item.component key={item} {...item.componentProps} app={props.app}/>
 							</NavItem>
 						))}
 					</Nav>
-				}
+				]
+			: 
+				<Nav className="d-md-down-none" navbar>
+					{HeaderService.Items.map((item, idx) => (
+						<NavItem key={idx}>
+							<item.component key={item} {...item.componentProps} app={props.app}/>
+						</NavItem>
+					))}
+				</Nav>
+			}
+		</AppHeader>
+	);
+}
 
-			</AppHeader>
-		</React.Fragment>);
+
+function mapStateToProps(state) {
+	return {
+		brand_image: state.config.brand_image,
+		title: state.config.title,
 	}
 }
 
-export default Header;
+export default connect(mapStateToProps)(Header);

@@ -1,43 +1,37 @@
-import React, { Component } from 'react';
-
-import { Container, Nav, NavItem, NavLink, Badge, DropdownToggle, DropdownMenu } from 'reactstrap';
-import {
-	AppFooter,
-} from '@coreui/react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { AppFooter } from '@coreui/react';
 
 
-class Footer extends Component {
+export function Footer(props) {
 
-	constructor(props) {
-		super(props);
+	let FooterService = props.app.locateService("FooterService");
 
-		this.App = props.app;
-		this.FooterService = this.App.locateService("FooterService");
-	}
+	return (
+		<AppFooter>
 
-	render() {
-		return (<React.Fragment>
-			<AppFooter>
+			{FooterService.Items.map((item, idx) => (
+				<item.component key={idx} {...item.componentProps} app={props.app}/>
+			))}
 
-				{this.FooterService.Items.map((item, idx) => (
-					<item.component key={idx} {...item.componentProps} app={this.App}/>
-				))}
+			<span className="ml-auto">
+				<a target="_blank" href={props.footer_image.href}>
+					<img
+						height={16}
+						width={120}
+						alt={props.footer_image.alt}
+						src={props.footer_image.src}
+					/>
+				</a>
+			</span>
 
-				<span className="ml-auto">
-					<a target="_blank" href={this.FooterService.FooterImage.href}>
-						<img
-							height={this.FooterService.FooterImage.height}
-							width={this.FooterService.FooterImage.width}
-							alt={this.FooterService.FooterImage.alt}
-							src={this.FooterService.FooterImage.src}
-						/>
-					</a>
-				</span>
-
-			</AppFooter>
-		</React.Fragment>);
-	}
+		</AppFooter>
+	);
 
 }
 
-export default Footer;
+function mapStateToProps(state) {
+	return { footer_image: state.config.footer_image }
+}
+
+export default connect(mapStateToProps)(Footer);

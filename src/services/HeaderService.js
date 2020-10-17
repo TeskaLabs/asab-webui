@@ -14,39 +14,18 @@ export default class HeaderService extends Service {
 
 	constructor(app, serviceName="HeaderService"){
 		super(app, serviceName)
-
-		this.BrandImageFull = {
-			src: "media/logo/header-full.svg",
-			width: 120,
-			height: 30,
-			alt: app.Config.get('title')
-		};
-
-		this.BrandImageMinimized = {
-			src: "media/logo/header-minimized.svg",
-			width: 30,
-			height: 30,
-			alt: app.Config.get('title')
-		};
-		
 		this.Items = [];
 	}
 
 
-	/*
-		Example of the call:
-		HeaderService.setBrandImages({
-			src: "public/media/logo/my-super-header.svg", 
-			width: 120, 
-			height: 30, 
-			href: "/homepage"
-		});
-	*/
-
-
-	setBrandImages(full, minimalized) {
-		this.BrandImageFull = full;
-		this.BrandImageMinimized = minimalized;
+	initialize() {
+		this.App.ConfigService.addDefaults({
+			'brand_image': {
+				full: "media/logo/header-full.svg",
+				minimized: "media/logo/header-minimized.svg",
+				href: undefined,
+			}
+		}, false)
 	}
 
 
