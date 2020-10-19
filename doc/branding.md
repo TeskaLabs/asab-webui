@@ -6,6 +6,7 @@ Example:
 
 ```
 let ConfigDefaults = {
+	title: "FooBar",
 	brand_image: {
 		full: "media/logo/header-full.svg",
 		minimized: "media/logo/header-minimized.svg",
