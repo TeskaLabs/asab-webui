@@ -16,7 +16,7 @@ import axios from 'axios';
 
 	{
 		"footer_image": {
-			"src": "path/outside/of/project/header-full.svg",
+			"src": "path/outside/of/project/footer.svg",
 			"alt": "Created by FooBar",
 			"href": "http://foobar.fb"
 		}
