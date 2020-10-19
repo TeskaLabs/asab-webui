@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import {
 	AppHeader,
@@ -12,9 +13,53 @@ import {
 	NavItem
 } from 'reactstrap';
 
+/*
+	Example of use branding configuration from site:
+
+	Site config file:
+
+	{"branding": "path/to/the/configuration/file.json"}
+
+
+	JSON file with configuration:
+
+	{
+		"brand_image": {
+			"full": "path/outside/of/project/header-full.svg",
+			"minimized": "path/outside/of/project/header-minimized.svg",
+			"href": "http://foobar.fb"
+		}
+	}
+
+*/
+
 export function Header(props) {
 
 	let HeaderService = props.app.locateService("HeaderService");
+	// Get header branding from site
+	let branding_url = props.app.Config.get("branding");
+	// Set state for brand images
+	const [siteBrandImageFull, setSiteBrandImageFull] = useState(props.brand_image.full);
+	const [siteBrandImageMinimized, setSiteBrandImageMinimized] = useState(props.brand_image.minimized);
+	const [siteBrandImageHref, setSiteBrandImageHref] = useState(props.brand_image.href);
+	// Check on undefined configuration
+	if (branding_url !== undefined) {
+		axios.get(branding_url).then(response => {
+			if (response.data.brand_image !== undefined) {
+				if (response.data.brand_image.full !== undefined) {
+					setSiteBrandImageFull(response.data.brand_image.full);
+				}
+				if (response.data.brand_image.minimized !== undefined) {
+					setSiteBrandImageMinimized(response.data.brand_image.minimized);
+				}
+				if (response.data.brand_image.href !== undefined) {
+					setSiteBrandImageHref(response.data.brand_image.href);
+				}
+			}
+		})
+		.catch(error => {console.log(error)})
+	}
+
 
 	return (
 		<AppHeader fixed>
@@ -24,17 +69,16 @@ export function Header(props) {
 				<AppSidebarToggler className="d-lg-none" display="md" mobile />
 			: null
 			}
-
 			<AppNavbarBrand
-				href={props.brand_image.href}
+				href={siteBrandImageHref}
 				full={{
-					src: props.brand_image.full,
+					src: siteBrandImageFull,
 					alt: props.title,
 					width: 120,
 					height: 30,
 				}}
 				minimized={{
-					src: props.brand_image.minimized,
+					src: siteBrandImageMinimized,
 					alt: props.title,
 					width: 30,
 					height: 30,
@@ -63,6 +107,7 @@ export function Header(props) {
 			}
 		</AppHeader>
 	);
+
 }
 
 
