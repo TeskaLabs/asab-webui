@@ -19,7 +19,7 @@ let ConfigDefaults = {
 
 ```
 
-## Site configuration
+## Dynamic branding configuration
 
 When using configuration from site config, it is recommended to use empty SVG images as default.
 It will prevent unwanted glimmer of the default images before the site images are loaded.
