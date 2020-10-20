@@ -12,16 +12,14 @@ export function Footer(props) {
 	let footerImageAlt = props.footer_image.alt;
 	let footerImageHref = props.footer_image.href;
 
-	if (siteFooterImage !== undefined) {
-		if (siteFooterImage.src !== undefined && siteFooterImage.src.length !== 0) {
-			footerImage = siteFooterImage.src
-		}
-		if (siteFooterImage.alt !== undefined && siteFooterImage.alt.length !== 0) {
-			footerImageAlt = siteFooterImage.alt
-		}
-		if (siteFooterImage.href !== undefined && siteFooterImage.href.length !== 0) {
-			footerImageHref = siteFooterImage.href
-		}
+	if (siteFooterImage.src !== undefined && siteFooterImage.src.length !== 0) {
+		footerImage = siteFooterImage.src
+	}
+	if (siteFooterImage.alt !== undefined && siteFooterImage.alt.length !== 0) {
+		footerImageAlt = siteFooterImage.alt
+	}
+	if (siteFooterImage.href !== undefined && siteFooterImage.href.length !== 0) {
+		footerImageHref = siteFooterImage.href
 	}
 
 	return (

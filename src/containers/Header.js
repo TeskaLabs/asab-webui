@@ -21,16 +21,14 @@ export function Header(props) {
 	let brandImageMinimized = props.brand_image.minimized;
 	let brandImageHref = props.brand_image.href;
 
-	if (siteBrandImage !== undefined) {
-		if (siteBrandImage.full !== undefined && siteBrandImage.full.length !== 0) {
-			brandImageFull = siteBrandImage.full
-		}
-		if (siteBrandImage.minimized !== undefined && siteBrandImage.minimized.length !== 0) {
-			brandImageMinimized = siteBrandImage.minimized
-		}
-		if (siteBrandImage.href !== undefined && siteBrandImage.href.length !== 0) {
-			brandImageHref = siteBrandImage.href
-		}
+	if (siteBrandImage.full !== undefined && siteBrandImage.full.length !== 0) {
+		brandImageFull = siteBrandImage.full
+	}
+	if (siteBrandImage.minimized !== undefined && siteBrandImage.minimized.length !== 0) {
+		brandImageMinimized = siteBrandImage.minimized
+	}
+	if (siteBrandImage.href !== undefined && siteBrandImage.href.length !== 0) {
+		brandImageHref = siteBrandImage.href
 	}
 
 	return (
