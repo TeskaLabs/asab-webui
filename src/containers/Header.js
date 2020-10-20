@@ -15,21 +15,6 @@ import {
 export function Header(props) {
 
 	let HeaderService = props.app.locateService("HeaderService");
-	let siteBrandImage = props.app.Config.get("brand_image");
-
-	let brandImageFull = props.brand_image.full;
-	let brandImageMinimized = props.brand_image.minimized;
-	let brandImageHref = props.brand_image.href;
-
-	if (siteBrandImage.full !== undefined && siteBrandImage.full.length !== 0) {
-		brandImageFull = siteBrandImage.full
-	}
-	if (siteBrandImage.minimized !== undefined && siteBrandImage.minimized.length !== 0) {
-		brandImageMinimized = siteBrandImage.minimized
-	}
-	if (siteBrandImage.href !== undefined && siteBrandImage.href.length !== 0) {
-		brandImageHref = siteBrandImage.href
-	}
 
 	return (
 		<AppHeader fixed>
@@ -41,15 +26,15 @@ export function Header(props) {
 			}
 
 			<AppNavbarBrand
-				href={brandImageHref}
+				href={props.brand_image.href}
 				full={{
-					src: brandImageFull,
+					src: props.brand_image.full,
 					alt: props.title,
 					width: 120,
 					height: 30,
 				}}
 				minimized={{
-					src: brandImageMinimized,
+					src: props.brand_image.minimized,
 					alt: props.title,
 					width: 30,
 					height: 30,
