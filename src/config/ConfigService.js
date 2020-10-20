@@ -48,7 +48,7 @@ export default class ConfigService extends Service {
 			this.Axios.get().then(response => {
 				// Check on status and content-type
 				if ((response.status === 200) && (response.headers["content-type"] !== undefined && response.headers["content-type"].includes("application/json"))) {
-					this.Config._remote_config = response.data;
+					this.Config._dynamic_config = response.data;
 					if (this.App.Store !== undefined) {
 						this.Config.dispatch(this.App.Store);
 					}
@@ -91,7 +91,7 @@ export default class ConfigService extends Service {
 class Config {
 	
 	constructor(app) {
-		this._remote_config = {};
+		this._dynamic_config = {};
 		this._defaults = {};
 	}
 
@@ -100,7 +100,7 @@ class Config {
 		let value;
 
 		// First check the remote config
-		value = this._remote_config[key];
+		value = this._dynamic_config[key];
 		if (value !== undefined) return value;
 
 		// Then check the local config
@@ -116,7 +116,7 @@ class Config {
 
 
 	dispatch(store) {
-		var config = Object.assign({}, __CONFIG__, this._remote_config, this._defaults);
+		var config = Object.assign({}, __CONFIG__, this._defaults, this._dynamic_config);
 		store.dispatch({
 			type: CHANGE_CONFIG,
 			config: config
