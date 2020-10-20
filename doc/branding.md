@@ -33,9 +33,7 @@ let ConfigDefaults = {
 		minimized: "media/logo/empty-header-minimized.svg"
 	},
 	footer_image: {
-		src: "media/logo/empty-footer.svg",
-		alt: "Created by FooBar Limited",
-		href: "https://foobar.org/",
+		src: "media/logo/empty-footer.svg"
 	}
 };
 
