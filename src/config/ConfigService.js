@@ -116,7 +116,7 @@ class Config {
 
 
 	dispatch(store) {
-		var config = Object.assign({}, __CONFIG__, this._defaults, this._dynamic_config);
+		var config = Object.assign({}, this._defaults, __CONFIG__, this._dynamic_config);
 		store.dispatch({
 			type: CHANGE_CONFIG,
 			config: config
