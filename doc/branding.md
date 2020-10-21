@@ -21,8 +21,10 @@ let ConfigDefaults = {
 
 ## Dynamic branding configuration
 
-When using configuration from site config, it is recommended to use empty SVG images as default.
-It will prevent unwanted glimmer of the default images before the site images are loaded.
+The branding can be configured using a dynamic configuration (aka site config).
+This means that the actual logos are loaded from the site configuration after the app is started.
+For that reason, it is recommended to use empty SVG logos as pre-configured default.
+The empty logos are provided in the ASAB WebUI Demo app.
 
 Example:
 
@@ -39,7 +41,7 @@ let ConfigDefaults = {
 
 ```
 
-Site configuration of branding can be then set as it is in the example below:
+Dynamic branding configuration can be set as it is in the example below:
 
 ```
 {
