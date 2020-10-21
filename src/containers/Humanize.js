@@ -21,9 +21,9 @@ The input `value` is mandatory, others are optional:
 */
 
 export function Humanize(props) {
-	let base = 1024;
-	let decimals = 2;
-	let displaySizes = false
+	let base = props.base ? props.base : 1000;
+	let decimals = props.decimals ? props.decimals : 0;
+	let displaySizes = props.displaySizes ? props.displaySizes : false;
 
 	if ((props.value === null) || (props.value === undefined)) {
 		return (
@@ -31,20 +31,7 @@ export function Humanize(props) {
 		)
 	}
 
-	Object.keys(props).map((prop) => {
-		if (prop === "base") {
-			base = props[prop]
-		}
-		if (prop === "decimals") {
-			decimals = props[prop]
-		}
-		if (prop === "displaySizes") {
-			displaySizes = props[prop]
-		}
-		});
-
 	var h = formatInput(props.value, base, decimals, displaySizes);
-
 	return (
 		<span className="humanize">
 			{h}
@@ -57,7 +44,7 @@ function formatInput(value, base, decimals, displaySizes) {
 	if (value === 0) return '0';
 
 	const dm = decimals < 0 ? 0 : decimals;
-	const sizes = ['K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
+	const sizes = ['k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
 	const i = Math.floor(Math.log(value) / Math.log(base));
 
 	if (displaySizes === true) {
