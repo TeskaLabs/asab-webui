@@ -43,7 +43,6 @@ export function Humanize(props) {
 		}
 		});
 
-
 	var h = formatInput(props.value, base, decimals, displaySizes);
 
 	return (
