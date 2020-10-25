@@ -2,7 +2,7 @@
 import { ADD_ALERT, DEL_ALERT } from '../actions';
 
 const initialState = {
-		alerts: [],
+	alerts: [],
 }
 
 export default function AlertsReducer(state = initialState, action) {
