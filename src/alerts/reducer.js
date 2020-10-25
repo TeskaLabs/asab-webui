@@ -45,7 +45,10 @@ export default function AlertsReducer(state = initialState, action) {
 			for (var i in newAlerts) {
 				var alert = newAlerts[i];
 				if (alert.key === action.key) {
+					// Prolong the longevity of acked alarm a little bit
+					alert.expire.setSeconds(alert.expire.getSeconds() + 3);
 					alert.acked = true;
+					break;
 				}
 			}
 			return {
