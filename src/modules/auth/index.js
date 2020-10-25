@@ -43,8 +43,10 @@ export default class AuthModule extends Module {
 		if (this.OAuthToken != null) {
 			let result = await this._updateUserInfo();
 			if (!result) {
+				// User info not found - go to login
 				sessionStorage.removeItem('SeaCatOAuth2Token');
-				console.log("!!! failed to _updateUserInfo()");
+				let force_login_prompt = true;
+				this.Api.login(this.RedirectURL, force_login_prompt);
 				return;
 			}
 		}
