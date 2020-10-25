@@ -1,5 +1,5 @@
 // Actions
-import { ADD_ALERT, DEL_ALERT } from '../actions';
+import { ADD_ALERT, ACK_ALERT, DEL_ALERT } from '../actions';
 
 const initialState = {
 	alerts: [],
@@ -18,6 +18,7 @@ export default function AlertsReducer(state = initialState, action) {
 				message: action.message,
 				level: action.level,
 				expire: expire,
+				acked: false,
 			}
 			return {
 				...state,
@@ -27,12 +28,26 @@ export default function AlertsReducer(state = initialState, action) {
 
 		case DEL_ALERT: {
 			const newAlerts = [...state.alerts];
-			for(var i = newAlerts.length - 1; i >= 0; i--) {
+			for (var i = newAlerts.length - 1; i >= 0; i--) {
 				if (newAlerts[i].key === action.key) {
 					newAlerts.splice(i, 1);
 				}
 			}
 
+			return {
+				...state,
+				alerts: newAlerts
+			}
+		}
+
+		case ACK_ALERT: {
+			const newAlerts = [...state.alerts];
+			for (var i in newAlerts) {
+				var alert = newAlerts[i];
+				if (alert.key === action.key) {
+					alert.acked = true;
+				}
+			}
 			return {
 				...state,
 				alerts: newAlerts

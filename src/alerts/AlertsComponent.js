@@ -1,54 +1,57 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux'
+import { Alert } from "reactstrap";
 
-import { DEL_ALERT } from '../actions';
-
-import {
-	Alert,
-} from "reactstrap";
+import { ACK_ALERT, DEL_ALERT } from '../actions';
 
 
-class AlertsComponent extends Component {
+function AlertsComponent(props) {
+	const [seconds, setSeconds] = useState(0);
+	let store = props.app.Store;
 
-	constructor(props) {
-		super(props);
-		this.App = props.app
+	// Expire old alerts
+	useEffect(() => {
 
-		this.onDismiss = this.onDismiss.bind(this);
-	}
+		// There is probably smarter way how to set interval to avoid speculative ticking
+		var interval = 1000;
+
+		const intervalId = setTimeout(() => {
+			setSeconds(seconds => seconds + 1);
+			
+			const now = new Date();
+			for (var i in props.alerts) {
+				let alert = props.alerts[i];
+
+				if (alert.expire < now) {
+					if (alert.acked) {
+						store.dispatch({type: DEL_ALERT, key: alert.key});
+					} else {
+						store.dispatch({type: ACK_ALERT, key: alert.key});
+					}
+				}
+			}
+
+		}, interval);
+		return () => { clearInterval(intervalId) };
+	}, [seconds]);
 
 
-	onDismiss(alert_key) {
-		const store = this.App.Store;
-		return function() {
-			store.dispatch({
-				type: DEL_ALERT,
-				key: alert_key,
-			});
-		};
-	}
-
-
-	// Render function
-	render() {
-		return (
-			<div className="alerts" >
-				{this.props.alerts.map((alert) => {
-					return (
-						<Alert
-							color={alert.level}
-							key={alert.key}
-							style={{boxShadow: "3px 3px 5px 1px rgba(0,0,0,0.33)"}}
-							isOpen={true}
-							toggle={this.onDismiss(alert.key)}
-							>
-							{alert.message}
-						</Alert>
-					)
-				})}
-			</div>
-		);
-	}
+	return (
+		<div className="alerts" >
+			{props.alerts.map((alert) => { return (
+				<Alert
+					key={alert.key}
+					color={alert.level}
+					className="shadow"
+					fade={true}
+					isOpen={!alert.acked}
+					toggle={() => store.dispatch({type: ACK_ALERT, key: alert.key})}
+					>
+					{alert.message}
+				</Alert>
+			)} )}
+		</div>
+	);
 }
 
 const mapStateToProps = state => {
@@ -57,7 +60,4 @@ const mapStateToProps = state => {
 	};
 }
 
-export default connect(
-	mapStateToProps,
-	null
-)(AlertsComponent);
+export default connect(mapStateToProps)(AlertsComponent);
