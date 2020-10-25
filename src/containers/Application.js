@@ -34,7 +34,7 @@ import ConfigService from '../config/ConfigService';
 import HeaderService from '../services/HeaderService';
 import FooterService from '../services/FooterService';
 
-import { ADD_ALERT } from '../actions';
+import { ADD_ALERT, SET_ADVANCED_MODE } from '../actions';
 
 
 class Application extends Component {
@@ -95,8 +95,11 @@ it is accessible by the sidebar toggler button.
 		this.FooterService = new FooterService(this, "FooterService");
 
 		this.ReduxService.addReducer("alerts", AlertsReducer);
+		this.ReduxService.addReducer("advmode", AdvancedModeReducer);
 
 		this.DefaultPath = props.defaultpath;
+
+		this._handleKeyUp = this._handleKeyUp.bind(this);
 
 		this.state = {
 			networking: 0, // If more than zero, some networking activity is happening
@@ -211,6 +214,23 @@ it is accessible by the sidebar toggler button.
 	}
 
 
+	_handleKeyUp(event){
+
+		// CTRL-A enables the advanced mode
+		if (event.key == '1' && event.ctrlKey) {
+			this.setAdvancedMode(0);
+		}
+	}
+
+	componentDidMount() {
+		document.addEventListener("keyup", this._handleKeyUp, false);
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener("keyup", this._handleKeyUp, false);
+	}
+
+
 	// Splash screen
 
 	addSplashScreenRequestor(obj) {
@@ -251,6 +271,26 @@ it is accessible by the sidebar toggler button.
 	}
 
 
+	setAdvancedMode(enabled) {
+
+		if (enabled === 0) {
+			let state = this.Store.getState();
+			enabled = ! state.advmode.enabled;
+		}
+
+		this.Store.dispatch({
+			type: SET_ADVANCED_MODE,
+			enabled: enabled
+		});
+
+		if (enabled) {
+			this.addAlert('warning', "Advanced mode enabled.", 1);
+		} else {
+			this.addAlert('success', "Advanced mode disabled", 1);
+		}
+	}
+
+
 	render() {
 		// Render the splash screen if needed
 		if (this.state.SplashscreenRequestors > 0) return (
@@ -264,7 +304,7 @@ it is accessible by the sidebar toggler button.
 
 		else return (
 			<Provider store={this.Store}>
-				<div className="app">
+				<div className="app" onKeyDown={(e) => alert("key!") }>
 					<Fade in={this.state.networking > 0} timeout={50} >
 						<div className="networking-indicator progress-bar progress-bar-animated progress-bar-striped" ></div>
 					</Fade>
@@ -352,3 +392,25 @@ class Navigation {
 
 
 export default withRouter(Application);
+
+
+// Advanced mode
+
+const advModeInitialState = {
+	enabled: false,
+}
+
+function AdvancedModeReducer(state = advModeInitialState, action) {
+	switch (action.type) {
+		
+		case SET_ADVANCED_MODE: {
+			return Object.assign({}, state, {
+				enabled: action.enabled
+			})
+		}
+
+		default:
+			return state
+	}
+}
+
