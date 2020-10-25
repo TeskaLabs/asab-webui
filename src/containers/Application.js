@@ -220,6 +220,7 @@ it is accessible by the sidebar toggler button.
 		if (event.key == '1' && event.ctrlKey) {
 			this.setAdvancedMode(0);
 		}
+
 	}
 
 	componentDidMount() {
@@ -304,7 +305,7 @@ it is accessible by the sidebar toggler button.
 
 		else return (
 			<Provider store={this.Store}>
-				<div className="app" onKeyDown={(e) => alert("key!") }>
+				<div className="app">
 					<Fade in={this.state.networking > 0} timeout={50} >
 						<div className="networking-indicator progress-bar progress-bar-animated progress-bar-striped" ></div>
 					</Fade>
