@@ -21,8 +21,12 @@ export function Header(props) {
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
 				<AppSidebarToggler className="d-lg-none" display="md" mobile />
 			: HeaderService.Items.length > 0 ?
-				<AppSidebarToggler className="d-lg-none" display="md" mobile />
-			: null
+				props.app.Navigation.getItems().items.length > 0 && props.app.Navigation.getItems().items.length !== undefined ?
+					<AppSidebarToggler className="d-lg-none" display="md" mobile />
+				:
+					null
+			:
+				null
 			}
 
 			<AppNavbarBrand
@@ -52,14 +56,23 @@ export function Header(props) {
 						))}
 					</Nav>
 				]
-			: 
-				<Nav className="d-md-down-none" navbar>
+			:
+				<Nav className="ml-auto" navbar>
 					{HeaderService.Items.map((item, idx) => (
-						<NavItem key={idx}>
-							<item.component key={item} {...item.componentProps} app={props.app}/>
-						</NavItem>
+						window.innerWidth < 1024 && item.component.name !== undefined && item.component.name === "LanguageDropdown" ?
+							<NavItem key={idx}>
+								<item.component key={item} {...item.componentProps} app={props.app}/>
+							</NavItem>
+						:
+							window.innerWidth >= 1024 ?
+								<NavItem key={idx}>
+									<item.component key={item} {...item.componentProps} app={props.app}/>
+								</NavItem>
+							:
+								null
 					))}
 				</Nav>
+
 			}
 		</AppHeader>
 	);
