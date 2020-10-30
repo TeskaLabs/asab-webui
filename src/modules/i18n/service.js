@@ -26,6 +26,15 @@ export default class I18nService extends Service {
 		}
 		config.supportedLngs = supportedLngs;
 
+		// Missing keys are displayed without the namespace
+		config.parseMissingKeyHandler = (key) => {
+			var n = key.lastIndexOf("|");
+			if (n > 0) {
+				return key.slice(n+1);
+			}
+			return key;
+		}
+
 		i18n
 		.use(HttpBackend)
 		.use(initReactI18next)
