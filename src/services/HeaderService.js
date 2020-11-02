@@ -8,8 +8,6 @@ export default class HeaderService extends Service {
 
 	 * `header-full.svg` dimensions: 120 x 30 pixels
 	 * `header-minimized.svg` dimensions: 30 x 30 pixels
-
-	Alternatively, you may overload them by `setBrandImages()` method.
 	*/
 
 	constructor(app, serviceName="HeaderService"){
@@ -28,6 +26,13 @@ export default class HeaderService extends Service {
 		}, false)
 	}
 
+	/*
+	Adding items to the header can be done by using addComponent:
+
+		const headerService = app.locateService("HeaderService");
+		headerService.addComponent(NavLink,{children: "My redirect button", href: "#/redirect", style: {marginRight: "2rem"}});
+
+	*/
 
 	addComponent(component, componentProps) {
 		this.Items.push({
