@@ -40,12 +40,16 @@ export default class AuthModule extends Module {
 			return;
 		}
 		
+		// Do we have an oauth token (we are authorized to use the app)
 		if (this.OAuthToken != null) {
+
+			// Update the user info
 			let result = await this._updateUserInfo();
 			if (!result) {
 				// User info not found - go to login
 				sessionStorage.removeItem('SeaCatOAuth2Token');
 				let force_login_prompt = true;
+
 				this.Api.login(this.RedirectURL, force_login_prompt);
 				return;
 			}
@@ -85,6 +89,7 @@ export default class AuthModule extends Module {
 			response = await this.Api.userinfo(this.OAuthToken.access_token);
 		}
 		catch (err) {
+			console.log("Failed to update user info", err);
 			this.UserInfo = null;
 			if (this.App.Store != null) {
 				this.App.Store.dispatch({ type: types.AUTH_USERINFO, payload: this.UserInfo });
@@ -106,12 +111,15 @@ export default class AuthModule extends Module {
 		try {
 			response = await this.Api.token_authorization_code(authorization_code, this.RedirectURL);
 		}
-		catch {
+		catch (err) {
+			console.log("Failed to update token", err);
 			return false;
 		}
 
 		this.OAuthToken = response.data;
 		sessionStorage.setItem('SeaCatOAuth2Token', JSON.stringify(response.data));
+
+		return true;
 	}
 
 }
