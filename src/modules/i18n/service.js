@@ -35,6 +35,9 @@ export default class I18nService extends Service {
 			return key;
 		}
 
+		// Set default key separator
+		config.keySeparator = "|";
+
 		i18n
 		.use(HttpBackend)
 		.use(initReactI18next)
