@@ -59,7 +59,7 @@ export function Header(props) {
 			:
 				<Nav className="ml-auto" navbar>
 					{HeaderService.Items.map((item, idx) => (
-						window.innerWidth < 1024 && item.component.name !== undefined && item.component.name === "LanguageDropdown" ?
+						window.innerWidth < 1024 && item.componentProps.children !== undefined && item.componentProps.children === "LanguageDropdown" ?
 							<NavItem key={idx}>
 								<item.component key={item} {...item.componentProps} app={props.app}/>
 							</NavItem>
