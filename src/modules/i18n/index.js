@@ -13,7 +13,7 @@ export default class I18nModule extends Module {
 
 	initialize() {
 		const headerService = this.App.locateService("HeaderService");
-		headerService.addComponent(LanguageDropdown);
+		headerService.addComponent(LanguageDropdown, {children: "LanguageDropdown"});
 	}
 
 }
