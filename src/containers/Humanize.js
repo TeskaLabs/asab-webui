@@ -56,10 +56,9 @@ export function Humanize(props) {
 
 function formatInput(value, base, decimals, displaySizes) {
 	if (value === 0) return '0';
-	if (value < 0) return value;
 
 	const dm = decimals < 0 ? 0 : decimals;
-	
+
 
 	if (value >= 1.0) {
 		const index = Math.floor(Math.log(value) / Math.log(base));
@@ -69,8 +68,9 @@ function formatInput(value, base, decimals, displaySizes) {
 		}
 
 		return parseFloat((value / Math.pow(base, index)).toFixed(dm));
+	}
 
-	} else {
+	if (value > 0.0 && value < 1.0) {
 
 		const index = (-1) * Math.floor(Math.log(value) / Math.log(base));
 		const units = ['', 'm', 'µ', 'n', 'p', 'f', 'a', 'z', 'y']
@@ -82,4 +82,27 @@ function formatInput(value, base, decimals, displaySizes) {
 		return parseFloat((value * Math.pow(base, index)).toFixed(dm));
 	}
 
+	if (value < 0.0 && value > -1.0) {
+
+		const absoluteValue = value * -1
+		const index = (-1) * Math.floor(Math.log(absoluteValue) / Math.log(base));
+		const units = ['', 'm', 'µ', 'n', 'p', 'f', 'a', 'z', 'y']
+
+		if (displaySizes === true) {
+			return '-' + parseFloat((absoluteValue * Math.pow(base, index)).toFixed(dm)) + ' ' + units[index];
+		}
+
+		return '-' + parseFloat((absoluteValue * Math.pow(base, index)).toFixed(dm));
+	}
+
+	if (value <= -1.0) {
+		const absoluteValue = value * -1
+		const index = Math.floor(Math.log(absoluteValue) / Math.log(base));
+		const units = ['', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
+		if (displaySizes === true) {
+			return '-' + parseFloat((absoluteValue / Math.pow(base, index)).toFixed(dm)) + ' ' + units[index];
+		}
+
+		return '-' + parseFloat((absoluteValue / Math.pow(base, index)).toFixed(dm));
+	}
 }
