@@ -43,6 +43,21 @@ export function Header(props) {
 					width: 30,
 					height: 30,
 				}}
+			/> |
+			<AppNavbarBrand
+				href={props.parent_brand_image.href}
+				full={{
+					src: props.parent_brand_image.full,
+					alt: props.title,
+					width: 120,
+					height: 30,
+				}}
+				minimized={{
+					src: props.parent_brand_image.minimized,
+					alt: props.title,
+					width: 30,
+					height: 30,
+				}}
 			/>
 
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
@@ -82,6 +97,7 @@ export function Header(props) {
 function mapStateToProps(state) {
 	return {
 		brand_image: state.config.brand_image,
+		parent_brand_image: state.config.parent_brand_image,
 		title: state.config.title,
 	}
 }

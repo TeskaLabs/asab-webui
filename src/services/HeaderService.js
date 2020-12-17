@@ -22,6 +22,11 @@ export default class HeaderService extends Service {
 				full: "media/logo/header-full.svg",
 				minimized: "media/logo/header-minimized.svg",
 				href: undefined,
+			},
+			'parent_brand_image': {
+				full: "media/logo/logman-header-full.svg",
+				minimized: "media/logo/logman-header-minimized.svg",
+				href: undefined,
 			}
 		}, false)
 	}

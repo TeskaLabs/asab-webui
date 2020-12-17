@@ -10,6 +10,10 @@ let ConfigDefaults = {
 		full: "media/logo/header-full.svg",
 		minimized: "media/logo/header-minimized.svg",
 	},
+	parent_brand_image: {
+		full: "media/logo/parent-header-full.svg",
+		minimized: "media/logo/parent-header-minimized.svg",
+	},
 	footer_image: {
 		src: "media/logo/footer.svg",
 		alt: "Created by FooBar Limited",
@@ -34,6 +38,10 @@ let ConfigDefaults = {
 		full: "media/logo/empty-header-full.svg",
 		minimized: "media/logo/empty-header-minimized.svg"
 	},
+	parent_brand_image: {
+		full: "media/logo/parent-header-full.svg",
+		minimized: "media/logo/parent-header-minimized.svg",
+	},
 	footer_image: {
 		src: "media/logo/empty-footer.svg"
 	}
@@ -48,6 +56,10 @@ Dynamic branding configuration can be set as it is in the example below:
 	"brand_image":{
 		"full": "path/to/header-full.svg",
 		"minimized": "path/to/header-minimized.svg"
+	},
+	"parent_brand_image":{
+		"full": "path/to/parent-header-full.svg",
+		"minimized": "path/to/parent-header-minimized.svg"
 	},
 	"footer_image":{
 		"src": "path/to/footer.svg",
