@@ -8,14 +8,11 @@ import './index.scss'
 
 // Configuration
 let ConfigDefaults = {
+	site_title: "TeskaLabs",
 	title: "ASAB App",
 	brand_image: {
 		full: "media/logo/header-full.svg",
 		minimized: "media/logo/header-minimized.svg",
-	},
-	parent_brand_image: {
-		full: "media/logo/logman-header-full.svg",
-		minimized: "media/logo/logman-header-minimized.svg",
 	},
 	footer_image: {
 		src: "media/logo/footer.svg",
