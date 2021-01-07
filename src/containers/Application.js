@@ -5,6 +5,7 @@ import { Provider, connect } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Axios from 'axios';
+import { Helmet } from "react-helmet";
 
 import {
 	Container,
@@ -76,7 +77,7 @@ it is accessible by the sidebar toggler button.
 ...
 	*/
 
-	constructor(props){
+	constructor(props) {
 		super(props);
 
 		this.Modules = [];
@@ -205,8 +206,8 @@ it is accessible by the sidebar toggler button.
 		this.Services[service.Name] = service;
 	}
 
-	locateService(name){
-		if (!name in this.Services){
+	locateService(name) {
+		if (!name in this.Services) {
 			console.warn(`Service ${name} doesn't exist.`);
 			return null;
 		}
@@ -214,7 +215,7 @@ it is accessible by the sidebar toggler button.
 	}
 
 
-	_handleKeyUp(event){
+	_handleKeyUp(event) {
 
 		// CTRL-A enables the advanced mode
 		if (event.key == '1' && event.ctrlKey) {
@@ -262,7 +263,7 @@ it is accessible by the sidebar toggler button.
 		* success
 	*/
 
-	addAlert(level, message, expire=5) {
+	addAlert(level, message, expire = 5) {
 		this.Store.dispatch({
 			type: ADD_ALERT,
 			level: level,
@@ -276,7 +277,7 @@ it is accessible by the sidebar toggler button.
 
 		if (enabled === 0) {
 			let state = this.Store.getState();
-			enabled = ! state.advmode.enabled;
+			enabled = !state.advmode.enabled;
 		}
 
 		this.Store.dispatch({
@@ -297,8 +298,14 @@ it is accessible by the sidebar toggler button.
 		if (this.state.SplashscreenRequestors > 0) return (
 			<Provider store={this.Store}>
 				<div className="app">
-					<AlertsComponent app={this}/>
-					<SplashScreen app={this}/>
+					<AlertsComponent app={this} />
+					<SplashScreen app={this} />
+					{this.Config.get('title') != null && this.Config.get('title') != undefined ?
+						<Helmet>
+							<title>{this.Config.get('site_title') ? this.Config.get('site_title') + " | " + this.Config.get('title') : this.Config.get('title')}</title>
+						</Helmet>
+						: null 
+					}
 				</div>
 			</Provider>
 		)
@@ -309,16 +316,22 @@ it is accessible by the sidebar toggler button.
 					<Fade in={this.state.networking > 0} timeout={50} >
 						<div className="networking-indicator progress-bar progress-bar-animated progress-bar-striped" ></div>
 					</Fade>
-					<AlertsComponent app={this}/>
-					<Header app={this}/>
+					<AlertsComponent app={this} />
+					{this.Config.get('title') != null && this.Config.get('title') != undefined ?
+						<Helmet>
+							<title>{this.Config.get('site_title') ? this.Config.get('site_title') + " | " + this.Config.get('title') : this.Config.get('title')}</title>
+						</Helmet>
+						: null
+					}
+					<Header app={this} />
 					<div className="app-body">
-						{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ? 
-							<Sidebar app={this} navigation={this.Navigation} display="lg"/> : 
-							<Sidebar app={this} navigation={this.Navigation} display="xs"/>}
+						{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ?
+							<Sidebar app={this} navigation={this.Navigation} display="lg" /> :
+							<Sidebar app={this} navigation={this.Navigation} display="xs" />}
 						<main className="main">
-							{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ? 
-								<AppBreadcrumb appRoutes={this.Router.Routes} router={router}/>
-							: null}
+							{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ?
+								<AppBreadcrumb appRoutes={this.Router.Routes} router={router} />
+								: null}
 							<Switch>
 								{this.Router.Routes.map((route, idx) => {
 									return route.component ? (
@@ -333,11 +346,11 @@ it is accessible by the sidebar toggler button.
 										/>
 									) : (null);
 								})}
-								{this.DefaultPath != undefined ? <Redirect from="/" to={this.DefaultPath} />: null}
+								{this.DefaultPath != undefined ? <Redirect from="/" to={this.DefaultPath} /> : null}
 							</Switch>
 						</main>
 					</div>
-					<Footer app={this}/>
+					<Footer app={this} />
 				</div>
 			</Provider>
 		)
@@ -348,11 +361,11 @@ it is accessible by the sidebar toggler button.
 
 class Router {
 
-	constructor(app){		
+	constructor(app) {
 		this.Routes = []
 	}
 
-	addRoute(route){
+	addRoute(route) {
 		/* Example route:
 			{
 				path: '/some/path', // Url path
@@ -368,11 +381,11 @@ class Router {
 
 class Navigation {
 
-	constructor(app){
+	constructor(app) {
 		this.Items = []
 	}
 
-	addItem(item){
+	addItem(item) {
 		/* Example item:
 			{
 				path: '/some/path', // Url path
@@ -403,7 +416,7 @@ const advModeInitialState = {
 
 function AdvancedModeReducer(state = advModeInitialState, action) {
 	switch (action.type) {
-		
+
 		case SET_ADVANCED_MODE: {
 			return Object.assign({}, state, {
 				enabled: action.enabled

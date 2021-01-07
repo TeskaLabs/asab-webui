@@ -6,6 +6,8 @@ Example:
 
 ```
 let ConfigDefaults = {
+	site_title: "TeskaLabs",
+	title: "Page Title",
 	brand_image: {
 		full: "media/logo/header-full.svg",
 		minimized: "media/logo/header-minimized.svg",
@@ -30,6 +32,8 @@ Example:
 
 ```
 let ConfigDefaults = {
+	site_title: "TeskaLabs",
+	title: "Page Title",
 	brand_image: {
 		full: "media/logo/empty-header-full.svg",
 		minimized: "media/logo/empty-header-minimized.svg"
@@ -45,6 +49,8 @@ Dynamic branding configuration can be set as it is in the example below:
 
 ```
 {
+	"site_title": "TeskaLabs",
+	"title": "Page Title",
 	"brand_image":{
 		"full": "path/to/header-full.svg",
 		"minimized": "path/to/header-minimized.svg"
