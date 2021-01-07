@@ -301,11 +301,11 @@ it is accessible by the sidebar toggler button.
 				<div className="app">
 					<AlertsComponent app={this} />
 					<SplashScreen app={this} />
-					{this.Config.get('site_title') != null && this.Config.get('site_title') != undefined ?
+					{this.Config.get('title') != null && this.Config.get('title') != undefined ?
 						<Helmet>
-							<title>{this.Config.get('title') ? this.Config.get('site_title') + " | " + this.Config.get('title') : this.Config.get('site_title')}</title>
+							<title>{this.Config.get('site_title') ? this.Config.get('site_title') + " | " + this.Config.get('title') : this.Config.get('title')}</title>
 						</Helmet>
-						: { null }
+						: null 
 					}
 				</div>
 			</Provider>
@@ -318,11 +318,11 @@ it is accessible by the sidebar toggler button.
 						<div className="networking-indicator progress-bar progress-bar-animated progress-bar-striped" ></div>
 					</Fade>
 					<AlertsComponent app={this} />
-					{this.Config.get('site_title') != null && this.Config.get('site_title') != undefined ?
+					{this.Config.get('title') != null && this.Config.get('title') != undefined ?
 						<Helmet>
-							<title>{this.Config.get('title') ? this.Config.get('site_title') + " | " + this.Config.get('title') : this.Config.get('site_title')}</title>
+							<title>{this.Config.get('site_title') ? this.Config.get('site_title') + " | " + this.Config.get('title') : this.Config.get('title')}</title>
 						</Helmet>
-						: { null }
+						: null
 					}
 					<Header app={this} />
 					<div className="app-body">
