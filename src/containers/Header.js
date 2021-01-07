@@ -43,7 +43,7 @@ export function Header(props) {
 					width: 30,
 					height: 30,
 				}}
-			/> |
+			/>
 
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
 				[
