@@ -143,7 +143,6 @@ it is accessible by the sidebar toggler button.
 		}
 		
 		modules_init().then(async function() {
-		modules_init().then(async function () {
 			that.Store.replaceReducer(combineReducers(that.ReduxService.Reducers));
 			that.Config.dispatch(that.Store);
 
