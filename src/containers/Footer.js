@@ -15,6 +15,16 @@ export function Footer(props) {
 			))}
 
 			<span className="ml-auto">
+				{props.footer_image.secondImage &&
+					<a target="_blank" href={props.footer_image.secondImage.href}>
+						<img
+							height={16}
+							width={120}
+							alt={props.footer_image.alt}
+							src={props.footer_image.secondImage.src}
+						/>
+					</a>
+				}
 				<a target="_blank" href={props.footer_image.href}>
 					<img
 						height={16}
@@ -31,7 +41,16 @@ export function Footer(props) {
 }
 
 function mapStateToProps(state) {
-	return { footer_image: state.config.footer_image }
+	let footerImage = !state.config.brand_image.userSpecifiedImage?.full ? 
+		state.config.footer_image : {
+			...state.config.footer_image,
+			secondImage:  {
+				src: state.config.brand_image.full,
+				href: state.config.brand_image.href,
+			},
+		};
+
+	return { footer_image: footerImage }
 }
 
 export default connect(mapStateToProps)(Footer);
