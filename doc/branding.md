@@ -64,6 +64,14 @@ Dynamic branding configuration can be set as it is in the example below:
 ```
 
 
+## Setting page title
+The page title (top of browser and on tab) is set as `site_title | title` if both are available.
+If title is available, but site_title is not, the page title will be displayed as `title`.
+If none of them is provided in configuration, the basic html title tag will be used.
+
+With the configuration set as above, the title will be: `TeskaLabs | Page Title`
+
+
 ## Styling guide
 
 Every image HAS TO be provided in SVG (vectorized).
