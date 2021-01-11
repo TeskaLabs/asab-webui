@@ -80,8 +80,9 @@ export function Header(props) {
 
 
 function mapStateToProps(state) {
-	const headerImage = state.config.brand_image.userSpecifiedImage?.full ?
-		state.config.brand_image.userSpecifiedImage : state.config.brand_image;
+	console.log(state.config);
+	const headerImage = state.config.brand_image?.full ?
+		state.config.brand_image : state.config.default_brand_image;
 
 	return {
 		brand_image: headerImage,

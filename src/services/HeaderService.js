@@ -18,12 +18,12 @@ export default class HeaderService extends Service {
 
 	initialize() {
 		this.App.ConfigService.addDefaults({
-			'brand_image': {
+			'default_brand_image': {
 				full: "media/logo/header-full.svg",
 				minimized: "media/logo/header-minimized.svg",
 				href: undefined,
 			}
-		}, false)
+		}, true)
 	}
 
 	/*
