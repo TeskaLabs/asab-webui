@@ -18,16 +18,18 @@ export function Footer(props) {
 						<a target="_blank" href={props.footer_image.secondImage.href}>
 							<img
 								height={16}
+								width={120}
 								alt={props.footer_image.alt}
 								src={props.footer_image.secondImage.src}
 							/>
 						</a>
-						<span style={{ margin: "0 .75rem"}}>|</span>
+						<span>|</span>
 					</>
 				}
 				<a target="_blank" href={props.footer_image.href}>
 					<img
 						height={16}
+						width={120}
 						alt={props.footer_image.alt}
 						src={props.footer_image.src}
 					/>

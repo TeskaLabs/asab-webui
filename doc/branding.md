@@ -56,7 +56,8 @@ Dynamic branding configuration can be set as it is in the example below:
 	}
 }
 ```
-
+If no images are provided from any configuration, application takes images `header-full.svg`, `header-minimized.svg` and 
+`footer.svg` from application's folder `media/logo`.
 
 ## Styling guide
 
