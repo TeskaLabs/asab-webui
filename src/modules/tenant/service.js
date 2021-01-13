@@ -7,6 +7,7 @@ export default class TenantService extends Service {
 	constructor(app, name="TenantService") {
 		super(app, name);
 		this.API = new Api(this.App.axiosCreate(''));
+		this.OAuthToken = JSON.parse(sessionStorage.getItem('SeaCatOAuth2Token'));
 		this.App.addSplashScreenRequestor(this);
 	}
 
@@ -15,6 +16,7 @@ export default class TenantService extends Service {
 		const search = window.location.search;
 		const params = new URLSearchParams(search);
 		var tenant_id = params.get('tenant');
+		// var payload = {};
 		
 		// Fetch tenants
 		this.API.get_tenants()
@@ -46,6 +48,26 @@ export default class TenantService extends Service {
 				payload,
 				current: x[0],
 			});
+
+			console.log(x, 'x tenants')
+
+			// this.API.get_user_access(tenant, this.OAuthToken['access_token'])
+			if (this.OAuthToken['access_token'] == null) {
+				console.log('je nulll')
+			} else {
+				console.log(payload, 'payload')
+				console.log(this.OAuthToken['access_token'], 'access token')
+				Object.values(payload).map((tenant, idx) => {
+					console.log(tenant._id)
+					this.API.get_user_access(tenant._id, this.OAuthToken['access_token']).then(response => {
+						console.log(tenant._id , 'tenantid')
+						console.log(response.data)
+					}).catch((error) => {
+						console.log(error);
+						this.App.addAlert("danger", "Failed to load tenants.", 40000);
+					})
+				})
+			}
 
 			this.App.removeSplashScreenRequestor(this);
 		})
