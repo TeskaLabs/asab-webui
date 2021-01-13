@@ -39,9 +39,9 @@ export default class TenantService extends Service {
 							this.App.addAlert("danger", "You are not authorized to use this application.", 40000);
 							return;
 						}
-
-						// If tenant has not been provided in access URL, pick a first tenant from a list
-						if (tenant_id == null || tenant_id !== payload[0]._id) {
+						// If tenant has not been provided in access URL or if tenant is provided in URL,
+						// but does not match with the list of tenants assigned for the account, pick a first tenant from a list
+						if (tenant_id == null || !(JSON.stringify(payload).indexOf(tenant_id) !== -1)) {
 							tenant_id = payload[0]._id;
 							// ... and refresh (reload) the whole web app
 							window.location.replace('?tenant='+tenant_id+'#/');
