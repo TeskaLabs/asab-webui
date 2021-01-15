@@ -10,25 +10,46 @@ export class SeaCatAuthApi {
 
 	module.exports = {
 		app: {
-			"OIDC_URL": 'http://localhost:3000/openidconnect',
+			"OIDC_URL_URL": 'http://localhost:3000/openidconnect',
 			...
 	*/
 
 	constructor(config) {
 		
+		// TODO: UPDATE api calls with microservices and subpaths 
 		this.BaseURL = config.get('OIDC_URL');
+		this.ApiURL = config.get('API_URL');
+
+		if (this.ApiURL == null) {
+			console.log("Provide config value API_URL");
+			this.ApiURL = "/api"
+		}
+		// this.BaseURL = config.get('SEACATAUTH_URL');
+		// if (this.BaseURL == null) {
+		// 	// This is here for a backward compatibility
+		// 	this.BaseURL = config.get('OIDC_URL'); // Odebrat posledni /openidconnect
+		// 	if (this.BaseURL !== null) {
+		// 		this.BaseURL = this.BaseURL.toString().replace("/openidconnect","");
+		// 	}
+		// }
 		if (this.BaseURL == null) {
 			// This is here for a backward compatibility
 			this.BaseURL = config.get('seacat.auth.oidc_url');
+			// if (this.BaseURL !== null) {
+			// 	this.BaseURL = this.BaseURL.toString().replace("/openidconnect","");
+			// }
 		}
 		if (this.BaseURL == null) {
 			console.log("Provide config value seacat.auth.oidc_url");
 			this.BaseURL = "/openidconnect";
+			// this.BaseURL = "/";
 		}
 		this.Axios = axios.create({
 			timeout: 10000,
 			baseURL: this.BaseURL,
 		});
+
+		this.AxiosAPI = axios.create({baseURL:'/api'});
 
 		const scope = config.get('seacat.auth.scope');
 		this.Scope = scope ? scope : "openid";
@@ -49,10 +70,12 @@ export class SeaCatAuthApi {
 			params.append("prompt", "login");
 		}
 		window.location.replace(this.BaseURL + "/authorize?" + params.toString());
+		// window.location.replace(this.BaseURL + "/openidconnect/authorize?" + params.toString());
 	}
 
 	logout(access_token) {
 		return this.Axios.get(
+			// '/openidconnect/logout',
 			'/logout',
 			{ headers: { 'Authorization': 'Bearer ' + access_token }}
 		);
@@ -65,6 +88,7 @@ export class SeaCatAuthApi {
 			headers.Authorization = 'Bearer ' + access_token;
 		}
 		return this.Axios.get('/userinfo', {headers: headers});
+		// return this.Axios.get('/openidconnect/userinfo', {headers: headers});
 	}
 
 
@@ -78,9 +102,24 @@ export class SeaCatAuthApi {
 		});
 
 		return this.Axios.post(
+			// '/openidconnect/token',
 			'/token',
 			qs.toString()
 		);
+	}
+
+
+	verify_access(tenant, access_token, resource) {
+		let rsrc = resource ? resource : "tenant:access";
+		return this.AxiosAPI.get(
+			"/rbac/" + tenant + "/" + rsrc,
+			{ headers: { 'Authorization': 'Bearer ' + access_token }}
+			)
+	}
+
+
+	get_tenants() {
+		return this.AxiosAPI.get('/tenant')
 	}
 
 };
