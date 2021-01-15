@@ -62,7 +62,8 @@ Dynamic branding configuration can be set as it is in the example below:
 	}
 }
 ```
-
+If no images are provided from any configuration, application takes images `header-full.svg`, `header-minimized.svg` and 
+`footer.svg` from application's folder `media/logo`.
 
 ## Setting page title
 The page title (top of browser and on tab) is set as `site_title | title` if both are available.
