@@ -26,22 +26,8 @@ class TenantDropdown extends Component {
 
 		this.TenantService = props.app.locateService("TenantService");
 
-		this.state = {
-			tenantDropdownOpen: false
-		}
-
-		this.toggleTenantDropdown = this.toggleTenantDropdown.bind(this);
-		this.changeTenant = this.changeTenant.bind(this);
-	}
-
-	toggleTenantDropdown() {
-		this.setState(prevState => ({
-			tenantDropdownOpen: !prevState.tenantDropdownOpen
-		}));
-	}
-
-	changeTenant(id){
-		this.props.changeTenant(id);
+		this.tenants = this.props.allowedTenants != null ? this.props.allowedTenants : this.props.tenants;
+		this.current = this.props.currentAllowedTenant != null ? this.props.currentAllowedTenant: this.props.current;
 	}
 
 	render() {
@@ -49,9 +35,9 @@ class TenantDropdown extends Component {
 			<UncontrolledDropdown direction="down" className="pr-3">
 				<DropdownToggle nav caret>
 					<i className="cil-apps pr-2"></i>
-					<TenantLabel tenant={this.props.current}/>
+					<TenantLabel tenant={this.current}/>
 				</DropdownToggle>
-				{ (this.props.tenants && this.props.tenants.length > 0) ?
+				{ (this.tenants && this.tenants.length > 0) ?
 					<DropdownMenu right
 						modifiers={{
 							setMaxHeight: {
@@ -71,7 +57,7 @@ class TenantDropdown extends Component {
 						}}
 					>
 						<DropdownItem header>Tenants</DropdownItem>
-						{this.props.tenants.map((tenant, i) => (
+						{this.tenants.map((tenant, i) => (
 							<DropdownItem key={i} tag="a" href={'?tenant='+tenant._id+'#/'}>
 								<TenantLabel tenant={tenant}/>
 							</DropdownItem>
@@ -98,6 +84,8 @@ const mapStateToProps = state => {
 	return {
 		current: state.tenant.current,
 		tenants: state.tenant.tenants,
+		allowedTenants: state.auth.allowedTenants,
+		currentAllowedTenant: state.auth.currentAllowedTenant,
 	};
 };
 
