@@ -10,7 +10,7 @@ export class SeaCatAuthApi {
 
 	module.exports = {
 		app: {
-			"OIDC_URL_URL": 'http://localhost:3000/openidconnect',
+			"OIDC_URL": 'http://localhost:3000/openidconnect',
 			...
 	*/
 
