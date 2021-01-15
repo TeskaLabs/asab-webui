@@ -5,20 +5,22 @@ import reducer from './reducer';
 import { types } from './actions'
 import { SeaCatAuthApi, GoogleOAuth2Api } from './api';
 
-export default class AuthModule extends Module {
 
+export default class AuthModule extends Module {
 
 	constructor(app, name){
 		super(app, "AuthModule");
 
 		this.OAuthToken = JSON.parse(sessionStorage.getItem('SeaCatOAuth2Token'));
 		this.UserInfo = null;
-		this.Api = new SeaCatAuthApi(app.Config);
+		this.SeaCatAuthApi = new SeaCatAuthApi(app.Config);
 		this.RedirectURL = window.location.href;
 		this.MustAuthenticate = true; // Setting this to false means, that we can operate without authenticated user
 
 		app.ReduxService.addReducer("auth", reducer);
 		this.App.addSplashScreenRequestor(this);
+
+		this.Resource = app.Config.get("resource"); // Get the resource for rbac endpoint from configuration
 	}
 
 
@@ -42,7 +44,6 @@ export default class AuthModule extends Module {
 		
 		// Do we have an oauth token (we are authorized to use the app)
 		if (this.OAuthToken != null) {
-
 			// Update the user info
 			let result = await this._updateUserInfo();
 			if (!result) {
@@ -50,7 +51,13 @@ export default class AuthModule extends Module {
 				sessionStorage.removeItem('SeaCatOAuth2Token');
 				let force_login_prompt = true;
 
-				this.Api.login(this.RedirectURL, force_login_prompt);
+				this.SeaCatAuthApi.login(this.RedirectURL, force_login_prompt);
+				return;
+			}
+			// Authorization of the user based on rbac
+			let userAuthorized = await this._isUserAuthorized();
+			if (!userAuthorized) {
+				this.App.addAlert("danger", "You are not authorized to use this application.",  40000)
 				return;
 			}
 		}
@@ -58,7 +65,7 @@ export default class AuthModule extends Module {
 		if ((this.UserInfo == null) && (this.MustAuthenticate)) {
 			// TODO: force_login_prompt = true to break authentication failure loop
 			let force_login_prompt = false;
-			this.Api.login(this.RedirectURL, force_login_prompt);
+			this.SeaCatAuthApi.login(this.RedirectURL, force_login_prompt);
 			return;
 		}
 		
@@ -70,7 +77,7 @@ export default class AuthModule extends Module {
 		this.App.addSplashScreenRequestor(this);
 
 		sessionStorage.removeItem('SeaCatOAuth2Token');
-		const promise = this.Api.logout(this.OAuthToken['access_token'])
+		const promise = this.SeaCatAuthApi.logout(this.OAuthToken['access_token'])
 		if (promise == null) {
 			window.location.reload();
 		}
@@ -86,7 +93,7 @@ export default class AuthModule extends Module {
 	async _updateUserInfo() {
 		let response;
 		try {
-			response = await this.Api.userinfo(this.OAuthToken.access_token);
+			response = await this.SeaCatAuthApi.userinfo(this.OAuthToken.access_token);
 		}
 		catch (err) {
 			console.log("Failed to update user info", err);
@@ -109,7 +116,7 @@ export default class AuthModule extends Module {
 	async _updateToken(authorization_code) {
 		let response;
 		try {
-			response = await this.Api.token_authorization_code(authorization_code, this.RedirectURL);
+			response = await this.SeaCatAuthApi.token_authorization_code(authorization_code, this.RedirectURL);
 		}
 		catch (err) {
 			console.log("Failed to update token", err);
@@ -120,6 +127,69 @@ export default class AuthModule extends Module {
 		sessionStorage.setItem('SeaCatOAuth2Token', JSON.stringify(response.data));
 
 		return true;
+	}
+
+
+	async _isUserAuthorized() {
+		let resp = false;
+		let tenants;
+		// Get the list of all available tenants of the application
+		await this.SeaCatAuthApi.get_tenants()
+		.then(response => {
+			tenants = response.data;
+		})
+		.catch((error) => {
+			console.log("Failed to load tenants", error);
+			resp = false;
+		});
+		// Is user authorized - returns true or false
+		if (tenants.length > 0) {
+			resp = await this._storeAuthorizedTenants(tenants, this.Resource);
+		} else {
+			resp = false;
+		}
+		return resp;
+	}
+
+
+	async _storeAuthorizedTenants(tenants, resource) {
+		let payload = [];
+		let resp = false;
+		const params = new URLSearchParams(window.location.search);
+		let tenant_id = params.get('tenant');
+		// Check tenants of the user with the available tenants of the application. If there is no match, user is not allowed to access the application or part of the application.
+		await Promise.all(Object.values(tenants).map(async (tenant, idx) => {
+			await this.SeaCatAuthApi.verify_access(tenant._id, this.OAuthToken['access_token'], resource).then(response => {
+				if (response.data.result == 'OK'){
+					payload.push(tenant)
+				}
+				if (idx + 1 == tenants.length) {
+					if (payload.length > 0) {
+						if (this.App.Store != null) {
+							let currentTenant = payload[0];
+							// Check if tenant_id is null in URL or if tenant_id does exist in the list of authorized tenants
+							if (tenant_id == null || !(JSON.stringify(payload).indexOf(tenant_id) != -1)) {
+								tenant_id = payload[0]._id;
+								// refresh (reload) the whole web app
+								window.location.replace('?tenant='+tenant_id+'#/');
+								currentTenant = currentTenant;
+							} else {
+								currentTenant = {"_id":tenant_id};
+							}
+							// Store the authorized tenants and the current tenant in the redux store
+							this.App.Store.dispatch({ type: types.AUTH_TENANTS, payload: payload, currentAllowed: currentTenant });
+							resp = true;
+						}
+					} else {
+						resp = false;
+					}
+				}
+			}).catch((error) => {
+				console.log(error);
+				resp = false;
+			})
+		}));
+		return resp
 	}
 
 }
