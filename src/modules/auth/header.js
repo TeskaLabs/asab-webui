@@ -9,7 +9,7 @@ import {
 
 function HeaderComponent(props) {
 
-	let user_auth_url = props.app.Config.get('USER_AUTH_URL');
+	let user_auth_url = props.app.Config.get('BASE_URL');
 
 	const logout = () => {
 		props.AuthModule.logout()
