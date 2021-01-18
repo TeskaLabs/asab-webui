@@ -157,38 +157,37 @@ export default class AuthModule extends Module {
 		let resp = false;
 		const params = new URLSearchParams(window.location.search);
 		let tenant_id = params.get('tenant');
-		// Check tenants of the user with the available tenants of the application. If there is no match, user is not allowed to access the application or part of the application.
+		// Check tenants of the user with the available tenants of the application.
 		await Promise.all(Object.values(tenants).map(async (tenant, idx) => {
 			await this.SeaCatAuthApi.verify_access(tenant._id, this.OAuthToken['access_token'], resource).then(response => {
 				if (response.data.result == 'OK'){
 					payload.push(tenant)
-				}
-				if (idx + 1 == tenants.length) {
-					if (payload.length > 0) {
-						if (this.App.Store != null) {
-							let currentTenant = payload[0];
-							// Check if tenant_id is null in URL or if tenant_id does exist in the list of authorized tenants
-							if (tenant_id == null || !(JSON.stringify(payload).indexOf(tenant_id) != -1)) {
-								tenant_id = payload[0]._id;
-								// refresh (reload) the whole web app
-								window.location.replace('?tenant='+tenant_id+'#/');
-								currentTenant = currentTenant;
-							} else {
-								currentTenant = {"_id":tenant_id};
-							}
-							// Store the authorized tenants and the current tenant in the redux store
-							this.App.Store.dispatch({ type: types.AUTH_TENANTS, payload: payload, currentAllowed: currentTenant });
-							resp = true;
-						}
-					} else {
-						resp = false;
-					}
 				}
 			}).catch((error) => {
 				console.log(error);
 				resp = false;
 			})
 		}));
+		// If there is no match, user is not allowed to access the application or part of the application.
+		if (payload.length > 0) {
+			if (this.App.Store != null) {
+				let currentTenant = payload[0];
+				// Check if tenant_id is null in URL or if tenant_id does exist in the list of authorized tenants
+				if (tenant_id == null || !(JSON.stringify(payload).indexOf(tenant_id) != -1)) {
+					tenant_id = payload[0]._id;
+					// refresh (reload) the whole web app
+					window.location.replace('?tenant='+tenant_id+'#/');
+					return;
+				} else {
+					currentTenant = {"_id":tenant_id};
+				}
+				// Store the authorized tenants and the current tenant in the redux store
+				this.App.Store.dispatch({ type: types.AUTH_TENANTS, payload: payload, currentAllowed: currentTenant });
+				resp = true;
+			}
+		} else {
+			resp = false;
+		}
 		return resp
 	}
 
