@@ -20,7 +20,8 @@ export default class AuthModule extends Module {
 		app.ReduxService.addReducer("auth", reducer);
 		this.App.addSplashScreenRequestor(this);
 
-		this.Resource = app.Config.get("resource"); // Get the resource for rbac endpoint from configuration
+		this.Authorization = app.Config.get("Authorization"); // User authorization (true/false)
+		this.Resource = app.Config.get("Resource"); // Get the resource for rbac endpoint from configuration
 	}
 
 
@@ -54,12 +55,17 @@ export default class AuthModule extends Module {
 				this.Api.login(this.RedirectURL, force_login_prompt);
 				return;
 			}
-			// TODO: make authorization configurable
 			// Authorization of the user based on rbac
-			let userAuthorized = await this._isUserAuthorized();
-			if (!userAuthorized) {
-				this.App.addAlert("danger", "You are not authorized to use this application.",  40000)
-				return;
+			if (this.Authorization) {
+				let userAuthorized = await this._isUserAuthorized();
+				if (!userAuthorized) {
+					this.App.addAlert("danger", "You are not authorized to use this application.",  40000);
+					// Logout after some time
+					setTimeout(() => {
+						this.logout();
+					}, 5000);
+					return;
+				}
 			}
 		}
 
@@ -158,7 +164,6 @@ export default class AuthModule extends Module {
 		let resp = false;
 		const params = new URLSearchParams(window.location.search);
 		let tenant_id = params.get('tenant');
-		// Check tenants of the user with the available tenants of the application.
 		await Promise.all(Object.values(tenants).map(async (tenant, idx) => {
 			await this.Api.verify_access(tenant._id, this.OAuthToken['access_token'], resource).then(response => {
 				if (response.data.result == 'OK'){
@@ -173,7 +178,7 @@ export default class AuthModule extends Module {
 		if (payload.length > 0) {
 			if (this.App.Store != null) {
 				// Get current tenant
-				let current = payload[0];
+				let activeTenant = payload[0];
 				// Check if tenant_id is null in URL or if tenant_id does exist in the list of authorized tenants
 				if (tenant_id == null || !(JSON.stringify(payload).indexOf(tenant_id) != -1)) {
 					tenant_id = payload[0]._id;
@@ -181,10 +186,10 @@ export default class AuthModule extends Module {
 					window.location.replace('?tenant='+tenant_id+'#/');
 					return;
 				} else {
-					current = {"_id":tenant_id};
+					activeTenant = {"_id":tenant_id};
 				}
 				// Store the authorized tenants and the current tenant in the redux store
-				this.App.Store.dispatch({ type: types.AUTH_TENANTS, payload: payload, current: current });
+				this.App.Store.dispatch({ type: types.AUTH_TENANTS, payload: payload, activeTenant: activeTenant });
 				resp = true;
 			}
 		} else {
