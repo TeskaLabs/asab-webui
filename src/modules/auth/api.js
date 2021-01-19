@@ -11,16 +11,16 @@ export class SeaCatAuthApi {
 	module.exports = {
 		app: {
 			BASE_URL: 'http://localhost:3000',
-			microservice: '/api',
-			subpaths: {oidc: '/openidconnect', rbac: '/rbac'},
+			Microservice: '/api',
+			Subpaths: {oidc: '/openidconnect', rbac: '/rbac'},
 			...
 	*/
 
 	constructor(config) {
 
 		this.BaseURL = config.get('BASE_URL');
-		this.microservice = config.get('microservice');
-		this.subpaths = config.get('subpaths');
+		this.Microservice = config.get('Microservice');
+		this.Subpaths = config.get('Subpaths');
 
 
 		if (this.BaseURL == null) {
@@ -33,25 +33,28 @@ export class SeaCatAuthApi {
 			this.BaseURL = "";
 		}
 
-		if (this.microservice == null) {
+		if (this.Microservice == null) {
 			console.log("Provide config value microservice");
-			this.microservice = "/api"
+			this.Microservice = "/api"
 		}
 
-		if (this.subpaths == null) {
+		if (this.Subpaths == null) {
 			console.log("Provide config value subpaths");
-			this.subpaths = {"oidc": "/openidconnect", "rbac": "/rbac"};
+			this.Subpaths = {"oidc": "/openidconnect", "rbac": "/rbac"};
 		}
 
-		this.oidc = this.subpaths.oidc ? this.subpaths.oidc : '/openidconnect'; // Openidconnect
-		this.rbac = this.subpaths.rbac ? this.subpaths.rbac : '/rbac'; // rbac
+		this.oidc = this.Subpaths.oidc ? this.Subpaths.oidc : '/openidconnect'; // Openidconnect
+		this.rbac = this.Subpaths.rbac ? this.Subpaths.rbac : '/rbac'; // rbac
 
 		this.Axios = axios.create({
 			timeout: 10000,
-			baseURL: this.BaseURL + this.microservice + this.oidc,
+			baseURL: this.BaseURL,
+			// TODO: Prove the BaseURL setting and then implement the Axios as below
+			// baseURL: this.BaseURL + this.Microservice + this.oidc,
 		});
 
-		this.AxiosTenants = axios.create({baseURL: this.microservice});
+		// TODO: Prove the BaseURL setting and eventually remove AxiosTenants
+		this.AxiosTenants = axios.create({baseURL: this.Microservice});
 
 		const scope = config.get('seacat.auth.scope');
 		this.Scope = scope ? scope : "openid";
@@ -71,12 +74,12 @@ export class SeaCatAuthApi {
 		if (force_login_prompt === true) {
 			params.append("prompt", "login");
 		}
-		window.location.replace(this.BaseURL + this.microservice + this.oidc + "/authorize?" + params.toString());
+		window.location.replace(this.BaseURL + this.Microservice + this.oidc + "/authorize?" + params.toString());
 	}
 
 	logout(access_token) {
 		return this.Axios.get(
-			'/logout',
+			this.Microservice + this.oidc + '/logout',
 			{ headers: { 'Authorization': 'Bearer ' + access_token }}
 		);
 	}
@@ -87,7 +90,7 @@ export class SeaCatAuthApi {
 		if (access_token != null) {
 			headers.Authorization = 'Bearer ' + access_token;
 		}
-		return this.Axios.get('/userinfo', {headers: headers});
+		return this.Axios.get(this.Microservice + this.oidc + '/userinfo', {headers: headers});
 	}
 
 
@@ -101,7 +104,7 @@ export class SeaCatAuthApi {
 		});
 
 		return this.Axios.post(
-			'/token',
+			this.Microservice + this.oidc + '/token',
 			qs.toString()
 		);
 	}
@@ -113,11 +116,18 @@ export class SeaCatAuthApi {
 			this.rbac + "/" + tenant + "/" + rsrc,
 			{ headers: { 'Authorization': 'Bearer ' + access_token }}
 			)
+		// TODO: Prove the BaseURL setting and then implement the Axios as below
+		// return this.Axios.get(
+		// 	this.Microservice + this.rbac + "/" + tenant + "/" + rsrc,
+		// 	{ headers: { 'Authorization': 'Bearer ' + access_token }}
+		// 	)
 	}
 
 	// Get tenants from database
-	get_tenants() {
+	get_tenants(access_token) {
 		return this.AxiosTenants.get('/tenant')
+		// TODO: Prove the BaseURL setting and then implement the Axios as below
+		// return this.Axios.get(this.Microservice + '/tenant')
 	}
 
 };
