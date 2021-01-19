@@ -3,7 +3,7 @@ import { types } from './actions'
 const initialState = {
 	userinfo: null,
 	tenants: null,
-	current: null,
+	activeTenant: null,
 }
 
 export default function reducer(state = initialState, action) {
@@ -18,7 +18,7 @@ export default function reducer(state = initialState, action) {
 			return {
 				...state,
 				tenants: action.payload,
-				current: action.current
+				activeTenant: action.activeTenant
 			}
 
 		default:
