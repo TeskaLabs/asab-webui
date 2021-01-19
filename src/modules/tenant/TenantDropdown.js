@@ -26,8 +26,8 @@ class TenantDropdown extends Component {
 
 		this.TenantService = props.app.locateService("TenantService");
 
-		this.tenants = this.props.allowedTenants != null ? this.props.allowedTenants : this.props.tenants;
-		this.current = this.props.currentAllowedTenant != null ? this.props.currentAllowedTenant: this.props.current;
+		this.tenants = this.props.authorizedTenants != null ? this.props.authorizedTenants : this.props.tenants;
+		this.current = this.props.currentAuthorized != null ? this.props.currentAuthorized : this.props.current;
 	}
 
 	render() {
@@ -84,8 +84,8 @@ const mapStateToProps = state => {
 	return {
 		current: state.tenant.current,
 		tenants: state.tenant.tenants,
-		allowedTenants: state.auth.allowedTenants,
-		currentAllowedTenant: state.auth.currentAllowedTenant,
+		authorizedTenants: state.auth.tenants,
+		currentAuthorized: state.auth.current,
 	};
 };
 

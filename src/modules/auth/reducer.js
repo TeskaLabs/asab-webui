@@ -2,8 +2,8 @@ import { types } from './actions'
 
 const initialState = {
 	userinfo: null,
-	allowedTenants: null,
-	currentAllowedTenant: null,
+	tenants: null,
+	current: null,
 }
 
 export default function reducer(state = initialState, action) {
@@ -17,8 +17,8 @@ export default function reducer(state = initialState, action) {
 		case types.AUTH_TENANTS:
 			return {
 				...state,
-				allowedTenants: action.payload,
-				currentAllowedTenant: action.currentAllowed
+				tenants: action.payload,
+				current: action.current
 			}
 
 		default:

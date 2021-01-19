@@ -172,7 +172,8 @@ export default class AuthModule extends Module {
 		// If there is no match, user is not allowed to access the application or part of the application.
 		if (payload.length > 0) {
 			if (this.App.Store != null) {
-				let currentTenant = payload[0];
+				// Get current tenant
+				let current = payload[0];
 				// Check if tenant_id is null in URL or if tenant_id does exist in the list of authorized tenants
 				if (tenant_id == null || !(JSON.stringify(payload).indexOf(tenant_id) != -1)) {
 					tenant_id = payload[0]._id;
@@ -180,10 +181,10 @@ export default class AuthModule extends Module {
 					window.location.replace('?tenant='+tenant_id+'#/');
 					return;
 				} else {
-					currentTenant = {"_id":tenant_id};
+					current = {"_id":tenant_id};
 				}
 				// Store the authorized tenants and the current tenant in the redux store
-				this.App.Store.dispatch({ type: types.AUTH_TENANTS, payload: payload, currentAllowed: currentTenant });
+				this.App.Store.dispatch({ type: types.AUTH_TENANTS, payload: payload, current: current });
 				resp = true;
 			}
 		} else {
