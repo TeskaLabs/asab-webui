@@ -13,7 +13,7 @@ export default class AuthModule extends Module {
 
 		this.OAuthToken = JSON.parse(sessionStorage.getItem('SeaCatOAuth2Token'));
 		this.UserInfo = null;
-		this.SeaCatAuthApi = new SeaCatAuthApi(app.Config);
+		this.Api = new SeaCatAuthApi(app.Config);
 		this.RedirectURL = window.location.href;
 		this.MustAuthenticate = true; // Setting this to false means, that we can operate without authenticated user
 
@@ -51,9 +51,10 @@ export default class AuthModule extends Module {
 				sessionStorage.removeItem('SeaCatOAuth2Token');
 				let force_login_prompt = true;
 
-				this.SeaCatAuthApi.login(this.RedirectURL, force_login_prompt);
+				this.Api.login(this.RedirectURL, force_login_prompt);
 				return;
 			}
+			// TODO: make authorization configurable
 			// Authorization of the user based on rbac
 			let userAuthorized = await this._isUserAuthorized();
 			if (!userAuthorized) {
@@ -65,7 +66,7 @@ export default class AuthModule extends Module {
 		if ((this.UserInfo == null) && (this.MustAuthenticate)) {
 			// TODO: force_login_prompt = true to break authentication failure loop
 			let force_login_prompt = false;
-			this.SeaCatAuthApi.login(this.RedirectURL, force_login_prompt);
+			this.Api.login(this.RedirectURL, force_login_prompt);
 			return;
 		}
 		
@@ -77,7 +78,7 @@ export default class AuthModule extends Module {
 		this.App.addSplashScreenRequestor(this);
 
 		sessionStorage.removeItem('SeaCatOAuth2Token');
-		const promise = this.SeaCatAuthApi.logout(this.OAuthToken['access_token'])
+		const promise = this.Api.logout(this.OAuthToken['access_token'])
 		if (promise == null) {
 			window.location.reload();
 		}
@@ -93,7 +94,7 @@ export default class AuthModule extends Module {
 	async _updateUserInfo() {
 		let response;
 		try {
-			response = await this.SeaCatAuthApi.userinfo(this.OAuthToken.access_token);
+			response = await this.Api.userinfo(this.OAuthToken.access_token);
 		}
 		catch (err) {
 			console.log("Failed to update user info", err);
@@ -116,7 +117,7 @@ export default class AuthModule extends Module {
 	async _updateToken(authorization_code) {
 		let response;
 		try {
-			response = await this.SeaCatAuthApi.token_authorization_code(authorization_code, this.RedirectURL);
+			response = await this.Api.token_authorization_code(authorization_code, this.RedirectURL);
 		}
 		catch (err) {
 			console.log("Failed to update token", err);
@@ -134,7 +135,7 @@ export default class AuthModule extends Module {
 		let resp = false;
 		let tenants;
 		// Get the list of all available tenants of the application
-		await this.SeaCatAuthApi.get_tenants()
+		await this.Api.get_tenants()
 		.then(response => {
 			tenants = response.data;
 		})
@@ -159,7 +160,7 @@ export default class AuthModule extends Module {
 		let tenant_id = params.get('tenant');
 		// Check tenants of the user with the available tenants of the application.
 		await Promise.all(Object.values(tenants).map(async (tenant, idx) => {
-			await this.SeaCatAuthApi.verify_access(tenant._id, this.OAuthToken['access_token'], resource).then(response => {
+			await this.Api.verify_access(tenant._id, this.OAuthToken['access_token'], resource).then(response => {
 				if (response.data.result == 'OK'){
 					payload.push(tenant)
 				}
