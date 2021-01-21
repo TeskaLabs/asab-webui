@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import ReactJson from 'react-json-view';
+import { useForm } from "react-hook-form";
 import {
 	Container,
 	Col, Row,
@@ -11,6 +12,8 @@ import {
 } from "reactstrap";
 
 export default function ConfigDashboard(props) {
+
+	const {handleSubmit, register, errors, getValues} = useForm({});
 
 	let App = props.app;
 	let Config = App.Config;
@@ -71,6 +74,7 @@ export default function ConfigDashboard(props) {
 	const [ paramData, setParamData ] = useState([]);
 	const [ schema, setSchema ] = useState(testSchema);
 	const [ selectedSchema, setSelectedSchema ] = useState({});
+	const [ updated, setUpdated ] = useState(false);
 
 	const [dropdownOpen, setOpen] = useState(false);
 	const toggle = () => setOpen(!dropdownOpen);
@@ -129,20 +133,31 @@ export default function ConfigDashboard(props) {
 		} else {
 			App.addAlert("warning", 'No data has been retrieved.')
 		}
-		// setParamData([{"configs":}, {"new_type":}, {"schemas"}]);
 	}
 
 
 	const selectSchema = (selected, data) => {
 		let select = {};
 		select[selected] = data;
-		// console.log(schema, schema[selected], 'lajduda')
-		// console.log(selected, schema.selected, 'scmenata')
 		setSelectedSchema(select);
 	}
 
+	const modifySchemaContent = (e, idx) => {
+		const { value, id } = e.target;
+		const data = selectedSchema;
+		data[Object.keys(selectedSchema)[0]][id] = value;
+		setSelectedSchema(data);
+		setUpdated(!updated);
+	}
+
+	const onSubmit = values => {
+		const data = selectedSchema;
+		// setUpdated(true);
+		// data[Object.keys(selectedSchema)[0]][id] = value;
+
+	}
+
 	return (
-		// console.log(paramData, 'paramdata'),
 			<React.Fragment>
 				{paramData.length != 0 ?
 					<Container fluid className="animated fadeIn flex">
@@ -150,7 +165,12 @@ export default function ConfigDashboard(props) {
 							<Col sm="3">
 								<Card>
 									<CardBody>
-										<SchemaDropdown schema={schema} selectSchema={selectSchema} dropdownOpen={dropdownOpen} toggle={toggle} />
+										<SchemaDropdown
+											schema={schema}
+											selectSchema={selectSchema}
+											dropdownOpen={dropdownOpen}
+											toggle={toggle}
+										/>
 									</CardBody>
 								</Card>
 							</Col>
@@ -159,20 +179,21 @@ export default function ConfigDashboard(props) {
 									<CardBody>
 										<Row>
 											<Col sm="6">
-												<SchemaCard selectedSchema={selectedSchema} />
+												<SchemaCard
+													handleSubmit={handleSubmit}
+													onSubmit={onSubmit}
+													register={register}
+													selectedSchema={selectedSchema}
+													modifySchemaContent={modifySchemaContent}
+												/>
 											</Col>
 											<Col sm="6">
-												<JSONCard selectedSchema={selectedSchema} />
+												<JSONCard
+													selectedSchema={selectedSchema}
+													dataUpdated={updated}
+												/>
 											</Col>
 										</Row>
-										{/*<Row>
-											<Col>
-												<SchemaCard selectedSchema={selectedSchema} />
-											</Col>
-											<Col>
-												<JSONCard selectedSchema={selectedSchema} />
-											</Col>
-										</Row>*/}
 									</CardBody>
 								</Card>
 							</Col>
@@ -206,24 +227,33 @@ function SchemaCard(props) {
 	let schemaTitle = Object.keys(props.selectedSchema)[0] ? Object.keys(props.selectedSchema)[0] : "Schema";
 	let schemaValues = Object.values(props.selectedSchema)[0] ? Object.values(props.selectedSchema)[0] : {};
 	return (
-		<Card>
-			<CardHeader>{schemaTitle}</CardHeader>
-			<CardBody>
-			{props.selectedSchema ?
-				<FormGroup>
-					{Object.keys(schemaValues).map((key, idx) =>
-						<React.Fragment key={idx}>
-							<Label key={idx} id={key} for={key}>{key.toString().toUpperCase()}</Label>
-							<Input key={key} id={key} type="text" name={key} />
-						</React.Fragment>
-						)}
-				</FormGroup>
-			: null}
-			</CardBody>
-			<CardFooter>
-				<Button>Submit</Button>
-			</CardFooter>
-		</Card>
+		<Form onSubmit={props.handleSubmit(props.onSubmit)}>
+			<Card>
+				<CardHeader>{schemaTitle}</CardHeader>
+				<CardBody>
+				{props.selectedSchema ?
+					<FormGroup>
+						{Object.keys(schemaValues).map((key, idx) =>
+							<React.Fragment key={idx}>
+								<Label key={idx} id={key} for={key}>{key.toString().toUpperCase()}</Label>
+								<Input
+									key={key}
+									id={key}
+									type="text"
+									name={key}
+									innerRef={props.register}
+									onChange={(e) => props.modifySchemaContent(e, idx)}
+								/>
+							</React.Fragment>
+							)}
+					</FormGroup>
+				: null}
+				</CardBody>
+				<CardFooter>
+					<Button color="primary" type="submit">Submit</Button>
+				</CardFooter>
+			</Card>
+		</Form>
 		)
 }
 
@@ -231,24 +261,34 @@ function SchemaCard(props) {
 function JSONCard(props) {
 	let schemaTitle = Object.keys(props.selectedSchema)[0] ? Object.keys(props.selectedSchema)[0] : "Schema";
 	let schemaValues = Object.values(props.selectedSchema)[0] ? Object.values(props.selectedSchema)[0] : {};
+	const [ collapse, setCollapse ] = useState(false);
+
+	const onCollapse = () => {
+		setCollapse(!collapse)
+	}
+
 	return (
 		<Card>
 			<CardHeader>JSON {schemaTitle}</CardHeader>
 			<CardBody>
 			{props.selectedSchema ?
-				<ReactJson
-					src={props.selectedSchema}
-					name={false}
-					// onEdit={ e => { setData(e.updated_src), setModified(true) } }
-					// onDelete={ e => { setData(e.updated_src), setModified(true) } }
-					// onAdd={ e => { setData(e.updated_src), setModified(true) } }
-				/>
+				props.dataUpdated ?
+					<ReactJson
+						src={schemaValues}
+						name={false}
+						defaultValue={schemaValues}
+						collapsed={collapse}
+					/>
+				: 	<ReactJson
+						src={schemaValues}
+						name={false}
+						collapsed={collapse}
+					/>
 			: null}
 			</CardBody>
 			<CardFooter>
-				<Button>Collapse JSON</Button>
+				<Button onClick={() => onCollapse()}>Collapse JSON</Button>
 			</CardFooter>
 		</Card>
-
 		)
 }
