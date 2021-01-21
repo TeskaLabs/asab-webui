@@ -2,6 +2,12 @@
 
 ## Setup
 
+React json view package must be installed to get the functionality of the ASAB Config.
+
+```
+yarn add react-json-view
+```
+
 In the top-level `index.js` of your ASAB UI application, load the ASAB config module
 
 ```
