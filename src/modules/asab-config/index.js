@@ -11,6 +11,7 @@ export default class ConfigModule extends Module {
 		this.Router = app.Router;
 
 
+		// TODO: add routes for particular schemas/configs
 		this.Router.addRoute({
 			path: "/config",
 			exact: true,
