@@ -135,13 +135,14 @@ export default function ConfigDashboard(props) {
 		}
 	}
 
-
+	// Select particular schema
 	const selectSchema = (selected, data) => {
 		let select = {};
 		select[selected] = data;
 		setSelectedSchema(select);
 	}
 
+	// Modify schema on input
 	const modifySchemaContent = (e, idx) => {
 		const { value, id } = e.target;
 		const data = selectedSchema;
@@ -150,7 +151,9 @@ export default function ConfigDashboard(props) {
 		setUpdated(!updated);
 	}
 
+	// Submit values to be processed to ASAB config
 	const onSubmit = values => {
+		// TODO: update values in asab.config on submit (need an API endpoint)
 		const data = selectedSchema;
 		// setUpdated(true);
 		// data[Object.keys(selectedSchema)[0]][id] = value;
@@ -204,7 +207,8 @@ export default function ConfigDashboard(props) {
 	)
 }
 
-
+// Schema dropdown to display list of schemas
+// TODO: make a tree view from it?
 function SchemaDropdown(props) {
 	return (
 			<ButtonDropdown title="Dashboard settings" isOpen={props.dropdownOpen} toggle={props.toggle}>
@@ -222,7 +226,7 @@ function SchemaDropdown(props) {
 		)
 }
 
-
+// Display Schema with inputs
 function SchemaCard(props) {
 	let schemaTitle = Object.keys(props.selectedSchema)[0] ? Object.keys(props.selectedSchema)[0] : "Schema";
 	let schemaValues = Object.values(props.selectedSchema)[0] ? Object.values(props.selectedSchema)[0] : {};
@@ -257,7 +261,7 @@ function SchemaCard(props) {
 		)
 }
 
-
+// Display json card with schema
 function JSONCard(props) {
 	let schemaTitle = Object.keys(props.selectedSchema)[0] ? Object.keys(props.selectedSchema)[0] : "Schema";
 	let schemaValues = Object.values(props.selectedSchema)[0] ? Object.values(props.selectedSchema)[0] : {};
