@@ -11,13 +11,20 @@ export default class ConfigModule extends Module {
 		this.Router = app.Router;
 
 
-		// TODO: add routes for particular schemas/configs
 		this.Router.addRoute({
 			path: "/config",
 			exact: true,
 			name: "Configuration",
 			component: ConfigDashboard,
 		});
+
+		// TODO: add routes for particular schemas/configs
+		// this.Router.addRoute({
+		// 	path: "/config/schema/:schema_id",
+		// 	exact: true,
+		// 	name: "Item",
+		// 	component: ConfigDashboard,
+		// });
 
 		this.Navigation.addItem({
 			name: "Configuration",
