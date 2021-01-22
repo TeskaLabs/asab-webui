@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from "react-router-dom";
 import ReactJson from 'react-json-view';
 import { useForm } from "react-hook-form";
 import {
@@ -18,6 +18,7 @@ export default function ConfigDashboard(props) {
 	let App = props.app;
 	let Config = App.Config;
 	let url = undefined;
+	let history = useHistory();
 
 
 	let testSchema = {
@@ -140,7 +141,12 @@ export default function ConfigDashboard(props) {
 		let select = {};
 		select[selected] = data;
 		setSelectedSchema(select);
+		// TODO: Update with history
+		// history.push({
+		// 	pathname: "/config/schema/" + selected,
+		// });
 	}
+
 
 	// Modify schema on input
 	const modifySchemaContent = (e, idx) => {
@@ -167,6 +173,9 @@ export default function ConfigDashboard(props) {
 						<Row>
 							<Col sm="3">
 								<Card>
+									<CardHeader>
+										Select schema
+									</CardHeader>
 									<CardBody>
 										<SchemaDropdown
 											schema={schema}
@@ -179,6 +188,9 @@ export default function ConfigDashboard(props) {
 							</Col>
 							<Col sm="9">
 								<Card>
+									<CardHeader>
+										Display schema
+									</CardHeader>
 									<CardBody>
 										<Row>
 											<Col sm="6">
@@ -220,7 +232,7 @@ function SchemaDropdown(props) {
 				<DropdownMenu>
 					{Object.keys(props.schema).map((scheme, idx) =>
 						<DropdownItem key={idx} id={idx} title={scheme} onClick={() => props.selectSchema(scheme,props.schema[scheme])}>{scheme}</DropdownItem>
-						)}
+					)}
 				</DropdownMenu>
 			</ButtonDropdown>
 		)
@@ -245,6 +257,7 @@ function SchemaCard(props) {
 									id={key}
 									type="text"
 									name={key}
+									value={schemaValues.key}
 									innerRef={props.register}
 									onChange={(e) => props.modifySchemaContent(e, idx)}
 								/>
