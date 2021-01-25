@@ -113,9 +113,9 @@ it is accessible by the sidebar toggler button.
 		this.ConfigService.addDefaults(props.configdefaults);
 		
 		// Set API URL, if not configured
-		if (this.Config.get('API_URL') == undefined) {
+		if (this.Config.get('ASAB_MICROSERVICE') == undefined) {
 			this.ConfigService.addDefaults({
-				API_URL: window.location.protocol + '//' + window.location.host + '/api/',
+				ASAB_MICROSERVICE: window.location.protocol + '//' + window.location.host + '/api/',
 			});
 		}
 
@@ -160,7 +160,7 @@ it is accessible by the sidebar toggler button.
 	axiosCreate(path, props) {
 		var axios = Axios.create({
 			...props,
-			baseURL: this.Config.get('API_URL') + path,
+			baseURL: this.Config.get('ASAB_MICROSERVICE') + path,
 		});
 
 		var that = this;

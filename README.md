@@ -30,12 +30,12 @@ It is designed primarily for web-based user interfaces for ASAB microservices bu
 TODO ...
 
 ```
-[ASAB UI App] -- [ HTTP proxy (API_URL) ] -- [ actual microservices ]
+[ASAB UI App] -- [ HTTP proxy (ASAB_MICROSERVICE) ] -- [ actual microservices ]
 ```
 
 TODO: Example of `webpackDevServer` proxy config.
 
-The default `API_URL` is `/api/`, it means that it uses the HTTP location of the application itself.
+The default `ASAB_MICROSERVICE` is `/api/`, it means that it uses the HTTP location of the application itself.
 
 
 
