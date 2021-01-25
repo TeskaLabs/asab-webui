@@ -59,11 +59,11 @@ export default class AuthModule extends Module {
 			if (this.Authorization) {
 				let userAuthorized = await this._isUserAuthorized();
 				if (!userAuthorized) {
-					this.App.addAlert("danger", "You are not authorized to use this application.",  40000);
+					this.App.addAlert("danger", "You are not authorized to use this application.",  60000);
 					// Logout after some time
 					setTimeout(() => {
 						this.logout();
-					}, 5000);
+					}, 60000);
 					return;
 				}
 			}
