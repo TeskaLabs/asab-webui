@@ -20,8 +20,8 @@ export default class AuthModule extends Module {
 		app.ReduxService.addReducer("auth", reducer);
 		this.App.addSplashScreenRequestor(this);
 
-		this.Authorization = app.Config.get("Authorization"); // User authorization (true/false)
-		this.Resource = app.Config.get("Resource"); // Get the resource for rbac endpoint from configuration
+		this.Authorization = app.Config.get("ASAB_Authorization"); // User authorization (true/false)
+		this.Resource = app.Config.get("ASAB_RBAC_Resource"); // Get the resource for rbac endpoint from configuration
 	}
 
 

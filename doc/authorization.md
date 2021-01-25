@@ -25,9 +25,9 @@ Only tenants authorized for the user are displayed.
 
 In the top-level `index.js` of your ASAB UI application, load the Tenant module and add to ConfigDefaults `Authorization` and `Resources` keys with values.
 
-`Authorization` must be set to `true` to enable the feature
+`ASAB_Authorization` must be set to `true` to enable the feature
 
-`Resources` is used for setting up resource for `rbac` endpoint. By default is set to `tenant:access`
+`ASAB_RBAC_Resource` is used for setting up resource for `rbac` endpoint. By default is set to `tenant:access`
 
 <!-- TODO: Set up also BASE_URL, Microservice, Subpaths, etc... -->
 
@@ -40,8 +40,8 @@ import TenantModule from 'asab-webui/modules/tenant';
 modules.push(TenantModule);
 
 let ConfigDefaults = {
-	Authorization: true,
-	Resources: "tenant:access",
+	ASAB_Authorization: true,
+	ASAB_RBAC_Resource: "tenant:access",
 };
 
 ...
