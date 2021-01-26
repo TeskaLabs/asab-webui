@@ -22,7 +22,6 @@ function SplashScreen(props) {
 }
 
 function mapStateToProps(state) {
-	console.log(state.config);
 	return {
 		brand_image: state.config.brand_image?.full ? state.config.brand_image : state.config.default_brand_image,
 		title: state.config.title,
