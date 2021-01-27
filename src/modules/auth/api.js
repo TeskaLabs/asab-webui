@@ -11,54 +11,51 @@ export class SeaCatAuthApi {
 	module.exports = {
 		app: {
 			BASE_URL: 'http://localhost:3000',
-			ASAB_MICROSERVICE: '/api',
-			ASAB_SUBPATHS: {oidc: '/openidconnect', rbac: '/rbac'},
-			OIDC_URL: 'http://oidcurl', // Define only if OIDC differs from BASE_URL
+			API_PATH: '/api',
+			SERVICES: {oidc: '/openidconnect', rbac: '/rbac'},
 			...
 	*/
 
-	constructor(config) {
+	constructor(config, props) {
 
 		this.BaseURL = config.get('BASE_URL');
-		this.OidcURL = config.get('OIDC_URL');
-		this.Microservice = config.get('ASAB_MICROSERVICE');
-		this.Subpaths = config.get('ASAB_SUBPATHS');
-
-
-		if (this.BaseURL == null) {
-			// This is here for a backward compatibility
-			this.BaseURL = config.get('seacat.auth.oidc_url');
-		}
+		this.ApiPath = config.get('API_PATH');
+		this.Services = config.get('SERVICES');
+		this.URL = null;
+		this.props = props;
 
 		if (this.BaseURL == null) {
 			console.log("Provide config value BASE_URL");
 			this.BaseURL = "";
 		}
 
-		if (this.Microservice == null) {
-			console.log("Provide config value microservice");
-			this.Microservice = "/api"
+		if (this.ApiPath == null) {
+			console.log("Provide config value API_PATH");
+			this.ApiPath = "/api"
 		}
 
-		if (this.Subpaths == null) {
-			console.log("Provide config value subpaths");
-			this.Subpaths = {"oidc": "/openidconnect", "rbac": "/rbac"};
+		if (this.Services == null) {
+			console.log("Provide config value SERVICES");
+			this.Services = {"oidc": "/openidconnect", "rbac": "/rbac"};
 		}
 
-		this.oidcSubpath = this.Subpaths.oidc ? this.Subpaths.oidc : '/openidconnect'; // Openidconnect
-		this.rbacSubpath = this.Subpaths.rbac ? this.Subpaths.rbac : '/rbac'; // rbac
+		this.OidcSubpath = this.Services.oidc ? this.Services.oidc : '/openidconnect'; // Openidconnect
+		this.RbacSubpath = this.Services.rbac ? this.Services.rbac : '/rbac'; // rbac
 
-		// Check if OidcURL is defined, otherwise use BaseURL
-		this.Axios = axios.create({
-			timeout: 10000,
-			baseURL: this.OidcURL ? this.OidcURL : this.BaseURL,
-		});
+		this.URL = this.BaseURL + this.ApiPath;
 
 		const scope = config.get('seacat.auth.scope');
 		this.Scope = scope ? scope : "openid";
 		
 		this.ClientId = "asab-webui-auth";
 		this.ClientSecret = "TODO";
+
+		this._axiosCall = this._axiosCall.bind(this);
+	}
+
+	// For axios calls with dynamic service types
+	_axiosCall(service) {
+		return this.props.axiosCreate(service, {timeout: 10000});
 	}
 
 	// This method will cause a navigation from the app to the OAuth2 login screen
@@ -72,12 +69,18 @@ export class SeaCatAuthApi {
 		if (force_login_prompt === true) {
 			params.append("prompt", "login");
 		}
-		window.location.replace(this.BaseURL + this.Microservice + this.oidcSubpath + "/authorize?" + params.toString());
+
+		let url = this.URL + this.OidcSubpath;
+		// Check if OIDC service contains an external OIDC url
+		if (this.OidcSubpath.toString().indexOf('http://') !== -1 || this.OidcSubpath.toString().indexOf('https://') !== -1) {
+			url = this.OidcSubpath;
+		}
+		window.location.replace(url + "/authorize?" + params.toString());
 	}
 
 	logout(access_token) {
-		return this.Axios.get(
-			this.Microservice + this.oidcSubpath + '/logout',
+		let Axios = this._axiosCall(this.OidcSubpath);
+		return Axios.get('/logout',
 			{ headers: { 'Authorization': 'Bearer ' + access_token }}
 		);
 	}
@@ -88,7 +91,8 @@ export class SeaCatAuthApi {
 		if (access_token != null) {
 			headers.Authorization = 'Bearer ' + access_token;
 		}
-		return this.Axios.get(this.Microservice + this.oidcSubpath + '/userinfo', {headers: headers});
+		let Axios = this._axiosCall(this.OidcSubpath);
+		return Axios.get('/userinfo', {headers: headers});
 	}
 
 
@@ -101,8 +105,8 @@ export class SeaCatAuthApi {
 			redirect_uri: redirect_uri,
 		});
 
-		return this.Axios.post(
-			this.Microservice + this.oidcSubpath + '/token',
+		let Axios = this._axiosCall(this.OidcSubpath);
+		return Axios.post('/token',
 			qs.toString()
 		);
 	}
@@ -110,15 +114,16 @@ export class SeaCatAuthApi {
 	// Verify access to tenant
 	verify_access(tenant, access_token, resource) {
 		let rsrc = resource ? resource : "tenant:access";
-		return this.Axios.get(this.Microservice +
-			this.rbacSubpath + "/" + tenant + "/" + rsrc,
+		let Axios = this._axiosCall(this.RbacSubpath);
+		return Axios.get("/" + tenant + "/" + rsrc,
 			{ headers: { 'Authorization': 'Bearer ' + access_token }}
-			)
+		);
 	}
 
 	// Get tenants from database
 	get_tenants() {
-		return this.Axios.get(this.Microservice + '/tenant')
+		let Axios = this._axiosCall("");
+		return Axios.get('/tenant');
 	}
 
 };
