@@ -33,7 +33,7 @@ function HeaderComponent(props) {
 						<DropdownItem tag="a" href={user_auth_url}>
 							Manage
 						</DropdownItem>
-						<DropdownItem tag="a" href={user_auth_url + '#/pwd'}>
+						<DropdownItem tag="a" href={user_auth_url + '/#/pwd'}>
 							Change a password
 						</DropdownItem>
 					</React.Fragment>
