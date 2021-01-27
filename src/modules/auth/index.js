@@ -13,15 +13,14 @@ export default class AuthModule extends Module {
 
 		this.OAuthToken = JSON.parse(sessionStorage.getItem('SeaCatOAuth2Token'));
 		this.UserInfo = null;
-		this.Api = new SeaCatAuthApi(app.Config);
+		this.Api = new SeaCatAuthApi(app.Config, app);
 		this.RedirectURL = window.location.href;
 		this.MustAuthenticate = true; // Setting this to false means, that we can operate without authenticated user
 
 		app.ReduxService.addReducer("auth", reducer);
 		this.App.addSplashScreenRequestor(this);
 
-		this.Authorization = app.Config.get("ASAB_Authorization"); // User authorization (true/false)
-		this.Resource = app.Config.get("ASAB_RBAC_Resource"); // Get the resource for rbac endpoint from configuration
+		this.Authorization = app.Config.get("Authorization"); // Get Authorization settings from configuration
 	}
 
 
@@ -56,7 +55,7 @@ export default class AuthModule extends Module {
 				return;
 			}
 			// Authorization of the user based on rbac
-			if (this.Authorization) {
+			if (this.Authorization?.Authorize) {
 				let userAuthorized = await this._isUserAuthorized();
 				if (!userAuthorized) {
 					this.App.addAlert("danger", "You are not authorized to use this application.",  60000);
@@ -149,9 +148,10 @@ export default class AuthModule extends Module {
 			console.log("Failed to load tenants", error);
 			resp = false;
 		});
+
 		// Is user authorized - returns true or false
 		if (tenants.length > 0) {
-			resp = await this._storeAuthorizedTenants(tenants, this.Resource);
+			resp = await this._storeAuthorizedTenants(tenants, this.Authorization?.Resource);
 		} else {
 			resp = false;
 		}
