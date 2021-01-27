@@ -113,9 +113,9 @@ it is accessible by the sidebar toggler button.
 		this.ConfigService.addDefaults(props.configdefaults);
 		
 		// Set API URL, if not configured
-		if (this.Config.get('ASAB_MICROSERVICE') == undefined) {
+		if (this.Config.get('API_PATH') == undefined) {
 			this.ConfigService.addDefaults({
-				ASAB_MICROSERVICE: window.location.protocol + '//' + window.location.host + '/api/',
+				API_PATH: window.location.protocol + '//' + window.location.host + '/api/',
 			});
 		}
 
@@ -158,9 +158,22 @@ it is accessible by the sidebar toggler button.
 
 
 	axiosCreate(path, props) {
+		// Set up URL
+		var URL = undefined;
+		if (this.Config.get('BASE_URL') == undefined) {
+			URL = this.Config.get('API_PATH') + path;
+		} else {
+			URL = this.Config.get('BASE_URL') + this.Config.get('API_PATH') + path;
+		}
+
+		// Check for external OIDC of auth module
+		if (path.toString().indexOf('http://') !== -1 || path.toString().indexOf('https://') !== -1) {
+			URL = path;
+		}
+
 		var axios = Axios.create({
 			...props,
-			baseURL: this.Config.get('ASAB_MICROSERVICE') + path,
+			baseURL: URL,
 		});
 
 		var that = this;
