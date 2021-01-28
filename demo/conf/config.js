@@ -1,6 +1,6 @@
 module.exports = {
 	app: {
-		ASAB_MICROSERVICE: 'api/',
+		API_PATH: '/api',
 		modules: ["HomeModule"],
 	},
 	webpackDevServer: {

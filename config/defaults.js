@@ -5,7 +5,7 @@ const CWD = process.cwd();
 module.exports = {
 	app: {
 		"publicUrl": "",	// Overriden by --public-url [PUBLIC_URL] command line argument
-		// ASAB_MICROSERVICE: "/api/",
+		// API_PATH: "/api",
 	},
 
 	webpack: {
