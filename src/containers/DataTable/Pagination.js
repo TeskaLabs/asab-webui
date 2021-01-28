@@ -4,7 +4,7 @@ import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 export default function ({ currentPage, setPage, lastPage }) {
 	const slots = Math.min(5, lastPage);
-  
+
 	let start = currentPage - Math.floor(slots / 2);
 	let end = currentPage + Math.floor(slots / 2);
 
@@ -21,18 +21,18 @@ export default function ({ currentPage, setPage, lastPage }) {
 	let pages = [];
 	for (let i = start; i <= end; i++) {
 		pages.push(i);
-	} 
+	}
 
-  return (
-    <Pagination>
-      <PaginationItem disabled={currentPage == 1}>
+	return (
+		<Pagination>
+			<PaginationItem disabled={currentPage == 1}>
 				<PaginationLink
 					onClick={() => setPage(1)}
 					>
 					<i className="cil-media-step-backward" />
 				</PaginationLink>
 			</PaginationItem>
-		
+
 			<PaginationItem disabled={currentPage <= 1}>
 				<PaginationLink
 					previous
@@ -42,7 +42,7 @@ export default function ({ currentPage, setPage, lastPage }) {
 				</PaginationLink>
 			</PaginationItem>
 
-      {pages.map((page, idx) =>
+			{pages.map((page, idx) =>
 				<PaginationItem key={idx} active={(page) == currentPage}>
 					<PaginationLink
 						onClick={() => setPage(page)}
@@ -52,7 +52,7 @@ export default function ({ currentPage, setPage, lastPage }) {
 				</PaginationItem>
 			)}
 
-      <PaginationItem disabled={currentPage >= lastPage}>
+			<PaginationItem disabled={currentPage >= lastPage}>
 				<PaginationLink
 					next
 					onClick={() => setPage(currentPage + 1)}
@@ -68,6 +68,6 @@ export default function ({ currentPage, setPage, lastPage }) {
 					<i className="cil-media-step-forward" />
 				</PaginationLink>
 			</PaginationItem>
-    </Pagination>
-  );
+		</Pagination>
+	);
 }
