@@ -217,8 +217,8 @@ it is accessible by the sidebar toggler button.
 
 	_handleKeyUp(event) {
 
-		// CTRL-A enables the advanced mode
-		if (event.key == '1' && event.ctrlKey) {
+		// CTRL+Q (Windows) or CTRL+1 (Linux) enables the advanced mode
+		if ((event.ctrlKey && event.code === 'KeyQ') || (event.code === 'Digit1' && event.ctrlKey)) {
 			this.setAdvancedMode(0);
 		}
 
