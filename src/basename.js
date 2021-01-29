@@ -11,8 +11,9 @@ ReactDOM.render((
 	</BrowserRouter>
 ), document.getElementById('app'));
 */
-
+// THIS FUNCTION HAS BEEN DEPRECATED
 export const getBaseName = () => {
+	console.warn('\"getBaseName\" function has been deprecated.');
 	var publicUrl = __CONFIG__["publicUrl"];
 	if (publicUrl == "") {
 		return "";
