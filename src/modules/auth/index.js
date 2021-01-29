@@ -13,7 +13,7 @@ export default class AuthModule extends Module {
 
 		this.OAuthToken = JSON.parse(sessionStorage.getItem('SeaCatOAuth2Token'));
 		this.UserInfo = null;
-		this.Api = new SeaCatAuthApi(app.Config, app);
+		this.Api = new SeaCatAuthApi(app);
 		this.RedirectURL = window.location.href;
 		this.MustAuthenticate = true; // Setting this to false means, that we can operate without authenticated user
 
