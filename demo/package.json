@@ -40,7 +40,6 @@
 	"@coreui/react": "^2.5.7",
 	"@coreui/icons": "^1.0.1",
 	"query-string": "^6.11.1",
-	"react-oauth-popup": "^0.1.0",
 	"axios": "^0.21.1",
 	"moment": "^2.24.0",
 	"react": "^16.13.1",
