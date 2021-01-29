@@ -115,7 +115,7 @@ it is accessible by the sidebar toggler button.
 		// Set API URL, if not configured
 		if (this.Config.get('API_PATH') == undefined) {
 			this.ConfigService.addDefaults({
-				API_PATH: window.location.protocol + '//' + window.location.host + '/api/',
+				API_PATH: window.location.protocol + '//' + window.location.host + '/api',
 			});
 		}
 
@@ -166,7 +166,7 @@ it is accessible by the sidebar toggler button.
 			URL = this.Config.get('BASE_URL') + this.Config.get('API_PATH') + path;
 		}
 
-		// Check for external OIDC of auth module
+		// Check for external auth module
 		if (path.toString().indexOf('http://') !== -1 || path.toString().indexOf('https://') !== -1) {
 			URL = path;
 		}
