@@ -20,60 +20,17 @@ export default function ConfigDashboard(props) {
 	let url = undefined;
 	let history = useHistory();
 
-
-	let testSchema = {
-					"asab:storage": {
-						"type": "ABCDE",
-						"mongodb_uri": "ABCDEFGHIJKLMNOPQRS",
-						"mongodb_database": "ABCDEFGHIJKLMNO"
-						},
-					"general": {
-						"config_file": "ABCDEFGHIJKLMNOPQRSTUVWX",
-						"tick_period": "ABCD",
-						"var_dir": "ABCDEFGHIJKLMN",
-						"pidfile": "ABCD",
-						"working_dir": "ABCDEFGHIJKLMNOPQR",
-						"uid": "ABCDEFGHIJKLMNOP",
-						"gid": "ABCDEFGHIJKLMNOPQRSTUVWX",
-						"docker_remote_api": "ABCDEFGHIJKLMNOPQRS",
-						"docker_name_prefix": "ABCDEFGHIJKLMNOPQRSTUVWXYZAB"
-						},
-					"logging": {
-						"verbose": "ABCDEFGHIJKLMNOPQR",
-						"app_name": "ABCDEFGHIJKLMNOPQRSTUVWX",
-						"sd_id": "ABCDEFGHIJKLMNOPQ",
-						"level": "ABCD",
-						"levels": "ABCDEFGHIJKLMNOPQ"
-						},
-					"logging:console": {
-						"format": "ABCDEFGHIJKLMNO",
-						"datefmt": "ABCDEFGHIJKLMNOPQRSTUVWX"
-						},
-					"logging:syslog": {
-						"enabled": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-						"address": "ABCDEFGHIJK",
-						"format": "ABCDEFGHIJKLMNOPQRSTUV"
-						},
-					"logging:file": {
-						"path": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-						"format": "ABCDEFGHIJKLMN",
-						"datefmt": "ABCDEFGHIJKL",
-						"backup_count": "ABCDEFG",
-						"backup_max_bytes": "ABCDEFGHIJKLMNOPQRS",
-						"rotate_every": "ABCDEFGHIJKLMNOPQRSTUVWXYZABC"
-						},
-					"asab:web": {
-						"listen": "ABCDEFGHIJKLM"
-						},
-					"passwords": {
-						"kafka_password": "ABCDEFGHIJKLMNOPQRS"
-						}
-					}
+	// To make it right, I should take just  what is inside "properties" on every level and display it
+	// * list of main properties (dropdown/tree) - e.g. asab:storage, general, etc.
+	// 	* after a click on some property, it should reveal the properties of this property and display them
+	// 	* title and description should be editable and I should also allow to change the type
+	// 	* Everything should be displayed in different levels
+	// * I should get rid of JSON schema
 
 
 	const [ data, setData ] = useState([]);
 	const [ paramData, setParamData ] = useState([]);
-	const [ schema, setSchema ] = useState(testSchema);
+	const [ schema, setSchema ] = useState([]);
 	const [ selectedSchema, setSelectedSchema ] = useState({});
 	const [ updated, setUpdated ] = useState(false);
 
@@ -101,18 +58,15 @@ export default function ConfigDashboard(props) {
 	// Obtain the overall dataset
 	const getData = () => {
 		if (url) {
-			// TODO: when prepared, remove mocked data and use endpoint to fetch them
-			// let Axios = App.axiosCreate(url);
-			// // TODO: replace the get parameter with `Axios.get("/config")` to obtain all the main components from zookeeper 
-			// Axios.get("/scheme").then(response => {
-			// 		// In response there will be a list of strings
-			// 		setData(response.data);
-			// 	})
-			// 	.catch(error => {
-			// 		console.log(error); // log the error to the browser's console
-			// 		App.addAlert("warning", t('Unable to get data: ', { error: error.toString() }));
-			// });
-			setData(["configs", "new_type", "schemas"]);
+			let Axios = App.axiosCreate(url);
+			Axios.get("/scheme").then(response => {
+					// In response there will be a list of strings
+					setData(response.data);
+				})
+				.catch(error => {
+					console.log(error); // log the error to the browser's console
+					App.addAlert("warning", t('Unable to get data: ', { error: error.toString() }));
+			});
 		}
 	}
 
@@ -121,7 +75,7 @@ export default function ConfigDashboard(props) {
 		if (data) {
 			let respData = {};
 			let Axios = App.axiosCreate(url);
-			await Axios.get("/config/" + configType.toString()
+			await Axios.get("/scheme/" + configType.toString()
 				).then(response => {
 					// In response there will be a list of strings
 					respData[configType] = response.data;
@@ -137,10 +91,12 @@ export default function ConfigDashboard(props) {
 	}
 
 	// Select particular schema
-	const selectSchema = (selected, data) => {
-		let select = {};
-		select[selected] = data;
-		setSelectedSchema(select);
+	const selectSchema = (selected) => {
+		let schemaData = paramData.filter(function (obj) {
+			return obj[selected];
+		})
+		setSelectedSchema(schemaData[0]);
+
 		// TODO: Update with history
 		// history.push({
 		// 	pathname: "/config/schema/" + selected,
@@ -178,7 +134,7 @@ export default function ConfigDashboard(props) {
 									</CardHeader>
 									<CardBody>
 										<SchemaDropdown
-											schema={schema}
+											schema={data}
 											selectSchema={selectSchema}
 											dropdownOpen={dropdownOpen}
 											toggle={toggle}
@@ -193,19 +149,13 @@ export default function ConfigDashboard(props) {
 									</CardHeader>
 									<CardBody>
 										<Row>
-											<Col sm="6">
+											<Col sm="12">
 												<SchemaCard
 													handleSubmit={handleSubmit}
 													onSubmit={onSubmit}
 													register={register}
 													selectedSchema={selectedSchema}
 													modifySchemaContent={modifySchemaContent}
-												/>
-											</Col>
-											<Col sm="6">
-												<JSONCard
-													selectedSchema={selectedSchema}
-													dataUpdated={updated}
 												/>
 											</Col>
 										</Row>
@@ -223,20 +173,29 @@ export default function ConfigDashboard(props) {
 // TODO: make a tree view from it?
 function SchemaDropdown(props) {
 	return (
-			<ButtonDropdown title="Dashboard settings" isOpen={props.dropdownOpen} toggle={props.toggle}>
+			<React.Fragment>
+					{props.schema.map((scheme, idx) =>
+						<Button color="secondary" size="lg" key={idx} id={idx} title={scheme} block onClick={() => props.selectSchema(scheme)}>{scheme}</Button>
+					)}
+			</React.Fragment>
+		)
+}
+
+
+
+			/*<ButtonDropdown title="Dashboard settings" isOpen={props.dropdownOpen} toggle={props.toggle}>
 				<DropdownToggle caret>
 					<span className="cil-settings" />
 					{' '}
 					Configuration
 				</DropdownToggle>
 				<DropdownMenu>
-					{Object.keys(props.schema).map((scheme, idx) =>
+					{props.schema.map((scheme, idx) =>
 						<DropdownItem key={idx} id={idx} title={scheme} onClick={() => props.selectSchema(scheme,props.schema[scheme])}>{scheme}</DropdownItem>
 					)}
 				</DropdownMenu>
-			</ButtonDropdown>
-		)
-}
+			</ButtonDropdown>*/
+
 
 // Display Schema with inputs
 function SchemaCard(props) {
@@ -271,41 +230,5 @@ function SchemaCard(props) {
 				</CardFooter>
 			</Card>
 		</Form>
-		)
-}
-
-// Display json card with schema
-function JSONCard(props) {
-	let schemaTitle = Object.keys(props.selectedSchema)[0] ? Object.keys(props.selectedSchema)[0] : "Schema";
-	let schemaValues = Object.values(props.selectedSchema)[0] ? Object.values(props.selectedSchema)[0] : {};
-	const [ collapse, setCollapse ] = useState(false);
-
-	const onCollapse = () => {
-		setCollapse(!collapse)
-	}
-
-	return (
-		<Card>
-			<CardHeader>JSON {schemaTitle}</CardHeader>
-			<CardBody>
-			{props.selectedSchema ?
-				props.dataUpdated ?
-					<ReactJson
-						src={schemaValues}
-						name={false}
-						defaultValue={schemaValues}
-						collapsed={collapse}
-					/>
-				: 	<ReactJson
-						src={schemaValues}
-						name={false}
-						collapsed={collapse}
-					/>
-			: null}
-			</CardBody>
-			<CardFooter>
-				<Button onClick={() => onCollapse()}>Collapse JSON</Button>
-			</CardFooter>
-		</Card>
 		)
 }
