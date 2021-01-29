@@ -16,35 +16,36 @@ export class SeaCatAuthApi {
 			...
 	*/
 
-	constructor(config, props) {
+	constructor(app) {
 
-		this.BaseURL = config.get('BASE_URL');
-		this.ApiPath = config.get('API_PATH');
-		this.Services = config.get('SERVICES');
+		this.App = app;
 		this.URL = null;
-		this.props = props;
 
-		if (this.BaseURL == null) {
-			console.log("Provide config value BASE_URL");
-			this.BaseURL = "";
+		let BaseURL = this.App.Config.get('BASE_URL');
+		let ApiPath = this.App.Config.get('API_PATH');
+		let Services = this.App.Config.get('SERVICES');
+
+		if (BaseURL == null) {
+			console.log("Config value BASE_URL not provided, using \"\" ");
+			BaseURL = "";
 		}
 
-		if (this.ApiPath == null) {
-			console.log("Provide config value API_PATH");
-			this.ApiPath = "/api"
+		if (ApiPath == null) {
+			console.log("Config value API_PATH not provided, using /api");
+			ApiPath = "/api"
 		}
 
-		if (this.Services == null) {
-			console.log("Provide config value SERVICES");
-			this.Services = {"oidc": "/openidconnect", "rbac": "/rbac"};
+		if (Services == null) {
+			console.log("Config value SERVICES not provided, using {\"oidc\": \"/openidconnect\", \"rbac\": \"/rbac\"}");
+			Services = {"oidc": "/openidconnect", "rbac": "/rbac"};
 		}
 
-		this.OidcSubpath = this.Services.oidc ? this.Services.oidc : '/openidconnect'; // Openidconnect
-		this.RbacSubpath = this.Services.rbac ? this.Services.rbac : '/rbac'; // rbac
+		this.OidcSubpath = Services.oidc ? Services.oidc : '/openidconnect'; // Openidconnect
+		this.RbacSubpath = Services.rbac ? Services.rbac : '/rbac'; // rbac
 
-		this.URL = this.BaseURL + this.ApiPath;
+		this.URL = BaseURL + ApiPath;
 
-		const scope = config.get('seacat.auth.scope');
+		const scope = this.App.Config.get('seacat.auth.scope');
 		this.Scope = scope ? scope : "openid";
 		
 		this.ClientId = "asab-webui-auth";
@@ -55,7 +56,7 @@ export class SeaCatAuthApi {
 
 	// For axios calls with dynamic service types
 	_axiosCall(service) {
-		return this.props.axiosCreate(service, {timeout: 10000});
+		return this.App.axiosCreate(service, {timeout: 10000});
 	}
 
 	// This method will cause a navigation from the app to the OAuth2 login screen
