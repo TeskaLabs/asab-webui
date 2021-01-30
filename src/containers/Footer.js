@@ -42,16 +42,9 @@ export function Footer(props) {
 }
 
 function mapStateToProps(state) {
-	let footerImage = !state.config.brand_image?.full ? 
-		state.config.footer_image : {
-			...state.config.footer_image,
-			secondImage:  {
-				src: state.config.default_brand_image.full,
-				href: state.config.default_brand_image.href,
-			},
-		};
-
-	return { footer_image: footerImage }
+	return {
+		footer_image: state.config.footer_image
+	};
 }
 
 export default connect(mapStateToProps)(Footer);
