@@ -142,7 +142,7 @@ export default function (props) {
 		setData(data);
 	}, [limit, page, str]);
 
-	const onSearch = async (value) => {
+	const onSearch = (value) => {
 		setStr(value);
 	};
 
@@ -164,5 +164,3 @@ export default function (props) {
 		</Container>
 	)
 };
-
-const mapStateToProps = state => ({ config:  state.config })

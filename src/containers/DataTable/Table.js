@@ -55,10 +55,10 @@ function ASABTable ({ data, headers, advmode }) {
 
 	return (
 		<Table size="sm">
-		<Headers headers={headersRow} />
-		<tbody>
-			{TableRows}
-		</tbody>
+			<Headers headers={headersRow} />
+			<tbody>
+				{TableRows}
+			</tbody>
 		</Table>
 	);
 };

@@ -9,40 +9,315 @@ Demo app's path: `asab-webui/demo/src/modules/home/containers/TableContainer.js`
 
 # Implementation
 
-DataTable can be mounted in its own container as it is implemented in demo app or as a widget in another app's container. In first case you must create container for `DataTable` and connect it to Home Module of your application by adding it's route and navigation item. Example may be found in `demo/src/modules/home/index.js`.
+DataTable can be mounted in its own container as it is implemented in demo app or as a widget in another app's container. In first case you must create container for `DataTable` and connect it to any module of your application by adding it's route and navigation item. 
+
+Example from demo:
+
+```
+import HomeContainer from './containers/HomeContainer'
+import Module from 'asab-webui/abc/Module';
+import TableContainer from './containers/TableContainer';
+
+
+export default class HomeModule extends Module {
+	constructor(app, name){
+		super(app, "HomeModule");
+		app.Router.addRoute({ path: '/', exact: true, name: 'Home', component: HomeContainer });
+		app.Router.addRoute({ path: '/Table', exact: true, name: 'Table', component: TableContainer });
+		app.Navigation.addItem({
+			name: 'Home',
+			url: '/',
+			icon: 'cil-home',
+		})
+		app.Navigation.addItem({
+			name: 'Table',
+			url: '/Table',
+			icon: 'cil-chart',
+		})
+	}
+}
+
+```
 
 DataTable needs obligatory props `headers`, `data`, `count`, `currentPage`, `setPage` and `title` to render.
 
+Example of `DataTable` with obligatory props:
+
+```
+<DataTable
+	title={{text: "Table Demo", icon: 'cil-user'}}
+	data={data}
+	headers={headers}
+	count={count}
+	currentPage={page}
+	setPage={setPage}
+/>
+```
+
 Some props can be obtained from configuration of the project  (e.g. in demo app `headers` and `limit` props are obtained from the configuration).
 
+Example of configuration for `DataTable`:
+
+```
+let ConfigDefaults = {
+	...
+	table: {
+		title: { text: "Table Demo", icon: "cil-user" },
+		headers: [
+			{ name: 'Name', key: 'username' },
+			{ name: 'Provider', key: '_provider_id' },
+			{ name: 'Type', key: '_type' } 
+		],
+		limit: 10
+	},
+	...
+};
+```
+
+Example of obtaining configuration in Container:
+
+```
+	...
+	const headers = props.app.Config.get('table').headers;
+	const configLimit = props.app.Config.get('table').limit;
+	const title = props.app.Config.get('table').title;
+	...
+```
+
 Prop `title` is an object that has obligatory property `text` which is string and it will be rendered as table title. Also `title` has optional property `icon` for rendering icon alongside the table title and which can be either React Component (e.g. from package `@material-ui/icons`) or it can also be a string which is classname for icon element and will be rendered as <i className={icon}></i>
+
+Example:
+
+```
+title: {
+	text: "Table Demo",
+	icon: "cil-user"
+}
+```
 
 Prop `headers` is basically an array containing objects with obligatory properties `name` and `key`. Property `name` is a string that will be rendered as a header cell in headers row of the table. Property `key` is a key name for getting data from `data` prop, it must be the same as it is in objects in `data` prop.
 Order of headers in a table is the same as it is in prop `headers`.
 
+Example:
+
+```
+headers: [
+	{ name: 'Name', key: 'username' },
+	{ name: 'Provider', key: '_provider_id' },
+	{ name: 'Type', key: '_type' }
+]
+```
+
 Prop `data` is an array of objects. `DataTable` component goes through objects in `data` and for each object looks for those properties which has the same key name that was defined in `headers[idx]`. If properties exist in that object from `data`, they will be rendered as string under the appropriate headers. Otherwise if some properties doesn't exist in that object, the `-` symbol will be rendered instead.
-Prop's `data` length should be less or equal to 10 or to `limit` prop if such is defined. If `data` length is more than `limit`, then it will be cutted. 
+Prop's `data` length should be less or equal to 10 or to `limit` prop if such is defined. If `data` length is more than `limit`, then it will be cutted.
+
 Array `data` may be fetched from `axios` in container of the `DataTable` for example. In demo we used predefined `initData` object contains data collection and `fetch(limit, page, str)` method that accepted Table's limit, current page and string from search input field. The `fetch` method is immitating fetch request from the server. You may take a look at our demo app to see how data for `data` prop is initialized and updated.
 
+Example of fetching data with axios:
+
+```
+const fetchData = (page, searchValue="", limit=10) => {
+	Axios.get("", {params: {p:page, i: limit, f: searchValue}})
+	.then(response => {
+		setData(response.data);
+	})
+	.catch(e => {
+		console.log(e);
+		props.app.addAlert("warning", "Failed to fetch the data");
+	});
+};
+```
+
 Also `DataTable` needs props `count`, `currentPage` and `setPage`. Prop `count` is number representing the count of all items, it is used to calculate last page in pagination of `DataTable`. Props `currentPage` and `setPage` are number and function respectively, first represents current page of `DataTable`, second is used to navigate between pages in `DataTable`.
+
+Example of handling and using `data`, `count`, `currentPage` and `setPage`:
+
+```
+import React, { useState } from 'react';
+...
+
+function (props) {
+	...
+
+	const [data, setData] = useState([]);
+	const [page, setPage] = useState(1);
+	const [count, setCount] = useState(0);
+	
+	...
+	const fetchData = (page) => {...}  
+	...
+
+	useEffect(() => {
+		fetchData(page);
+	}, [page]);
+
+	...
+
+	return (
+		<DataTable
+			...
+			data={data}
+			count={count}
+			currentPage={page}
+			setPage={setPage}
+			...
+		/>
+	)
+
+}
+```
+
+Prop `count` is ussualy obtained from API endpoint with fetched data.
+
+Example of fetched data:
+
+```
+{
+	data: [...],
+	count: /*some amount*/
+}
+```
 
 # Optional
 
 `DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `search` and `onSearch`.
 
+Example of `DataTable` with all props:
+
+```
+<DataTable
+	title={{text: "Table Demo", icon: 'cil-user'}}
+	data={data}
+	headers={headers}
+	count={count}
+	limit={limit}
+	setLimit={setLimit}
+	currentPage={page}
+	setPage={setPage}
+	search={{ icon: 'icon', placeholder: 'placeholder' }}
+	onSearch={onSearch}
+	createButton={{ text: "Create", icon: 'icon', pathname: '#' }}
+/>
+```
+
 Props `limit` and `setLimit` is used to handle limiting the amount of objects per page. Prop `limit` is number and represents the amount of rendered objects per page and calculate amount of pages in `DataTable`, default value is 10. Prop `setLimit` is a function for changing `limit`. If `setLimit` exists `DataTable` renders dropdown box for setting limit with values 5, 10, 15, 20.
+
+Example of handling and using:
+
+```
+import React, { useState } from 'react';
+
+...
+
+function (props) {
+	...
+	const [limit, setLimit] = useState(10);
+	...
+	return (
+		<DataTable
+			...
+			limit={limit}
+			setLimit={setLimit}
+			...
+		>
+	);
+}
+```
 
 Prop `createButton` is used for rendering button with a link for redirecting to create page. It is an object with obligatory properties `text` and `pathname` which are text inside the button and pathname for redirecting respectively.
 `createButton` also accepts optional property `icon` for rendering icon on the right side of the text inside the button.
 Property `icon` can either be a React Component (e.g. from package `@material-ui/icons`) or a string which is className and will be rendered as <i className={icon}></icon>
 
+Example:
+
+```
+	...
+	return (
+		<DataTable
+			...
+			createButton={{ text: "Create", icon: "icon-classname", pathname: "#" }}
+			...
+		>
+	);
+	...
+```
+
+`createButton` may also be obtained from configuration.
+
+Example of `createButton` in `configDefaults`:
+```
+let ConfigDefaults = {
+	...
+	table: {
+		create_button: { text: "Create", icon: "icon-classname", pathname: "#" }
+	},
+	...
+};
+```
+
 Props `search` and `onSearch` is used to render input search box in `DataTable`. First prop `search` is either a boolean or an object containing optional property `placeholder` for placeholder of search input box and optional property `icon` which can either be a React Component (e.g. from package `@material-ui/icons`) or a string which is className and will be rendered as <i className={icon}></icon>.Second prop `onSearch` is a function which executes after 500ms after last change in search input box has been made.
 
+Prop `search` may be obtained from configurtion.
+Example of configDefaults:
+
+```
+let ConfigDefaults = {
+	...
+	table: {
+		...
+		search: { icon: 'icon-classname', placeholder: 'placeholder' }
+	}
+};
+```
+
+Example of handling and using search and onSearch:
+
+```
+import React, { useState } from 'react';
+...
+
+function (props) {
+	...
+	const search = props.app.Config.get('table').search;
+
+	const [data, setData] = useState([]);
+	const [page, setPage] = useState(1);
+	const [count, setCount] = useState(0);
+	const [str, setStr] = useState('');
+	
+	...
+	const fetchData = (page, str="") => {...}  
+	...
+
+	useEffect(() => {
+		fetchData(page, str);
+	}, [page, str]);
+
+	const onSearch = (value) => {
+		setStr(value);
+	};
+	...
+
+	return (
+		<DataTable
+			...
+			data={data}
+			count={count}
+			currentPage={page}
+			setPage={setPage}
+			search={search}
+			onSearch={onSearch}
+			...
+		/>
+	)
+
+}
+```
 
 # DataTable props
 
 ```
-props = {
+props: {
   data: Array<objects> // objects that will represent rows in a table
   headers: Array<{
     name: string, // name of the headers in a table
