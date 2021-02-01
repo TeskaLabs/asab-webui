@@ -36,7 +36,7 @@
 	"window": "^4.2.7"
   },
   "dependencies": {
-	"@coreui/coreui": "2.1.16",
+	"@coreui/coreui": "2.1.4",
 	"@coreui/react": "^2.5.7",
 	"@coreui/icons": "^1.0.1",
 	"query-string": "^6.11.1",
