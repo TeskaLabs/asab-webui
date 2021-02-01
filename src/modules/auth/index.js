@@ -16,11 +16,12 @@ export default class AuthModule extends Module {
 		this.Api = new SeaCatAuthApi(app);
 		this.RedirectURL = window.location.href;
 		this.MustAuthenticate = true; // Setting this to false means, that we can operate without authenticated user
+		this.Config = app.Config;
 
 		app.ReduxService.addReducer("auth", reducer);
 		this.App.addSplashScreenRequestor(this);
 
-		this.Authorization = app.Config.get("Authorization"); // Get Authorization settings from configuration
+		this.Authorization = this.Config.get("Authorization"); // Get Authorization settings from configuration
 	}
 
 
@@ -57,12 +58,13 @@ export default class AuthModule extends Module {
 			// Authorization of the user based on rbac
 			if (this.Authorization?.Authorize) {
 				let userAuthorized = await this._isUserAuthorized();
+				let logoutTimeout = this.Authorization?.UnauthorizedLogoutTimeout ? this.Authorization.UnauthorizedLogoutTimeout : 60000;
 				if (!userAuthorized) {
-					this.App.addAlert("danger", "You are not authorized to use this application.",  60000);
+					this.App.addAlert("danger", "You are not authorized to use this application.", logoutTimeout);
 					// Logout after some time
 					setTimeout(() => {
 						this.logout();
-					}, 60000);
+					}, logoutTimeout);
 					return;
 				}
 			}
