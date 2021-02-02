@@ -255,20 +255,8 @@ let ConfigDefaults = {
 };
 ```
 
-Props `search` and `onSearch` is used to render input search box in `DataTable`. First prop `search` is either a boolean or an object containing optional property `placeholder` for placeholder of search input box and optional property `icon` which can either be a React Component (e.g. from package `@material-ui/icons`) or a string which is className and will be rendered as <i className={icon}></icon>.Second prop `onSearch` is a function which executes after 500ms after last change in search input box has been made.
-
-Prop `search` may be obtained from configurtion.
-Example of configDefaults:
-
-```
-let ConfigDefaults = {
-	...
-	table: {
-		...
-		search: { icon: 'icon-classname', placeholder: 'placeholder' }
-	}
-};
-```
+Props `search` and `onSearch` is used to render input search box in `DataTable`. First prop `search` is either a boolean or an object containing optional property `placeholder` for placeholder of search input box and optional property `icon` which can either be a React Component (e.g. from package `@material-ui/icons`) or a string which is className and will be rendered as <i className={icon}></icon>.Prop `search` may be obtained from configurtion.
+Second prop `onSearch` is a function which executes after 500ms after last change in search input box has been made, it can be used with axios to filter data (example below).
 
 Example of handling and using search and onSearch:
 
@@ -312,6 +300,18 @@ function (props) {
 	)
 
 }
+```
+
+Example of configDefaults for `search`:
+
+```
+let ConfigDefaults = {
+	...
+	table: {
+		...
+		search: { icon: 'icon-classname', placeholder: 'placeholder' }
+	}
+};
 ```
 
 # DataTable props
