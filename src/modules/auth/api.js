@@ -19,17 +19,17 @@ export class SeaCatAuthApi {
 	constructor(app) {
 
 		this.App = app;
-		this.URL = this.App.Config.get('URL');
+		this.URL = this.App.Config.get('API_URL');
 
 		let Services = this.App.Config.get('SERVICES');
 
 		if (Services == null) {
-			console.log("Config value SERVICES not provided, using {\"oidc\": \"/openidconnect\", \"rbac\": \"/rbac\"}");
-			Services = {"oidc": "/openidconnect", "rbac": "/rbac"};
+			console.log("Config value SERVICES not provided, using {\"oidc\": \"openidconnect\", \"rbac\": \"rbac\"}");
+			Services = {"oidc": "openidconnect", "rbac": "rbac"};
 		}
 
-		this.OidcSubpath = Services.oidc ? Services.oidc : '/openidconnect'; // Openidconnect
-		this.RbacSubpath = Services.rbac ? Services.rbac : '/rbac'; // rbac
+		this.OidcSubpath = Services.oidc ? Services.oidc : 'openidconnect'; // Openidconnect
+		this.RbacSubpath = Services.rbac ? Services.rbac : 'rbac'; // rbac
 
 		const scope = this.App.Config.get('seacat.auth.scope');
 		this.Scope = scope ? scope : "openid";
