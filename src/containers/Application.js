@@ -177,23 +177,39 @@ it is accessible by the sidebar toggler button.
 
 
 	getApiURL(service) {
-		let services = this.App.Config.get('SERVICES');
-		let service_path = services[service];
-		// TODO: Handle if service is unknown => return undefined
+		let services = this.Config.get('SERVICES');
 
+		// TODO: Check services with current service, and if it agrees, then service_path = services[service] otherwise service_path = service
+		let service_path = service;
+		// Object.keys(services).forEach(function(key) {
+		// 	if (services[key] == service) {
+		// 		service_path = service;
+		// 	}
+		// });
+		// let service_path = services[service];
+
+		// TODO: Handle if service is unknown => return undefined
+		if (service_path == undefined || service_path == null) {
+			console.log("Service path is undefined");
+			return undefined
+		}
 		// If service_path is complete URL, then return that URL
 		if (service_path.toString().indexOf('http://') !== -1 || service_path.toString().indexOf('https://') !== -1) {
 			return service_path;
 		}
 
 		let API_URL = this.Config.get('API_URL');
-		// TODO: Handle trailing '/' properly
-		return API_URL + '/' service;
+		// return API_URL + "/" + service;
+		return API_URL + "/" + service_path;
 	}
 
 
 	axiosCreate(service, props) {
 		var service_url = this.getApiURL(service);
+		if (service_url == undefined) {
+			return
+		}
+
 		var axios = Axios.create({
 			...props,
 			baseURL: service_url,
