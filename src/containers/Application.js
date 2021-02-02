@@ -113,9 +113,28 @@ it is accessible by the sidebar toggler button.
 		this.ConfigService.addDefaults(props.configdefaults);
 		
 		// Set API URL, if not configured
-		if (this.Config.get('API_PATH') == undefined) {
+		if (this.Config.get('API_PATH') == undefined && this.Config.get('BASE_URL') == undefined) {
 			this.ConfigService.addDefaults({
 				API_PATH: window.location.protocol + '//' + window.location.host + '/api',
+			});
+			console.log("Config value API_PATH not provided, using /api");
+		} else if (this.Config.get('API_PATH') == undefined && this.Config.get('BASE_URL') != undefined) {
+			this.ConfigService.addDefaults({
+				API_PATH: '/api',
+			});
+			console.log("Config value API_PATH not provided, using /api");
+		}
+
+		// Set URL
+		if (this.Config.get('BASE_URL') == undefined) {
+			this.ConfigService.addDefaults({
+				URL: this.Config.get('API_PATH'),
+				BASE_URL: "",
+			});
+			console.log("Config value BASE_URL not provided, using \"\" ");
+		} else {
+			this.ConfigService.addDefaults({
+				URL: this.Config.get('BASE_URL') + this.Config.get('API_PATH'),
 			});
 		}
 
@@ -159,12 +178,7 @@ it is accessible by the sidebar toggler button.
 
 	axiosCreate(path, props) {
 		// Set up URL
-		var URL = undefined;
-		if (this.Config.get('BASE_URL') == undefined) {
-			URL = this.Config.get('API_PATH') + path;
-		} else {
-			URL = this.Config.get('BASE_URL') + this.Config.get('API_PATH') + path;
-		}
+		var URL = this.Config.get('URL') + path;
 
 		// Check for external auth module
 		if (path.toString().indexOf('http://') !== -1 || path.toString().indexOf('https://') !== -1) {
