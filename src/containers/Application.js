@@ -112,7 +112,7 @@ it is accessible by the sidebar toggler button.
 
 		this.ConfigService.addDefaults(props.configdefaults);
 		
-		// Set API URL, if not configured
+		// Set API PATH, if not configured
 		if (this.Config.get('API_PATH') == undefined && this.Config.get('BASE_URL') == undefined) {
 			this.ConfigService.addDefaults({
 				API_PATH: window.location.protocol + '//' + window.location.host + '/api',
@@ -125,16 +125,16 @@ it is accessible by the sidebar toggler button.
 			console.log("Config value API_PATH not provided, using /api");
 		}
 
-		// Set URL
+		// Set BASE_URL and API_URL
 		if (this.Config.get('BASE_URL') == undefined) {
 			this.ConfigService.addDefaults({
-				URL: this.Config.get('API_PATH'),
+				API_URL: this.Config.get('API_PATH'),
 				BASE_URL: "",
 			});
 			console.log("Config value BASE_URL not provided, using \"\" ");
 		} else {
 			this.ConfigService.addDefaults({
-				URL: this.Config.get('BASE_URL') + this.Config.get('API_PATH'),
+				API_URL: this.Config.get('BASE_URL') + this.Config.get('API_PATH'),
 			});
 		}
 
@@ -176,18 +176,27 @@ it is accessible by the sidebar toggler button.
 	}
 
 
-	axiosCreate(path, props) {
-		// Set up URL
-		var URL = this.Config.get('URL') + path;
+	getApiURL(service) {
+		let services = this.App.Config.get('SERVICES');
+		let service_path = services[service];
+		// TODO: Handle if service is unknown => return undefined
 
-		// Check for external auth module
-		if (path.toString().indexOf('http://') !== -1 || path.toString().indexOf('https://') !== -1) {
-			URL = path;
+		// If service_path is complete URL, then return that URL
+		if (service_path.toString().indexOf('http://') !== -1 || service_path.toString().indexOf('https://') !== -1) {
+			return service_path;
 		}
 
+		let API_URL = this.Config.get('API_URL');
+		// TODO: Handle trailing '/' properly
+		return API_URL + '/' service;
+	}
+
+
+	axiosCreate(service, props) {
+		var service_url = this.getApiURL(service);
 		var axios = Axios.create({
 			...props,
-			baseURL: URL,
+			baseURL: service_url,
 		});
 
 		var that = this;
@@ -210,6 +219,9 @@ it is accessible by the sidebar toggler button.
 
 		return axios;
 	}
+
+
+
 
 	// Display and hide networking indicator
 	pushNetworkingIndicator() {
