@@ -19,21 +19,9 @@ export class SeaCatAuthApi {
 	constructor(app) {
 
 		this.App = app;
-		this.URL = null;
+		this.URL = this.App.Config.get('URL');
 
-		let BaseURL = this.App.Config.get('BASE_URL');
-		let ApiPath = this.App.Config.get('API_PATH');
 		let Services = this.App.Config.get('SERVICES');
-
-		if (BaseURL == null) {
-			console.log("Config value BASE_URL not provided, using \"\" ");
-			BaseURL = "";
-		}
-
-		if (ApiPath == null) {
-			console.log("Config value API_PATH not provided, using /api");
-			ApiPath = "/api"
-		}
 
 		if (Services == null) {
 			console.log("Config value SERVICES not provided, using {\"oidc\": \"/openidconnect\", \"rbac\": \"/rbac\"}");
@@ -42,8 +30,6 @@ export class SeaCatAuthApi {
 
 		this.OidcSubpath = Services.oidc ? Services.oidc : '/openidconnect'; // Openidconnect
 		this.RbacSubpath = Services.rbac ? Services.rbac : '/rbac'; // rbac
-
-		this.URL = BaseURL + ApiPath;
 
 		const scope = this.App.Config.get('seacat.auth.scope');
 		this.Scope = scope ? scope : "openid";
