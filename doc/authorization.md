@@ -29,6 +29,8 @@ In the top-level `index.js` of your ASAB UI application, load the Tenant module 
 
 `Resource` is used for setting up resource for `rbac` endpoint. By default is set to `tenant:access`
 
+`UnauthorizedLogoutTimeout` is a timeout period on which the screen will stay in SplashScreen mode before it log out the unauthorized user. Default value is 60000 aka 60s.
+
 <!-- TODO: Set up also BASE_URL, Microservice, Subpaths, etc... -->
 
 ```
@@ -40,7 +42,7 @@ import TenantModule from 'asab-webui/modules/tenant';
 modules.push(TenantModule);
 
 let ConfigDefaults = {
-	Authorization: { Authorize: true, Resource: "tenant:access"},
+	Authorization: { Authorize: true, Resource: "tenant:access", UnauthorizedLogoutTimeout: 60000},
 };
 
 ...
