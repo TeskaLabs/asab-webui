@@ -7,9 +7,11 @@ import {
 	DropdownItem
 } from 'reactstrap';
 
+
 function HeaderComponent(props) {
 
-	let user_auth_url = props.app.Config.get('BASE_URL');
+	const Config = props.app.Config;
+	let user_auth_url = Config.get('USER_AUTH_URL') ? Config.get('USER_AUTH_URL') : Config.get('BASE_URL');
 
 	const logout = () => {
 		props.AuthModule.logout()
