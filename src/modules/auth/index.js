@@ -17,7 +17,7 @@ export default class AuthModule extends Module {
 		this.RedirectURL = window.location.href;
 		this.MustAuthenticate = true; // Setting this to false means, that we can operate without authenticated user
 		this.Config = app.Config;
-
+		this.Store = app.Store;
 		app.ReduxService.addReducer("auth", reducer);
 		this.App.addSplashScreenRequestor(this);
 
@@ -140,64 +140,25 @@ export default class AuthModule extends Module {
 
 	async _isUserAuthorized() {
 		let resp = false;
-		let tenants;
-		// Get the list of all available tenants of the application
-		await this.Api.get_tenants()
-		.then(response => {
-			tenants = response.data;
-		})
-		.catch((error) => {
-			console.log("Failed to load tenants", error);
-			resp = false;
-		});
-
-		// Is user authorized - returns true or false
-		if (tenants.length > 0) {
-			resp = await this._storeAuthorizedTenants(tenants, this.Authorization?.Resource);
-		} else {
-			resp = false;
+		// TODO: Solve race condition when obtaining tenant from redux store
+		const state = this.Store.getState();
+		let activeTenant = state.tenant.current?._id;
+		// If active tenant is null, then use tenant from parameters
+		if (activeTenant == null) {
+			const params = new URLSearchParams(window.location.search);
+			activeTenant = params.get('tenant');
 		}
-		return resp;
-	}
 
-
-	async _storeAuthorizedTenants(tenants, resource) {
-		let payload = [];
-		let resp = false;
-		const params = new URLSearchParams(window.location.search);
-		let tenant_id = params.get('tenant');
-		await Promise.all(Object.values(tenants).map(async (tenant, idx) => {
-			await this.Api.verify_access(tenant._id, this.OAuthToken['access_token'], resource).then(response => {
-				if (response.data.result == 'OK'){
-					payload.push(tenant)
+		resp = await this.Api.verify_access(activeTenant, this.OAuthToken['access_token'], this.Authorization?.Resource).then(response => {
+			if (response.data.result == 'OK'){
+					return true;
 				}
 			}).catch((error) => {
 				console.log(error);
-				resp = false;
-			})
-		}));
-		// If there is no match, user is not allowed to access the application or part of the application.
-		if (payload.length > 0) {
-			if (this.App.Store != null) {
-				// Get current tenant
-				let activeTenant = payload[0];
-				// Check if tenant_id is null in URL or if tenant_id does exist in the list of authorized tenants
-				if (tenant_id == null || !(JSON.stringify(payload).indexOf(tenant_id) != -1)) {
-					tenant_id = payload[0]._id;
-					// refresh (reload) the whole web app
-					window.location.replace('?tenant='+tenant_id+'#/');
-					return;
-				} else {
-					activeTenant = {"_id":tenant_id};
-				}
-				// Store the authorized tenants and the current tenant in the redux store
-				this.App.Store.dispatch({ type: types.AUTH_TENANTS, payload: payload, activeTenant: activeTenant });
-				resp = true;
-			}
-		} else {
-			resp = false;
-		}
-		return resp
+				return false;
+			});
+
+		return resp;
 	}
 
 }
