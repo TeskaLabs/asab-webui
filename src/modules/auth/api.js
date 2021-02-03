@@ -11,25 +11,14 @@ export class SeaCatAuthApi {
 	module.exports = {
 		app: {
 			BASE_URL: 'http://localhost:3000',
-			API_PATH: '/api',
-			SERVICES: {oidc: '/openidconnect', rbac: '/rbac'},
+			API_PATH: 'api',
+			SERVICES: {oidc: 'openidconnect', rbac: 'rbac'},
 			...
 	*/
 
 	constructor(app) {
 
 		this.App = app;
-		this.URL = this.App.Config.get('API_URL');
-
-		let Services = this.App.Config.get('SERVICES');
-
-		if (Services == null) {
-			console.log("Config value SERVICES not provided, using {\"oidc\": \"openidconnect\", \"rbac\": \"rbac\"}");
-			Services = {"oidc": "openidconnect", "rbac": "rbac"};
-		}
-
-		this.OidcSubpath = Services.oidc ? Services.oidc : 'openidconnect'; // Openidconnect
-		this.RbacSubpath = Services.rbac ? Services.rbac : 'rbac'; // rbac
 
 		const scope = this.App.Config.get('seacat.auth.scope');
 		this.Scope = scope ? scope : "openid";
@@ -57,16 +46,12 @@ export class SeaCatAuthApi {
 			params.append("prompt", "login");
 		}
 
-		let url = this.URL + this.OidcSubpath;
-		// Check if OIDC service contains an external OIDC url
-		if (this.OidcSubpath.toString().indexOf('http://') !== -1 || this.OidcSubpath.toString().indexOf('https://') !== -1) {
-			url = this.OidcSubpath;
-		}
-		window.location.replace(url + "/authorize?" + params.toString());
+		let oidcURL = this.App.getApiURL('oidc');
+		window.location.replace(oidcURL + "/authorize?" + params.toString());
 	}
 
 	logout(access_token) {
-		let Axios = this._axiosCall(this.OidcSubpath);
+		let Axios = this._axiosCall('oidc');
 		return Axios.get('/logout',
 			{ headers: { 'Authorization': 'Bearer ' + access_token }}
 		);
@@ -78,7 +63,8 @@ export class SeaCatAuthApi {
 		if (access_token != null) {
 			headers.Authorization = 'Bearer ' + access_token;
 		}
-		let Axios = this._axiosCall(this.OidcSubpath);
+
+		let Axios = this._axiosCall('oidc');
 		return Axios.get('/userinfo', {headers: headers});
 	}
 
@@ -92,7 +78,7 @@ export class SeaCatAuthApi {
 			redirect_uri: redirect_uri,
 		});
 
-		let Axios = this._axiosCall(this.OidcSubpath);
+		let Axios = this._axiosCall('oidc');
 		return Axios.post('/token',
 			qs.toString()
 		);
@@ -101,16 +87,10 @@ export class SeaCatAuthApi {
 	// Verify access to tenant
 	verify_access(tenant, access_token, resource) {
 		let rsrc = resource ? resource : "tenant:access";
-		let Axios = this._axiosCall(this.RbacSubpath);
+		let Axios = this._axiosCall('rbac');
 		return Axios.get("/" + tenant + "/" + rsrc,
 			{ headers: { 'Authorization': 'Bearer ' + access_token }}
 		);
-	}
-
-	// Get tenants from database
-	get_tenants() {
-		let Axios = this._axiosCall("");
-		return Axios.get('/tenant');
 	}
 
 };
