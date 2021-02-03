@@ -117,12 +117,12 @@ it is accessible by the sidebar toggler button.
 			this.ConfigService.addDefaults({
 				API_PATH: window.location.protocol + '//' + window.location.host + '/api',
 			});
-			console.log("Config value API_PATH not provided, using /api");
+			console.log("Config value API_PATH not provided, using \"api\"");
 		} else if (this.Config.get('API_PATH') == undefined && this.Config.get('BASE_URL') != undefined) {
 			this.ConfigService.addDefaults({
-				API_PATH: '/api',
+				API_PATH: 'api',
 			});
-			console.log("Config value API_PATH not provided, using /api");
+			console.log("Config value API_PATH not provided, using \"api\"");
 		}
 
 		// Set BASE_URL and API_URL
@@ -134,7 +134,7 @@ it is accessible by the sidebar toggler button.
 			console.log("Config value BASE_URL not provided, using \"\" ");
 		} else {
 			this.ConfigService.addDefaults({
-				API_URL: this.Config.get('BASE_URL') + this.Config.get('API_PATH'),
+				API_URL: this.Config.get('BASE_URL') + "/" + this.Config.get('API_PATH'),
 			});
 		}
 
@@ -177,21 +177,27 @@ it is accessible by the sidebar toggler button.
 
 
 	getApiURL(service) {
-		let services = this.Config.get('SERVICES');
-
-		// TODO: Check services with current service, and if it agrees, then service_path = services[service] otherwise service_path = service
 		let service_path = service;
-		// Object.keys(services).forEach(function(key) {
-		// 	if (services[key] == service) {
-		// 		service_path = service;
-		// 	}
-		// });
-		// let service_path = services[service];
+		// Check services with current service, and if it agrees, then service_path = services[service] otherwise service_path = service
+		let services = this.Config.get('SERVICES') ? this.Config.get('SERVICES') : undefined;
+		if (services) {
+			service_path = services[service] ? services[service] : service;
+			if (service == 'oidc' && services[service] == undefined) {
+				service_path = 'openidconnect';
+				console.log("Config value SERVICES for oidc not provided, using \"openidconnect\"");
+			}
+			if (service == 'rbac' && services[service] == undefined) {
+				service_path = 'rbac';
+				console.log("Config value SERVICES for rbac not provided, using \"rbac\"");
+			}
+		} else {
+			service_path = service;
+		}
 
-		// TODO: Handle if service is unknown => return undefined
+		// Handle if service is unknown => return undefined
 		if (service_path == undefined || service_path == null) {
 			console.log("Service path is undefined");
-			return undefined
+			return undefined;
 		}
 		// If service_path is complete URL, then return that URL
 		if (service_path.toString().indexOf('http://') !== -1 || service_path.toString().indexOf('https://') !== -1) {
@@ -199,7 +205,6 @@ it is accessible by the sidebar toggler button.
 		}
 
 		let API_URL = this.Config.get('API_URL');
-		// return API_URL + "/" + service;
 		return API_URL + "/" + service_path;
 	}
 
@@ -207,7 +212,8 @@ it is accessible by the sidebar toggler button.
 	axiosCreate(service, props) {
 		var service_url = this.getApiURL(service);
 		if (service_url == undefined) {
-			return
+			this.addAlert('error', "Service URL is undefined, please check service paths passed to axios.");
+			return undefined;
 		}
 
 		var axios = Axios.create({
