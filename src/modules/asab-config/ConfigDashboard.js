@@ -243,7 +243,7 @@ function RenderHandle(props) {
 						:
 						<React.Fragment>
 							<Input
-								key={idx}
+								key={valueProperties[key].title}
 								id={idx}
 								type="text"
 								title={valueProperties[key].description}
