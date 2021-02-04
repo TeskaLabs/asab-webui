@@ -7,7 +7,7 @@ import {
 	Col, Row,
 	Button,
 	ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem,
-	Card, CardBody, CardHeader, CardFooter,
+	Card, CardBody, CardHeader, CardFooter, CardTitle, CardSubtitle,
 	Form, FormGroup, Input, Label
 } from "reactstrap";
 
@@ -34,8 +34,10 @@ export default function ConfigDashboard(props) {
 	const [ selectedSchema, setSelectedSchema ] = useState({});
 	const [ updated, setUpdated ] = useState(false);
 
-	const [dropdownOpen, setOpen] = useState(false);
-	const toggle = () => setOpen(!dropdownOpen);
+	const [ displaySchemeKey, setDisplaySchemeKey ] = useState(false);
+	const [ prevDisplay, setPreviousDisplay ] = useState(displaySchemeKey);
+	const toggleDisplay = () => setDisplaySchemeKey(!displaySchemeKey);
+
 
 	// Retrieve the ASAB_CONFIG_URL from config file
 	if (!Config?.get('ASAB_CONFIG_URL')) {
@@ -92,10 +94,12 @@ export default function ConfigDashboard(props) {
 
 	// Select particular schema
 	const selectSchema = (selected) => {
+		// Validation on selected schema
 		let schemaData = paramData.filter(function (obj) {
 			return obj[selected];
 		})
 		setSelectedSchema(schemaData[0]);
+		setDisplaySchemeKey(true);
 
 		// TODO: Update with history
 		// history.push({
@@ -127,40 +131,29 @@ export default function ConfigDashboard(props) {
 				{paramData.length != 0 ?
 					<Container fluid className="animated fadeIn flex">
 						<Row>
-							<Col sm="3">
+							<Col sm="2">
 								<Card>
 									<CardHeader>
 										Select schema
 									</CardHeader>
 									<CardBody>
-										<SchemaDropdown
-											schema={data}
+										<SchemaButtons
+											data={data}
 											selectSchema={selectSchema}
-											dropdownOpen={dropdownOpen}
-											toggle={toggle}
+											selectedSchema={selectedSchema}
+											toggleDisplay={toggleDisplay}
 										/>
 									</CardBody>
 								</Card>
 							</Col>
-							<Col sm="9">
-								<Card>
-									<CardHeader>
-										Display schema
-									</CardHeader>
-									<CardBody>
-										<Row>
-											<Col sm="12">
-												<SchemaCard
-													handleSubmit={handleSubmit}
-													onSubmit={onSubmit}
-													register={register}
-													selectedSchema={selectedSchema}
-													modifySchemaContent={modifySchemaContent}
-												/>
-											</Col>
-										</Row>
-									</CardBody>
-								</Card>
+							<Col sm="10">
+								<SchemaCard
+									handleSubmit={handleSubmit}
+									onSubmit={onSubmit}
+									register={register}
+									selectedSchema={selectedSchema}
+									modifySchemaContent={modifySchemaContent}
+								/>
 							</Col>
 						</Row>
 					</Container>
@@ -171,59 +164,48 @@ export default function ConfigDashboard(props) {
 
 // Schema dropdown to display list of schemas
 // TODO: make a tree view from it?
-function SchemaDropdown(props) {
+function SchemaButtons(props) {
 	return (
 			<React.Fragment>
-					{props.schema.map((scheme, idx) =>
-						<Button color="secondary" size="lg" key={idx} id={idx} title={scheme} block onClick={() => props.selectSchema(scheme)}>{scheme}</Button>
-					)}
+				{props.data.map((scheme, idx) =>
+					<React.Fragment>
+						<Button color="secondary" size="lg" key={idx} id={idx} title={scheme} block onClick={() => {props.selectSchema(scheme), props.toggleDisplay()}}>{scheme}</Button>
+					</React.Fragment>
+				)}
 			</React.Fragment>
 		)
 }
 
 
-
-			/*<ButtonDropdown title="Dashboard settings" isOpen={props.dropdownOpen} toggle={props.toggle}>
-				<DropdownToggle caret>
-					<span className="cil-settings" />
-					{' '}
-					Configuration
-				</DropdownToggle>
-				<DropdownMenu>
-					{props.schema.map((scheme, idx) =>
-						<DropdownItem key={idx} id={idx} title={scheme} onClick={() => props.selectSchema(scheme,props.schema[scheme])}>{scheme}</DropdownItem>
-					)}
-				</DropdownMenu>
-			</ButtonDropdown>*/
-
-
 // Display Schema with inputs
 function SchemaCard(props) {
-	let schemaTitle = Object.keys(props.selectedSchema)[0] ? Object.keys(props.selectedSchema)[0] : "Schema";
+	let schemaTitle = Object.keys(props.selectedSchema)[0] ? Object.keys(props.selectedSchema)[0] : "";
 	let schemaValues = Object.values(props.selectedSchema)[0] ? Object.values(props.selectedSchema)[0] : {};
+	
+	// console.log(schemaTitle.title, 'schema title')
+	// console.log(props.selectedSchema, 'selected schema')
+	// console.log(schemaValues, 'schema values')
+	// console.log(schemaValues.properties, 'schema properties')
+
+
 	return (
 		<Form onSubmit={props.handleSubmit(props.onSubmit)}>
 			<Card>
-				<CardHeader>{schemaTitle}</CardHeader>
+				<CardHeader>
+					Schema title: <b>{schemaTitle}</b>
+					<div className="float-right">
+						<p>type: <b>{schemaValues.type}</b></p>
+					</div>
+				</CardHeader>
 				<CardBody>
-				{props.selectedSchema ?
-					<FormGroup>
-						{Object.keys(schemaValues).map((key, idx) =>
-							<React.Fragment key={idx}>
-								<Label key={idx} id={key} for={key}>{key.toString().toUpperCase()}</Label>
-								<Input
-									key={key}
-									id={key}
-									type="text"
-									name={key}
-									value={schemaValues.key}
-									innerRef={props.register}
-									onChange={(e) => props.modifySchemaContent(e, idx)}
-								/>
-							</React.Fragment>
-							)}
-					</FormGroup>
-				: null}
+					{schemaValues ?
+						<React.Fragment>
+							<CardTitle>{schemaValues.title}</CardTitle>
+							<FormGroup>
+								<RenderHandle valProps={schemaValues.properties}/>
+							</FormGroup>
+						</React.Fragment>
+					: null}
 				</CardBody>
 				<CardFooter>
 					<Button color="primary" type="submit">Submit</Button>
@@ -231,4 +213,37 @@ function SchemaCard(props) {
 			</Card>
 		</Form>
 		)
+}
+
+
+function RenderHandle(props) {
+
+	let valueProperties = props.valProps;
+	return(
+		valueProperties && typeof valueProperties == 'object' ?
+			Object.keys(valueProperties).map((key, idx) => {
+				return(
+					<React.Fragment key={idx+1}>
+						<CardSubtitle key={key} className="pb-2">{key.toString().toUpperCase()}</CardSubtitle>
+						<Label key={valueProperties[key].title} className="pb-2">{valueProperties[key].title}</Label>
+						<Input
+							key={idx}
+							id={idx}
+							type="text"
+							name={valueProperties[key].title}
+							value={valueProperties[key].examples}
+							// innerRef={props.register}
+							// onChange={(e) => props.modifySchemaContent(e, idx)}
+						/>
+						<hr key={idx+2} className="pb-2" />
+						{valueProperties[key] && typeof valueProperties[key] == 'object' ?
+							<RenderHandle key={idx+3} valProps={valueProperties[key].properties} />
+						: null
+						}
+					</React.Fragment>
+				)
+			})
+		:
+			null
+	)
 }

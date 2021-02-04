@@ -22,7 +22,7 @@ export default class ConfigModule extends Module {
 		// this.Router.addRoute({
 		// 	path: "/config/schema/:schema_id",
 		// 	exact: true,
-		// 	name: "Item",
+		// 	name: "Schema",
 		// 	component: ConfigDashboard,
 		// });
 
