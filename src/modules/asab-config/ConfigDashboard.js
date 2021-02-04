@@ -108,18 +108,11 @@ export default function ConfigDashboard(props) {
 	}
 
 
-	// Modify schema on input
-	const modifySchemaContent = (e, idx) => {
-		const { value, id } = e.target;
-		const data = selectedSchema;
-		data[Object.keys(selectedSchema)[0]][id] = value;
-		setSelectedSchema(data);
-		setUpdated(!updated);
-	}
-
 	// Submit values to be processed to ASAB config
+	// TODO: Get values and save them to the schema
 	const onSubmit = values => {
 		// TODO: update values in asab.config on submit (need an API endpoint)
+		// console.log(values, 'valuessss on submit')
 		const data = selectedSchema;
 		// setUpdated(true);
 		// data[Object.keys(selectedSchema)[0]][id] = value;
@@ -152,7 +145,6 @@ export default function ConfigDashboard(props) {
 									onSubmit={onSubmit}
 									register={register}
 									selectedSchema={selectedSchema}
-									modifySchemaContent={modifySchemaContent}
 								/>
 							</Col>
 						</Row>
@@ -177,7 +169,7 @@ function SchemaButtons(props) {
 }
 
 
-// Display Schema with inputs
+// Component to display schemas with inputs
 function SchemaCard(props) {
 	let schemaTitle = Object.keys(props.selectedSchema)[0] ? Object.keys(props.selectedSchema)[0] : "";
 	let schemaValues = Object.values(props.selectedSchema)[0] ? Object.values(props.selectedSchema)[0] : {};
@@ -206,7 +198,6 @@ function SchemaCard(props) {
 								<RenderHandle
 									valProps={schemaValues.properties}
 									register={props.register}
-									modifySchemaContent={props.modifySchemaContent}
 									nested={false}
 								/>
 							</FormGroup>
@@ -222,8 +213,9 @@ function SchemaCard(props) {
 }
 
 
+// Component to handle nested objects (properties)
 function RenderHandle(props) {
-
+	// TODO: Implement validation on undefined keys/values
 	let valueProperties = props.valProps;
 	return(
 		valueProperties && typeof valueProperties == 'object' ?
@@ -246,7 +238,6 @@ function RenderHandle(props) {
 								key={idx+3}
 								valProps={valueProperties[key].properties}
 								register={props.register}
-								modifySchemaContent={props.modifySchemaContent}
 								nested={true}
 							/>
 						:
@@ -255,10 +246,11 @@ function RenderHandle(props) {
 								key={idx}
 								id={idx}
 								type="text"
+								title={valueProperties[key].description}
 								name={valueProperties[key].title}
-								value={valueProperties[key].examples}
+								// TODO: change defaultValue value to something else than examples
+								defaultValue={valueProperties[key].examples}
 								innerRef={props.register}
-								onChange={(e) => props.modifySchemaContent(e, idx)}
 							/>
 						</React.Fragment>
 						}
