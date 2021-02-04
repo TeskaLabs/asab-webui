@@ -146,7 +146,7 @@ export default function ConfigDashboard(props) {
 									</CardBody>
 								</Card>
 							</Col>
-							<Col sm="10">
+							<Col sm="6">
 								<SchemaCard
 									handleSubmit={handleSubmit}
 									onSubmit={onSubmit}
@@ -201,8 +201,14 @@ function SchemaCard(props) {
 					{schemaValues ?
 						<React.Fragment>
 							<CardTitle>{schemaValues.title}</CardTitle>
+							<hr className="pb-2" />
 							<FormGroup>
-								<RenderHandle valProps={schemaValues.properties}/>
+								<RenderHandle
+									valProps={schemaValues.properties}
+									register={props.register}
+									modifySchemaContent={props.modifySchemaContent}
+									nested={false}
+								/>
 							</FormGroup>
 						</React.Fragment>
 					: null}
@@ -224,21 +230,42 @@ function RenderHandle(props) {
 			Object.keys(valueProperties).map((key, idx) => {
 				return(
 					<React.Fragment key={idx+1}>
-						<CardSubtitle key={key} className="pb-2">{key.toString().toUpperCase()}</CardSubtitle>
-						<Label key={valueProperties[key].title} className="pb-2">{valueProperties[key].title}</Label>
-						<Input
-							key={idx}
-							id={idx}
-							type="text"
-							name={valueProperties[key].title}
-							value={valueProperties[key].examples}
-							// innerRef={props.register}
-							// onChange={(e) => props.modifySchemaContent(e, idx)}
-						/>
-						<hr key={idx+2} className="pb-2" />
-						{valueProperties[key] && typeof valueProperties[key] == 'object' ?
-							<RenderHandle key={idx+3} valProps={valueProperties[key].properties} />
-						: null
+						{props.nested ?
+							<React.Fragment>
+								<CardSubtitle key={key} className="pb-2">{key.toString().toUpperCase()}</CardSubtitle>
+								<Label key={valueProperties[key].title} className="pb-2">{valueProperties[key].title}</Label>
+							</React.Fragment>
+						:
+							<React.Fragment>
+								<CardSubtitle key={key} className="pb-2"><b>{key.toString().toUpperCase()}</b></CardSubtitle>
+								<Label key={valueProperties[key].title} className="pb-2"><b>{valueProperties[key].title}</b></Label>
+							</React.Fragment>
+						}
+						{valueProperties[key]?.properties && typeof valueProperties[key]?.properties == 'object' ?
+							<RenderHandle
+								key={idx+3}
+								valProps={valueProperties[key].properties}
+								register={props.register}
+								modifySchemaContent={props.modifySchemaContent}
+								nested={true}
+							/>
+						:
+						<React.Fragment>
+							<Input
+								key={idx}
+								id={idx}
+								type="text"
+								name={valueProperties[key].title}
+								value={valueProperties[key].examples}
+								innerRef={props.register}
+								onChange={(e) => props.modifySchemaContent(e, idx)}
+							/>
+						</React.Fragment>
+						}
+						{props.nested ?
+							<div key={idx+2} className="pb-4"/>
+						:
+							<hr key={idx+2} className="pb-2" style={{backgroundColor: "#e4e5e6"}}/>
 						}
 					</React.Fragment>
 				)
