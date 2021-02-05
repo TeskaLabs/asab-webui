@@ -1,6 +1,6 @@
 module.exports = {
 	app: {
-		API_URL: 'api/',
+		API_PATH: 'api',
 		modules: ["HomeModule"],
 	},
 	webpackDevServer: {

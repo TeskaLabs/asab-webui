@@ -5,20 +5,23 @@ import reducer from './reducer';
 import { types } from './actions'
 import { SeaCatAuthApi, GoogleOAuth2Api } from './api';
 
-export default class AuthModule extends Module {
 
+export default class AuthModule extends Module {
 
 	constructor(app, name){
 		super(app, "AuthModule");
 
 		this.OAuthToken = JSON.parse(sessionStorage.getItem('SeaCatOAuth2Token'));
 		this.UserInfo = null;
-		this.Api = new SeaCatAuthApi(app.Config);
+		this.Api = new SeaCatAuthApi(app);
 		this.RedirectURL = window.location.href;
 		this.MustAuthenticate = true; // Setting this to false means, that we can operate without authenticated user
-
+		this.Config = app.Config;
+		this.Store = app.Store;
 		app.ReduxService.addReducer("auth", reducer);
 		this.App.addSplashScreenRequestor(this);
+
+		this.Authorization = this.Config.get("Authorization"); // Get Authorization settings from configuration
 	}
 
 
@@ -42,7 +45,6 @@ export default class AuthModule extends Module {
 		
 		// Do we have an oauth token (we are authorized to use the app)
 		if (this.OAuthToken != null) {
-
 			// Update the user info
 			let result = await this._updateUserInfo();
 			if (!result) {
@@ -52,6 +54,19 @@ export default class AuthModule extends Module {
 
 				this.Api.login(this.RedirectURL, force_login_prompt);
 				return;
+			}
+			// Authorization of the user based on rbac
+			if (this.Authorization?.Authorize) {
+				let userAuthorized = await this._isUserAuthorized();
+				let logoutTimeout = this.Authorization?.UnauthorizedLogoutTimeout ? this.Authorization.UnauthorizedLogoutTimeout : 60000;
+				if (!userAuthorized) {
+					this.App.addAlert("danger", "You are not authorized to use this application.", logoutTimeout);
+					// Logout after some time
+					setTimeout(() => {
+						this.logout();
+					}, logoutTimeout);
+					return;
+				}
 			}
 		}
 
@@ -120,6 +135,30 @@ export default class AuthModule extends Module {
 		sessionStorage.setItem('SeaCatOAuth2Token', JSON.stringify(response.data));
 
 		return true;
+	}
+
+
+	async _isUserAuthorized() {
+		let resp = false;
+		// TODO: Solve race condition when obtaining tenant from redux store
+		const state = this.Store.getState();
+		let activeTenant = state.tenant.current?._id;
+		// If active tenant is null, then use tenant from parameters
+		if (activeTenant == null) {
+			const params = new URLSearchParams(window.location.search);
+			activeTenant = params.get('tenant');
+		}
+
+		resp = await this.Api.verify_access(activeTenant, this.OAuthToken['access_token'], this.Authorization?.Resource).then(response => {
+			if (response.data.result == 'OK'){
+					return true;
+				}
+			}).catch((error) => {
+				console.log(error);
+				return false;
+			});
+
+		return resp;
 	}
 
 }
