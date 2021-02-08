@@ -9,7 +9,7 @@ Example of use:
 ```
 module.exports = {
 	app: {
-		CONFIG_URL: '/config.json',
+		CONFIG_PATH: '/config.json',
 	},
 }
 ```
@@ -39,7 +39,12 @@ export default class ConfigService extends Service {
 
 
 	initialize() {
-		const config_url = this.App.Config.get('CONFIG_URL');
+		let config_url = this.App.Config.get('CONFIG_PATH');
+
+		// Provide backward compatibility with CONFIG_URL
+		if (this.App.Config.get('CONFIG_URL')) {
+			config_url = this.App.Config.get('CONFIG_URL');
+		}
 
 		// Check on undefined configuration
 		if (config_url !== undefined) {
