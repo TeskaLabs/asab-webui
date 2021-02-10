@@ -26,8 +26,19 @@ class TenantDropdown extends Component {
 
 		this.TenantService = props.app.locateService("TenantService");
 
-		this.tenants = this.props.tenants;
+		// Check on tenants loaded from userinfo (array of strings) or from tenant service (array of objects)
+		var userTenants = [];
+		this.props.tenants.map((tenant, id) => {
+			var obj = {};
+			if (!tenant.hasOwnProperty('_id')) {
+				obj["_id"] = tenant;
+				userTenants.push(obj);
+			} else {
+				userTenants.push(tenant);
+			}})
+		this.tenants = userTenants;
 		this.current = this.props.current;
+
 	}
 
 	render() {
@@ -83,7 +94,7 @@ class TenantLabel extends Component {
 const mapStateToProps = state => {
 	return {
 		current: state.tenant.current,
-		tenants: state.tenant.tenants,
+		tenants: state?.auth?.userinfo.tenants ? state?.auth?.userinfo.tenants : state.tenant.tenants,
 	};
 };
 
