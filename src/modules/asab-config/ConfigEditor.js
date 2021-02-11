@@ -81,6 +81,9 @@ export default function ConfigEditor(props) {
 								register={register}
 							/>
 						)}
+
+						{/* TODO: List all remaining sections in "values" as a  ConfigAdHocSection */}
+
 					</Form>
 				</Col>
 			</Row>
@@ -110,12 +113,16 @@ function ConfigSection(props) {
 							register={props.register}
 						/>
 					)}
+
+					{/* TODO: List all remaining key/values from a config as simple Config Item  */}
+
 				</CardBody>
 			</Collapse>
 		</Card>
 	);
 }
 
+// TODO: Different types of ConfigItem to cover formats such as "number", "boolean", checkbox, radiobox
 function ConfigItem(props) {
 
 	let myid = '['+props.sectionname + "] " + props.itemname;
