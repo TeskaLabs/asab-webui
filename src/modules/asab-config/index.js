@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Module from 'asab-webui/abc/Module';
-import ConfigDashboard from "./ConfigDashboard";
+// import ConfigDashboard from "./ConfigDashboard";
+import ConfigEditor from "./ConfigEditor";
+import TypeList from "./TypeList";
 
 export default class ConfigModule extends Module {
 	constructor(app, name) {
@@ -10,26 +12,26 @@ export default class ConfigModule extends Module {
 		this.Navigation = app.Navigation;
 		this.Router = app.Router;
 
-
 		this.Router.addRoute({
 			path: "/config",
 			exact: true,
 			name: "Configuration",
-			component: ConfigDashboard,
+			component: TypeList,
 		});
 
-		// TODO: add routes for particular schemas/configs
-		// this.Router.addRoute({
-		// 	path: "/config/schema/:schema_id",
-		// 	exact: true,
-		// 	name: "Schema",
-		// 	component: ConfigDashboard,
-		// });
+		this.Router.addRoute({
+			path: "/config/:type_id",
+			exact: true,
+			name: "Type",
+			component: ConfigEditor,
+		});
+
 
 		this.Navigation.addItem({
 			name: "Configuration",
 			url: "/config",
 			icon: 'cil-settings',
 		});
+
 	}
 }
