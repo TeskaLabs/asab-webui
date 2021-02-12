@@ -14,6 +14,7 @@ import {
 
 export default function ConfigEditor(props) {
 
+	const [ typeId, setTypeId ] = useState(props.match.params.type_id);
 	const [ type, setType ] = useState(undefined);
 	const { register, handleSubmit, setValue, errors } = useForm();
 	
@@ -21,15 +22,23 @@ export default function ConfigEditor(props) {
 
 	// Retrieve the ASAB_CONFIG_URL from config file
 	let url = props.app.Config.get('ASAB_CONFIG_URL');
-	const axios = props.app.axiosCreate(url);
+	const Axios = props.app.axiosCreate(url);
 
 	useEffect(() => {
 		load();
 	},[]);
 
+
 	const load = async () => {
-		let type_response = await axios.get("/type/new_type")
-		setType(type_response.data)
+		if (typeId) {
+			await Axios.get("/type/" + typeId).then(response => {
+				setType(response.data);
+			})
+			.catch(error => {
+				console.log(error); // log the error to the browser's console
+				App.addAlert("warning", t(`Unable to get ${typeId} data: `, { error: error.toString() }));
+			});
+		}
 	}
 
 	useEffect(() => {
@@ -70,6 +79,10 @@ export default function ConfigEditor(props) {
 								>
 									Save
 								</Button>
+								<div className="float-right">
+									<span className="cil-briefcase pr-3" />
+									{typeId}
+								</div>
 							</div>
 						</Card>
 
@@ -124,24 +137,86 @@ function ConfigSection(props) {
 
 // TODO: Different types of ConfigItem to cover formats such as "number", "boolean", checkbox, radiobox
 function ConfigItem(props) {
-
 	let myid = '['+props.sectionname + "] " + props.itemname;
-
 	return (
 		<FormGroup>
 			<Label for={myid}>
 				{props.item['title']}
 			</Label>
-			<Input
-				type="text"
-				name={myid}
-				id={myid}
+			<ConfigItemFormats
+				format={props.item['type']}
+				myid={myid}
 				placeholder={props.item['default']}
-				innerRef={props.register()}
+				register={props.register()}
 			/>
 			<FormText color="muted">
 				{props.item['description']}
 			</FormText>
 		</FormGroup>
 	);
+}
+
+function ConfigItemFormats(props) {
+	let format = props.format;
+	switch(format) {
+		case "string": return(
+				<Input
+					type="text"
+					name={props.myid}
+					id={props.myid}
+					placeholder={props.placeholder}
+					innerRef={props.register}
+				/>
+			);
+		case "number": return(
+				<Input
+					type="number"
+					name={props.myid}
+					id={props.myid}
+					placeholder={props.placeholder}
+					innerRef={props.register}
+				/>
+			);
+		case "url": return(
+				<Input
+					type="url"
+					name={props.myid}
+					id={props.myid}
+					placeholder={props.placeholder}
+					innerRef={props.register}
+				/>
+			);
+		case "email": return(
+				<Input
+					type="email"
+					name={props.myid}
+					id={props.myid}
+					placeholder={props.placeholder}
+					innerRef={props.register}
+				/>
+			);
+		case "password": return(
+				<Input
+					type="password"
+					name={props.myid}
+					id={props.myid}
+					placeholder={props.placeholder}
+					innerRef={props.register}
+				/>
+			);
+		case "boolean": return(
+				<React.Fragment>
+					<br />
+					<Input
+						style={{marginLeft: 5}}
+						type="checkbox"
+						name={props.myid}
+						id={props.myid}
+						innerRef={props.register}
+					/>
+					<br />
+				</React.Fragment>
+			);
+		case undefined: return(null);
+		}
 }
