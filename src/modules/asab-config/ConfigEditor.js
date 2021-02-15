@@ -11,6 +11,18 @@ import {
 	Form, FormGroup, FormText, Input, Label
 } from "reactstrap";
 
+import {
+	ConfigItem,
+	NumberConfigItem,
+	UrlConfigItem,
+	EmailConfigItem,
+	PasswordConfigItem,
+	CheckBoxConfigItem,
+	RadioButtonConfigItem,
+	SelectConfigItem,
+	TextAreaConfigItem,
+} from './ConfigFormatItems';
+
 
 export default function ConfigEditor(props) {
 
@@ -20,9 +32,11 @@ export default function ConfigEditor(props) {
 	
 	const onSubmit = data => console.log(data);
 
+	let App = props.app;
 	// Retrieve the ASAB_CONFIG_URL from config file
-	let url = props.app.Config.get('ASAB_CONFIG_URL');
-	const Axios = props.app.axiosCreate(url);
+	let services = App.Config.get('SERVICES');
+	let url = services?.asabconfig ? services.asabconfig : 'asab-config';
+	const Axios = App.axiosCreate(url);
 
 	useEffect(() => {
 		load();
@@ -117,14 +131,80 @@ function ConfigSection(props) {
 			<Collapse isOpen={isOpen}>
 				<CardBody>
 					{Object.keys(props.section.properties).map((item_name, idx) =>
-						// TODO: Decide that type of config item to render
-						<ConfigItem
-							key={idx}
-							item={props.section.properties[item_name]}
-							itemname={item_name}
-							sectionname={props.sectionname}
-							register={props.register}
-						/>
+						// Decide what type of config item to render based on format
+						// TODO: `format` names should be consulted with BE team
+						{switch(props.section.properties[item_name]['format']){
+							case 'text': return(<ConfigItem
+													key={idx}
+													item={props.section.properties[item_name]}
+													itemname={item_name}
+													sectionname={props.sectionname}
+													register={props.register}
+												/>)
+							case 'number': return(<NumberConfigItem
+													key={idx}
+													item={props.section.properties[item_name]}
+													itemname={item_name}
+													sectionname={props.sectionname}
+													register={props.register}
+												/>)
+							case 'url': return(<UrlConfigItem
+													key={idx}
+													item={props.section.properties[item_name]}
+													itemname={item_name}
+													sectionname={props.sectionname}
+													register={props.register}
+												/>)
+							case 'email': return(<EmailConfigItem
+													key={idx}
+													item={props.section.properties[item_name]}
+													itemname={item_name}
+													sectionname={props.sectionname}
+													register={props.register}
+												/>)
+							case 'password': return(<PasswordConfigItem
+													key={idx}
+													item={props.section.properties[item_name]}
+													itemname={item_name}
+													sectionname={props.sectionname}
+													register={props.register}
+												/>)
+							case 'checkbox': return(<CheckBoxConfigItem
+													key={idx}
+													item={props.section.properties[item_name]}
+													itemname={item_name}
+													sectionname={props.sectionname}
+													register={props.register}
+												/>)
+							case 'radio': return(<RadioButtonConfigItem
+													key={idx}
+													item={props.section.properties[item_name]}
+													itemname={item_name}
+													sectionname={props.sectionname}
+													register={props.register}
+												/>)
+							case 'select': return(<SelectConfigItem
+													key={idx}
+													item={props.section.properties[item_name]}
+													itemname={item_name}
+													sectionname={props.sectionname}
+													register={props.register}
+												/>)
+							case 'textarea': return(<TextAreaConfigItem
+													key={idx}
+													item={props.section.properties[item_name]}
+													itemname={item_name}
+													sectionname={props.sectionname}
+													register={props.register}
+												/>)
+							default: return(<ConfigItem
+													key={idx}
+													item={props.section.properties[item_name]}
+													itemname={item_name}
+													sectionname={props.sectionname}
+													register={props.register}
+												/>)
+						}}
 					)}
 
 					{/* TODO: List all remaining key/values from a config as simple Config Item  */}
@@ -133,90 +213,4 @@ function ConfigSection(props) {
 			</Collapse>
 		</Card>
 	);
-}
-
-// TODO: Different types of ConfigItem to cover formats such as "number", "boolean", checkbox, radiobox
-function ConfigItem(props) {
-	let myid = '['+props.sectionname + "] " + props.itemname;
-	return (
-		<FormGroup>
-			<Label for={myid}>
-				{props.item['title']}
-			</Label>
-			<ConfigItemFormats
-				format={props.item['type']}
-				myid={myid}
-				placeholder={props.item['default']}
-				register={props.register()}
-			/>
-			<FormText color="muted">
-				{props.item['description']}
-			</FormText>
-		</FormGroup>
-	);
-}
-
-function ConfigItemFormats(props) {
-	let format = props.format;
-	switch(format) {
-		case "string": return(
-				<Input
-					type="text"
-					name={props.myid}
-					id={props.myid}
-					placeholder={props.placeholder}
-					innerRef={props.register}
-				/>
-			);
-		case "number": return(
-				<Input
-					type="number"
-					name={props.myid}
-					id={props.myid}
-					placeholder={props.placeholder}
-					innerRef={props.register}
-				/>
-			);
-		case "url": return(
-				<Input
-					type="url"
-					name={props.myid}
-					id={props.myid}
-					placeholder={props.placeholder}
-					innerRef={props.register}
-				/>
-			);
-		case "email": return(
-				<Input
-					type="email"
-					name={props.myid}
-					id={props.myid}
-					placeholder={props.placeholder}
-					innerRef={props.register}
-				/>
-			);
-		case "password": return(
-				<Input
-					type="password"
-					name={props.myid}
-					id={props.myid}
-					placeholder={props.placeholder}
-					innerRef={props.register}
-				/>
-			);
-		case "boolean": return(
-				<React.Fragment>
-					<br />
-					<Input
-						style={{marginLeft: 5}}
-						type="checkbox"
-						name={props.myid}
-						id={props.myid}
-						innerRef={props.register}
-					/>
-					<br />
-				</React.Fragment>
-			);
-		case undefined: return(null);
-		}
 }
