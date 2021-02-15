@@ -28,8 +28,9 @@ export default function ConfigEditor(props) {
 
 	const [ typeId, setTypeId ] = useState(props.match.params.type_id);
 	const [ type, setType ] = useState(undefined);
-	const { register, handleSubmit, setValue, errors } = useForm();
+	const { register, handleSubmit, setValue, getValues, errors } = useForm();
 	
+	// TODO: parse data to JSON format
 	const onSubmit = data => console.log(data);
 
 	let App = props.app;
@@ -55,17 +56,35 @@ export default function ConfigEditor(props) {
 		}
 	}
 
+	// TODO: fetch list of configs (for treeview)
+	// useEffect(() => {
+
+	// 	async function fetchConfigs() {
+	// 		let list_of_configs = await Axios.get("/config/" + typeId);
+	// 		let configs = list_of_configs.data;
+	// 		setConfigList(configs);
+	// 	}
+	// 	fetchConfigs();
+	// }, [type]);
+
 	useEffect(() => {
 
+
 		async function fetchValues() {
-			// let config_response = await axios.get("/config/new_type/my_config")
-			// let values = config_response.data
+			// let config_response = await Axios.get("/config/" + typeId + "/new_config")
+			// let values = config_response.data;
 
 			// Mocked
 			let values = {
+				'asab:storage': {
+					'type': "fool",
+				},
 				'general': {
 					'uid': "123",
-				}
+				},
+				'admiral': {
+					'papillon': "666",
+				},
 			};
 
 			for (var section in values) {
@@ -73,10 +92,14 @@ export default function ConfigEditor(props) {
 					setValue('['+section + "] " + key, values[section][key], { shouldValidate: false })
 				}
 			}
+			// TODO: add validation on config values, which does not fit to the schema and print them in ConfigAdHocSection
+			// let testvalues = getValues();
+			// console.log(values['asab:storage'], values['asab:storage']['type'])
+			// console.log(testvalues, 'testvalyesss')
 		}
 		fetchValues();
 
-	},[type]);
+	},[type]); //configId
 
 
 	return (
@@ -109,6 +132,13 @@ export default function ConfigEditor(props) {
 							/>
 						)}
 
+						{/*!type && && Ob*
+							<ConfigAdHocSection
+								section={type.properties[section_name]}
+								sectionname={section_name}
+								// register={register}
+							/>
+						/}
 						{/* TODO: List all remaining sections in "values" as a  ConfigAdHocSection */}
 
 					</Form>
@@ -122,7 +152,6 @@ export default function ConfigEditor(props) {
 function ConfigSection(props) {
 	const [isOpen, setIsOpen] = useState(false);
 	const toggle = () => setIsOpen(!isOpen);
-
 	return (
 		<Card style={{marginBottom: "0.25em"}}>
 			<CardHeader tag="h5" onClick={toggle}>
@@ -209,6 +238,40 @@ function ConfigSection(props) {
 
 					{/* TODO: List all remaining key/values from a config as simple Config Item  */}
 
+				</CardBody>
+			</Collapse>
+		</Card>
+	);
+}
+
+
+function ConfigAdHocSection(props) {
+	const [isOpen, setIsOpen] = useState(false);
+	const toggle = () => setIsOpen(!isOpen);
+	let myid = '['+props.sectionname + "] " + props.itemname;
+	return (
+		<Card style={{marginBottom: "0.25em"}}>
+			<CardHeader tag="h5" onClick={toggle} style={{background:"gray"}}>
+				{props.section['title']}
+			</CardHeader>
+			<Collapse isOpen={isOpen}>
+				<CardBody>
+					<FormGroup>
+						<Label for={myid}>
+							{props.item['title']}
+						</Label>
+						<Input
+							type="text"
+							name={myid}
+							id={myid}
+							placeholder={props.item['default']}
+							readOnly
+							// innerRef={props.register()}
+						/>
+						<FormText color="muted">
+							{props.item['description']}
+						</FormText>
+					</FormGroup>
 				</CardBody>
 			</Collapse>
 		</Card>
