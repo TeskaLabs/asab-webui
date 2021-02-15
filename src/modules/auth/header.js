@@ -7,9 +7,16 @@ import {
 	DropdownItem
 } from 'reactstrap';
 
+
 function HeaderComponent(props) {
 
-	let user_auth_url = props.app.Config.get('USER_AUTH_URL');
+	const Config = props.app.Config;
+	let user_auth_url = Config.get('SERVICES')?.auth ? Config.get('SERVICES')?.auth : Config.get('BASE_URL');
+
+	// Provide backward compatibility with USER_AUTH_URL
+	if (Config.get('USER_AUTH_URL')) {
+		user_auth_url = Config.get('USER_AUTH_URL');
+	}
 
 	const logout = () => {
 		props.AuthModule.logout()
@@ -33,7 +40,7 @@ function HeaderComponent(props) {
 						<DropdownItem tag="a" href={user_auth_url}>
 							Manage
 						</DropdownItem>
-						<DropdownItem tag="a" href={user_auth_url + '#/pwd'}>
+						<DropdownItem tag="a" href={user_auth_url + '/#/pwd'}>
 							Change a password
 						</DropdownItem>
 					</React.Fragment>

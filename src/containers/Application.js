@@ -112,10 +112,29 @@ it is accessible by the sidebar toggler button.
 
 		this.ConfigService.addDefaults(props.configdefaults);
 		
-		// Set API URL, if not configured
-		if (this.Config.get('API_URL') == undefined) {
+		// Set API PATH, if not configured
+		if (this.Config.get('API_PATH') == undefined && this.Config.get('BASE_URL') == undefined) {
 			this.ConfigService.addDefaults({
-				API_URL: window.location.protocol + '//' + window.location.host + '/api/',
+				API_PATH: window.location.protocol + '//' + window.location.host + '/api',
+			});
+			console.log("Config value API_PATH not provided, using \"api\"");
+		} else if (this.Config.get('API_PATH') == undefined && this.Config.get('BASE_URL') != undefined) {
+			this.ConfigService.addDefaults({
+				API_PATH: 'api',
+			});
+			console.log("Config value API_PATH not provided, using \"api\"");
+		}
+
+		// Set BASE_URL and API_URL
+		if (this.Config.get('BASE_URL') == undefined) {
+			this.ConfigService.addDefaults({
+				API_URL: this.Config.get('API_PATH'),
+				BASE_URL: "",
+			});
+			console.log("Config value BASE_URL not provided, using \"\" ");
+		} else {
+			this.ConfigService.addDefaults({
+				API_URL: this.Config.get('BASE_URL') + "/" + this.Config.get('API_PATH'),
 			});
 		}
 
@@ -157,10 +176,49 @@ it is accessible by the sidebar toggler button.
 	}
 
 
-	axiosCreate(path, props) {
+	getApiURL(service) {
+		let service_path = service;
+		// Check services with current service, and if it agrees, then service_path = services[service] otherwise service_path = service
+		let services = this.Config.get('SERVICES') ? this.Config.get('SERVICES') : undefined;
+		if (services) {
+			service_path = services[service] ? services[service] : service;
+			if (service == 'oidc' && services[service] == undefined) {
+				service_path = 'openidconnect';
+				console.log("Config value SERVICES for oidc not provided, using \"openidconnect\"");
+			}
+			if (service == 'rbac' && services[service] == undefined) {
+				service_path = 'rbac';
+				console.log("Config value SERVICES for rbac not provided, using \"rbac\"");
+			}
+		} else {
+			service_path = service;
+		}
+
+		// Handle if service is unknown => return undefined
+		if (service_path == undefined || service_path == null) {
+			console.log("Service path is undefined");
+			return undefined;
+		}
+		// If service_path is complete URL, then return that URL
+		if (service_path.toString().indexOf('http://') !== -1 || service_path.toString().indexOf('https://') !== -1) {
+			return service_path;
+		}
+
+		let API_URL = this.Config.get('API_URL');
+		return API_URL + "/" + service_path;
+	}
+
+
+	axiosCreate(service, props) {
+		var service_url = this.getApiURL(service);
+		if (service_url == undefined) {
+			this.addAlert('error', "Service URL is undefined, please check service paths passed to axios.");
+			return undefined;
+		}
+
 		var axios = Axios.create({
 			...props,
-			baseURL: this.Config.get('API_URL') + path,
+			baseURL: service_url,
 		});
 
 		var that = this;
@@ -183,6 +241,9 @@ it is accessible by the sidebar toggler button.
 
 		return axios;
 	}
+
+
+
 
 	// Display and hide networking indicator
 	pushNetworkingIndicator() {
@@ -217,8 +278,8 @@ it is accessible by the sidebar toggler button.
 
 	_handleKeyUp(event) {
 
-		// CTRL-A enables the advanced mode
-		if (event.key == '1' && event.ctrlKey) {
+		// CTRL+Q (Windows) or CTRL+1 (Linux) enables the advanced mode
+		if ((event.ctrlKey && event.code === 'KeyQ') || (event.code === 'Digit1' && event.ctrlKey)) {
 			this.setAdvancedMode(0);
 		}
 

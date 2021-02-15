@@ -10,31 +10,28 @@ export class SeaCatAuthApi {
 
 	module.exports = {
 		app: {
-			"OIDC_URL": 'http://localhost:3000/openidconnect',
+			BASE_URL: 'http://localhost:3000',
+			API_PATH: 'api',
+			SERVICES: {oidc: 'openidconnect', rbac: 'rbac'},
 			...
 	*/
 
-	constructor(config) {
-		
-		this.BaseURL = config.get('OIDC_URL');
-		if (this.BaseURL == null) {
-			// This is here for a backward compatibility
-			this.BaseURL = config.get('seacat.auth.oidc_url');
-		}
-		if (this.BaseURL == null) {
-			console.log("Provide config value seacat.auth.oidc_url");
-			this.BaseURL = "/openidconnect";
-		}
-		this.Axios = axios.create({
-			timeout: 10000,
-			baseURL: this.BaseURL,
-		});
+	constructor(app) {
 
-		const scope = config.get('seacat.auth.scope');
+		this.App = app;
+
+		const scope = this.App.Config.get('seacat.auth.scope');
 		this.Scope = scope ? scope : "openid";
 		
 		this.ClientId = "asab-webui-auth";
 		this.ClientSecret = "TODO";
+
+		this._axiosCall = this._axiosCall.bind(this);
+	}
+
+	// For axios calls with dynamic service types
+	_axiosCall(service) {
+		return this.App.axiosCreate(service, {timeout: 10000});
 	}
 
 	// This method will cause a navigation from the app to the OAuth2 login screen
@@ -48,12 +45,14 @@ export class SeaCatAuthApi {
 		if (force_login_prompt === true) {
 			params.append("prompt", "login");
 		}
-		window.location.replace(this.BaseURL + "/authorize?" + params.toString());
+
+		let oidcURL = this.App.getApiURL('oidc');
+		window.location.replace(oidcURL + "/authorize?" + params.toString());
 	}
 
 	logout(access_token) {
-		return this.Axios.get(
-			'/logout',
+		let Axios = this._axiosCall('oidc');
+		return Axios.get('/logout',
 			{ headers: { 'Authorization': 'Bearer ' + access_token }}
 		);
 	}
@@ -64,7 +63,9 @@ export class SeaCatAuthApi {
 		if (access_token != null) {
 			headers.Authorization = 'Bearer ' + access_token;
 		}
-		return this.Axios.get('/userinfo', {headers: headers});
+
+		let Axios = this._axiosCall('oidc');
+		return Axios.get('/userinfo', {headers: headers});
 	}
 
 
@@ -77,9 +78,18 @@ export class SeaCatAuthApi {
 			redirect_uri: redirect_uri,
 		});
 
-		return this.Axios.post(
-			'/token',
+		let Axios = this._axiosCall('oidc');
+		return Axios.post('/token',
 			qs.toString()
+		);
+	}
+
+	// Verify access to tenant
+	verify_access(tenant, access_token, resource) {
+		let rsrc = resource ? resource : "tenant:access";
+		let Axios = this._axiosCall('rbac');
+		return Axios.get("/" + tenant + "/" + rsrc,
+			{ headers: { 'Authorization': 'Bearer ' + access_token }}
 		);
 	}
 
@@ -155,4 +165,3 @@ export class GoogleOAuth2Api {
 		);
 	}
 }
-

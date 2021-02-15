@@ -18,6 +18,10 @@ let ConfigDefaults = {
 		alt: "Created by TeskaLabs",
 		href: "https://teskalabs.com/",
 	},
+	table: {
+		headers: [ { name: 'Name', key: 'username' }, { name: 'Provider', key: '_provider_id' }, { name: 'Type', key: '_type' } ],
+		limit: 10
+	}
 };
 
 // Modules
