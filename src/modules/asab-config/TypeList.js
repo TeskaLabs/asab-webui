@@ -19,7 +19,8 @@ export default function TypeList(props) {
 	let App = props.app;
 
 	// Retrieve the ASAB_CONFIG_URL from config file
-	let url = App.Config.get('ASAB_CONFIG_URL');
+	let services = App.Config.get('SERVICES');
+	let url = services?.asabconfig ? services.asabconfig : 'asab-config';
 	const Axios = App.axiosCreate(url);
 
 	const [ typeList, setTypeList ] = useState([]);
