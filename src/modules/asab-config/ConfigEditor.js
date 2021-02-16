@@ -28,6 +28,7 @@ export default function ConfigEditor(props) {
 
 	const [ typeId, setTypeId ] = useState(props.match.params.type_id);
 	const [ type, setType ] = useState(undefined);
+	const [ adHocValue, setAdHocValue ] = useState({});
 	const { register, handleSubmit, setValue, getValues, errors } = useForm();
 	
 	// TODO: parse data to JSON format
@@ -51,7 +52,9 @@ export default function ConfigEditor(props) {
 			})
 			.catch(error => {
 				console.log(error); // log the error to the browser's console
-				App.addAlert("warning", t(`Unable to get ${typeId} data: `, { error: error.toString() }));
+				App.addAlert("warning", `Unable to get ${typeId} data: ${error}`);
+				// TODO: Prepared for i18n
+				// App.addAlert("warning", t(`Unable to get ${typeId} data: `, { error: error.toString() }));
 			});
 		}
 	}
@@ -69,33 +72,52 @@ export default function ConfigEditor(props) {
 
 	useEffect(() => {
 
-
 		async function fetchValues() {
-			// let config_response = await Axios.get("/config/" + typeId + "/new_config")
-			// let values = config_response.data;
+			let values = {}
+			// TODO: make config value dynamic in url (replace `new_config`)
+			await Axios.get("/config/" + typeId + "/new_config" + "?format=json").then(response => {
+				values = response.data;
+			})
+			.catch(error => {
+				console.log(error); // log the error to the browser's console
+				App.addAlert("warning", `Unable to get config data: ${error}`);
+				// TODO: Prepared for i18n
+				// App.addAlert("warning", t(`Unable to get config data: `, { error: error.toString() }));
+			});
 
-			// Mocked
-			let values = {
-				'asab:storage': {
-					'type': "fool",
-				},
-				'general': {
-					'uid': "123",
-				},
-				'admiral': {
-					'papillon': "666",
-				},
-			};
-
-			for (var section in values) {
-				for (var key in values[section]) {
-					setValue('['+section + "] " + key, values[section][key], { shouldValidate: false })
+			// // Mocked
+			// let values = {
+			// 	'asab:storage': {
+			// 		'type': "fool",
+			// 	},
+			// 	'general': {
+			// 		'uid': "123",
+			// 	},
+			// 	'admiral': {
+			// 		'papillon': "666",
+			// 	},
+			// };
+			if (Object.keys(values).length > 0) {
+				let stringifiedSchemaValues = getValues() ? JSON.stringify(getValues()) : "";
+				let adHocValues = {};
+				for (var section in values) {
+					let arr = [];
+					for (var key in values[section]) {
+						// Set config values to the schema (if available)
+						setValue('['+section + "] " + key, values[section][key], { shouldValidate: false })
+						// Check if config key values are in schema and if not, add it to adhoc values
+						let k = {};
+						if (stringifiedSchemaValues.indexOf(section +" " + key) == -1) {
+							k[key] = values[section][key];
+							arr.push(k);
+							adHocValues[section] = arr;
+						}
+					}
 				}
+				setAdHocValue(adHocValues)
+			} else {
+				App.addAlert("warning", 'Config file is empty.')
 			}
-			// TODO: add validation on config values, which does not fit to the schema and print them in ConfigAdHocSection
-			// let testvalues = getValues();
-			// console.log(values['asab:storage'], values['asab:storage']['type'])
-			// console.log(testvalues, 'testvalyesss')
 		}
 		fetchValues();
 
@@ -132,15 +154,15 @@ export default function ConfigEditor(props) {
 							/>
 						)}
 
-						{/*!type && && Ob*
+						{/* List all remaining sections in "values" as a  ConfigAdHocSection */}
+						{Object.keys(adHocValue).length > 0 && Object.keys(adHocValue).map((section_name, idx) =>
 							<ConfigAdHocSection
-								section={type.properties[section_name]}
+								key={idx}
+								section={section_name}
 								sectionname={section_name}
-								// register={register}
+								values={adHocValue[section_name]}
 							/>
-						/}
-						{/* TODO: List all remaining sections in "values" as a  ConfigAdHocSection */}
-
+						)}
 					</Form>
 				</Col>
 			</Row>
@@ -248,30 +270,34 @@ function ConfigSection(props) {
 function ConfigAdHocSection(props) {
 	const [isOpen, setIsOpen] = useState(false);
 	const toggle = () => setIsOpen(!isOpen);
-	let myid = '['+props.sectionname + "] " + props.itemname;
+	let myid = props.sectionname;
 	return (
 		<Card style={{marginBottom: "0.25em"}}>
-			<CardHeader tag="h5" onClick={toggle} style={{background:"gray"}}>
-				{props.section['title']}
+			<CardHeader tag="h5" onClick={toggle} style={{background:"#ead7d7"}}>
+				{myid}
 			</CardHeader>
 			<Collapse isOpen={isOpen}>
 				<CardBody>
-					<FormGroup>
-						<Label for={myid}>
-							{props.item['title']}
-						</Label>
-						<Input
-							type="text"
-							name={myid}
-							id={myid}
-							placeholder={props.item['default']}
-							readOnly
-							// innerRef={props.register()}
-						/>
-						<FormText color="muted">
-							{props.item['description']}
-						</FormText>
-					</FormGroup>
+					{props.values.length > 0 && props.values.map((obj, idx) =>
+						{
+						return (
+							<FormGroup key={idx}>
+								<Label for={myid}>
+									{Object.keys(obj)}
+								</Label>
+								<Input
+									type="text"
+									name={myid}
+									id={myid}
+									value={Object.values(obj)}
+									readOnly
+								/>
+								<FormText color="muted">
+									Read only
+								</FormText>
+							</FormGroup>
+						)}
+					)}
 				</CardBody>
 			</Collapse>
 		</Card>
