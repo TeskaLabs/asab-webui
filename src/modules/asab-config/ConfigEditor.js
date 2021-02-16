@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import TreeMenu from 'react-simple-tree-menu';
 
 import {
 	Container,
@@ -26,10 +27,11 @@ import {
 
 export default function ConfigEditor(props) {
 
-	const [ typeId, setTypeId ] = useState(props.match.params.type_id);
+	const [ typeId, setTypeId ] = useState("");
+	const [ configId, setConfigId ] = useState("");
 	const [ type, setType ] = useState(undefined);
 	const [ adHocSections, setAdHocSections ] = useState({});
-	const { register, handleSubmit, setValue, getValues, errors } = useForm();
+	const { register, handleSubmit, setValue, getValues, errors, reset } = useForm();
 
 	let App = props.app;
 	// Retrieve the ASAB_CONFIG_URL from config file
@@ -37,9 +39,121 @@ export default function ConfigEditor(props) {
 	let url = services?.asabconfig ? services.asabconfig : 'asab-config';
 	const Axios = App.axiosCreate(url);
 
+	const [ typeList, setTypeList ] = useState([]);
+	const [ treeList, setTreeList ] = useState({});
+	const [ treeData, setTreeData ] = useState({});
+
+
+
+	useEffect(() => {
+		getTypes();
+	}, []);
+
+	useEffect(() => {
+		getTree();
+	}, [typeList])
+
+	useEffect(() => {
+		getChart();
+	}, [treeList]);
+
+
+	// Obtain the overall dataset
+	const getTypes = async () => {
+		try {
+			let response = await Axios.get("/type");
+			setTypeList(response.data);
+			// TODO: validate responses which are not 200
+		}
+		catch {
+			App.addAlert("warning", `Unable to get types`);
+			return;
+			// TODO: Prepared for i18n
+			// App.addAlert("warning", t(`Unable to get types: `, { error: error.toString() }));
+		}
+	}
+
+	const getConfigs = async (typeId) => {
+		let tree = {};
+		try {
+			let response = await Axios.get("/config/" + typeId);
+			// TODO: validate responses which are not 200
+			tree[typeId] = response.data
+			return tree;
+		}
+		catch {
+			App.addAlert("warning", `Unable to get ${typeId} data`);
+			return;
+			// TODO: Prepared for i18n
+			// App.addAlert("warning", t(`Unable to get ${typeId} data: `, { error: error.toString() }));
+		}
+	}
+
+	const getTree = async () => {
+		let tree = await Promise.all(typeList.map(t => getConfigs(t)));
+		setTreeList(tree);
+	}
+
+	const getChart = () => {
+		let dataChart = [];
+		Object.values(treeList).map((element, idx) => {
+			addTreeStructure(element, dataChart);
+		});
+		setTreeData(dataChart);
+	}
+
+
+	const addTreeStructure = (element, dataChart) => {
+		if (typeof element === 'object' && element !== null) {
+			Object.keys(element).map((key) => {
+				var obj = {
+					type: "folder", // this is not needed yet, but it might be useful for icons
+					key: key,
+					label: key,
+					nodes: []
+				};
+				dataChart.push(obj);
+
+				var index = dataChart.indexOf(obj);
+
+				element[key].map((e) => {
+					if (typeof e === "object" && e !== null) {
+						addTreeStructure(e, dataChart[index].nodes);
+					} else if (typeof e === "string" && e !== null) {
+						var strObj = {
+							type: "file", // this is not needed yet, but it might be useful for icons
+							key: e,
+							label: e
+						};
+						dataChart[index].nodes.push(strObj);
+					}
+				})
+			})
+		} else if (element !== undefined) {
+			dataChart.push(
+				{
+					type: "file", // this is not needed yet, but it might be useful for icons
+					key: element,
+					label: element,
+				}
+			);
+		}
+	}
+
+	const onClickItem = (key, label) => {
+		// TODO: Change between configs. Now it works only when change is made between types
+		let splitKey = key.split("/");
+		// reset({});
+		setTypeId(splitKey[0])
+		setConfigId(splitKey?.[1] ? splitKey[1] : "");
+	}
+
+
+// -----------------------------------------------------------------------------------
+
 	useEffect(() => {
 		load();
-	},[]);
+	},[typeId]);
 
 
 	const load = async () => {
@@ -50,8 +164,7 @@ export default function ConfigEditor(props) {
 				// TODO: validate responses which are not 200
 			}
 			catch {
-				console.log(error); // log the error to the browser's console
-				App.addAlert("warning", `Unable to get ${typeId} data: ${error}`);
+				App.addAlert("warning", `Unable to get ${typeId} data`);
 				return;
 				// TODO: Prepared for i18n
 				// App.addAlert("warning", t(`Unable to get ${typeId} data: `, { error: error.toString() }));
@@ -59,30 +172,20 @@ export default function ConfigEditor(props) {
 		}
 	}
 
-	// TODO: fetch list of configs (for treeview)
-	// useEffect(() => {
-
-	// 	async function fetchConfigs() {
-	// 		let list_of_configs = await Axios.get("/config/" + typeId);
-	// 		let configs = list_of_configs.data;
-	// 		setConfigList(configs);
-	// 	}
-	// 	fetchConfigs();
-	// }, [type]);
-
 	useEffect(() => {
 
 		async function fetchValues() {
 			let values = {}
+			reset({}); // Reset form on config change
+
 			// TODO: make config value dynamic in url (replace `new_config`)
 			try {
-				let response = await Axios.get("/config/" + typeId + "/new_config" + "?format=json");
+				let response = await Axios.get("/config/" + typeId + "/" + configId + "?format=json");
 				values = response.data;
 				// TODO: validate responses which are not 200
 			}
 			catch {
-				console.log(error); // log the error to the browser's console
-				App.addAlert("warning", `Unable to get config data: ${error}`);
+				App.addAlert("warning", `Unable to get config data`);
 				return;
 				// TODO: Prepared for i18n
 				// App.addAlert("warning", t(`Unable to get config data: `, { error: error.toString() }));
@@ -101,6 +204,7 @@ export default function ConfigEditor(props) {
 			// 		'papillon': "666",
 			// 	},
 			// };
+
 			if (Object.keys(values).length > 0) {
 				let stringifiedSchemaValues = getValues() ? JSON.stringify(getValues()) : "";
 				let adHocValues = {};
@@ -125,12 +229,11 @@ export default function ConfigEditor(props) {
 		}
 		fetchValues();
 
-	},[type]); //configId
+	},[type]);
 
 
 	// Parse data to JSON format, stringify it and save to config file
 	const onSubmit = async (data) => {
-		// console.log(data)
 		let splitKey = "";
 		let sectionTitle = "";
 		let sectionKey = "";
@@ -157,7 +260,7 @@ export default function ConfigEditor(props) {
 
 		try {
 			// TODO: make config dynamic value
-			let response = await Axios.put("/config/" + typeId + "/new_config",
+			let response = await Axios.put("/config/" + typeId + "/" + configId,
 				JSON.stringify(parsedSections),
 					{ headers: {
 						'Content-Type': 'application/json'
@@ -167,7 +270,6 @@ export default function ConfigEditor(props) {
 			// TODO: validate responses which are not 200
 		}
 		catch {
-			console.log(error); // log the error to the browser's console
 			App.addAlert("warning", 'Something went wrong.');
 			return;
 		}
@@ -177,7 +279,18 @@ export default function ConfigEditor(props) {
 	return (
 		<Container fluid className="animated fadeIn flex">
 			<Row>
-				<Col md={{ size: 6, offset: 3 }}>
+				<Col md={{ size: 2, offset: 1 }}>
+					<TreeMenu
+						data={treeData}
+						hasSearch={false}
+						onClickItem={({ key, label, ...props }) => {
+							onClickItem(key, label)
+						}}
+					>
+					</TreeMenu>
+
+				</Col>
+				<Col md={{ size: 6, offset: 1 }}>
 					<Form onSubmit={handleSubmit(onSubmit)}>
 						
 						<Card style={{marginBottom: "0.25em"}}>

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Module from 'asab-webui/abc/Module';
-// import ConfigDashboard from "./ConfigDashboard";
 import ConfigEditor from "./ConfigEditor";
-import TypeList from "./TypeList";
 
 export default class ConfigModule extends Module {
 	constructor(app, name) {
@@ -16,16 +14,8 @@ export default class ConfigModule extends Module {
 			path: "/config",
 			exact: true,
 			name: "Configuration",
-			component: TypeList,
-		});
-
-		this.Router.addRoute({
-			path: "/config/:type_id",
-			exact: true,
-			name: "Type",
 			component: ConfigEditor,
 		});
-
 
 		this.Navigation.addItem({
 			name: "Configuration",
