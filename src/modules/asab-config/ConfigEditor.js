@@ -28,11 +28,8 @@ export default function ConfigEditor(props) {
 
 	const [ typeId, setTypeId ] = useState(props.match.params.type_id);
 	const [ type, setType ] = useState(undefined);
-	const [ adHocValue, setAdHocValue ] = useState({});
+	const [ adHocSections, setAdHocSections ] = useState({});
 	const { register, handleSubmit, setValue, getValues, errors } = useForm();
-	
-	// TODO: parse data to JSON format
-	const onSubmit = data => console.log(data);
 
 	let App = props.app;
 	// Retrieve the ASAB_CONFIG_URL from config file
@@ -47,15 +44,18 @@ export default function ConfigEditor(props) {
 
 	const load = async () => {
 		if (typeId) {
-			await Axios.get("/type/" + typeId).then(response => {
+			try {
+				let response = await Axios.get("/type/" + typeId);
 				setType(response.data);
-			})
-			.catch(error => {
+				// TODO: validate responses which are not 200
+			}
+			catch {
 				console.log(error); // log the error to the browser's console
 				App.addAlert("warning", `Unable to get ${typeId} data: ${error}`);
+				return;
 				// TODO: Prepared for i18n
 				// App.addAlert("warning", t(`Unable to get ${typeId} data: `, { error: error.toString() }));
-			});
+			}
 		}
 	}
 
@@ -75,15 +75,18 @@ export default function ConfigEditor(props) {
 		async function fetchValues() {
 			let values = {}
 			// TODO: make config value dynamic in url (replace `new_config`)
-			await Axios.get("/config/" + typeId + "/new_config" + "?format=json").then(response => {
+			try {
+				let response = await Axios.get("/config/" + typeId + "/new_config" + "?format=json");
 				values = response.data;
-			})
-			.catch(error => {
+				// TODO: validate responses which are not 200
+			}
+			catch {
 				console.log(error); // log the error to the browser's console
 				App.addAlert("warning", `Unable to get config data: ${error}`);
+				return;
 				// TODO: Prepared for i18n
 				// App.addAlert("warning", t(`Unable to get config data: `, { error: error.toString() }));
-			});
+			}
 
 			// // Mocked
 			// let values = {
@@ -92,6 +95,7 @@ export default function ConfigEditor(props) {
 			// 	},
 			// 	'general': {
 			// 		'uid': "123",
+			// 		'ahoj1': 'jdasj'
 			// 	},
 			// 	'admiral': {
 			// 		'papillon': "666",
@@ -114,7 +118,7 @@ export default function ConfigEditor(props) {
 						}
 					}
 				}
-				setAdHocValue(adHocValues)
+				setAdHocSections(adHocValues)
 			} else {
 				App.addAlert("warning", 'Config file is empty.')
 			}
@@ -122,6 +126,52 @@ export default function ConfigEditor(props) {
 		fetchValues();
 
 	},[type]); //configId
+
+
+	// Parse data to JSON format, stringify it and save to config file
+	const onSubmit = async (data) => {
+		// console.log(data)
+		let splitKey = "";
+		let sectionTitle = "";
+		let sectionKey = "";
+		let sectionValue = "";
+		let section = {};
+		let parsedSections = {};
+		let prevSection = "";
+		// Parse data to object
+		Object.keys(data).map((key, idx) =>
+			{
+				splitKey = key.split(" "),
+				sectionTitle = splitKey[0],
+				sectionKey = splitKey[1],
+				sectionValue = data[key]
+				if (prevSection == sectionTitle) {
+					section[sectionKey] = sectionValue;
+				} else {
+					section = {};
+					section[sectionKey] = sectionValue;
+				}
+				prevSection = sectionTitle,
+				parsedSections[sectionTitle] = section
+			})
+
+		try {
+			// TODO: make config dynamic value
+			let response = await Axios.put("/config/" + typeId + "/new_config",
+				JSON.stringify(parsedSections),
+					{ headers: {
+						'Content-Type': 'application/json'
+						}
+					}
+				)
+			// TODO: validate responses which are not 200
+		}
+		catch {
+			console.log(error); // log the error to the browser's console
+			App.addAlert("warning", 'Something went wrong.');
+			return;
+		}
+	}
 
 
 	return (
@@ -145,6 +195,7 @@ export default function ConfigEditor(props) {
 							</div>
 						</Card>
 
+						{/*TODO: add a readOnly item adHocValue when schema does not match all the sections/values of the config*/}
 						{type && type.properties && Object.keys(type.properties).map((section_name, idx) =>
 							<ConfigSection
 								key={idx}
@@ -155,12 +206,12 @@ export default function ConfigEditor(props) {
 						)}
 
 						{/* List all remaining sections in "values" as a  ConfigAdHocSection */}
-						{Object.keys(adHocValue).length > 0 && Object.keys(adHocValue).map((section_name, idx) =>
+						{Object.keys(adHocSections).length > 0 && Object.keys(adHocSections).map((section_name, idx) =>
 							<ConfigAdHocSection
 								key={idx}
 								section={section_name}
 								sectionname={section_name}
-								values={adHocValue[section_name]}
+								values={adHocSections[section_name]}
 							/>
 						)}
 					</Form>
@@ -273,7 +324,7 @@ function ConfigAdHocSection(props) {
 	let myid = props.sectionname;
 	return (
 		<Card style={{marginBottom: "0.25em"}}>
-			<CardHeader tag="h5" onClick={toggle} style={{background:"#ead7d7"}}>
+			<CardHeader tag="h5" onClick={toggle} style={{background:"#dae2e4"}}>
 				{myid}
 			</CardHeader>
 			<Collapse isOpen={isOpen}>
