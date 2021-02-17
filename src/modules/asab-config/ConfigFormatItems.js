@@ -230,3 +230,48 @@ export function TextAreaConfigItem(props) {
 		</FormGroup>
 	);
 }
+
+
+export function ConfigAdHocItem(props) {
+	let myid = props.sectionname;
+	return (
+		props.values.length > 1 ?
+			props.values.map(obj => {
+				return(
+					<FormGroup key={Object.keys(obj)}>
+						<Label for={myid}>
+							{Object.keys(obj)}
+						</Label>
+						<Input
+							type="text"
+							name={myid}
+							id={myid}
+							value={Object.values(obj)}
+							readOnly
+						/>
+						<FormText color="muted">
+							Read only
+						</FormText>
+					</FormGroup>
+					)
+			})
+		:
+			<React.Fragment>
+				<FormGroup>
+					<Label for={myid}>
+						{Object.keys(props.values[0])}
+					</Label>
+					<Input
+						type="text"
+						name={myid}
+						id={myid}
+						value={Object.values(props.values[0])}
+						readOnly
+					/>
+					<FormText color="muted">
+						Read only
+					</FormText>
+				</FormGroup>
+			</React.Fragment>
+	);
+}
