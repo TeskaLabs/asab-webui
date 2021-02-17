@@ -161,6 +161,9 @@ export function ConfigEditor(props) {
 						}
 					}
 				)
+			if (response.data.result == "OK"){
+				App.addAlert("success", 'Data updated successfuly.');
+			}
 			// TODO: validate responses which are not 200
 		}
 		catch {
