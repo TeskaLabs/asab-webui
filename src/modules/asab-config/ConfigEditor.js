@@ -178,17 +178,19 @@ export function ConfigEditor(props) {
 			<Form onSubmit={handleSubmit(onSubmit)}>
 				<Card style={{marginBottom: "0.25em"}}>
 					<div style={{margin: "0.5em"}}>
-						<Button
-							color="primary"
-							type="submit"
-						>
-							Save
-						</Button>
-						<div className="float-right">
+						<div className="float-left">
 							<span className="cil-briefcase pr-3" />
 							{configType}<br/>
 							<span className="cil-settings pr-3" />
 							{configName}
+						</div>
+						<div className="float-right">
+							<Button
+								color="primary"
+								type="submit"
+							>
+								Save
+							</Button>
 						</div>
 					</div>
 				</Card>
