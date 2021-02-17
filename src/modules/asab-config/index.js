@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Module from 'asab-webui/abc/Module';
-import ConfigEditor from "./ConfigEditor";
+import ConfigContainer from "./ConfigContainer";
 
 export default class ConfigModule extends Module {
 	constructor(app, name) {
@@ -14,8 +14,10 @@ export default class ConfigModule extends Module {
 			path: "/config",
 			exact: true,
 			name: "Configuration",
-			component: ConfigEditor,
+			component: ConfigContainer,
 		});
+
+		// TODO: add routes for types and configs
 
 		this.Navigation.addItem({
 			name: "Configuration",
