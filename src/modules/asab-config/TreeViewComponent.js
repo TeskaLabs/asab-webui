@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import TreeMenu from 'react-simple-tree-menu';
+import { useHistory } from "react-router-dom";
 
 import {
 	Container,
@@ -16,8 +17,12 @@ import './treeview.css';
 
 
 export function TreeViewComponent(props) {
-	let Axios = props.axios;
 	let App = props.app;
+	// Retrieve the ASAB_CONFIG_URL from config file
+	let services = App.Config.get('SERVICES');
+	let url = services?.asabconfig ? services.asabconfig : 'asab-config';
+	const Axios = App.axiosCreate(url);
+	let history = useHistory();
 
 	const [ typeList, setTypeList ] = useState([]);
 	const [ treeList, setTreeList ] = useState({});
@@ -127,6 +132,11 @@ export function TreeViewComponent(props) {
 		let splitKey = key.split("/");
 		if (splitKey.length > 1) {
 			props.onTreeClick(splitKey[0], splitKey[1])
+			// Push params to the URL
+			let params = `configType=${splitKey[0]}&configName=${splitKey[1]}`;
+			history.push({
+				search: params
+			})
 		}
 	}
 

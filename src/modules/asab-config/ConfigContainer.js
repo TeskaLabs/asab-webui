@@ -18,13 +18,9 @@ import { ConfigEditor } from "./ConfigEditor";
 export default function ConfigContainer(props) {
 
 	let App = props.app;
-	// Retrieve the ASAB_CONFIG_URL from config file
-	let services = App.Config.get('SERVICES');
-	let url = services?.asabconfig ? services.asabconfig : 'asab-config';
-	const Axios = App.axiosCreate(url);
 
-	const [ configType, setConfigType ] = useState("");	//typeId
-	const [ configName, setConfigName ] = useState(""); // configId
+	const [ configType, setConfigType ] = useState(undefined);
+	const [ configName, setConfigName ] = useState(undefined);
 
 	// Get config type and name from TreeView
 	const getConfigTypeName = (type, name) => {
@@ -37,7 +33,6 @@ export default function ConfigContainer(props) {
 			<Row className="library-row">
 				<Col xs="2" sm="2" className="pr-0 bcg-column">
 					<TreeViewComponent
-						axios={Axios}
 						app={App}
 						configType={configType}
 						configName={configName}
@@ -46,7 +41,6 @@ export default function ConfigContainer(props) {
 				</Col>
 				<Col md={{ size: 6, offset: 1 }}>
 					<ConfigEditor
-						axios={Axios}
 						app={App}
 						configType={configType}
 						configName={configName}

@@ -33,16 +33,26 @@ export function ConfigEditor(props) {
 	const [ adHocSections, setAdHocSections ] = useState({});
 	const { register, handleSubmit, setValue, getValues, errors, reset } = useForm();
 
-	const configType = props.configType;
-	const configName = props.configName;
-
 	let App = props.app;
-	const Axios = props.axios;
+
+	let urlParams = new URLSearchParams(App.props.location.search);
+	const urlConfigType = urlParams.get("configType");
+	const urlConfigName = urlParams.get("configName");
+
+	const configType = props.configType ? props.configType : urlConfigType;
+	const configName = props.configName ? props.configName : urlConfigName;
+
+	// Retrieve the ASAB_CONFIG_URL from config file
+	let services = App.Config.get('SERVICES');
+	let url = services?.asabconfig ? services.asabconfig : 'asab-config';
+	const Axios = App.axiosCreate(url);
 
 
 	// Load Schema type - it is triggered on every configName change
 	useEffect(() => {
-		initialLoad();
+		if (configType && configName) {
+			initialLoad();
+		}
 	},[configName]);
 
 
@@ -50,34 +60,31 @@ export function ConfigEditor(props) {
 		let values = undefined;
 		let type = undefined;
 
-		if (configType != "") {
-			try {
-				let response = await Axios.get("/type/" + configType);
-				type = response.data;
-				setTypeData(type);
-				// TODO: validate responses which are not 200
-			}
-			catch {
-				App.addAlert("warning", `Unable to get ${configType} data`);
-				return;
-				// TODO: Prepared for i18n
-				// App.addAlert("warning", t(`Unable to get ${typeId} data: `, { error: error.toString() }));
-			}
+		try {
+			let response = await Axios.get("/type/" + configType);
+			type = response.data;
+			setTypeData(type);
+			// TODO: validate responses which are not 200
+		}
+		catch {
+			App.addAlert("warning", `Unable to get ${configType} data`);
+			return;
+			// TODO: Prepared for i18n
+			// App.addAlert("warning", t(`Unable to get ${typeId} data: `, { error: error.toString() }));
 		}
 
-		if (configName != "") {
-			reset({}); // Reset form on config change
-			try {
-				let response = await Axios.get("/config/" + configType + "/" + configName + "?format=json");
-				values = response.data;
-				// TODO: validate responses which are not 200
-			}
-			catch {
-				App.addAlert("warning", `Unable to get config data`);
-				return;
-				// TODO: Prepared for i18n
-				// App.addAlert("warning", t(`Unable to get config data: `, { error: error.toString() }));
-			}
+
+		reset({}); // Reset form on config change
+		try {
+			let response = await Axios.get("/config/" + configType + "/" + configName + "?format=json");
+			values = response.data;
+			// TODO: validate responses which are not 200
+		}
+		catch {
+			App.addAlert("warning", `Unable to get config data`);
+			return;
+			// TODO: Prepared for i18n
+			// App.addAlert("warning", t(`Unable to get config data: `, { error: error.toString() }));
 		}
 
 		// // MOCKED DATA
@@ -179,10 +186,7 @@ export function ConfigEditor(props) {
 				<Card style={{marginBottom: "0.25em"}}>
 					<div style={{margin: "0.5em"}}>
 						<div className="float-left">
-							<span className="cil-briefcase pr-3" />
-							{configType}<br/>
-							<span className="cil-settings pr-3" />
-							{configName}
+							<h5 style={{paddingTop: "0.35em"}}>{configName ? configType.toString() + ' / ' + configName.toString() : ""}</h5>
 						</div>
 						<div className="float-right">
 							<Button
