@@ -67,7 +67,7 @@ export function ConfigEditor(props) {
 			// TODO: validate responses which are not 200
 		}
 		catch {
-			App.addAlert("warning", `Unable to get ${configType} data`);
+			App.addAlert("warning", `Unable to get ${configType} data. Try to reload the page.`);
 			return;
 			// TODO: Prepared for i18n
 			// App.addAlert("warning", t(`Unable to get ${typeId} data: `, { error: error.toString() }));
@@ -81,7 +81,7 @@ export function ConfigEditor(props) {
 			// TODO: validate responses which are not 200
 		}
 		catch {
-			App.addAlert("warning", `Unable to get config data`);
+			App.addAlert("warning", `Unable to get config ${configName} data. Try to reload the page.`);
 			return;
 			// TODO: Prepared for i18n
 			// App.addAlert("warning", t(`Unable to get config data: `, { error: error.toString() }));
