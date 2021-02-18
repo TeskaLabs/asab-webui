@@ -103,7 +103,7 @@ export function ConfigEditor(props) {
 		// 	},
 		// };
 
-		if (values && Object.keys(values).length > 0) {
+		if (values && Object.keys(values).length > 0 && values != "CONFIG FILE DOESNT EXISTS") {
 			let ahValues = {};
 			let ahSections = {};
 			for (var section in values) {
@@ -128,6 +128,8 @@ export function ConfigEditor(props) {
 			}
 			setAdHocValues(ahValues);
 			setAdHocSections(ahSections)
+		} else {
+			App.addAlert("warning", `Config file does not exists.`);
 		}
 
 	}
