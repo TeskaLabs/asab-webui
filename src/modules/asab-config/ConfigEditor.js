@@ -26,7 +26,7 @@ import {
 } from './ConfigFormatItems';
 
 
-export function ConfigEditor(props) {
+export default function ConfigEditor(props) {
 
 	const [ typeData, setTypeData ] = useState(undefined);
 	const [ adHocValues, setAdHocValues ] = useState({});
@@ -34,26 +34,16 @@ export function ConfigEditor(props) {
 	const { register, handleSubmit, setValue, getValues, errors, reset } = useForm();
 
 	let App = props.app;
+	// Retrieve the asab config url from config file
+	const Axios = App.axiosCreate('asabconfig');
 
-	let urlParams = new URLSearchParams(App.props.location.search);
-	const urlConfigType = urlParams.get("configType");
-	const urlConfigName = urlParams.get("configName");
-
-	const configType = props.configType ? props.configType : urlConfigType;
-	const configName = props.configName ? props.configName : urlConfigName;
-
-	// Retrieve the ASAB_CONFIG_URL from config file
-	let services = App.Config.get('SERVICES');
-	let url = services?.asabconfig ? services.asabconfig : 'asab-config';
-	const Axios = App.axiosCreate(url);
+	const configType = props.configType;
+	const configName = props.configName;
 
 
-	// Load Schema type - it is triggered on every configName change
 	useEffect(() => {
-		if (configType && configName) {
-			initialLoad();
-		}
-	},[configName]);
+		initialLoad();
+	},[ configType, configName ]); // The container will be re-rendered on configType or configName change
 
 
 	const initialLoad = async () => {
@@ -180,7 +170,6 @@ export function ConfigEditor(props) {
 			return;
 		}
 	}
-
 
 	return (
 		<React.Fragment>

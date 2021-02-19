@@ -17,11 +17,10 @@ import './treeview.css';
 
 
 export function TreeViewComponent(props) {
+
 	let App = props.app;
-	// Retrieve the ASAB_CONFIG_URL from config file
-	let services = App.Config.get('SERVICES');
-	let url = services?.asabconfig ? services.asabconfig : 'asab-config';
-	const Axios = App.axiosCreate(url);
+	// Retrieve the asab config url from config file
+	const Axios = App.axiosCreate('asabconfig');
 	let history = useHistory();
 
 	const [ typeList, setTypeList ] = useState([]);
@@ -131,16 +130,14 @@ export function TreeViewComponent(props) {
 		// TODO: Update for multilevel tree structure
 		let splitKey = key.split("/");
 		if (splitKey.length > 1) {
-			props.onTreeClick(splitKey[0], splitKey[1])
 			// Push params to the URL
-			let params = `configType=${splitKey[0]}&configName=${splitKey[1]}`;
 			history.push({
-				search: params
+				pathname: `/config/${splitKey[0]}/${splitKey[1]}`,
 			})
 		}
 	}
 
-
+	// TODO: add defaultly opened tree menu
 	return (
 		<React.Fragment>
 			<TreeMenu

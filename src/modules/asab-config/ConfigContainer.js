@@ -13,20 +13,14 @@ import {
 } from "reactstrap";
 
 import { TreeViewComponent } from "./TreeViewComponent";
-import { ConfigEditor } from "./ConfigEditor";
+import ConfigEditor from "./ConfigEditor";
 
 export default function ConfigContainer(props) {
 
 	let App = props.app;
 
-	const [ configType, setConfigType ] = useState(undefined);
-	const [ configName, setConfigName ] = useState(undefined);
-
-	// Get config type and name from TreeView
-	const getConfigTypeName = (type, name) => {
-		setConfigType(type);
-		setConfigName(name);
-	}
+	const configType = props.match.params.configType;
+	const configName = props.match.params.configName;
 
 	return (
 		<Container fluid className="animated fadeIn flex mt-0 pr-0 pl-0 pt-0 library-container">
@@ -36,7 +30,6 @@ export default function ConfigContainer(props) {
 						app={App}
 						configType={configType}
 						configName={configName}
-						onTreeClick={getConfigTypeName}
 					/>
 				</Col>
 				<Col md={{ size: 6, offset: 1 }}>
@@ -48,5 +41,5 @@ export default function ConfigContainer(props) {
 				</Col>
 			</Row>
 		</Container>
-		)
+	)
 }
