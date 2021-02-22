@@ -25,11 +25,10 @@ export default class ConfigModule extends Module {
 			component: ConfigContainer,
 		});
 
-		// TODO: add routes for types and configs
 
 		this.Navigation.addItem({
 			name: "Configuration",
-			url: "/config/*/*",
+			url: "/config/type/name",
 			icon: 'cil-settings',
 		});
 

@@ -33,11 +33,21 @@ export default function ConfigContainer(props) {
 					/>
 				</Col>
 				<Col md={{ size: 6, offset: 1 }}>
-					<ConfigEditor
-						app={App}
-						configType={configType}
-						configName={configName}
-					/>
+					{configType != 'type' && configName != 'name' ?
+						<ConfigEditor
+							app={App}
+							configType={configType}
+							configName={configName}
+						/>
+					:
+						<React.Fragment>
+							<Card>
+								<CardBody>
+									<h3>Please select the configuration from tree menu on the left side of the screen.</h3>
+								</CardBody>
+							</Card>
+						</React.Fragment>
+					}
 				</Col>
 			</Row>
 		</Container>
