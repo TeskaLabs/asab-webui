@@ -39,7 +39,6 @@ export default function ConfigEditor(props) {
 	const configType = props.configType;
 	const configName = props.configName;
 	const [ configNotExist, setConfigNotexist ] = useState(false);
-	const [ loading, setLoading ] = useState(true);
 
 
 	useEffect(() => {
@@ -124,15 +123,6 @@ export default function ConfigEditor(props) {
 			App.addAlert("warning", `Config file does not exists.`);
 			setConfigNotexist(true);
 		}
-		/*
-			Loading component is displayed only on whole page re-render to
-			avoid unwanted displaying of the ConfigEditor component before
-			data is loaded into it.
-			When changing the configName on the TreeMenu, loading component
-			is not displayed because of glimmering of the component between
-			config file changes.
-		*/
-		setLoading(false);
 	}
 
 
@@ -183,7 +173,7 @@ export default function ConfigEditor(props) {
 	}
 
 	return (
-		loading ?
+		!typeData ?
 			<ConfigMessageCard
 				homeScreenImg={homeScreenImg}
 				homeScreenAlt={homeScreenAlt}
