@@ -1,13 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import React from "react";
 
 import {
-	Container,
-	Col, Row,
-	Button,
-	ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem,
-	Card, CardBody, CardHeader, CardFooter, CardTitle, CardSubtitle,
-	Collapse,
 	Form, FormGroup, FormText, Input, Label
 } from "reactstrap";
 

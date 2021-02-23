@@ -1,17 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
 import TreeMenu from 'react-simple-tree-menu';
 import { useHistory } from "react-router-dom";
-
-import {
-	Container,
-	Col, Row,
-	Button,
-	ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem,
-	Card, CardBody, CardHeader, CardFooter, CardTitle, CardSubtitle,
-	Collapse,
-	Form, FormGroup, FormText, Input, Label
-} from "reactstrap";
 
 import './treeview.css';
 
@@ -42,6 +31,7 @@ export function TreeViewComponent(props) {
 	}, [treeList]);
 
 	// Obtain list of types
+	// TODO: add Error Card screen when no types are fetched
 	const getTypes = async () => {
 		try {
 			let response = await Axios.get("/type");
@@ -144,16 +134,14 @@ export function TreeViewComponent(props) {
 	}
 
 	return (
-		<React.Fragment>
-			<TreeMenu
-				data={treeData}
-				hasSearch={false}
-				openNodes={openNodes}
-				onClickItem={({ key, label, ...props }) => {
-					onClickItem(key, label)
-				}}
-			>
-			</TreeMenu>
-		</React.Fragment>
+		<TreeMenu
+			data={treeData}
+			hasSearch={false}
+			openNodes={openNodes}
+			onClickItem={({ key, label, ...props }) => {
+				onClickItem(key, label)
+			}}
+		>
+		</TreeMenu>
 		)
 }
