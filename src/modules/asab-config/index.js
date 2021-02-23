@@ -28,7 +28,7 @@ export default class ConfigModule extends Module {
 
 		this.Navigation.addItem({
 			name: "Configuration",
-			url: "/config/type/name",
+			url: "/config/$/$",
 			icon: 'cil-settings',
 		});
 

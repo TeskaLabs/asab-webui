@@ -22,6 +22,9 @@ export default function ConfigContainer(props) {
 	const configType = props.match.params.configType;
 	const configName = props.match.params.configName;
 
+	const homeScreenImg = App.Config.get('brand_image').full;
+	const homeScreenAlt = App.Config.get('title');
+
 	return (
 		<Container fluid className="animated fadeIn flex mt-0 pr-0 pl-0 pt-0 library-container">
 			<Row className="library-row">
@@ -33,20 +36,24 @@ export default function ConfigContainer(props) {
 					/>
 				</Col>
 				<Col md={{ size: 6, offset: 1 }}>
-					{configType != 'type' && configName != 'name' ?
+					{configType != '$' && configName != '$' ?
 						<ConfigEditor
 							app={App}
 							configType={configType}
 							configName={configName}
 						/>
 					:
-						<React.Fragment>
-							<Card>
-								<CardBody>
-									<h3>Please select the configuration from tree menu on the left side of the screen.</h3>
-								</CardBody>
-							</Card>
-						</React.Fragment>
+						<Card>
+							<CardBody className="text-center">
+								<img
+									src={homeScreenImg}
+									alt={homeScreenAlt}
+									style={{maxWidth: "38%"}}
+								/>
+								<h3>Nothing has been selected yet</h3>
+								<h5>Please select the configuration from tree menu on the left side of the screen</h5>
+							</CardBody>
+						</Card>
 					}
 				</Col>
 			</Row>

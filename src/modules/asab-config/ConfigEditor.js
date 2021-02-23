@@ -37,8 +37,12 @@ export default function ConfigEditor(props) {
 	// Retrieve the asab config url from config file
 	const Axios = App.axiosCreate('asabconfig');
 
+	const homeScreenImg = App.Config.get('brand_image').full;
+	const homeScreenAlt = App.Config.get('title');
 	const configType = props.configType;
 	const configName = props.configName;
+	const [ configNotExist, setConfigNotexist ] = useState(false);
+	const [ loading, setLoading ] = useState(true);
 
 
 	useEffect(() => {
@@ -49,6 +53,7 @@ export default function ConfigEditor(props) {
 	const initialLoad = async () => {
 		let values = undefined;
 		let type = undefined;
+		setConfigNotexist(false);
 
 		try {
 			let response = await Axios.get("/type/" + configType);
@@ -120,8 +125,17 @@ export default function ConfigEditor(props) {
 			setAdHocSections(ahSections)
 		} else {
 			App.addAlert("warning", `Config file does not exists.`);
+			setConfigNotexist(true);
 		}
-
+		/*
+			Loading component is displayed only on whole page re-render to
+			avoid unwanted displaying of the ConfigEditor component before
+			data is loaded into it.
+			When changing the configName on the TreeMenu, loading component
+			is not displayed because of glimmering of the component between
+			config file changes.
+		*/
+		setLoading(false);
 	}
 
 
@@ -172,45 +186,61 @@ export default function ConfigEditor(props) {
 	}
 
 	return (
-		<React.Fragment>
-			<Form onSubmit={handleSubmit(onSubmit)}>
-				<Card style={{marginBottom: "0.25em"}}>
-					<div style={{margin: "0.5em"}}>
-						<div className="float-left">
-							<h5 style={{paddingTop: "0.35em"}}>{configName ? configType.toString() + ' / ' + configName.toString() : ""}</h5>
+		loading ?
+			<ConfigMessageCard
+				homeScreenImg={homeScreenImg}
+				homeScreenAlt={homeScreenAlt}
+				purposeTitle="Please wait"
+				purposeSubtitle="Content is being loaded"
+			/>
+		:
+		configNotExist ?
+			<ConfigMessageCard
+				homeScreenImg={homeScreenImg}
+				homeScreenAlt={homeScreenAlt}
+				purposeTitle="Config file does not exist!"
+				purposeSubtitle="We are sorry, but the file cannot be found :-("
+			/>
+		:
+			<React.Fragment>
+				<Form onSubmit={handleSubmit(onSubmit)}>
+					<Card style={{marginBottom: "0.25em"}}>
+						<div style={{margin: "0.5em"}}>
+							<div className="float-left">
+								<h5 style={{paddingTop: "0.35em"}}>{configName ? configType.toString() + ' / ' + configName.toString() : ""}</h5>
+							</div>
+							<div className="float-right">
+								<Button
+									color="primary"
+									type="submit"
+								>
+									Save
+								</Button>
+							</div>
 						</div>
-						<div className="float-right">
-							<Button
-								color="primary"
-								type="submit"
-							>
-								Save
-							</Button>
-						</div>
-					</div>
-				</Card>
+					</Card>
 
-				{/* List of Sections (it may consist also of AdHocValues) */}
-				{typeData && typeData.properties && Object.keys(typeData.properties).map((section_name, idx) =>
-					<ConfigSection
-						key={idx}
-						section={typeData.properties[section_name]}
-						sectionname={section_name}
-						register={register}
-						adhocvalues={adHocValues}
-					/>
-				)}
+					{/* List of Sections (it may consist also of AdHocValues) */}
+					{typeData && typeData.properties && Object.keys(typeData.properties).map((section_name, idx) =>
+						<ConfigSection
+							key={idx}
+							section={typeData.properties[section_name]}
+							sectionname={section_name}
+							register={register}
+							adhocvalues={adHocValues}
+						/>
+					)}
 
-				{/* List all remaining sections e.g. AdHocSections */}
-				{Object.keys(adHocSections).length > 0 && Object.keys(adHocSections).map((section_name, idx) =>
-					<ConfigAdHocSection
-						key={idx}
-						sectionname={section_name}
-						values={adHocSections[section_name]}
-					/>
-				)}
-			</Form>
-		</React.Fragment>
+					{/* List all remaining sections e.g. AdHocSections */}
+					{Object.keys(adHocSections).length > 0 && Object.keys(adHocSections).map((section_name, idx) =>
+						<ConfigAdHocSection
+							key={idx}
+							sectionname={section_name}
+							values={adHocSections[section_name]}
+						/>
+					)}
+				</Form>
+			</React.Fragment>
 	);
 }
 
@@ -356,4 +386,20 @@ function ConfigAdHocSection(props) {
 			</Collapse>
 		</Card>
 	);
+}
+
+// This component returns a pre-defined messages
+function ConfigMessageCard(props) {
+	return(
+		<Card>
+			<CardBody className="text-center">
+				<img
+					src={props.homeScreenImg}
+					alt={props.homeScreenAlt}
+					style={{maxWidth: "38%"}}
+				/>
+				<h3>{props.purposeTitle}</h3>
+				<h5>{props.purposeSubtitle}</h5>
+			</CardBody>
+		</Card>)
 }
