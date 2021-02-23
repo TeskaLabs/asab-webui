@@ -26,6 +26,7 @@ export function TreeViewComponent(props) {
 	const [ typeList, setTypeList ] = useState([]);
 	const [ treeList, setTreeList ] = useState({});
 	const [ treeData, setTreeData ] = useState({});
+	const [ openNodes, setOpenNodes ] = useState([]); // Set open nodes in the TreeMenu
 
 	// To get the full overview on schemas and configs it is needed to update the tree list and data state
 	useEffect(() => {
@@ -84,6 +85,11 @@ export function TreeViewComponent(props) {
 		Object.values(treeList).map((element, idx) => {
 			addTreeStructure(element, dataChart);
 		});
+		let nodes = [];
+		dataChart.map(node => {
+			nodes.push(node.key)
+		});
+		setOpenNodes(nodes);
 		setTreeData(dataChart);
 	}
 
@@ -137,12 +143,12 @@ export function TreeViewComponent(props) {
 		}
 	}
 
-	// TODO: add defaultly opened tree menu
 	return (
 		<React.Fragment>
 			<TreeMenu
 				data={treeData}
 				hasSearch={false}
+				openNodes={openNodes}
 				onClickItem={({ key, label, ...props }) => {
 					onClickItem(key, label)
 				}}
