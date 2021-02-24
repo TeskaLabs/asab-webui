@@ -38,7 +38,7 @@ export default function ConfigEditor(props) {
 	const homeScreenAlt = App.Config.get('title');
 	const configType = props.configType;
 	const configName = props.configName;
-	const [ configNotExist, setConfigNotexist ] = useState(false);
+	const [ configNotExist, setConfigNotExist ] = useState(false);
 
 
 	useEffect(() => {
@@ -49,7 +49,7 @@ export default function ConfigEditor(props) {
 	const initialLoad = async () => {
 		let values = undefined;
 		let type = undefined;
-		setConfigNotexist(false);
+		setConfigNotExist(false);
 
 		try {
 			let response = await Axios.get("/type/" + configType);
@@ -121,7 +121,7 @@ export default function ConfigEditor(props) {
 			setAdHocSections(ahSections)
 		} else {
 			App.addAlert("warning", `Config file does not exists.`);
-			setConfigNotexist(true);
+			setConfigNotExist(true);
 		}
 	}
 
