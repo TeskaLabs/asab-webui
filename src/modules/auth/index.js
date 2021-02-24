@@ -100,11 +100,14 @@ export default class AuthModule extends Module {
 
 	async _updateUserInfo() {
 		let response;
+		// Extract a current tenant from a query string
+		const search = window.location.search;
+		const params = new URLSearchParams(search);
+		let tenant_id = params.get('tenant');
 		try {
 			response = await this.Api.userinfo(this.OAuthToken.access_token);
 		}
 		catch (err) {
-			console.log("Failed to update user info", err);
 			this.UserInfo = null;
 			if (this.App.Store != null) {
 				this.App.Store.dispatch({ type: types.AUTH_USERINFO, payload: this.UserInfo });
@@ -114,9 +117,24 @@ export default class AuthModule extends Module {
 
 		this.UserInfo = response.data;
 		if (this.App.Store != null) {
-			this.App.Store.dispatch({ type: types.AUTH_USERINFO, payload: this.UserInfo });
-		}
+			if (tenant_id == null) {
+				tenant_id = this.UserInfo.tenants[0];
+				// ... and refresh (reload) the whole web app
+				window.location.replace('?tenant='+tenant_id+'#/');
+			}
 
+			// Find the current tenant in the list and extract its
+			let x = this.UserInfo.tenants.filter((item) => { return item == tenant_id } );
+			if (x.length < 1) {
+				this.App.addAlert("danger", "Invalid tenant :-(", 40000);
+				// return;
+			}
+			this.App.Store.dispatch({
+				type: types.AUTH_USERINFO,
+				payload: this.UserInfo,
+				tenants: this.UserInfo.tenants,
+				current: x[0] });
+		}
 		return true;
 	}
 
@@ -142,7 +160,7 @@ export default class AuthModule extends Module {
 		let resp = false;
 		// TODO: Solve race condition when obtaining tenant from redux store
 		const state = this.Store.getState();
-		let activeTenant = state.tenant.current?._id;
+		let activeTenant = state.auth.current;
 		// If active tenant is null, then use tenant from parameters
 		if (activeTenant == null) {
 			const params = new URLSearchParams(window.location.search);
