@@ -176,7 +176,7 @@ it is accessible by the sidebar toggler button.
 	}
 
 
-	getApiURL(service) {
+	getServiceURL(service) {
 		let service_path = service;
 		// Check services with current service, and if it agrees, then service_path = services[service] otherwise service_path = service
 		let services = this.Config.get('SERVICES') ? this.Config.get('SERVICES') : undefined;
@@ -210,7 +210,7 @@ it is accessible by the sidebar toggler button.
 
 
 	axiosCreate(service, props) {
-		var service_url = this.getApiURL(service);
+		var service_url = this.getServiceURL(service);
 		if (service_url == undefined) {
 			this.addAlert('error', "Service URL is undefined, please check service paths passed to axios.");
 			return undefined;

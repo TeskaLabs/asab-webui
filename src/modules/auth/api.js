@@ -46,7 +46,7 @@ export class SeaCatAuthApi {
 			params.append("prompt", "login");
 		}
 
-		let oidcURL = this.App.getApiURL('oidc');
+		let oidcURL = this.App.getServiceURL('oidc');
 		window.location.replace(oidcURL + "/authorize?" + params.toString());
 	}
 
