@@ -10,9 +10,12 @@ export default class TenantModule extends Module {
 		super(app, "TenantModule");
 		this.App = app;
 
-		this.TenantService = new TenantService(app, "TenantService");
+		const OAuthToken = JSON.parse(sessionStorage.getItem('SeaCatOAuth2Token'));
+		if (OAuthToken == null) {
+			this.TenantService = new TenantService(app, "TenantService");
+			this.App.ReduxService.addReducer("auth", reducer);
+		}
 
-		this.App.ReduxService.addReducer("tenant", reducer);
 	}
 
 

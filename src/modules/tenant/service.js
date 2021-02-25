@@ -26,26 +26,33 @@ export default class TenantService extends Service {
 				return;
 			}
 
+			//TODO: remove tenantList when tenants from `/tenant` endpoint will be obtained as a list of string
+			let tenantList = [];
+			payload.map(obj => {
+				tenantList.push(Object.values(obj)[0])
+			})
+			payload = tenantList;
+
 			// If tenant has not been provided in access URL, pick a first tenant from a list
 			if (tenant_id == null) {
-				tenant_id = payload[0]._id;
+				tenant_id = payload[0];
 				// ... and refresh (reload) the whole web app
 				window.location.replace('?tenant='+tenant_id+'#/');
 				return;
 			}
 
 			// Find the current tenant in the list and extract its
-			let x = payload.filter((item) => { return item._id == tenant_id } );
+			let x = payload.filter((item) => { return item == tenant_id } );
 			if (x.length < 1) {
 				this.App.addAlert("danger", "Invalid tenant :-(", 40000);
 				return;
 			}
 
 			this.App.Store.dispatch({
-				type: types.TENANTS_CHANGED,
-				payload,
-				current: x[0],
-			});
+				type: types.AUTH_USERINFO,
+				payload: null,
+				tenants: payload,
+				current: x[0]});
 
 			this.App.removeSplashScreenRequestor(this);
 		})
