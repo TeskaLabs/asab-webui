@@ -11,11 +11,14 @@ import {
 function HeaderComponent(props) {
 
 	const Config = props.app.Config;
-	let user_auth_url = Config.get('SERVICES')?.auth ? Config.get('SERVICES')?.auth : Config.get('BASE_URL');
+	let user_auth_url = Config.get('SERVICES')?.auth_webui ? Config.get('SERVICES').auth_webui : Config.get('BASE_URL');
 
-	// Provide backward compatibility with USER_AUTH_URL
+	// Provide backward compatibility with USER_AUTH_URL and SERVICES:{auth:"https://url"}
 	if (Config.get('USER_AUTH_URL')) {
 		user_auth_url = Config.get('USER_AUTH_URL');
+	}
+	if (Config.get('SERVICES').auth) {
+		user_auth_url = Config.get('SERVICES').auth;
 	}
 
 	const logout = () => {
