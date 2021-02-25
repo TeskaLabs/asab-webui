@@ -24,8 +24,6 @@ class TenantDropdown extends Component {
 	constructor(props) {
 		super(props);
 
-		this.TenantService = props.app.locateService("TenantService");
-
 		this.tenants = this.props.tenants;
 		this.current = this.props.current;
 

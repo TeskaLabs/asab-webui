@@ -17,12 +17,6 @@ export default function reducer(state = initialState, action) {
 				current: action.current,
 			}
 
-		// case types.TENANTS_CHANGED:
-		// 	return {
-		// 		tenants: action.tenants,
-		// 		current: action.current,
-		// 	}
-
 		default:
 			return state
 	}

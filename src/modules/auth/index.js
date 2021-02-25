@@ -122,18 +122,13 @@ export default class AuthModule extends Module {
 				// ... and refresh (reload) the whole web app
 				window.location.replace('?tenant='+tenant_id+'#/');
 			}
-
-			// Find the current tenant in the list and extract its
+			// Find the current tenant in the list and extract it
 			let x = this.UserInfo.tenants.filter((item) => { return item == tenant_id } );
-			if (x.length < 1) {
-				this.App.addAlert("danger", "Invalid tenant :-(", 40000);
-				// return;
-			}
 			this.App.Store.dispatch({
 				type: types.AUTH_USERINFO,
 				payload: this.UserInfo,
 				tenants: this.UserInfo.tenants,
-				current: x[0] });
+				current: x[0]});
 		}
 		return true;
 	}
