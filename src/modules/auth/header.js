@@ -13,7 +13,6 @@ function HeaderComponent(props) {
 	const App = props.app;
 	// Get service URL
 	let user_auth_url = App.getServiceURL('seacat_auth_webui');
-	console.log(user_auth_url, 'user auth urlll')
 
 	const logout = () => {
 		props.AuthModule.logout()
