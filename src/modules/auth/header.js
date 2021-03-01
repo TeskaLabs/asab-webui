@@ -10,15 +10,22 @@ import {
 
 function HeaderComponent(props) {
 
-	const Config = props.app.Config;
-	let user_auth_url = Config.get('SERVICES')?.auth_webui ? Config.get('SERVICES').auth_webui : Config.get('BASE_URL');
-
+	const App = props.app;
+	const Config = App.Config;
+	// Get service URL from Config
+	let authPath = Config.get('SERVICES')?.auth_webui;
+	let user_auth_url = App.getServiceURL(authPath);
 	// Provide backward compatibility with USER_AUTH_URL and SERVICES:{auth:"https://url"}
-	if (Config.get('USER_AUTH_URL')) {
+	if (!user_auth_url) {
+		authPath = Config.get('SERVICES')?.auth;
+		user_auth_url = App.getServiceURL(authPath);
+	}
+	if (!user_auth_url) {
 		user_auth_url = Config.get('USER_AUTH_URL');
 	}
-	if (Config.get('SERVICES').auth) {
-		user_auth_url = Config.get('SERVICES').auth;
+	// If Auth WebUI URL has not been found, use application BASE_URL
+	if (!user_auth_url) {
+		user_auth_url = Config.get('BASE_URL');
 	}
 
 	const logout = () => {
