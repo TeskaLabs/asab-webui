@@ -111,32 +111,6 @@ it is accessible by the sidebar toggler button.
 		this.Store = createStore(combineReducers(this.ReduxService.Reducers), composeEnhancers(applyMiddleware()));
 
 		this.ConfigService.addDefaults(props.configdefaults);
-		
-		// Set API PATH, if not configured
-		if (this.Config.get('API_PATH') == undefined && this.Config.get('BASE_URL') == undefined) {
-			this.ConfigService.addDefaults({
-				API_PATH: window.location.protocol + '//' + window.location.host + '/api',
-			});
-			console.log("Config value API_PATH not provided, using \"api\"");
-		} else if (this.Config.get('API_PATH') == undefined && this.Config.get('BASE_URL') != undefined) {
-			this.ConfigService.addDefaults({
-				API_PATH: 'api',
-			});
-			console.log("Config value API_PATH not provided, using \"api\"");
-		}
-
-		// Set BASE_URL and API_URL
-		if (this.Config.get('BASE_URL') == undefined) {
-			this.ConfigService.addDefaults({
-				API_URL: this.Config.get('API_PATH'),
-				BASE_URL: "",
-			});
-			console.log("Config value BASE_URL not provided, using \"\" ");
-		} else {
-			this.ConfigService.addDefaults({
-				API_URL: this.Config.get('BASE_URL') + "/" + this.Config.get('API_PATH'),
-			});
-		}
 
 		this.Config.dispatch(this.Store);
 
@@ -177,35 +151,39 @@ it is accessible by the sidebar toggler button.
 
 
 	getServiceURL(service) {
-		let service_path = service;
-		// Check services with current service, and if it agrees, then service_path = services[service] otherwise service_path = service
-		let services = this.Config.get('SERVICES') ? this.Config.get('SERVICES') : undefined;
-		if (services) {
-			service_path = services[service] ? services[service] : service;
-			if (service == 'oidc' && services[service] == undefined) {
-				service_path = 'openidconnect';
-				console.log("Config value SERVICES for oidc not provided, using \"openidconnect\"");
-			}
-			if (service == 'rbac' && services[service] == undefined) {
-				service_path = 'rbac';
-				console.log("Config value SERVICES for rbac not provided, using \"rbac\"");
-			}
-		} else {
-			service_path = service;
-		}
-
 		// Handle if service is unknown => return undefined
-		if (service_path == undefined || service_path == null) {
-			console.log("Service path is undefined");
+		if (service == undefined) {
+			console.warn(`Service is undefined!`);
 			return undefined;
 		}
+
+		// Handle if SERVICES not provided, empty object will be used as default
+		let services = this.Config.get('SERVICES') ? this.Config.get('SERVICES') : {};
+
+		// Handle if service is not in SERVICES => use service as service_path
+		let service_path = services[service] ? services[service] : service;
+
 		// If service_path is complete URL, then return that URL
 		if (service_path.toString().indexOf('http://') !== -1 || service_path.toString().indexOf('https://') !== -1) {
 			return service_path;
 		}
 
-		let API_URL = this.Config.get('API_URL');
-		return API_URL + "/" + service_path;
+		// Obtain BASE_URL
+		let BASE_URL = undefined;
+		if (this.Config.get('BASE_URL') == undefined) {
+			BASE_URL = window.location.protocol + '//' + window.location.host;
+		} else {
+			BASE_URL = this.Config.get('BASE_URL');
+		}
+		// Compose service_url
+		let service_url = undefined;
+		if (this.Config.get('API_PATH') == undefined) {
+			service_url = BASE_URL + '/api';
+		} else {
+			service_url = BASE_URL + "/" + this.Config.get('API_PATH');
+		}
+
+		return service_url + "/" + service_path;
 	}
 
 
@@ -241,8 +219,6 @@ it is accessible by the sidebar toggler button.
 
 		return axios;
 	}
-
-
 
 
 	// Display and hide networking indicator
