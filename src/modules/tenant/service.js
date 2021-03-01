@@ -6,7 +6,7 @@ export default class TenantService extends Service {
 
 	constructor(app, name="TenantService") {
 		super(app, name);
-		this.API = new Api(this.App.axiosCreate(''));
+		this.API = new Api(this.App.axiosCreate('seacat_auth'));
 		this.App.addSplashScreenRequestor(this);
 	}
 

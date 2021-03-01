@@ -9,7 +9,7 @@ export function TreeViewComponent(props) {
 
 	let App = props.app;
 	// Retrieve the asab config url from config file
-	const Axios = App.axiosCreate('asabconfig');
+	const Axios = App.axiosCreate('asab_config');
 	let history = useHistory();
 
 	const [ typeList, setTypeList ] = useState([]);

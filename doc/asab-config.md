@@ -17,7 +17,7 @@ module.exports = {
 		BASE_URL: 'http://localhost:3000',
 		API_PATH: 'api',
 		SERVICES: {
-			asabconfig: 'asab-config',
+			asab_config: 'asab-config',
 		},
 
 		...

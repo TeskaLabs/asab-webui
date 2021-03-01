@@ -32,7 +32,7 @@ export default function ConfigEditor(props) {
 
 	let App = props.app;
 	// Retrieve the asab config url from config file
-	const Axios = App.axiosCreate('asabconfig');
+	const Axios = App.axiosCreate('asab_config');
 
 	const homeScreenImg = App.Config.get('brand_image').full;
 	const homeScreenAlt = App.Config.get('title');
