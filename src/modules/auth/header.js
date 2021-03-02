@@ -10,13 +10,9 @@ import {
 
 function HeaderComponent(props) {
 
-	const Config = props.app.Config;
-	let user_auth_url = Config.get('SERVICES')?.auth ? Config.get('SERVICES')?.auth : Config.get('BASE_URL');
-
-	// Provide backward compatibility with USER_AUTH_URL
-	if (Config.get('USER_AUTH_URL')) {
-		user_auth_url = Config.get('USER_AUTH_URL');
-	}
+	const App = props.app;
+	// Get service URL
+	let user_auth_url = App.getServiceURL('seacat_auth_webui');
 
 	const logout = () => {
 		props.AuthModule.logout()
