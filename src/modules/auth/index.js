@@ -148,7 +148,7 @@ export default class AuthModule extends Module {
 		let resp = false;
 		// TODO: Solve race condition when obtaining tenant from redux store
 		const state = this.Store.getState();
-		let activeTenant = state.auth.current;
+		let activeTenant = state.tenant.current;
 		// If active tenant is null, then use tenant from parameters
 		if (activeTenant == null) {
 			const params = new URLSearchParams(window.location.search);
