@@ -100,14 +100,11 @@ export default class AuthModule extends Module {
 
 	async _updateUserInfo() {
 		let response;
-		// Extract a current tenant from a query string
-		const search = window.location.search;
-		const params = new URLSearchParams(search);
-		let tenant_id = params.get('tenant');
 		try {
 			response = await this.Api.userinfo(this.OAuthToken.access_token);
 		}
 		catch (err) {
+			console.log("Failed to update user info", err);
 			this.UserInfo = null;
 			if (this.App.Store != null) {
 				this.App.Store.dispatch({ type: types.AUTH_USERINFO, payload: this.UserInfo });
@@ -117,19 +114,15 @@ export default class AuthModule extends Module {
 
 		this.UserInfo = response.data;
 		if (this.App.Store != null) {
-			if (tenant_id == null) {
-				tenant_id = this.UserInfo.tenants[0];
-				// ... and refresh (reload) the whole web app
-				window.location.replace('?tenant='+tenant_id+'#/');
-			}
-			// Find the current tenant in the list and extract it
-			let x = this.UserInfo.tenants.filter((item) => { return item == tenant_id } );
-			this.App.Store.dispatch({
-				type: types.AUTH_USERINFO,
-				payload: this.UserInfo,
-				tenants: this.UserInfo.tenants,
-				current: x[0]});
+			this.App.Store.dispatch({ type: types.AUTH_USERINFO, payload: this.UserInfo });
 		}
+
+		// Check for TenantService and pass tenants obtained from userinfo
+		let tenants = this.UserInfo.tenants;
+		if (this.App.Services.TenantService) {
+			this.App.Services.TenantService.set_tenants(tenants);
+		}
+
 		return true;
 	}
 
