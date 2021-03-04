@@ -3,7 +3,6 @@ import {types} from './actions';
 	
 
 const initialState = {
-	userinfo: null,
 	tenants: [],
 	current: null,
 }
@@ -11,11 +10,9 @@ const initialState = {
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 
-		case types.AUTH_USERINFO:
+		case types.TENANTS_CHANGED:
 			return {
-				...state,
-				userinfo: action.payload,
-				tenants: action.tenants,
+				tenants: action.payload,
 				current: action.current,
 			}
 

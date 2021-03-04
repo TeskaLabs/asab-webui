@@ -26,7 +26,6 @@ class TenantDropdown extends Component {
 
 		this.tenants = this.props.tenants;
 		this.current = this.props.current;
-
 	}
 
 	render() {
@@ -81,8 +80,8 @@ class TenantLabel extends Component {
 
 const mapStateToProps = state => {
 	return {
-		current: state.auth.current,
-		tenants: state.auth.tenants,
+		current: state.tenant.current,
+		tenants: state.tenant.tenants,
 	};
 };
 

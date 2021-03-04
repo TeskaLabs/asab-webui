@@ -1,3 +1,4 @@
 export const types = {
-	AUTH_USERINFO: "SeaCat/AUTH_USERINFO",
+	TENANTS_CHANGED: "asab/TenantService/CHANGED",
+	TENANT_SELECTED: "asab/TenantService/SELECT_TENANT",
 }
