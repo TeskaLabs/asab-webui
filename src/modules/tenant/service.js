@@ -25,9 +25,9 @@ export default class TenantService extends Service {
 			return;
 		}
 
-		// Find the current tenant in the list and extract its
-		let x = payload.filter((item) => { return item == tenant_id } );
-		if (x.length < 1) {
+		// Find the current tenant in the list and extract it
+		let current_tenant = payload.filter((item) => { return item == tenant_id } );
+		if (current_tenant.length < 1) {
 			this.App.addAlert("danger", "Invalid tenant :-(", 40000);
 			return;
 		}
@@ -36,7 +36,7 @@ export default class TenantService extends Service {
 		this.App.Store.dispatch({
 			type: types.TENANTS_CHANGED,
 			payload,
-			current: x[0],
+			current: current_tenant[0],
 		});
 
 	}
