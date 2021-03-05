@@ -24,8 +24,6 @@ class TenantDropdown extends Component {
 	constructor(props) {
 		super(props);
 
-		this.TenantService = props.app.locateService("TenantService");
-
 		this.tenants = this.props.tenants;
 		this.current = this.props.current;
 	}
@@ -58,7 +56,7 @@ class TenantDropdown extends Component {
 					>
 						<DropdownItem header>Tenants</DropdownItem>
 						{this.tenants.map((tenant, i) => (
-							<DropdownItem key={i} tag="a" href={'?tenant='+tenant._id+'#/'}>
+							<DropdownItem key={i} tag="a" href={'?tenant='+tenant+'#/'}>
 								<TenantLabel tenant={tenant}/>
 							</DropdownItem>
 						))}
@@ -74,7 +72,7 @@ class TenantLabel extends Component {
 
 	render() {
 		return (
-			<React.Fragment>{this.props.tenant._id}</React.Fragment>
+			<React.Fragment>{this.props.tenant}</React.Fragment>
 		);
 	}
 }

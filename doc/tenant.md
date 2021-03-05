@@ -41,26 +41,14 @@ ReactDOM.render((
 
 ## Redux Store
 
-The tenant information is available in the application Redux store at `state.tenant`.
+The tenant information is available in the application Redux store at `state.tenant`. The tenants are obtained from `userinfo` of ASAB WebUI's `auth` module.
 
 ```
 {
 
-	"current": {
-		"_id":"tr-069-demo",
-		"parameters":{}
-	},
+	"current": "test"
 
-	"tenants":[
-		{
-			"_id":"test",
-			"parameters":{}
-		},
-		{
-			"_id":"test1",
-			"parameters":{}
-		},
-	]
+	"tenants": ["test", "test1"]
 
 }
 ```
@@ -85,7 +73,7 @@ function TenantExample(props) {
 }
 
 function mapStateToProps(state) {
-	return { tenant: state.tenant.current._id }
+	return { tenant: state.tenant.current }
 }
 
 export default connect(mapStateToProps)(TenantExample);
