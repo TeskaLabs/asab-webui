@@ -11,7 +11,7 @@ import { DataTable } from 'asab-webui';
 export default (props) => {
     const [list, setList] = useState(null);
     const [page, setPage] = useState(1);
-    const headers = [{name: 'Name', key: 'name'}, {name: 'IP', key: 'ip'}];
+    const headers = [{name: 'Name', key: 'name'}, {name: 'Launchtime', key: 'launchtime'}, {name: 'Hostname', key: 'hostname'}, {name: 'Appclass', key: 'appclass'}];
     const limit = 10;
 
     useEffect(() => {
