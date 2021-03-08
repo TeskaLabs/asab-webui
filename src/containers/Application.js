@@ -167,6 +167,10 @@ it is accessible by the sidebar toggler button.
 		if (service_path.toString().indexOf('http://') !== -1 || service_path.toString().indexOf('https://') !== -1) {
 			return service_path;
 		}
+		// If service_path is complete WebSocket URL, then return that URL
+		if (service_path.toString().indexOf('ws://') !== -1 || service_path.toString().indexOf('wss://') !== -1) {
+			return service_path;
+		}
 
 		// Obtain BASE_URL
 		let BASE_URL = undefined;
@@ -223,46 +227,25 @@ it is accessible by the sidebar toggler button.
 
 	getWebSocketURL(service, subpath) {
 		// Handle if service is unknown => return undefined
-		if (service == undefined) {
-			console.warn(`WebSocket service is undefined!`);
-			return undefined;
+		var service_url = this.getServiceURL(service);
+		if (service_url == undefined) {
+			return undefined
 		}
+
 		// Handle if subpath is unknown => subpath = ""
 		if (subpath == undefined) {
 			subpath = "";
 		}
 
-		// Handle if SERVICES not provided, empty object will be used as default
-		let services = this.Config.get('SERVICES') ? this.Config.get('SERVICES') : {};
-
-		// Handle if service is not in SERVICES => use service as service_path
-		let service_path = services[service] ? services[service] : service;
-
 		// If service_path is complete WebSocket URL, then return that URL
-		if (service_path.toString().indexOf('ws://') !== -1 || service_path.toString().indexOf('wss://') !== -1) {
-			return service_path;
-		}
-
-		// Obtain BASE_URL
-		let BASE_URL = undefined;
-		if (this.Config.get('BASE_URL') == undefined) {
-			BASE_URL = window.location.protocol + '//' + window.location.host;
-		} else {
-			BASE_URL = this.Config.get('BASE_URL');
+		if (service_url.toString().indexOf('ws://') !== -1 || service_url.toString().indexOf('wss://') !== -1) {
+			return service_url;
 		}
 
 		// Replace http:// or https:// protocol with ws:// or wss://
-		let ws_base_url = BASE_URL.replace(/(http)(s)?\:\/\//, "ws$2://");
+		let ws_service_url = service_url.replace(/(http)(s)?\:\/\//, "ws$2://");
 
-		// Compose service_url
-		let service_url = undefined;
-		if (this.Config.get('API_PATH') == undefined) {
-			service_url = ws_base_url + '/api';
-		} else {
-			service_url = ws_base_url + "/" + this.Config.get('API_PATH');
-		}
-
-		return service_url + "/" + service_path + subpath;
+		return ws_service_url + subpath;
 
 	}
 
