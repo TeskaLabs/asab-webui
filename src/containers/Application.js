@@ -221,6 +221,66 @@ it is accessible by the sidebar toggler button.
 	}
 
 
+	getWebSocketURL(service, subpath) {
+		// Handle if service is unknown => return undefined
+		if (service == undefined) {
+			console.warn(`WebSocket service is undefined!`);
+			return undefined;
+		}
+		// Handle if subpath is unknown => subpath = ""
+		if (subpath == undefined) {
+			subpath = "";
+		}
+
+		// Handle if SERVICES not provided, empty object will be used as default
+		let services = this.Config.get('SERVICES') ? this.Config.get('SERVICES') : {};
+
+		// Handle if service is not in SERVICES => use service as service_path
+		let service_path = services[service] ? services[service] : service;
+
+		// If service_path is complete WebSocket URL, then return that URL
+		if (service_path.toString().indexOf('ws://') !== -1 || service_path.toString().indexOf('wss://') !== -1) {
+			return service_path;
+		}
+
+		// Obtain BASE_URL
+		let BASE_URL = undefined;
+		if (this.Config.get('BASE_URL') == undefined) {
+			BASE_URL = window.location.protocol + '//' + window.location.host;
+		} else {
+			BASE_URL = this.Config.get('BASE_URL');
+		}
+
+		// Replace http:// or https:// protocol with ws:// or wss://
+		let ws_base_url = BASE_URL.replace(/(http)(s)?\:\/\//, "ws$2://");
+
+		// Compose service_url
+		let service_url = undefined;
+		if (this.Config.get('API_PATH') == undefined) {
+			service_url = ws_base_url + '/api';
+		} else {
+			service_url = ws_base_url + "/" + this.Config.get('API_PATH');
+		}
+
+		return service_url + "/" + service_path + subpath;
+
+	}
+
+
+	createWebSocket(service, subpath) {
+		var socket_url = this.getWebSocketURL(service, subpath);
+		if (socket_url == undefined) {
+			this.addAlert('error', "WebSocket URL is undefined, please check service and subpath passed to WebSocket.");
+			return undefined;
+		}
+
+		// Create new WebSocket based on socket URL
+		const socket = new WebSocket(socket_url);
+
+		return socket;
+	}
+
+
 	// Display and hide networking indicator
 	pushNetworkingIndicator() {
 		this.setState((prevState, props) => ({
