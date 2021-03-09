@@ -83,6 +83,11 @@ it is accessible by the sidebar toggler button.
 		this.Modules = [];
 		this.Services = {};
 
+		this.HTTPHeaders = {
+			"Accept": {"application/json": "application/json"},
+			"Authorization": {"Authorization": "Bearer token"}
+		};
+
 		this.ReduxService = new ReduxService(this, "ReduxService");
 		this.ConfigService = new ConfigService(this, "ConfigService");
 		this.Config = this.ConfigService.Config
@@ -191,17 +196,22 @@ it is accessible by the sidebar toggler button.
 	}
 
 
-	axiosCreate(service, props) {
+	axiosCreate(service, httpheader, props) {
 		var service_url = this.getServiceURL(service);
 		if (service_url == undefined) {
 			this.addAlert('error', "Service URL is undefined, please check service paths passed to axios.");
 			return undefined;
 		}
 
+		// Get http Headers
+		var headers = this.getHTTPHeaders(httpheader);
+
 		var axios = Axios.create({
 			...props,
 			baseURL: service_url,
+			headers: headers
 		});
+
 
 		var that = this;
 
@@ -222,6 +232,23 @@ it is accessible by the sidebar toggler button.
 		});
 
 		return axios;
+	}
+
+
+	getHTTPHeaders(httpheader) {
+		let header = this.HTTPHeaders[httpheader];
+		if (header == undefined) {
+			return undefined
+		}
+
+		if (httpheader == "Authorization") {
+			let OAuthToken = JSON.parse(sessionStorage.getItem('SeaCatOAuth2Token'));
+			header["Authorization"] = "Bearer " + OAuthToken['access_token'];
+			return header;
+		}
+
+		return header;
+
 	}
 
 
