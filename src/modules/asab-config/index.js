@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Module from 'asab-webui/abc/Module';
 import ConfigContainer from "./ConfigContainer";
+import MicroservicesContainer from "./MicroservicesContainer";
+
 
 export default class ConfigModule extends Module {
 	constructor(app, name) {
@@ -21,6 +23,19 @@ export default class ConfigModule extends Module {
 			name: "Configuration",
 			url: "/config/$/$",
 			icon: 'cil-settings',
+		});
+
+		this.Router.addRoute({
+			path: "/config/microservices",
+			exact: true,
+			name: "Microservices",
+			component: MicroservicesContainer,
+		});
+
+		this.Navigation.addItem({
+			name: "Microservices",
+			url: "/config/microservices",
+			icon: 'cil-list',
 		});
 
 	}
