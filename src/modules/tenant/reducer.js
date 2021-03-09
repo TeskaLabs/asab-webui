@@ -12,7 +12,7 @@ export default function reducer(state = initialState, action) {
 
 		case types.TENANTS_CHANGED:
 			return {
-				tenants: action.payload,
+				tenants: action.tenants_list,
 				current: action.current,
 			}
 

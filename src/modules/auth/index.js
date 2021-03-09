@@ -117,10 +117,10 @@ export default class AuthModule extends Module {
 			this.App.Store.dispatch({ type: types.AUTH_USERINFO, payload: this.UserInfo });
 		}
 
-		// Check for TenantService and pass tenants obtained from userinfo
-		let tenants = this.UserInfo.tenants;
+		// Check for TenantService and pass tenants list obtained from userinfo
+		let tenants_list = this.UserInfo.tenants;
 		if (this.App.Services.TenantService) {
-			this.App.Services.TenantService.set_tenants(tenants);
+			this.App.Services.TenantService.set_tenants(tenants_list);
 		}
 
 		return true;
@@ -146,7 +146,6 @@ export default class AuthModule extends Module {
 
 	async _isUserAuthorized() {
 		let resp = false;
-		// TODO: Solve race condition when obtaining tenant from redux store
 		const state = this.Store.getState();
 		let activeTenant = state.tenant.current;
 		// If active tenant is null, then use tenant from parameters

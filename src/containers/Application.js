@@ -167,6 +167,10 @@ it is accessible by the sidebar toggler button.
 		if (service_path.toString().indexOf('http://') !== -1 || service_path.toString().indexOf('https://') !== -1) {
 			return service_path;
 		}
+		// If service_path is complete WebSocket URL, then return that URL
+		if (service_path.toString().indexOf('ws://') !== -1 || service_path.toString().indexOf('wss://') !== -1) {
+			return service_path;
+		}
 
 		// Obtain BASE_URL
 		let BASE_URL = undefined;
@@ -218,6 +222,45 @@ it is accessible by the sidebar toggler button.
 		});
 
 		return axios;
+	}
+
+
+	getWebSocketURL(service, subpath) {
+		// Handle if service is unknown => return undefined
+		var service_url = this.getServiceURL(service);
+		if (service_url == undefined) {
+			return undefined
+		}
+
+		// Handle if subpath is unknown => subpath = ""
+		if (subpath == undefined) {
+			subpath = "";
+		}
+
+		// If service_path is complete WebSocket URL, then return that URL
+		if (service_url.toString().indexOf('ws://') !== -1 || service_url.toString().indexOf('wss://') !== -1) {
+			return service_url;
+		}
+
+		// Replace http:// or https:// protocol with ws:// or wss://
+		let ws_service_url = service_url.replace(/(http)(s)?\:\/\//, "ws$2://");
+
+		return ws_service_url + subpath;
+
+	}
+
+
+	createWebSocket(service, subpath) {
+		var socket_url = this.getWebSocketURL(service, subpath);
+		if (socket_url == undefined) {
+			this.addAlert('error', "WebSocket URL is undefined, please check service and subpath passed to WebSocket.");
+			return undefined;
+		}
+
+		// Create new WebSocket based on socket URL
+		const socket = new WebSocket(socket_url);
+
+		return socket;
 	}
 
 
