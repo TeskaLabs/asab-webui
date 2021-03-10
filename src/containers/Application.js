@@ -83,11 +83,6 @@ it is accessible by the sidebar toggler button.
 		this.Modules = [];
 		this.Services = {};
 
-		this.HTTPHeaders = {
-			"Accept": {"application/json": "application/json"},
-			"Authorization": {"Authorization": "Bearer token"}
-		};
-
 		this.ReduxService = new ReduxService(this, "ReduxService");
 		this.ConfigService = new ConfigService(this, "ConfigService");
 		this.Config = this.ConfigService.Config
@@ -96,6 +91,7 @@ it is accessible by the sidebar toggler button.
 		this.Navigation = new Navigation(this);
 
 		this.SplashscreenRequestors = new Set(); // If not empty, the splash screen will be rendered
+		this.AxiosInterceptors = new Set();
 
 		this.HeaderService = new HeaderService(this, "HeaderService");
 		this.FooterService = new FooterService(this, "FooterService");
@@ -110,6 +106,7 @@ it is accessible by the sidebar toggler button.
 		this.state = {
 			networking: 0, // If more than zero, some networking activity is happening
 			SplashscreenRequestors: 0,
+			AxiosInterceptors: 0,
 		}
 
 		const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -121,6 +118,7 @@ it is accessible by the sidebar toggler button.
 
 		this.addSplashScreenRequestor(this);
 		this.state.SplashscreenRequestors = this.SplashscreenRequestors.size;
+		this.state.AxiosInterceptors = this.AxiosInterceptors.size;
 
 		var that = this;
 
@@ -203,15 +201,13 @@ it is accessible by the sidebar toggler button.
 			return undefined;
 		}
 
-		// Get http Headers
-		var headers = this.getHTTPHeaders(httpheader);
-
 		var axios = Axios.create({
 			...props,
 			baseURL: service_url,
-			headers: headers
 		});
 
+		// Add axios interceptors
+		this.addAxiosInterceptors(axios);
 
 		var that = this;
 
@@ -235,20 +231,52 @@ it is accessible by the sidebar toggler button.
 	}
 
 
-	getHTTPHeaders(httpheader) {
-		let header = this.HTTPHeaders[httpheader];
-		if (header == undefined) {
-			return undefined
+	addAxiosInterceptors(axios) {
+		const origLen = this.AxiosInterceptors.size;
+		this.AxiosInterceptors.add(axios);
+
+		const authInteceptor = config => {
+			// If OAuthToken is in sessionStorage, add Authorization bearer token to Headers
+			const OAuthToken = JSON.parse(sessionStorage.getItem('SeaCatOAuth2Token'));
+			if (OAuthToken) {
+				config.headers['Authorization'] = 'Bearer ' + OAuthToken['access_token'];
+			}
+			// config.headers['Content-Type'] = 'application/json';
+			return config;
 		}
 
-		if (httpheader == "Authorization") {
-			let OAuthToken = JSON.parse(sessionStorage.getItem('SeaCatOAuth2Token'));
-			header["Authorization"] = "Bearer " + OAuthToken['access_token'];
-			return header;
+		if (origLen != this.AxiosInterceptors.size) {
+			// Add a request interceptor
+			axios.interceptors.request.use(
+				authInteceptor
+				,
+				error => {
+					Promise.reject(error)
+				});
+			// Add a response interceptor
+			axios.interceptors.response.use((response) => {
+				return response
+			},
+			function (error) {
+				if (error.response.status === 401) {
+					// TODO: Add redirection to login page
+					console.warn("AccessToken has expired")
+					this.removeAxiosInterceptors(authInteceptor, axios)
+					return Promise.reject(error);
+				}
+				// TODO: Add more error alerts
+				return Promise.reject(error);
+			});
+
+			this.state.AxiosInterceptors = this.AxiosInterceptors.size;
 		}
+	}
 
-		return header;
 
+	removeAxiosInterceptors(interceptor, axios) {
+		this.AxiosInterceptors.delete(axios);
+		const interceptorToRemove = interceptor;
+		axios.interceptors.request.eject(interceptorToRemove);
 	}
 
 
