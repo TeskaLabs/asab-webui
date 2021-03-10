@@ -194,7 +194,7 @@ it is accessible by the sidebar toggler button.
 	}
 
 
-	axiosCreate(service, httpheader, props) {
+	axiosCreate(service, props) {
 		var service_url = this.getServiceURL(service);
 		if (service_url == undefined) {
 			this.addAlert('error', "Service URL is undefined, please check service paths passed to axios.");
