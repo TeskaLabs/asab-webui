@@ -106,7 +106,6 @@ it is accessible by the sidebar toggler button.
 		this.state = {
 			networking: 0, // If more than zero, some networking activity is happening
 			SplashscreenRequestors: 0,
-			AxiosInterceptors: 0,
 		}
 
 		const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -118,7 +117,6 @@ it is accessible by the sidebar toggler button.
 
 		this.addSplashScreenRequestor(this);
 		this.state.SplashscreenRequestors = this.SplashscreenRequestors.size;
-		this.state.AxiosInterceptors = this.AxiosInterceptors.size;
 
 		var that = this;
 
@@ -206,8 +204,11 @@ it is accessible by the sidebar toggler button.
 			baseURL: service_url,
 		});
 
-		// Add axios interceptors
-		this.addAxiosInterceptors(axios);
+		// Iterate through custom interceptors
+		for (let interceptor of this.AxiosInterceptors.keys()){
+			this.interceptorRequest(axios, interceptor);
+			this.interceptorResponse(axios, interceptor);
+		}
 
 		var that = this;
 
@@ -231,52 +232,43 @@ it is accessible by the sidebar toggler button.
 	}
 
 
-	addAxiosInterceptors(axios) {
-		const origLen = this.AxiosInterceptors.size;
-		this.AxiosInterceptors.add(axios);
-
-		const authInteceptor = config => {
-			// If OAuthToken is in sessionStorage, add Authorization bearer token to Headers
-			const OAuthToken = JSON.parse(sessionStorage.getItem('SeaCatOAuth2Token'));
-			if (OAuthToken) {
-				config.headers['Authorization'] = 'Bearer ' + OAuthToken['access_token'];
-			}
-			// config.headers['Content-Type'] = 'application/json';
-			return config;
-		}
-
-		if (origLen != this.AxiosInterceptors.size) {
-			// Add a request interceptor
-			axios.interceptors.request.use(
-				authInteceptor
-				,
-				error => {
-					Promise.reject(error)
-				});
-			// Add a response interceptor
-			axios.interceptors.response.use((response) => {
-				return response
-			},
-			function (error) {
-				if (error.response.status === 401) {
-					// TODO: Add redirection to login page
-					console.warn("AccessToken has expired")
-					this.removeAxiosInterceptors(authInteceptor, axios)
-					return Promise.reject(error);
-				}
-				// TODO: Add more error alerts
-				return Promise.reject(error);
+	interceptorRequest(axios, interceptor) {
+		// Add a request interceptor
+		axios.interceptors.request.use(
+			interceptor,
+			function(error) {
+				return Promise.reject(error)
 			});
-
-			this.state.AxiosInterceptors = this.AxiosInterceptors.size;
-		}
 	}
 
 
-	removeAxiosInterceptors(interceptor, axios) {
-		this.AxiosInterceptors.delete(axios);
-		const interceptorToRemove = interceptor;
-		axios.interceptors.request.eject(interceptorToRemove);
+	interceptorResponse(axios, interceptor) {
+		// Add a response
+		axios.interceptors.response.use((response) => {
+			return response
+		},
+		function (error) {
+			if (error.response.status === 401) {
+				// TODO: Add redirection to login page
+				console.warn("AccessToken has expired")
+				this.removeAxiosInterceptor(interceptor)
+				const interceptorToRemove = interceptor;
+				axios.interceptors.request.eject(interceptorToRemove);
+				return Promise.reject(error);
+			}
+			// TODO: Add more error alerts
+			return Promise.reject(error);
+		});
+	}
+
+
+	addAxiosInterceptor(interceptor) {
+		this.AxiosInterceptors.add(interceptor);
+	}
+
+
+	removeAxiosInterceptor(interceptor) {
+		this.AxiosInterceptors.delete(interceptor);
 	}
 
 
