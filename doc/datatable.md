@@ -180,7 +180,7 @@ Example of fetched data:
 
 # Optional
 
-`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `search` and `onSearch`.
+`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `search`, `onSearch` and `onDownload`.
 
 Example of `DataTable` with all props:
 
@@ -197,6 +197,7 @@ Example of `DataTable` with all props:
 	search={{ icon: 'icon', placeholder: 'placeholder' }}
 	onSearch={onSearch}
 	createButton={{ text: "Create", icon: 'icon', pathname: '#' }}
+	onDownload={onDownload}
 />
 ```
 
@@ -313,6 +314,8 @@ let ConfigDefaults = {
 	}
 };
 ```
+
+Prop `onDownload` is a function that returns a list of items that needs to be downloaded. When such function is provided `DataTable` will automatically download csv with provided list.
 
 # DataTable props
 
