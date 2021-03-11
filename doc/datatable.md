@@ -95,16 +95,33 @@ title: {
 }
 ```
 
-Prop `headers` is basically an array containing objects with obligatory properties `name` and `key`. Property `name` is a string that will be rendered as a header cell in headers row of the table. Property `key` is a key name for getting data from `data` prop, it must be the same as it is in objects in `data` prop.
-Order of headers in a table is the same as it is in prop `headers`.
+Prop `headers` is basically an array containing objects with obligatory properties `name` and `key` and optional properties `link` and `datetime`. Order of headers in a table is the same as it is in prop `headers`.
+
+Property `name` is a string that will be rendered as a header cell in headers row of the table. Property `key` is a key name for getting data from `data` prop, it must be the same as it is in objects in `data` prop.
+
+Optional property `link` is an object containing properties `pathname` and `key`. `pathname` is a string which is representing pathname for <Link> component, `key` is a key name for getting id for pathname. 
+Output for link cell would look like:
+<Link to={{ pathname: link.pathname + obj[link.key] }} >
+If `pathname` is "/user/", `key` is "_id" and data for that cell is 
+{
+	...
+	_id: 1,
+	...
+ } then href would be /user/1
+
+Optional property `datetime` is boolean and it tells `DataTable` if cells below current header is date. If `datetime` is true then it returns <DateTime> component with default format 'lll'. 
+If you want to change date format, then you should provide `datetime` as object with property `format`.
 
 Example:
 
 ```
 headers: [
-	{ name: 'Name', key: 'username' },
+	{ name: 'ID', key: '_id' },
+	{ name: 'Name', key: 'username', link: { pathname: '/user/', key: '_id' } },
 	{ name: 'Provider', key: '_provider_id' },
-	{ name: 'Type', key: '_type' }
+	{ name: 'Type', key: '_type' },
+	{ name: 'Date 1', key: '_date', datetime: true },
+	{ name: 'Date 2', key: '_date', datetime { format: 'lll' }}
 ]
 ```
 
@@ -321,7 +338,12 @@ props: {
   data: Array<objects> // objects that will represent rows in a table
   headers: Array<{
     name: string, // name of the headers in a table
-    key: 'string'' // name of the key for searching properties in objects in props.data
+    key: 'string'', // name of the key for searching properties in objects in props.data
+	link?: {
+		pathname: string,
+		key: string
+	},
+	datetime?: boolean | { format: string }
   }>,
   count: number, // count of all items
   currentPage: number, // current page of the table

@@ -19,7 +19,29 @@ let ConfigDefaults = {
 		href: "https://teskalabs.com/",
 	},
 	table: {
-		headers: [ { name: 'Name', key: 'username' }, { name: 'Provider', key: '_provider_id' }, { name: 'Type', key: '_type' } ],
+		headers: [ 
+			{ 
+				name: 'Name',
+				key: 'username',
+				link: {
+					pathname: '/pathname/',
+					key: 'username'
+				}
+			},
+			{ 
+				name: 'Provider', 
+				key: '_provider_id' 
+			},
+			{
+				name: 'Type',
+				key: '_type' 
+			},
+			{
+				name: 'Date',
+				key: 'date',
+				datetime: { format: 'lll' }
+			} 
+		],
 		limit: 10
 	}
 };

@@ -1,14 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import ReactJson from 'react-json-view';
 import { Table } from 'reactstrap';
 
-const TableCell = ({ value, idx, json }) => {
+import { DateTime } from '../DateTime';
+
+const TableCell = ({ value, idx, json, link, datetime, format }) => {
 	if (!value) return <td className="pl-3" style={{ whiteSpace: "nowrap" }}>-</td>;
 
 	let cell;
-	if (json) cell = <ReactJson src={value} name={false} collapsed />
+	if (json) cell = <ReactJson src={value} name={false} collapsed />;
+	else if (link) cell = <Link to={{pathname: link}}>{value}</Link>;
+	else if (datetime) cell = <DateTime value={value} format={format} />
 	else cell = value
 
 	return idx === 0 ? (
@@ -48,6 +53,22 @@ function ASABTable ({ data, headers, advmode }) {
 		<tr key={i}>
 		{headersRow.map((header, idx) => {
 			if (header.json) return <TableCell value={obj} json key={idx}/>
+			if (header.link) return (
+				<TableCell
+					value={obj[header.key]}
+					link={header.link.pathname + obj[header.link.key]}
+					key={idx}
+					idx={idx}
+				/>
+			);
+			if (header.datetime) return (
+				<TableCell
+					value={obj[header.key]}
+					datetime
+					format={header.datetime.format}
+					key={idx}
+				/>
+			);
 			return <TableCell value={obj[header.key]} key={idx} idx={idx}/>
 			})}
 		</tr>
