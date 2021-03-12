@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { saveAs } from 'file-saver';
+import m from 'moment';
 
 import { 
 	Card, Row, Col,
@@ -40,8 +41,8 @@ export function DataTable ({
 		const list = onDownload();
 		let csv = headers.map(header => header.name).join(',') + "\n" + 
 			list.map(item => headers.map(header => item[header.key]).join(',')).join('\n');
-		let blob = new Blob([csv], {type: "text/csv;charset=utf-8"})
-		saveAs(blob, 'table.csv');
+		let blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
+		saveAs(blob, `${title.text.replace(' ', '_')}_${m().format('D-MM-YYYY')}.csv`);
 	}
 
 	return (
