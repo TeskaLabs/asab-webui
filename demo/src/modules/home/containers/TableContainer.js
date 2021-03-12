@@ -161,7 +161,7 @@ export default function (props) {
 				setLimit={setLimit}
 				currentPage={page}
 				setPage={setPage}
-				search={{ icon: 'cil-magnifying-glass' }}
+				search={{ icon: 'cil-magnifying-glass', placeholder: "Search" }}
 				createButton={{ text: "Create", icon: 'cil-plus', pathname: '#' }}
 				onSearch={onSearch}
 			/>
