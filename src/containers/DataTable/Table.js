@@ -14,15 +14,15 @@ const TableCell = ({ obj, header, idx, advmode }) => {
 
 	if (advmode) cell = <ReactJson src={obj} name={false} collapsed />
 
-	else if (header.json) cell = obj[header.key] ? (
+	else if (header.json) cell = (
 		<ReactJson
 			src={obj[header.key]}
 			name={false}
 			collapsed
 			enableClipboard={false}
 		/>
-	) : "-";
-
+	);
+	
 	else if (header.link) {
 		const pathname = header.link.pathname + obj[header.link.key];
 		cell = obj[header.key] ? <Link to={{ pathname }}>{obj[header.key]}</Link> : "-";
@@ -34,7 +34,10 @@ const TableCell = ({ obj, header, idx, advmode }) => {
 			format={header.datetime.format}
 		/>
 	) : "-";
-	
+	else if (header.customComponent) {
+		cell = header.customComponent(obj, header);
+	}
+
 	else cell = obj[header.key];
 
 	return idx === 0 ? (

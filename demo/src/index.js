@@ -21,31 +21,36 @@ let ConfigDefaults = {
 	table: {
 		headers: [ 
 			{ 
-				name: 'Name',
+				name: 'Link',
 				key: 'username',
 				link: {
 					pathname: '/pathname/',
 					key: 'username'
 				}
 			},
+			{
+				name: 'DateTime',
+				key: '_c',
+				datetime: { format: 'lll' }
+			},
 			{ 
-				name: 'Provider', 
+				name: 'Text', 
 				key: '_provider_id' 
 			},
 			{
-				name: 'Type',
-				key: '_type' 
-			},
-			{
-				name: 'Date',
-				key: '_c',
-				datetime: { format: 'lll' }
+				name: 'Custom',
+				customComponent: (obj) => (
+					<div style={{ color: "red"}}>
+						<p style={{ margin: 0}}>{obj.username}</p>
+						<p style={{ margin: 0}}>{obj._type}</p>
+					</div>
+				)
 			},
 			{
 				name: 'JSON',
 				key: 'json',
 				json: true
-			},
+			}
 		],
 		limit: 10
 	}
