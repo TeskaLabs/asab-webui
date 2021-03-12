@@ -207,7 +207,6 @@ it is accessible by the sidebar toggler button.
 		// Iterate through custom interceptors
 		for (let interceptor of this.AxiosInterceptors.keys()){
 			this.interceptorRequest(axios, interceptor);
-			this.interceptorResponse(axios, interceptor);
 		}
 
 		var that = this;
@@ -239,26 +238,6 @@ it is accessible by the sidebar toggler button.
 			function(error) {
 				return Promise.reject(error)
 			});
-	}
-
-
-	interceptorResponse(axios, interceptor) {
-		// Add a response
-		axios.interceptors.response.use((response) => {
-			return response
-		},
-		function (error) {
-			if (error.response.status === 401) {
-				// TODO: Add redirection to login page
-				console.warn("AccessToken has expired")
-				this.removeAxiosInterceptor(interceptor)
-				const interceptorToRemove = interceptor;
-				axios.interceptors.request.eject(interceptorToRemove);
-				return Promise.reject(error);
-			}
-			// TODO: Add more error alerts
-			return Promise.reject(error);
-		});
 	}
 
 
