@@ -38,9 +38,14 @@ let ConfigDefaults = {
 			},
 			{
 				name: 'Date',
-				key: 'date',
+				key: '_c',
 				datetime: { format: 'lll' }
-			} 
+			},
+			{
+				name: 'JSON',
+				key: 'json',
+				json: true
+			},
 		],
 		limit: 10
 	}

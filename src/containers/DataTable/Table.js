@@ -7,82 +7,88 @@ import { Table } from 'reactstrap';
 
 import { DateTime } from '../DateTime';
 
-const TableCell = ({ value, idx, json, link, datetime, format }) => {
-	if (!value) return <td className="pl-3" style={{ whiteSpace: "nowrap" }}>-</td>;
+const TableCell = ({ obj, header, idx, advmode }) => {
+	if (!obj) return <td className="pl-3" style={{ whiteSpace: "nowrap" }}>-</td>
 
 	let cell;
-	if (json) cell = <ReactJson src={value} name={false} collapsed />;
-	else if (link) cell = <Link to={{pathname: link}}>{value}</Link>;
-	else if (datetime) cell = <DateTime value={value} format={format} />
-	else cell = value
+
+	if (advmode) cell = <ReactJson src={obj} name={false} collapsed />
+
+	else if (header.json) cell = obj[header.key] ? (
+		<ReactJson
+			src={obj[header.key]}
+			name={false}
+			collapsed
+			enableClipboard={false}
+		/>
+	) : "-";
+
+	else if (header.link) {
+		const pathname = header.link.pathname + obj[header.link.key];
+		cell = obj[header.key] ? <Link to={{ pathname }}>{obj[header.key]}</Link> : "-";
+	}
+
+	else if (header.datetime) cell = obj[header.key] ? (
+		<DateTime
+			value={obj[header.key]}
+			format={header.datetime.format}
+		/>
+	) : "-";
+	
+	else cell = obj[header.key];
 
 	return idx === 0 ? (
-		<th scope="row" style={{ whiteSpace: "nowrap", maxWidth: "40rem", textOverflow: "ellipsis" , overflow: "hidden" }}>
-		{cell}
-		</th>
+			<th scope="row" style={{ whiteSpace: "nowrap", maxWidth: "40rem", textOverflow: "ellipsis" , overflow: "hidden" }}>
+				{cell}
+			</th>
 		) : (
-		<td className="pl-3" style={{ whiteSpace: "nowrap" }}>
-		{cell}
-		</td>
+			<td className="pl-3" style={{ whiteSpace: "nowrap" }}>
+				{cell}
+			</td>
 		);
 };
 
-const Headers = ({ headers }) => (
+const Headers = ({ headers, advmode }) => (
 	<>
 		<colgroup>
-		{headers.map((_, idx) =>
-			<col
-			style={{ width: idx === headers.length - 1 ? "auto" : "1px" }}
-			key={idx}
-			/>
-		)}
+			{headers.map((_, idx) =>
+				<col
+					style={{ width: (idx === headers.length - 1) && !advmode ? "auto" : "1px" }}
+					key={idx}
+				/>
+			)}
+			{advmode && <col style={{ width: "auto" }}/>}
 		</colgroup>
+
 		<thead>
-		<tr>
-			{headers.map((header, idx) => <th key={idx} className={idx !== 0 ? "pl-3" : null}>{header.name}</th>)}
-		</tr>
+			<tr>
+				{headers.map((header, idx) => <th key={idx} className={idx !== 0 ? "pl-3" : null}>{header.name}</th>)}
+				{advmode && <th className="pl-3">{" "}</th>}
+			</tr>
 		</thead>
 	</>
 );
 
-function ASABTable ({ data, headers, advmode }) {
-	const headersRow = [...headers];
-	if (advmode) headersRow.push({ name: ' ', json: true });
-
-	const TableRows = data.map((obj, i) => (
-		<tr key={i}>
-		{headersRow.map((header, idx) => {
-			if (header.json) return <TableCell value={obj} json key={idx}/>
-			if (header.link) return (
-				<TableCell
-					value={obj[header.key]}
-					link={header.link.pathname + obj[header.link.key]}
-					key={idx}
-					idx={idx}
-				/>
-			);
-			if (header.datetime) return (
-				<TableCell
-					value={obj[header.key]}
-					datetime
-					format={header.datetime.format}
-					key={idx}
-				/>
-			);
-			return <TableCell value={obj[header.key]} key={idx} idx={idx}/>
-			})}
-		</tr>
-	));
-
-	return (
-		<Table size="sm">
-			<Headers headers={headersRow} />
-			<tbody>
-				{TableRows}
-			</tbody>
-		</Table>
-	);
-};
+const ASABTable = ({ data, headers, advmode }) => (
+	<Table size="sm">
+		<Headers headers={headers} advmode={advmode}/>
+		<tbody>
+			{data.map((obj, i) => (
+				<tr key={i}>
+					{headers.map((header, idx) => (
+						<TableCell 
+							obj={obj}
+							header={header}
+							idx={idx}
+							key={idx}
+						/>
+					))}
+					{advmode && <TableCell obj={obj} advmode/>}
+				</tr>
+			))}
+		</tbody>
+	</Table>
+);
 
 const mapStateToProps = (state) => ({ advmode: state.advmode.enabled });
 
