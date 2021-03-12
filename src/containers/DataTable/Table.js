@@ -22,7 +22,7 @@ const TableCell = ({ obj, header, idx, advmode }) => {
 			enableClipboard={false}
 		/>
 	);
-	
+
 	else if (header.link) {
 		const pathname = header.link.pathname + obj[header.link.key];
 		cell = obj[header.key] ? <Link to={{ pathname }}>{obj[header.key]}</Link> : "-";
@@ -35,7 +35,7 @@ const TableCell = ({ obj, header, idx, advmode }) => {
 		/>
 	) : "-";
 	else if (header.customComponent) {
-		cell = header.customComponent(obj, header);
+		cell = header.customComponent.generate(obj, header);
 	}
 
 	else cell = obj[header.key];

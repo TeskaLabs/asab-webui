@@ -39,12 +39,15 @@ let ConfigDefaults = {
 			},
 			{
 				name: 'Custom',
-				customComponent: (obj) => (
-					<div style={{ color: "red"}}>
-						<p style={{ margin: 0}}>{obj.username}</p>
-						<p style={{ margin: 0}}>{obj._type}</p>
-					</div>
-				)
+				customComponent: {
+					generate: (obj) => (
+						<div style={{ color: "red"}}>
+							<p style={{ margin: 0}}>{obj.username}</p>
+							<p style={{ margin: 0}}>{obj._type}</p>
+						</div>
+					),
+					onDownload: (obj) => `${obj.username}/${obj._type}`
+				}
 			},
 			{
 				name: 'JSON',
