@@ -12,7 +12,8 @@ const initData = {
 			"_c": "2021-01-12T15:57:51.471000",
 			"_m": "2021-01-12T15:57:51.471000",
 			"phone": "3240715",
-			"username": "Dzmitry"
+			"username": "Dzmitry",
+			"date": Date.now()
 		},
 		{
 			"_id": "mongodb:ext:5ffdc6ffa5a3c6fe397c4dfd",
