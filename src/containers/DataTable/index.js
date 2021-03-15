@@ -31,8 +31,8 @@ export function DataTable ({
 
 		timeoutRef.current = setTimeout(() => {
 		timeoutRef.current = null;
-		setPage(1);
-		onSearch(filterValue);
+		if (setPage) setPage(1);
+		if (onSearch) onSearch(filterValue);
 		}, 500);
 	}, [filterValue]);
 
@@ -79,26 +79,30 @@ export function DataTable ({
 				}
 			</CardHeader>
 
-			<CardBody>
+			<CardBody className="table-responsive">
 				<Table data={data.length > limit ? data.slice(0, limit) : data} headers={headers}/>
 			</CardBody>
 
 			<CardFooter>
 				<Row>
-				<Col sm="4">
-					<div>
-						Showing {data.length < limit ? data.length : limit} of {count} item(s)
-					</div>
-				</Col>
+				{count &&
+					<Col sm="4">
+						<div>
+							Showing {data.length < limit ? data.length : limit} of {count} item(s)
+						</div>
+					</Col>
+				}
 
-				<Col>
-					<Pagination 
-					currentPage={currentPage}
-					setPage={setPage}
-					lastPage={Math.floor(count/limit)+1}
-					/>
-				</Col>
-				
+				{count > limit && setPage &&
+					<Col>
+						<Pagination 
+						currentPage={currentPage}
+						setPage={setPage}
+						lastPage={Math.floor(count/limit)+1}
+						/>
+					</Col>
+				}
+
 				{setLimit &&
 					<Col>
 					<ButtonDropdown

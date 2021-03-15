@@ -95,13 +95,17 @@ title: {
 }
 ```
 
-Prop `headers` is basically an array containing objects with obligatory properties `name` and `key` and optional properties `link` and `datetime`. Order of headers in a table is the same as it is in prop `headers`.
+Prop `headers` is basically an array containing objects with obligatory properties `name` and `key` and optional properties `link`, `datetime`, `json` and `customComponent`. Order of headers in a table is the same as it is in prop `headers`.
 
 Property `name` is a string that will be rendered as a header cell in headers row of the table. Property `key` is a key name for getting data from `data` prop, it must be the same as it is in objects in `data` prop.
 
 Optional property `link` is an object containing properties `pathname` and `key`. `pathname` is a string which is representing pathname for <Link> component, `key` is a key name for getting id for pathname. 
 Output for link cell would look like:
+
+```
 <Link to={{ pathname: link.pathname + obj[link.key] }} >
+```
+
 If `pathname` is "/user/", `key` is "_id" and data for that cell is 
 {
 	...
@@ -111,6 +115,10 @@ If `pathname` is "/user/", `key` is "_id" and data for that cell is
 
 Optional property `datetime` is boolean and it tells `DataTable` if cells below current header is date. If `datetime` is true then it returns <DateTime> component with default format 'lll'. 
 If you want to change date format, then you should provide `datetime` as object with property `format`.
+
+Optional property `json` is needed if data has nested objects inside itself. It is boolean and it returns `react-json-view` components into cells below the header.
+
+About how to use optional property `customComponent` you may find information in section Custom Components.
 
 Example:
 
@@ -329,6 +337,49 @@ let ConfigDefaults = {
 		search: { icon: 'icon-classname', placeholder: 'placeholder' }
 	}
 };
+```
+
+### Custom Components
+
+In some cases you may understand that in `DataTable` you need to have some external component instead of regular cells. Or you may just want to somehow style your cells. Then `customComponent` property of header may help you.
+
+Optional property `customComponent` is needed to provide some uncommon component inside table cell. That property is object with obligatory `generate` and optional `onDownload` functions.
+
+Function `generate` is called with two arguments during `DataTable` rendering process and it should return component which will be placed inside table cell. First argument is object from data array representing row. Below is example how such header may look like:
+
+```
+headers = [
+	...
+	{
+		name: "Fancy text",
+		customComponent:{
+			generate: (obj) => <SomeFancyComponent>{obj.some_key}</SomeFancyComponent>
+		}
+	}
+]
+```
+
+Second argument that `DataTable` pass to `generate` is header itself and it is needed if you want to provide some data from header to your custom component. Example of using that is below:
+
+```
+{
+	name: "Fancy text",
+	customComponent:{
+		generate: (obj, header) => <SomeFancyComponent>{header.name} | {obj.some_key}</SomeFancyComponent>
+	}
+}
+```
+
+Property `onDownload` of `customComponent` is needed if you want to use custom components with downloading `DataTable` content functionality. It is a simple function that returns some string and which will be called when csv file is generating. It should also accept object and header as arguments. Below you may find example:
+
+```
+{
+	name: "Fancy text",
+	customComponent:{
+		generate: (obj, header) => <SomeFancyComponent>{header.name} | {obj.some_key}</SomeFancyComponent>,
+		onDownload: (obj, header) => `${header.name} | ${obj.some_key}`;
+	}
+}
 ```
 
 # DataTable props
