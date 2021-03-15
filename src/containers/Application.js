@@ -91,6 +91,7 @@ it is accessible by the sidebar toggler button.
 		this.Navigation = new Navigation(this);
 
 		this.SplashscreenRequestors = new Set(); // If not empty, the splash screen will be rendered
+		this.AxiosInterceptors = new Set();
 
 		this.HeaderService = new HeaderService(this, "HeaderService");
 		this.FooterService = new FooterService(this, "FooterService");
@@ -191,6 +192,14 @@ it is accessible by the sidebar toggler button.
 	}
 
 
+	/*
+	 *	Creates an AXIOS object for communication with TeskaLabs API's
+	 *
+	 *	IMPORTANT NOTE:
+	 *		Bearer token will be sent to any URL specified in the API / Services configuration.
+	 *		axiosCreate must only be used for creating http sessions
+	 *		towards TeskaLabs API's, since it adds Bearer token to all calls.
+	 */
 	axiosCreate(service, props) {
 		var service_url = this.getServiceURL(service);
 		if (service_url == undefined) {
@@ -202,6 +211,11 @@ it is accessible by the sidebar toggler button.
 			...props,
 			baseURL: service_url,
 		});
+
+		// Iterate through custom interceptors
+		for (let interceptor of this.AxiosInterceptors.keys()){
+			this.interceptorRequest(axios, interceptor);
+		}
 
 		var that = this;
 
@@ -222,6 +236,26 @@ it is accessible by the sidebar toggler button.
 		});
 
 		return axios;
+	}
+
+
+	interceptorRequest(axios, interceptor) {
+		// Add a request interceptor
+		axios.interceptors.request.use(
+			interceptor,
+			function(error) {
+				return Promise.reject(error)
+			});
+	}
+
+
+	addAxiosInterceptor(interceptor) {
+		this.AxiosInterceptors.add(interceptor);
+	}
+
+
+	removeAxiosInterceptor(interceptor) {
+		this.AxiosInterceptors.delete(interceptor);
 	}
 
 

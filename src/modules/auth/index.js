@@ -55,6 +55,10 @@ export default class AuthModule extends Module {
 				this.Api.login(this.RedirectURL, force_login_prompt);
 				return;
 			}
+
+			// Add interceptor with Bearer token in the Header into axios calls
+			this.App.addAxiosInterceptor(this.authInterceptor());
+
 			// Authorization of the user based on rbac
 			if (this.Authorization?.Authorize) {
 				let userAuthorized = await this._isUserAuthorized();
@@ -78,6 +82,15 @@ export default class AuthModule extends Module {
 		}
 		
 		this.App.removeSplashScreenRequestor(this);
+	}
+
+
+	authInterceptor() {
+		const interceptor = config => {
+			config.headers['Authorization'] = 'Bearer ' + this.OAuthToken['access_token'];
+			return config;
+		}
+		return interceptor;
 	}
 
 
