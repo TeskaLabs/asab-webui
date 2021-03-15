@@ -192,6 +192,14 @@ it is accessible by the sidebar toggler button.
 	}
 
 
+	/*
+	 *	Creates an AXIOS object for communication with TeskaLabs API's
+	 *
+	 *	IMPORTANT NOTE:
+	 *		Bearer token will be sent to any URL specified in the API / Services configuration.
+	 *		axiosCreate must only be used for creating http sessions
+	 *		towards TeskaLabs API's, since it adds Bearer token to all calls.
+	 */
 	axiosCreate(service, props) {
 		var service_url = this.getServiceURL(service);
 		if (service_url == undefined) {
