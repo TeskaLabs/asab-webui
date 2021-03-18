@@ -341,7 +341,7 @@ let ConfigDefaults = {
 ```
 
 Prop `onDownload` is a function that returns a list of items that needs to be downloaded. When such function is provided `DataTable` will automatically download csv with provided list.
-For downloading custom components check section Custom Components.
+For downloading content which is displayed with custom components check section Custom Components.
 
 ### Custom Components
 

@@ -40,7 +40,10 @@ export function DataTable ({
 	const downloadHandler = () => {
 		const list = onDownload();
 		let csv = headers.map(header => header.name).join(',') + "\n" + 
-			list.map(item => headers.map(header => item[header.key]).join(',')).join('\n');
+			list.map(item => headers.map(header => {
+				if (header.customComponent) return header.customComponent.onDownload(item, header).replace(',', ';');
+				return JSON.stringify(item[header.key])?.replace(',', ';');
+			}).join(',')).join('\n');
 		let blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
 		saveAs(blob, `${title.text.replace(' ', '_')}_${m().format('D-MM-YYYY')}.csv`);
 	}
