@@ -1,4 +1,17 @@
 {
-	"Welcome to React": "Hello my friend",
-	"Good day": "Have a nice day"
+	"AccessControlScreen": {
+		"Access details": "Access control",
+		"See your details": "You can see your access permissions here",
+		"Current tenant": "Current tenant",
+		"Roles": "Roles",
+		"Resources": "Resources",
+		"Previous screen": "Back to previous screen"
+	},
+	"AuthHeaderDropdown": {
+		"My account": "My account",
+		"Access control": "Access control",
+		"Manage": "Manage",
+		"Change a password": "Change a password",
+		"Logout": "Logout"
+	}
 }

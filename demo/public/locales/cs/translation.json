@@ -1,4 +1,17 @@
 {
-	"Welcome to React": "Vitejte v Reactu",
-	"Good day": "Dobry den"
+	"AccessControlScreen": {
+		"Access control": "Uživatelská oprávnění",
+		"See your details": "Zde jsou zobrazena Vaše uživatelská oprávnění",
+		"Current tenant": "Aktuální tenant",
+		"Roles": "Role",
+		"Resources": "Zdroje",
+		"Previous screen": "Zpět na předchozí okno"
+	},
+	"AuthHeaderDropdown": {
+		"My account": "Můj účet",
+		"Access control": "Uživatelská oprávnění",
+		"Manage": "Správa účtu",
+		"Change a password": "Změna hesla",
+		"Logout": "Odhlásit"
+	}
 }

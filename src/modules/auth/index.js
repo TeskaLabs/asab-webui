@@ -4,6 +4,7 @@ import HeaderComponent from './header'
 import reducer from './reducer';
 import { types } from './actions'
 import { SeaCatAuthApi, GoogleOAuth2Api } from './api';
+import AccessControlScreen from './AccessControlScreen';
 
 
 export default class AuthModule extends Module {
@@ -22,6 +23,18 @@ export default class AuthModule extends Module {
 		this.App.addSplashScreenRequestor(this);
 
 		this.Authorization = this.Config.get("Authorization"); // Get Authorization settings from configuration
+
+		// Access control screen
+		app.Router.addRoute({
+			path: '/access',
+			exact: true,
+			name: 'Access control',
+			component: AccessControlScreen,
+			hasHeader: false,
+			hasSidebar: false,
+			hasBreadcrumb: false,
+			hasFooter: true,
+		});
 	}
 
 
