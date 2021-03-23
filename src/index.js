@@ -6,5 +6,6 @@ export { getBaseName } from './basename'; // THIS FUNCTION HAS BEEN DEPRECATED -
 export { DateTime } from './containers/DateTime';
 export { Humanize } from './containers/Humanize';
 export { DataTable } from './containers/DataTable';
+export { ButtonWithAuthz } from './containers/ButtonWithAuthz';
 
 import "./style.scss";
