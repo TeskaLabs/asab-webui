@@ -26,14 +26,10 @@ export default class AuthModule extends Module {
 
 		// Access control screen
 		app.Router.addRoute({
-			path: '/access',
+			path: '/access-control',
 			exact: true,
 			name: 'Access control',
-			component: AccessControlScreen,
-			hasHeader: false,
-			hasSidebar: false,
-			hasBreadcrumb: false,
-			hasFooter: true,
+			component: AccessControlScreen
 		});
 	}
 
