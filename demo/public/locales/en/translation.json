@@ -13,5 +13,6 @@
 		"Manage": "Manage",
 		"Change a password": "Change a password",
 		"Logout": "Logout"
-	}
+	},
+	"You do not have access rights to perform this action": "You do not have access rights to perform this action"
 }

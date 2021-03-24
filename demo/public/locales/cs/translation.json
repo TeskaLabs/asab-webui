@@ -13,5 +13,6 @@
 		"Manage": "Správa účtu",
 		"Change a password": "Změna hesla",
 		"Logout": "Odhlásit"
-	}
+	},
+	"You do not have access rights to perform this action": "Váš přístup je omezen, nemáte dostatečná oprávnění"
 }
