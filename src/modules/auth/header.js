@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import {
 	UncontrolledDropdown,
 	DropdownToggle,
@@ -7,10 +8,29 @@ import {
 	DropdownItem
 } from 'reactstrap';
 
+/*
+
+	Language localizations for auth HeaderComponent can be added to the translation.json files of
+	public/locales/en & public/locales/cs of the product where HeaderComponent is used.
+
+	Example:
+
+	{
+		"AuthHeaderDropdown": {
+			"My account": "My account",
+			"Access control": "Access control",
+			"Manage": "Manage",
+			"Change a password": "Change a password",
+			"Logout": "Logout"
+		}
+	}
+
+*/
 
 function HeaderComponent(props) {
 
 	const App = props.app;
+	const { t, i18n } = useTranslation();
 	// Get service URL
 	let user_auth_url = App.getServiceURL('seacat_auth_webui');
 
@@ -30,20 +50,23 @@ function HeaderComponent(props) {
 				<span className="pl-2" title={props.sub}>{props.username}</span>
 			</DropdownToggle>
 			<DropdownMenu>
-				<DropdownItem header tag="div" className="text-center"><strong>My account</strong></DropdownItem>
+				<DropdownItem header tag="div" className="text-center"><strong>{t('AuthHeaderDropdown|My account')}</strong></DropdownItem>
+				<DropdownItem tag="a" href={window.location.protocol + '//' + window.location.host + '/?tenant=' + props.current + '#/auth/access-control'}>
+					{t('AuthHeaderDropdown|Access control')}
+				</DropdownItem>
 				{user_auth_url != null &&
 					<React.Fragment>
 						<DropdownItem tag="a" href={user_auth_url}>
-							Manage
+							{t('AuthHeaderDropdown|Manage')}
 						</DropdownItem>
 						<DropdownItem tag="a" href={user_auth_url + '/#/pwd'}>
-							Change a password
+							{t('AuthHeaderDropdown|Change a password')}
 						</DropdownItem>
 					</React.Fragment>
 				}
 				<DropdownItem onClick={() => {logout()}}>
 					<span className="text-danger">
-						Logout
+						{t('AuthHeaderDropdown|Logout')}
 					</span>
 				</DropdownItem>
 			</DropdownMenu>
@@ -84,6 +107,7 @@ const mapStateToProps = state => {
 		sub: sub,
 		username: username,
 		picture: picture,
+		current: state.tenant.current
 	};
 };
 
