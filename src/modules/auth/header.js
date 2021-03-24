@@ -33,7 +33,7 @@ function HeaderComponent(props) {
 			</DropdownToggle>
 			<DropdownMenu>
 				<DropdownItem header tag="div" className="text-center"><strong>{t('AuthHeaderDropdown|My account')}</strong></DropdownItem>
-				<DropdownItem tag="a" href={window.location.protocol + '//' + window.location.host + '/?tenant=' + props.current + '#/access-control'}>
+				<DropdownItem tag="a" href={window.location.protocol + '//' + window.location.host + '/?tenant=' + props.current + '#/auth/access-control'}>
 					{t('AuthHeaderDropdown|Access control')}
 				</DropdownItem>
 				{user_auth_url != null &&

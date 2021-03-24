@@ -26,7 +26,7 @@ export default class AuthModule extends Module {
 
 		// Access control screen
 		app.Router.addRoute({
-			path: '/access-control',
+			path: '/auth/access-control',
 			exact: true,
 			name: 'Access control',
 			component: AccessControlScreen
