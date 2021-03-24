@@ -8,6 +8,24 @@ import {
 	DropdownItem
 } from 'reactstrap';
 
+/*
+
+	Language localizations for auth HeaderComponent can be added to the translation.json files of
+	public/locales/en & public/locales/cs of the product where HeaderComponent is used.
+
+	Example:
+
+	{
+		"AuthHeaderDropdown": {
+			"My account": "My account",
+			"Access control": "Access control",
+			"Manage": "Manage",
+			"Change a password": "Change a password",
+			"Logout": "Logout"
+		}
+	}
+
+*/
 
 function HeaderComponent(props) {
 

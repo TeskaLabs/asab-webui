@@ -9,6 +9,25 @@ import {
 	Button
 } from 'reactstrap';
 
+/*
+
+	Language localizations for AccessControlScreen can be added to the translation.json files of
+	public/locales/en & public/locales/cs of the product where AccessControlScreen component is used.
+
+	Example:
+
+	{
+		"AccessControlScreen": {
+			"Access control": "Access control",
+			"See your details": "You can see your access permissions here",
+			"Current tenant": "Current tenant",
+			"Roles": "Roles",
+			"Resources": "Resources",
+			"Previous screen": "Back to previous screen"
+		}
+	}
+
+*/
 
 function AccessControlScreen(props) {
 
