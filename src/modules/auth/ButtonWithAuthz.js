@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next';
 	  message is `You do not have rights` and it can be re-set in locales as e.g.
 
 	  {
-		"You do not have rights": "Your access is restricted, you don't have rights to proceed"
+		"You do not have access rights to perform this action": "You do not have access rights to perform this action"
 	  }
 
 ---
@@ -56,7 +56,7 @@ export function ButtonWithAuthz(props) {
 
 	// Check on title eventually passed in the props
 	if (disabled) {
-		props["title"] = t("You do not have rights");
+		props["title"] = t("You do not have access rights to perform this action");
 	}
 	// Check on disabled eventually passed in the props
 	if (props.disabled && disabled == false) {
