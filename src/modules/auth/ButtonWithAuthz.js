@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
+import { useTranslation } from 'react-i18next';
 
 /*
 	ButtonWithAutz component emulates the functionality of reactstrap <Button/> component
@@ -11,8 +12,13 @@ import { Button } from 'reactstrap';
 	* resources
 		* the list of resources from the userinfo
 
-	* titleUnauthorized
-		* the title text (on button hover text) displayed to user with restricted access
+	* Language localisations for generic `unauthorized message` can be added to the translation.json files of
+	  public/locales/en & public/locales/cs of the product where component ButtonWithAuthz is used. The default
+	  message is `You do not have rights` and it can be re-set in locales as e.g.
+
+	  {
+		"You do not have rights": "Your access is restricted, you don't have rights to proceed"
+	  }
 
 ---
 
@@ -30,7 +36,6 @@ import { Button } from 'reactstrap';
 		...
 			<ButtonWithAuthz
 				title={t('MyApp|Delete')}
-				titleUnauthorized={t('MyApp|You do not have rights')}
 				color="danger"
 				size="sm"
 				onClick={() => { deleteApp() }}
@@ -46,34 +51,22 @@ import { Button } from 'reactstrap';
 */
 
 export function ButtonWithAuthz(props) {
+	const { t, i18n } = useTranslation();
 	let disabled = props.resources.indexOf(props.resource) == -1;
-	let title = props.title;
 
 	// Check on title eventually passed in the props
 	if (disabled) {
-		title = props.titleUnauthorized;
+		props["title"] = t("You do not have rights");
 	}
 	// Check on disabled eventually passed in the props
 	if (props.disabled && disabled == false) {
 		disabled = props.disabled;
 	}
+	props["disabled"] = disabled;
 
 	return (
 		<Button
-			id={props.id}
-			key={props.key}
-			active={props.active}
-			block={props.block}
-			color={props.color}
-			outline={props.outline}
-			innerRef={props.innerRef}
-			onClick={props.onClick}
-			size={props.size}
-			className={props.className}
-			cssModule={props.cssModule}
-			onSubmit={props.onSubmit}
-			title={title}
-			disabled={disabled}
+			{...props}
 			>
 			{props.children}
 		</Button>
