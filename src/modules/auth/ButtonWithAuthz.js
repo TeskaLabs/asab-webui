@@ -53,20 +53,21 @@ import { useTranslation } from 'react-i18next';
 export function ButtonWithAuthz(props) {
 	const { t, i18n } = useTranslation();
 	let disabled = props.resources ? props.resources.indexOf(props.resource) == -1 : true;
-
+	let title = props.title;
 	// Check on title eventually passed in the props
 	if (disabled) {
-		props["title"] = t("You do not have access rights to perform this action");
+		 title = t("You do not have access rights to perform this action");
 	}
 	// Check on disabled eventually passed in the props
 	if (props.disabled && disabled == false) {
 		disabled = props.disabled;
 	}
-	props["disabled"] = disabled;
 
 	return (
 		<Button
 			{...props}
+			title={title}
+			disabled={disabled}
 			>
 			{props.children}
 		</Button>
