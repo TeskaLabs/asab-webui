@@ -52,7 +52,7 @@ import { useTranslation } from 'react-i18next';
 
 export function ButtonWithAuthz(props) {
 	const { t, i18n } = useTranslation();
-	let disabled = props.resources.indexOf(props.resource) == -1;
+	let disabled = props.resources ? props.resources.indexOf(props.resource) == -1 : true;
 
 	// Check on title eventually passed in the props
 	if (disabled) {
