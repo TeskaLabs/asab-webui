@@ -18,6 +18,7 @@ export default class AuthModule extends Module {
 		this.RedirectURL = window.location.href;
 		this.MustAuthenticate = true; // Setting this to false means, that we can operate without authenticated user
 		this.Config = app.Config;
+		this.DevConfig = app.DevConfig; // Dev config to simulate userinfo
 		this.Store = app.Store;
 		app.ReduxService.addReducer("auth", reducer);
 		this.App.addSplashScreenRequestor(this);
@@ -38,34 +39,11 @@ export default class AuthModule extends Module {
 		const headerService = this.App.locateService("HeaderService");
 		headerService.addComponent(HeaderComponent, {AuthModule: this});
 
-		/*
-			Marked section is only for DEV purposes!
-		*/
-		if (__DEV_CONFIG__) {
-			this.App.addAlert("warning", "You are in DEV mode and using FAKE login parameters.", 60000);
-			let fakeParams = __DEV_CONFIG__['FAKE_USERINFO'];
-			if (fakeParams.resources) {
-				fakeParams["resources"] = Object.values(fakeParams.resources)
-			}
-			if (fakeParams.roles) {
-				fakeParams["roles"] = Object.values(fakeParams.roles)
-			}
-			if (fakeParams.tenants) {
-				fakeParams["tenants"] = Object.values(fakeParams.tenants)
-			}
-
-			if (this.App.Store != null) {
-				this.App.Store.dispatch({ type: types.AUTH_USERINFO, payload: fakeParams });
-			}
-
-			// Check for TenantService and pass tenants list obtained from userinfo
-			let tenants_list = fakeParams.tenants;
-			if (this.App.Services.TenantService) {
-				this.App.Services.TenantService.set_tenants(tenants_list);
-			}
-			/* End of `fake` login */
+		if (this.DevConfig.get('FAKE_USERINFO')) {
+			/* This section is only for DEV purposes! */
+			this.simulateUserinfo(this.DevConfig.get('FAKE_USERINFO'))
+			/* End of DEV section */
 		} else {
-
 			// Check the query string for 'code'
 			const qs = new URLSearchParams(window.location.search);
 			const authorization_code = qs.get('code');
@@ -128,6 +106,51 @@ export default class AuthModule extends Module {
 			return config;
 		}
 		return interceptor;
+	}
+
+
+	simulateUserinfo(fake_userinfo) {
+		/*
+			This method takes parameters from devConfig settings
+
+			module.exports = {
+				app: {...},
+				devConfig: {
+					FAKE_USERINFO: {
+						"email": "test",
+						"phone_number": "test",
+						"preferred_username": "test",
+						"resources": ["test:testy:read"],
+						"roles": ["default/Gringo"],
+						"sub": "tst:123456789",
+						"tenants": ["default"]
+					}
+				},
+				webPackDevServer: {...}
+			}
+
+		*/
+		this.App.addAlert("warning", "You are in DEV mode and using FAKE login parameters.", 60000);
+		let fakeParams = fake_userinfo;
+		if (fakeParams.resources) {
+			fakeParams["resources"] = Object.values(fakeParams.resources)
+		}
+		if (fakeParams.roles) {
+			fakeParams["roles"] = Object.values(fakeParams.roles)
+		}
+		if (fakeParams.tenants) {
+			fakeParams["tenants"] = Object.values(fakeParams.tenants)
+		}
+
+		if (this.App.Store != null) {
+			this.App.Store.dispatch({ type: types.AUTH_USERINFO, payload: fakeParams });
+		}
+
+		// Check for TenantService and pass tenants list obtained from userinfo
+		let tenants_list = fakeParams.tenants;
+		if (this.App.Services.TenantService) {
+			this.App.Services.TenantService.set_tenants(tenants_list);
+		}
 	}
 
 
