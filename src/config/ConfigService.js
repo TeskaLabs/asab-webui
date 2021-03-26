@@ -1,7 +1,7 @@
 import Service from '../abc/Service';
 import Axios from 'axios';
 import ConfigReducer from './ConfigReducer';
-import { CHANGE_CONFIG } from '../actions';
+import { CHANGE_CONFIG, SET_DEV_CONFIG } from '../actions';
 
 /*
 Example of use:
@@ -34,7 +34,8 @@ export default class ConfigService extends Service {
 		super(app, serviceName);
 		app.ReduxService.addReducer("config", ConfigReducer);
 
-		this.Config = new Config()
+		this.Config = new Config();
+		this.DevConfig = new DevConfig();
 	}
 
 
@@ -125,6 +126,27 @@ class Config {
 		store.dispatch({
 			type: CHANGE_CONFIG,
 			config: config
+		});
+	}
+}
+
+// Config for DEVs
+class DevConfig {
+
+	get(key) {
+		let value;
+		// Check the local config
+		value = __DEV_CONFIG__[key];
+		if (value !== undefined) return value;
+
+		return undefined;
+	}
+
+	dispatch(store) {
+		var dev_config = Object.assign({}, __DEV_CONFIG__);
+		store.dispatch({
+			type: SET_DEV_CONFIG,
+			dev_config: dev_config
 		});
 	}
 }
