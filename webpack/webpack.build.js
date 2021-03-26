@@ -33,7 +33,7 @@ module.exports = {
 				new webpack.DefinePlugin(
 					common.JSONStringifyValues({
 						"__CONFIG__": config["app"],
-						"__DEV_CONFIG__": undefined
+						"__DEV_CONFIG__": {}
 					})
 				),
 				new HtmlWebpackPlugin({
