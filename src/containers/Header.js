@@ -9,12 +9,18 @@ import {
 
 import {
 	Nav,
-	NavItem
+	NavItem,
+	NavLink
 } from 'reactstrap';
 
 export function Header(props) {
 
 	let HeaderService = props.app.locateService("HeaderService");
+
+	if (props.doc_path) {
+		const Icon = <i className="cil-description" style={{ fontSize: "1.25rem"}}></i>
+		HeaderService.addComponent(NavLink, { children: Icon, href: props.doc_path, target: "_blank" });
+	}
 
 	return (
 		<AppHeader fixed>
@@ -86,6 +92,7 @@ function mapStateToProps(state) {
 	return {
 		brand_image: headerImage,
 		title: state.config.title,
+		doc_path: state.config.doc_path
 	}
 }
 
