@@ -18,8 +18,8 @@ export function Header(props) {
 	let HeaderService = props.app.locateService("HeaderService");
 
 	if (props.doc_path) {
-		const Icon = <i className="cil-external-link" style={{ fontSize: "1.25rem"}}></i>
-		HeaderService.addComponent(NavLink, { children: Icon, href: props.doc_path, target: "_blank" });
+		const Icon = <i className="cil-info" style={{ fontSize: "1.25rem"}}></i>
+		HeaderService.addComponent(NavLink, { children: Icon, href: props.doc_path, target: "_blank", title: "Documentation" });
 	}
 
 	return (
