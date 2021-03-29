@@ -66,21 +66,87 @@ $ yarn install
 $ yarn start
 ```
 
+### Run with `DEV` configuration
+
+```
+$ yarn start -c conf/config.js
+```
+
+Example of `config.js`
+
+Where
+
+* `app` provide url, service and other common configuration, which is similar to build config
+
+* `devConfig` provide configuration for devs, where e.g. `userinfo` can be simulated via `FAKE_USERINFO`. This is not a part of build config
+
+* `webPackDevServer` where webpack settings for dev server is provided. This is not a part of build config
+
+```
+module.exports = {
+	app: {
+		BASE_URL: 'http://localhost:3000',
+		API_PATH: 'api',
+		SERVICES: {
+			oidc: 'openidconnect',
+			asab_config: 'asab_config',
+			seacat_auth_webui: 'http://localhost:3000/auth'
+			}
+		},
+	devConfig: {
+		FAKE_USERINFO: {
+			"email": "test@test.te",
+			"phone_number": "0123456789",
+			"preferred_username": "Test",
+			"resources": ["test:testy:read"],
+			"roles": ["default/Gringo"],
+			"sub": "tst:123456789",
+			"tenants": ["default"]
+		}
+	},
+	webPackDevServer: {
+		port: 3000,
+		proxy: {
+			'/api/asab_config': {
+				target: "http://localhost:8080",
+				pathRewrite: { '^/api/asab_config': ''}
+			},
+		}
+	}
+}
+```
+
+
 ## Build
 
 ```
 $ yarn build
 ```
 
-Build for deployment to a specific public url
+### Build for deployment to a specific public url
 
 ```
 $ yarn build -u https://example.com/app
 ```
 
-or
+### Build for deployment with configuration
 
 ```
-$ yarn build -c ./conf/example.site.js
+$ yarn build -c conf/config.js
 ```
 
+Example of `config.js`
+
+```
+module.exports = {
+	app: {
+		BASE_URL: 'https://example.com',
+		API_PATH: 'api',
+		SERVICES: {
+			oidc: 'openidconnect',
+			asab_config: 'asab_config',
+			seacat_auth_webui: 'https://example.com/auth'
+			}
+		}
+}
+```
