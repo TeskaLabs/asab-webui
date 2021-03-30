@@ -70,15 +70,20 @@ $ yarn start
 
 ### Run with `DEV` configuration
 
+```
+$ yarn start -c conf/config.js
+```
+
 This option is suitable for developers, who want to provide specific configuration for the application (e.g. simulate list of `tenants`) and need to work on parts of the application without bundling it into static files for production via `yarn build`.
 
 `DEV` configuration provides an option to simulate some part of the information usually obtained from the service, such as simulation of `userinfo` or any other configuration.
 
 **Important note**: the configuration set in `devConfig` is **NOT** propagated to the production environment!
 
+To find more about how to use `devConfig` and simulate `userinfo`, see `doc` folder in ASAB Web UI project:
 
 ```
-$ yarn start -c conf/config.js
+/doc/devconfig.md
 ```
 
 Example of `config.js`
