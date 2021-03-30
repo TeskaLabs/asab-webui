@@ -62,11 +62,20 @@ $ yarn install
 
 ## Run
 
+`yarn start` runs the application in development mode.
+
 ```
 $ yarn start
 ```
 
 ### Run with `DEV` configuration
+
+This option is suitable for developers, who want to provide specific configuration for the application (e.g. simulate list of `tenants`) and need to work on parts of the application without bundling it into static files for production via `yarn build`.
+
+`DEV` configuration provides an option to simulate some part of the information usually obtained from the service, such as simulation of `userinfo` or any other configuration.
+
+**Important note**: the configuration set in `devConfig` is **NOT** propagated to the production environment!
+
 
 ```
 $ yarn start -c conf/config.js
@@ -119,17 +128,19 @@ module.exports = {
 
 ## Build
 
+`yarn build` bundles the application into static files for production.
+
 ```
 $ yarn build
 ```
 
-### Build for deployment to a specific public url
+### Build for production to a specific public url
 
 ```
 $ yarn build -u https://example.com/app
 ```
 
-### Build for deployment with configuration
+### Build for production with configuration
 
 ```
 $ yarn build -c conf/config.js
