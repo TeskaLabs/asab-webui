@@ -18,6 +18,7 @@ export default class AuthModule extends Module {
 		this.RedirectURL = window.location.href;
 		this.MustAuthenticate = true; // Setting this to false means, that we can operate without authenticated user
 		this.Config = app.Config;
+		this.DevConfig = app.DevConfig; // Dev config to simulate userinfo
 		this.Store = app.Store;
 		app.ReduxService.addReducer("auth", reducer);
 		this.App.addSplashScreenRequestor(this);
@@ -38,58 +39,63 @@ export default class AuthModule extends Module {
 		const headerService = this.App.locateService("HeaderService");
 		headerService.addComponent(HeaderComponent, {AuthModule: this});
 
-		// Check the query string for 'code'
-		const qs = new URLSearchParams(window.location.search);
-		const authorization_code = qs.get('code');
-		if (authorization_code !== null) {
-			await this._updateToken(authorization_code);
+		if (this.DevConfig.get('FAKE_USERINFO')) {
+			/* This section is only for DEV purposes! */
+			this.simulateUserinfo(this.DevConfig.get('FAKE_USERINFO'))
+			/* End of DEV section */
+		} else {
+			// Check the query string for 'code'
+			const qs = new URLSearchParams(window.location.search);
+			const authorization_code = qs.get('code');
+			if (authorization_code !== null) {
+				await this._updateToken(authorization_code);
 
-			// Remove 'code' from a query string
-			qs.delete('code');
+				// Remove 'code' from a query string
+				qs.delete('code');
 
-			// And reload the app
-			window.location.replace('?' + qs.toString() + window.location.hash);
-			return;
-		}
-		
-		// Do we have an oauth token (we are authorized to use the app)
-		if (this.OAuthToken != null) {
-			// Update the user info
-			let result = await this._updateUserInfo();
-			if (!result) {
-				// User info not found - go to login
-				sessionStorage.removeItem('SeaCatOAuth2Token');
-				let force_login_prompt = true;
-
-				this.Api.login(this.RedirectURL, force_login_prompt);
+				// And reload the app
+				window.location.replace('?' + qs.toString() + window.location.hash);
 				return;
 			}
 
-			// Add interceptor with Bearer token in the Header into axios calls
-			this.App.addAxiosInterceptor(this.authInterceptor());
+			// Do we have an oauth token (we are authorized to use the app)
+			if (this.OAuthToken != null) {
+				// Update the user info
+				let result = await this._updateUserInfo();
+				if (!result) {
+					// User info not found - go to login
+					sessionStorage.removeItem('SeaCatOAuth2Token');
+					let force_login_prompt = true;
 
-			// Authorization of the user based on rbac
-			if (this.Authorization?.Authorize) {
-				let userAuthorized = await this._isUserAuthorized();
-				let logoutTimeout = this.Authorization?.UnauthorizedLogoutTimeout ? this.Authorization.UnauthorizedLogoutTimeout : 60000;
-				if (!userAuthorized) {
-					this.App.addAlert("danger", "You are not authorized to use this application.", logoutTimeout);
-					// Logout after some time
-					setTimeout(() => {
-						this.logout();
-					}, logoutTimeout);
+					this.Api.login(this.RedirectURL, force_login_prompt);
 					return;
 				}
+
+				// Add interceptor with Bearer token in the Header into axios calls
+				this.App.addAxiosInterceptor(this.authInterceptor());
+
+				// Authorization of the user based on rbac
+				if (this.Authorization?.Authorize) {
+					let userAuthorized = await this._isUserAuthorized();
+					let logoutTimeout = this.Authorization?.UnauthorizedLogoutTimeout ? this.Authorization.UnauthorizedLogoutTimeout : 60000;
+					if (!userAuthorized) {
+						this.App.addAlert("danger", "You are not authorized to use this application.", logoutTimeout);
+						// Logout after some time
+						setTimeout(() => {
+							this.logout();
+						}, logoutTimeout);
+						return;
+					}
+				}
+			}
+
+			if ((this.UserInfo == null) && (this.MustAuthenticate)) {
+				// TODO: force_login_prompt = true to break authentication failure loop
+				let force_login_prompt = false;
+				this.Api.login(this.RedirectURL, force_login_prompt);
+				return;
 			}
 		}
-
-		if ((this.UserInfo == null) && (this.MustAuthenticate)) {
-			// TODO: force_login_prompt = true to break authentication failure loop
-			let force_login_prompt = false;
-			this.Api.login(this.RedirectURL, force_login_prompt);
-			return;
-		}
-		
 		this.App.removeSplashScreenRequestor(this);
 	}
 
@@ -100,6 +106,51 @@ export default class AuthModule extends Module {
 			return config;
 		}
 		return interceptor;
+	}
+
+
+	simulateUserinfo(fake_userinfo) {
+		/*
+			This method takes parameters from devConfig settings
+
+			module.exports = {
+				app: {...},
+				devConfig: {
+					FAKE_USERINFO: {
+						"email": "test",
+						"phone_number": "test",
+						"preferred_username": "test",
+						"resources": ["test:testy:read"],
+						"roles": ["default/Gringo"],
+						"sub": "tst:123456789",
+						"tenants": ["default"]
+					}
+				},
+				webPackDevServer: {...}
+			}
+
+		*/
+		this.App.addAlert("warning", "You are in DEV mode and using FAKE login parameters.", 60000);
+		let fakeParams = fake_userinfo;
+		if (fakeParams.resources) {
+			fakeParams["resources"] = Object.values(fakeParams.resources)
+		}
+		if (fakeParams.roles) {
+			fakeParams["roles"] = Object.values(fakeParams.roles)
+		}
+		if (fakeParams.tenants) {
+			fakeParams["tenants"] = Object.values(fakeParams.tenants)
+		}
+
+		if (this.App.Store != null) {
+			this.App.Store.dispatch({ type: types.AUTH_USERINFO, payload: fakeParams });
+		}
+
+		// Check for TenantService and pass tenants list obtained from userinfo
+		let tenants_list = fakeParams.tenants;
+		if (this.App.Services.TenantService) {
+			this.App.Services.TenantService.set_tenants(tenants_list);
+		}
 	}
 
 

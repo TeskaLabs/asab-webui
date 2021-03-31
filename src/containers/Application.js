@@ -85,7 +85,8 @@ it is accessible by the sidebar toggler button.
 
 		this.ReduxService = new ReduxService(this, "ReduxService");
 		this.ConfigService = new ConfigService(this, "ConfigService");
-		this.Config = this.ConfigService.Config
+		this.Config = this.ConfigService.Config;
+		this.DevConfig = this.ConfigService.DevConfig; // DEV config, use to simulate userinfo
 
 		this.Router = new Router(this);
 		this.Navigation = new Navigation(this);
@@ -114,6 +115,7 @@ it is accessible by the sidebar toggler button.
 		this.ConfigService.addDefaults(props.configdefaults);
 
 		this.Config.dispatch(this.Store);
+		this.DevConfig.dispatch(this.Store);
 
 		this.addSplashScreenRequestor(this);
 		this.state.SplashscreenRequestors = this.SplashscreenRequestors.size;

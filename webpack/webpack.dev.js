@@ -35,7 +35,8 @@ module.exports = {
 			plugins: [
 				new webpack.DefinePlugin(
 					common.JSONStringifyValues(Object.assign({
-						"__CONFIG__": config["app"]
+						"__CONFIG__": config["app"],
+						"__DEV_CONFIG__": config["devConfig"]
 					}))
 				),
 				new HtmlWebpackPlugin({
