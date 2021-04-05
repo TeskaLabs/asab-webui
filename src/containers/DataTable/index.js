@@ -41,7 +41,11 @@ export function DataTable ({
 		const list = onDownload();
 		let csv = headers.map(header => header.name).join(',') + "\n" + 
 			list.map(item => headers.map(header => {
-				if (header.customComponent) return header.customComponent.onDownload(item, header).replace(',', ';');
+				if (header.customComponent) {
+					if (header.customComponent.onDownload)
+						return header.customComponent.onDownload(item, header).replace(',', ';');
+					return '-';
+				}
 				return JSON.stringify(item[header.key])?.replace(',', ';');
 			}).join(',')).join('\n');
 		let blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
