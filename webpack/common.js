@@ -39,8 +39,8 @@ exports.getRules = function(config) {
 					loader: 'file-loader',
 					options: {
 						name: '[name].[hash].[ext]',
-						publicPath: 'files/',
-						outputPath: 'assets/css/files/',
+						publicPath: '../',
+						outputPath: 'assets/',
 					}
 			}]
 		},

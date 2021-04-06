@@ -23,7 +23,7 @@ module.exports = {
 				filename: 'assets/js/[name].[chunkhash:8].js',
 				chunkFilename: 'assets/js/[name].[chunkhash:8].chunk.js',
 				path: path.resolve(config["dirs"]["dist"]),
-				publicPath: config["app"]["publicUrl"],
+				publicPath: config["app"]["BASE_URL"],
 			},
 			resolve: config["webpack"]["resolve"],
 			module: {
