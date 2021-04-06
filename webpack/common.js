@@ -39,8 +39,8 @@ exports.getRules = function(config) {
 					loader: 'file-loader',
 					options: {
 						name: '[name].[hash].[ext]',
-						publicPath: (config["app"]["BASE_URL"] || '').replace(/\/+$/, '')+'/assets/',
-						outputPath: 'assets/',
+						publicPath: 'files/',
+						outputPath: 'assets/css/files/',
 					}
 			}]
 		},
