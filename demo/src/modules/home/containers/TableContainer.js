@@ -150,6 +150,8 @@ export default function (props) {
 		setStr(value);
 	};
 
+	const onDownload = () => initData.data;
+
 	return (
 		<Container>
 			<DataTable
@@ -164,6 +166,7 @@ export default function (props) {
 				search={{ icon: 'cil-magnifying-glass', placeholder: "Search" }}
 				createButton={{ text: "Create", icon: 'cil-plus', pathname: '#' }}
 				onSearch={onSearch}
+				onDownload={onDownload}
 			/>
 		</Container>
 	)

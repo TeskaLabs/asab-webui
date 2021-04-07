@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { saveAs } from 'file-saver';
+import m from 'moment';
 
 import { 
 	Card, Row, Col,
@@ -18,7 +19,7 @@ export function DataTable ({
 	data, headers, limit = 10,
 	setLimit, count, currentPage = 1,
 	setPage, title, createButton,
-	search, onSearch
+	search, onSearch, onDownload
 	}) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isDropOpen, setDropdown] = useState(false);
@@ -35,6 +36,21 @@ export function DataTable ({
 		if (onSearch) onSearch(filterValue);
 		}, 500);
 	}, [filterValue]);
+
+	const downloadHandler = () => {
+		const list = onDownload();
+		let csv = headers.map(header => header.name).join(',') + "\n" + 
+			list.map(item => headers.map(header => {
+				if (header.customComponent) {
+					if (header.customComponent.onDownload)
+						return header.customComponent.onDownload(item, header).replace(',', ';');
+					return '-';
+				}
+				return JSON.stringify(item[header.key])?.replace(',', ';');
+			}).join(',')).join('\n');
+		let blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
+		saveAs(blob, `${title.text.replace(' ', '_')}_${m().format('D-MM-YYYY')}.csv`);
+	}
 
 	return (
 		<Row>
@@ -58,6 +74,14 @@ export function DataTable ({
 					</Button>
 					</Link>
 				</div>
+				}
+				{onDownload &&
+					<div className="float-right pr-3">
+						<Button tag="span" size="sm" onClick={downloadHandler} >
+							<i className="cil-arrow-bottom"></i>
+							Download
+						</Button>
+					</div>
 				}
 				{search && 
 				<div className={`float-right${createButton ? " pr-3" : ''}`}>
