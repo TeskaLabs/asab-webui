@@ -1,5 +1,5 @@
 module.exports = {
 	app: {
-		"publicUrl": "",
+		"BASE_URL": "",
 	},
 }

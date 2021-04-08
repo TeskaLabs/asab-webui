@@ -20,8 +20,8 @@ module.exports = {
 			mode: 'development',
 			watch: true,
 			output: {
-				filename: 'static/js/bundle.js',
-				chunkFilename: 'static/js/[name].chunk.js',
+				filename: 'assets/js/bundle.js',
+				chunkFilename: 'assets/js/[name].chunk.js',
 				path: config["dirs"]["dist"],
 				publicPath: '/',
 				// Point sourcemap entries to original disk location (format as URL on Windows)
@@ -49,7 +49,7 @@ module.exports = {
 					// "apiUrl" -> "__API_URL__"
 				),
 				// Extracts file styles.css
-				new ExtractTextPlugin('static/css/styles.css'),
+				new ExtractTextPlugin('assets/css/styles.css'),
 				// Minimizes styles.css
 				// new OptimizeCssAssetsPlugin()
 			]
