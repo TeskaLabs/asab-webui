@@ -39,9 +39,9 @@ export default class AuthModule extends Module {
 		const headerService = this.App.locateService("HeaderService");
 		headerService.addComponent(HeaderComponent, {AuthModule: this});
 
-		if (this.DevConfig.get('FAKE_USERINFO')) {
+		if (this.DevConfig.get('MOCK_USERINFO')) {
 			/* This section is only for DEV purposes! */
-			this.simulateUserinfo(this.DevConfig.get('FAKE_USERINFO'))
+			this.simulateUserinfo(this.DevConfig.get('MOCK_USERINFO'))
 			/* End of DEV section */
 		} else {
 			// Check the query string for 'code'
@@ -109,14 +109,14 @@ export default class AuthModule extends Module {
 	}
 
 
-	simulateUserinfo(fake_userinfo) {
+	simulateUserinfo(mock_userinfo) {
 		/*
 			This method takes parameters from devConfig settings
 
 			module.exports = {
 				app: {...},
 				devConfig: {
-					FAKE_USERINFO: {
+					MOCK_USERINFO: {
 						"email": "test",
 						"phone_number": "test",
 						"preferred_username": "test",
@@ -130,24 +130,24 @@ export default class AuthModule extends Module {
 			}
 
 		*/
-		this.App.addAlert("warning", "You are in DEV mode and using FAKE login parameters.", 60000);
-		let fakeParams = fake_userinfo;
-		if (fakeParams.resources) {
-			fakeParams["resources"] = Object.values(fakeParams.resources)
+		this.App.addAlert("warning", "You are in DEV mode and using MOCK login parameters.", 60000);
+		let mockParams = mock_userinfo;
+		if (mockParams.resources) {
+			mockParams["resources"] = Object.values(mockParams.resources)
 		}
-		if (fakeParams.roles) {
-			fakeParams["roles"] = Object.values(fakeParams.roles)
+		if (mockParams.roles) {
+			mockParams["roles"] = Object.values(mockParams.roles)
 		}
-		if (fakeParams.tenants) {
-			fakeParams["tenants"] = Object.values(fakeParams.tenants)
+		if (mockParams.tenants) {
+			mockParams["tenants"] = Object.values(mockParams.tenants)
 		}
 
 		if (this.App.Store != null) {
-			this.App.Store.dispatch({ type: types.AUTH_USERINFO, payload: fakeParams });
+			this.App.Store.dispatch({ type: types.AUTH_USERINFO, payload: mockParams });
 		}
 
 		// Check for TenantService and pass tenants list obtained from userinfo
-		let tenants_list = fakeParams.tenants;
+		let tenants_list = mockParams.tenants;
 		if (this.App.Services.TenantService) {
 			this.App.Services.TenantService.set_tenants(tenants_list);
 		}

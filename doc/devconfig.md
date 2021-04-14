@@ -5,43 +5,23 @@
 It is a configuration setting for devs to facilitate their work when application is in the development and some of the mandatory properties from e.g. `auth` and `tenant` modules has to be obtained. `devConfig` will help to simulate those properties when running the web server with `yarn start`. For builds using `yarn build` it has no impact.
 
 
-## Obtain fake userinfo
+## Obtain mock userinfo
 
-Fake `userinfo` is an object of properties obtained after login to the application. To simulate the logged user state, `FAKE_USERINFO` supply the `userinfo` when on development.
+Mocked `userinfo` is an object of properties obtained after login to the application. To simulate the logged user state, `MOCK_USERINFO` supply the `userinfo` when on development.
 
-`FAKE_USERINFO` can be obtained from the configuration of `devConfig` as in following example:
+`MOCK_USERINFO` can be obtained from the configuration of `devConfig` as in following example:
 
 ```
 let App = props.app;
-let myFakeUserInfo = App.devConfig.get("FAKE_USERINFO");
+let myMockUserInfo = App.devConfig.get("MOCK_USERINFO");
 ```
 
-`FAKE_USERINFO` is also dispatched to the application's redux store, so it is possible to retrieve it with `mapStateToProps`.
+`MOCK_USERINFO` is also dispatched to the application's redux store, so it is possible to retrieve it with `mapStateToProps`.
 
-**Important note**: to obtain `FAKE_USERINFO` from store, ASAB WebUI `auth` module must be enabled.
+**Important note**: to obtain `MOCK_USERINFO` from store, ASAB WebUI `auth` module must be enabled.
 
-Examples with `mapStateToProps`:
 
-```
-function mapStateToProps(state) {
-	return {
-		userinfo: state.auth.userinfo
-	}
-}
-```
-
-Defining `FAKE_USERINFO` with `tenants` array will enable option to obtain current tenant from redux store:
-
-```
-function mapStateToProps(state) {
-	return {
-		tenant: state.tenant.current,
-		userinfo: state.auth.userinfo
-	}
-}
-```
-
-## Fake userinfo properties
+## Mock userinfo properties
 
 Developers can define as many properties they want to simulate e.g. features/items which has not been implemented yet in the backend service providing `userinfo`.
 
@@ -57,7 +37,7 @@ Above listed properties are crucial to allow developer use parts of the applicat
 
 ## Configuration example
 
-Example of `config.js` file with `FAKE_USERINFO`
+Example of `config.js` file with `MOCK_USERINFO`
 
 ```
 module.exports = {
@@ -71,7 +51,7 @@ module.exports = {
 			}
 		},
 	devConfig: {
-		FAKE_USERINFO: {
+		MOCK_USERINFO: {
 			"email": "test@test.te",
 			"phone_number": "0123456789",
 			"preferred_username": "Test",
