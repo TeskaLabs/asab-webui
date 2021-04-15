@@ -92,7 +92,7 @@ Where
 
 * `app` provide url, service and other common configuration, which is similar to build config
 
-* `devConfig` provide configuration for devs, where e.g. `userinfo` can be simulated via `FAKE_USERINFO`. This is not a part of build config
+* `devConfig` provide configuration for devs, where e.g. `userinfo` can be simulated via `MOCK_USERINFO`. This is not a part of build config
 
 * `webPackDevServer` where webpack settings for dev server is provided. This is not a part of build config
 
@@ -108,7 +108,7 @@ module.exports = {
 			}
 		},
 	devConfig: {
-		FAKE_USERINFO: {
+		MOCK_USERINFO: {
 			"email": "test@test.te",
 			"phone_number": "0123456789",
 			"preferred_username": "Test",
