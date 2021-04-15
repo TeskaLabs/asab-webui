@@ -19,12 +19,6 @@ export default class ConfigModule extends Module {
 			component: ConfigContainer,
 		});
 
-		this.Navigation.addItem({
-			name: "Configuration",
-			url: "/config/$/$",
-			icon: 'cil-settings',
-		});
-
 		this.Router.addRoute({
 			path: "/config/microservices",
 			exact: true,
@@ -33,9 +27,20 @@ export default class ConfigModule extends Module {
 		});
 
 		this.Navigation.addItem({
-			name: "Microservices",
-			url: "/config/microservices",
-			icon: 'cil-list',
+			name: 'Maintenance',
+			icon: 'cil-apps-settings',
+			children: [
+				{
+					name: "Configuration",
+					url: "/config/$/$",
+					icon: 'cil-settings',
+				},
+				{
+					name: "Microservices",
+					url: "/config/microservices",
+					icon: 'cil-list',
+				}
+			]
 		});
 
 	}
