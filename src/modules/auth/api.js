@@ -52,12 +52,12 @@ export class SeaCatAuthApi {
 	}
 
 
-	userinfo(access_token) {
-		let headers = {}
+	userinfo(access_token, active_tenant) {
+		let headers = {};
 		if (access_token != null) {
 			headers.Authorization = 'Bearer ' + access_token;
 		}
-		return this.OidcAPI.get('/userinfo', {headers: headers});
+		return this.OidcAPI.get('/userinfo?tenant=' + active_tenant, {headers: headers});
 	}
 
 
