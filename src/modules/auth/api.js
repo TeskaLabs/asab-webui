@@ -17,7 +17,6 @@ export class SeaCatAuthApi {
 	*/
 
 	constructor(app) {
-
 		this.App = app;
 
 		const scope = this.App.Config.get('seacat.auth.scope');
@@ -27,6 +26,7 @@ export class SeaCatAuthApi {
 		this.ClientSecret = "TODO";
 		this.SeaCatAuthAPI = this.App.axiosCreate('seacat_auth');
 		this.OidcAPI = this.App.axiosCreate('oidc');
+
 	}
 
 	// This method will cause a navigation from the app to the OAuth2 login screen
@@ -53,11 +53,22 @@ export class SeaCatAuthApi {
 
 
 	userinfo(access_token) {
-		let headers = {}
+		let userinfoPath = '/userinfo';
+		let headers = {};
+		// Obtain active tenant from URL params (if available)
+		const search = window.location.search;
+		const params = new URLSearchParams(search);
+		let active_tenant = params.get('tenant');
+		// Check if active tenant is present and eventually change the userinfo path
+		if (active_tenant) {
+			userinfoPath = '/userinfo?tenant=' + active_tenant.toString();
+		}
+		// Add access bearer token to the Authorization headers
 		if (access_token != null) {
 			headers.Authorization = 'Bearer ' + access_token;
 		}
-		return this.OidcAPI.get('/userinfo', {headers: headers});
+
+		return this.OidcAPI.get(userinfoPath, {headers: headers});
 	}
 
 
