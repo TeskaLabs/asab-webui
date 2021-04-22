@@ -173,7 +173,6 @@ export default class AuthModule extends Module {
 
 	async _updateUserInfo() {
 		let response;
-		// Obtain tenant for API call from URL params
 		try {
 			response = await this.Api.userinfo(this.OAuthToken.access_token);
 		}
