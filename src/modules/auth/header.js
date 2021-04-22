@@ -33,6 +33,12 @@ function HeaderComponent(props) {
 	const { t, i18n } = useTranslation();
 	// Get service URL
 	let user_auth_url = App.getServiceURL('seacat_auth_webui');
+	// Get access control URL
+	let access_control_url = window.location.protocol + '//' + window.location.host + '#/auth/access-control';
+	let active_tenant = props.current;
+	if (active_tenant) {
+		access_control_url = window.location.protocol + '//' + window.location.host + '/?tenant=' + active_tenant + '#/auth/access-control';
+	}
 
 	const logout = () => {
 		props.AuthModule.logout()
@@ -51,7 +57,7 @@ function HeaderComponent(props) {
 			</DropdownToggle>
 			<DropdownMenu>
 				<DropdownItem header tag="div" className="text-center"><strong>{t('AuthHeaderDropdown|My account')}</strong></DropdownItem>
-				<DropdownItem tag="a" href={window.location.protocol + '//' + window.location.host + '/?tenant=' + props.current + '#/auth/access-control'}>
+				<DropdownItem tag="a" href={access_control_url}>
 					{t('AuthHeaderDropdown|Access control')}
 				</DropdownItem>
 				{user_auth_url != null &&
