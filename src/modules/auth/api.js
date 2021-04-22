@@ -53,17 +53,22 @@ export class SeaCatAuthApi {
 
 
 	userinfo(access_token) {
+		let userinfoPath = '/userinfo';
 		let headers = {};
 		// Obtain active tenant from URL params (if available)
 		const search = window.location.search;
 		const params = new URLSearchParams(search);
 		let active_tenant = params.get('tenant');
+		// Check if active tenant is present and eventually change the userinfo path
+		if (active_tenant) {
+			userinfoPath = '/userinfo?tenant=' + active_tenant.toString();
+		}
 		// Add access bearer token to the Authorization headers
 		if (access_token != null) {
 			headers.Authorization = 'Bearer ' + access_token;
 		}
-		// The userinfo API call will handle the cases where tenant is not available or undefined
-		return this.OidcAPI.get('/userinfo?tenant=' + active_tenant, {headers: headers});
+
+		return this.OidcAPI.get(userinfoPath, {headers: headers});
 	}
 
 
