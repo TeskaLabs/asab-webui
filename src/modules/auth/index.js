@@ -174,11 +174,8 @@ export default class AuthModule extends Module {
 	async _updateUserInfo() {
 		let response;
 		// Obtain tenant for API call from URL params
-		const search = window.location.search;
-		const params = new URLSearchParams(search);
-		let activeTenant = params.get('tenant');
 		try {
-			response = await this.Api.userinfo(this.OAuthToken.access_token, activeTenant);
+			response = await this.Api.userinfo(this.OAuthToken.access_token);
 		}
 		catch (err) {
 			console.log("Failed to update user info", err);
