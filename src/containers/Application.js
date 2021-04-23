@@ -1,31 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import * as router from 'react-router-dom';
 import { withRouter } from "react-router";
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Axios from 'axios';
 import { Helmet } from "react-helmet";
 
-import {
-	Container,
-	Nav, NavItem, NavLink,
-	Badge,
-	DropdownToggle, DropdownMenu,
-	Progress, Fade
-} from 'reactstrap';
+import { Fade } from 'reactstrap';
 
-import {
-	AppAside,
-	AppAsideToggler,
-	AppBreadcrumb2 as AppBreadcrumb,
-	AppNavbarBrand
-} from '@coreui/react';
+import { AppBreadcrumb2 as AppBreadcrumb } from '@coreui/react';
 
 import Header from './Header';
 import Footer from './Footer';
 import Sidebar from './Sidebar';
 import SplashScreen from './SplashScreen';
+import { Spinner } from './Spinner';
 
 import AlertsComponent from '../alerts/AlertsComponent';
 import AlertsReducer from '../alerts/reducer';
@@ -448,22 +438,26 @@ it is accessible by the sidebar toggler button.
 							{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ?
 								<AppBreadcrumb appRoutes={this.Router.Routes} router={router} />
 								: null}
-							<Switch>
-								{this.Router.Routes.map((route, idx) => {
-									return route.component ? (
-										<Route
-											key={idx}
-											path={`${route.path}`}
-											exact={route.exact}
-											name={route.name}
-											render={props => (
-												<route.component app={this} {...props} {...route.props} />
-											)}
-										/>
-									) : (null);
-								})}
-								{this.DefaultPath != undefined ? <Redirect from="/" to={this.DefaultPath} /> : null}
-							</Switch>
+							<Suspense 
+								fallback={<div style={{ marginTop: "1rem" }}><Spinner /></div>}
+							>
+								<Switch>
+									{this.Router.Routes.map((route, idx) => {
+										return route.component ? (
+											<Route
+												key={idx}
+												path={`${route.path}`}
+												exact={route.exact}
+												name={route.name}
+												render={props => (
+													<route.component app={this} {...props} {...route.props} />
+												)}
+											/>
+										) : (null);
+									})}
+									{this.DefaultPath != undefined ? <Redirect from="/" to={this.DefaultPath} /> : null}
+								</Switch>
+							</Suspense>
 						</main>
 					</div>
 					<Footer app={this} />

@@ -23,7 +23,7 @@ module.exports = {
 				filename: 'assets/js/[name].[chunkhash:8].js',
 				chunkFilename: 'assets/js/[name].[chunkhash:8].chunk.js',
 				path: path.resolve(config["dirs"]["dist"]),
-				publicPath: config["app"]["BASE_URL"],
+				publicPath: '/',
 			},
 			resolve: config["webpack"]["resolve"],
 			module: {
@@ -58,7 +58,10 @@ module.exports = {
 					// "apiUrl" -> "__API_URL__"
 				),
 				// Extracts file styles.css
-				new ExtractTextPlugin('assets/css/styles.css'),
+				new ExtractTextPlugin({
+					filename: 'assets/css/styles.css',
+					allChunks: true
+				}),
 				new UglifyJsPlugin({
 					uglifyOptions: {
 						output: {

@@ -1,7 +1,8 @@
-import HomeContainer from './containers/HomeContainer'
+import { lazy } from 'react';
 import Module from 'asab-webui/abc/Module';
-import TableContainer from './containers/TableContainer';
 
+const HomeContainer = lazy(() => import('./containers/HomeContainer'));
+const TableContainer = lazy(() => import('./containers/TableContainer'));
 
 export default class HomeModule extends Module {
 	constructor(app, name){
@@ -12,11 +13,11 @@ export default class HomeModule extends Module {
 			name: 'Home',
 			url: '/',
 			icon: 'cil-home',
-		})
+		});
 		app.Navigation.addItem({
 			name: 'Table',
 			url: '/Table',
 			icon: 'cil-chart',
-		})
+		});
 	}
 }

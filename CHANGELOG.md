@@ -6,6 +6,8 @@
 
 - Add Spinner component (INDIGO Sprint 210406, [!95](https://github.com/TeskaLabs/asab-webui/pull/95))
 
+- Implement lazy-loading (INDIGO Sprint 210416) [!93] (https://github.com/TeskaLabs/asab-webui/pull/93)
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
