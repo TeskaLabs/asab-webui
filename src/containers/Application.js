@@ -15,7 +15,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Sidebar from './Sidebar';
 import SplashScreen from './SplashScreen';
-import { LoadingSpinner } from './LoadingSpinner';
+import { Spinner } from './Spinner';
 
 import AlertsComponent from '../alerts/AlertsComponent';
 import AlertsReducer from '../alerts/reducer';
@@ -439,7 +439,7 @@ it is accessible by the sidebar toggler button.
 								<AppBreadcrumb appRoutes={this.Router.Routes} router={router} />
 								: null}
 							<Suspense 
-								fallback={<LoadingSpinner />}
+								fallback={<div style={{ marginTop: "1rem" }}><Spinner /></div>}
 							>
 								<Switch>
 									{this.Router.Routes.map((route, idx) => {
