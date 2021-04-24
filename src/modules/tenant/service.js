@@ -7,6 +7,20 @@ export default class TenantService extends Service {
 		super(app, name);
 	}
 
+	async initialize() {
+
+		// If the tenant list is in the configuration, use it
+		// This is useful when tenants are present but auth not
+		var tenants = this.App.Config.get('tenants');
+		if (tenants != null) {
+			var tenants_list = [];
+			for (var i = 0; tenants[i] != undefined; i++) { 
+				tenants_list.push(tenants[i]);
+			}
+			this.set_tenants(tenants_list);
+		}
+	}
+
 	/*
 		set_tenants(tenants_list) method is used for tenants obtained from userinfo
 		It is used within auth module of ASAB WebUI to dispatch the tenants to the application store
