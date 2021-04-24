@@ -168,19 +168,19 @@ it is accessible by the sidebar toggler button.
 		// Obtain BASE_URL
 		let BASE_URL = undefined;
 		if (this.Config.get('BASE_URL') == undefined) {
-			BASE_URL = window.location.protocol + '//' + window.location.host;
+			BASE_URL = window.location.protocol + '//' + window.location.host + window.location.pathname.replace(/\/$/, '');
 		} else {
 			BASE_URL = this.Config.get('BASE_URL');
 		}
 		// Compose service_url
 		let service_url = undefined;
 		if (this.Config.get('API_PATH') == undefined) {
-			service_url = BASE_URL + '/api';
+			service_url = BASE_URL.replace(/\/$/, '') + '/api';
 		} else {
-			service_url = BASE_URL + "/" + this.Config.get('API_PATH');
+			service_url = BASE_URL.replace(/\/$/, '') + "/" + this.Config.get('API_PATH');
 		}
 
-		return service_url + "/" + service_path;
+		return service_url.replace(/\/$/, '') + "/" + service_path;
 	}
 
 
