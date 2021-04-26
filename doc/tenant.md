@@ -78,3 +78,31 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps)(TenantExample);
 ```
+
+
+## Statically configured tenants
+
+Sometimes it is useful to operate the WebUI with statically specified tenant(s).
+This means that WebUI can operate without need of the Auth backend.
+
+It is done by inclusion of the list of `tenants` information in the static configuration:
+
+```
+module.exports = {
+	app: {
+		...
+		tenants: [
+			'tenant1',
+			'tenant2',
+		]
+		...
+	},
+	...
+}
+
+```
+
+The first tenant in the list is the default tenant.
+
+_Note: This method cannot be combined with other tenant sources, such as API._
+
