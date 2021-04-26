@@ -7,6 +7,7 @@ const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const common = require("./common");
 
 
@@ -70,6 +71,11 @@ module.exports = {
 					}
 				}),
 				new OptimizeCssAssetsPlugin(),
+				// Remove moment locales from bundle except those which are defined as second parameter
+				new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en-gb|cs/),
+				// Uncomment BundleAnalyzerPlugin in case you want to analyze bundle size (also uncomment import of this plugin above)
+				// And comment it before making Pull Request/ Merge Request
+				// new BundleAnalyzerPlugin()
 			],
 			optimization: {
 				minimize: true,
