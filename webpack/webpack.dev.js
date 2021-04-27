@@ -15,6 +15,7 @@ module.exports = {
 		console.log(config);
 		const entry_path = path.resolve(config["dirs"]["src"], 'index.js');
 		const html_template_path = path.resolve(config["dirs"]["public"], 'index.html');
+		const momentLocales = new RegExp((Object.values(config["app"]["momentLocales"]) || ["en-gb", "cs"]).join("|"));
 
 		return {
 			entry: entry_path,
@@ -54,7 +55,7 @@ module.exports = {
 				// Minimizes styles.css
 				// new OptimizeCssAssetsPlugin()
 				// Remove moment locales from bundle except those which are defined as second parameter
-				new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en-gb|cs/),
+				new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, momentLocales),
 				// Uncomment BundleAnalyzerPlugin in case you want to analyze bundle size (also uncomment import of this plugin above)
 				// And comment it before making Pull Request/ Merge Request
 				// new BundleAnalyzerPlugin()
