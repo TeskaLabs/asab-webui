@@ -11,9 +11,9 @@ export default (props) => {
     const [page, setPage] = useState(1);
 
     const headers = [ 
-        { name: 'Microservice', key: 'appclass' },
-        { name: 'Launchtime', key: 'launchtime', datetime: true },
-        { name: 'Hostname', key: 'hostname' }
+        { name: 'Name', key: 'appclass' },
+        { name: 'Launch time', key: 'launchtime', datetime: true },
+        { name: 'Host', key: 'hostname' }
     ];
     const limit = 10;
 
@@ -46,7 +46,7 @@ export default (props) => {
                 count={list.length}
                 limit={limit}
                 title={{
-                    text: "Microservices List"
+                    text: "Microservices"
                 }}
             />
         </Container>
