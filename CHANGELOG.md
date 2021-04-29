@@ -8,6 +8,8 @@
 
 - Implement lazy-loading (INDIGO Sprint 210416) [!93] (https://github.com/TeskaLabs/asab-webui/pull/93)
 
+- Export SplashScreen (INDIGO Sprint 210416) [!100] (https://github.com/TeskaLabs/asab-webui/pull/100)
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
