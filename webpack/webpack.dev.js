@@ -15,9 +15,9 @@ module.exports = {
 		const entry_path = path.resolve(config["dirs"]["src"], 'index.js');
 		const html_template_path = path.resolve(config["dirs"]["public"], 'index.html');
 		// TODO: This is temporary solution. It will be replaced by date-fns.
-		let momentLocales;
+		let momentLocales = /en-gb|cs/;
 		if (config["app"]["momentLocales"]) {
-			momentLocales = new RegExp((Object.values(config["app"]["momentLocales"]) || ["en-gb", "cs"]).join("|"));
+			momentLocales = new RegExp(Object.values(config["app"]["momentLocales"]).join("|"));
 		}
 
 		return {
