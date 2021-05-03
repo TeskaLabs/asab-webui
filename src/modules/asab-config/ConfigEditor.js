@@ -244,8 +244,8 @@ function ConfigSection(props) {
 				<CardBody>
 					{Object.keys(props.section.properties).map((item_name, idx) =>
 						// Decide what type of config item to render based on format
-						// TODO: `format` names should be consulted with BE team
-						{switch(props.section.properties[item_name]['format']){
+						// TODO: `format` names taken from `$defs` will be handled like below after the approval on asab-config service
+						{switch(props.section.properties[item_name]['$defs'] ? Object.keys(props.section.properties[item_name]['$defs'])[0] : undefined){
 							case 'text': return(<ConfigItem
 													key={idx}
 													item={props.section.properties[item_name]}
