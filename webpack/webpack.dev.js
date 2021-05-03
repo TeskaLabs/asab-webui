@@ -12,6 +12,7 @@ const common = require("./common");
 module.exports = {
 	build: function(config) {
 		// paths
+		console.log(config);
 		const entry_path = path.resolve(config["dirs"]["src"], 'index.js');
 		const html_template_path = path.resolve(config["dirs"]["public"], 'index.html');
 		// TODO: This is temporary solution. It will be replaced by date-fns.
