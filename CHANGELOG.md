@@ -10,6 +10,8 @@
 
 - Export SplashScreen (INDIGO Sprint 210416) [!100] (https://github.com/TeskaLabs/asab-webui/pull/100)
 
+- Add configurable moment locales (INDIGO Sprint 210416) [!98] (https://github.com/TeskaLabs/asab-webui/pull/98)
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
