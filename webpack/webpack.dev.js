@@ -14,7 +14,7 @@ module.exports = {
 		// paths
 		const entry_path = path.resolve(config["dirs"]["src"], 'index.js');
 		const html_template_path = path.resolve(config["dirs"]["public"], 'index.html');
-		// THIS IS TEMPORARY SOLUTION. WILL BE REPLACED SOON.
+		// TODO: This is temporary solution. It will be replaced by date-fns.
 		let momentLocales;
 		if (config["app"]["momentLocales"]) {
 			momentLocales = new RegExp((Object.values(config["app"]["momentLocales"]) || ["en-gb", "cs"]).join("|"));
