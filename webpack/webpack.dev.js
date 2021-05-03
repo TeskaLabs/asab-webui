@@ -12,9 +12,9 @@ const common = require("./common");
 module.exports = {
 	build: function(config) {
 		// paths
-		console.log(config);
 		const entry_path = path.resolve(config["dirs"]["src"], 'index.js');
 		const html_template_path = path.resolve(config["dirs"]["public"], 'index.html');
+		// THIS IS TEMPORARY SOLUTION. WILL BE REPLACED SOON.
 		let momentLocales;
 		if (config["app"]["momentLocales"]) {
 			momentLocales = new RegExp((Object.values(config["app"]["momentLocales"]) || ["en-gb", "cs"]).join("|"));
