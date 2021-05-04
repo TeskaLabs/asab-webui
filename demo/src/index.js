@@ -18,7 +18,7 @@ let ConfigDefaults = {
 		alt: "Created by TeskaLabs",
 		href: "https://teskalabs.com/",
 	},
-	doc_path: "https://github.com/TeskaLabs/asab-webui#user-content-asab-web-ui",
+	default_help_url: "https://github.com/TeskaLabs/asab-webui",
 	table: {
 		headers: [ 
 			{ 

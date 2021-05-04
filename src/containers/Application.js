@@ -1,4 +1,4 @@
-import React, { Component, Suspense } from 'react';
+import React, { Component, Suspense, useEffect } from 'react';
 import * as router from 'react-router-dom';
 import { withRouter } from "react-router";
 import { Provider } from 'react-redux';
@@ -20,12 +20,14 @@ import { Spinner } from './Spinner';
 import AlertsComponent from '../alerts/AlertsComponent';
 import AlertsReducer from '../alerts/reducer';
 
+import helpButtonReducer from '../helpButton/reducer';
+
 import ReduxService from '../services/ReduxService';
 import ConfigService from '../config/ConfigService';
 import HeaderService from '../services/HeaderService';
 import FooterService from '../services/FooterService';
 
-import { ADD_ALERT, SET_ADVANCED_MODE } from '../actions';
+import { ADD_ALERT, SET_ADVANCED_MODE, CHANGE_HELP_URL } from '../actions';
 
 
 class Application extends Component {
@@ -89,6 +91,7 @@ it is accessible by the sidebar toggler button.
 
 		this.ReduxService.addReducer("alerts", AlertsReducer);
 		this.ReduxService.addReducer("advmode", AdvancedModeReducer);
+		this.ReduxService.addReducer("helpButton", helpButtonReducer);
 
 		this.DefaultPath = props.defaultpath;
 
@@ -106,6 +109,14 @@ it is accessible by the sidebar toggler button.
 
 		this.Config.dispatch(this.Store);
 		this.DevConfig.dispatch(this.Store);
+
+		this.Store.dispatch({ 
+			type: CHANGE_HELP_URL,
+			payload: {
+				url: this.Config.get("default_help_url"),
+				icon: "cil-info"
+			}
+		})
 
 		this.addSplashScreenRequestor(this);
 		this.state.SplashscreenRequestors = this.SplashscreenRequestors.size;
@@ -396,6 +407,28 @@ it is accessible by the sidebar toggler button.
 		} else {
 			this.addAlert('success', "Advanced mode disabled", 1);
 		}
+	}
+
+	// First argument is href to page
+	// Second (optional) is string that is icon from core-ui icons
+	// Third (optional) is target for link
+	addHelpButton(url, icon = "cil-info", target) {
+		useEffect(() => {
+			this.Store.dispatch({
+				type: CHANGE_HELP_URL,
+				payload: { url, icon, target }
+			})
+			return () => {
+				this.Store.dispatch({
+					type: CHANGE_HELP_URL,
+					payload: {
+						url: this.Config.get('default_help_url'),
+						icon: "cil-info",
+						target: "_blank"
+					}
+				})
+			}
+		}, [])
 	}
 
 
