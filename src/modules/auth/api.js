@@ -86,7 +86,7 @@ export class SeaCatAuthApi {
 	}
 
 	// Verify access to tenant
-	verify_access(tenant, access_token, resource) {
+	verify_access(access_token, tenant, resource) {
 		let rsrc = resource ? resource : "tenant:access";
 		return this.SeaCatAuthAPI.get("/rbac/" + tenant + "/" + rsrc,
 			{ headers: { 'Authorization': 'Bearer ' + access_token }}
