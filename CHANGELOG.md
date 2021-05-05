@@ -12,7 +12,6 @@
 
 - Add configurable moment locales (INDIGO Sprint 210416) [!98] (https://github.com/TeskaLabs/asab-webui/pull/98)
 
-
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
@@ -21,4 +20,4 @@
 
 - Refactor userinfo API call to obtain Roles and Resources for active tenant (INDIGO Sprint 210416, [!94](https://github.com/TeskaLabs/asab-webui/pull/94))
 
-- Refactor microservices list (INDIGO Sprint 210430, [!99](https://github.com/TeskaLabs/asab-webui/pull/99))
+- Refactor microservices list in order to have more human readable header titles and change column with date to proper datetime type (INDIGO Sprint 210430, [!99](https://github.com/TeskaLabs/asab-webui/pull/99))
