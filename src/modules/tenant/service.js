@@ -38,6 +38,12 @@ export default class TenantService extends Service {
 			return;
 		}
 
+		// In case if there is a tenant in the URL but the tenant list from userinfo is undefined
+		if (tenant_id && tenants_list == null) {
+			window.location.replace('/#/');
+			return;
+		}
+
 		// Find the current tenant in the list and extract it
 		let current_tenant;
 		if (tenants_list) {
