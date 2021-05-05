@@ -35,7 +35,8 @@ function HeaderComponent(props) {
 	let user_auth_url = App.getServiceURL('seacat_auth_webui');
 	// Get access control URL
 	let access_control_url = window.location.protocol + '//' + window.location.host + '#/auth/access-control';
-	let active_tenant = props.current;
+	const params = new URLSearchParams(window.location.search);
+	let active_tenant = params.get('tenant');
 	if (active_tenant) {
 		access_control_url = window.location.protocol + '//' + window.location.host + '/?tenant=' + active_tenant + '#/auth/access-control';
 	}
@@ -57,9 +58,9 @@ function HeaderComponent(props) {
 			</DropdownToggle>
 			<DropdownMenu>
 				<DropdownItem header tag="div" className="text-center"><strong>{t('AuthHeaderDropdown|My account')}</strong></DropdownItem>
-				<DropdownItem tag="a" href={access_control_url}>
+				{active_tenant && <DropdownItem tag="a" href={access_control_url}>
 					{t('AuthHeaderDropdown|Access control')}
-				</DropdownItem>
+				</DropdownItem>}
 				{user_auth_url != null &&
 					<React.Fragment>
 						<DropdownItem tag="a" href={user_auth_url}>
@@ -112,8 +113,7 @@ const mapStateToProps = state => {
 	return {
 		sub: sub,
 		username: username,
-		picture: picture,
-		current: state.tenant.current
+		picture: picture
 	};
 };
 
