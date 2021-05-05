@@ -75,7 +75,7 @@ export default class AuthModule extends Module {
 				this.App.addAxiosInterceptor(this.authInterceptor());
 
 				// Authorization of the user based on rbac
-				if (this.Authorization?.Authorize) {
+				if (this.Authorization?.Authorize && this.App.Services.TenantService) {
 					let userAuthorized = await this._isUserAuthorized();
 					let logoutTimeout = this.Authorization?.UnauthorizedLogoutTimeout ? this.Authorization.UnauthorizedLogoutTimeout : 60000;
 					if (!userAuthorized) {
@@ -218,16 +218,11 @@ export default class AuthModule extends Module {
 
 
 	async _isUserAuthorized() {
-		let resp = false;
+		let authorized = false;
 		const state = this.Store.getState();
 		let activeTenant = state.tenant.current;
-		// If active tenant is null, then use tenant from parameters
-		if (activeTenant == null) {
-			const params = new URLSearchParams(window.location.search);
-			activeTenant = params.get('tenant');
-		}
 
-		resp = await this.Api.verify_access(activeTenant, this.OAuthToken['access_token'], this.Authorization?.Resource).then(response => {
+		authorized = await this.Api.verify_access(this.OAuthToken['access_token'], activeTenant, this.Authorization?.Resource).then(response => {
 			if (response.data.result == 'OK'){
 					return true;
 				}
@@ -236,7 +231,7 @@ export default class AuthModule extends Module {
 				return false;
 			});
 
-		return resp;
+		return authorized;
 	}
 
 }
