@@ -18,7 +18,7 @@ import SplashScreen from './SplashScreen';
 import { Spinner } from './Spinner';
 
 import AlertsComponent from '../alerts/AlertsComponent';
-import AlertsReducer from '../alerts/reducer';
+import alertsReducer from '../alerts/reducer';
 
 import helpButtonReducer from '../helpButton/reducer';
 
@@ -89,7 +89,7 @@ it is accessible by the sidebar toggler button.
 		this.HeaderService = new HeaderService(this, "HeaderService");
 		this.FooterService = new FooterService(this, "FooterService");
 
-		this.ReduxService.addReducer("alerts", AlertsReducer);
+		this.ReduxService.addReducer("alerts", alertsReducer);
 		this.ReduxService.addReducer("advmode", AdvancedModeReducer);
 		this.ReduxService.addReducer("helpButton", helpButtonReducer);
 
