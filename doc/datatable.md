@@ -357,7 +357,7 @@ headers = [
 	{
 		name: "Fancy text",
 		customComponent:{
-			generate: (obj) => <SomeFancyComponent>{obj.some_key}</SomeFancyComponent>
+			generate: (row) => <SomeFancyComponent>{row.some_key}</SomeFancyComponent>
 		}
 	}
 ]
@@ -369,7 +369,7 @@ Second argument that `DataTable` pass to `generate` is header itself and it is n
 {
 	name: "Fancy text",
 	customComponent:{
-		generate: (obj, header) => <SomeFancyComponent>{header.name} | {obj.some_key}</SomeFancyComponent>
+		generate: (row, header) => <SomeFancyComponent>{header.name} | {row.some_key}</SomeFancyComponent>
 	}
 }
 ```
@@ -380,8 +380,8 @@ Property `onDownload` of `customComponent` is needed if you want to use custom c
 {
 	name: "Fancy text",
 	customComponent:{
-		generate: (obj, header) => <SomeFancyComponent>{header.name} | {obj.some_key}</SomeFancyComponent>,
-		onDownload: (obj, header) => `${header.name} | ${obj.some_key}`;
+		generate: (row, header) => <SomeFancyComponent>{header.name} | {row.some_key}</SomeFancyComponent>,
+		onDownload: (row, header) => `${header.name} | ${row.some_key}`;
 	}
 }
 ```

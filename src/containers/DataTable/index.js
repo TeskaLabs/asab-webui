@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { saveAs } from 'file-saver';
 import m from 'moment';
@@ -15,15 +16,20 @@ import {
 import Table from './Table';
 import Pagination from './Pagination';
 
+import { LoadingSpinner } from '../LoadingSpinner';
+
 export function DataTable ({
 	data, headers, limit = 10,
 	setLimit, count, currentPage = 1,
 	setPage, title, createButton,
-	search, onSearch, onDownload
+	search, onSearch, onDownload,
+	isLoading, translationRoute = ''
 	}) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isDropOpen, setDropdown] = useState(false);
 	const timeoutRef = useRef(null);
+	
+	const { t } = useTranslation();
 
 	useEffect(() => {
 		if (timeoutRef.current !== null) {
@@ -104,17 +110,27 @@ export function DataTable ({
 			</CardHeader>
 
 			<CardBody className="table-responsive">
-				<Table data={data.length > limit ? data.slice(0, limit) : data} headers={headers}/>
+				{ isLoading ? 
+					<LoadingSpinner /> :
+					<Table data={data.length > limit ? data.slice(0, limit) : data} headers={headers}/>
+				}
+				{count === 0 && t(translationRoute ? `${translationRoute}|No items` : "No items")}
 			</CardBody>
 
 			<CardFooter>
 				<Row>
-				{count &&
+				{count ? (
 					<Col sm="4">
 						<div>
-							Showing {data.length < limit ? data.length : limit} of {count} item(s)
+							{/* <Trans
+								i18nKey={translationRoute ? `${translationRoute}|Items count` : 'Items count'}
+								defaults="Showing {{length}} of {{count}} item(s)"
+								values={{ length: data.length, count: count}}
+							/> */}
+							{t(translationRoute ? `${translationRoute}|Showing 'l' of 'c' item(s)` : "Showing 'l' of 'c' item(s)").replace("'l'", data.length).replace("'c", count)}
 						</div>
 					</Col>
+					) : null
 				}
 
 				{count > limit && setPage &&
@@ -135,7 +151,7 @@ export function DataTable ({
 						className="float-right"
 					>
 						<DropdownToggle caret>
-							Limit: {limit}
+							{t(translationRoute ? `${translationRoute}|Limit` : "Limit")}: {limit}
 						</DropdownToggle>
 						<DropdownMenu>
 						{
