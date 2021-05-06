@@ -75,7 +75,7 @@ export default class AuthModule extends Module {
 				this.App.addAxiosInterceptor(this.authInterceptor());
 
 				// Authorization of the user based on rbac
-				if (this.Authorization?.Authorize && this.App.Services.TenantService) {
+				if (this.Authorization?.Authorize) {
 					let userAuthorized = await this._isUserAuthorized();
 					let logoutTimeout = this.Authorization?.UnauthorizedLogoutTimeout ? this.Authorization.UnauthorizedLogoutTimeout : 60000;
 					if (!userAuthorized) {
@@ -219,18 +219,28 @@ export default class AuthModule extends Module {
 
 	async _isUserAuthorized() {
 		let authorized = false;
-		const state = this.Store.getState();
-		let activeTenant = state.tenant.current;
+		if (this.App.Services.TenantService) {
+			const state = this.Store.getState();
+			let currentTenant = state.tenant.current;
 
-		authorized = await this.Api.verify_access(this.OAuthToken['access_token'], activeTenant, this.Authorization?.Resource).then(response => {
-			if (response.data.result == 'OK'){
-					return true;
-				}
-			}).catch((error) => {
-				console.log(error);
-				return false;
-			});
-
+			authorized = await this.Api.verify_access(this.OAuthToken['access_token'], this.Authorization?.Resource, currentTenant).then(response => {
+				if (response.data.result == 'OK'){
+						return true;
+					}
+				}).catch((error) => {
+					console.log(error);
+					return false;
+				});
+		} else {
+			authorized = await this.Api.verify_access(this.OAuthToken['access_token'], this.Authorization?.Resource).then(response => {
+				if (response.data.result == 'OK'){
+						return true;
+					}
+				}).catch((error) => {
+					console.log(error);
+					return false;
+				});
+		}
 		return authorized;
 	}
 
