@@ -30,16 +30,17 @@ export default class TenantService extends Service {
 		const search = window.location.search;
 		const params = new URLSearchParams(search);
 		var tenant_id = params.get('tenant');
+
 		// If tenant has not been provided in access URL, pick a first tenant from a list
-		if (tenant_id == null && tenants_list != null) {
+		if (tenant_id == null && tenants_list && tenants_list.length > 0) {
 			tenant_id = tenants_list[0];
 			// ... and refresh (reload) the whole web app
 			window.location.replace('?tenant='+tenant_id+'#/');
 			return;
 		}
 
-		// In case if there is a tenant in the URL but the tenant list from userinfo is undefined
-		if (tenant_id && tenants_list == null) {
+		// In case if the tenant list from userinfo is undefined or empty remove tenant parameter from URL
+		if (!tenants_list || tenants_list.length == 0) {
 			window.location.replace('/#/');
 			return;
 		}
@@ -49,7 +50,11 @@ export default class TenantService extends Service {
 		if (tenants_list) {
 			let filtered_tenant = tenants_list.filter((item) => { return item == tenant_id });
 			if (filtered_tenant.length < 1) {
-				this.App.addAlert("danger", "Invalid tenant :-(", 40000);
+				// Display Invalid tenant alert message only when Authorization is disabled
+				let authorization = this.App.Config.get("Authorization");
+				if (!authorization?.Authorize) {
+					this.App.addAlert("danger", "Invalid tenant :-(", 40000);
+				}
 				return;
 			}
 			current_tenant = filtered_tenant[0];
