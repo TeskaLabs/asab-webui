@@ -35,10 +35,13 @@ function HeaderComponent(props) {
 	let user_auth_url = App.getServiceURL('seacat_auth_webui');
 	// Get access control URL
 	let access_control_url = window.location.protocol + '//' + window.location.host + '#/auth/access-control';
-	const params = new URLSearchParams(window.location.search);
-	let active_tenant = params.get('tenant');
-	if (active_tenant) {
-		access_control_url = window.location.protocol + '//' + window.location.host + '/?tenant=' + active_tenant + '#/auth/access-control';
+	// Check if Tenant service is available to get the access control URL with tenant
+	if (App.Services.TenantService) {
+		const params = new URLSearchParams(window.location.search);
+		let currentTenant = params.get('tenant');
+		if (currentTenant) {
+			access_control_url = window.location.protocol + '//' + window.location.host + '/?tenant=' + currentTenant + '#/auth/access-control';
+		}
 	}
 
 	const logout = () => {
@@ -58,7 +61,7 @@ function HeaderComponent(props) {
 			</DropdownToggle>
 			<DropdownMenu>
 				<DropdownItem header tag="div" className="text-center"><strong>{t('AuthHeaderDropdown|My account')}</strong></DropdownItem>
-				{active_tenant && <DropdownItem tag="a" href={access_control_url}>
+				{<DropdownItem tag="a" href={access_control_url}>
 					{t('AuthHeaderDropdown|Access control')}
 				</DropdownItem>}
 				{user_auth_url != null &&
