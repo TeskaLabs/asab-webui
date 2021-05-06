@@ -85,13 +85,15 @@ export class SeaCatAuthApi {
 		);
 	}
 
-	// Verify access to tenant
-	verify_access(access_token, tenant, resource) {
+	// Verify access
+	verify_access(access_token, resource, ...tenant) { // TODO: check declarations of optional args in JS
 		let rsrc = resource ? resource : "tenant:access";
 		let rbacPath = "/rbac/" + rsrc;
-		if (tenant) {
+
+		if (this.App.Services.TenantService) {
 			rbacPath = "/rbac/" + tenant + "/" + rsrc;
 		}
+
 		return this.SeaCatAuthAPI.get(rbacPath,
 			{ headers: { 'Authorization': 'Bearer ' + access_token }}
 		);
