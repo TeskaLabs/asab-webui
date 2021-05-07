@@ -31,7 +31,7 @@ export default (props) => {
 
         const ASABConfigAPI = props.app.axiosCreate('asab_config');
 
-        ASABConfigAPI.get('/svcs').
+        ASABConfigAPI.get('/microservices').
             then(res => parseDataIntoArr(res.data)).
             then(lst => setList(lst));
     }, []);
