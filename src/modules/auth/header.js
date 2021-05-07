@@ -61,9 +61,9 @@ function HeaderComponent(props) {
 			</DropdownToggle>
 			<DropdownMenu>
 				<DropdownItem header tag="div" className="text-center"><strong>{t('AuthHeaderDropdown|My account')}</strong></DropdownItem>
-				{<DropdownItem tag="a" href={access_control_url}>
+				<DropdownItem tag="a" href={access_control_url}>
 					{t('AuthHeaderDropdown|Access control')}
-				</DropdownItem>}
+				</DropdownItem>
 				{user_auth_url != null &&
 					<React.Fragment>
 						<DropdownItem tag="a" href={user_auth_url}>
