@@ -5,7 +5,7 @@ const initialState = {
 	alerts: [],
 }
 
-export default function AlertsReducer(state = initialState, action) {
+export default function alertsReducer(state = initialState, action) {
 	switch (action.type) {
 		
 		case ADD_ALERT: {

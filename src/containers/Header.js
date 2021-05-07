@@ -9,11 +9,13 @@ import {
 
 import {
 	Nav,
-	NavItem
+	NavItem,
+	NavLink
 } from 'reactstrap';
 
-export function Header(props) {
+import HelpButton from '../helpButton';
 
+export function Header(props) {
 	let HeaderService = props.app.locateService("HeaderService");
 
 	return (
@@ -49,6 +51,7 @@ export function Header(props) {
 				[
 					<AppSidebarToggler key="sidebarToggler" className="d-md-down-none" display="lg" />,
 					<Nav key="navigation" className="ml-auto" navbar>
+						<HelpButton />
 						{HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>
 								<item.component key={item} {...item.componentProps} app={props.app}/>
@@ -58,6 +61,7 @@ export function Header(props) {
 				]
 			:
 				<Nav className="ml-auto" navbar>
+					<HelpButton />
 					{HeaderService.Items.map((item, idx) => (
 						window.innerWidth < 1024 && item.componentProps.children !== undefined && item.componentProps.children === "LanguageDropdown" ?
 							<NavItem key={idx}>
