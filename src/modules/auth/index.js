@@ -219,6 +219,7 @@ export default class AuthModule extends Module {
 
 	async _isUserAuthorized() {
 		let authorized = false;
+		// Check if Tenant service is enabled in the application and decide on type of user authorization
 		if (this.App.Services.TenantService) {
 			const state = this.Store.getState();
 			let currentTenant = state.tenant.current;
