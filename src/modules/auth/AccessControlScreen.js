@@ -53,8 +53,7 @@ function AccessControlCard(props) {
 	let currentTenant;
 	// Check Tenant service availability
 	if (App.Services.TenantService) {
-		const params = new URLSearchParams(window.location.search);
-		currentTenant = params.get('tenant');
+		currentTenant = App.Services.TenantService.get_current_tenant();
 	}
 
 	return(

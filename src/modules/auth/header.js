@@ -37,8 +37,7 @@ function HeaderComponent(props) {
 	let access_control_url = window.location.protocol + '//' + window.location.host + '#/auth/access-control';
 	// Check if Tenant service is available to get the access control URL with tenant
 	if (App.Services.TenantService) {
-		const params = new URLSearchParams(window.location.search);
-		let currentTenant = params.get('tenant');
+		let currentTenant = App.Services.TenantService.get_current_tenant();
 		if (currentTenant) {
 			access_control_url = window.location.protocol + '//' + window.location.host + '/?tenant=' + currentTenant + '#/auth/access-control';
 		}
