@@ -69,4 +69,11 @@ export default class TenantService extends Service {
 		});
 
 	}
+
+	// get_current_tenant() method is used for obtaining current tenant from the redux store
+	get_current_tenant() {
+		const state = this.App.Store.getState();
+		let currentTenant = state.tenant.current;
+		return currentTenant;
+	}
 }
