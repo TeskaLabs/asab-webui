@@ -49,7 +49,12 @@ function AccessControlCard(props) {
 	const { t, i18n } = useTranslation();
 	let history = useHistory();
 	let userinfo = props.userinfo;
-	let currentTenant = props.current;
+	let App = props.app;
+	let currentTenant;
+	// Check Tenant service availability
+	if (App.Services.TenantService) {
+		currentTenant = App.Services.TenantService.get_current_tenant();
+	}
 
 	return(
 		<Card className="shadow animated fadeIn">
@@ -61,17 +66,21 @@ function AccessControlCard(props) {
 			</CardHeader>
 
 			<CardBody>
-				<Row>
-					<Col>
-						<h5>{t('AccessControlScreen|Current tenant')}</h5>
-					</Col>
-					<Col>
-						<ul style={{padding: 0}}>
-							<li>{currentTenant}</li>
-						</ul>
-					</Col>
-				</Row>
-				<hr/>
+				{App.Services.TenantService &&
+					<React.Fragment>
+						<Row>
+							<Col>
+								<h5>{t('AccessControlScreen|Current tenant')}</h5>
+							</Col>
+							<Col>
+								<ul style={{padding: 0}}>
+									<li>{currentTenant}</li>
+								</ul>
+							</Col>
+						</Row>
+						<hr/>
+					</React.Fragment>
+				}
 				<Row>
 					<Col>
 						<h5>{t('AccessControlScreen|Roles')}</h5>
@@ -129,8 +138,7 @@ function ItemToRender(props) {
 
 function mapStateToProps(state) {
 	return {
-		userinfo: state.auth.userinfo,
-		current: state.tenant.current
+		userinfo: state.auth.userinfo
 	}
 }
 

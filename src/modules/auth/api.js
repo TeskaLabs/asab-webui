@@ -85,10 +85,23 @@ export class SeaCatAuthApi {
 		);
 	}
 
-	// Verify access to tenant
-	verify_access(tenant, access_token, resource) {
+	/*
+		Verify access
+
+		To set up access verification with tenant, the tenant
+		has to be set as a first optional argument
+
+		e.g. Api.verify_access(access_token, resource, tenant)
+	*/
+	verify_access(access_token, resource, ...args) {
 		let rsrc = resource ? resource : "tenant:access";
-		return this.SeaCatAuthAPI.get("/rbac/" + tenant + "/" + rsrc,
+		let rbacPath = "/rbac/" + rsrc;
+		if (this.App.Services.TenantService) {
+			// Obtain tenant from optional arguments
+			let tenant = args[0];
+			rbacPath = "/rbac/" + tenant + "/" + rsrc;
+		}
+		return this.SeaCatAuthAPI.get(rbacPath,
 			{ headers: { 'Authorization': 'Bearer ' + access_token }}
 		);
 	}

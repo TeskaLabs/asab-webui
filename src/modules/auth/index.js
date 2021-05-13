@@ -218,25 +218,29 @@ export default class AuthModule extends Module {
 
 
 	async _isUserAuthorized() {
-		let resp = false;
-		const state = this.Store.getState();
-		let activeTenant = state.tenant.current;
-		// If active tenant is null, then use tenant from parameters
-		if (activeTenant == null) {
-			const params = new URLSearchParams(window.location.search);
-			activeTenant = params.get('tenant');
+		let authorized = false;
+		// Check if Tenant service is enabled in the application and decide on type of user authorization
+		if (this.App.Services.TenantService) {
+			let currentTenant = this.App.Services.TenantService.get_current_tenant();
+			authorized = await this.Api.verify_access(this.OAuthToken['access_token'], this.Authorization?.Resource, currentTenant).then(response => {
+				if (response.data.result == 'OK'){
+						return true;
+					}
+				}).catch((error) => {
+					console.log(error);
+					return false;
+				});
+		} else {
+			authorized = await this.Api.verify_access(this.OAuthToken['access_token'], this.Authorization?.Resource).then(response => {
+				if (response.data.result == 'OK'){
+						return true;
+					}
+				}).catch((error) => {
+					console.log(error);
+					return false;
+				});
 		}
-
-		resp = await this.Api.verify_access(activeTenant, this.OAuthToken['access_token'], this.Authorization?.Resource).then(response => {
-			if (response.data.result == 'OK'){
-					return true;
-				}
-			}).catch((error) => {
-				console.log(error);
-				return false;
-			});
-
-		return resp;
+		return authorized;
 	}
 
 }

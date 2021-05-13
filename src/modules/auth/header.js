@@ -35,9 +35,12 @@ function HeaderComponent(props) {
 	let user_auth_url = App.getServiceURL('seacat_auth_webui');
 	// Get access control URL
 	let access_control_url = window.location.protocol + '//' + window.location.host + '#/auth/access-control';
-	let active_tenant = props.current;
-	if (active_tenant) {
-		access_control_url = window.location.protocol + '//' + window.location.host + '/?tenant=' + active_tenant + '#/auth/access-control';
+	// Check if Tenant service is available to get the access control URL with tenant
+	if (App.Services.TenantService) {
+		let currentTenant = App.Services.TenantService.get_current_tenant();
+		if (currentTenant) {
+			access_control_url = window.location.protocol + '//' + window.location.host + '/?tenant=' + currentTenant + '#/auth/access-control';
+		}
 	}
 
 	const logout = () => {
@@ -112,8 +115,7 @@ const mapStateToProps = state => {
 	return {
 		sub: sub,
 		username: username,
-		picture: picture,
-		current: state.tenant.current
+		picture: picture
 	};
 };
 
