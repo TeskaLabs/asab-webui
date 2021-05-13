@@ -35,12 +35,7 @@ export function DateTime(props) {
 		)
 	}
 
-	let m = null;
-	if (isNaN(props.value)) {
-		m = moment(props.value);
-	} else {
-		m = moment(props.value * 1000.0);
-	}
+	const m = moment(props.value);
 
 	return (
 		<span className="datetime" title={m.fromNow()}>
