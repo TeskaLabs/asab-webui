@@ -14,6 +14,8 @@
 
 - Add configurable and dynamic help button (INDIGO Sprint 210430) [!90] (https://github.com/TeskaLabs/asab-webui/pull/90)
 
+- Add new features to datatable (INDIGO Sprint 210430) [!107] (https://github.com/TeskaLabs/asab-webui/pull/107)
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
