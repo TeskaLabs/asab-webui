@@ -54,6 +54,20 @@ let ConfigDefaults = {
 				name: 'JSON',
 				key: 'json',
 				json: true
+			},
+			{
+				name: ' ',
+				actionButton: {
+					title: "Actions",
+					actions: [
+						{
+							name: "Show name",
+							onClick(row, header) {
+								alert(`Showing name: ${row.username}`)
+							}
+						}
+					]
+				}
 			}
 		],
 		limit: 10

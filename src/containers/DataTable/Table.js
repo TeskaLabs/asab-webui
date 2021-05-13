@@ -23,14 +23,21 @@ const TableCell = ({ obj, header, idx, showJson }) => {
 
 	if (showJson) {
 		return (
-			<td className="pr-3" style={{ whiteSpace: "nowrap" }}>
-				<Button onClick={showJson}><i className="cil-list-low-priority"></i></Button>
+			<td className="pr-3 data-table-td" style={{ padding: "auto" }}>
+				<span
+					onClick={showJson}
+					className="data-table-button text-primary"
+					style={{ cursor: "pointer" }}
+				>
+					<i className="cil-list-low-priority"></i>
+				</span>
 			</td>
 		);
 	}
 
 	else if (header.json) cell = (
 		<ReactJson
+			className="data-table-reactjson"
 			src={obj[header.key]}
 			name={false}
 			collapsed
@@ -40,18 +47,25 @@ const TableCell = ({ obj, header, idx, showJson }) => {
 
 	else if (header.link) {
 		const pathname = header.link.pathname + obj[header.link.key];
-		cell = obj[header.key] ? <Link to={{ pathname }}>{icon} {obj[header.key]}</Link> : "-";
+		cell = obj[header.key] ? <Link to={{ pathname }} className="data-table-link">{icon} {obj[header.key]}</Link> : "-";
 	}
 
 	else if (header.datetime) cell = obj[header.key] ? (
 		<DateTime
+			className="data-table-datetime"
 			value={obj[header.key]}
 			format={header.datetime.format}
 		/>
 	) : "-";
 
 	else if (header.actionButton) {
-		cell = <ActionButton row={obj} header={header} actionButton={header.actionButton} />
+		cell = (
+			<ActionButton
+				row={obj}
+				header={header}
+				actionButton={header.actionButton} 
+			/>
+		);
 	}
 
 	else if (header.customComponent) {
@@ -61,15 +75,24 @@ const TableCell = ({ obj, header, idx, showJson }) => {
 	else cell = obj[header.key];
 
 	if (icon && !(header.link || header.datetime || header.actionButton)) {
-		cell = <>{icon} {cell} </>;
+		cell = <>{icon} {cell}</>;
 	}
 
 	return idx === 0 ? (
-			<th scope="row" style={{ whiteSpace: "nowrap", maxWidth: "40rem", textOverflow: "ellipsis" , overflow: "hidden" }}>
+			<th
+				className="data-table-th"
+				scope="row"
+				style={{
+					whiteSpace: "nowrap",
+					maxWidth: "40rem",
+					textOverflow: "ellipsis",
+					overflow: "hidden" 
+				}}
+			>
 				{cell}
 			</th>
 		) : (
-			<td className="pl-3" style={{ whiteSpace: "nowrap" }}>
+			<td className="pl-3 data-table-td" style={{ whiteSpace: "nowrap" }}>
 				{cell}
 			</td>
 		);
@@ -77,31 +100,32 @@ const TableCell = ({ obj, header, idx, showJson }) => {
 
 const Headers = ({ headers, advmode }) => (
 	<>
-		<colgroup>
+		<colgroup className="data-table-colgroup">
 			{advmode && <col style={{ width: "1px" }}/>}
 			{headers.map((_, idx) =>
 				<col
+					className={`data-table-col${idx}`}
 					style={{ width: (idx === headers.length - 1) ? "auto" : "1px" }}
 					key={idx}
 				/>
 			)}
 		</colgroup>
 
-		<thead>
-			<tr>
-				{advmode && <th className="pl-3">{" "}</th>}
-				{headers.map((header, idx) => <th key={idx} className={idx !== 0 ? "pl-3" : null}>{header.name}</th>)}
+		<thead className="thead-light data-table-thead">
+			<tr className="data-table-tr">
+				{advmode && <th className="pl-3 data-table-adv-header-th">{" "}</th>}
+				{headers.map((header, idx) => <th key={idx} className={`data-table-header-th${idx !== 0 ? " pl-3" : null}`}>{header.name}</th>)}
 			</tr>
 		</thead>
 	</>
 );
 
-const TableRow = ({ obj, idx, advmode, headers }) => {
+const TableRow = ({ obj, advmode, headers }) => {
 	const [isUnwrapped, setUnwrapped] = useState(false);
 
 	return (
 		<>
-			<tr key={idx}>
+			<tr className="data-table-tr">
 				{advmode && <TableCell obj={obj} showJson={() => setUnwrapped(prev => !prev)}/>}
 				{headers.map((header, idx) => (
 					<TableCell 
@@ -114,25 +138,30 @@ const TableRow = ({ obj, idx, advmode, headers }) => {
 			</tr>
 			
 			
-			{isUnwrapped && <tr key={idx+"-adv"}>
-				<td colSpan={headers.length+1}>
-					<ReactJson
-						src={obj}
-						name={false}
-					/>
-				</td>
-			</tr>}
+			{advmode && isUnwrapped && (
+				<tr className="data-table-adv-tr" style={{ backgroundColor: "rgba(0, 0, 0, 0.025)"}}>
+					<td 
+						colSpan={headers.length+1}
+						className="data-table-adv-td"
+					>
+						<ReactJson
+							src={obj}
+							name={false}
+						/>
+					</td>
+				</tr>
+			)}
 			
 		</>
 	)
 }
 
 const ASABTable = ({ data, headers, advmode }) => (
-	<Table size="sm">
-		<Headers headers={headers} advmode={advmode}/>
-		<tbody>
+	<Table size="sm" hover responsive>
+		<Headers headers={headers} advmode={advmode} className="data-table-header"/>
+		<tbody className="data-table-tbody">
 			{data.map((obj, idx) => (
-				<TableRow {...{ obj, idx, advmode, headers }} />
+				<TableRow {...{ obj, advmode, headers }} key={idx}/>
 			))}
 		</tbody>
 	</Table>
