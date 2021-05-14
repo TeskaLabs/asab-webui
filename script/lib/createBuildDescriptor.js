@@ -10,7 +10,7 @@ function createBuildDescriptor(config) {
         if (!dir.endsWith("/")) dir += "/";
     }
 
-    fs.writeFile(dir + "app_descriptor.lock", yarnLockContent, (err) => {
+    fs.writeFile(dir + "yarn.lock", yarnLockContent, (err) => {
         if (err) throw err;
         console.log("Build descriptor has been created");
     })
