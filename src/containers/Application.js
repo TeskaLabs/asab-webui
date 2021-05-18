@@ -282,6 +282,11 @@ it is accessible by the sidebar toggler button.
 		// Replace http:// or https:// protocol with ws:// or wss://
 		let ws_service_url = service_url.replace(/(http)(s)?\:\/\//, "ws$2://");
 
+		// TODO: Hotfix for cases when no absolute base path is specified
+		if (ws_service_url[0] === '/') {
+			ws_service_url = "ws:/" + window.location.host + ws_service_url;
+		}
+
 		return ws_service_url + subpath;
 
 	}
