@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import moment from "moment";
 
 /*
@@ -17,7 +17,8 @@ The input `value` is in UTC and one of:
 
 * Data() object (Javascript)
 * "2020-08-22T00:00:00+00:00" String with ISO format of the day
-* Number with Unix timestamp (in seconds)
+* Number with Unix timestamp in seconds (max value is 9999999999)
+* Number with timestamp in milliseconds (min value is 10000000000)
 
 The date&time will be converted to a local timezone of the browser.
 
@@ -27,25 +28,21 @@ The default format is `lll` -> `Aug 22, 2020 1:13 PM`
 
 */
 
-export function DateTime(props) {
+export function DateTime({ value, format }) {
 
-	if ((props.value === null) || (props.value === undefined)) {
+	if ((value === null) || (value === undefined)) {
 		return (
 			<span className="datetime">{' '}</span>
 		)
 	}
 
-	let m = null;
-	if (isNaN(props.value)) {
-		m = moment(props.value);
-	} else {
-		m = moment(props.value * 1000.0);
-	}
+	const m = isNaN(value) ? moment(value) :
+		value.toString().length > 10 ? moment(value) : moment(value * 1000);
 
 	return (
 		<span className="datetime" title={m.fromNow()}>
 			<i className="cil-clock pr-1"></i>
-			{m.format(props.format || 'lll')}
+			{m.format(format || 'lll')}
 		</span>
 	)
 }
