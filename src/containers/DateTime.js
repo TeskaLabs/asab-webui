@@ -36,8 +36,7 @@ export function DateTime({ value, format }) {
 		)
 	}
 
-	const m = isNaN(value) ? moment(value) :
-		value.toString().length > 10 ? moment(value) : moment(value * 1000);
+	const m = isNaN(value) || value > 9999999999 ? moment(value) : moment(value * 1000);
 
 	return (
 		<span className="datetime" title={m.fromNow()}>
