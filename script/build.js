@@ -2,6 +2,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const common = require('./common');
+const createBuildDescriptor = require("./lib/createBuildDescriptor");
 
 // Parse arguments
 var parser = common.getArgumentParser();
@@ -24,6 +25,7 @@ webpack(webpackConf).run((err, stats) => {
 		console.error(messages);
 	} else {
 		console.log("OK");
+		createBuildDescriptor(config);
 	}
 });
 
