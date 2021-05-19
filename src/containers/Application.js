@@ -185,8 +185,13 @@ it is accessible by the sidebar toggler button.
 			// If BASE_URL has been defined => take defined BASE_URL as BASE_URL
 			BASE_URL = this.Config.get('BASE_URL');
 		} else {
-			// If BASE_URL has been defined but with relative path => take browser URL as BASE_URL
-			BASE_URL = window.location.protocol + '//' + window.location.host + window.location.pathname.replace(/\/$/, '');
+			// If BASE_URL has been defined but with relative path => take browser URL as BASE_URL and append relative path from BASE_URL behind the browser URL
+			let relative_base_url = this.Config.get('BASE_URL');
+			// Check if trailing slash has been added on first place of a BASE_URL string and if so, remove it
+			if (relative_base_url.indexOf("/", 0) == 0) {
+				relative_base_url = relative_base_url.substring(1);
+			}
+			BASE_URL = window.location.protocol + '//' + window.location.host + window.location.pathname.replace(/\/$/, '') + '/' + relative_base_url.replace(/\/$/, '');
 		}
 
 		// Compose service_url
@@ -199,7 +204,12 @@ it is accessible by the sidebar toggler button.
 			service_url = this.Config.get('API_PATH');
 		} else {
 			// If API_PATH has been defined => use API_PATH to compose service_url
-			service_url = BASE_URL.replace(/\/$/, '') + "/" + this.Config.get('API_PATH');
+			let api_path = this.Config.get('API_PATH');
+			// Check if trailing slash has been added on first place of a API_PATH string and if so, remove it
+			if (api_path.indexOf("/", 0) == 0) {
+				api_path = api_path.substring(1);
+			}
+			service_url = BASE_URL.replace(/\/$/, '') + "/" + api_path;
 		}
 
 		return service_url.replace(/\/$/, '') + "/" + service_path;
