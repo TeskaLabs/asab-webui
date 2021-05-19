@@ -179,15 +179,26 @@ it is accessible by the sidebar toggler button.
 		// Obtain BASE_URL
 		let BASE_URL = undefined;
 		if (this.Config.get('BASE_URL') == undefined) {
+			// If BASE_URL has not been defined => take browser URL as BASE_URL
 			BASE_URL = window.location.protocol + '//' + window.location.host + window.location.pathname.replace(/\/$/, '');
-		} else {
+		} else if (this.Config.get('BASE_URL').toString().indexOf('http://') !== -1 || this.Config.get('BASE_URL').toString().indexOf('https://') !== -1) {
+			// If BASE_URL has been defined => take defined BASE_URL as BASE_URL
 			BASE_URL = this.Config.get('BASE_URL');
+		} else {
+			// If BASE_URL has been defined but with relative path => take browser URL as BASE_URL
+			BASE_URL = window.location.protocol + '//' + window.location.host + window.location.pathname.replace(/\/$/, '');
 		}
+
 		// Compose service_url
 		let service_url = undefined;
 		if (this.Config.get('API_PATH') == undefined) {
+			// If API_PATH has not been defined => use /api to compose service_url
 			service_url = BASE_URL.replace(/\/$/, '') + '/api';
+		} else if (this.Config.get('API_PATH').toString().indexOf('http://') !== -1 || this.Config.get('API_PATH').toString().indexOf('https://') !== -1) {
+			// If API_PATH has been defined but with absolute URL => use API_PATH as service_url
+			service_url = this.Config.get('API_PATH');
 		} else {
+			// If API_PATH has been defined => use API_PATH to compose service_url
 			service_url = BASE_URL.replace(/\/$/, '') + "/" + this.Config.get('API_PATH');
 		}
 
@@ -281,11 +292,6 @@ it is accessible by the sidebar toggler button.
 
 		// Replace http:// or https:// protocol with ws:// or wss://
 		let ws_service_url = service_url.replace(/(http)(s)?\:\/\//, "ws$2://");
-
-		// TODO: Hotfix for cases when no absolute base path is specified
-		if (ws_service_url[0] === '/') {
-			ws_service_url = "ws:/" + window.location.host + ws_service_url;
-		}
 
 		return ws_service_url + subpath;
 
