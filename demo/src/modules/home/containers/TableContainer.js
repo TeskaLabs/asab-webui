@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DataTable } from 'asab-webui';
-import { Container } from 'reactstrap';
+import { Container, Button } from 'reactstrap';
 
 const initData = {
 	data: [
@@ -124,8 +124,21 @@ const initData = {
 			"suspended": true
 		}
 	],
-	fetch (limit=10, page, str = '') {
-		const filteredData = this.data.filter(item => item.username.includes(str));
+	fetch (limit=10, page, str = '', sort) {
+		let filteredData = this.data.filter(item => item.username.includes(str));
+		if (sort)  {
+			switch (sort) {
+				case "username":
+					filteredData = filteredData.sort((a, b) => a.username.localeCompare(b.username));
+					break;
+				case "creation":
+					filteredData = filteredData.sort((a, b) => a.username.localeCompare(b.username));
+					break;
+				default:
+					break;
+			}
+			
+		}
 		return { data: filteredData.slice((page-1)*limit, limit*page), count: filteredData.length };
 	}
 };
@@ -139,12 +152,14 @@ export default function (props) {
 	const [limit, setLimit] = useState(configLimit);
 	const [count, setCount] = useState(initData.data.length);
 	const [str, setStr] = useState('');
+	const [isLoading, setLoading] = useState(false);
+	const [sort, setSort] = useState('initial');
 
 	useEffect(() => {
-		const { data, count } = initData.fetch(limit, page, str);
+		const { data, count } = initData.fetch(limit, page, str, sort);
 		setCount(count);
 		setData(data);
-	}, [limit, page, str]);
+	}, [limit, page, str, sort]);
 
 	const onSearch = (value) => {
 		setStr(value);
@@ -153,8 +168,21 @@ export default function (props) {
 	const onDownload = () => initData.data;
 	props.app.addHelpButton("https://github.com/TeskaLabs/asab-webui/blob/master/demo/src/modules/home/containers/TableContainer.js");
 
+	const onSort = (value) => setSort(value);
+
+	const buttonWithAuthz = {
+		title:"Button with authz",
+		color:"danger",
+		size:"sm",
+		onClick() {alert("You've clicked button with authz")},
+		resource: "res:res",
+		resources: ["res:res"],
+		children: (<><i className="cil-trash mr-2"></i>ButtonWithAuthz</>)
+	}
+
 	return (
 		<Container>
+			<Button onClick={() => setLoading(prev => !prev)} className="mb-2">Set Loading</Button>
 			<DataTable
 				title={{text: "Table Demo", icon: 'cil-user'}}
 				data={data}
@@ -168,6 +196,29 @@ export default function (props) {
 				createButton={{ text: "Create", icon: 'cil-plus', pathname: '#' }}
 				onSearch={onSearch}
 				onDownload={onDownload}
+				sort={{
+					icon: 'cil-sort-descending',
+					title: "Sort by",
+					onClick: onSort,
+					items: [
+						{
+							name: "Initial",
+							value: "initial"
+						},
+						{
+							name: "By username",
+							icon: "cil-sort-alpha-down",
+							value: "username"
+						},
+						{
+							name: "By creation date",
+							icon: "cil-sort-numeric-down",
+							value: "creation"
+						}
+					]
+				}}
+				isLoading={isLoading}
+				buttonWithAuthz={buttonWithAuthz}
 			/>
 		</Container>
 	)

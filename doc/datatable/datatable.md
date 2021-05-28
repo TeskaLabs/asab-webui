@@ -95,7 +95,7 @@ title: {
 }
 ```
 
-Prop `headers` is basically an array containing objects with obligatory properties `name` and `key` and optional properties `link`, `datetime`, `json` and `customComponent`. Order of headers in a table is the same as it is in prop `headers`.
+Prop `headers` is basically an array containing objects with obligatory properties `name` and `key` and optional properties `link`, `datetime`, `json`, `actionButton` and `customComponent`. Order of headers in a table is the same as it is in prop `headers`.
 
 Property `name` is a string that will be rendered as a header cell in headers row of the table. Property `key` is a key name for getting data from `data` prop, it must be the same as it is in objects in `data` prop.
 
@@ -118,6 +118,9 @@ If you want to change date format, then you should provide `datetime` as object 
 
 Optional property `json` is needed if data has nested objects inside itself. It is boolean and it returns `react-json-view` components into cells below the header.
 
+Optional property `actionButton` is needed to put into row of datatable ellipsis with actions dropdown for some list of actions. This property is an object with two children `title` which is string and will be placed as drodpown header and `actions` which is list of objects (actions). Those objects in `actions` list also must have two properties: string `name` and function `onClick`. Property `name` will be placed as dropdown item, clicking on it calls `onClick` function which accpets two argument `row` and `header`. `row` is appropriate row object and `header` is header where you defined `actionButton`.
+Also `actionButton` has allignment to right so header with action buttons should be the last one in headers list.
+
 About how to use optional property `customComponent` you may find information in section Custom Components.
 
 Example:
@@ -129,12 +132,22 @@ headers: [
 	{ name: 'Provider', key: '_provider_id' },
 	{ name: 'Type', key: '_type' },
 	{ name: 'Date 1', key: '_date', datetime: true },
-	{ name: 'Date 2', key: '_date', datetime { format: 'lll' }}
+	{ name: 'Date 2', key: '_date', datetime { format: 'lll' }},
+	{ name: 'Actions', actionButton: {
+		title: 'Actions',
+		actions: [
+			{ 
+				name: "Action 1",
+				onClick(row, header) { alert(row._id); }
+			},
+		]
+	}}
 ]
 ```
 
 Prop `data` is an array of objects. `DataTable` component goes through objects in `data` and for each object looks for those properties which has the same key name that was defined in `headers[idx]`. If properties exist in that object from `data`, they will be rendered as string under the appropriate headers. Otherwise if some properties doesn't exist in that object, the `-` symbol will be rendered instead.
 Prop's `data` length should be less or equal to 10 or to `limit` prop if such is defined. If `data` length is more than `limit`, then it will be cutted.
+If `data` length is zero then `DataTable` will return message "No items" in it's body (for translating it check `localization.md` doc).
 
 Array `data` may be fetched from `axios` in container of the `DataTable` for example. In demo we used predefined `initData` object contains data collection and `fetch(limit, page, str)` method that accepted Table's limit, current page and string from search input field. The `fetch` method is immitating fetch request from the server. You may take a look at our demo app to see how data for `data` prop is initialized and updated.
 
@@ -205,7 +218,7 @@ Example of fetched data:
 
 # Optional
 
-`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `search`, `onSearch` and `onDownload`.
+`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `search`, `onSearch`, `isLoading` and `onDownload`.
 
 Example of `DataTable` with all props:
 
@@ -222,7 +235,9 @@ Example of `DataTable` with all props:
 	search={{ icon: 'icon', placeholder: 'placeholder' }}
 	onSearch={onSearch}
 	createButton={{ text: "Create", icon: 'icon', pathname: '#' }}
+	buttonWithAuthz={buttonWithAuthzProps}
 	onDownload={onDownload}
+	isLoading={isLoading}
 />
 ```
 
@@ -279,6 +294,33 @@ let ConfigDefaults = {
 	},
 	...
 };
+```
+
+You may also use `buttonWithAuthz` which will create `ButtonWithAuthz` component in the header. `buttonWithAuthz` accepts all `ButtonWithAuthz` props. For additional information check how to use `ButtonWithAuthz`
+
+Example of `buttonWithAuthz`:
+```
+...
+	const buttonWithAuthzProps = {
+		title:"Button with authz",
+		color:"danger",
+		size:"sm",
+		onClick() {alert("You've clicked button with authz")},
+		resource: "res:res",
+		resources: ["res:res"],
+		children: (<><i className="cil-trash mr-2"></i>ButtonWithAuthz</>)
+	}
+	...
+
+	return (
+		...
+		<DataTable
+			...
+			buttonWithAuthz={buttonWithAuthzProps}
+			...
+		/>
+	)
+
 ```
 
 Props `search` and `onSearch` is used to render input search box in `DataTable`. First prop `search` is either a boolean or an object containing optional property `placeholder` for placeholder of search input box and optional property `icon` which can either be a React Component (e.g. from package `@material-ui/icons`) or a string which is className and will be rendered as <i className={icon}></icon>.Prop `search` may be obtained from configurtion.
@@ -343,6 +385,35 @@ let ConfigDefaults = {
 Prop `onDownload` is a function that returns a list of items that needs to be downloaded. When such function is provided `DataTable` will automatically download csv with provided list.
 For downloading content which is displayed with custom components check section Custom Components.
 
+Prop `isLoading` is used to notify user if content of DataTable is loading. It accepts boolean and if `true` then `DataTable` return `Spinner` component in it's body. You may set it to true when your application is trying to fetch data for you `DataTable` and set to false when fetching has finished.
+
+Example of using `isLoading`:
+```
+const [isLoading, setLoading] = useState(false);
+
+useEffect(() => {
+	setLoading(true);
+	axios.get('https://your-address.com')
+		.then(res => {
+			/* work with fetched data */
+			setLoading(false);
+		})
+		.catch(res => {
+			/* work with error */
+			setLoading(false);
+		})
+}, [])
+
+return (
+	...
+	<DataTable
+		...
+		isLoading={isLoading}
+		...
+	/>
+)
+```
+
 ### Custom Components
 
 In some cases you may understand that in `DataTable` you need to have some external component instead of regular cells. Or you may just want to somehow style your cells. Then `customComponent` property of header may help you.
@@ -357,7 +428,7 @@ headers = [
 	{
 		name: "Fancy text",
 		customComponent:{
-			generate: (obj) => <SomeFancyComponent>{obj.some_key}</SomeFancyComponent>
+			generate: (row) => <SomeFancyComponent>{row.some_key}</SomeFancyComponent>
 		}
 	}
 ]
@@ -369,7 +440,7 @@ Second argument that `DataTable` pass to `generate` is header itself and it is n
 {
 	name: "Fancy text",
 	customComponent:{
-		generate: (obj, header) => <SomeFancyComponent>{header.name} | {obj.some_key}</SomeFancyComponent>
+		generate: (row, header) => <SomeFancyComponent>{header.name} | {row.some_key}</SomeFancyComponent>
 	}
 }
 ```
@@ -380,8 +451,8 @@ Property `onDownload` of `customComponent` is needed if you want to use custom c
 {
 	name: "Fancy text",
 	customComponent:{
-		generate: (obj, header) => <SomeFancyComponent>{header.name} | {obj.some_key}</SomeFancyComponent>,
-		onDownload: (obj, header) => `${header.name} | ${obj.some_key}`;
+		generate: (row, header) => <SomeFancyComponent>{header.name} | {row.some_key}</SomeFancyComponent>,
+		onDownload: (row, header) => `${header.name} | ${row.some_key}`;
 	}
 }
 ```
@@ -420,8 +491,9 @@ props: {
     placeholder?: string, // placeholder for search input box
     icon?: string | React.Component // Icon that will be displayed alongside the text as component or 
                                     // as <i className={icon}></i> in case icon is string.
-  }
-  onSearch?: function // function that is called in 500ms after changes has been made in search input box
+  },
+  onSearch?: function, // function that is called in 500ms after changes has been made in search input box
+  isLoading?: boolean
 }
 
 ```
