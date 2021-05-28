@@ -10,7 +10,7 @@ You should make two steps to be able to translate it:
 1) First you need to create appropriate translations for them in your localizations files. All of them has same keys for translation as their fallbacks which you see. 
 The only thing you also need to know is that `Showing item(s)` supports interpolation. So you should add `length` and `count` into your value of `Showing item(s)`.
 
-Example of you translation file: 
+Example of your translation file: 
 
 ```
 {

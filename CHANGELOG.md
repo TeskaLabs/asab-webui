@@ -14,7 +14,7 @@
 
 - Add configurable and dynamic help button (INDIGO Sprint 210430) [!90] (https://github.com/TeskaLabs/asab-webui/pull/90)
 
-- Add new features to datatable (INDIGO Sprint 210430) [!107] (https://github.com/TeskaLabs/asab-webui/pull/107)
+- Add new features to datatable (buttonWithAuthz, action buttons, localization, sorting, spinner, ReactJSON adv mode below each row, fix zero in Footer, add classnames for DataTable components) (INDIGO Sprint 210430) [!107] (https://github.com/TeskaLabs/asab-webui/pull/107)
 
 ### Refactoring
 
