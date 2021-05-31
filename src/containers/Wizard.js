@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactMarkdown from 'react-markdown'
-import { Row, Col, Card, CardHeader, CardBody, CardFooter, FormGroup, Input, Label, Pagination, PaginationItem, PaginationLink } from "reactstrap";
+import { Row, Col, Card, CardHeader, CardBody, CardFooter, FormGroup, Input, Label, Pagination, PaginationItem, PaginationLink, Progress } from "reactstrap";
 
 export function Wizard({
 	name, wizardPages
@@ -8,8 +8,9 @@ export function Wizard({
 
 	const [rows, setRows] = useState();
 	const [page, setPage] = useState(1);
-	const [totalCount, setTotalCount] = useState(2); //TODO: calculate
-	// const [limit, setLimit] = useState(1); // TODO: remove
+	const [totalCount, setTotalCount] = useState(0); //TODO: calculate
+	const [progressStep, setProgressStep] = useState(20);
+	const [pageTitle, setPageTitle] = useState("");
 
 	useEffect(() => {
 		setTotalCount(wizardPages.length);
@@ -17,20 +18,13 @@ export function Wizard({
 
 	useEffect(() => {
 		getRows();
-		console.warn("pageIdx in useeffect", page)
+		setPageTitle(wizardPages[page - 1].title ? wizardPages[page - 1].title : page - 1); // pagination counts index from 1, not 0
 	}, [page]);
-
-	useEffect(() => {
-		console.warn("totalCount in useeffect", totalCount)
-	}, [totalCount]);
 
 	const getRows = () => {
 		var view = []
 		if (wizardPages != undefined) {
-			console.log("wizardPages", wizardPages)
-			console.log("pageIdx", page)
-			console.log("wizardPages[pageIdx]", wizardPages[page])
-			var pageView = wizardPages[page-1]
+			var pageView = wizardPages[page - 1]
 			if (pageView.rows != undefined) {
 				pageView.rows.forEach(row => {
 					if (row.type == "markdown") {
@@ -61,27 +55,25 @@ export function Wizard({
 
 
 	return (
-		<Row>
-			<Col>
-				<Card>
-					<CardHeader>
-						{/* {pages[pageIdx].title} */}
-					</CardHeader>
+		<Card className="height-100">
+			<CardHeader>
+				{pageTitle}
+			</CardHeader>
 
-					<CardBody className="table-responsive">
-						{rows}
-					</CardBody>
-					<CardFooter>
-						<ListPagination
-							page={page}
-							onPageChange={setPage}
-							max={totalCount}
-						/>
-						{/* Here should be some progress indicator */}
-					</CardFooter>
-				</Card>
-			</Col>
-		</Row>
+			<CardBody className="table-responsive">
+				{rows}
+			</CardBody>
+			<CardFooter>
+				<ListPagination
+					page={page}
+					pageTitle={pageTitle}
+					onPageChange={setPage}
+					max={totalCount}
+					progressStep={progressStep}
+				/>
+				{/* Here should be some progress indicator */}
+			</CardFooter>
+		</Card>
 	);
 }
 
@@ -115,29 +107,18 @@ function ListPagination(props) {
 		<Pagination>
 			<PaginationItem>
 				<PaginationLink
-					first={true}
-					onClick={(e) => props.onPageChange(1)}
-				>
-					<i className="cil-media-step-backward" />
-				</PaginationLink>
-			</PaginationItem>
-
-			<PaginationItem>
-				<PaginationLink
 					previous
 					disabled={props.pages <= 1}
 					onClick={(e) => props.onPageChange(Math.max(1, props.page - 1))}
 				>
-					<i className="cil-media-skip-backward" />
 				</PaginationLink>
 			</PaginationItem>
 
 			{pages.map((i, x) =>
 				<PaginationItem key={x} active={(i) == props.page}>
 					<PaginationLink
-						onClick={(e) => {props.onPageChange(i);
-						console.error("clicked!!!")
-						console.error("clicked!!!", props.page)
+						onClick={(e) => {
+							props.onPageChange(i);
 						}}
 					>
 						{i}
@@ -149,25 +130,12 @@ function ListPagination(props) {
 				<PaginationLink
 					next
 					disabled={props.page >= props.max}
-					onClick={(e) => {props.onPageChange(props.page + 1)
-						console.error("clicked!!! props.page + 1", props.page)
+					onClick={(e) => {
+						props.onPageChange(props.page + 1)
 					}}
 				>
-					<i className="cil-media-skip-forward" />
 				</PaginationLink>
 			</PaginationItem>
-
-			{ props.max != undefined ?
-				<PaginationItem>
-					<PaginationLink
-						last={true}
-						onClick={(e) => props.onPageChange(props.max)}
-					>
-						<i className="cil-media-step-forward" />
-					</PaginationLink>
-				</PaginationItem>
-				: null}
-
 		</Pagination>
 	);
 }
