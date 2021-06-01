@@ -68,7 +68,7 @@ function HeaderComponent(props) {
 						<DropdownItem tag="a" href={user_auth_url}>
 							{t('AuthHeaderDropdown|Manage')}
 						</DropdownItem>
-						<DropdownItem tag="a" href={user_auth_url + '/#/pwd'}>
+						<DropdownItem tag="a" href={user_auth_url + '/#/change-password'}>
 							{t('AuthHeaderDropdown|Change a password')}
 						</DropdownItem>
 					</React.Fragment>
