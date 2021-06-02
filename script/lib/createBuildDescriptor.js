@@ -16,17 +16,18 @@ function createBuildDescriptor(config) {
         console.log("yarn.lock descriptor has been created");
     })
 
-    exec("git describe --abbrev=7 --tags --dirty=+dirty --always", (err, stdout, stderr) => {
+    exec("git describe --abbrev=7 --tags --dirty=+dirty --always", (err, stdout) => {
         if (err) {
             console.error(err);
-            fs.writeFile(dir + "version.txt", stderr, err => {
-                if (err) throw err;
-                console.log("version.txt descriptor has been created with errors");
-            })
         } else {
             fs.writeFile(dir + "version.txt", stdout, err => {
-                if (err) throw err;
-                console.log("version.txt descriptor has been created");
+                if (err)  {
+                    console.log("Something went wrong during creating version.txt with git describe");
+                    console.error(err);
+                }
+                else {
+                    console.log("version.txt descriptor has been created");
+                }
             })
         }
     })
