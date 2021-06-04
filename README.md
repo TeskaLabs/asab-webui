@@ -102,7 +102,7 @@ module.exports = {
 		BASE_URL: 'http://localhost:3000',
 		API_PATH: 'api',
 		SERVICES: {
-			oidc: 'openidconnect',
+			openidconnect: 'openidconnect',
 			asab_config: 'asab_config',
 			seacat_auth_webui: 'http://localhost:3000/auth'
 			}
@@ -159,7 +159,7 @@ module.exports = {
 		BASE_URL: 'https://example.com',
 		API_PATH: 'api',
 		SERVICES: {
-			oidc: 'openidconnect',
+			openidconnect: 'openidconnect',
 			asab_config: 'asab_config',
 			seacat_auth_webui: 'https://example.com/auth'
 			}

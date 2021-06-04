@@ -12,7 +12,7 @@ export class SeaCatAuthApi {
 		app: {
 			BASE_URL: 'http://localhost:3000',
 			API_PATH: 'api',
-			SERVICES: {oidc: 'openidconnect', rbac: 'rbac'},
+			SERVICES: {openidconnect: 'openidconnect', rbac: 'rbac'},
 			...
 	*/
 
@@ -25,7 +25,7 @@ export class SeaCatAuthApi {
 		this.ClientId = "asab-webui-auth";
 		this.ClientSecret = "TODO";
 		this.SeaCatAuthAPI = this.App.axiosCreate('seacat_auth');
-		this.OidcAPI = this.App.axiosCreate('oidc');
+		this.OidcAPI = this.App.axiosCreate('openidconnect');
 
 	}
 
@@ -41,7 +41,7 @@ export class SeaCatAuthApi {
 			params.append("prompt", "login");
 		}
 
-		let oidcURL = this.App.getServiceURL('oidc');
+		let oidcURL = this.App.getServiceURL('openidconnect');
 		window.location.replace(oidcURL + "/authorize?" + params.toString());
 	}
 
