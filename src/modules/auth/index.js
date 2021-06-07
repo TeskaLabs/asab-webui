@@ -80,9 +80,13 @@ export default class AuthModule extends Module {
 
 				// Authorization of the user based on rbac
 				if (this.Authorization?.Authorize) {
-					let userAuthorized = await this._isUserAuthorized();
+					// Tenant access validation
+					// TODO: Rename `Resource` to `Tenant_resource` ??
+					let tenantAuthorized = await this._isUserAuthorized(this.Authorization?.Resource, this.App.Services.TenantService);
+					// Resource access validation
+					let accessAuthorized = await this._isUserAuthorized(this.Authorization?.Access_resource)
 					let logoutTimeout = this.Authorization?.UnauthorizedLogoutTimeout ? this.Authorization.UnauthorizedLogoutTimeout : 60000;
-					if (!userAuthorized) {
+					if (!tenantAuthorized || !accessAuthorized) {
 						this.App.addAlert("danger", "You are not authorized to use this application.", logoutTimeout);
 						// Logout after some time
 						setTimeout(() => {
@@ -221,12 +225,12 @@ export default class AuthModule extends Module {
 	}
 
 
-	async _isUserAuthorized() {
+	async _isUserAuthorized(resource, tenant_service) {
 		let authorized = false;
 		// Check if Tenant service is enabled in the application and decide on type of user authorization
-		if (this.App.Services.TenantService) {
+		if (tenant_service) {
 			let currentTenant = this.App.Services.TenantService.get_current_tenant();
-			authorized = await this.Api.verify_access(this.OAuthToken['access_token'], this.Authorization?.Resource, currentTenant).then(response => {
+			authorized = await this.Api.verify_access(this.OAuthToken['access_token'], resource, currentTenant).then(response => {
 				if (response.data.result == 'OK'){
 						return true;
 					}
@@ -235,7 +239,7 @@ export default class AuthModule extends Module {
 					return false;
 				});
 		} else {
-			authorized = await this.Api.verify_access(this.OAuthToken['access_token'], this.Authorization?.Resource).then(response => {
+			authorized = await this.Api.verify_access(this.OAuthToken['access_token'], resource).then(response => {
 				if (response.data.result == 'OK'){
 						return true;
 					}
