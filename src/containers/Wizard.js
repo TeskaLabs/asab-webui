@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import ReactMarkdown from 'react-markdown'
-import { Row, Col, Card, CardHeader, CardBody, CardFooter, FormGroup, Input, Label, Pagination, PaginationItem, PaginationLink, Progress } from "reactstrap";
+import { Card, CardHeader, CardBody, CardFooter, FormGroup, FormText, Input, Label, Pagination, PaginationItem, PaginationLink } from "reactstrap";
+
 
 export function Wizard({
 	name, wizardPages
@@ -11,6 +13,7 @@ export function Wizard({
 	const [totalCount, setTotalCount] = useState(0); //TODO: calculate
 	const [progressStep, setProgressStep] = useState(20);
 	const [pageTitle, setPageTitle] = useState("");
+	const { register, handleSubmit, setValue, getValues, errors, reset } = useForm();
 
 	useEffect(() => {
 		setTotalCount(wizardPages.length);
@@ -33,19 +36,19 @@ export function Wizard({
 								{row.contents}
 							</ReactMarkdown>
 						)
-					} else if (row.type == "input") {
-						view.push(
-							<FormGroup>
-								<Label for="inputField">{row.label}</Label>
-								<Input type="text"
-									name={row.label}
-									id={row.label}
-									placeholder={row.hint ? row.hint : ""}
-								/>
-							</FormGroup>
-						);
-					} else {
-						// TODO: maybe it's not even needed
+					} else if (row.type == "object") {
+						var line = row.properties
+						Object.keys(line).map((key, idx) => {
+							view.push(<InputStringItem
+								key={line[key].$id}
+								id={line[key].$id}
+								label={line[key].title}
+								description={line[key].description}
+								placeholder={line[key].default}
+								description={line[key].description}
+								register={register}
+							/>)
+						})
 					};
 				});
 			};
@@ -137,5 +140,27 @@ function ListPagination(props) {
 				</PaginationLink>
 			</PaginationItem>
 		</Pagination>
+	);
+}
+
+
+// TODO: Different types of Item to cover formats such as "number", "boolean", checkbox, radiobox
+export function InputStringItem(props) {
+	return (
+		<FormGroup>
+			<Label for={props.id}>
+				{props.label}
+			</Label>
+			<Input
+				type="text"
+				name={props.id}
+				id={props.id}
+				placeholder={props.placeholder}
+				innerRef={props.register()}
+			/>
+			<FormText color="muted">
+				{props.description}
+			</FormText>
+		</FormGroup>
 	);
 }
