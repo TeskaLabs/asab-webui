@@ -151,11 +151,10 @@ export default function ConfigEditor(props) {
 				prevSection = sectionTitle,
 				parsedSections[sectionTitle] = section
 			})
-
 		try {
 			// TODO: make config dynamic value
 			let response = await Axios.put("/config/" + configType + "/" + configName,
-				JSON.stringify(parsedSections),
+				JSON.parse(JSON.stringify(parsedSections)),
 					{ headers: {
 						'Content-Type': 'application/json'
 						}
