@@ -53,11 +53,17 @@ export default function ConfigEditor(props) {
 
 		try {
 			let response = await Axios.get("/type/" + configType);
-			type = response.data;
-			setTypeData(type);
 			// TODO: validate responses which are not 200
+			type = response.data;
+			if (type.result == 'FAIL') {
+				App.addAlert("warning", `Something went wrong! Unable to get ${configType} data.`);
+				return;
+			} else {
+				setTypeData(type);
+			}
 		}
-		catch {
+		catch(e) {
+			console.log(e);
 			App.addAlert("warning", `Unable to get ${configType} data. Try to reload the page.`);
 			return;
 			// TODO: Prepared for i18n
@@ -71,7 +77,8 @@ export default function ConfigEditor(props) {
 			values = response.data;
 			// TODO: validate responses which are not 200
 		}
-		catch {
+		catch(e) {
+			console.log(e);
 			App.addAlert("warning", `Unable to get config ${configName} data. Try to reload the page.`);
 			return;
 			// TODO: Prepared for i18n
@@ -94,7 +101,7 @@ export default function ConfigEditor(props) {
 		// 	},
 		// };
 
-		if (values && Object.keys(values).length > 0 && values != "CONFIG FILE DOESNT EXISTS") {
+		if (values && Object.keys(values).length > 0 && values.result != "FAIL") {
 			let ahValues = {};
 			let ahSections = {};
 			for (var section in values) {
