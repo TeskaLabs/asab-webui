@@ -32,6 +32,7 @@
 
 - Add versioning to the `styles.css` file on application build to avoid caching when redeploying the app to the production (INDIGO Sprint 210611, [!125](https://github.com/TeskaLabs/asab-webui/pull/125))
 
+- Logout after expired session in auth module (INDIGO Sprint 210528, [!119](https://github.com/TeskaLabs/asab-webui/pull/119))
 
 ### Refactoring
 
