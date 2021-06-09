@@ -7,6 +7,8 @@ import { SeaCatAuthApi, GoogleOAuth2Api } from './api';
 import AccessControlScreen from './AccessControlScreen';
 
 
+import moment from 'moment';
+
 export default class AuthModule extends Module {
 
 	constructor(app, name){
@@ -22,6 +24,7 @@ export default class AuthModule extends Module {
 		this.Store = app.Store;
 		app.ReduxService.addReducer("auth", reducer);
 		this.App.addSplashScreenRequestor(this);
+		this.logoutOnExpiredSession.bind(this);
 
 		this.Navigation = app.Navigation; // Get the navigation
 		this.Authorization = this.Config.get("Authorization"); // Get Authorization settings from configuration
@@ -191,6 +194,27 @@ export default class AuthModule extends Module {
 		});
 	}
 
+	logoutOnExpiredSession (that, al=false) {
+		const difference = moment(that.UserInfo.exp).valueOf() - moment.now();
+		let alert = al;
+
+		if (!that.UserInfo?.exp) {
+			setTimeout(that.logoutOnExpiredSession, 1000, that);
+		}
+
+		if (difference <= 0) {
+			that.logout();
+			return;
+		} else if (difference < 60000 && !alert) {
+			that.App.addAlert("warning", `Your session will expire in ${Math.floor(difference/1000)}.`);
+			alert=true;
+		}
+
+		const expireIn = alert ? difference : difference - 60000;
+
+		setTimeout(that.logoutOnExpiredSession, expireIn, that, alert);
+	}
+
 
 	async _updateUserInfo() {
 		let response;
@@ -216,6 +240,8 @@ export default class AuthModule extends Module {
 		if (this.App.Services.TenantService) {
 			this.App.Services.TenantService.set_tenants(tenants_list);
 		}
+
+		this.logoutOnExpiredSession(this);
 
 		return true;
 	}
