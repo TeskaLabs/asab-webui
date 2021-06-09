@@ -206,7 +206,7 @@ export default class AuthModule extends Module {
 			that.logout();
 			return;
 		} else if (difference < 60000 && !alert) {
-			that.App.addAlert("warning", `Your session will expire in ${Math.floor(difference/1000)}.`);
+			that.App.addAlert("warning", `Your session will expire in ${Math.floor(difference/1000)} seconds.`);
 			alert=true;
 		}
 
