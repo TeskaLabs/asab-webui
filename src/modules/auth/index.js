@@ -119,7 +119,7 @@ export default class AuthModule extends Module {
 			}
 		}
 		this.App.removeSplashScreenRequestor(this);
-		this.notifyOnExpiredSession();
+		this.notifyOnExpiredSession(this);
 	}
 
 
@@ -193,22 +193,26 @@ export default class AuthModule extends Module {
 		});
 	}
 
-	notifyOnExpiredSession () {
-		const difference = moment(this.UserInfo.exp).valueOf() - moment.now();
-		const that = this;
-		
-		if (difference > 0) {
-			setTimeout(() => {
-				const expireIn = moment(that.UserInfo.exp).valueOf() - moment.now();
-				that.App.addAlert("warning", `Your session will expire in ${Math.floor((expireIn)/1000)} seconds.`);
-			}, difference - 60000);
+	notifyOnExpiredSession (that, al=false) {
+		const userInfo = that.UserInfo;
+		let alert = al;
+
+		that._updateUserInfo();
+		const difference = moment(that.UserInfo.exp).valueOf() - moment.now();
+
+		if (userInfo.exp !== that.UserInfo.exp && difference < 60000) alert = false;
+
+		if (difference <= 0) {
+			that.App.addAlert("warning", `Your session has expired.`);
+			return;
+		} else if (difference < 60000 && !alert) {
+			that.App.addAlert("warning", `Your session will expire in ${Math.floor(difference/1000)} seconds.`);
+			alert=true;
 		}
 
-		setTimeout(() => {
-			that.App.addAlert("warning", `Your session has expired.`);
-		}, difference);
+		const expireIn = alert ? difference : difference - 60000;
+		setTimeout(that.notifyOnExpiredSession, expireIn, that, alert);
 	}
-
 
 	async _updateUserInfo() {
 		let response;
