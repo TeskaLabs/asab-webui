@@ -6,7 +6,6 @@ import { types } from './actions'
 import { SeaCatAuthApi, GoogleOAuth2Api } from './api';
 import AccessControlScreen from './AccessControlScreen';
 
-
 import moment from 'moment';
 
 export default class AuthModule extends Module {
@@ -24,7 +23,6 @@ export default class AuthModule extends Module {
 		this.Store = app.Store;
 		app.ReduxService.addReducer("auth", reducer);
 		this.App.addSplashScreenRequestor(this);
-		this.logoutOnExpiredSession.bind(this);
 
 		this.Navigation = app.Navigation; // Get the navigation
 		this.Authorization = this.Config.get("Authorization"); // Get Authorization settings from configuration
