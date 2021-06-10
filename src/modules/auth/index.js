@@ -121,6 +121,7 @@ export default class AuthModule extends Module {
 			}
 		}
 		this.App.removeSplashScreenRequestor(this);
+		this.notifyOnExpiredSession();
 	}
 
 
@@ -194,25 +195,20 @@ export default class AuthModule extends Module {
 		});
 	}
 
-	logoutOnExpiredSession (that, al=false) {
-		const difference = moment(that.UserInfo.exp).valueOf() - moment.now();
-		let alert = al;
-
-		if (!that.UserInfo?.exp) {
-			setTimeout(that.logoutOnExpiredSession, 1000, that);
+	notifyOnExpiredSession () {
+		const difference = moment(this.UserInfo.exp).valueOf() - moment.now();
+		const that = this;
+		
+		if (difference > 0) {
+			setTimeout(() => {
+				const expireIn = moment(that.UserInfo.exp).valueOf() - moment.now();
+				that.App.addAlert("warning", `Your session will expire in ${Math.floor((expireIn)/1000)} seconds.`);
+			}, difference - 60000);
 		}
 
-		if (difference <= 0) {
-			that.logout();
-			return;
-		} else if (difference < 60000 && !alert) {
-			that.App.addAlert("warning", `Your session will expire in ${Math.floor(difference/1000)} seconds.`);
-			alert=true;
-		}
-
-		const expireIn = alert ? difference : difference - 60000;
-
-		setTimeout(that.logoutOnExpiredSession, expireIn, that, alert);
+		setTimeout(() => {
+			that.App.addAlert("warning", `Your session has expired.`);
+		}, difference);
 	}
 
 
@@ -240,8 +236,6 @@ export default class AuthModule extends Module {
 		if (this.App.Services.TenantService) {
 			this.App.Services.TenantService.set_tenants(tenants_list);
 		}
-
-		this.logoutOnExpiredSession(this);
 
 		return true;
 	}
