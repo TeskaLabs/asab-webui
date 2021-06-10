@@ -95,11 +95,11 @@ export class SeaCatAuthApi {
 	*/
 	verify_access(access_token, resource, ...args) {
 		let rsrc = resource ? resource : "tenant:access";
-		let rbacPath = "/rbac/" + rsrc;
+		let rbacPath = "/rbac/*/" + rsrc; // Soft check on resource
 		let tenant = args[0];
 		if (this.App.Services.TenantService && tenant) {
 			// Obtain tenant from optional arguments
-			rbacPath = "/rbac/" + tenant + "/" + rsrc;
+			rbacPath = "/rbac/" + tenant + "/" + rsrc; // Hard check on tenant
 		}
 		return this.SeaCatAuthAPI.get(rbacPath,
 			{ headers: { 'Authorization': 'Bearer ' + access_token }}
