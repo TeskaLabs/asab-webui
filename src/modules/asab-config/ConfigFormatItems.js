@@ -5,6 +5,63 @@ import {
 } from "reactstrap";
 
 // TODO: Different types of ConfigItem to cover formats such as "number", "boolean", checkbox, radiobox
+
+export function StringItems(props) {
+	if (props.defs) {
+		let def = Object.keys(props.defs)[0];
+		if (def == 'text') {
+			return (
+				<ConfigItem
+					item={props.item}
+					itemname={props.itemname}
+					sectionname={props.sectionname}
+					register={props.register}
+				/>)
+		} else if (def == 'url') {
+			return (
+				<UrlConfigItem
+					item={props.item}
+					itemname={props.itemname}
+					sectionname={props.sectionname}
+					register={props.register}
+				/>)
+		} else if (def == 'email') {
+			return (
+				<EmailConfigItem
+					item={props.item}
+					itemname={props.itemname}
+					sectionname={props.sectionname}
+					register={props.register}
+				/>)
+		} else if (def == 'password') {
+			return (
+				<PasswordConfigItem
+					item={props.item}
+					itemname={props.itemname}
+					sectionname={props.sectionname}
+					register={props.register}
+				/>)
+
+		} else if (def == 'textarea') {
+			return (
+				<TextAreaConfigItem
+					item={props.item}
+					itemname={props.itemname}
+					sectionname={props.sectionname}
+					register={props.register}
+				/>)
+		}
+	} else {
+		return (
+			<ConfigItem
+				item={props.item}
+				itemname={props.itemname}
+				sectionname={props.sectionname}
+				register={props.register}
+			/>)
+	}
+}
+
 export function ConfigItem(props) {
 	let myid = '['+props.sectionname + "] " + props.itemname;
 	return (

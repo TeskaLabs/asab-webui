@@ -10,16 +10,12 @@ import {
 } from "reactstrap";
 
 import {
-	ConfigItem,
 	NumberConfigItem,
-	UrlConfigItem,
-	EmailConfigItem,
-	PasswordConfigItem,
 	CheckBoxConfigItem,
 	RadioButtonConfigItem,
 	SelectConfigItem,
-	TextAreaConfigItem,
 	ConfigAdHocItem,
+	StringItems
 } from './ConfigFormatItems';
 
 
@@ -250,14 +246,17 @@ function ConfigSection(props) {
 				<CardBody>
 					{Object.keys(props.section.properties).map((item_name, idx) =>
 						// Decide what type of config item to render based on format
-						{switch(props.section.properties[item_name]['$defs'] ? Object.keys(props.section.properties[item_name]['$defs'])[0] : undefined){
-							case 'text': return(<ConfigItem
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-												/>)
+						// TODO: Update also other RADIO and SELECT types
+						{switch(props.section.properties[item_name]['type']){
+							case 'string': return(
+											<StringItems
+												key={idx}
+												item={props.section.properties[item_name]}
+												itemname={item_name}
+												sectionname={props.sectionname}
+												register={props.register}
+												defs={props.section.properties[item_name]['$defs']}
+											/>)
 							case 'number': return(<NumberConfigItem
 													key={idx}
 													item={props.section.properties[item_name]}
@@ -265,35 +264,21 @@ function ConfigSection(props) {
 													sectionname={props.sectionname}
 													register={props.register}
 												/>)
-							case 'url': return(<UrlConfigItem
+							case 'integer': return(<NumberConfigItem
 													key={idx}
 													item={props.section.properties[item_name]}
 													itemname={item_name}
 													sectionname={props.sectionname}
 													register={props.register}
 												/>)
-							case 'email': return(<EmailConfigItem
+							case 'boolean': return(<CheckBoxConfigItem
 													key={idx}
 													item={props.section.properties[item_name]}
 													itemname={item_name}
 													sectionname={props.sectionname}
 													register={props.register}
 												/>)
-							case 'password': return(<PasswordConfigItem
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-												/>)
-							case 'checkbox': return(<CheckBoxConfigItem
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-												/>)
-							case 'radio': return(<RadioButtonConfigItem
+{/*							case 'radio': return(<RadioButtonConfigItem
 													key={idx}
 													item={props.section.properties[item_name]}
 													itemname={item_name}
@@ -306,21 +291,15 @@ function ConfigSection(props) {
 													itemname={item_name}
 													sectionname={props.sectionname}
 													register={props.register}
-												/>)
-							case 'textarea': return(<TextAreaConfigItem
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-												/>)
-							default: return(<ConfigItem
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-												/>)
+												/>)*/}
+							default: return(<StringItems
+												key={idx}
+												item={props.section.properties[item_name]}
+												itemname={item_name}
+												sectionname={props.sectionname}
+												register={props.register}
+												defs={props.section.properties[item_name]['$defs']}
+											/>)
 						}}
 					)}
 
