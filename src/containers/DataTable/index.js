@@ -201,5 +201,5 @@ export function DataTable ({
 
 
 const NoItemsLayout = ({ children }) => {
-	return typeof children === "string" ? <Container className="text-center mx-auto my-3 text-bold">{children}</Container> : children
+	return typeof children === "string" ? <Container className="text-center mx-auto my-3 font-weight-bold">{children}</Container> : children
 }
