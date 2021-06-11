@@ -230,14 +230,6 @@ export default function (props) {
 		children: (<><i className="cil-trash mr-2"></i>ButtonWithAuthz</>)
 	}
 
-	const noItemsComponent = (
-		<Container>
-			<div className="mx-auto my-3 text-center font-weight-bold text-primary">
-				There are no items
-			</div>
-		</Container>
-	);
-
 	return (
 		<Container>
 			<Button onClick={() => setLoading(prev => !prev)} className="mb-2">Set Loading</Button>
@@ -277,7 +269,6 @@ export default function (props) {
 				}}
 				isLoading={isLoading}
 				buttonWithAuthz={buttonWithAuthz}
-				noItemsComponent={noItemsComponent}
 			/>
 		</Container>
 	)
