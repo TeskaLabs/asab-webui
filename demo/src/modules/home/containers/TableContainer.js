@@ -140,16 +140,66 @@ const initData = {
 			
 		}
 		return { data: filteredData.slice((page-1)*limit, limit*page), count: filteredData.length };
-	}
+	},
+	headers: [ 
+		{ 
+			name: 'Link',
+			key: 'username',
+			link: {
+				pathname: '/pathname/',
+				key: 'username'
+			}
+		},
+		{
+			name: 'DateTime',
+			key: '_c',
+			datetime: { format: 'lll' }
+		},
+		{ 
+			name: 'Text', 
+			key: '_provider_id' 
+		},
+		{
+			name: 'Custom',
+			customComponent: {
+				generate: (obj) => (
+					<div style={{ color: "red"}}>
+						<p style={{ margin: 0}}>{obj.username}</p>
+						<p style={{ margin: 0}}>{obj._type}</p>
+					</div>
+				),
+				onDownload: (obj) => `${obj.username}/${obj._type}`
+			}
+		},
+		{
+			name: 'JSON',
+			key: 'json',
+			json: true
+		},
+		{
+			name: ' ',
+			actionButton: {
+				title: "Actions",
+				actions: [
+					{
+						name: "Show name",
+						onClick(row, header) {
+							alert(`Showing name: ${row.username}`)
+						}
+					}
+				]
+			}
+		}
+	],
+	getHeaders () { return this.headers }
 };
 
 export default function (props) {
-	const headers = props.app.Config.get('table').headers;
-	const configLimit = props.app.Config.get('table').limit;
+	const headers = initData.getHeaders();
 
 	const [data, setData] = useState([]);
 	const [page, setPage] = useState(1);
-	const [limit, setLimit] = useState(configLimit);
+	const [limit, setLimit] = useState(10);
 	const [count, setCount] = useState(initData.data.length);
 	const [str, setStr] = useState('');
 	const [isLoading, setLoading] = useState(false);
@@ -179,6 +229,14 @@ export default function (props) {
 		resources: ["res:res"],
 		children: (<><i className="cil-trash mr-2"></i>ButtonWithAuthz</>)
 	}
+
+	const noItemsComponent = (
+		<Container>
+			<div className="mx-auto my-3 text-center font-weight-bold text-primary">
+				There are no items
+			</div>
+		</Container>
+	);
 
 	return (
 		<Container>
@@ -219,6 +277,7 @@ export default function (props) {
 				}}
 				isLoading={isLoading}
 				buttonWithAuthz={buttonWithAuthz}
+				noItemsComponent={noItemsComponent}
 			/>
 		</Container>
 	)
