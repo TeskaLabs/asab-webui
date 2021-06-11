@@ -10,7 +10,7 @@ import {
 	Button, Input, InputGroup,
 	InputGroupAddon, InputGroupText,
 	Dropdown, DropdownToggle,
-	DropdownMenu, DropdownItem
+	DropdownMenu, DropdownItem, Container
 } from 'reactstrap';
 
 import Table from './Table';
@@ -25,7 +25,7 @@ export function DataTable ({
 	setPage, title, createButton,
 	search, onSearch, onDownload,
 	isLoading, translationRoute = '',
-	buttonWithAuthz, sort
+	buttonWithAuthz, sort, noItemsComponent
 	}) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isSortOpen, setSortDropdown] = useState(false);
@@ -141,7 +141,11 @@ export function DataTable ({
 							<div style={{ margin: "2rem auto" }}><Spinner /></div> :
 							<Table data={data.length > limit ? data.slice(0, limit) : data} headers={headers}/>
 						}
-						{count === 0 && !isLoading && t(translationRoute ? `${translationRoute}|No items` : "No items")}
+						{count === 0 && !isLoading && (
+							noItemsComponent ? <NoItemsLayout>{noItemsComponent}</NoItemsLayout> :
+							<NoItemsLayout>{t(translationRoute ? `${translationRoute}|No items` : "No items")}</NoItemsLayout>
+						)}
+
 					</CardBody>
 
 					<CardFooter className="data-table-card-footer">
@@ -194,3 +198,8 @@ export function DataTable ({
 		</Row>
 	);
 };
+
+
+const NoItemsLayout = ({ children }) => {
+	return typeof children === "string" ? <Container className="text-center mx-auto my-3 font-weight-bold">{children}</Container> : children
+}

@@ -218,7 +218,7 @@ Example of fetched data:
 
 # Optional
 
-`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `search`, `onSearch`, `isLoading` and `onDownload`.
+`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `search`, `onSearch`, `isLoading`, `noItemsComponent` and `onDownload`.
 
 Example of `DataTable` with all props:
 
@@ -238,6 +238,7 @@ Example of `DataTable` with all props:
 	buttonWithAuthz={buttonWithAuthzProps}
 	onDownload={onDownload}
 	isLoading={isLoading}
+	noItemsComponent={noItemsComponent}
 />
 ```
 
@@ -414,6 +415,39 @@ return (
 )
 ```
 
+Prop `noItemsComponent` is used if you want to define custom component or string for displaying message when number of items in data passed into `DataTable` is zero. As string just write message you want to display. 
+
+Example of using `noItemsComponent` as string:
+```
+...
+import { DataTable } from 'asab-webui';
+
+...
+	return (
+		<DataTable
+		...
+		noItemsComponent="Some custom message"
+		/>
+	);
+```
+
+Also you can pass into `noItemsComponent` your custom component instead of string. `DataTable` will render it instead of default one with default styles.
+
+Example of using `noItemsComponent` as string:
+```
+...
+import { DataTable } from 'asab-webui';
+
+...
+	return (
+		<DataTable
+		...
+		noItemsComponent={<div className="m-auto text-bold text-primary">Some custom message</div>}
+		/>
+	);
+
+```
+
 ### Custom Components
 
 In some cases you may understand that in `DataTable` you need to have some external component instead of regular cells. Or you may just want to somehow style your cells. Then `customComponent` property of header may help you.
@@ -493,7 +527,8 @@ props: {
                                     // as <i className={icon}></i> in case icon is string.
   },
   onSearch?: function, // function that is called in 500ms after changes has been made in search input box
-  isLoading?: boolean
+  isLoading?: boolean, // indicator for DataTable for showing spinner,
+  noItemsComponent?: string | React.component // custom component for displaying message when there are no items
 }
 
 ```
