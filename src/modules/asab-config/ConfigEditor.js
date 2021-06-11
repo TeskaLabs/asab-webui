@@ -12,8 +12,6 @@ import {
 import {
 	NumberConfigItem,
 	CheckBoxConfigItem,
-	RadioButtonConfigItem,
-	SelectConfigItem,
 	ConfigAdHocItem,
 	StringItems
 } from './ConfigFormatItems';
@@ -248,21 +246,21 @@ function ConfigSection(props) {
 						// Decide what type of config item to render based on format
 						// TODO: Update also other RADIO and SELECT types
 						{switch(props.section.properties[item_name]['type']){
-							case 'string': return(
-											<StringItems
-												key={idx}
-												item={props.section.properties[item_name]}
-												itemname={item_name}
-												sectionname={props.sectionname}
-												register={props.register}
-												defs={props.section.properties[item_name]['$defs']}
-											/>)
+							case 'string': return(<StringItems
+													key={idx}
+													item={props.section.properties[item_name]}
+													itemname={item_name}
+													sectionname={props.sectionname}
+													register={props.register}
+													defs={props.section.properties[item_name]['$defs']}
+												/>)
 							case 'number': return(<NumberConfigItem
 													key={idx}
 													item={props.section.properties[item_name]}
 													itemname={item_name}
 													sectionname={props.sectionname}
 													register={props.register}
+													defs={props.section.properties[item_name]['$defs']}
 												/>)
 							case 'integer': return(<NumberConfigItem
 													key={idx}
@@ -270,6 +268,7 @@ function ConfigSection(props) {
 													itemname={item_name}
 													sectionname={props.sectionname}
 													register={props.register}
+													defs={props.section.properties[item_name]['$defs']}
 												/>)
 							case 'boolean': return(<CheckBoxConfigItem
 													key={idx}
@@ -278,20 +277,6 @@ function ConfigSection(props) {
 													sectionname={props.sectionname}
 													register={props.register}
 												/>)
-{/*							case 'radio': return(<RadioButtonConfigItem
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-												/>)
-							case 'select': return(<SelectConfigItem
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-												/>)*/}
 							default: return(<StringItems
 												key={idx}
 												item={props.section.properties[item_name]}
