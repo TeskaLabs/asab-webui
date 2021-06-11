@@ -136,7 +136,7 @@ export function DataTable ({
 						}
 					</CardHeader>
 
-					<CardBody className="p-0 data-table-card-body">
+					<CardBody className="data-table-card-body">
 						{ isLoading ? 
 							<div style={{ margin: "2rem auto" }}><Spinner /></div> :
 							<Table data={data.length > limit ? data.slice(0, limit) : data} headers={headers}/>

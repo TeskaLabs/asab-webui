@@ -18,60 +18,7 @@ let ConfigDefaults = {
 		alt: "Created by TeskaLabs",
 		href: "https://teskalabs.com/",
 	},
-	default_help_url: "https://github.com/TeskaLabs/asab-webui",
-	table: {
-		headers: [ 
-			{ 
-				name: 'Link',
-				key: 'username',
-				link: {
-					pathname: '/pathname/',
-					key: 'username'
-				}
-			},
-			{
-				name: 'DateTime',
-				key: '_c',
-				datetime: { format: 'lll' }
-			},
-			{ 
-				name: 'Text', 
-				key: '_provider_id' 
-			},
-			{
-				name: 'Custom',
-				customComponent: {
-					generate: (obj) => (
-						<div style={{ color: "red"}}>
-							<p style={{ margin: 0}}>{obj.username}</p>
-							<p style={{ margin: 0}}>{obj._type}</p>
-						</div>
-					),
-					onDownload: (obj) => `${obj.username}/${obj._type}`
-				}
-			},
-			{
-				name: 'JSON',
-				key: 'json',
-				json: true
-			},
-			{
-				name: ' ',
-				actionButton: {
-					title: "Actions",
-					actions: [
-						{
-							name: "Show name",
-							onClick(row, header) {
-								alert(`Showing name: ${row.username}`)
-							}
-						}
-					]
-				}
-			}
-		],
-		limit: 10
-	}
+	default_help_url: "https://github.com/TeskaLabs/asab-webui"
 };
 
 // Modules

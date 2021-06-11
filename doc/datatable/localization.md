@@ -15,7 +15,7 @@ Example of your translation file:
 ```
 {
     ...
-    "Showing item(s)": "Showing {{ count }} of {{ length}}",
+    "Showing item(s)": "Showing {{ length }} of {{ count }} item(s)",
     "No items": "There are no items in here",
     "Limit": "There is no limits",
     ...
@@ -31,7 +31,7 @@ Your translation file:
 ```
 "FancyContainer": {
     ...
-    "Showing item(s)": "Showing {{ count }} of {{ length}}",
+    "Showing item(s)": "Showing {{ length }} of {{ count }} item(s)",
     "No items": "There are no items in here",
     "Limit": "There is no limits",
     ...
