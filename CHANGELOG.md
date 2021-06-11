@@ -24,6 +24,8 @@
 
 - Add new features to datatable (buttonWithAuthz, action buttons, localization, sorting, spinner, ReactJSON adv mode below each row, fix zero in Footer, add classnames for DataTable components) (INDIGO Sprint 210430, [!107](https://github.com/TeskaLabs/asab-webui/pull/107))
 
+- Add new prop noItemsComponent for displaying custom message when there are no items in DataTable (INDIGO Sprint 210528, [!120](https://github.com/TeskaLabs/asab-webui/pull/120))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
