@@ -182,7 +182,7 @@ export default function (props) {
 
 	const noItemsComponent = (
 		<Container>
-			<div className="mx-auto my-3 text-center font-weight-bold">
+			<div className="mx-auto my-3 text-center font-weight-bold text-primary">
 				There are no items
 			</div>
 		</Container>
