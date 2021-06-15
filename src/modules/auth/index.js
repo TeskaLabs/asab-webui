@@ -49,12 +49,16 @@ export default class AuthModule extends Module {
 			const authorization_code = qs.get('code');
 			if (authorization_code !== null) {
 				await this._updateToken(authorization_code);
-
 				// Remove 'code' from a query string
 				qs.delete('code');
 
+				// Check for empty query string and update hash url eventually
+				let hash_url = '?' + qs.toString() + window.location.hash;
+				if (qs.toString() == '') {
+					hash_url = '/' + window.location.hash;
+				}
 				// And reload the app
-				window.location.replace('?' + qs.toString() + window.location.hash);
+				window.location.replace(hash_url);
 				return;
 			}
 
@@ -130,7 +134,7 @@ export default class AuthModule extends Module {
 			}
 
 		*/
-		this.App.addAlert("warning", "You are in DEV mode and using MOCK login parameters.", 60000);
+		this.App.addAlert("warning", "You are in DEV mode and using MOCK login parameters.", 3);
 		let mockParams = mock_userinfo;
 		if (mockParams.resources) {
 			mockParams["resources"] = Object.values(mockParams.resources)
