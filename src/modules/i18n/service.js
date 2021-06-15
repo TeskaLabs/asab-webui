@@ -46,17 +46,31 @@ export default class I18nService extends Service {
 			config['backend'] = paths;
 		}
 
-		i18n
-		.use(HttpBackend)
-		.use(initReactI18next)
-		.use(LanguageDetector)
-		.init(config, (err, t) => {
-			this.App.removeSplashScreenRequestor(this);
-			if (err) {
-				//TODO: only in case of final error, show: app.addAlert("warning", "Failed to load localizations.");
-				console.log('Failed to load localizations:', err);
-			}
-		});
+		this.i18n = i18n
+			.use(HttpBackend)
+			.use(initReactI18next)
+			.use(LanguageDetector)
+			.init(config, (err, t) => {
+				this.App.removeSplashScreenRequestor(this);
+				if (err) {
+					//TODO: only in case of final error, show: app.addAlert("warning", "Failed to load localizations.");
+					console.log('Failed to load localizations:', err);
+				}
+				t
+			});
+		
+		this.getPromise = this.getPromise.bind(this);
+		this.t = this.t.bind(this);
+
+		app.i18n = this;
+	}
+
+	getPromise () {
+		return this.i18n;
+	}
+
+	async t(str) {
+		return await this.i18nPromise.then(t => t(str));
 	}
 
 }
