@@ -134,7 +134,7 @@ export default class AuthModule extends Module {
 			}
 
 		*/
-		this.App.addAlert("warning", "You are in DEV mode and using MOCK login parameters.", 60000);
+		this.App.addAlert("warning", "You are in DEV mode and using MOCK login parameters.", 3);
 		let mockParams = mock_userinfo;
 		if (mockParams.resources) {
 			mockParams["resources"] = Object.values(mockParams.resources)
