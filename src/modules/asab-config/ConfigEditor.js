@@ -10,16 +10,10 @@ import {
 } from "reactstrap";
 
 import {
-	ConfigItem,
 	NumberConfigItem,
-	UrlConfigItem,
-	EmailConfigItem,
-	PasswordConfigItem,
 	CheckBoxConfigItem,
-	RadioButtonConfigItem,
-	SelectConfigItem,
-	TextAreaConfigItem,
 	ConfigAdHocItem,
+	StringItems
 } from './ConfigFormatItems';
 
 
@@ -53,11 +47,17 @@ export default function ConfigEditor(props) {
 
 		try {
 			let response = await Axios.get("/type/" + configType);
-			type = response.data;
-			setTypeData(type);
 			// TODO: validate responses which are not 200
+			type = response.data;
+			if (type.result == 'FAIL') {
+				App.addAlert("warning", `Something went wrong! Unable to get ${configType} data.`);
+				return;
+			} else {
+				setTypeData(type);
+			}
 		}
-		catch {
+		catch(e) {
+			console.log(e);
 			App.addAlert("warning", `Unable to get ${configType} data. Try to reload the page.`);
 			return;
 			// TODO: Prepared for i18n
@@ -71,7 +71,8 @@ export default function ConfigEditor(props) {
 			values = response.data;
 			// TODO: validate responses which are not 200
 		}
-		catch {
+		catch(e) {
+			console.log(e);
 			App.addAlert("warning", `Unable to get config ${configName} data. Try to reload the page.`);
 			return;
 			// TODO: Prepared for i18n
@@ -94,7 +95,7 @@ export default function ConfigEditor(props) {
 		// 	},
 		// };
 
-		if (values && Object.keys(values).length > 0 && values != "CONFIG FILE DOESNT EXISTS") {
+		if (values && Object.keys(values).length > 0 && values.result != "FAIL") {
 			let ahValues = {};
 			let ahSections = {};
 			for (var section in values) {
@@ -151,11 +152,10 @@ export default function ConfigEditor(props) {
 				prevSection = sectionTitle,
 				parsedSections[sectionTitle] = section
 			})
-
 		try {
 			// TODO: make config dynamic value
 			let response = await Axios.put("/config/" + configType + "/" + configName,
-				JSON.stringify(parsedSections),
+				JSON.parse(JSON.stringify(parsedSections)),
 					{ headers: {
 						'Content-Type': 'application/json'
 						}
@@ -244,14 +244,15 @@ function ConfigSection(props) {
 				<CardBody>
 					{Object.keys(props.section.properties).map((item_name, idx) =>
 						// Decide what type of config item to render based on format
-						// TODO: `format` names should be consulted with BE team
-						{switch(props.section.properties[item_name]['format']){
-							case 'text': return(<ConfigItem
+						// TODO: Update also other RADIO and SELECT types
+						{switch(props.section.properties[item_name]['type']){
+							case 'string': return(<StringItems
 													key={idx}
 													item={props.section.properties[item_name]}
 													itemname={item_name}
 													sectionname={props.sectionname}
 													register={props.register}
+													defs={props.section.properties[item_name]['$defs']}
 												/>)
 							case 'number': return(<NumberConfigItem
 													key={idx}
@@ -259,63 +260,31 @@ function ConfigSection(props) {
 													itemname={item_name}
 													sectionname={props.sectionname}
 													register={props.register}
+													defs={props.section.properties[item_name]['$defs']}
 												/>)
-							case 'url': return(<UrlConfigItem
+							case 'integer': return(<NumberConfigItem
+													key={idx}
+													item={props.section.properties[item_name]}
+													itemname={item_name}
+													sectionname={props.sectionname}
+													register={props.register}
+													defs={props.section.properties[item_name]['$defs']}
+												/>)
+							case 'boolean': return(<CheckBoxConfigItem
 													key={idx}
 													item={props.section.properties[item_name]}
 													itemname={item_name}
 													sectionname={props.sectionname}
 													register={props.register}
 												/>)
-							case 'email': return(<EmailConfigItem
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-												/>)
-							case 'password': return(<PasswordConfigItem
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-												/>)
-							case 'checkbox': return(<CheckBoxConfigItem
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-												/>)
-							case 'radio': return(<RadioButtonConfigItem
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-												/>)
-							case 'select': return(<SelectConfigItem
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-												/>)
-							case 'textarea': return(<TextAreaConfigItem
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-												/>)
-							default: return(<ConfigItem
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-												/>)
+							default: return(<StringItems
+												key={idx}
+												item={props.section.properties[item_name]}
+												itemname={item_name}
+												sectionname={props.sectionname}
+												register={props.register}
+												defs={props.section.properties[item_name]['$defs']}
+											/>)
 						}}
 					)}
 
