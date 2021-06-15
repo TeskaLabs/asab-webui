@@ -48,6 +48,10 @@
 
 - Return padding to DataTable because it looks better with it, refactor obtaining headers for DataTable from Configs because it should obtain them from inside applications, fix mistake in DataTable localization docs (INDIGO Sprint 210528, [!121](https://github.com/TeskaLabs/asab-webui/pull/121))
 
+- Replace questionmark in hash URL in initialization of the application when query string is empty (e.g. in provisioning mode, when in the starting point, there is no tenant) (INDIGO Sprint 210611, [!124](https://github.com/TeskaLabs/asab-webui/pull/124))
+
+- Set the DEV mode alert timeout to 3 seconds (INDIGO Sprint 210611, [!124](https://github.com/TeskaLabs/asab-webui/pull/124))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
