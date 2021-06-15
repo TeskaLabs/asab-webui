@@ -55,7 +55,7 @@ export default class AuthModule extends Module {
 				// Check for empty query string and update hash url eventually
 				let hash_url = '?' + qs.toString() + window.location.hash;
 				if (qs.toString() == '') {
-					hash_url = '/' + qs.toString() + window.location.hash;
+					hash_url = '/' + window.location.hash;
 				}
 				// And reload the app
 				window.location.replace(hash_url);
