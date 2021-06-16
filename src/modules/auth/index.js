@@ -119,7 +119,7 @@ export default class AuthModule extends Module {
 			}
 		}
 		this.App.removeSplashScreenRequestor(this);
-		this.notifyOnExpiredSession(this);
+		// this.notifyOnExpiredSession(this);
 	}
 
 
@@ -237,6 +237,24 @@ export default class AuthModule extends Module {
 		let tenants_list = this.UserInfo.tenants;
 		if (this.App.Services.TenantService) {
 			this.App.Services.TenantService.set_tenants(tenants_list);
+		}
+
+		let lastUserInfo = Date.now();
+		let exp = new Date(this.UserInfo.exp).getTime();
+
+		if (Date.now() - lastUserInfo > 30000) {
+			this._updateUserInfo();
+		} else {
+			if (exp - Date.now() < 60000 && exp > Date.now()) {
+				const expire = exp > Date.now() ? exp - Date.now() : 5;
+				this.App.addAlert("warning", "Your session will expire soon.", expire);
+			} else if (exp < Date.now()) {
+				this.App.addAlert("warning", "Your session has expired.");
+				return ;
+			}
+			setTimeout((that) => {
+				that._updateUserInfo();
+			}, 30000, this);
 		}
 
 		return true;
