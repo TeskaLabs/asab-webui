@@ -26,6 +26,11 @@
 
 - Add new prop noItemsComponent for displaying custom message when there are no items in DataTable (INDIGO Sprint 210528, [!120](https://github.com/TeskaLabs/asab-webui/pull/120))
 
+- Implement softcheck on resource access and thus eventually remove an item from Sidebar navigation (INDIGO Sprint 210611, [!117](https://github.com/TeskaLabs/asab-webui/pull/117))
+
+- Implement function to remove item from Navigation (INDIGO Sprint 210611, [!117](https://github.com/TeskaLabs/asab-webui/pull/117))
+
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))

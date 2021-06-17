@@ -23,7 +23,9 @@ export default class AuthModule extends Module {
 		app.ReduxService.addReducer("auth", reducer);
 		this.App.addSplashScreenRequestor(this);
 
+		this.Navigation = app.Navigation; // Get the navigation
 		this.Authorization = this.Config.get("Authorization"); // Get Authorization settings from configuration
+
 
 		// Access control screen
 		app.Router.addRoute({
@@ -78,11 +80,12 @@ export default class AuthModule extends Module {
 				// Add interceptor with Bearer token in the Header into axios calls
 				this.App.addAxiosInterceptor(this.authInterceptor());
 
-				// Authorization of the user based on rbac
+				// Authorization of the user based on tenant access
 				if (this.Authorization?.Authorize) {
-					let userAuthorized = await this._isUserAuthorized();
+					// Tenant access validation
+					let tenant_authorized = await this._isUserAuthorized(this.Authorization?.Resource, this.App.Services.TenantService);
 					let logoutTimeout = this.Authorization?.UnauthorizedLogoutTimeout ? this.Authorization.UnauthorizedLogoutTimeout : 60000;
-					if (!userAuthorized) {
+					if (!tenant_authorized) {
 						this.App.addAlert("danger", "You are not authorized to use this application.", logoutTimeout);
 						// Logout after some time
 						setTimeout(() => {
@@ -91,6 +94,20 @@ export default class AuthModule extends Module {
 						return;
 					}
 				}
+
+				// Remove item from Navigation based on Access resource
+				if (this.Navigation.Items.length > 0) {
+					let getItems = this.Navigation.getItems();
+					await Promise.all(getItems.items.map(async(itm, idx) => {
+						if (itm.resource) {
+							let access_auth = await this._isUserAuthorized(itm.resource);
+							if (!access_auth) {
+								this.Navigation.removeItem(itm)
+							}
+						}
+					}))
+				}
+
 			}
 
 			if ((this.UserInfo == null) && (this.MustAuthenticate)) {
@@ -221,24 +238,28 @@ export default class AuthModule extends Module {
 	}
 
 
-	async _isUserAuthorized() {
+	async _isUserAuthorized(resource, tenant_service) {
 		let authorized = false;
 		// Check if Tenant service is enabled in the application and decide on type of user authorization
-		if (this.App.Services.TenantService) {
+		if (tenant_service) {
 			let currentTenant = this.App.Services.TenantService.get_current_tenant();
-			authorized = await this.Api.verify_access(this.OAuthToken['access_token'], this.Authorization?.Resource, currentTenant).then(response => {
+			authorized = await this.Api.verify_access(this.OAuthToken['access_token'], resource, currentTenant).then(response => {
 				if (response.data.result == 'OK'){
-						return true;
-					}
+					return true;
+				} else {
+					return false;
+				}
 				}).catch((error) => {
 					console.log(error);
 					return false;
 				});
 		} else {
-			authorized = await this.Api.verify_access(this.OAuthToken['access_token'], this.Authorization?.Resource).then(response => {
+			authorized = await this.Api.verify_access(this.OAuthToken['access_token'], resource).then(response => {
 				if (response.data.result == 'OK'){
-						return true;
-					}
+					return true;
+				} else {
+					return false;
+				}
 				}).catch((error) => {
 					console.log(error);
 					return false;

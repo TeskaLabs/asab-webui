@@ -566,6 +566,10 @@ class Navigation {
 			items: this.Items
 		}
 	}
+
+	removeItem(item) {
+		this.Items = this.Items.filter(i => i.name != item.name);
+	}
 }
 
 
