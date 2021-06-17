@@ -65,7 +65,7 @@ module.exports = {
 				),
 				// Extracts file styles.css
 				new ExtractTextPlugin({
-					filename: 'assets/css/styles.css',
+					filename: 'assets/css/styles.[chunkhash:8].css',
 					allChunks: true
 				}),
 				new UglifyJsPlugin({
