@@ -99,8 +99,8 @@ export default class AuthModule extends Module {
 				if (this.Navigation.Items.length > 0) {
 					let getItems = this.Navigation.getItems();
 					await Promise.all(getItems.items.map(async(itm, idx) => {
-						if (itm.access) {
-							let access_auth = await this._isUserAuthorized(itm.access);
+						if (itm.resource) {
+							let access_auth = await this._isUserAuthorized(itm.resource);
 							if (!access_auth) {
 								this.Navigation.removeItem(itm)
 							}
