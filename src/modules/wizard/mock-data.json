@@ -1,0 +1,119 @@
+{
+    "name": "Wizard Name",
+        "wizardPages": [
+            {
+                "title": "a 1",
+                "rows":
+                    [
+                        {
+                            "type": "markdown",
+                            "contents": "# headline \n ## second line \n normal text \n\n second line of normal text"
+                        },
+                        {
+                            "$id": "some_id",
+                            "type": "object",
+                            "description": "description",
+                            "examples": [
+                                {
+                                    "servers": "lm1:12181,lm2:22181,lm3:32181",
+                                    "path": "/lmio"
+                                }
+                            ],
+                            "required": [
+                                "servers",
+                                "path"
+                            ],
+                            "properties": {
+                                "servers": {
+                                    "$id": "#/properties/asab%3Azookeeper/properties/servers",
+                                    "type": "text",
+                                    "title": "The servers schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "lm1:12181,lm2:22181,lm3:32181"
+                                    ]
+                                },
+                                "path": {
+                                    "$id": "#/properties/asab%3Azookeeper/properties/path",
+                                    "type": "text",
+                                    "title": "The path schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "/lmio"
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "type": "markdown",
+                            "contents": "## headline 2"
+                        }
+                    ]
+            },
+             {
+                "title": "b 2",
+                "rows":
+                    [
+                        {
+                            "type": "markdown",
+                            "contents": "# headline \n ## second line \n normal text \n\n second line of normal text"
+                        },
+                        {
+                            "type": "markdown",
+                            "contents": "## headline 2"
+                        },
+                        {
+                            "type": "markdown",
+                            "contents": "### headline 3"
+                        },
+                        {
+                            "type": "markdown",
+                            "contents": "#### headline 4"
+                        },
+                        {
+                            "$id": "some_id2",
+                            "type": "object",
+                            "description": "description",
+                            "examples": [
+                                {
+                                    "servers": "lm1:12181,lm2:22181,lm3:32181",
+                                    "path": "/lmio"
+                                }
+                            ],
+                            "required": [
+                                "servers",
+                                "path"
+                            ],
+                            "properties": {
+                                "servers2": {
+                                    "$id": "#/properties/asab%3Azookeeper/properties/servers2",
+                                    "type": "string",
+                                    "title": "The servers schema2",
+                                    "description": "An explanation about the purpose of servers2.",
+                                    "default": "",
+                                    "examples": [
+                                        "lm1:12181,lm2:22181,lm3:32181"
+                                    ]
+                                },
+                                "path2": {
+                                    "$id": "#/properties/asab%3Azookeeper/properties/path2",
+                                    "type": "string",
+                                    "title": "The path schema2",
+                                    "description": "An explanation about the purpose of path2.",
+                                    "default": "some default value",
+                                    "examples": [
+                                        "/lmio"
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "type": "markdown",
+                            "contents": "last markdown under input"
+                        }
+                    ]
+            }
+        ]
+}
