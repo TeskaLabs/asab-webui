@@ -31,17 +31,24 @@ function HeaderComponent(props) {
 
 	const App = props.app;
 	const { t, i18n } = useTranslation();
-	// Get service URL
-	let user_auth_url = App.getServiceURL('seacat_auth_webui');
+
+	// Get URL of SeaCat Auth WebUI
+	let user_auth_url = window.location.protocol + '//' + window.location.host;
+	// If SeaCat Auth WebUI URL is defined in SERVICES, use it
+	if (App.Config.get('SERVICES')?.seacat_auth_webui) {
+		user_auth_url = App.getServiceURL('seacat_auth_webui');
+	}
+
 	// Get access control URL
-	let access_control_url = window.location.protocol + '//' + window.location.host + '#/auth/access-control';
+	let access_control_url = window.location.protocol + '//' + window.location.host + window.location.pathname + '#/auth/access-control';
 	// Check if Tenant service is available to get the access control URL with tenant
 	if (App.Services.TenantService) {
 		let currentTenant = App.Services.TenantService.get_current_tenant();
 		if (currentTenant) {
-			access_control_url = window.location.protocol + '//' + window.location.host + '/?tenant=' + currentTenant + '#/auth/access-control';
+			access_control_url = window.location.protocol + '//' + window.location.host + window.location.pathname + '?tenant=' + currentTenant + '#/auth/access-control';
 		}
 	}
+
 
 	const logout = () => {
 		props.AuthModule.logout()
