@@ -70,3 +70,7 @@
 - Assure, that BASE_URL is always an absolute URL. Assure, that API_PATH can be set as an absolute URL. (INDIGO Sprint 210514, [!111](https://github.com/TeskaLabs/asab-webui/pull/111))
 
 - Fix public path issue when apps are build on subpaths (INDIGO Sprint 210528, [!118](https://github.com/TeskaLabs/asab-webui/pull/118))
+
+- Fix paths to language locales when app is build on subpath (INDIGO Sprint 210611, [!126](https://github.com/TeskaLabs/asab-webui/pull/126))
+
+- Fix URL of Access control screen and SeaCat Auth WebUI when app is build on subpath (INDIGO Sprint 210611, [!126](https://github.com/TeskaLabs/asab-webui/pull/126))
