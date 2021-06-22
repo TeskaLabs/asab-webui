@@ -38,11 +38,12 @@ export default class I18nService extends Service {
 		// Set default key separator
 		config.keySeparator = "|";
 
-		// Set the backend
+		// Set backend paths if not specified
 		if (!config.backend) {
-			let loadPath = {};
-			loadPath['loadPath'] = window.location.pathname + "locales/{{lng}}/{{ns}}.json";
-			config['backend'] = loadPath;
+			let paths = {}
+			paths['addPath'] = window.location.pathname + "locales/add/{{lng}}/{{ns}}";
+			paths['loadPath'] = window.location.pathname + "locales/{{lng}}/{{ns}}.json";
+			config['backend'] = paths;
 		}
 
 		i18n
