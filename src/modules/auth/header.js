@@ -41,11 +41,15 @@ function HeaderComponent(props) {
 
 	// Get access control URL
 	let access_control_url = window.location.protocol + '//' + window.location.host + window.location.pathname + '#/auth/access-control';
-	// Check if Tenant service is available to get the access control URL with tenant
+
+	// Get URL of About
+	let about_url = window.location.protocol + '//' + window.location.host + window.location.pathname + '#/about';
+	// Check if Tenant service is available to get the access control URL and about with tenant
 	if (App.Services.TenantService) {
 		let currentTenant = App.Services.TenantService.get_current_tenant();
 		if (currentTenant) {
 			access_control_url = window.location.protocol + '//' + window.location.host + window.location.pathname + '?tenant=' + currentTenant + '#/auth/access-control';
+			about_url = window.location.protocol + '//' + window.location.host + window.location.pathname + '?tenant=' + currentTenant + '#/auth/about';
 		}
 	}
 
@@ -80,6 +84,9 @@ function HeaderComponent(props) {
 						</DropdownItem>
 					</React.Fragment>
 				}
+				<DropdownItem tag="a" href={about_url}>
+					{t('AuthHeaderDropdown|About')}
+				</DropdownItem>
 				<DropdownItem onClick={() => {logout()}}>
 					<span className="text-danger">
 						{t('AuthHeaderDropdown|Logout')}
