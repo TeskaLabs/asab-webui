@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import TreeMenu from 'react-simple-tree-menu';
+import ReactJson from 'react-json-view';
 
 import {
 	Button,
@@ -33,6 +34,8 @@ export default function ConfigEditor(props) {
 	const configType = props.configType;
 	const configName = props.configName;
 	const [ configNotExist, setConfigNotExist ] = useState(false);
+	const [ jsonValues, setJsonValues] = useState({});
+	const [ displayJson, setDisplayJson ] = useState(false);
 
 
 	useEffect(() => {
@@ -119,7 +122,8 @@ export default function ConfigEditor(props) {
 				}
 			}
 			setAdHocValues(ahValues);
-			setAdHocSections(ahSections)
+			setAdHocSections(ahSections);
+			setJsonValues(values);
 		} else {
 			App.addAlert("warning", `Config file does not exists.`);
 			setConfigNotExist(true);
@@ -172,6 +176,10 @@ export default function ConfigEditor(props) {
 		}
 	}
 
+	const displayJSON = () => {
+		setDisplayJson(!displayJson);
+	}
+
 	return (
 		!typeData ?
 			<ConfigMessageCard
@@ -198,6 +206,13 @@ export default function ConfigEditor(props) {
 							</div>
 							<div className="float-right">
 								<Button
+									color="success"
+									onClick={() => {displayJSON()}}
+								>
+									JSON view
+								</Button>
+								{' '}
+								<Button
 									color="primary"
 									type="submit"
 								>
@@ -206,26 +221,38 @@ export default function ConfigEditor(props) {
 							</div>
 						</div>
 					</Card>
+					{displayJson ?
+						<Card>
+							<ReactJson
+								src={jsonValues}
+								onEdit={ e => { onSubmit(e.updated_src)} }
+								enableClipboard={false}
+								name={false}
+							/>
+						</Card>
+						:
+						<React.Fragment>
+						{/* List of Sections (it may consist also of AdHocValues) */}
+						{typeData && typeData.properties && Object.keys(typeData.properties).map((section_name, idx) =>
+							<ConfigSection
+								key={idx}
+								section={typeData.properties[section_name]}
+								sectionname={section_name}
+								register={register}
+								adhocvalues={adHocValues}
+							/>
+						)}
 
-					{/* List of Sections (it may consist also of AdHocValues) */}
-					{typeData && typeData.properties && Object.keys(typeData.properties).map((section_name, idx) =>
-						<ConfigSection
-							key={idx}
-							section={typeData.properties[section_name]}
-							sectionname={section_name}
-							register={register}
-							adhocvalues={adHocValues}
-						/>
-					)}
-
-					{/* List all remaining sections e.g. AdHocSections */}
-					{Object.keys(adHocSections).length > 0 && Object.keys(adHocSections).map((section_name, idx) =>
-						<ConfigAdHocSection
-							key={idx}
-							sectionname={section_name}
-							values={adHocSections[section_name]}
-						/>
-					)}
+						{/* List all remaining sections e.g. AdHocSections */}
+						{Object.keys(adHocSections).length > 0 && Object.keys(adHocSections).map((section_name, idx) =>
+							<ConfigAdHocSection
+								key={idx}
+								sectionname={section_name}
+								values={adHocSections[section_name]}
+							/>
+						)}
+						</React.Fragment>
+					}
 				</Form>
 			</React.Fragment>
 	);
