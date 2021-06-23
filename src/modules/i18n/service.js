@@ -70,7 +70,7 @@ export default class I18nService extends Service {
 	}
 
 	async t(str) {
-		return await this.i18nPromise.then(t => t(str));
+		return await this.i18n.then(t => t(str));
 	}
 
 }
