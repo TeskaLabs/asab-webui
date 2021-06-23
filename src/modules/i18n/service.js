@@ -38,6 +38,14 @@ export default class I18nService extends Service {
 		// Set default key separator
 		config.keySeparator = "|";
 
+		// Set backend paths if not specified
+		if (!config.backend) {
+			let paths = {}
+			paths['addPath'] = window.location.pathname + "locales/add/{{lng}}/{{ns}}";
+			paths['loadPath'] = window.location.pathname + "locales/{{lng}}/{{ns}}.json";
+			config['backend'] = paths;
+		}
+
 		i18n
 		.use(HttpBackend)
 		.use(initReactI18next)
