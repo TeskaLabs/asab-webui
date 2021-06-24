@@ -23,8 +23,7 @@ export default class AuthModule extends Module {
 		this.App.addSplashScreenRequestor(this);
 
 		this.Navigation = app.Navigation; // Get the navigation
-		this.Authorization = this.Config.get("Authorization"); // Get Authorization settings from configuration
-
+		this.Authorization = this.Config.get("authorization"); // Get authorization settings from configuration
 
 		// Access control screen
 		app.Router.addRoute({
@@ -80,10 +79,10 @@ export default class AuthModule extends Module {
 				this.App.addAxiosInterceptor(this.authInterceptor());
 
 				// Authorization of the user based on tenant access
-				if (this.Authorization?.Authorize) {
+				if (this.Authorization?.authorize) {
 					// Tenant access validation
-					let tenant_authorized = await this._isUserAuthorized(this.Authorization?.Resource, this.App.Services.TenantService);
-					let logoutTimeout = this.Authorization?.UnauthorizedLogoutTimeout ? this.Authorization.UnauthorizedLogoutTimeout : 60000;
+					let tenant_authorized = await this._isUserAuthorized(this.Authorization?.resource, this.App.Services.TenantService);
+					let logoutTimeout = this.Authorization?.unauthorized_logout_timeout ? this.Authorization.unauthorized_logout_timeout : 60000;
 					if (!tenant_authorized) {
 						this.App.addAlert("danger", "You are not authorized to use this application.", logoutTimeout);
 						// Logout after some time
