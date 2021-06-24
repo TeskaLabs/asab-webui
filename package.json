@@ -43,7 +43,6 @@
 		"axios": "^0.21.1",
 		"file-saver": "^2.0.5",
 		"moment": "^2.24.0",
-		"query-string": "^6.11.1",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
 		"react-helmet": "^6.1.0",
