@@ -1,6 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
 	UncontrolledDropdown,
@@ -82,9 +82,11 @@ function HeaderComponent(props) {
 						</DropdownItem>
 					</React.Fragment>
 				}
-				<DropdownItem tag="a" href="#/auth/about">
-					{t('AuthHeaderDropdown|About')}
-				</DropdownItem>
+				<Link to="/auth/about">
+					<DropdownItem>
+						{t('AuthHeaderDropdown|About')}
+					</DropdownItem>
+				</Link>
 				<DropdownItem onClick={() => {logout()}}>
 					<span className="text-danger">
 						{t('AuthHeaderDropdown|Logout')}
