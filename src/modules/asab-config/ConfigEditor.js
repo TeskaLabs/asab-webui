@@ -36,6 +36,7 @@ export default function ConfigEditor(props) {
 	const [ configNotExist, setConfigNotExist ] = useState(false);
 	const [ jsonValues, setJsonValues] = useState({});
 	const [ displayJson, setDisplayJson ] = useState(false);
+	const [ editJsonData, setEditJsonData ] = useState({});
 
 
 	useEffect(() => {
@@ -140,22 +141,29 @@ export default function ConfigEditor(props) {
 		let section = {};
 		let parsedSections = {};
 		let prevSection = "";
-		// Parse data to object
-		Object.keys(data).map((key, idx) =>
-			{
-				splitKey = key.split(" "),
-				sectionTitle = splitKey[0],
-				sectionKey = splitKey[1],
-				sectionValue = data[key]
-				if (prevSection == sectionTitle) {
-					section[sectionKey] = sectionValue;
-				} else {
-					section = {};
-					section[sectionKey] = sectionValue;
-				}
-				prevSection = sectionTitle,
-				parsedSections[sectionTitle] = section
-			})
+
+		if (displayJson) {
+			// If data are being submitted from JSON view, dont parse data to object
+			parsedSections = editJsonData;
+		} else {
+			// Parse data to object
+			Object.keys(data).map((key, idx) =>
+				{
+					splitKey = key.split(" "),
+					sectionTitle = splitKey[0],
+					sectionKey = splitKey[1],
+					sectionValue = data[key]
+					if (prevSection == sectionTitle) {
+						section[sectionKey] = sectionValue;
+					} else {
+						section = {};
+						section[sectionKey] = sectionValue;
+					}
+					prevSection = sectionTitle,
+					parsedSections[sectionTitle] = section
+				})
+		}
+
 		try {
 			// TODO: make config dynamic value
 			let response = await Axios.put("/config/" + configType + "/" + configName,
@@ -176,7 +184,14 @@ export default function ConfigEditor(props) {
 		}
 	}
 
+	// Collect JSON data from JSON view
+	const collectJsonData = (data) => {
+		setEditJsonData(data);
+	}
+
+	// Display JSON view
 	const displayJSON = () => {
+		initialLoad();
 		setDisplayJson(!displayJson);
 	}
 
@@ -205,12 +220,23 @@ export default function ConfigEditor(props) {
 								<h5 style={{paddingTop: "0.35em"}}>{configName ? configType.toString() + ' / ' + configName.toString() : ""}</h5>
 							</div>
 							<div className="float-right">
-								<Button
-									color="success"
-									onClick={() => {displayJSON()}}
-								>
-									JSON view
-								</Button>
+								{displayJson ?
+									<Button
+										style={{width:"150px"}}
+										color="secondary"
+										onClick={() => {displayJSON()}}
+									>
+										Config view
+									</Button>
+									:
+									<Button
+										style={{width:"150px"}}
+										color="secondary"
+										onClick={() => {displayJSON()}}
+									>
+										JSON view
+									</Button>
+								}
 								{' '}
 								<Button
 									color="primary"
@@ -225,7 +251,7 @@ export default function ConfigEditor(props) {
 						<Card>
 							<ReactJson
 								src={jsonValues}
-								onEdit={ e => { onSubmit(e.updated_src)} }
+								onEdit={ e => { collectJsonData(e.updated_src)} }
 								enableClipboard={false}
 								name={false}
 							/>
