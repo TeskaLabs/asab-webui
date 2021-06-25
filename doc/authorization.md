@@ -24,13 +24,13 @@ Only tenants authorized for the user are displayed.
 
 ### Setup
 
-In the top-level `index.js` of your ASAB UI application, load the Tenant module and add to ConfigDefaults `Authorization` with keys and values.
+In the top-level `index.js` of your ASAB UI application, load the Tenant module and add to ConfigDefaults `authorization` with keys and values.
 
-`Authorize` must be set to `true` to enable the feature
+`authorize` must be set to `true` to enable the feature
 
-`Resource` is used for setting up resource for `rbac` endpoint. By default is set to `tenant:access`
+`resource` is used for setting up resource for `rbac` endpoint. By default is set to `tenant:access`
 
-`UnauthorizedLogoutTimeout` is a timeout period on which the screen will stay in SplashScreen mode before it log out the unauthorized user. Default value is 60000 aka 60s.
+`unauthorized_logout_timeout` is a timeout period on which the screen will stay in SplashScreen mode before it log out the unauthorized user. Default value is 60000 aka 60s.
 
 <!-- TODO: Set up also BASE_URL, Microservice, Subpaths, etc... -->
 
@@ -43,7 +43,7 @@ import TenantModule from 'asab-webui/modules/tenant';
 modules.push(TenantModule);
 
 let ConfigDefaults = {
-	Authorization: { Authorize: true, Resource: "tenant:access", UnauthorizedLogoutTimeout: 60000},
+	authorization: { authorize: true, resource: "tenant:access", unauthorized_logout_timeout: 60000},
 };
 
 ...
