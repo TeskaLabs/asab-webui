@@ -36,8 +36,9 @@
 
 - Notify user about expiring session in auth module (INDIGO Sprint 210528, [!119](https://github.com/TeskaLabs/asab-webui/pull/119))
 
-- Implemented About screen to the dropdown in auth header (INDIGO Sprint 210611, [!130](https://github.com/TeskaLabs/asab-webui/pull/130))
+- Add support of translations for code outside of react function components (INDIGO Sprint 210611, [!123](https://github.com/TeskaLabs/asab-webui/pull/123))
 
+- Implemented About screen to the dropdown in auth header (INDIGO Sprint 210611, [!130](https://github.com/TeskaLabs/asab-webui/pull/130))
 
 
 ### Refactoring
@@ -68,6 +69,7 @@
 
 - Refactor obtaining formats for format items in ASAB-Config module. It seek for `$defs` key to generate appropriate input type. (INDIGO Sprint 210528, [!103](https://github.com/TeskaLabs/asab-webui/pull/103))
 
+- Refactor capitalization of authorization configuration in the config file. (INDIGO Sprint 210611, [!128](https://github.com/TeskaLabs/asab-webui/pull/128))
 
 
 ### Bugfixes
