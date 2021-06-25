@@ -71,48 +71,35 @@ function AboutCard(props) {
 					</Row>
 					<hr/>
 				</React.Fragment>
+				{version &&
+					<React.Fragment>
+						<Row>
+							<Col>
+								<h5>{t('AboutScreen|Version')}</h5>
+							</Col>
+							<Col>
+								<p>{version}</p>
+							</Col>
+						</Row>
+						<hr/>		
+					</React.Fragment>
+				}
 				<Row>
 					<Col>
-						<h5>{t('AboutScreen|Version')}</h5>
-					</Col>
-					<Col>
-						<p>{version}</p>
-					</Col>
-				</Row>
-				<hr/>
-				<Row>
-					<Col>
-						<h5>{t('AboutScreen|Maintainer')}</h5>
+						<h5>{t('AboutScreen|Vendor')}</h5>
 					</Col>
 					<Col>
 						<p>{maintainer}</p>
 					</Col>
 				</Row>
 				<hr/>
-				<Row className="justify-content-center">
+				<Row>
+					<Col></Col>
 					<Col>
 						<p className="text-center"><a href={`mailto:${email}`}>{email}</a></p>
 					</Col>
 				</Row>
 			</CardBody>
-			<CardFooter>
-				<Row className="justify-content-center">
-					<Col>
-						<Button
-							size="sm"
-							outline
-							block
-							color="link"
-							type="button"
-							onClick={() => history.goBack()}
-						>
-							<i className="cil-arrow-thick-left"></i>
-							{' '}
-							{t("AccessControlScreen|Previous screen")}
-						</Button>
-					</Col>
-				</Row>
-			</CardFooter>
 		</Card>
 	)
 }
