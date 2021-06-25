@@ -199,7 +199,8 @@ export default class AuthModule extends Module {
 			// If session has expired
 			if (oldUserInfo) {
 				oldUserInfo = null;
-				that.App.addAlert("warning", "Your session has expired");
+				const alertMessage = await that.App.i18n.t("Your session has expired");
+				that.App.addAlert("warning", alertMessage);
 			}
 			that.UserInfo = null;
 			if (that.App.Store != null) {
@@ -235,7 +236,8 @@ export default class AuthModule extends Module {
 		 */
 		if (difference < 60000 && exp > Date.now() && !fAlert) {
 			const expire = exp > Date.now() ? difference/1000 : 5;
-			that.App.addAlert("warning", "Your session will expire soon.", expire);
+			const alertMessage = await that.App.i18n.t("Your session will expire soon");
+			that.App.addAlert("warning", alertMessage, expire);
 			fAlert = true;
 		}
 		

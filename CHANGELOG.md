@@ -36,6 +36,8 @@
 
 - Notify user about expiring session in auth module (INDIGO Sprint 210528, [!119](https://github.com/TeskaLabs/asab-webui/pull/119))
 
+- Add support of translations for code outside of react function components (INDIGO Sprint 210611, [!123](https://github.com/TeskaLabs/asab-webui/pull/123))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
