@@ -96,7 +96,7 @@ function AboutCard(props) {
 				<Row>
 					<Col></Col>
 					<Col>
-						<p className="text-center"><a href={`mailto:${email}`}>{email}</a></p>
+						<p><a href={`mailto:${email}`}>{email}</a></p>
 					</Col>
 				</Row>
 			</CardBody>
