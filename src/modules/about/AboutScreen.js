@@ -81,7 +81,7 @@ function AboutCard(props) {
 								<p>{version}</p>
 							</Col>
 						</Row>
-						<hr/>		
+						<hr/>
 					</React.Fragment>
 				}
 				<Row>
