@@ -22,7 +22,7 @@ import {
 			"About": "About",
 			"Name": "Name",
 			"Version": "Version",
-			"Maintainer": "Maintainer",
+			"Vendor": "Maintainer",
 			"Mail to the": "Mail to the"
 		}
 	}
@@ -50,7 +50,9 @@ function AboutCard(props) {
 	let App = props.app;
 	let title = App.Config.get("title");
 	let version = App.Config.get("version");
-	let maintainer = App.Config.get("maintainer");
+	let vendor = App.Config.get("vendor");
+	let locale = (t('AboutScreen|About') === "About" ? "en" : "cs")
+	let releaseDate = new Date(App.Config.get("release_date")).toLocaleDateString(locale, {year: "numeric", month: "long", day: "numeric"});
 	let email = App.Config.get("email");
 
 	return(
@@ -63,14 +65,23 @@ function AboutCard(props) {
 				<React.Fragment>
 					<Row>
 						<Col>
-							<h5>{t('AboutScreen|Name')}</h5>
+							<h5>{t('AboutScreen|Product')}</h5>
 						</Col>
 						<Col>
-							<p>{title}</p>
+							{title}
 						</Col>
 					</Row>
 					<hr/>
 				</React.Fragment>
+				<Row>
+					<Col>
+						<h5>{t('AboutScreen|Release')}</h5>
+					</Col>
+					<Col>
+						{releaseDate}
+					</Col>
+				</Row>
+				<hr/>
 				{version &&
 					<React.Fragment>
 						<Row>
@@ -78,7 +89,7 @@ function AboutCard(props) {
 								<h5>{t('AboutScreen|Version')}</h5>
 							</Col>
 							<Col>
-								<p>{version}</p>
+								{version}
 							</Col>
 						</Row>
 						<hr/>
@@ -89,14 +100,14 @@ function AboutCard(props) {
 						<h5>{t('AboutScreen|Vendor')}</h5>
 					</Col>
 					<Col>
-						<p>{maintainer}</p>
+						{vendor}
 					</Col>
 				</Row>
 				<hr/>
 				<Row>
 					<Col></Col>
 					<Col>
-						<p><a href={`mailto:${email}`}>{email}</a></p>
+						<a href={`mailto:${email}`}>{email}</a>
 					</Col>
 				</Row>
 			</CardBody>
