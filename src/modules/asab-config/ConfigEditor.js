@@ -86,7 +86,7 @@ export default function ConfigEditor(props) {
 
 		// // MOCKED DATA
 		// values = {
-		// 	'asab:storage': {
+		// 	'asab:docker': {
 		// 		'type': "fool",
 		// 		'meky': 'zbirka'
 		// 	},
@@ -100,7 +100,7 @@ export default function ConfigEditor(props) {
 		// 	},
 		// };
 
-		if (values && Object.keys(values).length > 0 && values.result != "FAIL") {
+		if (values && Object.keys(values).length >= 0 && values.result != "FAIL") {
 			let ahValues = {};
 			let ahSections = {};
 			for (var section in values) {
@@ -230,25 +230,27 @@ export default function ConfigEditor(props) {
 								/>
 								:
 								<React.Fragment>
-								{/* List of Sections (it may consist also of AdHocValues) */}
-								{typeData && typeData.properties && Object.keys(typeData.properties).map((section_name, idx) =>
-									<ConfigSection
-										key={idx}
-										section={typeData.properties[section_name]}
-										sectionname={section_name}
-										register={register}
-										adhocvalues={adHocValues}
-									/>
-								)}
+									{/* List of Sections (it may consist also of AdHocValues) */}
+									{/*<hr className="config-hr"/>*/}
+									{typeData && typeData.properties && Object.keys(typeData.properties).map((section_name, idx) =>
+										<ConfigSection
+											key={idx}
+											section={typeData.properties[section_name]}
+											sectionname={section_name}
+											register={register}
+											adhocvalues={adHocValues}
+										/>
+									)}
 
-								{/* List all remaining sections e.g. AdHocSections */}
-								{Object.keys(adHocSections).length > 0 && Object.keys(adHocSections).map((section_name, idx) =>
-									<ConfigAdHocSection
-										key={idx}
-										sectionname={section_name}
-										values={adHocSections[section_name]}
-									/>
-								)}
+									{/* List all remaining sections e.g. AdHocSections */}
+									{Object.keys(adHocSections).length > 0 && Object.keys(adHocSections).map((section_name, idx) =>
+										<ConfigAdHocSection
+											key={idx}
+											sectionname={section_name}
+											values={adHocSections[section_name]}
+										/>
+									)}
+									<hr className="config-hr"/>
 								</React.Fragment>
 							}
 						</CardBody>
@@ -284,10 +286,9 @@ export default function ConfigEditor(props) {
 
 
 function ConfigSection(props) {
-	const [isOpen, setIsOpen] = useState(false);
-	const toggle = () => setIsOpen(!isOpen);
 	return (
 		<React.Fragment>
+			<hr className="config-hr"/>
 			<h5>
 				{props.section['title']}
 			</h5>
@@ -355,39 +356,34 @@ function ConfigSection(props) {
 
 
 function ConfigAdHocSection(props) {
-	const [isOpen, setIsOpen] = useState(false);
-	const toggle = () => setIsOpen(!isOpen);
 	let myid = props.sectionname;
 	return (
-		<Card style={{marginBottom: "0.25em"}}>
-			<CardHeader tag="h5" onClick={toggle} style={{background:"#dae2e4"}}>
+		<React.Fragment>
+			<hr className="config-hr"/>
+			<h5>
 				{myid}
-			</CardHeader>
-			<Collapse isOpen={isOpen}>
-				<CardBody>
-					{props.values.length > 0 && props.values.map((obj, idx) =>
-						{
-						return (
-							<FormGroup key={idx}>
-								<Label for={myid}>
-									{Object.keys(obj)}
-								</Label>
-								<Input
-									type="text"
-									name={myid}
-									id={myid}
-									value={Object.values(obj)}
-									readOnly
-								/>
-								<FormText color="muted">
-									Read only
-								</FormText>
-							</FormGroup>
-						)}
-					)}
-				</CardBody>
-			</Collapse>
-		</Card>
+			</h5>
+			{props.values.length > 0 && props.values.map((obj, idx) =>
+				{
+				return (
+					<FormGroup key={idx}>
+						<Label for={myid}>
+							{Object.keys(obj)}
+						</Label>
+						<Input
+							type="text"
+							name={myid}
+							id={myid}
+							value={Object.values(obj)}
+							readOnly
+						/>
+						<FormText color="muted">
+							Read only
+						</FormText>
+					</FormGroup>
+				)}
+			)}
+		</React.Fragment>
 	);
 }
 
