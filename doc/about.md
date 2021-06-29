@@ -1,14 +1,14 @@
 ## Setting about page
 
-The About page is set automatically based on the information provided in configuration. It shows the information about app name, app version and app maintainers.
+The About page is set automatically based on the information provided in configurations. It shows the information about app name, release date, its version and vendor.
 
 ```
 let ConfigDefaults = {
 	title: "LogMan.io",
 	version: "1.0",
+	release_date: "2020-01-21",
 	vendor: "TeskaLabs",
 	email: "info@teskalabs.com",
-	release_date: "2020-01-21",
 	...
 };
 ```
@@ -16,12 +16,15 @@ let ConfigDefaults = {
 In this case the next information will be generated in About page:
 
 ```
-Name | Logman.io
-Release date | January 21, 2020
+Name    | Logman.io
+Release | January 21, 2020
 Version | 1.0
-Vendor | TeskaLabs
-Mail to the info@teskalabs.com
+Vendor  | TeskaLabs
+          info@teskalabs.com
 ```
+
+For a page to be displayed correctly, it is necessary to provide all the information mentioned above except of version. Version is an optional feature.
+
 ### Setup
 
 Load the module on the top-level `index.js` of your ASAB UI application
