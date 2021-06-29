@@ -4,14 +4,20 @@
 	height: 100%;
 }
 
-.library-row {
+.config-row {
  	height: 100%;
 }
 
-.library-container {
+.config-container {
 	height: calc(100% - 47px);
 }
 
+.card-body-height {
+	height: calc(100vh - 300px);
+	overflow-x: hidden !important;
+}
+
+/*TreeView*/
 .rstm-toggle-icon {
 	display: inline-block; }
 	.rstm-toggle-icon-symbol {
