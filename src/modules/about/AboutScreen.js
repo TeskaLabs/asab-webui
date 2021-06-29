@@ -20,10 +20,10 @@ import {
 	{
 		"AboutScreen": {
 			"About": "About",
-			"Name": "Name",
+			"Product": "Product",
 			"Version": "Version",
-			"Vendor": "Maintainer",
-			"Mail to the": "Mail to the"
+			"Release": "Release",
+			"Vendor": "Vendor"
 		}
 	}
 
@@ -51,7 +51,7 @@ function AboutCard(props) {
 	let title = App.Config.get("title");
 	let version = App.Config.get("version");
 	let vendor = App.Config.get("vendor");
-	let locale = (t('AboutScreen|About') === "About" ? "en" : "cs")
+	let locale = t('AboutScreen|About') === "About" ? "en" : "cs";
 	let releaseDate = new Date(App.Config.get("release_date")).toLocaleDateString(locale, {year: "numeric", month: "long", day: "numeric"});
 	let email = App.Config.get("email");
 
