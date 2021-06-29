@@ -8,6 +8,7 @@ import {
 
 import { TreeViewComponent } from "./TreeViewComponent";
 import ConfigEditor from "./ConfigEditor";
+import './configuration.css';
 
 export default function ConfigContainer(props) {
 
@@ -20,8 +21,8 @@ export default function ConfigContainer(props) {
 	const homeScreenAlt = App.Config.get('title');
 
 	return (
-		<Container fluid className="animated fadeIn flex mt-0 pr-0 pl-0 pt-0 library-container">
-			<Row className="library-row">
+		<Container fluid className="animated fadeIn flex mt-0 pr-0 pl-0 pt-0 config-container">
+			<Row className="config-row">
 				<Col xs="2" sm="2" className="pr-0 bcg-column">
 					<TreeViewComponent
 						app={App}
