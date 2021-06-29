@@ -5,7 +5,7 @@ import ReactJson from 'react-json-view';
 
 import {
 	Button,
-	Card, CardBody, CardHeader,
+	Card, CardBody, CardHeader, CardFooter,
 	Collapse,
 	Form, FormGroup, FormText, Input, Label
 } from "reactstrap";
@@ -17,6 +17,7 @@ import {
 	StringItems
 } from './ConfigFormatItems';
 
+import './configuration.css';
 
 export default function ConfigEditor(props) {
 
@@ -214,71 +215,68 @@ export default function ConfigEditor(props) {
 		:
 			<React.Fragment>
 				<Form onSubmit={handleSubmit(onSubmit)}>
-					<Card style={{marginBottom: "0.25em"}}>
-						<div style={{margin: "0.5em"}}>
-							<div className="float-left">
-								<h5 style={{paddingTop: "0.35em"}}>{configName ? configType.toString() + ' / ' + configName.toString() : ""}</h5>
-							</div>
-							<div className="float-right">
-								{displayJson ?
-									<Button
-										style={{width:"150px"}}
-										color="secondary"
-										onClick={() => {displayJSON()}}
-									>
-										Config view
-									</Button>
-									:
-									<Button
-										style={{width:"150px"}}
-										color="secondary"
-										onClick={() => {displayJSON()}}
-									>
-										JSON view
-									</Button>
-								}
-								{' '}
-								<Button
-									color="primary"
-									type="submit"
-								>
-									Save
-								</Button>
-							</div>
-						</div>
-					</Card>
-					{displayJson ?
-						<Card>
-							<ReactJson
-								src={jsonValues}
-								onEdit={ e => { collectJsonData(e.updated_src)} }
-								enableClipboard={false}
-								name={false}
-							/>
-						</Card>
-						:
-						<React.Fragment>
-						{/* List of Sections (it may consist also of AdHocValues) */}
-						{typeData && typeData.properties && Object.keys(typeData.properties).map((section_name, idx) =>
-							<ConfigSection
-								key={idx}
-								section={typeData.properties[section_name]}
-								sectionname={section_name}
-								register={register}
-								adhocvalues={adHocValues}
-							/>
-						)}
+					<Card>
+						<CardHeader>
+							<span className="cil-settings pr-3" />
+							{configName ? configType.toString() + ' / ' + configName.toString() : ""}
+						</CardHeader>
+						<CardBody className="card-body-height" style={{overflow:"scroll"}}>
+							{displayJson ?
+								<ReactJson
+									src={jsonValues}
+									onEdit={ e => { collectJsonData(e.updated_src)} }
+									enableClipboard={false}
+									name={false}
+								/>
+								:
+								<React.Fragment>
+								{/* List of Sections (it may consist also of AdHocValues) */}
+								{typeData && typeData.properties && Object.keys(typeData.properties).map((section_name, idx) =>
+									<ConfigSection
+										key={idx}
+										section={typeData.properties[section_name]}
+										sectionname={section_name}
+										register={register}
+										adhocvalues={adHocValues}
+									/>
+								)}
 
-						{/* List all remaining sections e.g. AdHocSections */}
-						{Object.keys(adHocSections).length > 0 && Object.keys(adHocSections).map((section_name, idx) =>
-							<ConfigAdHocSection
-								key={idx}
-								sectionname={section_name}
-								values={adHocSections[section_name]}
-							/>
-						)}
-						</React.Fragment>
-					}
+								{/* List all remaining sections e.g. AdHocSections */}
+								{Object.keys(adHocSections).length > 0 && Object.keys(adHocSections).map((section_name, idx) =>
+									<ConfigAdHocSection
+										key={idx}
+										sectionname={section_name}
+										values={adHocSections[section_name]}
+									/>
+								)}
+								</React.Fragment>
+							}
+						</CardBody>
+						<CardFooter>
+							<Button
+								color="primary"
+								type="submit"
+							>
+								Save
+							</Button>
+							{' '}
+							{displayJson ?
+								<Button
+									color="secondary"
+									onClick={() => {displayJSON()}}
+								>
+									Basic
+								</Button>
+								:
+								<Button
+									color="secondary"
+									onClick={() => {displayJSON()}}
+								>
+									Advanced
+								</Button>
+							}
+						</CardFooter>
+					</Card>
 				</Form>
 			</React.Fragment>
 	);
@@ -289,73 +287,69 @@ function ConfigSection(props) {
 	const [isOpen, setIsOpen] = useState(false);
 	const toggle = () => setIsOpen(!isOpen);
 	return (
-		<Card style={{marginBottom: "0.25em"}}>
-			<CardHeader tag="h5" onClick={toggle}>
+		<React.Fragment>
+			<h5>
 				{props.section['title']}
-			</CardHeader>
-			<Collapse isOpen={isOpen}>
-				<CardBody>
-					{Object.keys(props.section.properties).map((item_name, idx) =>
-						// Decide what type of config item to render based on format
-						// TODO: Update also other RADIO and SELECT types
-						{switch(props.section.properties[item_name]['type']){
-							case 'string': return(<StringItems
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-													defs={props.section.properties[item_name]['$defs']}
-												/>)
-							case 'number': return(<NumberConfigItem
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-													defs={props.section.properties[item_name]['$defs']}
-												/>)
-							case 'integer': return(<NumberConfigItem
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-													defs={props.section.properties[item_name]['$defs']}
-												/>)
-							case 'boolean': return(<CheckBoxConfigItem
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-												/>)
-							default: return(<StringItems
-												key={idx}
-												item={props.section.properties[item_name]}
-												itemname={item_name}
-												sectionname={props.sectionname}
-												register={props.register}
-												defs={props.section.properties[item_name]['$defs']}
-											/>)
-						}}
-					)}
+			</h5>
+			{Object.keys(props.section.properties).map((item_name, idx) =>
+				// Decide what type of config item to render based on format
+				// TODO: Update also other RADIO and SELECT types
+				{switch(props.section.properties[item_name]['type']){
+					case 'string': return(<StringItems
+											key={idx}
+											item={props.section.properties[item_name]}
+											itemname={item_name}
+											sectionname={props.sectionname}
+											register={props.register}
+											defs={props.section.properties[item_name]['$defs']}
+										/>)
+					case 'number': return(<NumberConfigItem
+											key={idx}
+											item={props.section.properties[item_name]}
+											itemname={item_name}
+											sectionname={props.sectionname}
+											register={props.register}
+											defs={props.section.properties[item_name]['$defs']}
+										/>)
+					case 'integer': return(<NumberConfigItem
+											key={idx}
+											item={props.section.properties[item_name]}
+											itemname={item_name}
+											sectionname={props.sectionname}
+											register={props.register}
+											defs={props.section.properties[item_name]['$defs']}
+										/>)
+					case 'boolean': return(<CheckBoxConfigItem
+											key={idx}
+											item={props.section.properties[item_name]}
+											itemname={item_name}
+											sectionname={props.sectionname}
+											register={props.register}
+										/>)
+					default: return(<StringItems
+										key={idx}
+										item={props.section.properties[item_name]}
+										itemname={item_name}
+										sectionname={props.sectionname}
+										register={props.register}
+										defs={props.section.properties[item_name]['$defs']}
+									/>)
+				}}
+			)}
 
-					{/* List all remaining key/values (aka AdHocValues) from a config as simple Config Item  */}
-					{Object.keys(props.adhocvalues).length > 0 && Object.keys(props.adhocvalues).map((value_name, idx) =>
-						{return(props.sectionname == value_name ?
-							<ConfigAdHocItem
-								key={idx}
-								valuename={value_name}
-								values={props.adhocvalues[value_name]}
-							/>
-						: null
-						)}
-					)}
+			{/* List all remaining key/values (aka AdHocValues) from a config as simple Config Item  */}
+			{Object.keys(props.adhocvalues).length > 0 && Object.keys(props.adhocvalues).map((value_name, idx) =>
+				{return(props.sectionname == value_name ?
+					<ConfigAdHocItem
+						key={idx}
+						valuename={value_name}
+						values={props.adhocvalues[value_name]}
+					/>
+				: null
+				)}
+			)}
+		</React.Fragment>
 
-				</CardBody>
-			</Collapse>
-		</Card>
 	);
 }
 
