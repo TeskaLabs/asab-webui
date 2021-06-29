@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import TreeMenu from 'react-simple-tree-menu';
 import { useHistory } from "react-router-dom";
 
-import './treeview.css';
+import './configuration.css';
 
 
 export function TreeViewComponent(props) {
