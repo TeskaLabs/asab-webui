@@ -114,6 +114,7 @@ export function NumberConfigItem(props) {
 					name={myid}
 					id={myid}
 					placeholder={props.item['default']}
+					defaultValue={props.item['default']}
 					innerRef={props.register()}
 				/>
 				<FormText color="muted">
