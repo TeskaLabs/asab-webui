@@ -200,7 +200,7 @@ export function CheckBoxConfigItem(props) {
 			</Label>
 			<br />
 			<Input
-				style={{marginLeft: 5}}
+				style={{marginLeft: 2, position:"relative"}}
 				type="checkbox"
 				name={myid}
 				id={myid}
