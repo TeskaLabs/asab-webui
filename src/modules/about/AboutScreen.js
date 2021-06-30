@@ -1,13 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { connect } from 'react-redux';
-import { useHistory } from "react-router-dom";
+import { DateTime } from 'asab-webui';
 
-import Module from '../../abc/Module';
 import {
 	Container, Row, Col,
-	Card, CardHeader, CardTitle, CardSubtitle, CardBody, CardFooter,
-	Button
+	Card, CardHeader, CardBody, CardFooter,
 } from 'reactstrap';
 
 /*
@@ -19,10 +16,8 @@ import {
 
 	{
 		"AboutScreen": {
-			"About": "About",
-			"Product": "Product",
-			"Version": "Version",
 			"Release": "Release",
+			"Version": "Version",
 			"Vendor": "Vendor"
 		}
 	}
@@ -46,42 +41,20 @@ export default AboutScreen;
 
 function AboutCard(props) {
 	const { t, i18n } = useTranslation();
-	let history = useHistory();
-	let App = props.app;
-	let title = App.Config.get("title");
-	let version = App.Config.get("version");
-	let vendor = App.Config.get("vendor");
-	let locale = t('AboutScreen|About') === "About" ? "en" : "cs";
-	let releaseDate = new Date(App.Config.get("release_date")).toLocaleDateString(locale, {year: "numeric", month: "long", day: "numeric"});
-	let email = App.Config.get("email");
+	const App = props.app;
+	const title = App.Config.get("title");
+	const version = App.Config.get("version");
+	const vendor = App.Config.get("vendor");
+	const releaseDate = App.Config.get("release_date");
+	const email = App.Config.get("email");
 
 	return(
 		<Card className="shadow animated fadeIn">
 			<CardHeader className="text-center">
-				<h1>{t('AboutScreen|About')}</h1>
+				<h1>{title}</h1>
 			</CardHeader>
 
 			<CardBody>
-				<React.Fragment>
-					<Row>
-						<Col>
-							<h5>{t('AboutScreen|Product')}</h5>
-						</Col>
-						<Col>
-							{title}
-						</Col>
-					</Row>
-					<hr/>
-				</React.Fragment>
-				<Row>
-					<Col>
-						<h5>{t('AboutScreen|Release')}</h5>
-					</Col>
-					<Col>
-						{releaseDate}
-					</Col>
-				</Row>
-				<hr/>
 				{version &&
 					<React.Fragment>
 						<Row>
@@ -95,6 +68,15 @@ function AboutCard(props) {
 						<hr/>
 					</React.Fragment>
 				}
+				<Row>
+					<Col>
+						<h5>{t('AboutScreen|Release')}</h5>
+					</Col>
+					<Col>
+						<DateTime value={releaseDate} format="YYYY-MM-DD"/>
+					</Col>
+				</Row>
+				<hr/>
 				<Row>
 					<Col>
 						<h5>{t('AboutScreen|Vendor')}</h5>
