@@ -19,7 +19,7 @@ In this case the next information will be generated in About page:
 
 ```
 Name    | Logman.io
-Release | January 21, 2020
+Release | 2020-01-21
 Version | 1.0
 Vendor  | TeskaLabs
           info@teskalabs.com
