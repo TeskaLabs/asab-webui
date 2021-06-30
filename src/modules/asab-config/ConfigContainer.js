@@ -23,7 +23,7 @@ export default function ConfigContainer(props) {
 	return (
 		<Container fluid className="animated fadeIn flex mt-0 pr-0 pl-0 pt-0 config-container">
 			<Row className="config-row">
-				<Col xs="2" sm="2" className="pr-0 bcg-column">
+				<Col sm="2" className="pr-0 bcg-column">
 					<TreeViewComponent
 						app={App}
 						configType={configType}
