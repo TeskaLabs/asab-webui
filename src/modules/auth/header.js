@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
 	UncontrolledDropdown,
@@ -39,17 +40,6 @@ function HeaderComponent(props) {
 		user_auth_url = App.getServiceURL('seacat_auth_webui');
 	}
 
-	// Get access control URL
-	let access_control_url = window.location.protocol + '//' + window.location.host + window.location.pathname + '#/auth/access-control';
-	// Check if Tenant service is available to get the access control URL with tenant
-	if (App.Services.TenantService) {
-		let currentTenant = App.Services.TenantService.get_current_tenant();
-		if (currentTenant) {
-			access_control_url = window.location.protocol + '//' + window.location.host + window.location.pathname + '?tenant=' + currentTenant + '#/auth/access-control';
-		}
-	}
-
-
 	const logout = () => {
 		props.AuthModule.logout()
 	}
@@ -67,7 +57,7 @@ function HeaderComponent(props) {
 			</DropdownToggle>
 			<DropdownMenu>
 				<DropdownItem header tag="div" className="text-center"><strong>{t('AuthHeaderDropdown|My account')}</strong></DropdownItem>
-				<DropdownItem tag="a" href={access_control_url}>
+				<DropdownItem tag={Link} to="/auth/access-control">
 					{t('AuthHeaderDropdown|Access control')}
 				</DropdownItem>
 				{user_auth_url != null &&
@@ -80,6 +70,9 @@ function HeaderComponent(props) {
 						</DropdownItem>
 					</React.Fragment>
 				}
+				<DropdownItem tag={Link} to="/about">
+					{t('AuthHeaderDropdown|About')}
+				</DropdownItem>
 				<DropdownItem onClick={() => {logout()}}>
 					<span className="text-danger">
 						{t('AuthHeaderDropdown|Logout')}

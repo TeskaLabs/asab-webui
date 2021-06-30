@@ -34,7 +34,6 @@ export default class AuthModule extends Module {
 		});
 	}
 
-
 	async initialize() {
 		const headerService = this.App.locateService("HeaderService");
 		headerService.addComponent(HeaderComponent, {AuthModule: this});
