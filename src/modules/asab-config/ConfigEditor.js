@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import TreeMenu from 'react-simple-tree-menu';
 import ReactJson from 'react-json-view';
+import classnames from 'classnames';
 
 import {
 	Button,
 	Card, CardBody, CardHeader, CardFooter,
 	Collapse,
-	Form, FormGroup, FormText, Input, Label
+	Form, FormGroup, FormText, Input, Label,
+	TabContent, TabPane, Nav, NavItem, NavLink
 } from "reactstrap";
 
 import {
@@ -36,8 +38,7 @@ export default function ConfigEditor(props) {
 	const configName = props.configName;
 	const [ configNotExist, setConfigNotExist ] = useState(false);
 	const [ jsonValues, setJsonValues] = useState({});
-	const [ displayJson, setDisplayJson ] = useState(false);
-	const [ editJsonData, setEditJsonData ] = useState({});
+	const [activeTab, setActiveTab] = useState('basic');
 
 
 	useEffect(() => {
@@ -143,9 +144,9 @@ export default function ConfigEditor(props) {
 		let parsedSections = {};
 		let prevSection = "";
 
-		if (displayJson) {
+		if (activeTab == 'advanced') {
 			// If data are being submitted from JSON view, dont parse data to object
-			parsedSections = editJsonData;
+			parsedSections = jsonValues;
 		} else {
 			// Parse data to object
 			Object.keys(data).map((key, idx) =>
@@ -176,6 +177,7 @@ export default function ConfigEditor(props) {
 				)
 			if (response.data.result == "OK"){
 				App.addAlert("success", 'Data updated successfuly.');
+				initialLoad(); // Load the new data after saving
 			}
 			// TODO: validate responses which are not 200
 		}
@@ -185,15 +187,9 @@ export default function ConfigEditor(props) {
 		}
 	}
 
-	// Collect JSON data from JSON view
-	const collectJsonData = (data) => {
-		setEditJsonData(data);
-	}
-
-	// Display JSON view
-	const displayJSON = () => {
-		initialLoad();
-		setDisplayJson(!displayJson);
+	// Swith between the tabs
+	const toggle = tab => {
+		if(activeTab !== tab) setActiveTab(tab);
 	}
 
 	return (
@@ -219,40 +215,65 @@ export default function ConfigEditor(props) {
 						<CardHeader>
 							<span className="cil-settings pr-3" />
 							{configName ? configType.toString() + ' / ' + configName.toString() : ""}
+							<div className="float-right">
+								<Nav tabs>
+									<NavItem>
+										<NavLink
+											className={classnames({ active: activeTab === 'basic' })}
+											onClick={() => { toggle('basic'); }}
+										>
+											Basic
+										</NavLink>
+									</NavItem>
+									<NavItem>
+										<NavLink
+											className={classnames({ active: activeTab === 'advanced' })}
+											onClick={() => { toggle('advanced'); }}
+										>
+											Advanced
+										</NavLink>
+									</NavItem>
+								</Nav>
+							</div>
 						</CardHeader>
-						<CardBody className="card-body-height" style={{overflow:"scroll"}}>
-							{displayJson ?
-								<ReactJson
-									src={jsonValues}
-									onEdit={ e => { collectJsonData(e.updated_src)} }
-									enableClipboard={false}
-									name={false}
-								/>
-								:
-								<React.Fragment>
-									{/* List of Sections (it may consist also of AdHocValues) */}
-									{/*<hr className="config-hr"/>*/}
-									{typeData && typeData.properties && Object.keys(typeData.properties).map((section_name, idx) =>
-										<ConfigSection
-											key={idx}
-											section={typeData.properties[section_name]}
-											sectionname={section_name}
-											register={register}
-											adhocvalues={adHocValues}
-										/>
-									)}
+						<CardBody
+							className="card-body-height"
+							style={{overflow:"scroll"}}
+						>
+							<TabContent activeTab={activeTab}>
+								<TabPane tabId="basic">
+									<React.Fragment>
+										{/* List of Sections (it may consist also of AdHocValues) */}
+										{typeData && typeData.properties && Object.keys(typeData.properties).map((section_name, idx) =>
+											<ConfigSection
+												key={idx}
+												section={typeData.properties[section_name]}
+												sectionname={section_name}
+												register={register}
+												adhocvalues={adHocValues}
+											/>
+										)}
 
-									{/* List all remaining sections e.g. AdHocSections */}
-									{Object.keys(adHocSections).length > 0 && Object.keys(adHocSections).map((section_name, idx) =>
-										<ConfigAdHocSection
-											key={idx}
-											sectionname={section_name}
-											values={adHocSections[section_name]}
-										/>
-									)}
-									<hr className="config-hr"/>
-								</React.Fragment>
-							}
+										{/* List all remaining sections e.g. AdHocSections */}
+										{Object.keys(adHocSections).length > 0 && Object.keys(adHocSections).map((section_name, idx) =>
+											<ConfigAdHocSection
+												key={idx}
+												sectionname={section_name}
+												values={adHocSections[section_name]}
+											/>
+										)}
+										<hr className="config-hr"/>
+									</React.Fragment>
+								</TabPane>
+								<TabPane tabId="advanced">
+									<ReactJson
+										src={jsonValues}
+										onEdit={ e => { setJsonValues(e.updated_src)} }
+										enableClipboard={false}
+										name={false}
+									/>
+								</TabPane>
+							</TabContent>
 						</CardBody>
 						<CardFooter>
 							<Button
@@ -261,22 +282,6 @@ export default function ConfigEditor(props) {
 							>
 								Save
 							</Button>
-							{' '}
-							{displayJson ?
-								<Button
-									color="secondary"
-									onClick={() => {displayJSON()}}
-								>
-									Basic
-								</Button>
-								:
-								<Button
-									color="secondary"
-									onClick={() => {displayJSON()}}
-								>
-									Advanced
-								</Button>
-							}
 						</CardFooter>
 					</Card>
 				</Form>
