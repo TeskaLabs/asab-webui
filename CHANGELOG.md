@@ -71,6 +71,8 @@
 
 - Refactor capitalization of authorization configuration in the config file. (INDIGO Sprint 210611, [!128](https://github.com/TeskaLabs/asab-webui/pull/128))
 
+- Refactor the ASAB-Config configuration with better look - the content of the config is now available to display and change in JSON form, the whole displayed config is wrapped in a Card. (INDIGO Sprint 210625, [!129](https://github.com/TeskaLabs/asab-webui/pull/129))
+
 
 ### Bugfixes
 
