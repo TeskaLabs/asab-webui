@@ -19,6 +19,8 @@ import {
 	StringItems
 } from './ConfigFormatItems';
 
+import { Spinner } from 'asab-webui';
+
 import './configuration.css';
 
 export default function ConfigEditor(props) {
@@ -194,12 +196,9 @@ export default function ConfigEditor(props) {
 
 	return (
 		!typeData ?
-			<ConfigMessageCard
-				homeScreenImg={homeScreenImg}
-				homeScreenAlt={homeScreenAlt}
-				purposeTitle="Please wait"
-				purposeSubtitle="Content is being loaded"
-			/>
+			<div style={{paddingTop: "100px", display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
+				<Spinner />
+			</div>
 		:
 		configNotExist ?
 			<ConfigMessageCard
