@@ -1,3 +1,5 @@
+# About page
+
 ## Setting about page
 
 The About page is set automatically based on the information provided in configurations. It shows the information about app name, release date, its version and vendor.
@@ -23,7 +25,7 @@ Vendor  | TeskaLabs
           info@teskalabs.com
 ```
 
-For a page to be displayed correctly, it is necessary to provide all the information mentioned above except of version. Version is an optional feature.
+For a page to be displayed correctly, it is necessary to provide all the information mentioned above except of version. Version is an optional parameter.
 
 ### Setup
 
