@@ -18,7 +18,7 @@ let ConfigDefaults = {
 In this case the next information will be generated in About page:
 
 ```
-Name    | Logman.io
+Logman.io
 Release | 2020-01-21
 Version | 1.0
 Vendor  | TeskaLabs
