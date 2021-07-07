@@ -6,6 +6,8 @@ import {
 	Card, CardBody, CardHeader
 } from "reactstrap";
 
+import { useTranslation } from 'react-i18next';
+
 import { TreeViewComponent } from "./TreeViewComponent";
 import ConfigEditor from "./ConfigEditor";
 import './configuration.css';
@@ -13,6 +15,7 @@ import './configuration.css';
 export default function ConfigContainer(props) {
 
 	let App = props.app;
+	const { t, i18n } = useTranslation();
 
 	const configType = props.match.params.configType;
 	const configName = props.match.params.configName;
@@ -45,8 +48,8 @@ export default function ConfigContainer(props) {
 									alt={homeScreenAlt}
 									style={{maxWidth: "38%"}}
 								/>
-								<h3>Nothing has been selected yet</h3>
-								<h5>Please select the configuration from tree menu on the left side of the screen</h5>
+								<h3>{t('ASABConfig|Nothing has been selected yet')}</h3>
+								<h5>{t('ASABConfig|Please select the configuration from tree menu on the left side of the screen')}</h5>
 							</CardBody>
 						</Card>
 					}
