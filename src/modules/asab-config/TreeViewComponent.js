@@ -9,7 +9,7 @@ export function TreeViewComponent(props) {
 
 	let App = props.app;
 	// Retrieve the asab config url from config file
-	const Axios = App.axiosCreate('asab_config');
+	const ASABConfigAPI = App.axiosCreate('asab_config');
 	let history = useHistory();
 
 	const [ typeList, setTypeList ] = useState([]);
@@ -34,7 +34,7 @@ export function TreeViewComponent(props) {
 	// TODO: add Error Card screen when no types are fetched
 	const getTypes = async () => {
 		try {
-			let response = await Axios.get("/type");
+			let response = await ASABConfigAPI.get("/type");
 			setTypeList(response.data);
 			// TODO: validate responses which are not 200
 		}
@@ -56,7 +56,7 @@ export function TreeViewComponent(props) {
 	const getConfigs = async (typeId) => {
 		let tree = {};
 		try {
-			let response = await Axios.get("/config/" + typeId);
+			let response = await ASABConfigAPI.get("/config/" + typeId);
 			// TODO: validate responses which are not 200
 			tree[typeId] = response.data
 			return tree;

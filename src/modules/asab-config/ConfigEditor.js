@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import TreeMenu from 'react-simple-tree-menu';
 import ReactJson from 'react-json-view';
 import classnames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import {
 	Button,
@@ -32,8 +33,8 @@ export default function ConfigEditor(props) {
 
 	let App = props.app;
 	// Retrieve the asab config url from config file
-	const Axios = App.axiosCreate('asab_config');
-
+	const ASABConfigAPI = App.axiosCreate('asab_config');
+	const { t, i18n } = useTranslation();
 	const homeScreenImg = App.Config.get('brand_image').full;
 	const homeScreenAlt = App.Config.get('title');
 	const configType = props.configType;
@@ -54,7 +55,7 @@ export default function ConfigEditor(props) {
 		setConfigNotExist(false);
 
 		try {
-			let response = await Axios.get("/type/" + configType);
+			let response = await ASABConfigAPI.get("/type/" + configType);
 			// TODO: validate responses which are not 200
 			type = response.data;
 			if (type.result == 'FAIL') {
@@ -75,7 +76,7 @@ export default function ConfigEditor(props) {
 
 		reset({}); // Reset form on config change
 		try {
-			let response = await Axios.get("/config/" + configType + "/" + configName + "?format=json");
+			let response = await ASABConfigAPI.get("/config/" + configType + "/" + configName + "?format=json");
 			values = response.data;
 			// TODO: validate responses which are not 200
 		}
@@ -170,7 +171,7 @@ export default function ConfigEditor(props) {
 
 		try {
 			// TODO: make config dynamic value
-			let response = await Axios.put("/config/" + configType + "/" + configName,
+			let response = await ASABConfigAPI.put("/config/" + configType + "/" + configName,
 				JSON.parse(JSON.stringify(parsedSections)),
 					{ headers: {
 						'Content-Type': 'application/json'
