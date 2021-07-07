@@ -55,3 +55,30 @@ ReactDOM.render((
 	</HashRouter>
 ), document.getElementById('app'));
 ```
+
+## Language localisations
+
+Language localizations for ASAB-Config configuration can be added to the translation.json files of `public/locales/en` & `public/locales/cs` of the product where ASAB Config module is used.
+
+Example:
+
+```
+{
+	"ASABConfig" : {
+		"Nothing has been selected yet": "Nothing has been selected yet",
+		"Please select the configuration from tree menu on the left side of the screen": "Please select the configuration from tree menu on the left side of the screen",
+		"Save": "Save",
+		"Read only": "Read only",
+		"Basic": "Basic",
+		"Advanced": "Advanced",
+		"Data updated successfuly": "Data updated successfuly",
+		"Something went wrong": "Something went wrong!",
+		"We are sorry, but the file cannot be found": "We are sorry, but the file cannot be found :-(",
+		"Config file does not exist": "Config file does not exist",
+		"Something went wrong! Unable to get data": "Something went wrong! Unable to get {{type}} data",
+		"Unable to get types": "Unable to get types",
+		"Unable to get type data. Try to reload the page": "Unable to get type {{type}} data. Try to reload the page",
+		"Unable to get config data. Try to reload the page": "Unable to get config {{config}} data. Try to reload the page"
+	}
+}
+```
