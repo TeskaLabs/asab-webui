@@ -72,7 +72,7 @@ function AccessControlCard(props) {
 								<h5>{t('AccessControlScreen|Tenant')}</h5>
 							</Col>
 							<Col>
-								{currentTenant}
+								<p style={{marginBottom: "5px"}}>{currentTenant}</p>
 							</Col>
 						</Row>
 						<hr/>
