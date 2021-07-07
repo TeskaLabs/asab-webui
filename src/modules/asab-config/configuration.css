@@ -4,14 +4,31 @@
 	height: 100%;
 }
 
-.library-row {
+.config-row {
  	height: 100%;
 }
 
-.library-container {
+.config-container {
 	height: calc(100% - 47px);
 }
 
+.card-editor-layout {
+	position: absolute !important;
+	height: 100% !important;
+	width: 100% !important;
+}
+
+.card-editor-body {
+	height: 100% !important;
+	overflow: scroll !important;
+	overflow-x: hidden !important;
+}
+
+hr.config-hr {
+  border: 0.8px solid;
+}
+
+/*TreeView*/
 .rstm-toggle-icon {
 	display: inline-block; }
 	.rstm-toggle-icon-symbol {

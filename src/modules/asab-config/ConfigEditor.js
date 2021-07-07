@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import TreeMenu from 'react-simple-tree-menu';
+import ReactJson from 'react-json-view';
+import classnames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import {
 	Button,
-	Card, CardBody, CardHeader,
+	Card, CardBody, CardHeader, CardFooter,
 	Collapse,
-	Form, FormGroup, FormText, Input, Label
+	Form, FormGroup, FormText, Input, Label,
+	TabContent, TabPane, Nav, NavItem, NavLink
 } from "reactstrap";
 
 import {
@@ -16,6 +20,9 @@ import {
 	StringItems
 } from './ConfigFormatItems';
 
+import { Spinner } from 'asab-webui';
+
+import './configuration.css';
 
 export default function ConfigEditor(props) {
 
@@ -26,13 +33,15 @@ export default function ConfigEditor(props) {
 
 	let App = props.app;
 	// Retrieve the asab config url from config file
-	const Axios = App.axiosCreate('asab_config');
-
+	const ASABConfigAPI = App.axiosCreate('asab_config');
+	const { t, i18n } = useTranslation();
 	const homeScreenImg = App.Config.get('brand_image').full;
 	const homeScreenAlt = App.Config.get('title');
 	const configType = props.configType;
 	const configName = props.configName;
 	const [ configNotExist, setConfigNotExist ] = useState(false);
+	const [ jsonValues, setJsonValues] = useState({});
+	const [activeTab, setActiveTab] = useState('basic');
 
 
 	useEffect(() => {
@@ -46,11 +55,11 @@ export default function ConfigEditor(props) {
 		setConfigNotExist(false);
 
 		try {
-			let response = await Axios.get("/type/" + configType);
+			let response = await ASABConfigAPI.get("/type/" + configType);
 			// TODO: validate responses which are not 200
 			type = response.data;
 			if (type.result == 'FAIL') {
-				App.addAlert("warning", `Something went wrong! Unable to get ${configType} data.`);
+				App.addAlert("warning", t(`ASABConfig|Something went wrong! Unable to get data`, {type: configType}));
 				return;
 			} else {
 				setTypeData(type);
@@ -58,30 +67,26 @@ export default function ConfigEditor(props) {
 		}
 		catch(e) {
 			console.log(e);
-			App.addAlert("warning", `Unable to get ${configType} data. Try to reload the page.`);
+			App.addAlert("warning", t(`ASABConfig|Unable to get type data. Try to reload the page`, {type: configType}));
 			return;
-			// TODO: Prepared for i18n
-			// App.addAlert("warning", t(`Unable to get ${typeId} data: `, { error: error.toString() }));
 		}
 
 
 		reset({}); // Reset form on config change
 		try {
-			let response = await Axios.get("/config/" + configType + "/" + configName + "?format=json");
+			let response = await ASABConfigAPI.get("/config/" + configType + "/" + configName + "?format=json");
 			values = response.data;
 			// TODO: validate responses which are not 200
 		}
 		catch(e) {
 			console.log(e);
-			App.addAlert("warning", `Unable to get config ${configName} data. Try to reload the page.`);
+			App.addAlert("warning", t(`ASABConfig|Unable to get config data. Try to reload the page`, {config: configName}));
 			return;
-			// TODO: Prepared for i18n
-			// App.addAlert("warning", t(`Unable to get config data: `, { error: error.toString() }));
 		}
 
 		// // MOCKED DATA
 		// values = {
-		// 	'asab:storage': {
+		// 	'asab:docker': {
 		// 		'type': "fool",
 		// 		'meky': 'zbirka'
 		// 	},
@@ -95,7 +100,7 @@ export default function ConfigEditor(props) {
 		// 	},
 		// };
 
-		if (values && Object.keys(values).length > 0 && values.result != "FAIL") {
+		if (values && Object.keys(values).length >= 0 && values.result != "FAIL") {
 			let ahValues = {};
 			let ahSections = {};
 			for (var section in values) {
@@ -119,9 +124,10 @@ export default function ConfigEditor(props) {
 				}
 			}
 			setAdHocValues(ahValues);
-			setAdHocSections(ahSections)
+			setAdHocSections(ahSections);
+			setJsonValues(values);
 		} else {
-			App.addAlert("warning", `Config file does not exists.`);
+			App.addAlert("warning", t(`ASABConfig|Config file does not exist`));
 			setConfigNotExist(true);
 		}
 	}
@@ -136,25 +142,32 @@ export default function ConfigEditor(props) {
 		let section = {};
 		let parsedSections = {};
 		let prevSection = "";
-		// Parse data to object
-		Object.keys(data).map((key, idx) =>
-			{
-				splitKey = key.split(" "),
-				sectionTitle = splitKey[0],
-				sectionKey = splitKey[1],
-				sectionValue = data[key]
-				if (prevSection == sectionTitle) {
-					section[sectionKey] = sectionValue;
-				} else {
-					section = {};
-					section[sectionKey] = sectionValue;
-				}
-				prevSection = sectionTitle,
-				parsedSections[sectionTitle] = section
-			})
+
+		if (activeTab == 'advanced') {
+			// If data are being submitted from JSON view, dont parse data to object
+			parsedSections = jsonValues;
+		} else {
+			// Parse data to object
+			Object.keys(data).map((key, idx) =>
+				{
+					splitKey = key.split(" "),
+					sectionTitle = splitKey[0],
+					sectionKey = splitKey[1],
+					sectionValue = data[key]
+					if (prevSection == sectionTitle) {
+						section[sectionKey] = sectionValue;
+					} else {
+						section = {};
+						section[sectionKey] = sectionValue;
+					}
+					prevSection = sectionTitle,
+					parsedSections[sectionTitle] = section
+				})
+		}
+
 		try {
 			// TODO: make config dynamic value
-			let response = await Axios.put("/config/" + configType + "/" + configName,
+			let response = await ASABConfigAPI.put("/config/" + configType + "/" + configName,
 				JSON.parse(JSON.stringify(parsedSections)),
 					{ headers: {
 						'Content-Type': 'application/json'
@@ -162,70 +175,108 @@ export default function ConfigEditor(props) {
 					}
 				)
 			if (response.data.result == "OK"){
-				App.addAlert("success", 'Data updated successfuly.');
+				App.addAlert("success", t('ASABConfig|Data updated successfuly'));
+				initialLoad(); // Load the new data after saving
 			}
 			// TODO: validate responses which are not 200
 		}
 		catch {
-			App.addAlert("warning", 'Something went wrong.');
+			App.addAlert("warning", t('ASABConfig|Something went wrong'));
 			return;
 		}
 	}
 
+	// Swith between the tabs
+	const toggle = tab => {
+		if(activeTab !== tab) setActiveTab(tab);
+	}
+
 	return (
 		!typeData ?
-			<ConfigMessageCard
-				homeScreenImg={homeScreenImg}
-				homeScreenAlt={homeScreenAlt}
-				purposeTitle="Please wait"
-				purposeSubtitle="Content is being loaded"
-			/>
+			<div style={{paddingTop: "100px", display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
+				<Spinner />
+			</div>
 		:
 		configNotExist ?
 			<ConfigMessageCard
 				homeScreenImg={homeScreenImg}
 				homeScreenAlt={homeScreenAlt}
-				purposeTitle="Config file does not exist!"
-				purposeSubtitle="We are sorry, but the file cannot be found :-("
+				purposeTitle={t("ASABConfig|Config file does not exist")}
+				purposeSubtitle={t("ASABConfig|We are sorry, but the file cannot be found")}
 			/>
 		:
 			<React.Fragment>
 				<Form onSubmit={handleSubmit(onSubmit)}>
-					<Card style={{marginBottom: "0.25em"}}>
-						<div style={{margin: "0.5em"}}>
-							<div className="float-left">
-								<h5 style={{paddingTop: "0.35em"}}>{configName ? configType.toString() + ' / ' + configName.toString() : ""}</h5>
-							</div>
+					<Card className="card-editor-layout">
+						<CardHeader>
+							<span className="cil-settings pr-3" />
+							{configName ? configType.toString() + ' / ' + configName.toString() : ""}
 							<div className="float-right">
-								<Button
-									color="primary"
-									type="submit"
-								>
-									Save
-								</Button>
+								<Nav tabs>
+									<NavItem>
+										<NavLink
+											className={classnames({ active: activeTab === 'basic' })}
+											onClick={() => { toggle('basic'); }}
+										>
+											{t('ASABConfig|Basic')}
+										</NavLink>
+									</NavItem>
+									<NavItem>
+										<NavLink
+											className={classnames({ active: activeTab === 'advanced' })}
+											onClick={() => { toggle('advanced'); }}
+										>
+											{t('ASABConfig|Advanced')}
+										</NavLink>
+									</NavItem>
+								</Nav>
 							</div>
-						</div>
+						</CardHeader>
+						<CardBody className="card-editor-body">
+							<TabContent style={{border: "none"}} activeTab={activeTab}>
+								<TabPane tabId="basic">
+									<React.Fragment>
+										{/* List of Sections (it may consist also of AdHocValues) */}
+										{typeData && typeData.properties && Object.keys(typeData.properties).map((section_name, idx) =>
+											<ConfigSection
+												key={idx}
+												section={typeData.properties[section_name]}
+												sectionname={section_name}
+												register={register}
+												adhocvalues={adHocValues}
+											/>
+										)}
+
+										{/* List all remaining sections e.g. AdHocSections */}
+										{Object.keys(adHocSections).length > 0 && Object.keys(adHocSections).map((section_name, idx) =>
+											<ConfigAdHocSection
+												key={idx}
+												sectionname={section_name}
+												values={adHocSections[section_name]}
+											/>
+										)}
+										<hr className="config-hr"/>
+									</React.Fragment>
+								</TabPane>
+								<TabPane tabId="advanced">
+									<ReactJson
+										src={jsonValues}
+										onEdit={ e => { setJsonValues(e.updated_src)} }
+										enableClipboard={false}
+										name={false}
+									/>
+								</TabPane>
+							</TabContent>
+						</CardBody>
+						<CardFooter>
+							<Button
+								color="primary"
+								type="submit"
+							>
+								{t('ASABConfig|Save')}
+							</Button>
+						</CardFooter>
 					</Card>
-
-					{/* List of Sections (it may consist also of AdHocValues) */}
-					{typeData && typeData.properties && Object.keys(typeData.properties).map((section_name, idx) =>
-						<ConfigSection
-							key={idx}
-							section={typeData.properties[section_name]}
-							sectionname={section_name}
-							register={register}
-							adhocvalues={adHocValues}
-						/>
-					)}
-
-					{/* List all remaining sections e.g. AdHocSections */}
-					{Object.keys(adHocSections).length > 0 && Object.keys(adHocSections).map((section_name, idx) =>
-						<ConfigAdHocSection
-							key={idx}
-							sectionname={section_name}
-							values={adHocSections[section_name]}
-						/>
-					)}
 				</Form>
 			</React.Fragment>
 	);
@@ -233,114 +284,105 @@ export default function ConfigEditor(props) {
 
 
 function ConfigSection(props) {
-	const [isOpen, setIsOpen] = useState(false);
-	const toggle = () => setIsOpen(!isOpen);
 	return (
-		<Card style={{marginBottom: "0.25em"}}>
-			<CardHeader tag="h5" onClick={toggle}>
+		<React.Fragment>
+			<hr className="config-hr"/>
+			<h5>
 				{props.section['title']}
-			</CardHeader>
-			<Collapse isOpen={isOpen}>
-				<CardBody>
-					{Object.keys(props.section.properties).map((item_name, idx) =>
-						// Decide what type of config item to render based on format
-						// TODO: Update also other RADIO and SELECT types
-						{switch(props.section.properties[item_name]['type']){
-							case 'string': return(<StringItems
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-													defs={props.section.properties[item_name]['$defs']}
-												/>)
-							case 'number': return(<NumberConfigItem
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-													defs={props.section.properties[item_name]['$defs']}
-												/>)
-							case 'integer': return(<NumberConfigItem
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-													defs={props.section.properties[item_name]['$defs']}
-												/>)
-							case 'boolean': return(<CheckBoxConfigItem
-													key={idx}
-													item={props.section.properties[item_name]}
-													itemname={item_name}
-													sectionname={props.sectionname}
-													register={props.register}
-												/>)
-							default: return(<StringItems
-												key={idx}
-												item={props.section.properties[item_name]}
-												itemname={item_name}
-												sectionname={props.sectionname}
-												register={props.register}
-												defs={props.section.properties[item_name]['$defs']}
-											/>)
-						}}
-					)}
+			</h5>
+			{Object.keys(props.section.properties).map((item_name, idx) =>
+				// Decide what type of config item to render based on format
+				// TODO: Update also other RADIO and SELECT types
+				{switch(props.section.properties[item_name]['type']){
+					case 'string': return(<StringItems
+											key={idx}
+											item={props.section.properties[item_name]}
+											itemname={item_name}
+											sectionname={props.sectionname}
+											register={props.register}
+											defs={props.section.properties[item_name]['$defs']}
+										/>)
+					case 'number': return(<NumberConfigItem
+											key={idx}
+											item={props.section.properties[item_name]}
+											itemname={item_name}
+											sectionname={props.sectionname}
+											register={props.register}
+											defs={props.section.properties[item_name]['$defs']}
+										/>)
+					case 'integer': return(<NumberConfigItem
+											key={idx}
+											item={props.section.properties[item_name]}
+											itemname={item_name}
+											sectionname={props.sectionname}
+											register={props.register}
+											defs={props.section.properties[item_name]['$defs']}
+										/>)
+					case 'boolean': return(<CheckBoxConfigItem
+											key={idx}
+											item={props.section.properties[item_name]}
+											itemname={item_name}
+											sectionname={props.sectionname}
+											register={props.register}
+										/>)
+					default: return(<StringItems
+										key={idx}
+										item={props.section.properties[item_name]}
+										itemname={item_name}
+										sectionname={props.sectionname}
+										register={props.register}
+										defs={props.section.properties[item_name]['$defs']}
+									/>)
+				}}
+			)}
 
-					{/* List all remaining key/values (aka AdHocValues) from a config as simple Config Item  */}
-					{Object.keys(props.adhocvalues).length > 0 && Object.keys(props.adhocvalues).map((value_name, idx) =>
-						{return(props.sectionname == value_name ?
-							<ConfigAdHocItem
-								key={idx}
-								valuename={value_name}
-								values={props.adhocvalues[value_name]}
-							/>
-						: null
-						)}
-					)}
+			{/* List all remaining key/values (aka AdHocValues) from a config as simple Config Item  */}
+			{Object.keys(props.adhocvalues).length > 0 && Object.keys(props.adhocvalues).map((value_name, idx) =>
+				{return(props.sectionname == value_name ?
+					<ConfigAdHocItem
+						key={idx}
+						valuename={value_name}
+						values={props.adhocvalues[value_name]}
+					/>
+				: null
+				)}
+			)}
+		</React.Fragment>
 
-				</CardBody>
-			</Collapse>
-		</Card>
 	);
 }
 
 
 function ConfigAdHocSection(props) {
-	const [isOpen, setIsOpen] = useState(false);
-	const toggle = () => setIsOpen(!isOpen);
+	const { t, i18n } = useTranslation();
 	let myid = props.sectionname;
 	return (
-		<Card style={{marginBottom: "0.25em"}}>
-			<CardHeader tag="h5" onClick={toggle} style={{background:"#dae2e4"}}>
+		<React.Fragment>
+			<hr className="config-hr"/>
+			<h5>
 				{myid}
-			</CardHeader>
-			<Collapse isOpen={isOpen}>
-				<CardBody>
-					{props.values.length > 0 && props.values.map((obj, idx) =>
-						{
-						return (
-							<FormGroup key={idx}>
-								<Label for={myid}>
-									{Object.keys(obj)}
-								</Label>
-								<Input
-									type="text"
-									name={myid}
-									id={myid}
-									value={Object.values(obj)}
-									readOnly
-								/>
-								<FormText color="muted">
-									Read only
-								</FormText>
-							</FormGroup>
-						)}
-					)}
-				</CardBody>
-			</Collapse>
-		</Card>
+			</h5>
+			{props.values.length > 0 && props.values.map((obj, idx) =>
+				{
+				return (
+					<FormGroup key={idx}>
+						<Label for={myid}>
+							{Object.keys(obj)}
+						</Label>
+						<Input
+							type="text"
+							name={myid}
+							id={myid}
+							value={Object.values(obj)}
+							readOnly
+						/>
+						<FormText color="muted">
+							{t('ASABConfig|Read only')}
+						</FormText>
+					</FormGroup>
+				)}
+			)}
+		</React.Fragment>
 	);
 }
 

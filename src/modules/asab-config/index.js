@@ -15,7 +15,7 @@ export default class ConfigModule extends Module {
 		this.Router.addRoute({
 			path: "/config/:configType/:configName",
 			exact: true,
-			name: "Edit",
+			name: "Configuration",
 			component: ConfigContainer,
 		});
 

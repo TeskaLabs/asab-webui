@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import TreeMenu from 'react-simple-tree-menu';
 import { useHistory } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
-import './treeview.css';
+import './configuration.css';
 
 
 export function TreeViewComponent(props) {
 
 	let App = props.app;
 	// Retrieve the asab config url from config file
-	const Axios = App.axiosCreate('asab_config');
+	const ASABConfigAPI = App.axiosCreate('asab_config');
 	let history = useHistory();
+	const { t, i18n } = useTranslation();
 
 	const [ typeList, setTypeList ] = useState([]);
 	const [ treeList, setTreeList ] = useState({});
@@ -34,15 +36,13 @@ export function TreeViewComponent(props) {
 	// TODO: add Error Card screen when no types are fetched
 	const getTypes = async () => {
 		try {
-			let response = await Axios.get("/type");
+			let response = await ASABConfigAPI.get("/type");
 			setTypeList(response.data);
 			// TODO: validate responses which are not 200
 		}
 		catch {
-			App.addAlert("warning", `Unable to get types`);
+			App.addAlert("warning", t(`ASABConfig|Unable to get types`));
 			return;
-			// TODO: Prepared for i18n
-			// App.addAlert("warning", t(`Unable to get types: `, { error: error.toString() }));
 		}
 	}
 
@@ -56,16 +56,14 @@ export function TreeViewComponent(props) {
 	const getConfigs = async (typeId) => {
 		let tree = {};
 		try {
-			let response = await Axios.get("/config/" + typeId);
+			let response = await ASABConfigAPI.get("/config/" + typeId);
 			// TODO: validate responses which are not 200
 			tree[typeId] = response.data
 			return tree;
 		}
 		catch {
-			App.addAlert("warning", `Unable to get ${typeId} data`);
+			App.addAlert("warning", t(`ASABConfig|Unable to get type data. Try to reload the page`, {type: typeId}));
 			return;
-			// TODO: Prepared for i18n
-			// App.addAlert("warning", t(`Unable to get ${typeId} data: `, { error: error.toString() }));
 		}
 	}
 

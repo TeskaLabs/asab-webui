@@ -4,6 +4,8 @@ import {
 	Form, FormGroup, FormText, Input, Label
 } from "reactstrap";
 
+import { useTranslation } from 'react-i18next';
+
 // TODO: Different types of ConfigItem to cover formats such as "number", "boolean", checkbox, radiobox
 
 export function StringItems(props) {
@@ -114,6 +116,7 @@ export function NumberConfigItem(props) {
 					name={myid}
 					id={myid}
 					placeholder={props.item['default']}
+					defaultValue={props.item['default']}
 					innerRef={props.register()}
 				/>
 				<FormText color="muted">
@@ -200,7 +203,7 @@ export function CheckBoxConfigItem(props) {
 			</Label>
 			<br />
 			<Input
-				style={{marginLeft: 5}}
+				style={{marginLeft: 2, position:"relative"}}
 				type="checkbox"
 				name={myid}
 				id={myid}
@@ -302,6 +305,7 @@ export function TextAreaConfigItem(props) {
 
 
 export function ConfigAdHocItem(props) {
+	const { t, i18n } = useTranslation();
 	let myid = props.sectionname;
 	return (
 		props.values.length > 1 ?
@@ -319,7 +323,7 @@ export function ConfigAdHocItem(props) {
 							readOnly
 						/>
 						<FormText color="muted">
-							Read only
+							{t('ASABConfig|Read only')}
 						</FormText>
 					</FormGroup>
 					)
@@ -338,7 +342,7 @@ export function ConfigAdHocItem(props) {
 						readOnly
 					/>
 					<FormText color="muted">
-						Read only
+						{t('ASABConfig|Read only')}
 					</FormText>
 				</FormGroup>
 			</React.Fragment>
