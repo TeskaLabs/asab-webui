@@ -59,7 +59,7 @@ export default function ConfigEditor(props) {
 			// TODO: validate responses which are not 200
 			type = response.data;
 			if (type.result == 'FAIL') {
-				App.addAlert("warning", `Something went wrong! Unable to get ${configType} data.`);
+				App.addAlert("warning", t(`ASABConfig|Something went wrong! Unable to get data`, {type: configType}));
 				return;
 			} else {
 				setTypeData(type);
@@ -67,10 +67,8 @@ export default function ConfigEditor(props) {
 		}
 		catch(e) {
 			console.log(e);
-			App.addAlert("warning", `Unable to get ${configType} data. Try to reload the page.`);
+			App.addAlert("warning", t(`ASABConfig|Unable to get type data. Try to reload the page`, {type: configType}));
 			return;
-			// TODO: Prepared for i18n
-			// App.addAlert("warning", t(`Unable to get ${typeId} data: `, { error: error.toString() }));
 		}
 
 
@@ -82,10 +80,8 @@ export default function ConfigEditor(props) {
 		}
 		catch(e) {
 			console.log(e);
-			App.addAlert("warning", `Unable to get config ${configName} data. Try to reload the page.`);
+			App.addAlert("warning", t(`ASABConfig|Unable to get config data. Try to reload the page`, {config: configName}));
 			return;
-			// TODO: Prepared for i18n
-			// App.addAlert("warning", t(`Unable to get config data: `, { error: error.toString() }));
 		}
 
 		// // MOCKED DATA
@@ -131,7 +127,7 @@ export default function ConfigEditor(props) {
 			setAdHocSections(ahSections);
 			setJsonValues(values);
 		} else {
-			App.addAlert("warning", `Config file does not exists.`);
+			App.addAlert("warning", t(`ASABConfig|Config file does not exist`));
 			setConfigNotExist(true);
 		}
 	}
@@ -179,13 +175,13 @@ export default function ConfigEditor(props) {
 					}
 				)
 			if (response.data.result == "OK"){
-				App.addAlert("success", 'Data updated successfuly.');
+				App.addAlert("success", t('ASABConfig|Data updated successfuly'));
 				initialLoad(); // Load the new data after saving
 			}
 			// TODO: validate responses which are not 200
 		}
 		catch {
-			App.addAlert("warning", 'Something went wrong.');
+			App.addAlert("warning", t('ASABConfig|Something went wrong'));
 			return;
 		}
 	}
@@ -205,8 +201,8 @@ export default function ConfigEditor(props) {
 			<ConfigMessageCard
 				homeScreenImg={homeScreenImg}
 				homeScreenAlt={homeScreenAlt}
-				purposeTitle="Config file does not exist!"
-				purposeSubtitle="We are sorry, but the file cannot be found :-("
+				purposeTitle={t("ASABConfig|Config file does not exist")}
+				purposeSubtitle={t("ASABConfig|We are sorry, but the file cannot be found")}
 			/>
 		:
 			<React.Fragment>
@@ -222,7 +218,7 @@ export default function ConfigEditor(props) {
 											className={classnames({ active: activeTab === 'basic' })}
 											onClick={() => { toggle('basic'); }}
 										>
-											Basic
+											{t('ASABConfig|Basic')}
 										</NavLink>
 									</NavItem>
 									<NavItem>
@@ -230,7 +226,7 @@ export default function ConfigEditor(props) {
 											className={classnames({ active: activeTab === 'advanced' })}
 											onClick={() => { toggle('advanced'); }}
 										>
-											Advanced
+											{t('ASABConfig|Advanced')}
 										</NavLink>
 									</NavItem>
 								</Nav>
@@ -277,7 +273,7 @@ export default function ConfigEditor(props) {
 								color="primary"
 								type="submit"
 							>
-								Save
+								{t('ASABConfig|Save')}
 							</Button>
 						</CardFooter>
 					</Card>
@@ -358,6 +354,7 @@ function ConfigSection(props) {
 
 
 function ConfigAdHocSection(props) {
+	const { t, i18n } = useTranslation();
 	let myid = props.sectionname;
 	return (
 		<React.Fragment>
@@ -380,7 +377,7 @@ function ConfigAdHocSection(props) {
 							readOnly
 						/>
 						<FormText color="muted">
-							Read only
+							{t('ASABConfig|Read only')}
 						</FormText>
 					</FormGroup>
 				)}
