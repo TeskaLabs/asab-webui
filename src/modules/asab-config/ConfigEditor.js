@@ -210,7 +210,7 @@ export default function ConfigEditor(props) {
 		:
 			<React.Fragment>
 				<Form onSubmit={handleSubmit(onSubmit)}>
-					<Card>
+					<Card className="card-editor-layout">
 						<CardHeader>
 							<span className="cil-settings pr-3" />
 							{configName ? configType.toString() + ' / ' + configName.toString() : ""}
@@ -235,10 +235,7 @@ export default function ConfigEditor(props) {
 								</Nav>
 							</div>
 						</CardHeader>
-						<CardBody
-							className="card-body-height"
-							style={{overflow:"scroll"}}
-						>
+						<CardBody className="card-editor-body">
 							<TabContent activeTab={activeTab}>
 								<TabPane tabId="basic">
 									<React.Fragment>

@@ -12,8 +12,15 @@
 	height: calc(100% - 47px);
 }
 
-.card-body-height {
-	height: 65vh !important;
+.card-editor-layout {
+	position: absolute !important;
+	height: 100% !important;
+	width: 100% !important;
+}
+
+.card-editor-body {
+	height: 100% !important;
+	overflow: scroll !important;
 	overflow-x: hidden !important;
 }
 
