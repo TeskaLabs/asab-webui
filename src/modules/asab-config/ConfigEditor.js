@@ -236,7 +236,7 @@ export default function ConfigEditor(props) {
 							</div>
 						</CardHeader>
 						<CardBody className="card-editor-body">
-							<TabContent activeTab={activeTab}>
+							<TabContent style={{border: "none"}} activeTab={activeTab}>
 								<TabPane tabId="basic">
 									<React.Fragment>
 										{/* List of Sections (it may consist also of AdHocValues) */}
