@@ -73,6 +73,8 @@
 
 - Refactor the ASAB-Config configuration with better look - the content of the config is now available to display and change in JSON form, the whole displayed config is wrapped in a Card. (INDIGO Sprint 210625, [!129](https://github.com/TeskaLabs/asab-webui/pull/129))
 
+- Refactor Access control screen of `auth` module - Back to previous screen option has been removed, bullet points for multiple Roles and Resources has been removed, tenant name has been changed. (INDIGO Sprint 210625, [!134](https://github.com/TeskaLabs/asab-webui/pull/134))
+
 
 ### Bugfixes
 
