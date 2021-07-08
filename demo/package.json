@@ -17,7 +17,7 @@
 	"assign-deep": "^1.0.0",
 	"babel-loader": "^8.1.0",
 	"babel-plugin-transform-object-rest-spread": "^7.0.0-beta.3",
-	"babel-polyfill": "^7.12.1",
+	"babel-polyfill": "^6.26.0",
 	"css-loader": "^3.4.2",
 	"extract-text-webpack-plugin": "^4.0.0-beta.0",
 	"file-loader": "^6.0.0",
