@@ -48,7 +48,6 @@ function AccessControlCard(props) {
 	const { t, i18n } = useTranslation();
 	let history = useHistory();
 	let userinfo = props.userinfo;
-	
 	let App = props.app;
 	let currentTenant;
 	// Check Tenant service availability
