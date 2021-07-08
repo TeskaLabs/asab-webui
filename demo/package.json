@@ -40,7 +40,6 @@
 	"@coreui/coreui": "2.1.4",
 	"@coreui/react": "^2.5.7",
 	"@coreui/icons": "^1.0.1",
-	"query-string": "^6.11.1",
 	"axios": "^0.21.1",
 	"file-saver": "^2.0.5",
 	"moment": "^2.24.0",
@@ -52,7 +51,6 @@
 	"react-redux": "^7.2.0",
 	"react-router-dom": "^5.1.2",
 	"reactstrap": "^8.9.0",
-	"redux": "^4.0.5",
-    "simple-line-icons": "^2.4.1"
+	"redux": "^4.0.5"
   }
 }
