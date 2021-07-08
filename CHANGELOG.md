@@ -89,3 +89,5 @@
 - Fix URL of Access control screen and SeaCat Auth WebUI when app is build on subpath (INDIGO Sprint 210611, [!126](https://github.com/TeskaLabs/asab-webui/pull/126))
 
 - Fix AccessControlScreen behaviour if userinfo is null (INDIGO Sprint 210625, [!136](https://github.com/TeskaLabs/asab-webui/pull/136))
+
+- Remove unused packages and update packages with vulnerabilities (INDIGO Sprint 210625, [!135] (https://github.com/TeskaLabs/asab-webui/pull/135)) 
