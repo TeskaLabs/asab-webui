@@ -96,7 +96,7 @@ function AccessControlCard(props) {
 					</>
 					) : (
 					<div className="text-center">
-						<h5>{t("AccessControlScreen|UserInfo doesn't exist.")}</h5>
+						<h5>{t("AccessControlScreen|The user information is invalid, you session is likely expired.")}</h5>
 					</div>
 				)}
 			</CardBody>
