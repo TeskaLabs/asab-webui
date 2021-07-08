@@ -48,6 +48,7 @@ function AccessControlCard(props) {
 	const { t, i18n } = useTranslation();
 	let history = useHistory();
 	let userinfo = props.userinfo;
+	
 	let App = props.app;
 	let currentTenant;
 	// Check Tenant service availability
@@ -65,32 +66,40 @@ function AccessControlCard(props) {
 			</CardHeader>
 
 			<CardBody>
-				{App.Services.TenantService &&
-					<React.Fragment>
+				{ userinfo ? (
+					<>
+						{App.Services.TenantService &&
+							<React.Fragment>
+								<Row>
+									<Col>
+										<h5>{t('AccessControlScreen|Tenant')}</h5>
+									</Col>
+									<Col>
+										<p style={{marginBottom: "5px"}}>{currentTenant}</p>
+									</Col>
+								</Row>
+								<hr/>
+							</React.Fragment>
+						}
 						<Row>
 							<Col>
-								<h5>{t('AccessControlScreen|Tenant')}</h5>
+								<h5>{t('AccessControlScreen|Roles')}</h5>
 							</Col>
-							<Col>
-								<p style={{marginBottom: "5px"}}>{currentTenant}</p>
-							</Col>
+							<ItemToRender userinfo={userinfo} item='roles' />
 						</Row>
 						<hr/>
-					</React.Fragment>
-				}
-				<Row>
-					<Col>
-						<h5>{t('AccessControlScreen|Roles')}</h5>
-					</Col>
-					<ItemToRender userinfo={userinfo} item='roles' />
-				</Row>
-				<hr/>
-				<Row>
-					<Col>
-						<h5>{t('AccessControlScreen|Resources')}</h5>
-					</Col>
-					<ItemToRender userinfo={userinfo} item='resources' />
-				</Row>
+						<Row>
+							<Col>
+								<h5>{t('AccessControlScreen|Resources')}</h5>
+							</Col>
+							<ItemToRender userinfo={userinfo} item='resources' />
+						</Row>
+					</>
+					) : (
+					<div className="text-center">
+						<h5>{t("AccessControlScreen|UserInfo doesn't exist.")}</h5>
+					</div>
+				)}
 			</CardBody>
 		</Card>
 		)
