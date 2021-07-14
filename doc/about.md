@@ -2,9 +2,9 @@
 
 ## Setting about page
 
-The About page is set automatically based on the information provided in configurations. It shows the information about app name, release date, its version and vendor.
+The About page is an optional module of ASAB Web UI. It shows the information about app name, release date, its version and vendor. The link to the page is located inside "Maintenance" section of sidebar
 
-```
+```javascript
 let ConfigDefaults = {
 	title: "LogMan.io",
 	version: "1.0",
@@ -18,7 +18,7 @@ let ConfigDefaults = {
 In this case the next information will be generated in About page:
 
 ```
-Name    | Logman.io
+Logman.io
 Release | 2020-01-21
 Version | 1.0
 Vendor  | TeskaLabs
@@ -29,13 +29,34 @@ For a page to be displayed correctly, it is necessary to provide all the informa
 
 ### Setup
 
-Load the module on the top-level `index.js` of your ASAB UI application
+To load the module, go to `asab-webui/src/modules/asab-config.js`, import it, add a route for it and an item to be displayed
 
-```
-const modules = [];
-
+```javascript
 ...
+import AboutScreen from '../about/AboutScreen';
 
-import AboutModule from 'asab-webui/modules/about';
-modules.push(AboutModule);
+export default class ConfigModule extends Module {
+	constructor(app, name) {
+		...
+
+		this.Router.addRoute({
+			path: "/about",
+			exact: true,
+			name: "About",
+			component: AboutScreen,
+		})
+
+		this.Navigation.addItem({
+			...
+			children: [
+				...
+				{
+					name: "About",
+					url: "/about",
+					icon: 'cil-info',
+				},
+			]
+		});
+	}
+}
 ```
