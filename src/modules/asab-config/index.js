@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Module from 'asab-webui/abc/Module';
 import ConfigContainer from "./ConfigContainer";
 import MicroservicesContainer from "./MicroservicesContainer";
-import AboutScreen from '../about/AboutScreen';
 
 export default class ConfigModule extends Module {
 	constructor(app, name) {
@@ -26,13 +25,6 @@ export default class ConfigModule extends Module {
 			component: MicroservicesContainer,
 		});
 
-		this.Router.addRoute({
-			path: "/about",
-			exact: true,
-			name: "About",
-			component: AboutScreen,
-		});
-
 		this.Navigation.addItem({
 			name: 'Maintenance',
 			icon: 'cil-apps-settings',
@@ -47,13 +39,7 @@ export default class ConfigModule extends Module {
 					url: "/config/microservices",
 					icon: 'cil-list',
 				},
-				{
-					name: "About",
-					url: "/about",
-					icon: 'cil-info',
-				},
 			]
 		});
-
 	}
 }

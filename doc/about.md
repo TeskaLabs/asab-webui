@@ -2,7 +2,7 @@
 
 ## Setting about page
 
-The About page is an optional module of ASAB Web UI. It shows the information about app name, release date, its version and vendor. The link to the page is located inside "Maintenance" section of sidebar
+The About page is an optional module of ASAB Web UI. It shows the information about app name, release date, its version, vendor, and email, where the vendor can be reached.
 
 ```javascript
 let ConfigDefaults = {
@@ -25,38 +25,18 @@ Vendor  | TeskaLabs
           info@teskalabs.com
 ```
 
-For a page to be displayed correctly, it is necessary to provide all the information mentioned above except of version. Version is an optional parameter.
+For a page to be displayed correctly, it is necessary to provide all the information mentioned above except for the version. Version is an optional parameter.
 
 ### Setup
 
-To load the module, go to `asab-webui/src/modules/asab-config.js`, import it, add a route for it and an item to be displayed
+To load the module, go to the top level `index.js` file (`src/index.js`), import and push it right above the render method. The link to the About page will appear as the last navigation link inside sidebar on the left of the screen.
 
 ```javascript
 ...
-import AboutScreen from '../about/AboutScreen';
+import AboutModule from 'asab-webui/modules/about';
+modules.push(AboutModule);
 
-export default class ConfigModule extends Module {
-	constructor(app, name) {
-		...
-
-		this.Router.addRoute({
-			path: "/about",
-			exact: true,
-			name: "About",
-			component: AboutScreen,
-		})
-
-		this.Navigation.addItem({
-			...
-			children: [
-				...
-				{
-					name: "About",
-					url: "/about",
-					icon: 'cil-info',
-				},
-			]
-		});
-	}
-}
+ReactDOM.render((
+	...
+))
 ```
