@@ -38,7 +38,7 @@ export default class ConfigModule extends Module {
 					name: "Microservices",
 					url: "/config/microservices",
 					icon: 'cil-list',
-				},
+				}
 			]
 		});
 	}
