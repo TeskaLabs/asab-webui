@@ -3,7 +3,6 @@ import Module from 'asab-webui/abc/Module';
 import ConfigContainer from "./ConfigContainer";
 import MicroservicesContainer from "./MicroservicesContainer";
 
-
 export default class ConfigModule extends Module {
 	constructor(app, name) {
 		super(app, "ASABConfigModule");
@@ -42,6 +41,5 @@ export default class ConfigModule extends Module {
 				}
 			]
 		});
-
 	}
 }

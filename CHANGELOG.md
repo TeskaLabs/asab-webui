@@ -75,6 +75,8 @@
 
 - Refactor Access control screen of `auth` module - Back to previous screen option has been removed, bullet points for multiple Roles and Resources has been removed, tenant name has been changed. (INDIGO Sprint 210625, [!134](https://github.com/TeskaLabs/asab-webui/pull/134))
 
+- Move the link to About page from "My account" dropdown to sidebar. (INDIGO Sprint 210709, [!138](https://github.com/TeskaLabs/asab-webui/pull/138))
+
 
 ### Bugfixes
 
@@ -90,4 +92,4 @@
 
 - Fix AccessControlScreen behaviour if userinfo is null (INDIGO Sprint 210625, [!136](https://github.com/TeskaLabs/asab-webui/pull/136))
 
-- Remove unused packages and update packages with vulnerabilities (INDIGO Sprint 210625, [!135] (https://github.com/TeskaLabs/asab-webui/pull/135)) 
+- Remove unused packages and update packages with vulnerabilities (INDIGO Sprint 210625, [!135](https://github.com/TeskaLabs/asab-webui/pull/135))

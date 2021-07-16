@@ -55,6 +55,15 @@ function AboutCard(props) {
 			</CardHeader>
 
 			<CardBody>
+				<Row>
+					<Col>
+						<h5>{t('AboutScreen|Release')}</h5>
+					</Col>
+					<Col>
+						<DateTime value={releaseDate} format="YYYY-MM-DD"/>
+					</Col>
+				</Row>
+				<hr/>
 				{version &&
 					<React.Fragment>
 						<Row>
@@ -68,15 +77,6 @@ function AboutCard(props) {
 						<hr/>
 					</React.Fragment>
 				}
-				<Row>
-					<Col>
-						<h5>{t('AboutScreen|Release')}</h5>
-					</Col>
-					<Col>
-						<DateTime value={releaseDate} format="YYYY-MM-DD"/>
-					</Col>
-				</Row>
-				<hr/>
 				<Row>
 					<Col>
 						<h5>{t('AboutScreen|Vendor')}</h5>
