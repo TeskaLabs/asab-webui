@@ -77,6 +77,8 @@
 
 - Move the link to About page from "My account" dropdown to sidebar. (INDIGO Sprint 210709, [!138](https://github.com/TeskaLabs/asab-webui/pull/138))
 
+- Refactor About module with missing condition on undefined release date. (INDIGO Sprint 210709, [!139](https://github.com/TeskaLabs/asab-webui/pull/139))
+
 
 ### Bugfixes
 
