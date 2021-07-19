@@ -25,7 +25,7 @@ Vendor  | TeskaLabs
           info@teskalabs.com
 ```
 
-For a page to be displayed correctly, it is necessary to provide all the information mentioned above except for the version. Version is an optional parameter.
+For a page to be displayed correctly, it is necessary to provide all the information mentioned above except for the version and release date. Version and release date are an optional parameters.
 
 ### Setup
 
