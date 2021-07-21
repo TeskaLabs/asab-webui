@@ -172,20 +172,14 @@ export default class AuthModule extends Module {
 	}
 
 
-	logout() {
+	async logout() {
 		this.App.addSplashScreenRequestor(this);
 
 		sessionStorage.removeItem('SeaCatOAuth2Token');
-		const promise = this.Api.logout(this.OAuthToken['access_token'])
+		const promise = await this.Api.logout(this.OAuthToken['access_token']);
 		if (promise == null) {
-			window.location.reload();
-		}
-
-		promise.then(response => {
-			window.location.reload();
-		}).catch((error) => {
-			window.location.reload();
-		});
+			console.log("Cannot logout");
+		};
 	}
 
 	async _updateUserInfo(that = this, oldUserInfo = null, fAlert = false) {

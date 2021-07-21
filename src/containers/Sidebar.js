@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as router from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { Container, Nav, NavItem, NavLink, Badge, DropdownToggle, DropdownMenu } from 'reactstrap';
 import {
@@ -22,6 +23,7 @@ class Sidebar extends Component {
 	}
 
 	render() {
+		const { location } = this.props;
 		return (
 			<React.Fragment>
 				<AppSidebar fixed display={this.props.display}>
@@ -30,7 +32,7 @@ class Sidebar extends Component {
 					<AppSidebarNav
 						navConfig={this.Navigation.getItems()}
 						router={router}
-						location={window.location}
+						location={location}
 					/>
 					<AppSidebarFooter />
 					<AppSidebarMinimizer />
@@ -41,4 +43,4 @@ class Sidebar extends Component {
 
 }
 
-export default Sidebar;
+export default withRouter(Sidebar);

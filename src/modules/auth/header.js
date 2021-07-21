@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
 	UncontrolledDropdown,
@@ -32,6 +32,7 @@ function HeaderComponent(props) {
 
 	const App = props.app;
 	const { t, i18n } = useTranslation();
+	const history = useHistory();
 
 	// Get URL of SeaCat Auth WebUI
 	let user_auth_url = window.location.protocol + '//' + window.location.host;
@@ -41,7 +42,8 @@ function HeaderComponent(props) {
 	}
 
 	const logout = () => {
-		props.AuthModule.logout()
+		props.AuthModule.logout();
+		history.go(0);
 	}
 
 	// See https://github.com/coreui/coreui-free-react-admin-template/blob/b9626a8ae66834006ee86b758cdc81f74fb20531/src/containers/DefaultLayout/DefaultHeader.js#L52
