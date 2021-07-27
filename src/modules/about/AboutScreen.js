@@ -1,6 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { DateTime } from 'asab-webui';
 
 import {
 	Container, Row, Col,
@@ -43,10 +43,10 @@ function AboutCard(props) {
 	const { t, i18n } = useTranslation();
 	const App = props.app;
 	const title = App.Config.get("title");
-	const version = App.Config.get("version");
 	const vendor = App.Config.get("vendor");
-	const releaseDate = App.Config.get("release_date");
 	const email = App.Config.get("email");
+	const webSiteLink = window.location.origin;
+	const webSiteName = window.location.host;
 
 	return(
 		<Card className="shadow animated fadeIn">
@@ -55,32 +55,15 @@ function AboutCard(props) {
 			</CardHeader>
 
 			<CardBody>
-				{releaseDate &&
-					<React.Fragment>
-						<Row>
-							<Col>
-								<h5>{t('AboutScreen|Release')}</h5>
-							</Col>
-							<Col>
-								<DateTime value={releaseDate} format="YYYY-MM-DD"/>
-							</Col>
-						</Row>
-						<hr/>
-					</React.Fragment>
-				}
-				{version &&
-					<React.Fragment>
-						<Row>
-							<Col>
-								<h5>{t('AboutScreen|Version')}</h5>
-							</Col>
-							<Col>
-								{version}
-							</Col>
-						</Row>
-						<hr/>
-					</React.Fragment>
-				}
+				<Row>
+					<Col>
+						<h5>{t('AboutScreen|Web site')}</h5>
+					</Col>
+					<Col>
+						<Link to={webSiteLink}>{webSiteName}</Link>
+					</Col>
+				</Row>
+				<hr/>
 				<Row>
 					<Col>
 						<h5>{t('AboutScreen|Vendor')}</h5>

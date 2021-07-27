@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
-import { useHistory } from "react-router-dom";
 
 import {
 	Container, Row, Col,
@@ -46,7 +45,6 @@ export default AccessControlScreen;
 
 function AccessControlCard(props) {
 	const { t, i18n } = useTranslation();
-	let history = useHistory();
 	let userinfo = props.userinfo;
 	let App = props.app;
 	let currentTenant;

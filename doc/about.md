@@ -2,13 +2,11 @@
 
 ## Setting about page
 
-The About page is an optional module of ASAB Web UI. It shows the information about app name, release date, its version, vendor, and email, where the vendor can be reached.
+The About page is an optional module of ASAB Web UI. It shows the information about app name, app web site, its vendor, and email, where the vendor can be reached.
 
 ```javascript
 let ConfigDefaults = {
 	title: "LogMan.io",
-	version: "1.0",
-	release_date: "2020-01-21",
 	vendor: "TeskaLabs",
 	email: "info@teskalabs.com",
 	...
@@ -18,14 +16,11 @@ let ConfigDefaults = {
 In this case the next information will be generated in About page:
 
 ```
-Logman.io
-Release | 2020-01-21
-Version | 1.0
-Vendor  | TeskaLabs
+LogMan.io
+Web site | logman.io
+Vendor   | TeskaLabs
           info@teskalabs.com
 ```
-
-For a page to be displayed correctly, it is necessary to provide all the information mentioned above except for the version and release date. Version and release date are an optional parameters.
 
 ### Setup
 
