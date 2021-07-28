@@ -45,8 +45,8 @@ export default AccessControlScreen;
 
 function AccessControlCard(props) {
 	const { t, i18n } = useTranslation();
-	let userinfo = props.userinfo;
-	let App = props.app;
+	const userinfo = props.userinfo;
+	const App = props.app;
 	let currentTenant;
 	// Check Tenant service availability
 	if (App.Services.TenantService) {
