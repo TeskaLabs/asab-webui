@@ -1,0 +1,61 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { DateTime } from 'asab-webui';
+
+import {
+	Container, Row, Col,
+	Card, CardHeader, CardTitle, CardSubtitle, CardBody, CardFooter
+} from 'reactstrap';
+
+/*
+
+	Language localizations for UserInterfaceCard can be added to the translation.json files of
+	public/locales/en & public/locales/cs of the product where AccessControlScreen component is used.
+
+	Example:
+
+	{
+		"UserInterfaceCard": {
+			"User interface": "User interface",
+			"Last build": "Last build",
+			"Version": "Version"
+		}
+	}
+
+*/
+
+function UserInterfaceCard() {
+	const { t, i18n } = useTranslation();
+
+	const version = __VERSION__;
+	const buildDate = __BUILD_DATE__;
+
+	return (
+		<Card className="shadow animated fadeIn">
+			<CardHeader className="text-center">
+				<h1>{t('UserInterfaceCard|User interface')}</h1>
+			</CardHeader>
+			<CardBody>
+				<Row>
+					<Col>
+						<h5>{t('UserInterfaceCard|Version')}</h5>
+					</Col>
+					<Col>
+						{version}
+					</Col>
+				</Row>
+				<hr/>
+				<Row>
+					<Col>
+						<h5>{t('UserInterfaceCard|Last build')}</h5>
+					</Col>
+					<Col>
+						<DateTime value={buildDate} format="YYYY-MM-DD"/>
+					</Col>
+				</Row>
+			</CardBody>
+		</Card>
+	);
+}
+
+export default UserInterfaceCard;
