@@ -5,7 +5,6 @@ import reducer from './reducer';
 import { types } from './actions'
 import { SeaCatAuthApi, GoogleOAuth2Api } from './api';
 import AccessControlScreen from './AccessControlScreen';
-import InterfaceScreen from './InterfaceScreen';
 
 export default class AuthModule extends Module {
 
@@ -33,12 +32,6 @@ export default class AuthModule extends Module {
 			name: 'Access control',
 			component: AccessControlScreen
 		});
-		app.Router.addRoute({
-			path: '/auth/interface',
-			exact: true,
-			name: "User interface",
-			component: InterfaceScreen
-		})
 	}
 
 	async initialize() {

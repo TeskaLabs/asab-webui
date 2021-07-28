@@ -70,9 +70,6 @@ function HeaderComponent(props) {
 						</DropdownItem>
 					</React.Fragment>
 				}
-				<DropdownItem tag={Link} to="/auth/interface">
-					{t('AuthHeaderDropdown|User interface')}
-				</DropdownItem>
 				<DropdownItem onClick={() => {logout()}}>
 					<span className="text-danger">
 						{t('AuthHeaderDropdown|Logout')}
