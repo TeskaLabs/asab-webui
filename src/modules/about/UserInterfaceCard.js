@@ -4,7 +4,7 @@ import { DateTime } from 'asab-webui';
 
 import {
 	Container, Row, Col,
-	Card, CardHeader, CardTitle, CardSubtitle, CardBody, CardFooter
+	Card, CardHeader, CardBody
 } from 'reactstrap';
 
 /*
@@ -47,7 +47,7 @@ function UserInterfaceCard() {
 				<hr/>
 				<Row>
 					<Col>
-						<h5>{t('UserInterfaceCard|Last build')}</h5>
+						<h5>{t('UserInterfaceCard|Build date')}</h5>
 					</Col>
 					<Col>
 						<DateTime value={buildDate} format="YYYY-MM-DD"/>

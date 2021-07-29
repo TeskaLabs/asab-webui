@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import {
 	Row, Col, Card,
-	CardHeader, CardBody, CardFooter,
+	CardHeader, CardBody
 } from 'reactstrap';
 
 /*
@@ -30,8 +29,6 @@ function AboutCard(props) {
 	const title = App.Config.get("title");
 	const vendor = App.Config.get("vendor");
 	const email = App.Config.get("email");
-	const webSiteLink = window.location.origin;
-	const webSiteName = window.location.host;
 
 	return(
 		<Card className="shadow animated fadeIn">
@@ -45,7 +42,9 @@ function AboutCard(props) {
 						<h5>{t('AboutCard|Web site')}</h5>
 					</Col>
 					<Col>
-						<Link to={webSiteLink}>{webSiteName}</Link>
+						<a href="https://teskalabs.com" target="_blank" rel="noopener noreferrer">
+							teskalabs.com
+						</a>
 					</Col>
 				</Row>
 				<hr/>
