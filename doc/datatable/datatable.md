@@ -218,7 +218,7 @@ Example of fetched data:
 
 # Optional
 
-`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `search`, `onSearch`, `isLoading`, `noItemsComponent` and `onDownload`.
+`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `button`, `search`, `onSearch`, `isLoading`, `noItemsComponent` and `onDownload`.
 
 Example of `DataTable` with all props:
 
@@ -236,6 +236,7 @@ Example of `DataTable` with all props:
 	onSearch={onSearch}
 	createButton={{ text: "Create", icon: 'icon', pathname: '#' }}
 	buttonWithAuthz={buttonWithAuthzProps}
+	button={button}
 	onDownload={onDownload}
 	isLoading={isLoading}
 	noItemsComponent={noItemsComponent}
@@ -318,6 +319,38 @@ Example of `buttonWithAuthz`:
 		<DataTable
 			...
 			buttonWithAuthz={buttonWithAuthzProps}
+			...
+		/>
+	)
+
+```
+
+And there is also one prop `button` which we may consider as custom button. It just uses `Button` component with tag `span` from `reactstrap` library.
+Prop `button` accepts object with three properties:
+1) `text` - title which will be displayed inside of button
+2) `icon` - optional property which displays icon alognsied the button's title
+3) `props` - object with props which will be passed to `Button` component of `reactstrap`
+
+Example of button:
+```
+...
+	const button = {
+		text: "Regular button",
+		icon: "cil-warning",
+		props: {
+			color: "primary",
+			onClick: () => {
+				alert("This is warning after button is clicked");
+			}
+		}
+	}
+	...
+
+	return (
+		...
+		<DataTable
+			...
+			button={button}
 			...
 		/>
 	)
