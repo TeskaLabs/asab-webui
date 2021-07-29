@@ -4,8 +4,7 @@ import {
 	AppSidebar,
 	AppSidebarFooter,
 	AppSidebarForm,
-	AppSidebarHeader,
-	AppSidebarMinimizer
+	AppSidebarHeader
 } from '@coreui/react';
 
 import SidebarNavItems from './SidebarNavItems';
@@ -18,10 +17,10 @@ const Sidebar = (props) => {
 				<AppSidebarHeader />
 				<AppSidebarForm />
 				<SidebarNavItems
+					app={props.app}
 					navConfig={props.navigation.getItems().items}
 				/>
 				<AppSidebarFooter />
-				<AppSidebarMinimizer />
 			</AppSidebar>
 		</React.Fragment>
 	)
