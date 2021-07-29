@@ -96,3 +96,5 @@
 - Fix AccessControlScreen behaviour if userinfo is null (INDIGO Sprint 210625, [!136](https://github.com/TeskaLabs/asab-webui/pull/136))
 
 - Remove unused packages and update packages with vulnerabilities (INDIGO Sprint 210625, [!135](https://github.com/TeskaLabs/asab-webui/pull/135))
+
+- Fix microservices containers indentation in order to keep clean code style (INDIGO Sprint 210723 ,[!143](https://github.com/TeskaLabs/asab-webui/pull/143))
