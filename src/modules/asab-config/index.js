@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Module from 'asab-webui/abc/Module';
-import ConfigContainer from "./ConfigContainer";
-import MicroservicesContainer from "./MicroservicesContainer";
-import MicroserviceDetailContainer from "./MicroserviceDetailContainer";
+import ConfigContainer from "./ConfigContainers/ConfigContainer";
+import MicroservicesContainer from "./MicroservicesContainers/MicroservicesContainer";
+import MicroserviceDetailContainer from "./MicroservicesContainer/MicroserviceDetailContainer";
 
 export default class ConfigModule extends Module {
 	constructor(app, name) {
