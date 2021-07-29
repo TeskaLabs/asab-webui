@@ -10,7 +10,7 @@ import {
 /*
 
 	Language localizations for UserInterfaceCard can be added to the translation.json files of
-	public/locales/en & public/locales/cs of the product where AccessControlScreen component is used.
+	public/locales/en & public/locales/cs
 
 	Example:
 

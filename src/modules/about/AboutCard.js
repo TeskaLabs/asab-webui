@@ -8,8 +8,8 @@ import {
 
 /*
 
-	Language localizations for UserInterfaceCard can be added to the translation.json files of
-	public/locales/en & public/locales/cs of the product where AccessControlScreen component is used.
+	Language localizations for AboutCard can be added to the translation.json files of
+	public/locales/en & public/locales/cs
 
 	Example:
 
@@ -28,6 +28,7 @@ function AboutCard(props) {
 	const App = props.app;
 	const title = App.Config.get("title");
 	const vendor = App.Config.get("vendor");
+	const website = App.Config.get("website");
 	const email = App.Config.get("email");
 
 	return(
@@ -39,21 +40,21 @@ function AboutCard(props) {
 			<CardBody>
 				<Row>
 					<Col>
-						<h5>{t('AboutCard|Web site')}</h5>
+						<h5>{t('AboutCard|Vendor')}</h5>
 					</Col>
 					<Col>
-						<a href="https://teskalabs.com" target="_blank" rel="noopener noreferrer">
-							teskalabs.com
-						</a>
+						{vendor}
 					</Col>
 				</Row>
 				<hr/>
 				<Row>
 					<Col>
-						<h5>{t('AboutCard|Vendor')}</h5>
+						<h5>{t('AboutCard|Website')}</h5>
 					</Col>
 					<Col>
-						{vendor}
+						<a href={website} target="_blank" rel="noopener noreferrer">
+							{website}
+						</a>
 					</Col>
 				</Row>
 				<hr/>
