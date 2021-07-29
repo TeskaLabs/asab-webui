@@ -5,6 +5,7 @@ import { useLocation, useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next';
 
 import { Nav, NavItem, NavLink } from 'reactstrap';
+import Icon from './SidebarIcon';
 
 const SidebarNavItems = ({ navConfig, app, sidebarItemsOrder }) => {
 	const location = useLocation();
@@ -42,14 +43,6 @@ const SidebarNavItems = ({ navConfig, app, sidebarItemsOrder }) => {
 			))}
 		</Nav>
 	);
-}
-
-const Icon = ({ icon }) => {
-	if (typeof icon === "string") {
-		return <i className={`${icon} sidebar-item-icon`}></i>
-	}
-
-	return <span className="sidebar-item-icon">{icon}</span>;
 }
 
 const mapStateToProps = (state) => {
