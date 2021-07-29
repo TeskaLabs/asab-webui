@@ -80,6 +80,7 @@
 
 - Refactor About module with missing condition on undefined release date. (INDIGO Sprint 210709, [!139](https://github.com/TeskaLabs/asab-webui/pull/139))
 
+- Restructure folder of asab-config module (INDIGO Sprint 210723, [!144](https://github.com/TeskaLabs/asab-webui/pull/144))
 
 ### Bugfixes
 
