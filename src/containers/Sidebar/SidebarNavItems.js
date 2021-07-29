@@ -15,16 +15,22 @@ const SidebarNavItems = ({ navConfig, app, sidebarItemsOrder }) => {
 
 	// Sort items based on config
 	const memoizedItemsList = useMemo(() => {
-		const itemsList = navConfig;
+		let itemsList = navConfig;
 
 		if (sidebarItemsOrder) {
-			itemsList.sort((a, b) => {
-				if (sidebarItemsOrder.indexOf(a.name) > sidebarItemsOrder.indexOf(b.name)) return 1;
-				else return -1;
+			const substructedList = [];
+			itemsList = itemsList.filter((item) => {
+				if (sidebarItemsOrder.indexOf(item.name) === -1) {
+					substructedList.push(item);
+					return false;
+				}
+				return true;
+			})
 
-			});
+			itemsList.sort((a, b) => (sidebarItemsOrder.indexOf(a.name) > sidebarItemsOrder.indexOf(b.name) ? 1 : -1));
+
+			itemsList = [...itemsList, ...substructedList];
 		}
-
 		return itemsList;
 	}, [navConfig, sidebarItemsOrder])
 
