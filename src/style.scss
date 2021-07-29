@@ -27,27 +27,43 @@ main > .container-fluid, main > .container {
 	margin: 0 !important;
 }
 
-.nav-item {
-	display: inline-block;
-	width: 1rem;
-	margin: 0 0.5rem 0 0;
-	color: #73818f;
-	font-size: 0.875rem;
-	text-align: center;
+.sidebar {
+	.nav {
+		.nav-item {
+			position: relative;
+			margin: 0;
 
-	.nav-link {
-		.nav-icon {
-			display: inline-block;
-			width: 1rem;
-			margin: 0 0.5rem 0 0;
-			color: #73818f;
-			font-size: 0.875rem;
-			text-align: center;
+			.nav-link {
+				display: block;
+				.sidebar-item-icon {
+					display: inline-block;
+					width: 1rem;
+					margin: 0 0.5rem 0 0;
+					color: #73818f;
+					// font-size: 0.875rem;
+					text-align: center;
+				}
+			}
+
+			.nav-link:hover {
+				cursor: pointer;
+				color: #fff;
+				background: #20a8d8;
+				.sidebar-item-icon {
+					color: #fff;
+				}
+			}
+
+			.active {
+				color: #fff;
+				background-color: #3a4248;
+				.sidebar-item-icon {
+					color: #20a8d8;
+				}
+				.sidebar-item-icon {
+					color: #20a8d8;
+				}
+			}
 		}
-	}
-
-	.active {
-		color: #fff;
-		background-color: #20a8d8;
 	}
 }

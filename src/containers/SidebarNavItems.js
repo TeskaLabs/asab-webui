@@ -1,17 +1,21 @@
 import React from 'react';
 
-import { Nav, NavItem } from 'reactstrap';
+import { Nav, NavItem, NavLink } from 'reactstrap';
 
-import { NavLink, useLocation } from 'react-router-dom'
+import { useLocation, useHistory } from 'react-router-dom'
 
 const SidebarNavItems = ({ navConfig }) => {
     const location = useLocation();
+    const history = useHistory();
 
     return (
         <Nav>
             {navConfig.map((item, idx) => (
                 <NavItem key={idx}>
-                    <NavLink to={item.url} activeClassName="active">
+                    <NavLink
+                        className={`${location.pathname === item.url ? "active" : ""}`}
+                        onClick={() => history.push(item.url)}
+                    >
                         <Icon icon={item.icon} />
                         {item.name}
                     </NavLink>
@@ -23,10 +27,10 @@ const SidebarNavItems = ({ navConfig }) => {
 
 const Icon = ({ icon }) => {
     if (typeof icon === "string") {
-        return <i className={`${icon} nav-icon`}></i>
+        return <i className={`${icon} sidebar-item-icon`}></i>
     }
 
-    return <span className="nav-icon">{icon}</span>;
+    return <span className="sidebar-item-icon">{icon}</span>;
 }
 
 export default SidebarNavItems;
