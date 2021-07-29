@@ -25,7 +25,8 @@ export function DataTable ({
 	setPage, title, createButton,
 	search, onSearch, onDownload,
 	isLoading, translationRoute = '',
-	buttonWithAuthz, sort, noItemsComponent
+	buttonWithAuthz, sort, noItemsComponent,
+	button
 	}) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isSortOpen, setSortDropdown] = useState(false);
@@ -70,14 +71,32 @@ export function DataTable ({
 							<i className={title.icon}></i> : title.icon
 						}
 						{title.text}
+						{button && 
+							<div className="float-right ml-3 data-table-create-button">
+								<Button
+									tag="span"
+									size="sm"
+									{...button?.props}
+								>
+									{button.icon && 
+										<span className="pr-1">
+											{typeof button.icon === 'string' ? 
+												<i className={button.icon}></i> : button.icon
+											}
+										</span>
+									}
+									{button?.text}
+								</Button>
+							</div>
+						}
 						{createButton &&
 							<div className="float-right ml-3 data-table-create-button">
 								<Link to={{ pathname: createButton.pathname }}>
 									<Button tag="span" size="sm">
 										{createButton.icon && 
-										<span className="pr-1">
-											{typeof createButton.icon === 'string' ? <i className={createButton.icon}></i> : createButton.icon}
-										</span>
+											<span className="pr-1">
+												{typeof createButton.icon === 'string' ? <i className={createButton.icon}></i> : createButton.icon}
+											</span>
 										}
 										{createButton.text}
 									</Button>

@@ -238,6 +238,17 @@ export default function (props) {
 		</Container>
 	);
 
+	const button = {
+		text: "Regular button",
+		icon: "cil-warning",
+		props: {
+			color: "primary",
+			onClick: () => {
+				alert("This is warning after button is clicked");
+			}
+		}
+	}
+
 	return (
 		<Container>
 			<Button onClick={() => setLoading(prev => !prev)} className="mb-2">Set Loading</Button>
@@ -278,6 +289,7 @@ export default function (props) {
 				isLoading={isLoading}
 				buttonWithAuthz={buttonWithAuthz}
 				noItemsComponent={noItemsComponent}
+				button={button}
 			/>
 		</Container>
 	)
