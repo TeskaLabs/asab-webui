@@ -8,7 +8,7 @@ import {
 
 import Icon from './SidebarIcon';
 
-const CollapsedItem = ({ item }) => {
+const SidebarItem = ({ item }) => {
 	const [isOpen, setOpen] = useState(false);
 
 	const location = useLocation();
@@ -18,7 +18,7 @@ const CollapsedItem = ({ item }) => {
 
 	return (
 		<>
-			<NavItem>
+			<NavItem className={`${item.children ? "sidebar-dropdown" : ""}`}>
 				<NavLink
 					className={`${location.pathname === item.url ? "active" : ""}`}
 					onClick={() => {
@@ -28,21 +28,30 @@ const CollapsedItem = ({ item }) => {
 				>
 					<Icon icon={item.icon} />
 					{t(`Sidebar|${item.name}`)}
+					{item.children &&
+						<span className={`sidebar-chevron${isOpen ? "-open" : ""} float-right`}>
+							<Icon icon="cil-chevron-left" />
+						</span>
+					}
 				</NavLink>
+				
 				{item.children && 
 					(
-						<Collapse isOpen={isOpen} tag="ul" className="nav sidebar-collapse">
-							{item.children.map(child => (
-								<NavLink
-									className={`${location.pathname === child.url ? "active" : ""}`}
-									onClick={() => {
-										if (child.url && location.pathname !== child.url) history.push(child.url);
-									}}
-								>
-									<Icon icon={child.icon} />
-									{t(`Sidebar|${child.name}`)}
-								</NavLink>
-							))}
+						<Collapse isOpen={isOpen}>
+							<Nav>
+								{item.children.map((child, idx) => (
+									<NavLink
+										key={idx}
+										className={`${location.pathname === child.url ? "active" : ""}`}
+										onClick={() => {
+											if (child.url && location.pathname !== child.url) history.push(child.url);
+										}}
+									>
+										<Icon icon={child.icon} />
+										{t(`Sidebar|${child.name}`)}
+									</NavLink>
+								))}
+							</Nav>
 						</Collapse>
 					)
 				}
@@ -51,4 +60,4 @@ const CollapsedItem = ({ item }) => {
 	)
 }
 
-export default CollapsedItem;
+export default SidebarItem;

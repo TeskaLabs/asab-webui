@@ -28,6 +28,28 @@ main > .container-fluid, main > .container {
 }
 
 .sidebar {
+	.sidebar-dropdown {
+		background-color: rgba(0,0,0,.2);
+		.sidebar-chevron, .sidebar-chevron-open {
+			font-size: 0.5rem;
+			display: inline-block;
+			margin: 0.2rem 0 0 0;
+			
+			.sidebar-item-icon {
+				margin: 0;
+				font-weight: 700;
+				transition: transform .1s ease-in-out;
+			}
+		}
+		.sidebar-chevron-open {
+			.sidebar-item-icon {
+				transform: rotate(-90deg);
+			}
+		}
+	}
+	.sidebar-dropdown::before {
+		background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwCd8CoYt6GsTp3NRAdrYcarnzKmcfuyFdjg&usqp=CAU');
+	}
 	.nav {
 		.nav-item {
 			position: relative;

@@ -1,18 +1,10 @@
 import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 
-import { useLocation, useHistory } from 'react-router-dom'
-import { useTranslation } from 'react-i18next';
+import { Nav } from 'reactstrap';
+import SidebarItem from './SidebarItem';
 
-import { Nav, NavItem, NavLink } from 'reactstrap';
-import CollapsedItem from './CollapsedItem';
-import Icon from './SidebarIcon';
-
-const SidebarNavItems = ({ navConfig, app, sidebarItemsOrder }) => {
-	const location = useLocation();
-	const history = useHistory();
-
-	const { t } = useTranslation();
+const SidebarNavItems = ({ navConfig, sidebarItemsOrder }) => {
 
 	// Sort items based on config
 	const memoizedItemsList = useMemo(() => {
@@ -38,7 +30,7 @@ const SidebarNavItems = ({ navConfig, app, sidebarItemsOrder }) => {
 	return (
 		<Nav>
 			{memoizedItemsList.map((item, idx) => (
-				<CollapsedItem item={item} key={idx}/>
+				<SidebarItem item={item} key={idx}/>
 			))}
 		</Nav>
 	);
@@ -51,20 +43,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(SidebarNavItems);
-
-{/*<NavItem key={idx}>
-					<NavLink
-						className={`${location.pathname === item.url ? "active" : ""}`}
-						onClick={() => {
-							if (item.url) history.push(item.url);
-						}}
-					>
-						<Icon icon={item.icon} />
-						{t(`Sidebar|${item.name}`)}
-						{item.children && 
-							(
-								<CollapsedItem item={item} />
-							)
-						}
-					</NavLink>
-				</NavItem>*/}
