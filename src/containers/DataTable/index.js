@@ -15,6 +15,7 @@ import {
 
 import Table from './Table';
 import Pagination from './Pagination';
+import CustomDropdownButton from './CustomDropdownButton';
 
 import { Spinner } from '../Spinner';
 import { ButtonWithAuthz } from '../../modules/auth/ButtonWithAuthz';
@@ -25,7 +26,8 @@ export function DataTable ({
 	setPage, title, createButton,
 	search, onSearch, onDownload,
 	isLoading, translationRoute = '',
-	buttonWithAuthz, sort, noItemsComponent
+	buttonWithAuthz, sort, noItemsComponent,
+	customButton, customDropdownButton
 	}) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isSortOpen, setSortDropdown] = useState(false);
@@ -70,21 +72,44 @@ export function DataTable ({
 							<i className={title.icon}></i> : title.icon
 						}
 						{title.text}
+						{customButton && 
+							<div className="float-right ml-3 data-table-create-button">
+								<Button
+									tag="span"
+									size="sm"
+									{...customButton?.props}
+								>
+									{customButton.icon && 
+										<span className="pr-1">
+											{typeof customButton.icon === 'string' ? 
+												<i className={customButton.icon}></i> : customButton.icon
+											}
+										</span>
+									}
+									{customButton?.text}
+								</Button>
+							</div>
+						}
+						{customDropdownButton && 
+							<div className="float-right ml-3 data-table-sort">
+								<CustomDropdownButton {...customDropdownButton} />
+							</div>
+						}
+						{buttonWithAuthz && <ButtonWithAuthz {...buttonWithAuthz} className="float-right ml-3 data-table-button-with-authz"/>}
 						{createButton &&
 							<div className="float-right ml-3 data-table-create-button">
 								<Link to={{ pathname: createButton.pathname }}>
 									<Button tag="span" size="sm">
 										{createButton.icon && 
-										<span className="pr-1">
-											{typeof createButton.icon === 'string' ? <i className={createButton.icon}></i> : createButton.icon}
-										</span>
+											<span className="pr-1">
+												{typeof createButton.icon === 'string' ? <i className={createButton.icon}></i> : createButton.icon}
+											</span>
 										}
 										{createButton.text}
 									</Button>
 								</Link>
 							</div>
 						}
-						{buttonWithAuthz && <ButtonWithAuthz {...buttonWithAuthz} className="float-right ml-3 data-table-button-with-authz"/>}
 						{onDownload &&
 							<div className="float-right ml-3 data-table-download-button">
 								<Button tag="span" size="sm" onClick={downloadHandler} >
@@ -99,7 +124,7 @@ export function DataTable ({
 									isOpen={isSortOpen}
 									toggle={() => setSortDropdown(prev => !prev)}
 								>
-									<DropdownToggle size="sm">
+									<DropdownToggle size="sm" caret>
 										{sort.icon && <i className={`${sort.icon} mr-1`}></i>}
 										{sort.title}
 									</DropdownToggle>
