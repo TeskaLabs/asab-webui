@@ -238,15 +238,42 @@ export default function (props) {
 		</Container>
 	);
 
-	const button = {
-		text: "Regular button",
+	const customButton = {
+		text: "Custom button",
 		icon: "cil-warning",
 		props: {
-			color: "primary",
+			color: "warning",
 			onClick: () => {
 				alert("This is warning after button is clicked");
 			}
 		}
+	}
+
+	const customDropdownButton = {
+		text: "Custom drop",
+		color: "success",
+		header: "header",
+		items: [
+			{
+				text: "First item",
+				props: {
+					onClick: () => alert("First item was clicked!"),
+					className: "first-item-classname"
+				}
+				
+			},
+			{
+				text: "Second item",
+				props: {
+					onClick: () => alert("Second item was clicked!"),
+					className: "second-item-classname",
+					style: {
+						backgroundColor: "black",
+						color: "white"
+					}
+				}
+			}
+		]
 	}
 
 	return (
@@ -289,7 +316,8 @@ export default function (props) {
 				isLoading={isLoading}
 				buttonWithAuthz={buttonWithAuthz}
 				noItemsComponent={noItemsComponent}
-				button={button}
+				customButton={customButton}
+				customDropdownButton={customDropdownButton}
 			/>
 		</Container>
 	)

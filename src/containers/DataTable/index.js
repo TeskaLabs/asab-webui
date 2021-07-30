@@ -15,6 +15,7 @@ import {
 
 import Table from './Table';
 import Pagination from './Pagination';
+import CustomDropdownButton from './CustomDropdownButton';
 
 import { Spinner } from '../Spinner';
 import { ButtonWithAuthz } from '../../modules/auth/ButtonWithAuthz';
@@ -26,7 +27,7 @@ export function DataTable ({
 	search, onSearch, onDownload,
 	isLoading, translationRoute = '',
 	buttonWithAuthz, sort, noItemsComponent,
-	button
+	customButton, customDropdownButton
 	}) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isSortOpen, setSortDropdown] = useState(false);
@@ -71,24 +72,30 @@ export function DataTable ({
 							<i className={title.icon}></i> : title.icon
 						}
 						{title.text}
-						{button && 
+						{customButton && 
 							<div className="float-right ml-3 data-table-create-button">
 								<Button
 									tag="span"
 									size="sm"
-									{...button?.props}
+									{...customButton?.props}
 								>
-									{button.icon && 
+									{customButton.icon && 
 										<span className="pr-1">
-											{typeof button.icon === 'string' ? 
-												<i className={button.icon}></i> : button.icon
+											{typeof customButton.icon === 'string' ? 
+												<i className={customButton.icon}></i> : customButton.icon
 											}
 										</span>
 									}
-									{button?.text}
+									{customButton?.text}
 								</Button>
 							</div>
 						}
+						{customDropdownButton && 
+							<div className="float-right ml-3 data-table-sort">
+								<CustomDropdownButton {...customDropdownButton} />
+							</div>
+						}
+						{buttonWithAuthz && <ButtonWithAuthz {...buttonWithAuthz} className="float-right ml-3 data-table-button-with-authz"/>}
 						{createButton &&
 							<div className="float-right ml-3 data-table-create-button">
 								<Link to={{ pathname: createButton.pathname }}>
@@ -103,7 +110,6 @@ export function DataTable ({
 								</Link>
 							</div>
 						}
-						{buttonWithAuthz && <ButtonWithAuthz {...buttonWithAuthz} className="float-right ml-3 data-table-button-with-authz"/>}
 						{onDownload &&
 							<div className="float-right ml-3 data-table-download-button">
 								<Button tag="span" size="sm" onClick={downloadHandler} >
@@ -118,7 +124,7 @@ export function DataTable ({
 									isOpen={isSortOpen}
 									toggle={() => setSortDropdown(prev => !prev)}
 								>
-									<DropdownToggle size="sm">
+									<DropdownToggle size="sm" caret>
 										{sort.icon && <i className={`${sort.icon} mr-1`}></i>}
 										{sort.title}
 									</DropdownToggle>
