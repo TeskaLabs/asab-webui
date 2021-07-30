@@ -1,4 +1,5 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const { execSync } = require("child_process");
 
 ///
 var exports = module.exports = {}
@@ -54,4 +55,8 @@ exports.convertKeysForHtml = function(obj){
 	})
 	// TODO: remove trailing slash from URLs
 	return ret;
+}
+
+exports.getVersion = function(){
+	return execSync("git describe --abbrev=7 --tags --dirty=+dirty --always", { encoding: 'utf8' }).toString();
 }

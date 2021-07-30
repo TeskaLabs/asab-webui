@@ -8,9 +8,11 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const common = require("./common");
 // const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
-
 module.exports = {
 	build: function(config) {
+		// version and build date of the app
+		const version = common.getVersion();
+		const buildDate = new Date();
 		// paths
 		console.log(config);
 		const entry_path = path.resolve(config["dirs"]["src"], 'index.js');
@@ -42,7 +44,9 @@ module.exports = {
 				new webpack.DefinePlugin(
 					common.JSONStringifyValues(Object.assign({
 						"__CONFIG__": config["app"],
-						"__DEV_CONFIG__": config["devConfig"]
+						"__DEV_CONFIG__": config["devConfig"],
+						"__VERSION__": version,
+						"__BUILD_DATE__": buildDate
 					}))
 				),
 				new HtmlWebpackPlugin({

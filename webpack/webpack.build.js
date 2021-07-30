@@ -10,9 +10,11 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const common = require("./common");
 
-
 module.exports = {
 	build: function(config) {
+		// version and build date of the app
+		const version = common.getVersion();
+		const buildDate = new Date();
 		// paths
 		const entry_path = path.resolve(config["dirs"]["src"], 'index.js');
 		const html_template_path = path.resolve(config["dirs"]["public"], 'index.html');
@@ -39,7 +41,9 @@ module.exports = {
 				new webpack.DefinePlugin(
 					common.JSONStringifyValues({
 						"__CONFIG__": config["app"],
-						"__DEV_CONFIG__": {}
+						"__DEV_CONFIG__": {},
+						"__VERSION__": version,
+						"__BUILD_DATE__": buildDate
 					})
 				),
 				new HtmlWebpackPlugin({

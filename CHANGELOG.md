@@ -80,6 +80,8 @@
 
 - Refactor About module with missing condition on undefined release date. (INDIGO Sprint 210709, [!139](https://github.com/TeskaLabs/asab-webui/pull/139))
 
+-- Refactor About module, add User interface card. (INDIGO Sprint 210723, [!142](https://github.com/TeskaLabs/asab-webui/pull/142))
+
 
 ### Bugfixes
 
