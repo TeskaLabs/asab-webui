@@ -42,6 +42,8 @@
 
 - Add MicroservicesDetailScreen (INDIGO Sprint 210709, [!132](https://github.com/TeskaLabs/asab-webui/pull/132))
 
+- Add customButton and customDropdownButton to DataTable header (INDIGO Sprint 210723, [!145](https://github.com/TeskaLabs/asab-webui/pull/145))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
