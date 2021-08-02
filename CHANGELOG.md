@@ -44,6 +44,8 @@
 
 - Add customButton and customDropdownButton to DataTable header (INDIGO Sprint 210723, [!145](https://github.com/TeskaLabs/asab-webui/pull/145))
 
+- Add splitted feature to customDropdownButton in DataTable (INDIGO Sprint 210723, [!147](https://github.com/TeskaLabs/asab-webui/pull/147))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
