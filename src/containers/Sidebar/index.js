@@ -12,17 +12,15 @@ import SidebarNavItems from './SidebarNavItems';
 const Sidebar = (props) => {
 
 	return (
-		<React.Fragment>
-			<AppSidebar fixed display={props.display}>
-				<AppSidebarHeader />
-				<AppSidebarForm />
-				<SidebarNavItems
-					app={props.app}
-					navConfig={props.navigation.getItems().items}
-				/>
-				<AppSidebarFooter />
-			</AppSidebar>
-		</React.Fragment>
+		<AppSidebar fixed display={props.display}>
+			<AppSidebarHeader />
+			<AppSidebarForm />
+			<SidebarNavItems
+				app={props.app}
+				navConfig={props.navigation.getItems().items}
+			/>
+			<AppSidebarFooter />
+		</AppSidebar>
 	)
 }
 
