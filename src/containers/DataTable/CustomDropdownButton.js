@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
 import {
-	DropdownButton, DropdownToggle, DropdownMenu, DropdownItem, ButtonDropdown
+	DropdownToggle, DropdownMenu, DropdownItem,
+	ButtonDropdown, Button
 } from 'reactstrap';
 
 const CustomDropdownButton = ({
-	text, color, size, direction, header, items
+	text, color, size, direction, header, items, split
 }) => {
 	const [isOpen, setOpen] = useState(false);
 
@@ -15,12 +16,21 @@ const CustomDropdownButton = ({
 			toggle={() => setOpen(prev => !prev)}
 			direction={direction ? direction : "down"}
 		>
+			{split && (
+				<Button 
+					id="caret"
+					color={split.color || color}
+					onClick={split.onClick}
+					size={split.size || "sm"}
+				>{text}</Button>
+			)}
 			<DropdownToggle
-				caret
+				split={split ? true : false}
+				caret={split ? false : true}
 				color={color ? color : "secondary"}
 				size={size ? size : "sm"}
 			>
-				{text}
+				{split ? "" : text}
 			</DropdownToggle>
 			<DropdownMenu>
 				{header && <DropdownItem header>{header}</DropdownItem>}

@@ -366,6 +366,7 @@ Obligatory properties:
 Optional properties:
 1) `color` - string which represent color from bootstrap which will be applied to button (i.e `primary`, `danger` and etc.)
 2) `header` - string which is placed as header of dropdown menu
+3) `split` - object which defines if dropdown should be splitted. It should contain property `onClick` and can also contain other props which will be propagated to `Button` component of `reactsrap`.
 
 Property `item` also have properties which should be defined:
 1) `text` - title of the item in dropdown
@@ -378,6 +379,53 @@ Example of `customDropdownButton`:
 		text: "Custom drop",
 		color: "success",
 		header: "header",
+		items: [
+			{
+				text: "First item",
+				props: {
+					onClick: () => alert("First item was clicked!"),
+					className: "first-item-classname"
+				}
+				
+			},
+			{
+				text: "Second item",
+				props: {
+					onClick: () => alert("Second item was clicked!"),
+					className: "second-item-classname",
+					style: {
+						backgroundColor: "black",
+						color: "white"
+					}
+				}
+			}
+		]
+	}
+	...
+
+	return (
+		...
+		<DataTable
+			...
+			customDropdownButton={customDropdownButton}
+			...
+		/>
+	)
+
+```
+
+Example of splitted `customDropdownButton`:
+```
+...
+	const customDropdownButton = {
+		text: "Custom drop",
+		color: "success",
+		header: "header",
+		split: {
+			onClick: () => alert("Splitted button was clicked!"),
+			size: "sm",
+			className="custom-dropdown-splitted-button"
+		},
 		items: [
 			{
 				text: "First item",
