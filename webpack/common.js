@@ -58,5 +58,12 @@ exports.convertKeysForHtml = function(obj){
 }
 
 exports.getVersion = function(){
-	return execSync("git describe --abbrev=7 --tags --dirty=+dirty --always", { encoding: 'utf8' }).toString();
+	try {
+		const { stdout } = execSync("git describe --abbrev=7 --tags --dirty=+dirty --always", { encoding: 'utf8' }).toString();
+		return stdout;
+	} catch (e) {
+		console.log("Something has happend when trying to get version");
+		console.error(e);
+		return "local";
+	}
 }
