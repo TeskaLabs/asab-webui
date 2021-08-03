@@ -42,6 +42,9 @@ export default class ConfigService extends Service {
 	initialize() {
 		let config_url = this.App.Config.get('CONFIG_PATH');
 
+		const xConfig = document.getElementsByName('x-config')[0];
+		console.log(xConfig.content);
+
 		// Provide backward compatibility with CONFIG_URL
 		if (this.App.Config.get('CONFIG_URL')) {
 			config_url = this.App.Config.get('CONFIG_URL');
