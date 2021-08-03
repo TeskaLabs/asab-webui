@@ -40,21 +40,13 @@ export default class ConfigService extends Service {
 
 
 	initialize() {
-		let config_url = this.App.Config.get('CONFIG_PATH');
-
-		const xConfig = document.getElementsByName('x-config')[0];
-		console.log(xConfig.content);
-
-		// Provide backward compatibility with CONFIG_URL
-		if (this.App.Config.get('CONFIG_URL')) {
-			config_url = this.App.Config.get('CONFIG_URL');
-		}
+		const X_Config = document.getElementsByName('x-config')[0].content;
 
 		// Check on undefined configuration
-		if (config_url !== undefined) {
+		if (X_Config !== undefined) {
 			this.App.addSplashScreenRequestor(this);
 			let axios = Axios.create({baseURL: window.location.protocol + '//' + window.location.host});
-			axios.get(config_url).then(response => {
+			axios.get(X_Config).then(response => {
 				// Check on status and content-type
 				if ((response.status === 200) && (response.headers["content-type"] !== undefined && response.headers["content-type"].includes("application/json"))) {
 					this.Config._dynamic_config = response.data;
