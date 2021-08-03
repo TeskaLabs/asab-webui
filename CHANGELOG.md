@@ -82,7 +82,7 @@
 
 - Refactor About module with missing condition on undefined release date. (INDIGO Sprint 210709, [!139](https://github.com/TeskaLabs/asab-webui/pull/139))
 
--- Refactor About module, add User interface card. (INDIGO Sprint 210723, [!142](https://github.com/TeskaLabs/asab-webui/pull/142))
+- Refactor About module, add User interface card. (INDIGO Sprint 210723, [!142](https://github.com/TeskaLabs/asab-webui/pull/142))
 
 
 ### Bugfixes
@@ -102,3 +102,5 @@
 - Remove unused packages and update packages with vulnerabilities (INDIGO Sprint 210625, [!135](https://github.com/TeskaLabs/asab-webui/pull/135))
 
 - Fix microservices containers indentation in order to keep clean code style (INDIGO Sprint 210723 ,[!143](https://github.com/TeskaLabs/asab-webui/pull/143))
+
+- Update `getVersion` function in `webpack/common.js` to prevent app from crashing when there is no repository for the project (INDIGO Sprint 210723, [!!146](https://github.com/TeskaLabs/asab-webui/pull/146))
