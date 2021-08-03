@@ -62,7 +62,8 @@ exports.getVersion = function(){
 		const { stdout } = execSync("git describe --abbrev=7 --tags --dirty=+dirty --always", { encoding: 'utf8' }).toString();
 		return stdout;
 	} catch (e) {
-		console.log("Something has happend when trying to get version");
+		console.log("Error when getting version from git");
+		console.log("This does not affect build process");
 		console.error(e);
 		return "local";
 	}
