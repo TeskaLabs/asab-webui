@@ -8,22 +8,12 @@ const SidebarNavItems = ({ navConfig, sidebarItemsOrder }) => {
 
 	// Sort items based on config
 	const memoizedItemsList = useMemo(() => {
-		let itemsList = navConfig;
+		const itemsList = [...navConfig].sort((a,b) => {
+			const aOrder = isNaN(a.order) ? 9999 : a.order,
+				bOrder = isNaN(b.order) ? 9999 : b.order;
+			return aOrder > bOrder ? 1 : -1;
+		});
 
-		if (sidebarItemsOrder) {
-			const substructedList = [];
-			itemsList = itemsList.filter((item) => {
-				if (sidebarItemsOrder.indexOf(item.name) === -1) {
-					substructedList.push(item);
-					return false;
-				}
-				return true;
-			})
-
-			itemsList.sort((a, b) => (sidebarItemsOrder.indexOf(a.name) > sidebarItemsOrder.indexOf(b.name) ? 1 : -1));
-
-			itemsList = [...itemsList, ...substructedList];
-		}
 		return itemsList;
 	}, [navConfig, sidebarItemsOrder])
 

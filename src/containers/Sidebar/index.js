@@ -15,10 +15,7 @@ const Sidebar = (props) => {
 		<AppSidebar fixed display={props.display}>
 			<AppSidebarHeader />
 			<AppSidebarForm />
-			<SidebarNavItems
-				app={props.app}
-				navConfig={props.navigation.getItems().items}
-			/>
+			<SidebarNavItems navConfig={props.navigation.getItems().items} />
 			<AppSidebarFooter />
 		</AppSidebar>
 	)
