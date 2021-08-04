@@ -40,7 +40,7 @@ export default class ConfigService extends Service {
 
 
 	initialize() {
-		const dynamic_config_url = document.getElementsByName('x-config')[0].content;
+		const dynamic_config_url = document.getElementsByName('x-config')[0]?.content;
 
 		// Check on undefined configuration
 		if (dynamic_config_url !== undefined) {
