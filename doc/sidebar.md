@@ -7,13 +7,13 @@ It is possible to change order of sidebar navigation items when you add items to
 		name: 'Nowhere',
 		url: '/nowhere',
 		icon: 'cil-casino',
-		order: "3"
+		order: 3
 	});
 
 	app.Navigation.addItem({
 		name: 'Wrapped',
 		icon: 'cil-chart',
-		order: "1",
+		order: 1,
 		children: [
 			{
 				name: 'Home',
@@ -32,7 +32,7 @@ It is possible to change order of sidebar navigation items when you add items to
 		name: 'Fancy',
 		url: '/fancy',
 		icon: 'cil-copy',
-		order: "2"
+		order: 2
 	})
 
 ```
