@@ -26,3 +26,65 @@ main > .container-fluid, main > .container {
 .breadcrumb {
 	margin: 0 !important;
 }
+
+.sidebar {
+	.sidebar-dropdown {
+		background-color: rgba(0,0,0,.2);
+		.sidebar-chevron, .sidebar-chevron-open {
+			font-size: 0.5rem;
+			display: inline-block;
+			margin: 0.2rem 0 0 0;
+			
+			.sidebar-item-icon {
+				margin: 0;
+				font-weight: 700;
+				transition: transform .1s ease-in-out;
+			}
+		}
+		.sidebar-chevron-open {
+			.sidebar-item-icon {
+				transform: rotate(-90deg);
+			}
+		}
+	}
+	.sidebar-dropdown::before {
+		background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwCd8CoYt6GsTp3NRAdrYcarnzKmcfuyFdjg&usqp=CAU');
+	}
+	.nav {
+		.nav-item {
+			position: relative;
+			margin: 0;
+
+			.nav-link {
+				display: block;
+				.sidebar-item-icon {
+					display: inline-block;
+					width: 1rem;
+					margin: 0 0.5rem 0 0;
+					color: #73818f;
+					text-align: center;
+				}
+			}
+
+			.nav-link:hover {
+				cursor: pointer;
+				color: #fff;
+				background: #20a8d8;
+				.sidebar-item-icon {
+					color: #fff;
+				}
+			}
+
+			.active {
+				color: #fff;
+				background-color: #3a4248;
+				.sidebar-item-icon {
+					color: #20a8d8;
+				}
+				.sidebar-item-icon {
+					color: #20a8d8;
+				}
+			}
+		}
+	}
+}
