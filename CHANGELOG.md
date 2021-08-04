@@ -84,6 +84,7 @@
 
 -- Refactor About module, add User interface card. (INDIGO Sprint 210723, [!142](https://github.com/TeskaLabs/asab-webui/pull/142))
 
+- Refactor Config Service in order to obtain dynamic config url from meta (INDIGO Sprint 210723, [!148](https://github.com/TeskaLabs/asab-webui/pull/148))
 
 ### Bugfixes
 
