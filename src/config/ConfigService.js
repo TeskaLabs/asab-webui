@@ -40,6 +40,8 @@ export default class ConfigService extends Service {
 
 
 	initialize() {
+		// dynamic_config_url is taken from content atribute of head element
+		// <meta name="x-config" content="https..." />
 		const dynamic_config_url = document.getElementsByName('x-config')[0]?.content;
 
 		// Check on undefined configuration
