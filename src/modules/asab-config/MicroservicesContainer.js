@@ -10,47 +10,39 @@ import "./microservices.css";
 export default (props) => {
 	const [list, setList] = useState([]);
 	const [page, setPage] = useState(1);
+	const [count, setCount] = useState(0);
 
 	const { t } = useTranslation();
 
+	const ASABConfigAPI = props.app.axiosCreate('asab_config');
+
 	const headers = [ 
-		{ name: t('MicroservicesContainer|Name'), key: 'appclass', link: { key: "name", pathname: "/config/svcs/" } },
+		{ name: t('MicroservicesContainer|ID'), key: 'id', link: { key: "id", pathname: "/config/svcs/" } },
 		{ name: t('MicroservicesContainer|Launch time'), key: 'launchtime', datetime: true },
 		{ name: t('MicroservicesContainer|Host'), key: 'hostname' }
 	];
-	const limit = 10;
 
 	useEffect(() => {
-		const parseDataIntoArr = (data) => {
-			return Object.keys(data).map(name => {
-				const item = data[name];
-				return {
-					...item,
-					name: name,
-					ip: item.web[0][0]
-				};
-			});
-		};
-
-		const ASABConfigAPI = props.app.axiosCreate('asab_config');
-
-		ASABConfigAPI.get('/microservices')
-			.then(res => setList(parseDataIntoArr(res.data)))
+		ASABConfigAPI.get('/microservices', { params: { p: page }})
+			.then(res => {
+				console.log(res.data.data)
+				setList(res.data.data);
+				setCount(res.data.count);
+			})
 			.catch(e => {
 				console.error(e);
 				props.app.addAlert("warning", t('Failed fetch'));
 			})
-	}, []);
+	}, [page]);
 
 	return (
 		<Container>
 			<DataTable 
 				headers={headers}
-				data={list.slice((page-1)*limit, limit*page)}
-				page={page}
+				data={list}
+				currentPage={page}
 				setPage={setPage}
-				count={list.length}
-				limit={limit}
+				count={count}
 				title={{
 					text: "Microservices"
 				}}
