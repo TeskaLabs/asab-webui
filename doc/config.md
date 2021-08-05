@@ -65,3 +65,19 @@ if (__CONFIG__.modules !== null) {
 	});
 }
 ```
+
+# Setting Dynamic Config URL
+
+Dynamic config url is taken from content attribute of meta element with name `x-config` in `index.html` file:
+
+```
+<meta name="x-config" content="..." />
+```
+
+Note: Mechanism for auto adding this element to index.html doesn't exist yet. For test purposes just write inside of <head></head> in `public/index.html` this line of code:
+
+```
+<meta name="x-config" content="*dynamic config url*" />
+```
+
+And replace `*dynamic config url*` with your url to dynamic configuration.
