@@ -27,7 +27,8 @@ export function DataTable ({
 	search, onSearch, onDownload,
 	isLoading, translationRoute = '',
 	buttonWithAuthz, sort, noItemsComponent,
-	customButton, customDropdownButton
+	customButton, customDropdownButton,
+	rowStyle
 	}) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isSortOpen, setSortDropdown] = useState(false);
@@ -164,7 +165,11 @@ export function DataTable ({
 					<CardBody className="data-table-card-body">
 						{ isLoading ? 
 							<div style={{ margin: "2rem auto" }}><Spinner /></div> :
-							<Table data={data.length > limit ? data.slice(0, limit) : data} headers={headers}/>
+							<Table
+								data={data.length > limit ? data.slice(0, limit) : data}
+								headers={headers}
+								rowStyle={rowStyle}
+							/>
 						}
 						{count === 0 && !isLoading && (
 							noItemsComponent ? <NoItemsLayout>{noItemsComponent}</NoItemsLayout> :

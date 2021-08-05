@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ import { DateTime } from '../DateTime';
 
 import ActionButton from './ActionButton';
 
-const TableCell = ({ obj, header, idx, showJson }) => {
+const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 	if (!obj) return <td className="pl-3" style={{ whiteSpace: "nowrap" }}>-</td>
 
 	let cell, icon;
@@ -42,6 +42,7 @@ const TableCell = ({ obj, header, idx, showJson }) => {
 			name={false}
 			collapsed
 			enableClipboard={false}
+			theme={jsonTheme ? jsonTheme : "rjv-default"}
 		/>
 	);
 
@@ -72,7 +73,7 @@ const TableCell = ({ obj, header, idx, showJson }) => {
 		cell = header.customComponent.generate(obj, header);
 	}
 
-	else cell = obj[header.key];
+	else cell = obj[header.key] ? obj[header.key] : "-";
 
 	if (icon && !(header.link || header.datetime || header.actionButton)) {
 		cell = <>{icon} {cell}</>;
@@ -120,12 +121,21 @@ const Headers = ({ headers, advmode }) => (
 	</>
 );
 
-const TableRow = ({ obj, advmode, headers }) => {
+const TableRow = ({ obj, advmode, headers, rowStyle }) => {
 	const [isUnwrapped, setUnwrapped] = useState(false);
+
+	const func = (obj) => {
+		console.log("rendered!");
+		if (rowStyle?.condition && rowStyle?.condition(obj)) {
+			return rowStyle.style
+		}
+	} 
+
+	let style = useMemo(() => func(obj), [obj]);
 
 	return (
 		<>
-			<tr className="data-table-tr">
+			<tr className={`data-table-tr`} style={style}>
 				{advmode && <TableCell obj={obj} showJson={() => setUnwrapped(prev => !prev)}/>}
 				{headers.map((header, idx) => (
 					<TableCell 
@@ -133,6 +143,7 @@ const TableRow = ({ obj, advmode, headers }) => {
 						header={header}
 						idx={idx}
 						key={idx}
+						jsonTheme={style?.jsonTheme}
 					/>
 				))}
 			</tr>
@@ -156,12 +167,12 @@ const TableRow = ({ obj, advmode, headers }) => {
 	)
 }
 
-const ASABTable = ({ data, headers, advmode }) => (
+const ASABTable = ({ data, headers, advmode, rowStyle }) => (
 	<Table size="sm" hover responsive>
 		<Headers headers={headers} advmode={advmode} className="data-table-header"/>
 		<tbody className="data-table-tbody">
 			{data.map((obj, idx) => (
-				<TableRow {...{ obj, advmode, headers }} key={idx}/>
+				<TableRow {...{ obj, advmode, headers, rowStyle }} key={idx}/>
 			))}
 		</tbody>
 	</Table>
