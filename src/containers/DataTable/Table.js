@@ -42,7 +42,7 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 			name={false}
 			collapsed
 			enableClipboard={false}
-			theme={jsonTheme ? jsonTheme : "rjv-default"}
+			theme={jsonTheme}
 		/>
 	);
 
@@ -73,7 +73,7 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 		cell = header.customComponent.generate(obj, header);
 	}
 
-	else cell = obj[header.key] ? obj[header.key] : "-";
+	else cell = obj[header.key];
 
 	if (icon && !(header.link || header.datetime || header.actionButton)) {
 		cell = <>{icon} {cell}</>;
@@ -121,21 +121,42 @@ const Headers = ({ headers, advmode }) => (
 	</>
 );
 
-const TableRow = ({ obj, advmode, headers, rowStyle }) => {
+const TableRow = ({ obj, advmode, headers, rowStyle, rowClassName }) => {
 	const [isUnwrapped, setUnwrapped] = useState(false);
 
-	const func = (obj) => {
-		console.log("rendered!");
+	const getStyle = (obj) => {
 		if (rowStyle?.condition && rowStyle?.condition(obj)) {
-			return rowStyle.style
+			return rowStyle.style;
 		}
-	} 
+		return {};
+	}
 
-	let style = useMemo(() => func(obj), [obj]);
+	const getClassName = (obj) => {
+		if (rowClassName?.condition && rowClassName?.condition(obj)) {
+			return rowClassName.className;
+		}
+		return "";
+	}
+
+	const getJsonTheme = (obj) => {
+		if (rowStyle?.jsonTheme && rowStyle?.condition(obj)) {
+			return rowStyle.jsonTheme;
+		}
+		else if (rowClassName?.jsonTheme && rowClassName?.condition(obj)) {
+			return rowClassName.jsonTheme;
+		} 
+		else {
+			return "rjv-default";
+		}
+	}
+
+	const style = useMemo(() => getStyle(obj), [obj]);
+	const className = useMemo(() => getClassName(obj), [obj]);
+	const jsonTheme = useMemo(() => getJsonTheme(obj), [obj]);
 
 	return (
 		<>
-			<tr className={`data-table-tr`} style={style}>
+			<tr className={`data-table-tr ${className}`} style={style}>
 				{advmode && <TableCell obj={obj} showJson={() => setUnwrapped(prev => !prev)}/>}
 				{headers.map((header, idx) => (
 					<TableCell 
@@ -143,7 +164,7 @@ const TableRow = ({ obj, advmode, headers, rowStyle }) => {
 						header={header}
 						idx={idx}
 						key={idx}
-						jsonTheme={style?.jsonTheme}
+						jsonTheme={jsonTheme}
 					/>
 				))}
 			</tr>
@@ -167,12 +188,12 @@ const TableRow = ({ obj, advmode, headers, rowStyle }) => {
 	)
 }
 
-const ASABTable = ({ data, headers, advmode, rowStyle }) => (
+const ASABTable = ({ data, headers, advmode, rowStyle, rowClassName }) => (
 	<Table size="sm" hover responsive>
 		<Headers headers={headers} advmode={advmode} className="data-table-header"/>
 		<tbody className="data-table-tbody">
 			{data.map((obj, idx) => (
-				<TableRow {...{ obj, advmode, headers, rowStyle }} key={idx}/>
+				<TableRow {...{ obj, advmode, headers, rowStyle, rowClassName }} key={idx}/>
 			))}
 		</tbody>
 	</Table>
