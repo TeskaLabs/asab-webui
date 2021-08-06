@@ -73,7 +73,7 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 		cell = header.customComponent.generate(obj, header);
 	}
 
-	else cell = obj[header.key];
+	else cell = obj[header.key] ? obj[header.key] : "-";
 
 	if (icon && !(header.link || header.datetime || header.actionButton)) {
 		cell = <>{icon} {cell}</>;
