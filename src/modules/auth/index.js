@@ -102,6 +102,17 @@ export default class AuthModule extends Module {
 								this.Navigation.removeItem(itm)
 							}
 						}
+						// Remove item from Navigation children based on Access resource
+						if (itm.children) {
+							await Promise.all(itm.children.map(async(child, id) => {
+								if (child.resource) {
+									let access_auth = await this._isUserAuthorized(child.resource);
+									if (!access_auth) {
+										this.Navigation.removeChildren(child)
+									}
+								}
+							}))
+						}
 					}))
 				}
 
@@ -239,7 +250,7 @@ export default class AuthModule extends Module {
 			that.App.addAlert("warning", alertMessage, expire);
 			fAlert = true;
 		}
-		
+
 		/**
 		 * 1) If first alert wasn't shown then timeout will be set on a minute before expiration date
 		 * 2) If first alert was shown but expiration date hasn't come yet, then timeout will be set on expiration date
