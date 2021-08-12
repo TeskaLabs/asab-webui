@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useLocation, useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
-import { 
+import {
 	Nav, NavItem, NavLink, Collapse
 } from 'reactstrap';
 
 import Icon from './SidebarIcon';
 
-const SidebarItem = ({ item }) => {
+const SidebarItem = ({ item, unauthChildren }) => {
 	const [isOpen, setOpen] = useState(false);
 
 	const location = useLocation();
@@ -33,22 +33,16 @@ const SidebarItem = ({ item }) => {
 					</span>
 				}
 			</NavLink>
-			
-			{item.children && 
+
+			{item.children &&
 				(
 					<Collapse isOpen={isOpen}>
 						<Nav>
 							{item.children.map((child, idx) => (
-								<NavLink
-									key={idx}
-									className={`${location.pathname === child.url ? "active" : ""}`}
-									onClick={() => {
-										if (child.url && location.pathname !== child.url) history.push(child.url);
-									}}
-								>
-									<Icon icon={child.icon} />
-									{t(`Sidebar|${child.name}`)}
-								</NavLink>
+								unauthChildren == undefined || unauthChildren.length == 0 ?
+									<NavChildren child={child} idx={idx} location={location} history={history}/>
+								:
+									unauthChildren.indexOf(child.name) == -1 && <NavChildren child={child} idx={idx} location={location} history={history}/>
 							))}
 						</Nav>
 					</Collapse>
@@ -59,3 +53,19 @@ const SidebarItem = ({ item }) => {
 }
 
 export default SidebarItem;
+
+const NavChildren = ({ child, idx, location, history }) => {
+	const { t } = useTranslation();
+	return (
+		<NavLink
+			key={idx}
+			className={`${location.pathname === child.url ? "active" : ""}`}
+			onClick={() => {
+				if (child.url && location.pathname !== child.url) history.push(child.url);
+			}}
+		>
+			<Icon icon={child.icon} />
+			{t(`Sidebar|${child.name}`)}
+		</NavLink>
+	)
+}
