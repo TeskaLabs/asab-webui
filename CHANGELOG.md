@@ -52,7 +52,7 @@
 
 - Add documentation for Microservices (INDIGO Sprint 210820, [!159](https://github.com/TeskaLabs/asab-webui/pull/159))
 
-- Add option to remove children based on resource from sidebar (INDIGO Sprint 210809, [!150](https://github.com/TeskaLabs/asab-webui/pull/150))
+- Add option to hide sidebar children based on resource (INDIGO Sprint 210809, [!150](https://github.com/TeskaLabs/asab-webui/pull/150))
 
 
 ### Refactoring
