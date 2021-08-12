@@ -567,18 +567,6 @@ class Navigation {
 		}
 	}
 
-	removeItem(item) {
-		this.Items = this.Items.filter(i => i.name != item.name);
-	}
-
-	removeChildren(children) {
-		this.Items.map((item, idx) => {
-			if (item.children) {
-				item.children = item.children.filter(i => i.name != children.name)
-			}
-		})
-	}
-
 }
 
 
