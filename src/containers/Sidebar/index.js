@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
 import {
 	AppSidebar,
 	AppSidebarFooter,
@@ -15,10 +15,21 @@ const Sidebar = (props) => {
 		<AppSidebar fixed display={props.display}>
 			<AppSidebarHeader />
 			<AppSidebarForm />
-			<SidebarNavItems navConfig={props.navigation.getItems().items} />
+			<SidebarNavItems
+				navConfig={props.navigation.getItems().items}
+				unauthItems={props.unauthorizedItem}
+				unauthChildren={props.unauthorizedChildren}
+			/>
 			<AppSidebarFooter />
 		</AppSidebar>
 	)
 }
 
-export default Sidebar;
+function mapStateToProps(state) {
+	return {
+		unauthorizedItem: state.auth?.unauthorizedItem,
+		unauthorizedChildren: state.auth?.unauthorizedChildren
+	};
+}
+
+export default connect(mapStateToProps)(Sidebar);
