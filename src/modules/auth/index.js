@@ -37,7 +37,6 @@ export default class AuthModule extends Module {
 	async initialize() {
 		const headerService = this.App.locateService("HeaderService");
 		headerService.addComponent(HeaderComponent, {AuthModule: this});
-
 		if (this.DevConfig.get('MOCK_USERINFO')) {
 			/* This section is only for DEV purposes! */
 			this.simulateUserinfo(this.DevConfig.get('MOCK_USERINFO'))
@@ -92,28 +91,32 @@ export default class AuthModule extends Module {
 					}
 				}
 
-				// Remove item from Navigation based on Access resource
+				// Add item name from Navigation based on Access resource to the list of unauthorized items
 				if (this.Navigation.Items.length > 0) {
 					let getItems = this.Navigation.getItems();
+					let unauthorizedItems = [];
+					let unauthorizedChildren = [];
 					await Promise.all(getItems.items.map(async(itm, idx) => {
 						if (itm.resource) {
 							let access_auth = await this._isUserAuthorized(itm.resource);
 							if (!access_auth) {
-								this.Navigation.removeItem(itm)
+								unauthorizedItems.push(itm.name);
 							}
 						}
-						// Remove item from Navigation children based on Access resource
+						// Add unauthorized Navigation children name based on Access resource to the list of unauthorized children
 						if (itm.children) {
 							await Promise.all(itm.children.map(async(child, id) => {
 								if (child.resource) {
 									let access_auth = await this._isUserAuthorized(child.resource);
 									if (!access_auth) {
-										this.Navigation.removeChildren(child)
+										unauthorizedChildren.push(child.name);
 									}
 								}
 							}))
 						}
 					}))
+				this.App.Store.dispatch({ type: types.UNAUTHORIZED_ITEM, unauthItem: unauthorizedItems });
+				this.App.Store.dispatch({ type: types.UNAUTHORIZED_CHILDREN, unauthChildren: unauthorizedChildren });
 				}
 
 			}
