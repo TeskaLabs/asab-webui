@@ -90,6 +90,9 @@
 
 - Refactor sidebar, (INDIGO Sprint 210723, [!141](https://github.com/TeskaLabs/asab-webui/pull/141))
 
+- Refactor borders of tool widget (INDIGO Sprint 210809, [!152](https://github.com/TeskaLabs/asab-webui/pull/152))
+
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))

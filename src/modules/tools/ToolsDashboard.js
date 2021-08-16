@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import {
 	Container, Col, Row, Button
 } from "reactstrap";
@@ -40,7 +39,7 @@ export default class ToolsDashboard extends Component {
 								<Col className="text-center pt-5 pb-5 pl-5 pr-5">
 									<Row className="justify-content-center">
 										<a href={config[key].url} target="_blank" rel="noopener noreferrer">
-											<Button title={config[key].url} color="light" style={{ border: '1.5px solid', borderRadius: 15, width: 130, height: 130, padding: 0 }} >
+											<Button title={config[key].url} color="light" style={{ boxShadow: "0px 2px 4px rgba(33, 36, 41, 0.05)", borderRadius: 15, width: 130, height: 130, padding: 0 }} >
 												<img
 													src={config[key].image}
 													style={{width:72+"px", height:72+"px", padding: 5}}
