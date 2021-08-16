@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 import {
 	AppHeader,
@@ -9,8 +10,7 @@ import {
 
 import {
 	Nav,
-	NavItem,
-	NavLink
+	NavItem
 } from 'reactstrap';
 
 import HelpButton from '../helpButton';
@@ -32,7 +32,8 @@ export function Header(props) {
 			}
 
 			<AppNavbarBrand
-				href={props.brand_image.href}
+				tag={NavLink}
+				to={"/"}
 				full={{
 					src: props.brand_image.full,
 					alt: props.title,
