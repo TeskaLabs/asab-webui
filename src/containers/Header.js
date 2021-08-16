@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import {
 	AppHeader,
@@ -32,7 +32,7 @@ export function Header(props) {
 			}
 
 			<AppNavbarBrand
-				tag={NavLink}
+				tag={Link}
 				to={"/"}
 				full={{
 					src: props.brand_image.full,
