@@ -114,3 +114,5 @@
 - Update `getVersion` function in `webpack/common.js` to prevent app from crashing when there is no repository for the project (INDIGO Sprint 210723, [!146](https://github.com/TeskaLabs/asab-webui/pull/146))
 
 - Fix redirect to homepage on click to logo (INDIGO Sprint 210809, [!151](https://github.com/TeskaLabs/asab-webui/pull/151))
+
+- Fix invalid prop in header's logo appeared after fixing redirect to homepage (INDIGO Sprint 210809, [!153](https://github.com/TeskaLabs/asab-webui/pull/153))
