@@ -15,7 +15,7 @@ import {
 
 import Table from './Table';
 import Pagination from './Pagination';
-import CustomDropdownButton from './CustomDropdownButton';
+// import CustomDropdownButton from './CustomDropdownButton'; DON'T REMOVE YET. IT MAY BE USEFUL ON REFACTORING DATATABLE
 
 import { Spinner } from '../Spinner';
 import { ButtonWithAuthz } from '../../modules/auth/ButtonWithAuthz';
@@ -27,7 +27,7 @@ export function DataTable ({
 	search, onSearch, onDownload,
 	isLoading, translationRoute = '',
 	buttonWithAuthz, sort, noItemsComponent,
-	customButton, customDropdownButton,
+	customButton, customComponent,
 	customRowStyle, customRowClassName
 	}) {
 	const [filterValue, setFilterValue] = useState('');
@@ -73,6 +73,7 @@ export function DataTable ({
 							<i className={title.icon}></i> : title.icon
 						}
 						{title.text}
+						<div className="float-right ml-3 data-table-create-button">{customComponent}</div>
 						{customButton && 
 							<div className="float-right ml-3 data-table-create-button">
 								<Button
@@ -89,11 +90,6 @@ export function DataTable ({
 									}
 									{customButton?.text}
 								</Button>
-							</div>
-						}
-						{customDropdownButton && 
-							<div className="float-right ml-3 data-table-sort">
-								<CustomDropdownButton {...customDropdownButton} />
 							</div>
 						}
 						{buttonWithAuthz && <ButtonWithAuthz {...buttonWithAuthz} className="float-right ml-3 data-table-button-with-authz"/>}

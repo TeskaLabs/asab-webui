@@ -249,32 +249,24 @@ export default function (props) {
 		}
 	}
 
-	const customDropdownButton = {
-		text: "Custom drop",
-		color: "success",
-		header: "header",
-		items: [
-			{
-				text: "First item",
-				props: {
-					onClick: () => alert("First item was clicked!"),
-					className: "first-item-classname"
-				}
-				
-			},
-			{
-				text: "Second item",
-				props: {
-					onClick: () => alert("Second item was clicked!"),
-					className: "second-item-classname",
-					style: {
-						backgroundColor: "black",
-						color: "white"
-					}
-				}
-			}
-		]
+	const nextPage = () => {
+		if (page*limit < count) {
+			setPage(prev => prev+1)
+		}
+		else {
+			alert("You're on the last page");
+		}
 	}
+
+	const customComponent = (
+		<Button
+			size="sm"
+			color="success"
+			onClick={nextPage}
+		>
+			Next Page
+		</Button>
+	);
 
 	return (
 		<Container>
@@ -317,7 +309,7 @@ export default function (props) {
 				buttonWithAuthz={buttonWithAuthz}
 				noItemsComponent={noItemsComponent}
 				customButton={customButton}
-				customDropdownButton={customDropdownButton}
+				customComponent={customComponent}
 			/>
 		</Container>
 	)
