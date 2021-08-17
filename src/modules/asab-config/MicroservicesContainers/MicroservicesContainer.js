@@ -5,7 +5,7 @@ import { Container } from 'reactstrap';
 
 import { DataTable } from 'asab-webui';
 
-import "./microservices.css";
+import "./microservices.scss";
 
 export default (props) => {
 	const [list, setList] = useState([]);
@@ -16,7 +16,19 @@ export default (props) => {
 
 	const ASABConfigAPI = props.app.axiosCreate('asab_config');
 
-	const headers = [ 
+	const headers = [
+		{ 
+			name: " ",
+			customComponent: {
+				generate: (obj) => {
+					if (obj["attention_required"] && obj["attention_required"] > 0) {
+						return (
+							<i className="cil-warning"></i>
+						)
+					}
+				}
+			}
+		},
 		{ name: t('MicroservicesContainer|ID'), key: 'id', link: { key: "id", pathname: "/config/svcs/" } },
 		{ name: t('MicroservicesContainer|Launch time'), key: 'launchtime', datetime: true },
 		{ name: t('MicroservicesContainer|Host'), key: 'hostname' }
@@ -34,8 +46,19 @@ export default (props) => {
 			})
 	}, [page]);
 
+	const customRowStyle = {
+		style: {
+			backgroundColor: "#fff3cd",
+			color: "#856404"
+		},
+		condition: (obj) => {
+			if (obj["attention_required"] && obj["attention_required"] > 0) return true;
+			return false;
+		}
+	}
+
 	return (
-		<Container>
+		<Container className="svcs-container">
 			<DataTable 
 				headers={headers}
 				data={list}
@@ -45,6 +68,7 @@ export default (props) => {
 				title={{
 					text: "Microservices"
 				}}
+				customRowStyle={customRowStyle}
 			/>
 		</Container>
 	)

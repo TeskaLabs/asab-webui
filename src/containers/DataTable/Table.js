@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import ReactJson from 'react-json-view';
-import { Table, Button, Collapse } from 'reactstrap';
-import { Transition } from 'react-transition-group';
+import { Table } from 'reactstrap';
 
 import { DateTime } from '../DateTime';
 

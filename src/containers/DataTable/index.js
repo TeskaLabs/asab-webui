@@ -28,7 +28,7 @@ export function DataTable ({
 	isLoading, translationRoute = '',
 	buttonWithAuthz, sort, noItemsComponent,
 	customButton, customDropdownButton,
-	rowStyle, rowClassName
+	customRowStyle, customRowClassName
 	}) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isSortOpen, setSortDropdown] = useState(false);
@@ -168,8 +168,8 @@ export function DataTable ({
 							<Table
 								data={data.length > limit ? data.slice(0, limit) : data}
 								headers={headers}
-								rowStyle={rowStyle}
-								rowClassName={rowClassName}
+								rowStyle={customRowStyle}
+								rowClassName={customRowClassName}
 							/>
 						}
 						{count === 0 && !isLoading && (
