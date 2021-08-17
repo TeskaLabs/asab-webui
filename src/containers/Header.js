@@ -16,7 +16,8 @@ import {
 import HelpButton from '../helpButton';
 
 export function Header(props) {
-	let HeaderService = props.app.locateService("HeaderService");
+	const HeaderService = props.app.locateService("HeaderService");
+	const link = props.brand_image.href ?? "/"
 
 	return (
 		<AppHeader fixed>
@@ -30,23 +31,23 @@ export function Header(props) {
 			:
 				null
 			}
-
-			<AppNavbarBrand
-				tag={Link}
-				to={"/"}
-				full={{
-					src: props.brand_image.full,
-					alt: props.title,
-					width: 120,
-					height: 30,
-				}}
-				minimized={{
-					src: props.brand_image.minimized,
-					alt: props.title,
-					width: 30,
-					height: 30,
-				}}
-			/>
+			<Link to={link}>
+				<AppNavbarBrand
+					tag={'div'}
+					full={{
+						src: props.brand_image.full,
+						alt: props.title,
+						width: 120,
+						height: 30,
+					}}
+					minimized={{
+						src: props.brand_image.minimized,
+						alt: props.title,
+						width: 30,
+						height: 30,
+					}}
+				/>
+			</Link>
 
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
 				[
