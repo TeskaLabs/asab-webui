@@ -46,6 +46,8 @@
 
 - Add documentation to dynamic config url (INDIGO Sprint 210723, [!149](https://github.com/TeskaLabs/asab-webui/pull/149))
 
+- Refactor MicroservicesContainer, add style with condition to DataTable, add attention required flag to MicroservicesContainer (INDIGO Sprint 210809, [!155](https://github.com/TeskaLabs/asab-webui/pull/155))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))

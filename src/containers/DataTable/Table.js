@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import ReactJson from 'react-json-view';
-import { Table, Button, Collapse } from 'reactstrap';
-import { Transition } from 'react-transition-group';
+import { Table } from 'reactstrap';
 
 import { DateTime } from '../DateTime';
 
 import ActionButton from './ActionButton';
 
-const TableCell = ({ obj, header, idx, showJson }) => {
+const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 	if (!obj) return <td className="pl-3" style={{ whiteSpace: "nowrap" }}>-</td>
 
 	let cell, icon;
@@ -42,6 +41,7 @@ const TableCell = ({ obj, header, idx, showJson }) => {
 			name={false}
 			collapsed
 			enableClipboard={false}
+			theme={jsonTheme}
 		/>
 	);
 
@@ -72,7 +72,7 @@ const TableCell = ({ obj, header, idx, showJson }) => {
 		cell = header.customComponent.generate(obj, header);
 	}
 
-	else cell = obj[header.key];
+	else cell = obj[header.key] ? obj[header.key] : "-";
 
 	if (icon && !(header.link || header.datetime || header.actionButton)) {
 		cell = <>{icon} {cell}</>;
@@ -120,12 +120,42 @@ const Headers = ({ headers, advmode }) => (
 	</>
 );
 
-const TableRow = ({ obj, advmode, headers }) => {
+const TableRow = ({ obj, advmode, headers, rowStyle, rowClassName }) => {
 	const [isUnwrapped, setUnwrapped] = useState(false);
+
+	const getStyle = (obj) => {
+		if (rowStyle?.condition && rowStyle?.condition(obj)) {
+			return rowStyle.style;
+		}
+		return {};
+	}
+
+	const getClassName = (obj) => {
+		if (rowClassName?.condition && rowClassName?.condition(obj)) {
+			return rowClassName.className;
+		}
+		return "";
+	}
+
+	const getJsonTheme = (obj) => {
+		if (rowStyle?.jsonTheme && rowStyle?.condition(obj)) {
+			return rowStyle.jsonTheme;
+		}
+		else if (rowClassName?.jsonTheme && rowClassName?.condition(obj)) {
+			return rowClassName.jsonTheme;
+		} 
+		else {
+			return "rjv-default";
+		}
+	}
+
+	const style = useMemo(() => getStyle(obj), [obj]);
+	const className = useMemo(() => getClassName(obj), [obj]);
+	const jsonTheme = useMemo(() => getJsonTheme(obj), [obj]);
 
 	return (
 		<>
-			<tr className="data-table-tr">
+			<tr className={`data-table-tr ${className}`} style={style}>
 				{advmode && <TableCell obj={obj} showJson={() => setUnwrapped(prev => !prev)}/>}
 				{headers.map((header, idx) => (
 					<TableCell 
@@ -133,6 +163,7 @@ const TableRow = ({ obj, advmode, headers }) => {
 						header={header}
 						idx={idx}
 						key={idx}
+						jsonTheme={jsonTheme}
 					/>
 				))}
 			</tr>
@@ -156,12 +187,12 @@ const TableRow = ({ obj, advmode, headers }) => {
 	)
 }
 
-const ASABTable = ({ data, headers, advmode }) => (
+const ASABTable = ({ data, headers, advmode, rowStyle, rowClassName }) => (
 	<Table size="sm" hover responsive>
 		<Headers headers={headers} advmode={advmode} className="data-table-header"/>
 		<tbody className="data-table-tbody">
 			{data.map((obj, idx) => (
-				<TableRow {...{ obj, advmode, headers }} key={idx}/>
+				<TableRow {...{ obj, advmode, headers, rowStyle, rowClassName }} key={idx}/>
 			))}
 		</tbody>
 	</Table>
