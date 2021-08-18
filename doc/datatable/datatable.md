@@ -218,7 +218,7 @@ Example of fetched data:
 
 # Optional
 
-`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `customButton`, `customDropdown`, `search`, `onSearch`, `isLoading`, `noItemsComponent` and `onDownload`.
+`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `customButton`, `customComponent`, `search`, `onSearch`, `isLoading`, `noItemsComponent` and `onDownload`.
 
 Example of `DataTable` with all props:
 
@@ -237,7 +237,7 @@ Example of `DataTable` with all props:
 	createButton={{ text: "Create", icon: 'icon', pathname: '#' }}
 	buttonWithAuthz={buttonWithAuthzProps}
 	customButton={customButton}
-	customDropdownButton={customDropdownButton}
+	customComponent={customComponent}
 	onDownload={onDownload}
 	isLoading={isLoading}
 	noItemsComponent={noItemsComponent}
@@ -358,55 +358,27 @@ Example of `customButton`:
 
 ```
 
-Prop `customDropdownButton` is used in case if you need to create custom dropdown menu in the header of `DataTable`. It accepts object with properties:
+Prop `customComponent` is used in case if you need to create custom component in the header of `DataTable`. It accepts some component which will be placed at the end of the header:
 
-Obligatory properties:
-1) `text` - dropdown button title
-2) `items` - array of items of type object which will be rendered in dropdown menu
-Optional properties:
-1) `color` - string which represent color from bootstrap which will be applied to button (i.e `primary`, `danger` and etc.)
-2) `header` - string which is placed as header of dropdown menu
-
-Property `item` also have properties which should be defined:
-1) `text` - title of the item in dropdown
-2) `props` - props object which will be passed to corresponding `DropdownItem` component from `reactrap` library. It may be `onClick` function, `style` object or `className` string.
-
-Example of `customDropdownButton`:
+Example of `customComponent`:
 ```
 ...
-	const customDropdownButton = {
-		text: "Custom drop",
-		color: "success",
-		header: "header",
-		items: [
-			{
-				text: "First item",
-				props: {
-					onClick: () => alert("First item was clicked!"),
-					className: "first-item-classname"
-				}
-				
-			},
-			{
-				text: "Second item",
-				props: {
-					onClick: () => alert("Second item was clicked!"),
-					className: "second-item-classname",
-					style: {
-						backgroundColor: "black",
-						color: "white"
-					}
-				}
-			}
-		]
-	}
+	const customComponent = (
+		<Button
+			size="sm"
+			color="success"
+			onClick={nextPage}
+		>
+			Next Page
+		</Button>
+	);
 	...
 
 	return (
 		...
 		<DataTable
 			...
-			customDropdownButton={customDropdownButton}
+			customComponent={customComponent}
 			...
 		/>
 	)
