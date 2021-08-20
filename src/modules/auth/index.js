@@ -91,32 +91,9 @@ export default class AuthModule extends Module {
 					}
 				}
 
-				// Add item name from Navigation based on Access resource to the list of unauthorized items
+				// Validate resources of items and children in navigation
 				if (this.Navigation.Items.length > 0) {
-					let getItems = this.Navigation.getItems();
-					let unauthorizedItems = [];
-					let unauthorizedChildren = [];
-					await Promise.all(getItems.items.map(async(itm, idx) => {
-						if (itm.resource) {
-							let access_auth = await this._isUserAuthorized(itm.resource);
-							if (!access_auth) {
-								unauthorizedItems.push(itm.name);
-							}
-						}
-						// Add unauthorized Navigation children name based on Access resource to the list of unauthorized children
-						if (itm.children) {
-							await Promise.all(itm.children.map(async(child, id) => {
-								if (child.resource) {
-									let access_auth = await this._isUserAuthorized(child.resource);
-									if (!access_auth) {
-										unauthorizedChildren.push(child.name);
-									}
-								}
-							}))
-						}
-					}))
-				this.App.Store.dispatch({ type: types.UNAUTHORIZED_ITEM, unauthItem: unauthorizedItems });
-				this.App.Store.dispatch({ type: types.UNAUTHORIZED_CHILDREN, unauthChildren: unauthorizedChildren });
+					await this.validateNavigation();
 				}
 
 			}
@@ -200,6 +177,34 @@ export default class AuthModule extends Module {
 		}).catch((error) => {
 			window.location.reload();
 		});
+	}
+
+	async validateNavigation() {
+		let getItems = this.Navigation.getItems();
+		let unauthorizedItems = [];
+		let unauthorizedChildren = [];
+		// Add item name from Navigation based on Access resource to the list of unauthorized items
+		await Promise.all(getItems.items.map(async(itm, idx) => {
+			if (itm.resource) {
+				let access_auth = await this._isUserAuthorized(itm.resource);
+				if (!access_auth) {
+					unauthorizedItems.push(itm.name);
+				}
+			}
+			// Add unauthorized Navigation children name based on Access resource to the list of unauthorized children
+			if (itm.children) {
+				await Promise.all(itm.children.map(async(child, id) => {
+					if (child.resource) {
+						let access_auth = await this._isUserAuthorized(child.resource);
+						if (!access_auth) {
+							unauthorizedChildren.push(child.name);
+						}
+					}
+				}))
+			}
+		}))
+		this.App.Store.dispatch({ type: types.UNAUTHORIZED_ITEM, unauthItem: unauthorizedItems });
+		this.App.Store.dispatch({ type: types.UNAUTHORIZED_CHILDREN, unauthChildren: unauthorizedChildren });
 	}
 
 	async _updateUserInfo(that = this, oldUserInfo = null, fAlert = false) {
