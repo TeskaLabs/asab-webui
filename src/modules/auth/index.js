@@ -179,6 +179,7 @@ export default class AuthModule extends Module {
 		});
 	}
 
+
 	async validateNavigation() {
 		let getItems = this.Navigation.getItems();
 		let unauthorizedItems = [];
@@ -206,6 +207,7 @@ export default class AuthModule extends Module {
 		this.App.Store.dispatch({ type: types.UNAUTHORIZED_ITEM, unauthItem: unauthorizedItems });
 		this.App.Store.dispatch({ type: types.UNAUTHORIZED_CHILDREN, unauthChildren: unauthorizedChildren });
 	}
+
 
 	async _updateUserInfo(that = this, oldUserInfo = null, fAlert = false) {
 		let response;
