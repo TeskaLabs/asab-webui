@@ -17,7 +17,46 @@ import HelpButton from '../helpButton';
 
 export function Header(props) {
 	const HeaderService = props.app.locateService("HeaderService");
-	const link = props.brand_image.href ?? "/"
+
+	const createNavbarBrand = () => {
+		const link = props.brand_image.href ?? "/";
+		if (link.includes("http")) {
+			return <AppNavbarBrand
+				href={link}
+				full={{
+					src: props.brand_image.full,
+					alt: props.title,
+					width: 120,
+					height: 30,
+				}}
+				minimized={{
+					src: props.brand_image.minimized,
+					alt: props.title,
+					width: 30,
+					height: 30,
+				}}
+				target="_blank"
+				rel="noopener noreferrer"
+			/>
+		}
+		return <Link to={link}>
+			<AppNavbarBrand
+				tag={'div'}
+				full={{
+					src: props.brand_image.full,
+					alt: props.title,
+					width: 120,
+					height: 30,
+				}}
+				minimized={{
+					src: props.brand_image.minimized,
+					alt: props.title,
+					width: 30,
+					height: 30,
+				}}
+			/>
+		</Link>
+	}
 
 	return (
 		<AppHeader fixed>
@@ -31,23 +70,7 @@ export function Header(props) {
 			:
 				null
 			}
-			<Link to={link}>
-				<AppNavbarBrand
-					tag={'div'}
-					full={{
-						src: props.brand_image.full,
-						alt: props.title,
-						width: 120,
-						height: 30,
-					}}
-					minimized={{
-						src: props.brand_image.minimized,
-						alt: props.title,
-						width: 30,
-						height: 30,
-					}}
-				/>
-			</Link>
+			{createNavbarBrand()}
 
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
 				[
