@@ -92,11 +92,13 @@
 
 - Refactor Config Service in order to obtain dynamic config url from meta (INDIGO Sprint 210723, [!148](https://github.com/TeskaLabs/asab-webui/pull/148))
 
-- Refactor sidebar, (INDIGO Sprint 210723, [!141](https://github.com/TeskaLabs/asab-webui/pull/141))
+- Refactor sidebar (INDIGO Sprint 210723, [!141](https://github.com/TeskaLabs/asab-webui/pull/141))
 
 - Refactor borders of tool widget (INDIGO Sprint 210809, [!152](https://github.com/TeskaLabs/asab-webui/pull/152))
 
 - Add support to external links on click to logo (INDIGO Sprint 210820, [!156](https://github.com/TeskaLabs/asab-webui/pull/156))
+
+- Move Pagination from DataTable to separate component (INDIGO Sprint 210820, [!157](https://github.com/TeskaLabs/asab-webui/pull/157))
 
 
 ### Bugfixes
