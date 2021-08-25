@@ -96,6 +96,8 @@
 
 - Refactor borders of tool widget (INDIGO Sprint 210809, [!152](https://github.com/TeskaLabs/asab-webui/pull/152))
 
+- Add support to external links on click to logo (INDIGO Sprint 210820, [!156](https://github.com/TeskaLabs/asab-webui/pull/156))
+
 
 ### Bugfixes
 
