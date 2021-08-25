@@ -14,7 +14,7 @@ import {
 } from 'reactstrap';
 
 import Table from './Table';
-import Pagination from './Pagination';
+import Pagination from '../Pagination';
 // import CustomDropdownButton from './CustomDropdownButton'; DON'T REMOVE YET. IT MAY BE USEFUL ON REFACTORING DATATABLE
 
 import { Spinner } from '../Spinner';

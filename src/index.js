@@ -9,5 +9,6 @@ export { DataTable } from './containers/DataTable';
 export { ButtonWithAuthz } from './modules/auth/ButtonWithAuthz';
 export { Spinner } from './containers/Spinner';
 export { default as SplashScreen } from './containers/SplashScreen';
+export { Pagination } from './containers/Pagination';
 
 import "./style.scss";
