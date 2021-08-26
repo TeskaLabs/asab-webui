@@ -27,6 +27,18 @@ main > .container-fluid, main > .container {
 	margin: 0 !important;
 }
 
+.sidebar-minimized {
+	transition: width .2s ease-in-out;
+	.sidebar-item-text, .sidebar-chevron, .sidebar-chevron-open {
+		display: none !important;
+	}
+	.nav-link {
+		margin: auto !important;
+		padding-left: 1rem !important; 
+		font-size: large;
+	}
+}
+
 .sidebar {
 	.sidebar-dropdown {
 		background-color: rgba(0,0,0,.2);
@@ -47,16 +59,28 @@ main > .container-fluid, main > .container {
 			}
 		}
 	}
-	.sidebar-dropdown::before {
-		background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwCd8CoYt6GsTp3NRAdrYcarnzKmcfuyFdjg&usqp=CAU');
-	}
 	.nav {
+		flex-wrap: nowrap;
+		overflow-y: scroll;
+		transition: width .25s ease-in-out;
 		.nav-item {
 			position: relative;
 			margin: 0;
-
+			overflow-x: hidden;
+			height: 3rem;
 			.nav-link {
-				display: block;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				flex-wrap: nowrap;
+				overflow-x: hidden;
+				.inner-link-container {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					flex-wrap: nowrap;
+					overflow-x: hidden;
+				}
 				.sidebar-item-icon {
 					display: inline-block;
 					width: 1rem;

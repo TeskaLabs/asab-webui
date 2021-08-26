@@ -25,10 +25,12 @@ const SidebarItem = ({ item, unauthorizedNavChildren }) => {
 					if (item.children) setOpen(prev => !prev);
 				}}
 			>
-				<Icon icon={item.icon} />
-				{t(`Sidebar|${item.name}`)}
+				<div className="inner-link-container">
+					<Icon icon={item.icon} />
+					<span className="sidebar-item-text">{t(`Sidebar|${item.name}`)}</span>
+				</div>
 				{item.children &&
-					<span className={`sidebar-chevron${isOpen ? "-open" : ""} float-right`}>
+					<span className={`sidebar-chevron${isOpen ? "-open" : ""}`}>
 						<Icon icon="cil-chevron-left" />
 					</span>
 				}
