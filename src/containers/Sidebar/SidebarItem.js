@@ -17,7 +17,7 @@ const SidebarItem = ({ item, unauthorizedNavChildren }) => {
 	const { t } = useTranslation();
 
 	return (
-		<NavItem className={`${item.children ? "sidebar-dropdown" : ""}`}>
+		<NavItem className={`${item.children ? "sidebar-dropdown" : ""} ${isOpen ? "sidebar-dropdown-open": ""}`}>
 			<NavLink
 				className={`${location.pathname === item.url ? "active" : ""}`}
 				onClick={() => {
@@ -66,8 +66,10 @@ const NavChildren = ({ child, idx, location, history }) => {
 				if (child.url && location.pathname !== child.url) history.push(child.url);
 			}}
 		>
-			<Icon icon={child.icon} />
-			{t(`Sidebar|${child.name}`)}
+			<div className="inner-link-container">
+				<Icon icon={child.icon} />
+				{t(`Sidebar|${child.name}`)}
+			</div>
 		</NavLink>
 	)
 }
