@@ -68,7 +68,7 @@ const NavChildren = ({ child, idx, location, history }) => {
 		>
 			<div className="inner-link-container">
 				<Icon icon={child.icon} />
-				{t(`Sidebar|${child.name}`)}
+				<span className="sidebar-item-text">{t(`Sidebar|${child.name}`)}</span>
 			</div>
 		</NavLink>
 	)
