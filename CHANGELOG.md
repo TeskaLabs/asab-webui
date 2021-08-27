@@ -50,6 +50,9 @@
 
 - Add customComponent to DataTable header (replace customDropdownButton) (INDIGO Sprint 210809, [!154](https://github.com/TeskaLabs/asab-webui/pull/154))
 
+- Add documentation for Microservices (INDIGO Sprint 210820, [!159](https://github.com/TeskaLabs/asab-webui/pull/159))
+
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
