@@ -78,21 +78,26 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 		cell = <>{icon} {cell}</>;
 	}
 
+	const style = {
+		whiteSpace: "nowrap",
+		maxWidth: "260px",
+		textOverflow: "ellipsis",
+		overflow: "hidden"
+	}
+
 	return idx === 0 ? (
 			<th
 				className="data-table-th"
 				scope="row"
-				style={{
-					whiteSpace: "nowrap",
-					maxWidth: "40rem",
-					textOverflow: "ellipsis",
-					overflow: "hidden" 
-				}}
+				style={ style }
 			>
 				{cell}
 			</th>
 		) : (
-			<td className="pl-3 data-table-td" style={{ whiteSpace: "nowrap" }}>
+			<td
+				className="pl-3 data-table-td"
+				style={ style }
+			>
 				{cell}
 			</td>
 		);
