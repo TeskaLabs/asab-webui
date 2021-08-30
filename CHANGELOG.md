@@ -109,6 +109,9 @@
 
 - Add minimize button to Sidebar (INDIGO Sprint 210820, [!160](https://github.com/TeskaLabs/asab-webui/pull/160))
 
+- Add maxWidth and textOverflow to DataTable cells (INDIGO Sprint 210820, [!161](https://github.com/TeskaLabs/asab-webui/pull/161))
+
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
