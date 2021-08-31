@@ -21,7 +21,7 @@ export default (props) => {
 			name: " ",
 			customComponent: {
 				generate: (obj) => {
-					if (obj["attention_required"] && obj["attention_required"] > 0) {
+					if (obj["attention_required"] && obj["attention_required"].length > 0) {
 						return (
 							<i className="cil-warning"></i>
 						)
