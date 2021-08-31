@@ -8,7 +8,7 @@ import {
 
 import Icon from './SidebarIcon';
 
-const SidebarItem = ({ item, unauthChildren }) => {
+const SidebarItem = ({ item, unauthorizedNavChildren }) => {
 	const [isOpen, setOpen] = useState(false);
 
 	const location = useLocation();
@@ -39,10 +39,10 @@ const SidebarItem = ({ item, unauthChildren }) => {
 					<Collapse isOpen={isOpen}>
 						<Nav>
 							{item.children.map((child, idx) => (
-								unauthChildren == undefined || unauthChildren.length == 0 ?
+								unauthorizedNavChildren == undefined || unauthorizedNavChildren.length == 0 ?
 									<NavChildren child={child} idx={idx} location={location} history={history}/>
 								:
-									unauthChildren.indexOf(child.name) == -1 && <NavChildren child={child} idx={idx} location={location} history={history}/>
+									unauthorizedNavChildren.indexOf(child.name) == -1 && <NavChildren child={child} idx={idx} location={location} history={history}/>
 							))}
 						</Nav>
 					</Collapse>

@@ -2,8 +2,8 @@ import { types } from './actions'
 
 const initialState = {
 	userinfo: null,
-	unauthorizedItem: [],
-	unauthorizedChildren: [],
+	unauthorizedNavItem: [],
+	unauthorizedNavChildren: [],
 }
 
 export default function reducer(state = initialState, action) {
@@ -14,16 +14,16 @@ export default function reducer(state = initialState, action) {
 				userinfo: action.payload
 			}
 
-		case types.UNAUTHORIZED_ITEM:
+		case types.NAVIGATION_UNAUTHORIZED_ITEM:
 			return {
 				...state,
-				unauthorizedItem: action.unauthItem
+				unauthorizedNavItem: action.unauthorizedNavItem
 			}
 
-		case types.UNAUTHORIZED_CHILDREN:
+		case types.NAVIGATION_UNAUTHORIZED_CHILDREN:
 			return {
 				...state,
-				unauthorizedChildren: action.unauthChildren
+				unauthorizedNavChildren: action.unauthorizedNavChildren
 			}
 
 		default:

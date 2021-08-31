@@ -17,8 +17,8 @@ const Sidebar = (props) => {
 			<AppSidebarForm />
 			<SidebarNavItems
 				navConfig={props.navigation.getItems().items}
-				unauthItems={props.unauthorizedItem}
-				unauthChildren={props.unauthorizedChildren}
+				unauthorizedNavItems={props.unauthorizedNavItem}
+				unauthorizedNavChildren={props.unauthorizedNavChildren}
 			/>
 			<AppSidebarFooter />
 		</AppSidebar>
@@ -27,8 +27,8 @@ const Sidebar = (props) => {
 
 function mapStateToProps(state) {
 	return {
-		unauthorizedItem: state.auth?.unauthorizedItem,
-		unauthorizedChildren: state.auth?.unauthorizedChildren
+		unauthorizedNavItem: state.auth?.unauthorizedNavItem,
+		unauthorizedNavChildren: state.auth?.unauthorizedNavChildren
 	};
 }
 

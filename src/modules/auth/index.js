@@ -182,14 +182,14 @@ export default class AuthModule extends Module {
 
 	async validateNavigation() {
 		let getItems = this.Navigation.getItems();
-		let unauthorizedItems = [];
-		let unauthorizedChildren = [];
+		let unauthorizedNavItems = [];
+		let unauthorizedNavChildren = [];
 		// Add item name from Navigation based on Access resource to the list of unauthorized items
 		await Promise.all(getItems.items.map(async(itm, idx) => {
 			if (itm.resource) {
 				let access_auth = await this._isUserAuthorized(itm.resource);
 				if (!access_auth) {
-					unauthorizedItems.push(itm.name);
+					unauthorizedNavItems.push(itm.name);
 				}
 			}
 			// Add unauthorized Navigation children name based on Access resource to the list of unauthorized children
@@ -198,14 +198,14 @@ export default class AuthModule extends Module {
 					if (child.resource) {
 						let access_auth = await this._isUserAuthorized(child.resource);
 						if (!access_auth) {
-							unauthorizedChildren.push(child.name);
+							unauthorizedNavChildren.push(child.name);
 						}
 					}
 				}))
 			}
 		}))
-		this.App.Store.dispatch({ type: types.UNAUTHORIZED_ITEM, unauthItem: unauthorizedItems });
-		this.App.Store.dispatch({ type: types.UNAUTHORIZED_CHILDREN, unauthChildren: unauthorizedChildren });
+		this.App.Store.dispatch({ type: types.NAVIGATION_UNAUTHORIZED_ITEM, unauthorizedNavItem: unauthorizedNavItems });
+		this.App.Store.dispatch({ type: types.NAVIGATION_UNAUTHORIZED_CHILDREN, unauthorizedNavChildren: unauthorizedNavChildren });
 	}
 
 
