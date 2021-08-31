@@ -16,14 +16,9 @@ export default class AuthModule extends Module {
 		this.Api = new SeaCatAuthApi(app);
 		this.RedirectURL = window.location.href;
 		this.MustAuthenticate = true; // Setting this to false means, that we can operate without authenticated user
-		this.Config = app.Config;
-		this.DevConfig = app.DevConfig; // Dev config to simulate userinfo
-		this.Store = app.Store;
 		app.ReduxService.addReducer("auth", reducer);
 		this.App.addSplashScreenRequestor(this);
-
-		this.Navigation = app.Navigation; // Get the navigation
-		this.Authorization = this.Config.get("authorization"); // Get authorization settings from configuration
+		this.Authorization = this.App.Config.get("authorization"); // Get authorization settings from configuration
 
 		// Access control screen
 		app.Router.addRoute({
@@ -37,9 +32,9 @@ export default class AuthModule extends Module {
 	async initialize() {
 		const headerService = this.App.locateService("HeaderService");
 		headerService.addComponent(HeaderComponent, {AuthModule: this});
-		if (this.DevConfig.get('MOCK_USERINFO')) {
+		if (this.App.DevConfig.get('MOCK_USERINFO')) {
 			/* This section is only for DEV purposes! */
-			this.simulateUserinfo(this.DevConfig.get('MOCK_USERINFO'))
+			this.simulateUserinfo(this.App.DevConfig.get('MOCK_USERINFO'))
 			/* End of DEV section */
 		} else {
 			// Check the query string for 'code'
@@ -92,7 +87,7 @@ export default class AuthModule extends Module {
 				}
 
 				// Validate resources of items and children in navigation
-				if (this.Navigation.Items.length > 0) {
+				if (this.App.Navigation.Items.length > 0) {
 					await this.validateNavigation();
 				}
 
@@ -181,7 +176,7 @@ export default class AuthModule extends Module {
 
 
 	async validateNavigation() {
-		let getItems = this.Navigation.getItems();
+		let getItems = this.App.Navigation.getItems();
 		let unauthorizedNavItems = [];
 		let unauthorizedNavChildren = [];
 		// Add item name from Navigation based on Access resource to the list of unauthorized items
