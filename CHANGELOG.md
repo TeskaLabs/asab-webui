@@ -127,3 +127,5 @@
 - Fix redirect to homepage on click to logo (INDIGO Sprint 210809, [!151](https://github.com/TeskaLabs/asab-webui/pull/151))
 
 - Fix invalid prop in header's logo appeared after fixing redirect to homepage (INDIGO Sprint 210809, [!153](https://github.com/TeskaLabs/asab-webui/pull/153))
+
+- Fix export of Pagination (INDIGO Sprint 210820 [!163](https://github.com/TeskaLabs/asab-webui/pull/163))
