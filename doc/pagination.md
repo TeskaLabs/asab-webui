@@ -6,7 +6,7 @@
 
 ```javascript
 import React, { useEffect, useState } from 'react';
-import Pagination from 'asab-webui';
+import  { Pagination } from 'asab-webui';
 
 function MyBeautifulComponent () {
 	const [page, setPage] = useState(1);
