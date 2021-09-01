@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Nav } from 'reactstrap';
 import SidebarItem from './SidebarItem';
 
-const SidebarNavItems = ({ navConfig, sidebarItemsOrder }) => {
+const SidebarNavItems = ({ navConfig, unauthorizedNavItems, unauthorizedNavChildren, sidebarItemsOrder }) => {
 
 	// Sort items based on config
 	const memoizedItemsList = useMemo(() => {
@@ -20,7 +20,10 @@ const SidebarNavItems = ({ navConfig, sidebarItemsOrder }) => {
 	return (
 		<Nav>
 			{memoizedItemsList.map((item, idx) => (
-				<SidebarItem item={item} key={idx}/>
+				unauthorizedNavItems == undefined || unauthorizedNavItems.length == 0 ?
+					<SidebarItem item={item} unauthorizedNavChildren={unauthorizedNavChildren} key={idx}/>
+				:
+					unauthorizedNavItems.indexOf(item.name) == -1 && <SidebarItem item={item} unauthorizedNavChildren={unauthorizedNavChildren} key={idx}/>
 			))}
 		</Nav>
 	);

@@ -110,7 +110,7 @@ it is accessible by the sidebar toggler button.
 		this.Config.dispatch(this.Store);
 		this.DevConfig.dispatch(this.Store);
 
-		this.Store.dispatch({ 
+		this.Store.dispatch({
 			type: CHANGE_HELP_URL,
 			payload: {
 				url: this.Config.get("default_help_url"),
@@ -138,7 +138,7 @@ it is accessible by the sidebar toggler button.
 				that.Modules[i].initialize();
 			}
 		}
-		
+
 		modules_init().then(async function() {
 			that.Store.replaceReducer(combineReducers(that.ReduxService.Reducers));
 			that.Config.dispatch(that.Store);
@@ -464,7 +464,7 @@ it is accessible by the sidebar toggler button.
 						<Helmet>
 							<title>{this.Config.get('site_title') ? this.Config.get('site_title') + " | " + this.Config.get('title') : this.Config.get('title')}</title>
 						</Helmet>
-						: null 
+						: null
 					}
 				</div>
 			</Provider>
@@ -492,7 +492,7 @@ it is accessible by the sidebar toggler button.
 							{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ?
 								<AppBreadcrumb appRoutes={this.Router.Routes} router={router} />
 								: null}
-							<Suspense 
+							<Suspense
 								fallback={<div style={{ marginTop: "1rem" }}><Spinner /></div>}
 							>
 								<Switch>
@@ -567,9 +567,6 @@ class Navigation {
 		}
 	}
 
-	removeItem(item) {
-		this.Items = this.Items.filter(i => i.name != item.name);
-	}
 }
 
 
@@ -595,4 +592,3 @@ function AdvancedModeReducer(state = advModeInitialState, action) {
 			return state
 	}
 }
-

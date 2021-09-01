@@ -16,14 +16,9 @@ export default class AuthModule extends Module {
 		this.Api = new SeaCatAuthApi(app);
 		this.RedirectURL = window.location.href;
 		this.MustAuthenticate = true; // Setting this to false means, that we can operate without authenticated user
-		this.Config = app.Config;
-		this.DevConfig = app.DevConfig; // Dev config to simulate userinfo
-		this.Store = app.Store;
 		app.ReduxService.addReducer("auth", reducer);
 		this.App.addSplashScreenRequestor(this);
-
-		this.Navigation = app.Navigation; // Get the navigation
-		this.Authorization = this.Config.get("authorization"); // Get authorization settings from configuration
+		this.Authorization = this.App.Config.get("authorization"); // Get authorization settings from configuration
 
 		// Access control screen
 		app.Router.addRoute({
@@ -37,10 +32,9 @@ export default class AuthModule extends Module {
 	async initialize() {
 		const headerService = this.App.locateService("HeaderService");
 		headerService.addComponent(HeaderComponent, {AuthModule: this});
-
-		if (this.DevConfig.get('MOCK_USERINFO')) {
+		if (this.App.DevConfig.get('MOCK_USERINFO')) {
 			/* This section is only for DEV purposes! */
-			this.simulateUserinfo(this.DevConfig.get('MOCK_USERINFO'))
+			this.simulateUserinfo(this.App.DevConfig.get('MOCK_USERINFO'))
 			/* End of DEV section */
 		} else {
 			// Check the query string for 'code'
@@ -92,17 +86,9 @@ export default class AuthModule extends Module {
 					}
 				}
 
-				// Remove item from Navigation based on Access resource
-				if (this.Navigation.Items.length > 0) {
-					let getItems = this.Navigation.getItems();
-					await Promise.all(getItems.items.map(async(itm, idx) => {
-						if (itm.resource) {
-							let access_auth = await this._isUserAuthorized(itm.resource);
-							if (!access_auth) {
-								this.Navigation.removeItem(itm)
-							}
-						}
-					}))
+				// Validate resources of items and children in navigation
+				if (this.App.Navigation.Items.length > 0) {
+					await this.validateNavigation();
 				}
 
 			}
@@ -188,6 +174,36 @@ export default class AuthModule extends Module {
 		});
 	}
 
+
+	async validateNavigation() {
+		let getItems = this.App.Navigation.getItems();
+		let unauthorizedNavItems = [];
+		let unauthorizedNavChildren = [];
+		// Add item name from Navigation based on Access resource to the list of unauthorized items
+		await Promise.all(getItems.items.map(async(itm, idx) => {
+			if (itm.resource) {
+				let access_auth = await this._isUserAuthorized(itm.resource);
+				if (!access_auth) {
+					unauthorizedNavItems.push(itm.name);
+				}
+			}
+			// Add unauthorized Navigation children name based on Access resource to the list of unauthorized children
+			if (itm.children) {
+				await Promise.all(itm.children.map(async(child, id) => {
+					if (child.resource) {
+						let access_auth = await this._isUserAuthorized(child.resource);
+						if (!access_auth) {
+							unauthorizedNavChildren.push(child.name);
+						}
+					}
+				}))
+			}
+		}))
+		this.App.Store.dispatch({ type: types.NAVIGATION_UNAUTHORIZED_ITEM, unauthorizedNavItem: unauthorizedNavItems });
+		this.App.Store.dispatch({ type: types.NAVIGATION_UNAUTHORIZED_CHILDREN, unauthorizedNavChildren: unauthorizedNavChildren });
+	}
+
+
 	async _updateUserInfo(that = this, oldUserInfo = null, fAlert = false) {
 		let response;
 		try {
@@ -239,7 +255,7 @@ export default class AuthModule extends Module {
 			that.App.addAlert("warning", alertMessage, expire);
 			fAlert = true;
 		}
-		
+
 		/**
 		 * 1) If first alert wasn't shown then timeout will be set on a minute before expiration date
 		 * 2) If first alert was shown but expiration date hasn't come yet, then timeout will be set on expiration date
