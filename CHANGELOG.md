@@ -103,6 +103,7 @@
 
 - Move Pagination from DataTable to separate component (INDIGO Sprint 210820, [!157](https://github.com/TeskaLabs/asab-webui/pull/157))
 
+- Refactor `attention_required` warning in MicroservicesContainer (INDIGO Sprint 210820, [!162](https://github.com/TeskaLabs/asab-webui/pull/162))
 
 ### Bugfixes
 
