@@ -2,9 +2,12 @@ import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 
 import { Nav } from 'reactstrap';
+import { AppSidebarMinimizer } from '@coreui/react';
 import SidebarItem from './SidebarItem';
 
-const SidebarNavItems = ({ navConfig, unauthorizedNavItems, unauthorizedNavChildren, sidebarItemsOrder }) => {
+const SidebarNavItems = ({
+	navConfig, unauthorizedNavItems, unauthorizedNavChildren
+}) => {
 
 	// Sort items based on config
 	const memoizedItemsList = useMemo(() => {
@@ -15,7 +18,7 @@ const SidebarNavItems = ({ navConfig, unauthorizedNavItems, unauthorizedNavChild
 		});
 
 		return itemsList;
-	}, [navConfig, sidebarItemsOrder])
+	}, [navConfig])
 
 	return (
 		<Nav>
@@ -25,14 +28,9 @@ const SidebarNavItems = ({ navConfig, unauthorizedNavItems, unauthorizedNavChild
 				:
 					unauthorizedNavItems.indexOf(item.name) == -1 && <SidebarItem item={item} unauthorizedNavChildren={unauthorizedNavChildren} key={idx}/>
 			))}
+			<AppSidebarMinimizer />
 		</Nav>
 	);
 }
 
-const mapStateToProps = (state) => {
-	return {
-		sidebarItemsOrder: state.config.sidebarItemsOrder
-	}
-}
-
-export default connect(mapStateToProps)(SidebarNavItems);
+export default SidebarNavItems;
