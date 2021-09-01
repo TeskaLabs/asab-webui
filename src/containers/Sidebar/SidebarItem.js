@@ -39,10 +39,10 @@ const SidebarItem = ({ item, unauthorizedNavChildren }) => {
 			{item.children &&
 				(
 					<Collapse isOpen={isOpen}>
-						<Nav>
+						<Nav className="nav-children">
 							{item.children.map((child, idx) => (
 								unauthorizedNavChildren == undefined || unauthorizedNavChildren.length == 0 ?
-									<NavChildren child={child} idx={idx} location={location} history={history}/>
+									<NavChildren child={child} key={idx} location={location} history={history}/>
 								:
 									unauthorizedNavChildren.indexOf(child.name) == -1 && <NavChildren child={child} idx={idx} location={location} history={history}/>
 							))}
@@ -60,7 +60,6 @@ const NavChildren = ({ child, idx, location, history }) => {
 	const { t } = useTranslation();
 	return (
 		<NavLink
-			key={idx}
 			className={`${location.pathname === child.url ? "active" : ""}`}
 			onClick={() => {
 				if (child.url && location.pathname !== child.url) history.push(child.url);

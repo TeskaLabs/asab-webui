@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 
 import { Nav } from 'reactstrap';
+import { AppSidebarMinimizer } from '@coreui/react';
 import SidebarItem from './SidebarItem';
 
 const SidebarNavItems = ({
