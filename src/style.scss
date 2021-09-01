@@ -63,7 +63,7 @@ main > .container-fluid, main > .container {
 	}
 	.nav {
 		flex-wrap: nowrap;
-		overflow-y: scroll;
+		overflow-y: auto;
 		transition: width .25s ease-in-out;
 		.nav-item {
 			position: relative;

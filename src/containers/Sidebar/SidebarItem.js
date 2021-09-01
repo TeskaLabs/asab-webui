@@ -42,9 +42,9 @@ const SidebarItem = ({ item, unauthorizedNavChildren }) => {
 						<Nav className="nav-children">
 							{item.children.map((child, idx) => (
 								unauthorizedNavChildren == undefined || unauthorizedNavChildren.length == 0 ?
-									<NavChildren child={child} key={idx} location={location} history={history}/>
+									<NavChildren key={idx} child={child} location={location} history={history}/>
 								:
-									unauthorizedNavChildren.indexOf(child.name) == -1 && <NavChildren child={child} idx={idx} location={location} history={history}/>
+									unauthorizedNavChildren.indexOf(child.name) == -1 && <NavChildren key={idx} child={child} location={location} history={history}/>
 							))}
 						</Nav>
 					</Collapse>
@@ -56,7 +56,7 @@ const SidebarItem = ({ item, unauthorizedNavChildren }) => {
 
 export default SidebarItem;
 
-const NavChildren = ({ child, idx, location, history }) => {
+const NavChildren = ({ child, location, history }) => {
 	const { t } = useTranslation();
 	return (
 		<NavLink
