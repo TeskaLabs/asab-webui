@@ -134,3 +134,5 @@
 - Fix invalid prop in header's logo appeared after fixing redirect to homepage (INDIGO Sprint 210809, [!153](https://github.com/TeskaLabs/asab-webui/pull/153))
 
 - Fix export of Pagination (INDIGO Sprint 210820 [!163](https://github.com/TeskaLabs/asab-webui/pull/163))
+
+- Fix sidebar styling (scroll on vertical axis) and minor drawbacks in NavChildren component (INDIGO Sprint 210820 [!164](https://github.com/TeskaLabs/asab-webui/pull/164))
