@@ -54,6 +54,7 @@
 
 - Add option to hide sidebar children based on resource (INDIGO Sprint 210809, [!150](https://github.com/TeskaLabs/asab-webui/pull/150))
 
+- Add minimize button to Sidebar (INDIGO Sprint 210820, [!160](https://github.com/TeskaLabs/asab-webui/pull/160))
 
 ### Refactoring
 
@@ -107,7 +108,7 @@
 
 - Refactor `attention_required` warning in MicroservicesContainer (INDIGO Sprint 210820, [!162](https://github.com/TeskaLabs/asab-webui/pull/162))
 
-- Add minimize button to Sidebar (INDIGO Sprint 210820, [!160](https://github.com/TeskaLabs/asab-webui/pull/160))
+- Refactor attention_required conditions to be objects (INDIGO Sprint 210820, [!165](https://github.com/TeskaLabs/asab-webui/pull/165))
 
 ### Bugfixes
 
