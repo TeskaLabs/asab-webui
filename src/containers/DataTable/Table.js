@@ -91,13 +91,17 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 			<th
 				className="data-table-th"
 				scope="row"
+				style={{
+					whiteSpace: "nowrap",
+					maxWidth: "40rem",
+					textOverflow: "ellipsis",
+					overflow: "hidden"
+				}}
 			>
 				{cell}
 			</th>
 		) : (
-			<td
-				className="pl-3 data-table-td"
-			>
+			<td className="pl-3 data-table-td" style={{ whiteSpace: "nowrap" }}>
 				{cell}
 			</td>
 		);
@@ -160,7 +164,7 @@ const TableRow = ({ obj, advmode, headers, rowStyle, rowClassName }) => {
 
 	return (
 		<>
-			<tr className={`data-table-tr ${className}`}>
+			<tr className={`data-table-tr ${className}`} style={style}>
 				{advmode && <TableCell obj={obj} showJson={() => setUnwrapped(prev => !prev)}/>}
 				{headers.map((header, idx) => (
 					<TableCell 
