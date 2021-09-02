@@ -14,6 +14,13 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 
 	let cell, icon;
 
+	const textLinkStyle = {
+		whiteSpace: "nowrap",
+		maxWidth: "40ch",
+		textOverflow: "ellipsis",
+		overflow: "hidden"
+	}
+
 	if (header?.icon) {
 		icon =  typeof header.icon === 'string' ? (<i className={`${header.icon} pr-1`}></i>) : (header.icon);
 	} else {
@@ -47,7 +54,7 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 
 	else if (header.link) {
 		const pathname = header.link.pathname + obj[header.link.key];
-		cell = obj[header.key] ? <Link to={{ pathname }} className="data-table-link">{icon} {obj[header.key]}</Link> : "-";
+		cell = obj[header.key] ? <Link style={ textLinkStyle } to={{ pathname }} className="data-table-link">{icon} {obj[header.key]}</Link> : "-";
 	}
 
 	else if (header.datetime) cell = obj[header.key] ? (
@@ -72,31 +79,24 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 		cell = header.customComponent.generate(obj, header);
 	}
 
-	else cell = obj[header.key] ? obj[header.key] : "-";
+	else cell = obj[header.key]
+		? <p style={ textLinkStyle }>{obj[header.key]}</p>
+		: "-";
 
 	if (icon && !(header.link || header.datetime || header.actionButton)) {
 		cell = <>{icon} {cell}</>;
-	}
-
-	const style = {
-		whiteSpace: "nowrap",
-		maxWidth: "260px",
-		textOverflow: "ellipsis",
-		overflow: "hidden"
 	}
 
 	return idx === 0 ? (
 			<th
 				className="data-table-th"
 				scope="row"
-				style={ style }
 			>
 				{cell}
 			</th>
 		) : (
 			<td
 				className="pl-3 data-table-td"
-				style={ style }
 			>
 				{cell}
 			</td>
@@ -160,7 +160,7 @@ const TableRow = ({ obj, advmode, headers, rowStyle, rowClassName }) => {
 
 	return (
 		<>
-			<tr className={`data-table-tr ${className}`} style={style}>
+			<tr className={`data-table-tr ${className}`}>
 				{advmode && <TableCell obj={obj} showJson={() => setUnwrapped(prev => !prev)}/>}
 				{headers.map((header, idx) => (
 					<TableCell 
