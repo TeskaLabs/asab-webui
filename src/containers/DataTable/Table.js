@@ -18,11 +18,14 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 		whiteSpace: "nowrap",
 		maxWidth: "40ch",
 		textOverflow: "ellipsis",
-		overflow: "hidden"
+		overflow: "hidden",
+		marginBottom: 0
 	}
 
 	if (header?.icon) {
-		icon =  typeof header.icon === 'string' ? (<i className={`${header.icon} pr-1`}></i>) : (header.icon);
+		icon =  typeof header.icon === 'string'
+			? (<i className={`${header.icon} pr-1`}></i>)
+			: (header.icon);
 	} else {
 		icon = null;
 	}
@@ -54,7 +57,14 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 
 	else if (header.link) {
 		const pathname = header.link.pathname + obj[header.link.key];
-		cell = obj[header.key] ? <Link style={ textLinkStyle } to={{ pathname }} className="data-table-link">{icon} {obj[header.key]}</Link> : "-";
+		cell = obj[header.key]
+			? <Link
+				style={ textLinkStyle }
+				to={{ pathname }}
+				className="data-table-link"
+			>
+				{icon} {obj[header.key]}
+			</Link> : "-";
 	}
 
 	else if (header.datetime) cell = obj[header.key] ? (
