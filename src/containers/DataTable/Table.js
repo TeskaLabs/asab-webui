@@ -14,8 +14,18 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 
 	let cell, icon;
 
+	const textLinkStyle = {
+		whiteSpace: "nowrap",
+		maxWidth: "40ch",
+		textOverflow: "ellipsis",
+		overflow: "hidden",
+		marginBottom: 0
+	}
+
 	if (header?.icon) {
-		icon =  typeof header.icon === 'string' ? (<i className={`${header.icon} pr-1`}></i>) : (header.icon);
+		icon =  typeof header.icon === 'string'
+			? (<i className={`${header.icon} pr-1`}></i>)
+			: (header.icon);
 	} else {
 		icon = null;
 	}
@@ -47,7 +57,14 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 
 	else if (header.link) {
 		const pathname = header.link.pathname + obj[header.link.key];
-		cell = obj[header.key] ? <Link to={{ pathname }} className="data-table-link">{icon} {obj[header.key]}</Link> : "-";
+		cell = obj[header.key]
+			? <Link
+				style={ textLinkStyle }
+				to={{ pathname }}
+				className="data-table-link"
+			>
+				{icon} {obj[header.key]}
+			</Link> : "-";
 	}
 
 	else if (header.datetime) cell = obj[header.key] ? (
@@ -72,7 +89,9 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 		cell = header.customComponent.generate(obj, header);
 	}
 
-	else cell = obj[header.key] ? obj[header.key] : "-";
+	else cell = obj[header.key]
+		? <p style={ textLinkStyle }>{obj[header.key]}</p>
+		: "-";
 
 	if (icon && !(header.link || header.datetime || header.actionButton)) {
 		cell = <>{icon} {cell}</>;
@@ -86,7 +105,7 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 					whiteSpace: "nowrap",
 					maxWidth: "40rem",
 					textOverflow: "ellipsis",
-					overflow: "hidden" 
+					overflow: "hidden"
 				}}
 			>
 				{cell}
