@@ -12,6 +12,9 @@ import { useTranslation } from 'react-i18next';
 	* resources
 		* the list of resources from the userinfo
 
+	* hideOnUnauthorizedAccess
+		* the option to hide the button completely instead of disabling it, default is false
+
 	* Language localisations for generic `unauthorized message` can be added to the translation.json files of
 	  public/locales/en & public/locales/cs of the product where component ButtonWithAuthz is used. The default
 	  message is `You do not have rights` and it can be re-set in locales as e.g.
