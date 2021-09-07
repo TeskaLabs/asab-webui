@@ -8,7 +8,7 @@ const HelpButton = ({ url, icon = "cil-info", target="_blank" }) => {
 
     return (
         <NavLink 
-            style={{ fontSize: "1.5rem", marginRight: "2rem" }}
+            style={{ fontSize: "1.5rem", marginRight: "1rem" }}
             href={url}
             target={target}
         >

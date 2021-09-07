@@ -27,15 +27,34 @@ main > .container-fluid, main > .container {
 	margin: 0 !important;
 }
 
-.sidebar-minimized {
-	transition: width .2s ease-in-out;
-	.sidebar-item-text, .sidebar-chevron, .sidebar-chevron-open {
-		display: none !important;
+// Sidebar rules
+@media screen and (min-width: 991px) {
+	.sidebar {
+		.sidebar-nav {
+			overflow: hidden !important;
+		}
 	}
-	.nav-link {
-		margin: auto !important;
-		padding-left: 1rem !important; 
-		font-size: large;
+}
+
+@media screen and (max-width: 990px) {
+	.sidebar {
+		.sidebar-nav {
+			overflow: auto !important;
+		}
+	}
+}
+
+.sidebar-minimized {
+	.sidebar {
+		transition: width .2s ease-in-out;
+		.sidebar-item-text, .sidebar-chevron, .sidebar-chevron-open {
+			display: none !important;
+		}
+		.nav-link {
+			margin: auto !important;
+			padding-left: 1rem !important; 
+			font-size: large;
+		}
 	}
 }
 
@@ -114,6 +133,7 @@ main > .container-fluid, main > .container {
 
 			.nav-children {
 				transition: width 0s;
+				overflow: hidden;
 			}
 		}
 	}

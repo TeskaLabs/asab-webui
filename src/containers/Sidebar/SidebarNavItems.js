@@ -21,7 +21,7 @@ const SidebarNavItems = ({
 	}, [navConfig])
 
 	return (
-		<Nav>
+		<Nav className="sidebar-nav">
 			{memoizedItemsList.map((item, idx) => (
 				unauthorizedNavItems == undefined || unauthorizedNavItems.length == 0 ?
 					<SidebarItem item={item} unauthorizedNavChildren={unauthorizedNavChildren} key={idx}/>
