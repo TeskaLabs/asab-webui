@@ -26,10 +26,8 @@ export default class TenantService extends Service {
 		It is used within auth module of ASAB WebUI to dispatch the tenants to the application store
 	*/
 	set_tenants(tenants_list) {
-		// Extract a current tenant from a query string
-		const search = window.location.search;
-		const params = new URLSearchParams(search);
-		var tenant_id = params.get('tenant');
+		// Extract a current tenant from URL params
+		var tenant_id = this.extract_tenant_from_url();
 
 		// If tenant has not been provided in access URL, pick a first tenant from a list
 		if (tenant_id == null && tenants_list && tenants_list.length > 0) {
@@ -70,10 +68,22 @@ export default class TenantService extends Service {
 
 	}
 
-	// get_current_tenant() method is used for obtaining current tenant from the redux store
+	// get_current_tenant() method is used for obtaining current tenant
 	get_current_tenant() {
 		const state = this.App.Store.getState();
 		let currentTenant = state.tenant.current;
+		// If current tenant is not in redux store yet, get it from the URL params
+		if (!currentTenant) {
+			currentTenant = this.extract_tenant_from_url();
+		}
 		return currentTenant;
+	}
+
+	// Extract tenant from URL params
+	extract_tenant_from_url() {
+		const search = window.location.search;
+		const params = new URLSearchParams(search);
+		let tenant = params.get('tenant');
+		return tenant;
 	}
 }
