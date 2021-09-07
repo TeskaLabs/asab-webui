@@ -111,6 +111,8 @@
 
 - Add maxWidth and textOverflow to DataTable text and link cells (INDIGO Sprint 210820, [!161](https://github.com/TeskaLabs/asab-webui/pull/161))
 
+- Update tenant service's `get_current_tenant()` method with obtaining tenant from URL params if tenant is not set in the redux store (INDIGO Sprint 210903, [!168](https://github.com/TeskaLabs/asab-webui/pull/168))
+
 
 ### Bugfixes
 
