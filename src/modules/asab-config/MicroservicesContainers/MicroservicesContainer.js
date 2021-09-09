@@ -21,7 +21,7 @@ export default (props) => {
 			name: " ",
 			customComponent: {
 				generate: (obj) => {
-					if (obj["attention_required"] && obj["attention_required"].length > 0) {
+					if (obj["attention_required"] && Object.keys(obj["attention_required"]).length > 0) {
 						return (
 							<i className="cil-warning"></i>
 						)
@@ -52,7 +52,7 @@ export default (props) => {
 			color: "#856404"
 		},
 		condition: (obj) => {
-			if (obj["attention_required"] && obj["attention_required"].length > 0) return true;
+			if (obj["attention_required"] && Object.keys(obj["attention_required"]).length > 0) return true;
 			return false;
 		}
 	}
