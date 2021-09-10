@@ -114,6 +114,8 @@
 
 - Update tenant service's `get_current_tenant()` method with obtaining tenant from URL params if tenant is not set in the redux store (INDIGO Sprint 210903, [!168](https://github.com/TeskaLabs/asab-webui/pull/168))
 
+- Update ButtonWithAuthz with option to hide the button completelly on unauthorized access (INDIGO Sprint 210903, [!166](https://github.com/TeskaLabs/asab-webui/pull/166))
+
 
 ### Bugfixes
 
