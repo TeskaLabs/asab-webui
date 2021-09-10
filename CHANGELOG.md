@@ -56,6 +56,8 @@
 
 - Add minimize button to Sidebar (INDIGO Sprint 210820, [!160](https://github.com/TeskaLabs/asab-webui/pull/160))
 
+- Add AttentionCard to MicroserviceDetailContainer (INDIGO Sprint 210903, [!169](https://github.com/TeskaLabs/asab-webui/pull/169))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
