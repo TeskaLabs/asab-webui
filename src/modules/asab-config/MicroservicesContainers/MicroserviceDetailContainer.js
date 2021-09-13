@@ -9,6 +9,8 @@ import {
 import { DateTime } from 'asab-webui';
 import ReactJSON from 'react-json-view';
 
+import AttentionCard from './AttentionCard';
+
 const MicroserviceDetailContainer = (props) => {
 	const [svc, setSvc] = useState(null);
 	const [error, setError] = useState(null);
@@ -41,7 +43,7 @@ const MicroserviceDetailContainer = (props) => {
 			<Row className="justify-content-md-center">
 				<Col md={8}>
 					<Card>
-						<CardHeader>{svc?.appclass}</CardHeader>
+						<CardHeader>{svc?.appclass || t("MicroserviceDetailContainer|Service")}</CardHeader>
 						<CardBody>
 							{error ? (
 									<div className="text-center">
@@ -89,6 +91,9 @@ const MicroserviceDetailContainer = (props) => {
 						</Card>
 					</Col>
 				</Row>
+			)}
+			{svc && svc["attention_required"] && Object.keys(svc["attention_required"]).length > 0 && (
+				<AttentionCard attention={svc["attention_required"]} />
 			)}
 		</Container>
 	)
