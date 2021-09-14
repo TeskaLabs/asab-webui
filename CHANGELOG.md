@@ -58,6 +58,8 @@
 
 - Add AttentionCard to MicroserviceDetailContainer (INDIGO Sprint 210903, [!169](https://github.com/TeskaLabs/asab-webui/pull/169))
 
+- Add serialization of modules and services on app initialization (INDIGO Sprint 210903, [!170](https://github.com/TeskaLabs/asab-webui/pull/170))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
