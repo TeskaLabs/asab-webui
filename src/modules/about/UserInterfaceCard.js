@@ -36,15 +36,19 @@ function UserInterfaceCard() {
 				<h1>{t('UserInterfaceCard|User interface')}</h1>
 			</CardHeader>
 			<CardBody>
-				<Row>
-					<Col>
-						<h5>{t('UserInterfaceCard|Version')}</h5>
-					</Col>
-					<Col>
-						{version}
-					</Col>
-				</Row>
-				<hr/>
+				{version &&
+					<React.Fragment>
+						<Row>
+							<Col>
+								<h5>{t('UserInterfaceCard|Version')}</h5>
+							</Col>
+							<Col>
+								{version}
+							</Col>
+						</Row>
+						<hr/>
+					</React.Fragment>
+				}
 				<Row>
 					<Col>
 						<h5>{t('UserInterfaceCard|Build date')}</h5>
