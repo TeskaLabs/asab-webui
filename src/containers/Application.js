@@ -135,7 +135,12 @@ it is accessible by the sidebar toggler button.
 
 			// Initialize statically imported modules
 			for (var i in that.Modules) {
-				that.Modules[i].initialize();
+				let ret = that.Modules[i].initialize();
+
+				// Transform result in the promise
+				// It unifies synchronous and asynchronous `initialize()` calls
+				let promise = Promise.resolve(ret);
+				await promise;
 			}
 		}
 
@@ -145,7 +150,13 @@ it is accessible by the sidebar toggler button.
 
 			// Initialize all services
 			for (var i in that.Services) {
-				that.Services[i].initialize();
+				let ret = that.Services[i].initialize();
+				
+				// Transform result in the promise
+				// It unifies synchronous and asynchronous `initialize()` calls
+				let promise = Promise.resolve(ret);
+				await promise;
+
 				that.Config.dispatch(that.Store);
 			}
 
