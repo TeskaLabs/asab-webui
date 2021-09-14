@@ -34,6 +34,7 @@ const ActionButton = ({ actionButton, row, header }) => {
 							key={idx}
 							onClick={() => action.onClick(row, header)}
 						>
+							{action.icon && <i className={action.icon}></i>}
 							{action.name}
 						</DropdownItem>
 					))}
