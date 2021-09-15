@@ -120,6 +120,7 @@
 
 - Update ButtonWithAuthz with option to hide the button completelly on unauthorized access (INDIGO Sprint 210903, [!166](https://github.com/TeskaLabs/asab-webui/pull/166))
 
+- Update default path for SeaCat Auth WebUI in the Auth header dropdown (INDIGO Sprint 210903, [!174](https://github.com/TeskaLabs/asab-webui/pull/174))
 
 ### Bugfixes
 
