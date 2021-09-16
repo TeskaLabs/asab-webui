@@ -118,8 +118,8 @@ If you want to change date format, then you should provide `datetime` as object 
 
 Optional property `json` is needed if data has nested objects inside itself. It is boolean and it returns `react-json-view` components into cells below the header.
 
-Optional property `actionButton` is needed to put into row of datatable ellipsis with actions dropdown for some list of actions. This property is an object with two children `title` which is string and will be placed as drodpown header and `actions` which is list of objects (actions). Those objects in `actions` list also must have two properties: string `name` and function `onClick`. Property `name` will be placed as dropdown item, clicking on it calls `onClick` function which accpets two argument `row` and `header`. `row` is appropriate row object and `header` is header where you defined `actionButton`.
-Also `actionButton` has allignment to right so header with action buttons should be the last one in headers list.
+Optional property `actionButton` is needed to put an ellipsis with actions dropdown for some list of actions into the row of the datatable. This property is an object with two children — `title`, which is a string and will be placed as a dropdown header, and `actions`, which is a list of objects (actions). Those objects in the `actions` list have two required properties: a string `name` and a function `onClick` and one optional property `icon`. Property `name` will be placed as a dropdown item, clicking on it calls the `onClick` function, which accepts two arguments — `row` and `header`. `row` is the appropriate row object and `header` is a header where you defined an `actionButton`. A property `icon` is a string with the Core UI icon.
+Also `actionButton` has an alignment to the right, so the header with action buttons should be the last one in the headers list.
 
 About how to use optional property `customComponent` you may find information in section Custom Components.
 
@@ -138,7 +138,8 @@ headers: [
 		actions: [
 			{ 
 				name: "Action 1",
-				onClick(row, header) { alert(row._id); }
+				onClick(row, header) { alert(row._id); },
+				icon: "cib-jenkins"
 			},
 		]
 	}}

@@ -122,6 +122,9 @@
 
 - Update default path for SeaCat Auth WebUI in the Auth header dropdown (INDIGO Sprint 210903, [!174](https://github.com/TeskaLabs/asab-webui/pull/174))
 
+- Add a possibility to add icons to items of ActionButton component of DataTable (INDIGO Sprint 210903, [!173](https://github.com/TeskaLabs/asab-webui/pull/173))
+
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
