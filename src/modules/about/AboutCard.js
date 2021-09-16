@@ -46,17 +46,21 @@ function AboutCard(props) {
 						{vendor}
 					</Col>
 				</Row>
-				<hr/>
-				<Row>
-					<Col>
-						<h5>{t('AboutCard|Website')}</h5>
-					</Col>
-					<Col>
-						<a href={website} target="_blank" rel="noopener noreferrer">
-							{website}
-						</a>
-					</Col>
-				</Row>
+				{ website &&
+					<React.Fragment>
+						<hr/>
+						<Row>
+							<Col>
+								<h5>{t('AboutCard|Website')}</h5>
+							</Col>
+							<Col>
+								<a href={website} target="_blank" rel="noopener noreferrer">
+									{website}
+								</a>
+							</Col>
+						</Row>
+					</React.Fragment>
+				}
 				<hr/>
 				<Row>
 					<Col></Col>
