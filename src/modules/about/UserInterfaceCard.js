@@ -36,7 +36,7 @@ function UserInterfaceCard() {
 				<h1>{t('UserInterfaceCard|User interface')}</h1>
 			</CardHeader>
 			<CardBody>
-				{version &&
+				{ version &&
 					<React.Fragment>
 						<Row>
 							<Col>
