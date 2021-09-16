@@ -154,3 +154,5 @@
 - Fix sidebar styling (scroll on vertical axis) and minor drawbacks in NavChildren component (INDIGO Sprint 210820, [!164](https://github.com/TeskaLabs/asab-webui/pull/164))
 
 - Fix sidebar styles (scroll on large screens) (INDIGO Sprint 210903, [!167](https://github.com/TeskaLabs/asab-webui/pull/167))
+
+- Fix  error on awaiting the app reload in auth module (INDIGO Sprint 210903, [!175](https://github.com/TeskaLabs/asab-webui/pull/175))

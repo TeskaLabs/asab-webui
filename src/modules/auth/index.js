@@ -52,7 +52,7 @@ export default class AuthModule extends Module {
 				}
 				// And reload the app
 				window.location.replace(hash_url);
-				await sleep(3600*1000); // Basically wait forever, this the app is going to be reloaded
+				await new Promise(r => setTimeout(r, 3600*1000)); // Basically wait forever, this the app is going to be reloaded
 			}
 
 			// Do we have an oauth token (we are authorized to use the app)
