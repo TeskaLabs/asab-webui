@@ -8,6 +8,7 @@ export { Humanize } from './containers/Humanize';
 export { DataTable } from './containers/DataTable';
 export { ButtonWithAuthz } from './modules/auth/ButtonWithAuthz';
 export { Spinner } from './containers/Spinner';
+export { KnowledgeBase } from './containers/KnowledgeBase';
 export { default as SplashScreen } from './containers/SplashScreen';
 export { default as Pagination } from './containers/Pagination';
 
