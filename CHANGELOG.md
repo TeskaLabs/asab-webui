@@ -124,6 +124,8 @@
 
 - Add a possibility to add icons to items of ActionButton component of DataTable (INDIGO Sprint 210903, [!173](https://github.com/TeskaLabs/asab-webui/pull/173))
 
+- Hide rows with version in UserInterfaceCard and with website in AboutCard of about module, when they are not provided (INDIGO Sprint 210903, [!171](https://github.com/TeskaLabs/asab-webui/pull/171))
+
 
 ### Bugfixes
 
