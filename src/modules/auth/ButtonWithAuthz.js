@@ -57,7 +57,11 @@ import { useTranslation } from 'react-i18next';
 export function ButtonWithAuthz(props) {
 	const { t, i18n } = useTranslation();
 	let childProps = {...props}; // Create a new child component to have option to remove props
-	let disabled = childProps.resources ? childProps.resources.indexOf(childProps.resource) == -1 : true;
+	let disabled = childProps.resources ? childProps.resources.indexOf(childProps.resource) === -1 : true;
+	// If user is superuser, then button is enabled
+	if (childProps.resources.indexOf('authz:superuser') !== -1) {
+		disabled = false;
+	}
 	// If defined, hide the disabled button
 	let hide = childProps.hideOnUnauthorizedAccess ? true : false;
 	// Remove hideOnUnauthorized element from props to avoid react warnings
