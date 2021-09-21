@@ -126,6 +126,7 @@
 
 - Hide rows with version in UserInterfaceCard and with website in AboutCard of about module, when they are not provided (INDIGO Sprint 210903, [!171](https://github.com/TeskaLabs/asab-webui/pull/171))
 
+- Update enabling ButtonWithAuthz component when user has superuser rights (INDIGO Sprint 210917, [!177](https://github.com/TeskaLabs/asab-webui/pull/177))
 
 ### Bugfixes
 
