@@ -37,8 +37,7 @@ export const KnowledgeBase = ({ app, api, treePath }) => {
 	useEffect(() => {
 		// redirect to the first readme when first visiting /knowledge
 		if (index.length !== 0) {
-			const path = location.pathname + '.md';
-			const r = index.find(item => item.path === path);
+			const r = findNode();
 			// if not right path, redirect to the first readme
 			if (r === undefined) {
 				// set activeNode to null, otherwise it stays the same after redirecting
@@ -51,11 +50,34 @@ export const KnowledgeBase = ({ app, api, treePath }) => {
 		}
 	}, [index]);
 
+	// update text and active node when location has been changed
+	useEffect(() => {
+		const r = findNode()
+		if (r) {
+			getText(r.path);
+			setActiveNode(r.title);
+		}
+	}, [location])
+
+	useEffect(() => {
+		getFolder()
+	}, [])
+
+	const getFolder = async () => {
+		try {
+			const response = await ContentAPI.get("/");
+			console.log(response);
+		} catch (e) {
+			console.log(e);
+		}
+	}
+
+	const findNode = () => index.find(item => item.path === location.pathname + '.md');
+
 	// Get content of index.json file from public folder and set it for displaying
 	const getRegistry = async () => {
 		try {
 			let response = await ContentAPI.get(treePath);
-			if (response.status == 200) {
 				// make array from json file of titles and paths
 				const tree = [];
 				// for React-simple-tree-menu - create an array of objects
@@ -64,16 +86,12 @@ export const KnowledgeBase = ({ app, api, treePath }) => {
 					obj["key"] = item.title;
 					obj["label"] = item.title;
 					tree.push(obj);
-				};
+				}
 				setIndex(response.data);
 				setTreeData(tree);
-			} else {
-				console.error("Something went wrong, failed to fetch Knowledge base files")
-				app.addAlert("warning", t("KnowledgeBaseContainer|Something went wrong, failed to fetch Knowledge base folder content"));
-			}
 		} catch(e) {
 			console.error(e);
-			app.addAlert("warning", t("KnowledgeBaseContainer|Failed to fetch Knowledge base folder content"));
+			app.addAlert("warning", t("KnowledgeBaseContainer|Something went wrong, failed to fetch Knowledge base folder content"));
 		}
 	}
 
@@ -86,19 +104,16 @@ export const KnowledgeBase = ({ app, api, treePath }) => {
 
 	const onClick = (title) => {
 		const r = index.find(item => item.title === title);
-		// 'replace' instead 'push' not to have warnings in console, when user clicks the same button more than 1 time
-		history.replace(getPath(r.path));
-		setActiveNode(r.title);
-		getText(r.path);
+		if (location.pathname !== getPath(r.path)) {
+			history.push(getPath(r.path));
+		}
 	}
 
 	const getText = async (path) => {
 		// fetch readme from public folder
 		try {
-			let response = await ContentAPI.get(path);
-			if (response.status == 200) {
-				setText(response.data);
-			}
+			const response = await ContentAPI.get(path);
+			setText(response.data);
 		} catch(e) {
 			console.error("Failed to fetch readme: ", e);
 			app.addAlert("warning", t("KnowledgeBaseContainer|Something went wrong, Failed to get the article"));
@@ -120,15 +135,13 @@ export const KnowledgeBase = ({ app, api, treePath }) => {
 								<TreeMenu
 									data={treeData}
 									onClickItem={({ key, label, ...props }) => onClick(key)}
-									initialActiveKey={activeNode}
+									activeKey={activeNode}
 									hasSearch={false}
 								>
 									{({ items }) => (
 										<ul>
 											{items.map(({key, ...props})=> (
 												<ItemComponent
-													className={`knowledge-link ${activeNode === key ? "knowledge-link-active" : ""}`}
-													style={{cursor:'pointer'}}
 													key={key}
 													{...props}
 												/>
