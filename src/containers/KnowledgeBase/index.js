@@ -59,19 +59,6 @@ export const KnowledgeBase = ({ app, api, treePath }) => {
 		}
 	}, [location])
 
-	useEffect(() => {
-		getFolder()
-	}, [])
-
-	const getFolder = async () => {
-		try {
-			const response = await ContentAPI.get("/");
-			console.log(response);
-		} catch (e) {
-			console.log(e);
-		}
-	}
-
 	const findNode = () => index.find(item => item.path === location.pathname + '.md');
 
 	// Get content of index.json file from public folder and set it for displaying
