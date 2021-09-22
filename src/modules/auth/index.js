@@ -179,10 +179,14 @@ export default class AuthModule extends Module {
 		let getItems = this.App.Navigation.getItems();
 		let unauthorizedNavItems = [];
 		let unauthorizedNavChildren = [];
+		let resources = [];
+		if (this.UserInfo !== null) {
+			resources = this.UserInfo.resources;
+		}
 		// Add item name from Navigation based on Access resource to the list of unauthorized items
 		await Promise.all(getItems.items.map(async(itm, idx) => {
 			if (itm.resource) {
-				let access_auth = await this._isUserAuthorized(itm.resource);
+				let access_auth = this.validateItem(itm.resource, resources);
 				if (!access_auth) {
 					unauthorizedNavItems.push(itm.name);
 				}
@@ -191,7 +195,7 @@ export default class AuthModule extends Module {
 			if (itm.children) {
 				await Promise.all(itm.children.map(async(child, id) => {
 					if (child.resource) {
-						let access_auth = await this._isUserAuthorized(child.resource);
+						let access_auth = this.validateItem(child.resource, resources);
 						if (!access_auth) {
 							unauthorizedNavChildren.push(child.name);
 						}
@@ -201,6 +205,16 @@ export default class AuthModule extends Module {
 		}))
 		this.App.Store.dispatch({ type: types.NAVIGATION_UNAUTHORIZED_ITEM, unauthorizedNavItem: unauthorizedNavItems });
 		this.App.Store.dispatch({ type: types.NAVIGATION_UNAUTHORIZED_CHILDREN, unauthorizedNavChildren: unauthorizedNavChildren });
+	}
+
+	// Validate sidebar items
+	validateItem(resource, resources) {
+		let valid = resources ? resources.indexOf(resource) !== -1 : false;
+		// If user is superuser, then item is enabled
+		if (resources.indexOf('authz:superuser') !== -1) {
+			valid = true;
+		}
+		return valid;
 	}
 
 
