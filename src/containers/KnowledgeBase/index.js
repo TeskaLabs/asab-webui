@@ -11,7 +11,7 @@ import {
 
 import './style.css';
 
-export const KnowledgeBase = ({ app, api, treePath }) => {
+export const KnowledgeBase = ({ app, api, entryPath }) => {
 	const { t } = useTranslation();
 	const history = useHistory();
 	const location = history.location;
@@ -64,7 +64,7 @@ export const KnowledgeBase = ({ app, api, treePath }) => {
 	// Get content of index.json file from public folder and set it for displaying
 	const getRegistry = async () => {
 		try {
-			let response = await ContentAPI.get(treePath);
+			let response = await ContentAPI.get(entryPath);
 				// make array from json file of titles and paths
 				const tree = [];
 				// for React-simple-tree-menu - create an array of objects
