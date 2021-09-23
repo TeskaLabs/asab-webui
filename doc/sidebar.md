@@ -48,7 +48,9 @@ Note: `order` property can be either number or string which can be parsed as num
 
 ## Setting resource for sidebar item
 
-This option is handy when we want to limit the access to the item based on user's resources. The navigation item in sidebar is hidden for those, who does not have the appropriate rights. Authorization of the user is controlled by `rbac` API endpoint.
+This option is handy when we want to limit the access to the item based on user's resources. The navigation item in sidebar is hidden for those, who does not have the appropriate rights.
+
+**Exception**: Users with `superuser` rights are authorized by default.
 
 The resource is set to the navigation `addItem` component.
 
@@ -91,7 +93,9 @@ The resource is set to the navigation `addItem` component.
 
 ## Setting resource for sidebar item's children
 
-This option is handy when we want to limit the access to the item's children based on user's resources. The navigation item's children in sidebar is hidden for those, who does not have the appropriate rights. Authorization of the user is controlled by `rbac` API endpoint.
+This option is handy when we want to limit the access to the item's children based on user's resources. The navigation item's children in sidebar is hidden for those, who does not have the appropriate rights.
+
+**Exception**: Users with `superuser` rights are authorized by default.
 
 The resource is set to the navigation `addItem` -> `children` component.
 
