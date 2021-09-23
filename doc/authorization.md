@@ -6,54 +6,43 @@ The authorization is an optional feature of ASAB Web UI.
 
 It is connected to `Tenant` module of ASAB Web UI.
 
-It provides two main functions:
+It provides authorization of the user based on assigned tenants.
 
-- Authorize user based on assigned tenants
-- The list of user's authorized tenants for application in the TenantDropdown menu
-
-This includes also the tob-bar selector for switching the active tenant.
-
-Notes:
-
-The tenant-enabled URL of the endpoint should start with the tenant: `/{tenant-id}/path...`
-
-The active tenant is set in the React application initialization and stay constant.
-If the user decides to change the tenant, React application is restarted/reloaded.
-Only tenants authorized for the user are displayed.
+Authorization is enabled for every application, if not defined otherwise.
 
 
-### Setup
+### Disable authorization
 
-In the top-level `index.js` of your ASAB UI application, load the Tenant module and add to ConfigDefaults `authorization` with keys and values.
+`authorization` - if set to `disabled`, then the authorization is not applied.
 
-`authorize` must be set to `true` to enable the feature
-
-`resource` is used for setting up resource for `rbac` endpoint. By default is set to `tenant:access`
-
-`unauthorized_logout_timeout` is a timeout period on which the screen will stay in SplashScreen mode before it log out the unauthorized user. Default value is 60000 aka 60s.
-
-<!-- TODO: Set up also BASE_URL, Microservice, Subpaths, etc... -->
+Example of disabling the authorization:
 
 ```
-const modules = [];
-
-...
-
-import TenantModule from 'asab-webui/modules/tenant';
-modules.push(TenantModule);
-
-let ConfigDefaults = {
-	authorization: { authorize: true, resource: "tenant:access", unauthorized_logout_timeout: 60000},
-};
-
-...
-
-ReactDOM.render((
-	<HashRouter>
-		<Application modules={modules} defaultpath="/" configdefaults={ConfigDefaults}/>
-	</HashRouter>
-), document.getElementById('app'));
+module.exports = {
+	app: {
+		...
+		authorization: "disabled",
+		...
+	},
+}
 ```
+
+### Set logout timeout
+
+When user is not authorized by tenant, timeout period is set before logouting the user. During that period, SplashScreen is displayed to the user. Default value is 60000 aka 60s.
+
+Example of setting/modifying the logout timeout period:
+
+```
+module.exports = {
+	app: {
+		...
+		authorizationLogoutTimeout: 120000,
+		...
+	},
+}
+```
+
 
 ## Authorization with resource
 
