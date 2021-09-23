@@ -72,10 +72,10 @@ export default class AuthModule extends Module {
 				this.App.addAxiosInterceptor(this.authInterceptor());
 
 				// Authorization of the user based on tenant access
-				if (this.Authorization?.authorize && this.App.Services.TenantService) {
+				if (this.App.Config.get("authorization") !== "disabled" && this.App.Services.TenantService) {
 					// Tenant access validation
 					let tenantAuthorized = this.validateTenant();
-					let logoutTimeout = this.Authorization?.unauthorized_logout_timeout ? this.Authorization.unauthorized_logout_timeout : 60000;
+					let logoutTimeout = this.App.Config.get("authorizationLogoutTimeout") ? this.App.Config.get("authorizationLogoutTimeout") : 60000;
 					if (!tenantAuthorized) {
 						this.App.addAlert("danger", "You are not authorized to use this application.", logoutTimeout);
 						// Logout after some time
@@ -233,7 +233,6 @@ export default class AuthModule extends Module {
 		}
 		return valid;
 	}
-
 
 	async _updateUserInfo(that = this, oldUserInfo = null, fAlert = false) {
 		let response;
