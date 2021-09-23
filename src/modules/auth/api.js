@@ -12,7 +12,7 @@ export class SeaCatAuthApi {
 		app: {
 			BASE_URL: 'http://localhost:3000',
 			API_PATH: 'api',
-			SERVICES: {openidconnect: 'openidconnect', rbac: 'rbac'},
+			SERVICES: {openidconnect: 'openidconnect'},
 			...
 	*/
 
