@@ -72,11 +72,11 @@ export default class AuthModule extends Module {
 				this.App.addAxiosInterceptor(this.authInterceptor());
 
 				// Authorization of the user based on tenant access
-				if (this.Authorization?.authorize) {
+				if (this.Authorization?.authorize && this.App.Services.TenantService) {
 					// Tenant access validation
-					let tenant_authorized = await this._isUserAuthorized(this.Authorization?.resource, this.App.Services.TenantService);
+					let tenantAuthorized = this.validateTenant();
 					let logoutTimeout = this.Authorization?.unauthorized_logout_timeout ? this.Authorization.unauthorized_logout_timeout : 60000;
-					if (!tenant_authorized) {
+					if (!tenantAuthorized) {
 						this.App.addAlert("danger", "You are not authorized to use this application.", logoutTimeout);
 						// Logout after some time
 						setTimeout(() => {
@@ -181,7 +181,7 @@ export default class AuthModule extends Module {
 		let unauthorizedNavChildren = [];
 		let resources = [];
 		if (this.UserInfo !== null) {
-			resources = this.UserInfo.resources;
+			resources = this.UserInfo.resources ? this.UserInfo.resources : [];
 		}
 		// Add item name from Navigation based on Access resource to the list of unauthorized items
 		await Promise.all(getItems.items.map(async(itm, idx) => {
@@ -211,6 +211,23 @@ export default class AuthModule extends Module {
 	validateItem(resource, resources) {
 		let valid = resources ? resources.indexOf(resource) !== -1 : false;
 		// If user is superuser, then item is enabled
+		if (resources.indexOf('authz:superuser') !== -1) {
+			valid = true;
+		}
+		return valid;
+	}
+
+	// Validate tenant access
+	validateTenant() {
+		let resources = [];
+		let tenants = [];
+		let currentTenant = this.App.Services.TenantService.get_current_tenant();
+		if (this.UserInfo !== null) {
+			resources = this.UserInfo.resources ? this.UserInfo.resources : [];
+			tenants = this.UserInfo.tenants ? this.UserInfo.tenants : [];
+		}
+		let valid = tenants ? tenants.indexOf(currentTenant) !== -1 : false;
+		// If user is superuser, then tenant access is granted
 		if (resources.indexOf('authz:superuser') !== -1) {
 			valid = true;
 		}
@@ -297,37 +314,6 @@ export default class AuthModule extends Module {
 		sessionStorage.setItem('SeaCatOAuth2Token', JSON.stringify(response.data));
 
 		return true;
-	}
-
-
-	async _isUserAuthorized(resource, tenant_service) {
-		let authorized = false;
-		// Check if Tenant service is enabled in the application and decide on type of user authorization
-		if (tenant_service) {
-			let currentTenant = this.App.Services.TenantService.get_current_tenant();
-			authorized = await this.Api.verify_access(this.OAuthToken['access_token'], resource, currentTenant).then(response => {
-				if (response.data.result == 'OK'){
-					return true;
-				} else {
-					return false;
-				}
-				}).catch((error) => {
-					console.log(error);
-					return false;
-				});
-		} else {
-			authorized = await this.Api.verify_access(this.OAuthToken['access_token'], resource).then(response => {
-				if (response.data.result == 'OK'){
-					return true;
-				} else {
-					return false;
-				}
-				}).catch((error) => {
-					console.log(error);
-					return false;
-				});
-		}
-		return authorized;
 	}
 
 }
