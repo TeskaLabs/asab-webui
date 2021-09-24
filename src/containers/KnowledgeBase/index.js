@@ -11,7 +11,7 @@ import {
 
 import './style.css';
 
-export const KnowledgeBase = ({ app, api, entryPath }) => {
+export const KnowledgeBase = ({ app, apiPath, entryPath }) => {
 	const { t } = useTranslation();
 	const history = useHistory();
 	const location = history.location;
@@ -26,7 +26,7 @@ export const KnowledgeBase = ({ app, api, entryPath }) => {
 	const [treeData, setTreeData] = useState([]);
 	const [index, setIndex] = useState([]);
 
-	const ContentAPI = app.axiosCreate(api);
+	const ContentAPI = app.axiosCreate(apiPath);
 
 	useEffect(() => {
 		setReadmeDiv(document.querySelector(".readme"));

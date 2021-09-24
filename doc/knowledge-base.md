@@ -103,7 +103,7 @@ const KnowledgeBaseContainer = (props) => {
 
 Also we should add their `api` which we configured earlier and `entryPath` for our `index.json` file.
 
-`KnowledgeBase` takes `api` and create axios instance with `app.AxiosCreate()` method we get from asab-webui application. As we configured our api to be `content` then we pass it as string to `api` prop of `KnowledgeBase`.
+`KnowledgeBase` takes `apiPath` and create axios instance with `app.AxiosCreate()` method we get from asab-webui application. As we configured our api to be `content` then we pass it as string to `apiPath` prop of `KnowledgeBase`.
 
 As we mentioned above `KnowledgeBase` takes `index.json` file to constuct itself and load content of markdown files. To fetch this `index.json` file `KnowledgeBase` needs to know path to it. As we have put our `index.json` file into `/content/test/` and we've already defined our api as `content` then we need to provide `entryPath` as `/test/index.json`. 
 
@@ -118,7 +118,7 @@ const KnowledgeBaseContainer = (props) => {
 	return (
 		<KnowledgeBase
 			app={props.app}
-			api="content"
+			apiPath="content"
 			entryPath="/knowledge/index.json"
 		/>
 	);
