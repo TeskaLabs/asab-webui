@@ -128,6 +128,10 @@
 
 - Update enabling ButtonWithAuthz component when user has superuser rights (INDIGO Sprint 210917, [!177](https://github.com/TeskaLabs/asab-webui/pull/177))
 
+- Remove RBAC endpoints completely from ASAB WebUI Auth module (INDIGO Sprint 210917, [!178](https://github.com/TeskaLabs/asab-webui/pull/178))
+
+- Refactor Authorization softcheck on tenant and nav items (sidebar). It does not use RBAC endpoint for checking tenants/resources of the user (INDIGO Sprint 210917, [!178](https://github.com/TeskaLabs/asab-webui/pull/178))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))

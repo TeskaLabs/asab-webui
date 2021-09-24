@@ -49,8 +49,7 @@ export default class TenantService extends Service {
 			let filtered_tenant = tenants_list.filter((item) => { return item == tenant_id });
 			if (filtered_tenant.length < 1) {
 				// Display Invalid tenant alert message only when authorization is disabled
-				let authorization = this.App.Config.get("authorization");
-				if (!authorization?.authorize) {
+				if (this.App.Config.get("authorization") === "disabled") {
 					this.App.addAlert("danger", "Invalid tenant :-(", 40000);
 				}
 				return;

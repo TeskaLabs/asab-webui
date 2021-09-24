@@ -72,11 +72,11 @@ export default class AuthModule extends Module {
 				this.App.addAxiosInterceptor(this.authInterceptor());
 
 				// Authorization of the user based on tenant access
-				if (this.Authorization?.authorize) {
+				if (this.App.Config.get("authorization") !== "disabled" && this.App.Services.TenantService) {
 					// Tenant access validation
-					let tenant_authorized = await this._isUserAuthorized(this.Authorization?.resource, this.App.Services.TenantService);
-					let logoutTimeout = this.Authorization?.unauthorized_logout_timeout ? this.Authorization.unauthorized_logout_timeout : 60000;
-					if (!tenant_authorized) {
+					let tenantAuthorized = this.validateTenant();
+					let logoutTimeout = this.App.Config.get("authorizationLogoutTimeout") ? this.App.Config.get("authorizationLogoutTimeout") : 60000;
+					if (!tenantAuthorized) {
 						this.App.addAlert("danger", "You are not authorized to use this application.", logoutTimeout);
 						// Logout after some time
 						setTimeout(() => {
@@ -179,10 +179,14 @@ export default class AuthModule extends Module {
 		let getItems = this.App.Navigation.getItems();
 		let unauthorizedNavItems = [];
 		let unauthorizedNavChildren = [];
+		let resources = [];
+		if (this.UserInfo !== null) {
+			resources = this.UserInfo.resources ? this.UserInfo.resources : [];
+		}
 		// Add item name from Navigation based on Access resource to the list of unauthorized items
 		await Promise.all(getItems.items.map(async(itm, idx) => {
 			if (itm.resource) {
-				let access_auth = await this._isUserAuthorized(itm.resource);
+				let access_auth = this.validateItem(itm.resource, resources);
 				if (!access_auth) {
 					unauthorizedNavItems.push(itm.name);
 				}
@@ -191,7 +195,7 @@ export default class AuthModule extends Module {
 			if (itm.children) {
 				await Promise.all(itm.children.map(async(child, id) => {
 					if (child.resource) {
-						let access_auth = await this._isUserAuthorized(child.resource);
+						let access_auth = this.validateItem(child.resource, resources);
 						if (!access_auth) {
 							unauthorizedNavChildren.push(child.name);
 						}
@@ -203,6 +207,32 @@ export default class AuthModule extends Module {
 		this.App.Store.dispatch({ type: types.NAVIGATION_UNAUTHORIZED_CHILDREN, unauthorizedNavChildren: unauthorizedNavChildren });
 	}
 
+	// Validate sidebar items
+	validateItem(resource, resources) {
+		let valid = resources ? resources.indexOf(resource) !== -1 : false;
+		// If user is superuser, then item is enabled
+		if (resources.indexOf('authz:superuser') !== -1) {
+			valid = true;
+		}
+		return valid;
+	}
+
+	// Validate tenant access
+	validateTenant() {
+		let resources = [];
+		let tenants = [];
+		let currentTenant = this.App.Services.TenantService.get_current_tenant();
+		if (this.UserInfo !== null) {
+			resources = this.UserInfo.resources ? this.UserInfo.resources : [];
+			tenants = this.UserInfo.tenants ? this.UserInfo.tenants : [];
+		}
+		let valid = tenants ? tenants.indexOf(currentTenant) !== -1 : false;
+		// If user is superuser, then tenant access is granted
+		if (resources.indexOf('authz:superuser') !== -1) {
+			valid = true;
+		}
+		return valid;
+	}
 
 	async _updateUserInfo(that = this, oldUserInfo = null, fAlert = false) {
 		let response;
@@ -283,37 +313,6 @@ export default class AuthModule extends Module {
 		sessionStorage.setItem('SeaCatOAuth2Token', JSON.stringify(response.data));
 
 		return true;
-	}
-
-
-	async _isUserAuthorized(resource, tenant_service) {
-		let authorized = false;
-		// Check if Tenant service is enabled in the application and decide on type of user authorization
-		if (tenant_service) {
-			let currentTenant = this.App.Services.TenantService.get_current_tenant();
-			authorized = await this.Api.verify_access(this.OAuthToken['access_token'], resource, currentTenant).then(response => {
-				if (response.data.result == 'OK'){
-					return true;
-				} else {
-					return false;
-				}
-				}).catch((error) => {
-					console.log(error);
-					return false;
-				});
-		} else {
-			authorized = await this.Api.verify_access(this.OAuthToken['access_token'], resource).then(response => {
-				if (response.data.result == 'OK'){
-					return true;
-				} else {
-					return false;
-				}
-				}).catch((error) => {
-					console.log(error);
-					return false;
-				});
-		}
-		return authorized;
 	}
 
 }
