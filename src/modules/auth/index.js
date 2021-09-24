@@ -245,7 +245,7 @@ export default class AuthModule extends Module {
 			if (oldUserInfo) {
 				oldUserInfo = null;
 				const alertMessage = await that.App.i18n.t("Your session has expired");
-				that.App.addAlert("warning", alertMessage);
+				that.App.addAlert("warning", alertMessage, 3600*1000);
 			}
 			that.UserInfo = null;
 			if (that.App.Store != null) {
