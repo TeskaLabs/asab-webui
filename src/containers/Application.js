@@ -21,6 +21,7 @@ import AlertsComponent from '../alerts/AlertsComponent';
 import alertsReducer from '../alerts/reducer';
 
 import helpButtonReducer from '../helpButton/reducer';
+import sidebarReducer from '../sidebar/reducer';
 
 import ReduxService from '../services/ReduxService';
 import ConfigService from '../config/ConfigService';
@@ -92,6 +93,7 @@ it is accessible by the sidebar toggler button.
 		this.ReduxService.addReducer("alerts", alertsReducer);
 		this.ReduxService.addReducer("advmode", AdvancedModeReducer);
 		this.ReduxService.addReducer("helpButton", helpButtonReducer);
+		this.ReduxService.addReducer("sidebar", sidebarReducer);
 
 		this.DefaultPath = props.defaultpath;
 
