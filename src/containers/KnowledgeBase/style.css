@@ -1,0 +1,131 @@
+.main .container-fluid-knowledge.container-fluid {
+	padding: 0 15px 0 0;
+}
+
+.col-9-react-md.col-md-9 {
+	padding-left: 0;
+	padding-right: 0;
+	height: calc(100vh - 151px);
+}
+
+/* SIDEBAR */
+
+.container-fluid-knowledge .knowledge-sidebar.card {
+	padding-top: 1rem;
+	height: calc(100vh - 151px);
+	border-radius: 0;
+	border-top: 0;
+	border-bottom: 0;
+	border-left: 0;
+	border-right: 1px solid #c8ced3;
+	background-color: #F5F5F5;
+	margin-bottom: 0;
+	position: relative;
+}
+
+.knowledge-sidebar-inner {
+	overflow-x: auto;
+}
+
+.knowledge-sidebar h6 {
+	padding-left: 2rem;
+}
+
+.knowledge-sidebar ul {
+	list-style-type:none;
+	padding-inline-start: 1rem;
+}
+
+/* END OF SIDEBAR */
+
+/* React Simple Tree Menu items */
+
+.knowledge-sidebar .rstm-tree-item {
+	color: #586673;
+	padding-top: 0.3rem;
+	padding-bottom: 0.3rem;
+	transition: all 100ms ease;
+}
+
+.knowledge-sidebar .rstm-tree-item:hover {
+	background-color: #E4E5E6;
+}
+
+.knowledge-sidebar .rstm-tree-item--active {
+	color: #23282c;
+	background-color: #fff;
+}
+
+/* END OF React Simple Tree Menu items */
+
+/* MARKDOWN STYLES */
+
+.readme {
+	padding: 0.5rem 1.5rem 1.5rem;
+	background-color: #fff;
+	overflow: auto;
+	height: 100%;
+	border: 1px solid #e6eaed;
+	border-right: 0;
+}
+
+.readme p {
+	margin-bottom: 0.8rem;
+}
+
+.readme li > p {
+	margin-bottom: 0;
+}
+
+.readme h1,
+.readme h2,
+.readme h3 {
+	margin-bottom: 0.8rem;
+	margin-top: 1.5rem;
+}
+
+.readme h1 + h2 {
+	margin-top: 0;
+}
+
+.readme h1 {
+	font-size: 1.8rem;
+}
+
+.readme h2 {
+	font-size: 1.5rem;
+}
+
+.readme h3 {
+	font-size: 1.3rem;
+}
+
+.readme pre {
+    overflow-x: auto;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+    background-color: #f8f8f8;
+    padding: 1rem 0.5rem 0.5rem 1rem;
+    text-indent: -0.5rem;
+}
+
+.readme img {
+	max-width: 100%;
+}
+
+/* END OF MARKDOWN STYLES */
+
+@media (max-width: 768px) {
+	.container-fluid-knowledge .knowledge-sidebar.card {
+		border-right: 0;
+		border-bottom: 1px solid #c8ced3;
+	}
+
+	.col-9-react-md,
+	.knowledge-sidebar {
+		height: 100%;
+	}
+}
