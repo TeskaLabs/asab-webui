@@ -132,6 +132,8 @@
 
 - Refactor Authorization softcheck on tenant and nav items (sidebar). It does not use RBAC endpoint for checking tenants/resources of the user (INDIGO Sprint 210917, [!178](https://github.com/TeskaLabs/asab-webui/pull/178))
 
+- Increase expiration alert duration to 1000 hours (INDIGO Sprint 210917, [!179](https://github.com/TeskaLabs/asab-webui/pull/179))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
