@@ -36,9 +36,9 @@ const Sidebar = (props) => {
 					))}
 				</Nav>
 				<div className="sidebar-bottom">
-					<Button onClick={changeSidebarSize}>
-						Minimize
-					</Button>
+					<div onClick={changeSidebarSize} className="sidebar-minimize-button">
+						<i className="cil-chevron-left" />
+					</div>
 				</div>
 			</div>
 		</div>

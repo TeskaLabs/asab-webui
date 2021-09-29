@@ -11,6 +11,7 @@ import { Fade } from 'reactstrap';
 
 import { AppBreadcrumb2 as AppBreadcrumb } from '@coreui/react';
 
+import Main from './Main';
 import Header from './Header';
 import Footer from './Footer';
 import Sidebar from './Sidebar';
@@ -501,7 +502,7 @@ it is accessible by the sidebar toggler button.
 						{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ?
 							<Sidebar app={this} navigation={this.Navigation} display="lg" /> :
 							<Sidebar app={this} navigation={this.Navigation} display="xs" />}
-						<main className="main">
+						<Main>
 							{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ?
 								<AppBreadcrumb appRoutes={this.Router.Routes} router={router} />
 								: null}
@@ -525,7 +526,7 @@ it is accessible by the sidebar toggler button.
 									{this.DefaultPath != undefined ? <Redirect from="/" to={this.DefaultPath} /> : null}
 								</Switch>
 							</Suspense>
-						</main>
+						</Main>
 					</div>
 					<Footer app={this} />
 				</div>
