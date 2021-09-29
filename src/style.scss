@@ -49,7 +49,7 @@ main > .container-fluid, main > .container {
 	background-color: #fff;
 	border-bottom: 1px solid #c8ced4;
 
-	.header-brand-image {
+	.header-brand-image-full {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -57,6 +57,9 @@ main > .container-fluid, main > .container {
 		height: 55px;
 		padding: 0;
 		margin: 0;
+	}
+
+	.header-brand-image-full {
 		.full-image {
 			display: block;
 		}
@@ -65,9 +68,25 @@ main > .container-fluid, main > .container {
 		}
 	}
 
+	.header-brand-image-minimized {
+		.full-image {
+			display: none;
+		}
+		.minimized-image {
+			display: block;
+		}
+	}
+
 	.navbar-nav {
 		flex-direction: row;
 		align-items: center;
+	}
+
+	.header-sidebar-toggler {
+		display: inline-flex;
+		align-items: center;
+		font-size: 1.5rem;
+		cursor: pointer;
 	}
 }
 
@@ -82,53 +101,47 @@ main > .container-fluid, main > .container {
 			margin-left: -77.5px;
 		}
 	}
+
+	.header-sidebar-toggler {
+		padding: 0 1rem;
+	}
 }
 
 // Sidebar rules
-@media screen and (min-width: 991px) {
-	.app-sidebar {
-		.sidebar-nav {
-			// overflow: hidden !important;
+
+.app-sidebar-minimized, .app-sidebar-closed-minimized {
+	width: 50px;
+	.sidebar-item-text, .sidebar-chevron, .sidebar-chevron-open {
+		display: none !important;
+	}
+	.nav-link {
+		margin: auto !important;
+		padding-left: 1rem !important; 
+		.sidebar-item-icon {
+			font-size: 1rem;
 		}
 	}
 }
 
-@media screen and (max-width: 990px) {
-	.app-sidebar {
-		.sidebar-nav {
-			// overflow: auto !important;
-		}
-	}
-}
-
-.sidebar-minimized {
-	.app-sidebar {
-		transition: width .2s ease-in-out;
-		.sidebar-item-text, .sidebar-chevron, .sidebar-chevron-open {
-			display: none !important;
-		}
-		.nav-link {
-			margin: auto !important;
-			padding-left: 1rem !important; 
-			font-size: large;
-		}
-	}
+.app-sidebar-closed-minimized {
+	margin-left: -50px;
 }
 
 .app-sidebar {
 	margin-left: 0;
+	width: 200px;
 }
 
 .app-sidebar-closed {
 	margin-left: -200px;
+	width: 200px;
 }
 
-.app-sidebar, .app-sidebar-closed {
-	transition: margin-left 0.25s ease-out;
+.app-sidebar, .app-sidebar-closed, .app-sidebar-minimized, .app-sidebar-closed-minimized {
+	transition: margin-left 0.25s ease-out, width .2s ease-out;
 	height: calc(100vh - 55px);
 	position: fixed;
 	z-index: 1019;
-	width: 200px;
 	display: flex;
 	padding: 0;
 	color: #fff;
@@ -164,12 +177,14 @@ main > .container-fluid, main > .container {
 		touch-action: auto;
 		overflow-anchor: none;
 		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 		.nav {
 			width: 200px;
 			display: flex;
 			flex-direction: column;
 			flex-wrap: wrap;
-			min-height: 100%;
 			padding: 0;
 			margin: 0 auto;
 			overflow-y: auto;

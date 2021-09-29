@@ -1,8 +1,10 @@
 import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 
-import { Nav } from 'reactstrap';
+import { Nav, Button } from 'reactstrap';
 import SidebarItem from './SidebarItem';
+
+import { CHANGE_SIDEBAR_SIZE } from '../../actions';
 
 const Sidebar = (props) => {
 	const navConfig = props.navigation.getItems().items,
@@ -20,8 +22,10 @@ const Sidebar = (props) => {
 		return itemsList;
 	}, [navConfig])
 
+	const changeSidebarSize = () => props.app.Store.dispatch({ type: CHANGE_SIDEBAR_SIZE });
+
 	return (
-		<div className={`app-sidebar${props.isSidebarOpen ? "" : "-closed"}`}>
+		<div className={`app-sidebar${props.isSidebarMinimized ? "-minimized" : ""}${props.isSidebarOpen ? "" : "-closed"}`}>
 			<div className="sidebar-nav">
 				<Nav  vertical>
 					{memoizedItemsList.map((item, idx) => (
@@ -31,6 +35,11 @@ const Sidebar = (props) => {
 							unauthorizedNavItems.indexOf(item.name) == -1 && <SidebarItem item={item} unauthorizedNavChildren={unauthorizedNavChildren} key={idx}/>
 					))}
 				</Nav>
+				<div className="sidebar-bottom">
+					<Button onClick={changeSidebarSize}>
+						Minimize
+					</Button>
+				</div>
 			</div>
 		</div>
 	)
@@ -39,6 +48,7 @@ const Sidebar = (props) => {
 function mapStateToProps(state) {
 	return {
 		isSidebarOpen: state.sidebar.isSidebarOpen,
+		isSidebarMinimized: state.sidebar.isSidebarMinimized,
 		unauthorizedNavItem: state.auth?.unauthorizedNavItem,
 		unauthorizedNavChildren: state.auth?.unauthorizedNavChildren
 	};

@@ -1,16 +1,22 @@
-import { SET_SIDEBAR } from "../actions";
+import { SET_SIDEBAR, CHANGE_SIDEBAR_SIZE } from "../actions";
 
 const initialState = {
-	isSidebarOpen: true
+	isSidebarOpen: true,
+	isSidebarMinimized: false
 }
 
 export default (state = initialState, action) => {
 	switch (action.type) {
 		case SET_SIDEBAR: {
-			console.log("action")
 			return {
 				...state,
-				isSidebarOpen: !state.isSidebarOpen
+				isSidebarOpen: !state.isSidebarOpen,
+			}
+		}
+		case CHANGE_SIDEBAR_SIZE: {
+			return {
+				...state,
+				isSidebarMinimized: !state.isSidebarMinimized
 			}
 		}
 		default: {

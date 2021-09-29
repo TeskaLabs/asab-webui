@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import { Link } from 'react-router-dom';
 
 const NavbarBrand = (props) => {
@@ -8,6 +10,7 @@ const NavbarBrand = (props) => {
 		title: props.title,
 		full: props.brand_image.full,
 		minimized: props.brand_image.minimized,
+		isMinimized: props.isSidebarMinimized
 	}
 
 	if (href.includes("http")) {
@@ -28,8 +31,8 @@ const NavbarBrand = (props) => {
 	)
 };
 
-const BrandImage = ({ full, minimized, title }) => (
-	<div className="header-brand-image">
+const BrandImage = ({ full, minimized, title, isMinimized }) => (
+	<div className={`header-brand-image-${isMinimized ? "minimized" : "full"}`}>
 		<img
 			src={full}
 			alt={title}
@@ -47,4 +50,10 @@ const BrandImage = ({ full, minimized, title }) => (
 	</div>
 )
 
-export default NavbarBrand;
+const mapStateToProps = state => {
+	return {
+		isSidebarMinimized: state.sidebar.isSidebarMinimized
+	}
+}
+
+export default connect(mapStateToProps)(NavbarBrand);
