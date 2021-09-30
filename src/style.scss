@@ -142,6 +142,15 @@ main > .container-fluid, main > .container {
 			font-size: 1rem;
 		}
 	}
+
+	.sidebar-bottom {
+		.sidebar-minimize-button {
+			i {
+				transform: rotate(-180deg);
+				transition: transform .1s ease-in-out;
+			}
+		}
+	}
 }
 
 .app-sidebar-minimized-closed {
