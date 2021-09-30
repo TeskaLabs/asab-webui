@@ -16,6 +16,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Sidebar from './Sidebar';
 import SplashScreen from './SplashScreen';
+import Breadcrumbs from './Breadcrumbs';
 import { Spinner } from './Spinner';
 
 import AlertsComponent from '../alerts/AlertsComponent';
@@ -504,7 +505,7 @@ it is accessible by the sidebar toggler button.
 							<Sidebar app={this} navigation={this.Navigation} display="xs" />}
 						<Main>
 							{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ?
-								<AppBreadcrumb appRoutes={this.Router.Routes} router={router} />
+								<Breadcrumbs routes={this.Router.Routes} />
 								: null}
 							<Suspense
 								fallback={<div style={{ marginTop: "1rem" }}><Spinner /></div>}

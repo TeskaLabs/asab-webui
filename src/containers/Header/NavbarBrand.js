@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 const NavbarBrand = (props) => {
 	const href = props.brand_image.href ?? "/";
-	console.log(props)
 	const brandImageProps = {
 		title: props.title,
 		full: props.brand_image.full,
