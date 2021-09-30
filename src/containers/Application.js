@@ -504,9 +504,6 @@ it is accessible by the sidebar toggler button.
 							<Sidebar app={this} navigation={this.Navigation} display="lg" /> :
 							<Sidebar app={this} navigation={this.Navigation} display="xs" />}
 						<Main>
-							{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ?
-								<Breadcrumbs routes={this.Router.Routes} />
-								: null}
 							<Suspense
 								fallback={<div style={{ marginTop: "1rem" }}><Spinner /></div>}
 							>
@@ -519,7 +516,12 @@ it is accessible by the sidebar toggler button.
 												exact={route.exact}
 												name={route.name}
 												render={props => (
-													<route.component app={this} {...props} {...route.props} />
+													<>
+														{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ?
+															<Breadcrumbs routes={this.Router.Routes} match={props.match} />
+														: null}
+														<route.component app={this} {...props} {...route.props} />
+													</>
 												)}
 											/>
 										) : (null);

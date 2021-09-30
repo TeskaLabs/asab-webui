@@ -3,23 +3,17 @@ import { useRouteMatch, useLocation, Link } from 'react-router-dom';
 
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 
-const Breadcrumbs = ({ routes }) => {
-	const match = useRouteMatch(),
-		location = useLocation();
-	const [crumbs, setCrumbs] = useState([]);
+const Breadcrumbs = ({ routes, match }) => {
 
 	// Get new crumbs each time location has been changed
-	useEffect(() => {
-		const newCrumbs = routes.filter(({ path }) => match.path.includes(path))
-			.map(({ path, ...rest }) => ({
-				path: Object.keys(match.params).length ?
-					Object.keys(match.params).reduce((path, param) =>
-						path.replace(`:${param}`, match.params[param]), path
-					) : path,
-					...rest
-			}));
-		setCrumbs(newCrumbs);
-	}, [location])
+	const crumbs = routes.filter(({ path }) => match.path.includes(path)).
+		map(({ path, ...rest }) => ({
+			path: Object.keys(match.params).length ?
+				Object.keys(match.params).reduce((path, param) =>
+					path.replace(`:${param}`, match.params[param]), path
+				) : path,
+				...rest
+		}));
 
 	return (
 		<>
@@ -28,7 +22,10 @@ const Breadcrumbs = ({ routes }) => {
 					<Breadcrumb>
 						{crumbs.map((crumb, idx) => (
 							<BreadcrumbItem key={idx} active={idx === crumbs.length - 1}>
-								<Link to={crumb.path}>{crumb.name}</Link>
+								{idx !== crumbs.length - 1 ? 
+									<Link to={crumb.path}>{crumb.name}</Link>
+									: <span>{crumb.name}</span>
+								}
 							</BreadcrumbItem>
 						))
 						}
