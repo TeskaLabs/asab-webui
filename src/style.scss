@@ -175,9 +175,8 @@ main > .container-fluid, main > .container {
 	.sidebar-dropdown {
 		.sidebar-chevron, .sidebar-chevron-open {
 			font-size: 0.5rem;
-			display: inline-block;
-			margin: 0.2rem 0 0 4.88rem;
-			
+			margin: 0.3rem;
+			float: right;
 			.sidebar-item-icon {
 				margin: 0;
 				font-weight: 700;
