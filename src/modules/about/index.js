@@ -14,7 +14,7 @@ export default class AboutModule extends Module {
 		});
 
 		app.Navigation.addItem({
-			name: "About ",
+			name: "About",
 			url: "/about",
 			icon: "cil-info",
 			order: 9999
