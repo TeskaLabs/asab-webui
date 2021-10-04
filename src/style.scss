@@ -213,7 +213,7 @@ main > .container-fluid, main > .container {
 			width: 200px;
 			display: flex;
 			flex-direction: column;
-			flex-wrap: wrap;
+			flex-wrap: nowrap;
 			padding: 0;
 			margin: 0 auto;
 			overflow-y: auto;
