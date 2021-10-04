@@ -36,6 +36,7 @@ export default class ConfigModule extends Module {
 		this.Navigation.addItem({
 			name: 'Maintenance',
 			icon: 'cil-apps-settings',
+			order: 666,
 			children: [
 				{
 					name: "Configuration",

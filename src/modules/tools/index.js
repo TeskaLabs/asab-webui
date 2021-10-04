@@ -22,6 +22,7 @@ export default class ToolsModule extends Module {
 			name: "Tools",
 			url: "/tools",
 			icon: 'cil-puzzle',
+			order: 999,
 		});
 	}
 }
