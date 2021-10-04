@@ -9,8 +9,6 @@ import { Helmet } from "react-helmet";
 
 import { Fade } from 'reactstrap';
 
-import { AppBreadcrumb2 as AppBreadcrumb } from '@coreui/react';
-
 import Main from './Main';
 import Header from './Header';
 import Footer from './Footer';

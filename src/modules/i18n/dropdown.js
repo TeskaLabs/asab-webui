@@ -4,19 +4,10 @@ import { useTranslation } from 'react-i18next';
 
 import {
 	UncontrolledDropdown,
-	Dropdown,
 	DropdownItem,
 	DropdownMenu, 
 	DropdownToggle,
-	Nav, NavItem, NavLink
 } from 'reactstrap';
-
-import {
-	AppAsideToggler,
-	AppHeaderDropdown,
-	AppNavbarBrand,
-	AppSidebarToggler
-} from '@coreui/react';
 
 
 function LanguageDropdown(props) {

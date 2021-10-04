@@ -288,6 +288,27 @@ main > .container-fluid, main > .container {
 	}
 }
 
+// Footer
+.application-footer, .application-footer-with-sidebar,
+.application-footer-with-sidebar-minimized {
+	display: flex;
+	flex: 0 0 50px;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0 1rem;
+    color: #23282c;
+    background: #f0f3f5;
+    border-top: 1px solid #c8ced3;
+	transition: margin-left 0.25s ease-out;
+}
+
+.application-footer-with-sidebar {
+	margin-left: 200px;
+}
+
+.application-footer-with-sidebar-minimized {
+	margin-left: 50px;
+}
 
 // Breadcrumbs
 .breadcrumbs {
