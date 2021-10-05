@@ -27,6 +27,8 @@ import ConfigService from '../config/ConfigService';
 import HeaderService from '../services/HeaderService';
 import FooterService from '../services/FooterService';
 
+import SelectTenantScreen from '../modules/tenant/selector/SelectTenantScreen';
+
 import { ADD_ALERT, SET_ADVANCED_MODE, CHANGE_HELP_URL } from '../actions';
 
 
@@ -470,6 +472,7 @@ it is accessible by the sidebar toggler button.
 			<Provider store={this.Store}>
 				<div className="app">
 					<AlertsComponent app={this} />
+					{this.Services.TenantService && <SelectTenantScreen app={this} />}
 					<SplashScreen app={this} />
 					{this.Config.get('title') != null && this.Config.get('title') != undefined ?
 						<Helmet>
