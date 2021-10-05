@@ -37,8 +37,8 @@ export default (props) => {
 	useEffect(() => {
 		ASABConfigAPI.get('/microservices', { params: { p: page }})
 			.then(res => {
-				setList(res.data.data);
-				setCount(res.data.count);
+				setList(res.data.data || []);
+				setCount(res.data.count || 0);
 			})
 			.catch(e => {
 				console.error(e);
