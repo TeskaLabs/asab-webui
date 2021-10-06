@@ -5,6 +5,7 @@ import {types} from './actions';
 const initialState = {
 	tenants: [],
 	current: null,
+	invalid: false
 }
 
 export default function reducer(state = initialState, action) {
@@ -14,6 +15,7 @@ export default function reducer(state = initialState, action) {
 			return {
 				tenants: action.tenants_list,
 				current: action.current,
+				invalid: action.invalid
 			}
 
 		default:

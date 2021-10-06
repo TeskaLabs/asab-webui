@@ -33,7 +33,7 @@ function TenantSelectionScreen(props) {
 	}
 
 	return (
-		props.app.Services.TenantService && props.app.Modules.filter(obj => obj.Name === "AuthModule").length > 0 && props.tenants && props.current == null ?
+		props.app.Services.TenantService && props.app.Modules.filter(obj => obj.Name === "AuthModule").length > 0 && props.tenants && props.invalid ?
 				<Card className="tenant-selection-card">
 					<CardHeader>
 						<CardTitle>
@@ -69,7 +69,8 @@ function TenantSelectionScreen(props) {
 function mapStateToProps(state) {
 	return {
 		tenants: state.tenant.tenants,
-		current: state.tenant.current
+		current: state.tenant.current,
+		invalid: state.tenant.invalid
 	}
 }
 
