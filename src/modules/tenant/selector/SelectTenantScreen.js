@@ -29,7 +29,7 @@ function TenantSelectionScreen(props) {
 		}
 		catch (err) {
 			console.error("Failed to fetch userinfo", err);
-			props.app.addAlert("danger", {t("SelectTenantScreen|Silly as it sounds, the logout failed")});
+			props.app.addAlert("danger", t("SelectTenantScreen|Silly as it sounds, the logout failed"));
 		}
 		window.location.reload();
 	}
