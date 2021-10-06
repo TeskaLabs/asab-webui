@@ -52,7 +52,6 @@ export default class TenantService extends Service {
 				if (this.App.Config.get("authorization") === "disabled") {
 					this.App.addAlert("danger", "Invalid tenant :-(", 40000);
 				}
-				return;
 			}
 			current_tenant = filtered_tenant[0];
 		} else {
