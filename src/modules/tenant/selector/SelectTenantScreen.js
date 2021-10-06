@@ -52,7 +52,7 @@ function TenantSelectionScreen(props) {
 						onClick={(e) => {selectTenant(e.target)}}
 						defaultValue={props.current}
 					>
-						<option key="def" value="99999">Select tenant</option>
+						<option key="def" value="99999">{t("SelectTenantScreen|Select tenant")}</option>
 						{props.tenants.length > 0 ? props.tenants.map((tenant, idx) => {return(
 							<option key={idx}>{tenant}</option>
 						)}) : null}
