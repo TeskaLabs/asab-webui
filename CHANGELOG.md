@@ -62,6 +62,8 @@
 
 - Add reusable `KnowledgeBase` component (INDIGO Sprint 210917, [!176](https://github.com/TeskaLabs/asab-webui/pull/176))
 
+- Add tenant selector in SplashScreen mode when user is not authorized by tenant (INDIGO Sprint 211001, [!182](https://github.com/TeskaLabs/asab-webui/pull/182))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
