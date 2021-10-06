@@ -71,9 +71,9 @@ function TenantSelectionScreen(props) {
 function mapStateToProps(state) {
 	return {
 		userinfo: state.auth?.userinfo,
-		tenants: state.tenant.tenants,
-		current: state.tenant.current,
-		invalid: state.tenant.invalid
+		tenants: state.tenant?.tenants,
+		current: state.tenant?.current,
+		invalid: state.tenant?.invalid
 	}
 }
 
