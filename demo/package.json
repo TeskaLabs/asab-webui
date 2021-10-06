@@ -39,8 +39,8 @@
 	"dependencies": {
 		"@coreui/coreui": "2.1.4",
 		"@coreui/icons": "^1.0.1",
-		"@coreui/react": "^2.5.7",
 		"axios": "^0.21.1",
+		"bootstrap": "4.6.0",
 		"file-saver": "^2.0.5",
 		"i18next": "^20.3.5",
 		"i18next-browser-languagedetector": "^6.1.2",
