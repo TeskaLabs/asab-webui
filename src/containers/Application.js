@@ -472,7 +472,7 @@ it is accessible by the sidebar toggler button.
 			<Provider store={this.Store}>
 				<div className="app">
 					<AlertsComponent app={this} />
-					{this.Services.TenantService && <SelectTenantScreen app={this} />}
+					<SelectTenantScreen app={this} />
 					<SplashScreen app={this} />
 					{this.Config.get('title') != null && this.Config.get('title') != undefined ?
 						<Helmet>
