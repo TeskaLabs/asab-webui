@@ -27,7 +27,7 @@ import ConfigService from '../config/ConfigService';
 import HeaderService from '../services/HeaderService';
 import FooterService from '../services/FooterService';
 
-import SelectTenantScreen from '../modules/tenant/selector/SelectTenantScreen';
+import TenantSelectionCard from '../modules/tenant/selector/TenantSelectionCard';
 
 import { ADD_ALERT, SET_ADVANCED_MODE, CHANGE_HELP_URL } from '../actions';
 
@@ -473,7 +473,7 @@ it is accessible by the sidebar toggler button.
 				<div className="app">
 					<AlertsComponent app={this} />
 					<Suspense fallback={<SplashScreen app={this} />}>
-						<SelectTenantScreen app={this} />
+						<TenantSelectionCard app={this} />
 					</Suspense>
 					<SplashScreen app={this} />
 					{this.Config.get('title') != null && this.Config.get('title') != undefined ?

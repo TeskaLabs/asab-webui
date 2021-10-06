@@ -9,7 +9,7 @@ import {
 
 import "./select.css";
 
-function TenantSelectionScreen(props) {
+function TenantSelectionCard(props) {
 	const { t } = useTranslation();
 	const SeaCatAuthAPI = props.app.axiosCreate('seacat_auth');
 	let resources = props.userinfo?.resources;
@@ -29,7 +29,7 @@ function TenantSelectionScreen(props) {
 		}
 		catch (err) {
 			console.error("Failed to fetch userinfo", err);
-			props.app.addAlert("danger", t("SelectTenantScreen|Silly as it sounds, the logout failed"));
+			props.app.addAlert("danger", t("TenantSelectionCard|Silly as it sounds, the logout failed"));
 		}
 		window.location.reload();
 	}
@@ -41,7 +41,7 @@ function TenantSelectionScreen(props) {
 			<Card className="tenant-selection-card">
 				<CardHeader>
 					<CardTitle>
-						{t("SelectTenantScreen|Select valid tenant to enter the application")}
+						{t("TenantSelectionCard|Select valid tenant to enter the application")}
 					</CardTitle>
 				</CardHeader>
 				<CardBody>
@@ -52,7 +52,7 @@ function TenantSelectionScreen(props) {
 						onClick={(e) => {selectTenant(e.target)}}
 						defaultValue={props.current}
 					>
-						<option key="def" value="99999">{t("SelectTenantScreen|Select tenant")}</option>
+						<option key="def" value="99999">{t("TenantSelectionCard|Select tenant")}</option>
 						{props.tenants.length > 0 ? props.tenants.map((tenant, idx) => {return(
 							<option key={idx}>{tenant}</option>
 						)}) : null}
@@ -60,7 +60,7 @@ function TenantSelectionScreen(props) {
 				</CardBody>
 				<CardFooter>
 					<Button color="primary" onClick={() => {logout()}}>
-						{t("SelectTenantScreen|Logout")}
+						{t("TenantSelectionCard|Logout")}
 					</Button>
 				</CardFooter>
 			</Card>
@@ -77,4 +77,4 @@ function mapStateToProps(state) {
 	}
 }
 
-export default connect(mapStateToProps)(TenantSelectionScreen);
+export default connect(mapStateToProps)(TenantSelectionCard);
