@@ -472,7 +472,9 @@ it is accessible by the sidebar toggler button.
 			<Provider store={this.Store}>
 				<div className="app">
 					<AlertsComponent app={this} />
-					<SelectTenantScreen app={this} />
+					<Suspense fallback={<SplashScreen app={this} />}>
+						<SelectTenantScreen app={this} />
+					</Suspense>
 					<SplashScreen app={this} />
 					{this.Config.get('title') != null && this.Config.get('title') != undefined ?
 						<Helmet>
