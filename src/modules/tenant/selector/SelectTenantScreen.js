@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import {
 	Card, CardHeader, CardFooter, CardBody, CardTitle, CardSubtitle,
@@ -10,7 +10,7 @@ import {
 import "./select.css";
 
 function TenantSelectionScreen(props) {
-	// const { t } = useTranslation();
+	const { t } = useTranslation();
 	const SeaCatAuthAPI = props.app.axiosCreate('seacat_auth');
 	let resources = props.userinfo?.resources;
 	let superuser = resources ? resources.indexOf('authz:superuser') !== -1 : false;
@@ -29,7 +29,7 @@ function TenantSelectionScreen(props) {
 		}
 		catch (err) {
 			console.error("Failed to fetch userinfo", err);
-			props.app.addAlert("danger", "Silly as it sounds, the logout failed");
+			props.app.addAlert("danger", {t("SelectTenantScreen|Silly as it sounds, the logout failed")});
 		}
 		window.location.reload();
 	}
@@ -38,34 +38,32 @@ function TenantSelectionScreen(props) {
 		props.app.Services.TenantService &&
 		props.app.Modules.filter(obj => obj.Name === "AuthModule").length > 0 &&
 		props.tenants && props.invalid && superuser === false ?
-				<Card className="tenant-selection-card">
-					<CardHeader>
-						<CardTitle>
-							Select valid tenant to enter the application
-							{/*{t("SelectTenantScreen|Select tenant")}*/}
-						</CardTitle>
-					</CardHeader>
-					<CardBody>
-						<Input
-							type="select"
-							name="selectTenant"
-							id="selectTenant"
-							onClick={(e) => {selectTenant(e.target)}}
-							defaultValue={props.current}
-						>
-							<option key="def" value="99999">Select tenant</option>
-							{props.tenants.length > 0 ? props.tenants.map((tenant, idx) => {return(
-								<option key={idx}>{tenant}</option>
-							)}) : null}
-						</Input>
-					</CardBody>
-					<CardFooter>
-						<Button color="primary" onClick={() => {logout()}}>
-							Logout
-							{/*{t("SelectTenantScreen|Logout")}*/}
-						</Button>
-					</CardFooter>
-				</Card>
+			<Card className="tenant-selection-card">
+				<CardHeader>
+					<CardTitle>
+						{t("SelectTenantScreen|Select valid tenant to enter the application")}
+					</CardTitle>
+				</CardHeader>
+				<CardBody>
+					<Input
+						type="select"
+						name="selectTenant"
+						id="selectTenant"
+						onClick={(e) => {selectTenant(e.target)}}
+						defaultValue={props.current}
+					>
+						<option key="def" value="99999">Select tenant</option>
+						{props.tenants.length > 0 ? props.tenants.map((tenant, idx) => {return(
+							<option key={idx}>{tenant}</option>
+						)}) : null}
+					</Input>
+				</CardBody>
+				<CardFooter>
+					<Button color="primary" onClick={() => {logout()}}>
+						{t("SelectTenantScreen|Logout")}
+					</Button>
+				</CardFooter>
+			</Card>
 		: null
 	);
 }
