@@ -12,6 +12,8 @@ import "./select.css";
 function TenantSelectionScreen(props) {
 	// const { t } = useTranslation();
 	const SeaCatAuthAPI = props.app.axiosCreate('seacat_auth');
+	let resources = props.userinfo?.resources;
+	let superuser = resources ? resources.indexOf('authz:superuser') !== -1 : false;
 
 	const selectTenant = (tn) => {
 		if (tn.value !== "99999") {
@@ -33,7 +35,9 @@ function TenantSelectionScreen(props) {
 	}
 
 	return (
-		props.app.Services.TenantService && props.app.Modules.filter(obj => obj.Name === "AuthModule").length > 0 && props.tenants && props.invalid ?
+		props.app.Services.TenantService &&
+		props.app.Modules.filter(obj => obj.Name === "AuthModule").length > 0 &&
+		props.tenants && props.invalid && superuser === false ?
 				<Card className="tenant-selection-card">
 					<CardHeader>
 						<CardTitle>
@@ -68,6 +72,7 @@ function TenantSelectionScreen(props) {
 
 function mapStateToProps(state) {
 	return {
+		userinfo: state.auth?.userinfo,
 		tenants: state.tenant.tenants,
 		current: state.tenant.current,
 		invalid: state.tenant.invalid
