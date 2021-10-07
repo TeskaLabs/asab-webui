@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const Main = ({ isSidebarMinimized, isSidebarOpen, children }) => {
-	const withSidebar = isSidebarOpen ? "-with-sidebar" : "",
+const Main = ({ isSidebarMinimized, isSidebarOpen, hasSidebar, children }) => {
+	const withSidebar = hasSidebar && isSidebarOpen ? "-with-sidebar" : "",
 		isMinimized = isSidebarOpen && isSidebarMinimized ? "-minimized" : "";
 	return (
 		<main className={`main${withSidebar}${isMinimized}`}>

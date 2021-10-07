@@ -498,10 +498,11 @@ it is accessible by the sidebar toggler button.
 					}
 					<Header app={this} />
 					<div className="app-body">
-						{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ?
-							<Sidebar app={this} navigation={this.Navigation} display="lg" /> :
-							<Sidebar app={this} navigation={this.Navigation} display="xs" />}
-						<Main>
+						{
+							(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') &&
+								<Sidebar app={this} navigation={this.Navigation} display="lg" /> 
+						}
+						<Main hasSidebar={this.props.hasSidebar}>
 							<Suspense
 								fallback={<div style={{ marginTop: "1rem" }}><Spinner /></div>}
 							>
