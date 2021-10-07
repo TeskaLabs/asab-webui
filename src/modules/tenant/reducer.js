@@ -4,7 +4,7 @@ import {types} from './actions';
 
 const initialState = {
 	tenants: [],
-	current: null,
+	current: null
 }
 
 export default function reducer(state = initialState, action) {
@@ -13,7 +13,7 @@ export default function reducer(state = initialState, action) {
 		case types.TENANTS_CHANGED:
 			return {
 				tenants: action.tenants_list,
-				current: action.current,
+				current: action.current
 			}
 
 		default:

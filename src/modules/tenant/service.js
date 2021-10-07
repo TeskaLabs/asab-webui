@@ -52,17 +52,16 @@ export default class TenantService extends Service {
 				if (this.App.Config.get("authorization") === "disabled") {
 					this.App.addAlert("danger", "Invalid tenant :-(", 40000);
 				}
-				return;
 			}
 			current_tenant = filtered_tenant[0];
 		} else {
-			current_tenant = null;
+			current_tenant = undefined;
 		}
 		// Dispatch tenants obtained from userinfo
 		this.App.Store.dispatch({
 			type: types.TENANTS_CHANGED,
 			tenants_list,
-			current: current_tenant,
+			current: current_tenant
 		});
 
 	}
