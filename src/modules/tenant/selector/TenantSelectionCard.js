@@ -37,7 +37,7 @@ function TenantSelectionCard(props) {
 	return (
 		props.app.Services.TenantService &&
 		props.app.Modules.filter(obj => obj.Name === "AuthModule").length > 0 &&
-		props.tenants && props.invalid && superuser === false ?
+		props.tenants && props.current === undefined && superuser === false ?
 			<Card className="tenant-selection-card">
 				<CardHeader>
 					<CardTitle>
@@ -72,8 +72,7 @@ function mapStateToProps(state) {
 	return {
 		userinfo: state.auth?.userinfo,
 		tenants: state.tenant?.tenants,
-		current: state.tenant?.current,
-		invalid: state.tenant?.invalid
+		current: state.tenant?.current
 	}
 }
 

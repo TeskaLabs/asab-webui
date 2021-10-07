@@ -45,7 +45,6 @@ export default class TenantService extends Service {
 
 		// Find the current tenant in the list and extract it
 		let current_tenant;
-		let invalid = false;
 		if (tenants_list) {
 			let filtered_tenant = tenants_list.filter((item) => { return item == tenant_id });
 			if (filtered_tenant.length < 1) {
@@ -53,18 +52,16 @@ export default class TenantService extends Service {
 				if (this.App.Config.get("authorization") === "disabled") {
 					this.App.addAlert("danger", "Invalid tenant :-(", 40000);
 				}
-				invalid = true;
 			}
 			current_tenant = filtered_tenant[0];
 		} else {
-			current_tenant = null;
+			current_tenant = undefined;
 		}
 		// Dispatch tenants obtained from userinfo
 		this.App.Store.dispatch({
 			type: types.TENANTS_CHANGED,
 			tenants_list,
-			current: current_tenant,
-			invalid: invalid
+			current: current_tenant
 		});
 
 	}
