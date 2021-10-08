@@ -138,7 +138,7 @@
 
 - Add order ASAB-Config and Tools modules for sidebar navigation (INDIGO Sprint 211001, [!181](https://github.com/TeskaLabs/asab-webui/pull/181))
 
-- Refactor coreui components, create our own and use them (INDIGO Sprint 211001, [!180](https://github.com/TeskaLabs/asab-webui/pull/180))
+- Refactor coreui components (Header, Footer, Sidebar, Breadcrumbs and Main), create our own and use them (INDIGO Sprint 211001, [!180](https://github.com/TeskaLabs/asab-webui/pull/180))
 
 ### Bugfixes
 

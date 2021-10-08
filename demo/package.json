@@ -54,7 +54,6 @@
 		"react-redux": "^7.2.0",
 		"react-router-dom": "^5.1.2",
 		"reactstrap": "^8.9.0",
-		"redux": "^4.0.5",
-		"simple-line-icons": "^2.4.1"
+		"redux": "^4.0.5"
 	}
 }
