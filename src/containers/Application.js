@@ -9,18 +9,19 @@ import { Helmet } from "react-helmet";
 
 import { Fade } from 'reactstrap';
 
-import { AppBreadcrumb2 as AppBreadcrumb } from '@coreui/react';
-
+import Main from './Main';
 import Header from './Header';
 import Footer from './Footer';
 import Sidebar from './Sidebar';
 import SplashScreen from './SplashScreen';
+import Breadcrumbs from './Breadcrumbs';
 import { Spinner } from './Spinner';
 
 import AlertsComponent from '../alerts/AlertsComponent';
 import alertsReducer from '../alerts/reducer';
 
 import helpButtonReducer from '../helpButton/reducer';
+import sidebarReducer from '../sidebar/reducer';
 
 import ReduxService from '../services/ReduxService';
 import ConfigService from '../config/ConfigService';
@@ -94,6 +95,7 @@ it is accessible by the sidebar toggler button.
 		this.ReduxService.addReducer("alerts", alertsReducer);
 		this.ReduxService.addReducer("advmode", AdvancedModeReducer);
 		this.ReduxService.addReducer("helpButton", helpButtonReducer);
+		this.ReduxService.addReducer("sidebar", sidebarReducer);
 
 		this.DefaultPath = props.defaultpath;
 
@@ -501,13 +503,11 @@ it is accessible by the sidebar toggler button.
 					}
 					<Header app={this} />
 					<div className="app-body">
-						{(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') ?
-							<Sidebar app={this} navigation={this.Navigation} display="lg" /> :
-							<Sidebar app={this} navigation={this.Navigation} display="xs" />}
-						<main className="main">
-							{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ?
-								<AppBreadcrumb appRoutes={this.Router.Routes} router={router} />
-								: null}
+						{
+							(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') &&
+								<Sidebar app={this} navigation={this.Navigation} display="lg" /> 
+						}
+						<Main hasSidebar={this.props.hasSidebar}>
 							<Suspense
 								fallback={<div style={{ marginTop: "1rem" }}><Spinner /></div>}
 							>
@@ -520,7 +520,12 @@ it is accessible by the sidebar toggler button.
 												exact={route.exact}
 												name={route.name}
 												render={props => (
-													<route.component app={this} {...props} {...route.props} />
+													<>
+														{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ?
+															<Breadcrumbs routes={this.Router.Routes} match={props.match} />
+														: null}
+														<route.component app={this} {...props} {...route.props} />
+													</>
 												)}
 											/>
 										) : (null);
@@ -528,7 +533,7 @@ it is accessible by the sidebar toggler button.
 									{this.DefaultPath != undefined ? <Redirect from="/" to={this.DefaultPath} /> : null}
 								</Switch>
 							</Suspense>
-						</main>
+						</Main>
 					</div>
 					<Footer app={this} />
 				</div>

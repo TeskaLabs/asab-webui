@@ -1,13 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { AppFooter } from '@coreui/react';
 
 export function Footer(props) {
 
 	let FooterService = props.app.locateService("FooterService");
 
+	const withSidebar = props.app.props.hasSidebar && props.isSidebarOpen ? "-with-sidebar" : "",
+		isMinimized = props.isSidebarOpen && props.isSidebarMinimized ? "-minimized" : "";
+
 	return (
-		<AppFooter>
+		<footer className={`application-footer${withSidebar}${isMinimized}`}>
 			{FooterService.Items.map((item, idx) => (
 				<item.component key={idx} {...item.componentProps} app={props.app}/>
 			))}
@@ -36,14 +38,16 @@ export function Footer(props) {
 				</a>
 			</span>
 
-		</AppFooter>
+		</footer>
 	);
 
 }
 
 function mapStateToProps(state) {
 	return {
-		footer_image: state.config.footer_image
+		footer_image: state.config.footer_image,
+		isSidebarMinimized: state.sidebar.isSidebarMinimized,
+		isSidebarOpen: state.sidebar.isSidebarOpen
 	};
 }
 

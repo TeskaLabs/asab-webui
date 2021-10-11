@@ -1,3 +1,52 @@
+html {
+	font-family: sans-serif;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	body {
+		margin: 0;
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+		font-size: 0.875rem;
+		font-weight: 400;
+		line-height: 1.5;
+		color: #23282c;
+		text-align: left;
+		background-color: #e4e5e6;
+	}
+}
+
+.app {
+	display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.app-body {
+	margin-top: 55px;
+	display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    overflow-x: hidden;
+}
+
+.main, .main-with-sidebar, .main-with-sidebar-minimized {
+	transition: margin-left 0.25s ease-out;
+	flex: 1;
+	min-width: 0;
+}
+
+.main-with-sidebar {
+	margin-left: 200px;
+}
+
+.main-with-sidebar-minimized {
+	margin-left: 50px;
+}
+
 .networking-indicator {
 	position: absolute;
 	z-index: 1400;
@@ -27,47 +76,177 @@ main > .container-fluid, main > .container {
 	margin: 0 !important;
 }
 
-// Sidebar rules
-@media screen and (min-width: 991px) {
-	.sidebar {
-		.sidebar-nav {
-			overflow: hidden !important;
+// Progress Bar
+
+.fade {
+    transition: opacity 0.15s linear;
+}
+
+.fade:not(.show) {
+    opacity: 0;
+}
+
+.progress-bar-animated {
+    animation: 1s linear infinite progress-bar-stripes;
+}
+
+.progress-bar-striped {
+    background-image: linear-gradient(
+		45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%,
+		rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent
+	);
+    background-size: 1rem 1rem;
+}
+
+.progress-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #20a8d8;
+    transition: width 0.6s ease;
+}
+
+// Header
+.application-header {
+	position: fixed;
+	z-index: 1020;
+	width: 100%;
+	display: flex;
+	flex: 0 0 55px;
+	flex-direction: row;
+	height: 55px;
+	padding: 0;
+	margin: 0;
+	background-color: #fff;
+	border-bottom: 1px solid #c8ced4;
+
+	.header-brand-image-full, .header-brand-image-minimized {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		height: 55px;
+		padding: 0;
+		margin: 0;
+	}
+
+	.header-brand-image-full {
+		width: 155px;
+		.full-image {
+			display: block;
+		}
+		.minimized-image {
+			display: none;
+		}
+	}
+
+	.header-brand-image-minimized {
+		width: 55px;
+		.full-image {
+			display: none;
+		}
+		.minimized-image {
+			display: block;
+		}
+	}
+
+	.navbar-nav {
+		flex-direction: row;
+		align-items: center;
+	}
+
+	.header-sidebar-toggler {
+		display: inline-flex;
+		align-items: center;
+		font-size: 1.5rem;
+		cursor: pointer;
+	}
+}
+
+
+@media screen and (max-width: 991.99px) {
+	.application-header {
+		text-align: center;
+		.header-brand-image-full, .header-brand-image-minimized {
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin-left: -77.5px;
+			.full-image {
+				display: block;
+			}
+			.minimized-image {
+				display: none;
+			}
+		}
+	}
+
+	.header-sidebar-toggler {
+		padding: 0 1rem;
+	}
+}
+
+// Sidebar
+
+.app-sidebar-minimized, .app-sidebar-minimized-closed {
+	width: 50px;
+	.sidebar-item-text, .sidebar-chevron, .sidebar-chevron-open {
+		display: none !important;
+	}
+	.nav-link {
+		margin: auto !important;
+		padding-left: 1rem !important; 
+		.sidebar-item-icon {
+			font-size: 1rem;
+		}
+	}
+
+	.sidebar-bottom {
+		.sidebar-minimize-button {
+			i {
+				transform: rotate(-180deg);
+				transition: transform .1s ease-in-out;
+			}
 		}
 	}
 }
 
-@media screen and (max-width: 990px) {
-	.sidebar {
-		.sidebar-nav {
-			overflow: auto !important;
-		}
-	}
+.app-sidebar-minimized-closed {
+	margin-left: -50px;
 }
 
-.sidebar-minimized {
-	.sidebar {
-		transition: width .2s ease-in-out;
-		.sidebar-item-text, .sidebar-chevron, .sidebar-chevron-open {
-			display: none !important;
-		}
-		.nav-link {
-			margin: auto !important;
-			padding-left: 1rem !important; 
-			font-size: large;
-		}
-	}
+.app-sidebar {
+	margin-left: 0;
+	width: 200px;
 }
 
-.sidebar {
+.app-sidebar-closed {
+	margin-left: -200px;
+	width: 200px;
+}
+
+.app-sidebar, .app-sidebar-closed, .app-sidebar-minimized, .app-sidebar-minimized-closed {
+	transition: margin-left 0.25s ease-out, width .2s ease-out;
+	height: calc(100vh - 55px);
+	position: fixed;
+	z-index: 1019;
+	display: flex;
+	padding: 0;
+	color: #fff;
+	background-color: #2f353a;
+	flex: 0 0 200px;
+	order: -1;
 	.sidebar-dropdown-open {
 		background-color: rgba(0,0,0,.2);
 	}
 	.sidebar-dropdown {
 		.sidebar-chevron, .sidebar-chevron-open {
 			font-size: 0.5rem;
-			display: inline-block;
-			margin: 0.2rem 0 0 0;
-			
+			margin: 0.3rem;
+			float: right;
 			.sidebar-item-icon {
 				margin: 0;
 				font-weight: 700;
@@ -80,61 +259,129 @@ main > .container-fluid, main > .container {
 			}
 		}
 	}
-	.nav {
-		flex-wrap: nowrap;
-		overflow-y: auto;
-		transition: width .25s ease-in-out;
-		.nav-item {
-			position: relative;
-			margin: 0;
-			overflow-x: hidden;
-			min-height: 3rem;
-			.nav-link {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				flex-wrap: nowrap;
-				overflow-x: hidden;
-				.inner-link-container {
-					display: flex;
-					justify-content: space-between;
-					align-items: center;
-					flex-wrap: nowrap;
-					overflow-x: hidden;
-				}
-				.sidebar-item-icon {
-					display: inline-block;
-					width: 1rem;
-					margin: 0 0.5rem 0 0;
-					color: #73818f;
-					text-align: center;
-				}
-			}
-
-			.nav-link:hover {
-				cursor: pointer;
-				color: #fff;
-				background: #20a8d8;
-				.sidebar-item-icon {
+	.sidebar-nav {
+		position: relative;
+		flex: 1;
+		width: 200px;
+		overflow: hidden;
+		touch-action: auto;
+		overflow-anchor: none;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		.nav {
+			width: 200px;
+			display: flex;
+			flex-direction: column;
+			flex-wrap: nowrap;
+			padding: 0;
+			margin: 0 auto;
+			overflow-y: auto;
+			transition: width .25s ease-in-out;
+			.nav-item {
+				position: relative;
+				margin: 0;
+				.nav-link {
+					padding: 0.75rem 1rem;
 					color: #fff;
+					.inner-link-container {
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+						flex-wrap: nowrap;
+						overflow-x: hidden;
+					}
+					.sidebar-item-icon {
+						display: inline-block;
+						width: 1rem;
+						margin: 0 0.5rem 0 0;
+						color: #73818f;
+						text-align: center;
+					}
 				}
-			}
 
-			.active {
-				color: #fff;
-				background-color: #3a4248;
-				.sidebar-item-icon {
-					color: #20a8d8;
+				.nav-link:hover {
+					cursor: pointer;
+					color: #fff;
+					background: #20a8d8;
+					.sidebar-item-icon {
+						color: #fff;
+					}
 				}
-				.sidebar-item-icon {
-					color: #20a8d8;
-				}
-			}
 
-			.nav-children {
-				transition: width 0s;
-				overflow: hidden;
+				.active {
+					color: #fff;
+					background-color: #3a4248;
+					.sidebar-item-icon {
+						color: #20a8d8;
+					}
+					.sidebar-item-icon {
+						color: #20a8d8;
+					}
+				}
+
+				.nav-children {
+					transition: width 0s;
+					overflow: hidden;
+				}
 			}
 		}
 	}
+	.sidebar-bottom {
+		.sidebar-minimize-button {
+			background-color: rgba(0, 0, 0, 0.3);
+			cursor: pointer;
+			width: 100%;
+			height: 50px;
+			font-size: 1.5rem;
+			color: #464b50;
+			i { 
+				position: relative;
+				top: 25%;
+				float: right;
+				margin-right: 1rem;
+			}
+		}
+		.sidebar-minimize-button:hover {
+			background-color: rgba(0, 0, 0, 0.4);
+		}
+	}
 }
+
+// Footer
+.application-footer, .application-footer-with-sidebar,
+.application-footer-with-sidebar-minimized {
+	display: flex;
+	flex: 0 0 50px;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0 1rem;
+    color: #23282c;
+    background: #f0f3f5;
+    border-top: 1px solid #c8ced3;
+	transition: margin-left 0.25s ease-out;
+}
+
+.application-footer-with-sidebar {
+	margin-left: 200px;
+}
+
+.application-footer-with-sidebar-minimized {
+	margin-left: 50px;
+}
+
+// Breadcrumbs
+.breadcrumbs {
+	display: block;
+	background-color: #fff;
+}
+
+// Import styles
+@import "~@coreui/coreui/scss/coreui.scss";
+// Temp fix for reactstrap
+@import '~@coreui/coreui/scss/_dropdown-menu-right.scss';
+// Import default bootstrap styles
+@import '~bootstrap/dist/css/bootstrap.min.css';
+// CoreUI Icons Set
+@import '~@coreui/icons/css/all.css';

@@ -25,10 +25,8 @@ const SidebarItem = ({ item, unauthorizedNavChildren }) => {
 					if (item.children) setOpen(prev => !prev);
 				}}
 			>
-				<div className="inner-link-container">
-					<Icon icon={item.icon} />
-					<span className="sidebar-item-text">{t(`Sidebar|${item.name}`)}</span>
-				</div>
+				<Icon icon={item.icon} />
+				<span className="sidebar-item-text">{t(`Sidebar|${item.name}`)}</span>
 				{item.children &&
 					<span className={`sidebar-chevron${isOpen ? "-open" : ""}`}>
 						<Icon icon="cil-chevron-left" />
@@ -42,9 +40,9 @@ const SidebarItem = ({ item, unauthorizedNavChildren }) => {
 						<Nav className="nav-children">
 							{item.children.map((child, idx) => (
 								unauthorizedNavChildren == undefined || unauthorizedNavChildren.length == 0 ?
-									<NavChildren key={idx} child={child} location={location} history={history}/>
+									<SidebarItem key={idx} item={child} />
 								:
-									unauthorizedNavChildren.indexOf(child.name) == -1 && <NavChildren key={idx} child={child} location={location} history={history}/>
+									unauthorizedNavChildren.indexOf(child.name) == -1 && <SidebarItem key={idx} item={child} />
 							))}
 						</Nav>
 					</Collapse>
@@ -55,20 +53,3 @@ const SidebarItem = ({ item, unauthorizedNavChildren }) => {
 }
 
 export default SidebarItem;
-
-const NavChildren = ({ child, location, history }) => {
-	const { t } = useTranslation();
-	return (
-		<NavLink
-			className={`${location.pathname === child.url ? "active" : ""}`}
-			onClick={() => {
-				if (child.url && location.pathname !== child.url) history.push(child.url);
-			}}
-		>
-			<div className="inner-link-container">
-				<Icon icon={child.icon} />
-				<span className="sidebar-item-text">{t(`Sidebar|${child.name}`)}</span>
-			</div>
-		</NavLink>
-	)
-}
