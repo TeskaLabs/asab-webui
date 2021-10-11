@@ -5,7 +5,7 @@ export function Footer(props) {
 
 	let FooterService = props.app.locateService("FooterService");
 
-	const withSidebar = props.app.props.hasSidebar && props.isSidebarOpen ? "-with-sidebar" : "",
+	const withSidebar = props.app.props.hasSidebar !== false && props.isSidebarOpen ? "-with-sidebar" : "",
 		isMinimized = props.isSidebarOpen && props.isSidebarMinimized ? "-minimized" : "";
 
 	return (
