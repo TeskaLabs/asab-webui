@@ -8,7 +8,7 @@ import {
 
 import Icon from './SidebarIcon';
 
-const SidebarItem = ({ item, unauthorizedNavChildren }) => {
+const SidebarItem = ({ item, unauthorizedNavChildren, floatRight = false }) => {
 	const [isOpen, setOpen] = useState(false);
 
 	const location = useLocation();
@@ -25,8 +25,9 @@ const SidebarItem = ({ item, unauthorizedNavChildren }) => {
 					if (item.children) setOpen(prev => !prev);
 				}}
 			>
-				<Icon icon={item.icon} />
+				{!floatRight && <Icon icon={item.icon} />}
 				<span className="sidebar-item-text">{t(`Sidebar|${item.name}`)}</span>
+				{floatRight && <Icon icon={item.icon}/>}
 				{item.children &&
 					<span className={`sidebar-chevron${isOpen ? "-open" : ""}`}>
 						<Icon icon="cil-chevron-left" />

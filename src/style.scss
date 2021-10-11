@@ -228,6 +228,23 @@ main > .container-fluid, main > .container {
 	width: 200px;
 }
 
+.app-sidebar, .app-sidebar-closed {
+	.sidebar-nav {
+		.sidebar-bottom {
+			.nav {
+				.nav-item {
+					.nav-link {
+						text-align: right;
+						.sidebar-item-icon {
+							margin: 0 0 0 0.5rem;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 .app-sidebar, .app-sidebar-closed, .app-sidebar-minimized, .app-sidebar-minimized-closed {
 	transition: margin-left 0.25s ease-out, width .2s ease-out;
 	height: calc(100vh - 55px);
@@ -329,6 +346,38 @@ main > .container-fluid, main > .container {
 		}
 	}
 	.sidebar-bottom {
+		.nav {
+			background-color: rgba(0, 0, 0, 0.3);
+			border-bottom: 1px solid #464b50;
+			.nav-item {
+				.active {
+					background-color: #20a8d8;
+					span, .sidebar-item-icon {
+						color: #fff !important;
+					}
+				}
+				.nav-link {
+					transition: text-align 0.25s ease-out;
+					color: #464b50;
+					.sidebar-item-icon {
+						color: #464b50;
+					}
+				}
+			}
+		}
+		.nav:hover {
+			background-color: rgba(0, 0, 0, 0.4);
+			.nav-item {
+				.nav-link {
+					background-color: transparent;
+					color: #464b50;
+					.sidebar-item-icon {
+						color: #464b50;
+					}
+				}
+			}
+		}
+
 		.sidebar-minimize-button {
 			background-color: rgba(0, 0, 0, 0.3);
 			cursor: pointer;
