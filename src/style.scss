@@ -228,23 +228,6 @@ main > .container-fluid, main > .container {
 	width: 200px;
 }
 
-.app-sidebar, .app-sidebar-closed {
-	.sidebar-nav {
-		.sidebar-bottom {
-			.nav {
-				.nav-item {
-					.nav-link {
-						text-align: right;
-						.sidebar-item-icon {
-							margin: 0 0 0 0.5rem;
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
 .app-sidebar, .app-sidebar-closed, .app-sidebar-minimized, .app-sidebar-minimized-closed {
 	transition: margin-left 0.25s ease-out, width .2s ease-out;
 	height: calc(100vh - 55px);
@@ -357,7 +340,6 @@ main > .container-fluid, main > .container {
 					}
 				}
 				.nav-link {
-					transition: text-align 0.25s ease-out;
 					color: #464b50;
 					.sidebar-item-icon {
 						color: #464b50;
