@@ -62,6 +62,8 @@
 
 - Add reusable `KnowledgeBase` component (INDIGO Sprint 210917, [!176](https://github.com/TeskaLabs/asab-webui/pull/176))
 
+- Move About sidebar item to bottom of the sidebar (INDIGO Sprint 211001, [!183](https://github.com/TeskaLabs/asab-webui/pull/183))
+
 - Add tenant selector in SplashScreen mode when user is not authorized by tenant (INDIGO Sprint 211001, [!182](https://github.com/TeskaLabs/asab-webui/pull/182))
 
 ### Refactoring

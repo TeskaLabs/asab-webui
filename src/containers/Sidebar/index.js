@@ -7,9 +7,10 @@ import SidebarItem from './SidebarItem';
 import { CHANGE_SIDEBAR_SIZE } from '../../actions';
 
 const Sidebar = (props) => {
-	const navConfig = props.navigation.getItems().items,
+	const navConfig = props.navigation.getItems().items.filter(item => item.name !== "About"),
 		unauthorizedNavItems = props.unauthorizedNavItem,
-		unauthorizedNavChildren= props.unauthorizedNavChildren;
+		unauthorizedNavChildren= props.unauthorizedNavChildren,
+		aboutItem = props.navigation.getItems().items.filter(item => item.name === "About")[0];
 
 	// Sort items based on config
 	const memoizedItemsList = useMemo(() => {
@@ -36,6 +37,7 @@ const Sidebar = (props) => {
 					))}
 				</Nav>
 				<div className="sidebar-bottom">
+					{aboutItem && <Nav vertical><SidebarItem item={aboutItem}/></Nav>}
 					<div onClick={changeSidebarSize} className="sidebar-minimize-button">
 						<i className="cil-chevron-left" />
 					</div>
