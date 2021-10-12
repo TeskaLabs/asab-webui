@@ -120,3 +120,15 @@ The resource is set to the navigation `addItem` -> `children` component.
 		]
 	});
 ```
+
+## Setting translations for the sidebar items 
+
+Sidebar automatically adds translations for sidebar items with key `Sidebar`. In order to add translation to your `translation.json` add `Sidebar` object there and keys for items which is basically items names.
+
+In example if you want to define translation for `About` item in Sidebar, add to your translation files:
+
+```
+"Sidebar": {
+	"About": "About"
+}
+```
