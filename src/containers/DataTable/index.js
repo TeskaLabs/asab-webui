@@ -195,7 +195,7 @@ export function DataTable ({
 								<Pagination 
 								currentPage={currentPage}
 								setPage={setPage}
-								lastPage={Math.floor(count/limit)+1}
+								lastPage={Math.ceil(count/limit)}
 								/>
 							</Col>
 						}

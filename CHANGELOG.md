@@ -175,3 +175,5 @@
 - Fix sidebar styles (scroll on large screens) (INDIGO Sprint 210903, [!167](https://github.com/TeskaLabs/asab-webui/pull/167))
 
 - Fix  error on awaiting the app reload in auth module (INDIGO Sprint 210903, [!175](https://github.com/TeskaLabs/asab-webui/pull/175))
+
+- Fix DataTable pagination (INDIGO Sprint 211015, [!185](https://github.com/TeskaLabs/asab-webui/pull/185))
