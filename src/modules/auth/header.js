@@ -57,7 +57,7 @@ function HeaderComponent(props) {
 				<span className="pl-2" title={props.sub}>{props.username}</span>
 			</DropdownToggle>
 			<DropdownMenu>
-				<DropdownItem header tag="div" className="text-center"><strong>{t('AuthHeaderDropdown|My account')}</strong></DropdownItem>
+				<DropdownItem header>{t('AuthHeaderDropdown|My account')}</DropdownItem>
 				<DropdownItem tag={Link} to="/auth/access-control">
 					{t('AuthHeaderDropdown|Access control')}
 				</DropdownItem>
