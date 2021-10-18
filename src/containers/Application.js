@@ -16,6 +16,7 @@ import Sidebar from './Sidebar';
 import SplashScreen from './SplashScreen';
 import Breadcrumbs from './Breadcrumbs';
 import { Spinner } from './Spinner';
+import ErrorHandler from './ErrorHandler';
 
 import AlertsComponent from '../alerts/AlertsComponent';
 import alertsReducer from '../alerts/reducer';
@@ -524,7 +525,9 @@ it is accessible by the sidebar toggler button.
 														{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ?
 															<Breadcrumbs routes={this.Router.Routes} match={props.match} />
 														: null}
-														<route.component app={this} {...props} {...route.props} />
+														<ErrorHandler>
+															<route.component app={this} {...props} {...route.props} />
+														</ErrorHandler>
 													</>
 												)}
 											/>
