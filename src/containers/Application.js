@@ -503,42 +503,44 @@ it is accessible by the sidebar toggler button.
 						: null
 					}
 					<Header app={this} />
-					<div className="app-body">
-						{
-							(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') &&
-								<Sidebar app={this} navigation={this.Navigation} display="lg" /> 
-						}
-						<Main hasSidebar={this.props.hasSidebar}>
-							<Suspense
-								fallback={<div style={{ marginTop: "1rem" }}><Spinner /></div>}
-							>
-								<Switch>
-									{this.Router.Routes.map((route, idx) => {
-										return route.component ? (
-											<Route
-												key={idx}
-												path={`${route.path}`}
-												exact={route.exact}
-												name={route.name}
-												render={props => (
-													<>
-														{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ?
-															<Breadcrumbs routes={this.Router.Routes} match={props.match} />
-														: null}
-														<ErrorHandler>
-															<route.component app={this} {...props} {...route.props} />
-														</ErrorHandler>
-													</>
-												)}
-											/>
-										) : (null);
-									})}
-									{this.DefaultPath != undefined ? <Redirect from="/" to={this.DefaultPath} /> : null}
-								</Switch>
-							</Suspense>
-						</Main>
-					</div>
-					<Footer app={this} />
+					<ErrorHandler isParentError={true}>
+						<div className="app-body">
+							{
+								(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') &&
+									<Sidebar app={this} navigation={this.Navigation} display="lg" />
+							}
+							<Main hasSidebar={this.props.hasSidebar}>
+								<Suspense
+									fallback={<div style={{ marginTop: "1rem" }}><Spinner /></div>}
+								>
+									<Switch>
+										{this.Router.Routes.map((route, idx) => {
+											return route.component ? (
+												<Route
+													key={idx}
+													path={`${route.path}`}
+													exact={route.exact}
+													name={route.name}
+													render={props => (
+														<>
+															{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ?
+																<Breadcrumbs routes={this.Router.Routes} match={props.match} />
+															: null}
+															<ErrorHandler>
+																<route.component app={this} {...props} {...route.props} />
+															</ErrorHandler>
+														</>
+													)}
+												/>
+											) : (null);
+										})}
+										{this.DefaultPath != undefined ? <Redirect from="/" to={this.DefaultPath} /> : null}
+									</Switch>
+								</Suspense>
+							</Main>
+						</div>
+						<Footer app={this} />
+					</ErrorHandler>
 				</div>
 			</Provider>
 		)
