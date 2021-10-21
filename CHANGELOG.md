@@ -66,6 +66,8 @@
 
 - Add tenant selector in SplashScreen mode when user is not authorized by tenant (INDIGO Sprint 211001, [!182](https://github.com/TeskaLabs/asab-webui/pull/182))
 
+- Add ErrorHandler (ErrorBoundaries component) (INDIGO Sprint 211015, [!186](https://github.com/TeskaLabs/asab-webui/pull/186))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))

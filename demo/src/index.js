@@ -3,9 +3,6 @@ import ReactDOM from 'react-dom';
 import { Application } from 'asab-webui';
 import { HashRouter } from 'react-router-dom';
 
-// SCSS
-import './index.scss'
-
 // Configuration
 let ConfigDefaults = {
 	title: "ASAB App",
