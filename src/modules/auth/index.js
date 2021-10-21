@@ -234,66 +234,51 @@ export default class AuthModule extends Module {
 		return valid;
 	}
 
-	async _updateUserInfo(that = this, oldUserInfo = null, fAlert = false) {
+	_notifyOnExpiredSession (that, al=false) {
+		const userInfo = that.UserInfo;
+		let alert = al;
+
+		that._updateUserInfo();
+		const difference = moment(that.UserInfo.exp).valueOf() - moment.now();
+
+		if (userInfo.exp !== that.UserInfo.exp && difference < 60000) alert = false;
+
+		if (difference <= 0) {
+			that.App.addAlert("warning", `Your session has expired.`);
+			return;
+		} else if (difference < 60000 && !alert) {
+			that.App.addAlert("warning", `Your session will expire in ${Math.floor(difference/1000)} seconds.`);
+			alert=true;
+		}
+
+		const expireIn = alert ? difference : difference - 60000;
+		setTimeout(that.notifyOnExpiredSession, expireIn, that, alert);
+	}
+
+	async updateUserInfo() {
 		let response;
 		try {
-			response = await that.Api.userinfo(that.OAuthToken.access_token);
+			response = await this.Api.userinfo(this.OAuthToken.access_token);
 		}
 		catch (err) {
 			console.log("Failed to update user info", err);
-			// If session has expired
-			if (oldUserInfo) {
-				oldUserInfo = null;
-				const alertMessage = await that.App.i18n.t("Your session has expired");
-				that.App.addAlert("warning", alertMessage, 3600*1000);
-			}
-			that.UserInfo = null;
-			if (that.App.Store != null) {
-				that.App.Store.dispatch({ type: types.AUTH_USERINFO, payload: that.UserInfo });
+			this.UserInfo = null;
+			if (this.App.Store != null) {
+				this.App.Store.dispatch({ type: types.AUTH_USERINFO, payload: this.UserInfo });
 			}
 			return false;
 		}
 
-		that.UserInfo = response.data;
-		if (that.App.Store != null) {
-			that.App.Store.dispatch({ type: types.AUTH_USERINFO, payload: that.UserInfo });
+		this.UserInfo = response.data;
+		if (this.App.Store != null) {
+			this.App.Store.dispatch({ type: types.AUTH_USERINFO, payload: this.UserInfo });
 		}
 
 		/** Check for TenantService and pass tenants list obtained from userinfo */
-		let tenants_list = that.UserInfo.tenants;
-		if (that.App.Services.TenantService) {
-			that.App.Services.TenantService.set_tenants(tenants_list);
+		let tenants_list = this.UserInfo.tenants;
+		if (this.App.Services.TenantService) {
+			this.App.Services.TenantService.set_tenants(tenants_list);
 		}
-
-		/** Notifying user about session expiration section */
-		let exp = new Date(that.UserInfo.exp).getTime(); // Expiration timestamp
-		const difference = exp - Date.now(); // Difference between current time and expiration date in milliseconds
-
-		/**
-		 * If userinfo expiration date has been changed then first alert flag
-		 * is set to false and first message about expiration will be shown
-		 */
-		if (oldUserInfo?.exp !== that.UserInfo.exp && difference < 60000) fAlert = false;
-
-		/**
-		 * If expiration date is coming (less than 60 seconds) and first message wasn't shown
-		 * then first message will be shown until expiration date will come
-		 */
-		if (difference < 60000 && exp > Date.now() && !fAlert) {
-			const expire = exp > Date.now() ? difference/1000 : 5;
-			const alertMessage = await that.App.i18n.t("Your session will expire soon");
-			that.App.addAlert("warning", alertMessage, expire);
-			fAlert = true;
-		}
-
-		/**
-		 * 1) If first alert wasn't shown then timeout will be set on a minute before expiration date
-		 * 2) If first alert was shown but expiration date hasn't come yet, then timeout will be set on expiration date
-		 * 3) If expiration date has come then timeout will be set on 30 seconds to check if user's session has been
-		 *    deleted on server side
-		 */
-		const timeout = fAlert ? difference > 0 ? difference : 30000 : difference - 60000;
-		setTimeout(that._updateUserInfo, timeout, that, that.UserInfo, fAlert);
 
 		return true;
 	}
