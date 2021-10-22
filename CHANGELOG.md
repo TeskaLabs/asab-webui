@@ -180,4 +180,4 @@
 
 - Fix DataTable pagination (INDIGO Sprint 211015, [!185](https://github.com/TeskaLabs/asab-webui/pull/185))
 
-- Remove comments and info about coreui (INDIGO Sprint 211015, [!188](https://github.com/TeskaLabs/asab-webui/pull/188))
+- Remove comments about coreui, edit readme (INDIGO Sprint 211015, [!188](https://github.com/TeskaLabs/asab-webui/pull/188))
