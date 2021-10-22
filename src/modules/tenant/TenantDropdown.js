@@ -3,21 +3,10 @@ import { connect } from 'react-redux';
 
 import {
 	UncontrolledDropdown,
-	Dropdown,
 	DropdownItem,
 	DropdownMenu, 
 	DropdownToggle,
-	Nav, NavItem, NavLink
 } from 'reactstrap';
-
-import {
-	AppAsideToggler,
-	AppHeaderDropdown,
-	AppNavbarBrand,
-	AppSidebarToggler
-} from '@coreui/react';
-
-import {types} from './actions';
 
 class TenantDropdown extends Component {
 
