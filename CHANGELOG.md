@@ -179,3 +179,5 @@
 - Fix  error on awaiting the app reload in auth module (INDIGO Sprint 210903, [!175](https://github.com/TeskaLabs/asab-webui/pull/175))
 
 - Fix DataTable pagination (INDIGO Sprint 211015, [!185](https://github.com/TeskaLabs/asab-webui/pull/185))
+
+- Remove comments and info about coreui (INDIGO Sprint 211015, [!188](https://github.com/TeskaLabs/asab-webui/pull/188))
