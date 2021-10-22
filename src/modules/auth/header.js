@@ -45,8 +45,6 @@ function HeaderComponent(props) {
 		props.AuthModule.logout()
 	}
 
-	// See https://github.com/coreui/coreui-free-react-admin-template/blob/b9626a8ae66834006ee86b758cdc81f74fb20531/src/containers/DefaultLayout/DefaultHeader.js#L52
-
 	return (
 		<UncontrolledDropdown direction="down" className="pr-3">
 			<DropdownToggle nav title={props.sub} caret>
