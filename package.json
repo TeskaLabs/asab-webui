@@ -39,7 +39,6 @@
 	},
 	"dependencies": {
 		"@coreui/coreui": "3.0.0",
-		"@coreui/react": "^2.5.7",
 		"axios": "^0.21.1",
 		"file-saver": "^2.0.5",
 		"moment": "^2.24.0",
