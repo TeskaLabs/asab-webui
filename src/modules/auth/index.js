@@ -58,7 +58,7 @@ export default class AuthModule extends Module {
 			// Do we have an oauth token (we are authorized to use the app)
 			if (this.OAuthToken != null) {
 				// Update the user info
-				let result = await this._updateUserInfo();
+				let result = await this.updateUserInfo();
 				if (!result) {
 					// User info not found - go to login
 					sessionStorage.removeItem('SeaCatOAuth2Token');
@@ -100,6 +100,7 @@ export default class AuthModule extends Module {
 				return;
 			}
 		}
+		this._notifyOnExpiredSession(this);
 		this.App.removeSplashScreenRequestor(this);
 	}
 
