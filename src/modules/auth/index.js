@@ -242,7 +242,7 @@ export default class AuthModule extends Module {
 		if (!isUserInfoIpdated && oldUserInfo) {
 			oldUserInfo = null;
 			const alertMessage = await that.App.i18n.t("Your session has expired");
-			that.App.addAlert("warning", alertMessage, 3600*1000);
+			that.App.addAlert("danger", alertMessage, 3600*1000);
 		}
 		else {
 			let exp = new Date(that.UserInfo.exp).getTime(); // Expiration timestamp
