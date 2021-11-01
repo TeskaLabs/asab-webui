@@ -91,6 +91,7 @@ export default class AuthModule extends Module {
 					await this.validateNavigation();
 				}
 
+				this._notifyOnExpiredSession(this);
 			}
 
 			if ((this.UserInfo == null) && (this.MustAuthenticate)) {
@@ -100,7 +101,6 @@ export default class AuthModule extends Module {
 				return;
 			}
 		}
-		this._notifyOnExpiredSession(this);
 		this.App.removeSplashScreenRequestor(this);
 	}
 
