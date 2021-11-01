@@ -150,6 +150,8 @@
 
 - Change color of second alert message about expired session (INDIGO Sprint 211029, [!190](https://github.com/TeskaLabs/asab-webui/pull/190))
 
+- Refactor ErrorHandler (remove react-ace from the component) and add time when error occurred (INDIGO Sprint 211029, [!192](https://github.com/TeskaLabs/asab-webui/pull/192))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
