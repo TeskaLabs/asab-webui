@@ -1,9 +1,9 @@
 import Service from '../../abc/Service';
-import {types} from './actions';
+import { types } from './actions';
 
 export default class TenantService extends Service {
 
-	constructor(app, name="TenantService") {
+	constructor(app, name = "TenantService") {
 		super(app, name);
 	}
 
@@ -14,7 +14,7 @@ export default class TenantService extends Service {
 		var tenants = this.App.Config.get('tenants');
 		if (tenants != null) {
 			var tenants_list = [];
-			for (var i = 0; tenants[i] != undefined; i++) { 
+			for (var i = 0; tenants[i] != undefined; i++) {
 				tenants_list.push(tenants[i]);
 			}
 			this.set_tenants(tenants_list);
@@ -25,7 +25,7 @@ export default class TenantService extends Service {
 		set_tenants(tenants_list) method is used for tenants obtained from userinfo
 		It is used within auth module of ASAB WebUI to dispatch the tenants to the application store
 	*/
-	set_tenants(tenants_list) {
+	async set_tenants(tenants_list) {
 		// Extract a current tenant from URL params
 		var tenant_id = this.extract_tenant_from_url();
 
@@ -33,7 +33,7 @@ export default class TenantService extends Service {
 		if (tenant_id == null && tenants_list && tenants_list.length > 0) {
 			tenant_id = tenants_list[0];
 			// ... and refresh (reload) the whole web app
-			window.location.replace('?tenant='+tenant_id+'#/');
+			window.location.replace('?tenant=' + tenant_id + '#/');
 			return;
 		}
 
@@ -50,7 +50,8 @@ export default class TenantService extends Service {
 			if (filtered_tenant.length < 1) {
 				// Display Invalid tenant alert message only when authorization is disabled
 				if (this.App.Config.get("authorization") === "disabled") {
-					this.App.addAlert("danger", "Invalid tenant :-(", 40000);
+					const alertMessage = await this.App.i18n.t("ASABTenantService|Invalid tenant")
+					this.App.addAlert("danger", alertMessage, 40000);
 				}
 			}
 			current_tenant = filtered_tenant[0];

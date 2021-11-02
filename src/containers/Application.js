@@ -36,42 +36,42 @@ import { ADD_ALERT, SET_ADVANCED_MODE, CHANGE_HELP_URL } from '../actions';
 
 class Application extends Component {
 
-/*
-Example of use hasSidebar and hasBreadcrumb.
-It must be set in Application.
-If not set, it is considered as true.
-
-...
-
-const config = {
-	hasSidebar: false,
-	hasBreadcrumb: false
-}
-
-
-ReactDOM.render((
-	<BrowserRouter>
-		<Application modules={modules} {...config}/>
-	</BrowserRouter>
-), document.getElementById('app'));
-
-...
-
-Example of settings in Module of the Application
-Following above settings, this will show the item in
-the header and when the screen is diminished (e.g. screening
-using the mobile phone), the item is moved to the sidebar and
-it is accessible by the sidebar toggler button.
-
-...
-
-	app.Navigation.addItem({
-		name: 'Item 1',
-		url: '',
-	});
-
-...
-	*/
+	/*
+	Example of use hasSidebar and hasBreadcrumb.
+	It must be set in Application.
+	If not set, it is considered as true.
+	
+	...
+	
+	const config = {
+		hasSidebar: false,
+		hasBreadcrumb: false
+	}
+	
+	
+	ReactDOM.render((
+		<BrowserRouter>
+			<Application modules={modules} {...config}/>
+		</BrowserRouter>
+	), document.getElementById('app'));
+	
+	...
+	
+	Example of settings in Module of the Application
+	Following above settings, this will show the item in
+	the header and when the screen is diminished (e.g. screening
+	using the mobile phone), the item is moved to the sidebar and
+	it is accessible by the sidebar toggler button.
+	
+	...
+	
+		app.Navigation.addItem({
+			name: 'Item 1',
+			url: '',
+		});
+	
+	...
+		*/
 
 	constructor(props) {
 		super(props);
@@ -149,14 +149,14 @@ it is accessible by the sidebar toggler button.
 			}
 		}
 
-		modules_init().then(async function() {
+		modules_init().then(async function () {
 			that.Store.replaceReducer(combineReducers(that.ReduxService.Reducers));
 			that.Config.dispatch(that.Store);
 
 			// Initialize all services
 			for (var i in that.Services) {
 				let ret = that.Services[i].initialize();
-				
+
 				// Transform result in the promise
 				// It unifies synchronous and asynchronous `initialize()` calls
 				let promise = Promise.resolve(ret);
@@ -240,10 +240,11 @@ it is accessible by the sidebar toggler button.
 	 *		axiosCreate must only be used for creating http sessions
 	 *		towards TeskaLabs API's, since it adds Bearer token to all calls.
 	 */
-	axiosCreate(service, props) {
+	async axiosCreate(service, props) {
 		var service_url = this.getServiceURL(service);
 		if (service_url == undefined) {
-			this.addAlert('error', "Service URL is undefined, please check service paths passed to axios.");
+			const alertMessage = await this.App.i18n.t("ASABApplicationContainer|Service URL is undefined, please check service paths passed to axios")
+			this.addAlert('error', alertMessage);
 			return undefined;
 		}
 
@@ -253,7 +254,7 @@ it is accessible by the sidebar toggler button.
 		});
 
 		// Iterate through custom interceptors
-		for (let interceptor of this.AxiosInterceptors.keys()){
+		for (let interceptor of this.AxiosInterceptors.keys()) {
 			this.interceptorRequest(axios, interceptor);
 		}
 
@@ -283,7 +284,7 @@ it is accessible by the sidebar toggler button.
 		// Add a request interceptor
 		axios.interceptors.request.use(
 			interceptor,
-			function(error) {
+			function (error) {
 				return Promise.reject(error)
 			});
 	}
@@ -324,10 +325,11 @@ it is accessible by the sidebar toggler button.
 	}
 
 
-	createWebSocket(service, subpath) {
+	async createWebSocket(service, subpath) {
 		var socket_url = this.getWebSocketURL(service, subpath);
 		if (socket_url == undefined) {
-			this.addAlert('error', "WebSocket URL is undefined, please check service and subpath passed to WebSocket.");
+			const alertMessage = await this.App.i18n.t("ASABApplicationContainer|WebSocket URL is undefined, please check service and subpath passed to WebSocket");
+			this.addAlert('error', alertMessage);
 			return undefined;
 		}
 
@@ -427,7 +429,7 @@ it is accessible by the sidebar toggler button.
 	}
 
 
-	setAdvancedMode(enabled) {
+	async setAdvancedMode(enabled) {
 
 		if (enabled === 0) {
 			let state = this.Store.getState();
@@ -440,9 +442,11 @@ it is accessible by the sidebar toggler button.
 		});
 
 		if (enabled) {
-			this.addAlert('warning', "Advanced mode enabled.", 1);
+			const alertMessage = await this.App.i18n.t("ASABApplicationContainer|Advanced mode enabled")
+			this.addAlert('warning', alertMessage, 1);
 		} else {
-			this.addAlert('success', "Advanced mode disabled", 1);
+			const alertMessage = await this.App.i18n.t("ASABApplicationContainer|Advanced mode disabled")
+			this.addAlert('success', alertMessage, 1);
 		}
 	}
 
@@ -507,7 +511,7 @@ it is accessible by the sidebar toggler button.
 						<div className="app-body">
 							{
 								(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') &&
-									<Sidebar app={this} navigation={this.Navigation} display="lg" />
+								<Sidebar app={this} navigation={this.Navigation} display="lg" />
 							}
 							<Main hasSidebar={this.props.hasSidebar}>
 								<Suspense
@@ -525,7 +529,7 @@ it is accessible by the sidebar toggler button.
 														<>
 															{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ?
 																<Breadcrumbs routes={this.Router.Routes} match={props.match} />
-															: null}
+																: null}
 															<ErrorHandler>
 																<route.component app={this} {...props} {...route.props} />
 															</ErrorHandler>

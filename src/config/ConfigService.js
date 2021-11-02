@@ -3,6 +3,8 @@ import Axios from 'axios';
 import ConfigReducer from './ConfigReducer';
 import { CHANGE_CONFIG, SET_DEV_CONFIG } from '../actions';
 
+
+
 /*
 Example of use:
 
@@ -30,7 +32,7 @@ Example of `config.json` content:
 export default class ConfigService extends Service {
 
 
-	constructor(app, serviceName="ConfigService") {
+	constructor(app, serviceName = "ConfigService") {
 		super(app, serviceName);
 		app.ReduxService.addReducer("config", ConfigReducer);
 
@@ -47,8 +49,8 @@ export default class ConfigService extends Service {
 		// Check on undefined configuration
 		if (dynamic_config_url !== undefined) {
 			this.App.addSplashScreenRequestor(this);
-			let axios = Axios.create({baseURL: window.location.protocol + '//' + window.location.host});
-			axios.get(dynamic_config_url).then(response => {
+			let axios = Axios.create({ baseURL: window.location.protocol + '//' + window.location.host });
+			axios.get(dynamic_config_url).then(async response => {
 				// Check on status and content-type
 				if ((response.status === 200) && (response.headers["content-type"] !== undefined && response.headers["content-type"].includes("application/json"))) {
 					this.Config._dynamic_config = response.data;
@@ -56,14 +58,17 @@ export default class ConfigService extends Service {
 						this.Config.dispatch(this.App.Store);
 					}
 				} else {
-					this.App.addAlert("danger", "Incorrect/invalid config file downloaded.");
+					console.log(this)
+					const alertMessage = await this.App.i18n.t("ASABConfigService|Incorrect/invalid config file downloaded")
+					this.App.addAlert("danger", alertMessage);
 				}
 			})
-			.catch(error => {
-				console.log(error);
-				this.App.addAlert("danger", "Error when downloading a config file. The path might be corrupted.");
-			})
-			.then(() => this.App.removeSplashScreenRequestor(this));
+				.catch(async error => {
+					console.log(error);
+					const alertMessage = await this.App.i18n.t("ASABConfigService|Error when downloading a config file. The path might be corrupted")
+					this.App.addAlert("danger", alertMessage);
+				})
+				.then(() => this.App.removeSplashScreenRequestor(this));
 		}
 	}
 
@@ -84,7 +89,7 @@ export default class ConfigService extends Service {
 			}
 		}
 
-		
+
 		this.Config.dispatch(this.App.Store);
 	}
 
@@ -92,7 +97,7 @@ export default class ConfigService extends Service {
 
 
 class Config {
-	
+
 	constructor(app) {
 		this._dynamic_config = {};
 		this._defaults = {};
