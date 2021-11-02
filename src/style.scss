@@ -205,7 +205,13 @@ main > .container-fluid, main > .container {
 	}
 
 	.sidebar-bottom {
+		flex-wrap: wrap;
+		.nav {
+			width: 100%;
+			border-bottom: 1px solid #464b50;
+		}
 		.sidebar-minimize-button {
+			width: 100%
 			i {
 				transform: rotate(-180deg);
 				transition: transform .1s ease-in-out;
@@ -329,9 +335,13 @@ main > .container-fluid, main > .container {
 		}
 	}
 	.sidebar-bottom {
+		display: flex;
+		align-items: stretch;
+		height: 50px;
 		.nav {
+			width: 75%;
 			background-color: rgba(0, 0, 0, 0.3);
-			border-bottom: 1px solid #464b50;
+			border-right: 1px solid #464b50;
 			.nav-item {
 				.active {
 					background-color: #20a8d8;
@@ -363,7 +373,7 @@ main > .container-fluid, main > .container {
 		.sidebar-minimize-button {
 			background-color: rgba(0, 0, 0, 0.3);
 			cursor: pointer;
-			width: 100%;
+			width: 25%;
 			height: 50px;
 			font-size: 1.5rem;
 			color: #464b50;
