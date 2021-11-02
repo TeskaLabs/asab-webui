@@ -524,7 +524,7 @@ class Application extends Component {
 													name={route.name}
 													render={props => (
 														<>
-															{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ?
+															{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') && !route.disableBreadcrumbs ?
 																<Breadcrumbs routes={this.Router.Routes} match={props.match} />
 																: null}
 															<ErrorHandler>
