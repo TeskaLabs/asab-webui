@@ -37,8 +37,10 @@ export default (props) => {
 	useEffect(() => {
 		ASABConfigAPI.get('/microservices', { params: { p: page }})
 			.then(res => {
-				setList(res.data.data || []);
-				setCount(res.data.count || 0);
+				if (!res.data) throw new Error("response.data is undefined or null");
+				if (!res.data.data) throw new Error("response.data.data is undefined or null");
+				setList(res.data.data);
+				setCount(res.data.count);
 			})
 			.catch(e => {
 				console.error(e);
