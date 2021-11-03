@@ -23,7 +23,7 @@ export default class ToolsDashboard extends Component {
 		let config = undefined;
 		if (this.Config === undefined) {
 			config = config;
-			const alertMessage = await this.App.i18n.t("ASABToolsDashboard|Unable to load the data from site")
+			const alertMessage = await this.App.i18n.t("ASABToolsModule|Unable to load the data from site")
 			this.App.addAlert("warning", alertMessage);
 		} else {
 			config = this.Config.get("tools");
