@@ -205,12 +205,15 @@ main > .container-fluid, main > .container {
 	}
 
 	.sidebar-bottom {
-		flex-wrap: wrap;
+		display: block;
+		height: 100px;
 		.nav {
+			height: 50px;
 			width: 100%;
 			border-bottom: 1px solid #464b50;
 		}
 		.sidebar-minimize-button {
+			height: 50px;
 			width: 100%
 			i {
 				transform: rotate(-180deg);
@@ -227,6 +230,21 @@ main > .container-fluid, main > .container {
 .app-sidebar {
 	margin-left: 0;
 	width: 200px;
+	.sidebar-bottom {
+		height: 50px;
+		ul.nav {
+			display: inline-block;
+			width: 75%;
+			height: 50px;
+			border-right: 1px solid #464b50;
+		}
+
+		.sidebar-minimize-button {
+			display: inline-block;
+			width: 25%;
+			height: 50px;
+		}
+	}
 }
 
 .app-sidebar-closed {
@@ -335,14 +353,11 @@ main > .container-fluid, main > .container {
 		}
 	}
 	.sidebar-bottom {
-		display: flex;
-		align-items: stretch;
-		height: 50px;
 		.nav {
-			width: 75%;
 			background-color: rgba(0, 0, 0, 0.3);
-			border-right: 1px solid #464b50;
+			overflow: hidden;
 			.nav-item {
+				overflow: hidden;
 				.active {
 					background-color: #20a8d8;
 					span, .sidebar-item-icon {
@@ -350,7 +365,9 @@ main > .container-fluid, main > .container {
 					}
 				}
 				.nav-link {
+					overflow: hidden;
 					color: #464b50;
+					height: 50px;
 					.sidebar-item-icon {
 						color: #464b50;
 					}
@@ -358,10 +375,15 @@ main > .container-fluid, main > .container {
 			}
 		}
 		.nav:hover {
-			background-color: rgba(0, 0, 0, 0.4);
 			.nav-item {
+				.active {
+					background-color: #24b3e7;
+					span, .sidebar-item-icon {
+						color: #464b50 !important;
+					}
+				}
 				.nav-link {
-					background-color: transparent;
+					background-color: rgba(0, 0, 0, 0.4);
 					color: #464b50;
 					.sidebar-item-icon {
 						color: #464b50;
@@ -373,8 +395,6 @@ main > .container-fluid, main > .container {
 		.sidebar-minimize-button {
 			background-color: rgba(0, 0, 0, 0.3);
 			cursor: pointer;
-			width: 25%;
-			height: 50px;
 			font-size: 1.5rem;
 			color: #464b50;
 			i { 
