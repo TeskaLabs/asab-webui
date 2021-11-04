@@ -19,7 +19,6 @@ export default function ToolsDashboard(props) {
 
 
 	let config = undefined;
-	console.log(config)
 	if (Config === undefined) {
 		config = config;
 		App.addAlert("warning", t("ASABToolsModule|Unable to load the data from site"));
