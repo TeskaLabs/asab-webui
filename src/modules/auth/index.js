@@ -29,7 +29,7 @@ export default class AuthModule extends Module {
 		});
 	}
 
-	initialize() {
+	async initialize() {
 		const headerService = this.App.locateService("HeaderService");
 		headerService.addComponent(HeaderComponent, { AuthModule: this });
 		if (this.App.DevConfig.get('MOCK_USERINFO')) {
