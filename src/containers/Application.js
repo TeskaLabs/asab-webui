@@ -231,6 +231,11 @@ class Application extends Component {
 		return service_url.replace(/\/$/, '') + "/" + service_path;
 	}
 
+	// creates translated message 
+	async translateMessage(message) {
+		await this.App.i18n.t(message);
+		return
+	}
 
 	/*
 	 *	Creates an AXIOS object for communication with TeskaLabs API's
@@ -240,10 +245,10 @@ class Application extends Component {
 	 *		axiosCreate must only be used for creating http sessions
 	 *		towards TeskaLabs API's, since it adds Bearer token to all calls.
 	 */
-	async axiosCreate(service, props) {
+	axiosCreate(service, props) {
 		var service_url = this.getServiceURL(service);
 		if (service_url == undefined) {
-			const alertMessage = await this.App.i18n.t("ASABApplicationContainer|Service URL is undefined, please check service paths passed to axios")
+			const alertMessage = translateMessage("ASABApplicationContainer|Service URL is undefined, please check service paths passed to axios");
 			this.addAlert('error', alertMessage);
 			return undefined;
 		}
@@ -325,10 +330,10 @@ class Application extends Component {
 	}
 
 
-	async createWebSocket(service, subpath) {
+	createWebSocket(service, subpath) {
 		var socket_url = this.getWebSocketURL(service, subpath);
 		if (socket_url == undefined) {
-			const alertMessage = await this.App.i18n.t("ASABApplicationContainer|WebSocket URL is undefined, please check service and subpath passed to WebSocket");
+			const alertMessage = translateMessage("ASABApplicationContainer|WebSocket URL is undefined, please check service and subpath passed to WebSocket");
 			this.addAlert('error', alertMessage);
 			return undefined;
 		}
@@ -429,7 +434,7 @@ class Application extends Component {
 	}
 
 
-	async setAdvancedMode(enabled) {
+	setAdvancedMode(enabled) {
 
 		if (enabled === 0) {
 			let state = this.Store.getState();
@@ -442,10 +447,10 @@ class Application extends Component {
 		});
 
 		if (enabled) {
-			const alertMessage = await this.App.i18n.t("ASABApplicationContainer|Advanced mode enabled")
+			const alertMessage = translateMessage("ASABApplicationContainer|Advanced mode enabled")
 			this.addAlert('warning', alertMessage, 1);
 		} else {
-			const alertMessage = await this.App.i18n.t("ASABApplicationContainer|Advanced mode disabled")
+			const alertMessage = translateMessage("ASABApplicationContainer|Advanced mode disabled")
 			this.addAlert('success', alertMessage, 1);
 		}
 	}
