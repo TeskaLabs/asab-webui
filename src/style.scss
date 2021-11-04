@@ -368,7 +368,7 @@ main > .container-fluid, main > .container {
 				}
 				.nav-link {
 					overflow: hidden;
-					color: #464b50;
+					color: #fff;
 					height: 50px;
 					.sidebar-item-icon {
 						color: #464b50;
@@ -380,13 +380,12 @@ main > .container-fluid, main > .container {
 			.nav-item {
 				.active {
 					background-color: #24b3e7;
-					span, .sidebar-item-icon {
+					.sidebar-item-icon {
 						color: #464b50 !important;
 					}
 				}
 				.nav-link {
 					background-color: rgba(0, 0, 0, 0.4);
-					color: #464b50;
 					.sidebar-item-icon {
 						color: #464b50;
 					}
