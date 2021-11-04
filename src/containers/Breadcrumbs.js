@@ -16,6 +16,8 @@ const Breadcrumbs = ({ routes, match }) => {
 		})).
 		filter(crumb => crumb.name);
 
+	if (crumbs.length == 0) return null;
+
 	return (
 		<>
 			<div className="breadcrumbs">
