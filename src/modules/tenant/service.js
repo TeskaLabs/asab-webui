@@ -1,9 +1,9 @@
 import Service from '../../abc/Service';
-import {types} from './actions';
+import { types } from './actions';
 
 export default class TenantService extends Service {
 
-	constructor(app, name="TenantService") {
+	constructor(app, name = "TenantService") {
 		super(app, name);
 	}
 
@@ -14,7 +14,7 @@ export default class TenantService extends Service {
 		var tenants = this.App.Config.get('tenants');
 		if (tenants != null) {
 			var tenants_list = [];
-			for (var i = 0; tenants[i] != undefined; i++) { 
+			for (var i = 0; tenants[i] != undefined; i++) {
 				tenants_list.push(tenants[i]);
 			}
 			this.set_tenants(tenants_list);
@@ -33,7 +33,7 @@ export default class TenantService extends Service {
 		if (tenant_id == null && tenants_list && tenants_list.length > 0) {
 			tenant_id = tenants_list[0];
 			// ... and refresh (reload) the whole web app
-			window.location.replace('?tenant='+tenant_id+'#/');
+			window.location.replace('?tenant=' + tenant_id + '#/');
 			return;
 		}
 
