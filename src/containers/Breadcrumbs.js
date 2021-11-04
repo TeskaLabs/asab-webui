@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useRouteMatch, useLocation, Link } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 
@@ -13,25 +13,24 @@ const Breadcrumbs = ({ routes, match }) => {
 					path.replace(`:${param}`, match.params[param]), path
 				) : path,
 				...rest
-		}));
+		})).
+		filter(crumb => crumb.name);
 
 	return (
 		<>
-			{crumbs.length > 1 && 
-				<div className="breadcrumbs">
-					<Breadcrumb>
-						{crumbs.map((crumb, idx) => (
-							<BreadcrumbItem key={idx} active={idx === crumbs.length - 1}>
-								{idx !== crumbs.length - 1 ? 
-									<Link to={crumb.path}>{crumb.name}</Link>
-									: <span>{crumb.name}</span>
-								}
-							</BreadcrumbItem>
-						))
-						}
-					</Breadcrumb>
-				</div>
-			}
+			<div className="breadcrumbs">
+				<Breadcrumb>
+					{crumbs.map((crumb, idx) => (
+						<BreadcrumbItem key={idx} active={idx === crumbs.length - 1}>
+							{idx !== crumbs.length - 1 ? 
+								<Link to={crumb.path}>{crumb.name}</Link>
+								: <span>{crumb.name}</span>
+							}
+						</BreadcrumbItem>
+					))
+					}
+				</Breadcrumb>
+			</div>
 		</>
 	)
 }
