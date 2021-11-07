@@ -38,20 +38,24 @@ export default class AuthModule extends Module {
 			/* End of DEV section */
 		} else {
 			// Check the query string for 'code'
-			const qs = new URLSearchParams(window.location.search);
+			var qs = new URLSearchParams(window.location.search);
 			const authorization_code = qs.get('code');
 			if (authorization_code !== null) {
 				await this._updateToken(authorization_code);
 				// Remove 'code' from a query string
 				qs.delete('code');
 
-				// Check for empty query string and update hash url eventually
-				let hash_url = '?' + qs.toString() + window.location.hash;
-				if (qs.toString() == '') {
-					hash_url = '/' + window.location.hash;
+				// Construct the new URL without `code` in the query string
+				let reload_url;
+				if (qs.values.length == 0) {
+					// Remove `?` part from URL completely, if empty
+					reload_url = window.location.pathname + window.location.hash;
+				} else {
+					reload_url = window.location.pathname + '?' + qs.toString() + window.location.hash;
 				}
-				// And reload the app
-				window.location.replace(hash_url);
+
+				// Reload the app
+				window.location.replace(reload_url);
 				await new Promise(r => setTimeout(r, 3600*1000)); // Basically wait forever, this the app is going to be reloaded
 			}
 
