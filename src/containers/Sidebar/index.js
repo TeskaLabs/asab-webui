@@ -38,7 +38,7 @@ const Sidebar = (props) => {
 				</Nav>
 				<div className="sidebar-bottom">
 					{aboutItem && <Nav vertical><SidebarItem item={aboutItem}/></Nav>}
-					<div onClick={changeSidebarSize} className="sidebar-minimize-button">
+					<div onClick={changeSidebarSize} className={`sidebar-minimize-button${aboutItem ? "" : " w-100"}`}>
 						<i className="cil-chevron-left" />
 					</div>
 				</div>
