@@ -152,6 +152,8 @@
 
 - Refactor ErrorHandler (remove react-ace from the component) and add time when error occurred (INDIGO Sprint 211029, [!192](https://github.com/TeskaLabs/asab-webui/pull/192))
 
+- Move About sidebar nav item alongside collapse button (INDIGO Sprint 211029, [!194](https://github.com/TeskaLabs/asab-webui/pull/194))
+
 - Refactor alert messages position  (INDIGO Sprint 211029, [!200](https://github.com/TeskaLabs/asab-webui/pull/200))
 
 ### Bugfixes
