@@ -3,11 +3,13 @@ import { connect } from 'react-redux'
 import { Alert } from "reactstrap";
 
 import { ACK_ALERT, DEL_ALERT } from '../actions';
+import { useTranslation } from 'react-i18next'
 
 
 function AlertsComponent(props) {
 	const [seconds, setSeconds] = useState(0);
 	let store = props.app.Store;
+	const { t } = useTranslation();
 
 	// Expire old alerts
 	useEffect(() => {
@@ -17,16 +19,16 @@ function AlertsComponent(props) {
 
 		const intervalId = setTimeout(() => {
 			setSeconds(seconds => seconds + 1);
-			
+
 			const now = new Date();
 			for (var i in props.alerts) {
 				let alert = props.alerts[i];
 
 				if (alert.expire < now) {
 					if (alert.acked) {
-						store.dispatch({type: DEL_ALERT, key: alert.key});
+						store.dispatch({ type: DEL_ALERT, key: alert.key });
 					} else {
-						store.dispatch({type: ACK_ALERT, key: alert.key});
+						store.dispatch({ type: ACK_ALERT, key: alert.key });
 					}
 				}
 			}
@@ -38,18 +40,20 @@ function AlertsComponent(props) {
 
 	return (
 		<div className="alerts" >
-			{props.alerts.map((alert) => { return (
-				<Alert
-					key={alert.key}
-					color={alert.level}
-					className="shadow"
-					fade={true}
-					isOpen={!alert.acked}
-					toggle={() => store.dispatch({type: ACK_ALERT, key: alert.key})}
+			{props.alerts.map((alert) => {
+				return (
+					<Alert
+						key={alert.key}
+						color={alert.level}
+						className="shadow"
+						fade={true}
+						isOpen={!alert.acked}
+						toggle={() => store.dispatch({ type: ACK_ALERT, key: alert.key })}
 					>
-					{alert.message}
-				</Alert>
-			)} )}
+						{alert.shouldBeTranslated ? t(alert.message) : alert.message}
+					</Alert>
+				)
+			})}
 		</div>
 	);
 }

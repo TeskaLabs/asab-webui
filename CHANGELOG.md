@@ -68,6 +68,8 @@
 
 - Add ErrorHandler (ErrorBoundaries component) (INDIGO Sprint 211015, [!186](https://github.com/TeskaLabs/asab-webui/pull/186))
 
+- Translate alert messages within the AlertsComponent  (INDIGO Sprint 211029, [!197](https://github.com/TeskaLabs/asab-webui/pull/197))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))

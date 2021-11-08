@@ -7,7 +7,7 @@ const initialState = {
 
 export default function alertsReducer(state = initialState, action) {
 	switch (action.type) {
-		
+
 		case ADD_ALERT: {
 
 			var expire = new Date();
@@ -19,6 +19,7 @@ export default function alertsReducer(state = initialState, action) {
 				level: action.level,
 				expire: expire,
 				acked: false,
+				shouldBeTranslated: action.shouldBeTranslated
 			}
 			return {
 				...state,
