@@ -512,7 +512,6 @@ it is accessible by the sidebar toggler button.
 										navigation={this.Navigation}
 										display="lg"
 										sidebarItemsOrder={this.props.sidebarItemsOrder}
-
 									/>
 							}
 							<Main hasSidebar={this.props.hasSidebar}>
