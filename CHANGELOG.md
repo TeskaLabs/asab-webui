@@ -68,6 +68,8 @@
 
 - Add ErrorHandler (ErrorBoundaries component) (INDIGO Sprint 211015, [!186](https://github.com/TeskaLabs/asab-webui/pull/186))
 
+- Uncollapse sidebar items when in sidebar there 2 or less items + Uncollapse active sidebar item + New ordering of sidebar items (INDIGO Sprint 211029, [!201](https://github.com/TeskaLabs/asab-webui/pull/201))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
