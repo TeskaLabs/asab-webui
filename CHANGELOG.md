@@ -156,6 +156,8 @@
 
 - Move About sidebar nav item alongside collapse button (INDIGO Sprint 211029, [!194](https://github.com/TeskaLabs/asab-webui/pull/194))
 
+- Refactor alert messages position  (INDIGO Sprint 211029, [!200](https://github.com/TeskaLabs/asab-webui/pull/200))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
