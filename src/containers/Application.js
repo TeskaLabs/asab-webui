@@ -507,7 +507,13 @@ it is accessible by the sidebar toggler button.
 						<div className="app-body">
 							{
 								(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') &&
-									<Sidebar app={this} navigation={this.Navigation} display="lg" />
+									<Sidebar
+										app={this}
+										navigation={this.Navigation}
+										display="lg"
+										sidebarItemsOrder={this.props.sidebarItemsOrder}
+
+									/>
 							}
 							<Main hasSidebar={this.props.hasSidebar}>
 								<Suspense

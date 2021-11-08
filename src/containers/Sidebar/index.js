@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 
-import { Nav, Button } from 'reactstrap';
+import { Nav } from 'reactstrap';
 import SidebarItem from './SidebarItem';
 
 import { CHANGE_SIDEBAR_SIZE } from '../../actions';
@@ -14,11 +14,18 @@ const Sidebar = (props) => {
 
 	// Sort items based on config
 	const memoizedItemsList = useMemo(() => {
-		const itemsList = [...navConfig].sort((a,b) => {
-			const aOrder = isNaN(a.order) ? 9999 : a.order,
-				bOrder = isNaN(b.order) ? 9999 : b.order;
-			return aOrder > bOrder ? 1 : -1;
-		});
+		let itemsList = [...navConfig]
+		if (props.sidebarItemsOrder) {
+			const sidebarItemsOrder = props.sidebarItemsOrder.reverse();
+			itemsList.sort((a, b) => {
+				if (sidebarItemsOrder.indexOf(a.name) > sidebarItemsOrder.indexOf(b.name)) return -1;
+				else return 1;
+			});
+		}
+
+		if (unauthorizedNavItems != undefined || unauthorizedNavItems.length != 0) {
+			itemsList = itemsList.filter((item) => unauthorizedNavItems.indexOf(item.name) == -1);
+		}
 
 		return itemsList;
 	}, [navConfig])
@@ -30,10 +37,12 @@ const Sidebar = (props) => {
 			<div className="sidebar-nav">
 				<Nav  vertical>
 					{memoizedItemsList.map((item, idx) => (
-						unauthorizedNavItems == undefined || unauthorizedNavItems.length == 0 ?
-							<SidebarItem item={item} unauthorizedNavChildren={unauthorizedNavChildren} key={idx}/>
-						:
-							unauthorizedNavItems.indexOf(item.name) == -1 && <SidebarItem item={item} unauthorizedNavChildren={unauthorizedNavChildren} key={idx}/>
+						<SidebarItem
+							key={idx}
+							item={item}
+							unauthorizedNavChildren={unauthorizedNavChildren}
+							uncollapseAll={memoizedItemsList.length <= 2}
+						/>
 					))}
 				</Nav>
 				<div className="sidebar-bottom">
