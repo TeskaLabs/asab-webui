@@ -33,13 +33,13 @@ export default class TenantService extends Service {
 		if (tenant_id == null && tenants_list && tenants_list.length > 0) {
 			tenant_id = tenants_list[0];
 			// ... and refresh (reload) the whole web app
-			window.location.replace('?tenant=' + tenant_id + '#/');
+			window.location.replace(`${window.location.pathname}?tenant=${tenant_id}${window.location.hash}`);
 			return;
 		}
 
 		// In case if the tenant list from userinfo is undefined or empty remove tenant parameter from URL
 		if (!tenants_list || tenants_list.length == 0) {
-			window.location.replace('/#/');
+			window.location.replace(window.location.pathname + window.location.hash);
 			return;
 		}
 

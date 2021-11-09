@@ -37,7 +37,7 @@ import { ADD_ALERT, SET_ADVANCED_MODE, CHANGE_HELP_URL } from '../actions';
 class Application extends Component {
 
 	/*
-	Example of use hasSidebar and hasBreadcrumb.
+	Example of use hasSidebar and disableAppBreadcrumbs.
 	It must be set in Application.
 	If not set, it is considered as true.
 	
@@ -45,7 +45,7 @@ class Application extends Component {
 	
 	const config = {
 		hasSidebar: false,
-		hasBreadcrumb: false
+		disableAppBreadcrumbs: true
 	}
 	
 	
@@ -417,13 +417,13 @@ class Application extends Component {
 		* success
 	*/
 
-	addAlert(level, message, shouldBeTranslated = false, expire = 5) {
+	addAlert(level, message, expire = 5, shouldBeTranslated = false) {
 		this.Store.dispatch({
 			type: ADD_ALERT,
 			level: level,
 			message: message,
 			expire: expire,
-			shouldBeTranslated
+			shouldBeTranslated: shouldBeTranslated
 		});
 	}
 
@@ -508,7 +508,12 @@ class Application extends Component {
 						<div className="app-body">
 							{
 								(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') &&
-								<Sidebar app={this} navigation={this.Navigation} display="lg" />
+									<Sidebar
+										app={this}
+										navigation={this.Navigation}
+										display="lg"
+										sidebarItemsOrder={this.props.sidebarItemsOrder}
+									/>
 							}
 							<Main hasSidebar={this.props.hasSidebar}>
 								<Suspense
@@ -524,7 +529,7 @@ class Application extends Component {
 													name={route.name}
 													render={props => (
 														<>
-															{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ?
+															{!this.props.disableAppBreadcrumbs && !route.disableContainerBreadcrumbs ?
 																<Breadcrumbs routes={this.Router.Routes} match={props.match} />
 																: null}
 															<ErrorHandler>

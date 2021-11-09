@@ -68,7 +68,11 @@
 
 - Add ErrorHandler (ErrorBoundaries component) (INDIGO Sprint 211015, [!186](https://github.com/TeskaLabs/asab-webui/pull/186))
 
+- Uncollapse sidebar items when in sidebar there 2 or less items + Uncollapse active sidebar item + New ordering of sidebar items (INDIGO Sprint 211029, [!201](https://github.com/TeskaLabs/asab-webui/pull/201))
+
 - Translate alert messages within the AlertsComponent  (INDIGO Sprint 211029, [!197](https://github.com/TeskaLabs/asab-webui/pull/197))
+
+- Add possibility to disable breadcrumbs in specific containers (INDIGO Sprint 211029, [!193](https://github.com/TeskaLabs/asab-webui/pull/193))
 
 ### Refactoring
 
@@ -148,13 +152,17 @@
 
 - Refactor coreui components (Header, Footer, Sidebar, Breadcrumbs and Main), create our own and use them (INDIGO Sprint 211001, [!180](https://github.com/TeskaLabs/asab-webui/pull/180))
 
-- Refactor _updateUserInfo method of auth module - split it into two functions _notifyOnExpiredSession() and updateUserInfo() (INDIGO Sprint 211015, [!187](https://github.com/TeskaLabs/asab-webui/pull/187))
+- Refactor updateUserInfo method of auth module - split it into two functions notifyOnExpiredSession() and updateUserInfo() (INDIGO Sprint 211015, [!187](https://github.com/TeskaLabs/asab-webui/pull/187))
 
 - Change color of second alert message about expired session (INDIGO Sprint 211029, [!190](https://github.com/TeskaLabs/asab-webui/pull/190))
 
 - Refactor ErrorHandler (remove react-ace from the component) and add time when error occurred (INDIGO Sprint 211029, [!192](https://github.com/TeskaLabs/asab-webui/pull/192))
 
 - Move About sidebar nav item alongside collapse button (INDIGO Sprint 211029, [!194](https://github.com/TeskaLabs/asab-webui/pull/194))
+
+- Refactor alert messages position (INDIGO Sprint 211029, [!200](https://github.com/TeskaLabs/asab-webui/pull/200))
+
+- Update page reloads in tenant module with location.pathname to correct redirect on subpaths (INDIGO Sprint 211029, [!202](https://github.com/TeskaLabs/asab-webui/pull/202))
 
 ### Bugfixes
 
@@ -195,3 +203,5 @@
 - Throw error for undefined response in MicroservicesListContainer (INDIGO Sprint 211029, [!189](https://github.com/TeskaLabs/asab-webui/pull/189))
 
 - Fix mock userinfo in dev locale (INDIGO Sprint 211029, [!191](https://github.com/TeskaLabs/asab-webui/pull/191))
+
+- Fix breadcrumbs for dynamic routes or crumbs which doesn't have name (INDIGO Sprint 211029, [!196](https://github.com/TeskaLabs/asab-webui/pull/196))

@@ -17,7 +17,7 @@ function TenantSelectionCard(props) {
 
 	const selectTenant = (tn) => {
 		if (tn.value !== "99999") {
-			window.location.replace(`?tenant=${tn.value}#/`);
+			window.location.replace(`${window.location.pathname}?tenant=${tn.value}${window.location.hash}`);
 			return;
 		}
 	}
