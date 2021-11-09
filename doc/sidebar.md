@@ -2,49 +2,18 @@
 
 ## Changing order of sidebar navigation items
 
-It is possible to change order of sidebar navigation items when you add items to Navigation. Just add `order` property with number value to object which you pass into `app.Navigation.addItem()` and sidebar items will be automatically sorted from smallest to highest: 
+It is possible to change order of sidebar navigation items. Just add `sidebarItemsOrder` prop to Application component with value of Array of strings (each string represent sidebar item name) and sidebar items will be automatically sorted by this `sidebarItemsOrder` array (all items which are not listed in the array will just be added at the bottom of sidebar items list):
 
 ```
-	app.Navigation.addItem({
-		name: 'Nowhere',
-		url: '/nowhere',
-		icon: 'cil-casino',
-		order: 3
-	});
-
-	app.Navigation.addItem({
-		name: 'Wrapped',
-		icon: 'cil-chart',
-		order: 1,
-		children: [
-			{
-				name: 'Home',
-				url: '/',
-				icon: 'cil-home',
-			},
-			{
-				name: 'Table',
-				url: '/Table',
-				icon: 'cil-chart',
-			}
-		]
-	});
-
-	app.Navigation.addItem({
-		name: 'Fancy',
-		url: '/fancy',
-		icon: 'cil-copy',
-		order: 2
-	})
-
+	const sidebarItemsOrder = ["Auth", "Discover", "Tools"]
+	...
+	<Application
+		sidebarItemsOrder={sidebarItemsOrder}
+		configdefaults={ConfigDefaults}
+		modules={modules}
+		defaultpath={__CONFIG__.defaultpath ? __CONFIG__.defaultpath : "/"}
+	/>
 ```
-
-This will show items in sidebar in order:
-1) Wrapped
-2) Fancy
-3) Nowhere
-
-Note: `order` property can be either number or string which can be parsed as number (i.e. `2` or `"2"`). If `order` property is `undefined` or value is set incorrect (i.e. `"2a"`) then sidebar will count such item for `9999` and such item will take place at the bottom of the sidebar navigation items list.
 
 ## Setting resource for sidebar item
 
@@ -59,15 +28,13 @@ The resource is set to the navigation `addItem` component.
 		name: 'Nowhere',
 		url: '/nowhere',
 		icon: 'cil-casino',
-		resource: 'nowhere:access',
-		order: 3
+		resource: 'nowhere:access'
 	});
 
 	app.Navigation.addItem({
 		name: 'Wrapped',
 		icon: 'cil-chart',
-		resource: 'wrapped:access',
-		order: 1,
+		resource: 'wrapped:access'
 		children: [
 			{
 				name: 'Home',
@@ -85,8 +52,7 @@ The resource is set to the navigation `addItem` component.
 	app.Navigation.addItem({
 		name: 'Fancy',
 		url: '/fancy',
-		icon: 'cil-copy',
-		order: 2
+		icon: 'cil-copy'
 	})
 
 ```
@@ -103,8 +69,7 @@ The resource is set to the navigation `addItem` -> `children` component.
 	app.Navigation.addItem({
 		name: 'Wrapped',
 		icon: 'cil-chart',
-		resource: 'wrapped:access',
-		order: 1,
+		resource: 'wrapped:access'
 		children: [
 			{
 				name: 'Home',

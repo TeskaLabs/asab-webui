@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
@@ -8,7 +8,7 @@ import {
 
 import Icon from './SidebarIcon';
 
-const SidebarItem = ({ item, unauthorizedNavChildren }) => {
+const SidebarItem = ({ item, unauthorizedNavChildren, uncollapseAll }) => {
 	const [isOpen, setOpen] = useState(false);
 
 	const location = useLocation();
@@ -16,14 +16,38 @@ const SidebarItem = ({ item, unauthorizedNavChildren }) => {
 
 	const { t } = useTranslation();
 
+	// Should collapsed item uncollapse
+	useEffect(() => {
+		if (item.children) {
+			// if length of all sidebar items is 2 or less
+			if (uncollapseAll) {
+				setOpen(true);
+				return;
+			}
+
+			// if child is active
+			item.children.forEach(child => {
+				if (child.url === location.pathname) {
+					setOpen(true);
+				}
+			});
+		}
+	}, []);
+
+	 const onNavLink = () => {
+		// Preserve from history pushing when item.url doesn't exist
+		// or when current location pathname is the same as item.url
+		if (item.url && location.pathname !== item.url) history.push(item.url);
+		// Preserve from collapsing when item doesn't have children
+		// or if item should always be uncollapsed
+		else if (item.children && !uncollapseAll) setOpen(prev => !prev);
+	}
+
 	return (
-		<NavItem className={`${item.children ? "sidebar-dropdown" : ""} ${isOpen ? "sidebar-dropdown-open": ""}`}>
+		<NavItem className={`${item.children ? "sidebar-dropdown" : "sidebar-item"} ${isOpen ? "sidebar-dropdown-open": ""}`}>
 			<NavLink
 				className={`${location.pathname === item.url ? "active" : ""}`}
-				onClick={() => {
-					if (item.url && location.pathname !== item.url) history.push(item.url);
-					if (item.children) setOpen(prev => !prev);
-				}}
+				onClick={onNavLink}
 			>
 				<Icon icon={item.icon} />
 				<span className="sidebar-item-text">{t(`Sidebar|${item.name}`)}</span>
