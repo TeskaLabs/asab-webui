@@ -197,3 +197,5 @@
 - Throw error for undefined response in MicroservicesListContainer (INDIGO Sprint 211029, [!189](https://github.com/TeskaLabs/asab-webui/pull/189))
 
 - Fix mock userinfo in dev locale (INDIGO Sprint 211029, [!191](https://github.com/TeskaLabs/asab-webui/pull/191))
+
+- Fix breadcrumbs for dynamic routes or crumbs which doesn't have name (INDIGO Sprint 211029, [!196](https://github.com/TeskaLabs/asab-webui/pull/196))
