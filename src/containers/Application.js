@@ -417,13 +417,13 @@ class Application extends Component {
 		* success
 	*/
 
-	addAlert(level, message, shouldBeTranslated = false, expire = 5) {
+	addAlert(level, message, expire = 5, shouldBeTranslated = false) {
 		this.Store.dispatch({
 			type: ADD_ALERT,
 			level: level,
 			message: message,
 			expire: expire,
-			shouldBeTranslated
+			shouldBeTranslated: shouldBeTranslated
 		});
 	}
 
