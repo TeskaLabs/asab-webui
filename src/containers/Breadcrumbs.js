@@ -1,9 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
+import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 
+
 const Breadcrumbs = ({ routes, match }) => {
+	const { t } = useTranslation();
 
 	// Get new crumbs each time location has been changed
 	const crumbs = routes.filter(({ path }) => match.path.includes(path)).
@@ -25,8 +28,8 @@ const Breadcrumbs = ({ routes, match }) => {
 					{crumbs.map((crumb, idx) => (
 						<BreadcrumbItem key={idx} active={idx === crumbs.length - 1}>
 							{idx !== crumbs.length - 1 ? 
-								<Link to={crumb.path}>{crumb.name}</Link>
-								: <span>{crumb.name}</span>
+								<Link to={crumb.path}>{t(`Breadcrumbs|${crumb.name}`)}</Link>
+								: <span>{t(`Breadcrumbs|${crumb.name}`)}</span>
 							}
 						</BreadcrumbItem>
 					))
