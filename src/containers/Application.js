@@ -36,42 +36,42 @@ import { ADD_ALERT, SET_ADVANCED_MODE, CHANGE_HELP_URL } from '../actions';
 
 class Application extends Component {
 
-/*
-Example of use hasSidebar and hasBreadcrumb.
-It must be set in Application.
-If not set, it is considered as true.
-
-...
-
-const config = {
-	hasSidebar: false,
-	hasBreadcrumb: false
-}
-
-
-ReactDOM.render((
-	<BrowserRouter>
-		<Application modules={modules} {...config}/>
-	</BrowserRouter>
-), document.getElementById('app'));
-
-...
-
-Example of settings in Module of the Application
-Following above settings, this will show the item in
-the header and when the screen is diminished (e.g. screening
-using the mobile phone), the item is moved to the sidebar and
-it is accessible by the sidebar toggler button.
-
-...
-
-	app.Navigation.addItem({
-		name: 'Item 1',
-		url: '',
-	});
-
-...
-	*/
+	/*
+	Example of use hasSidebar and hasBreadcrumb.
+	It must be set in Application.
+	If not set, it is considered as true.
+	
+	...
+	
+	const config = {
+		hasSidebar: false,
+		hasBreadcrumb: false
+	}
+	
+	
+	ReactDOM.render((
+		<BrowserRouter>
+			<Application modules={modules} {...config}/>
+		</BrowserRouter>
+	), document.getElementById('app'));
+	
+	...
+	
+	Example of settings in Module of the Application
+	Following above settings, this will show the item in
+	the header and when the screen is diminished (e.g. screening
+	using the mobile phone), the item is moved to the sidebar and
+	it is accessible by the sidebar toggler button.
+	
+	...
+	
+		app.Navigation.addItem({
+			name: 'Item 1',
+			url: '',
+		});
+	
+	...
+		*/
 
 	constructor(props) {
 		super(props);
@@ -149,14 +149,14 @@ it is accessible by the sidebar toggler button.
 			}
 		}
 
-		modules_init().then(async function() {
+		modules_init().then(async function () {
 			that.Store.replaceReducer(combineReducers(that.ReduxService.Reducers));
 			that.Config.dispatch(that.Store);
 
 			// Initialize all services
 			for (var i in that.Services) {
 				let ret = that.Services[i].initialize();
-				
+
 				// Transform result in the promise
 				// It unifies synchronous and asynchronous `initialize()` calls
 				let promise = Promise.resolve(ret);
@@ -253,7 +253,7 @@ it is accessible by the sidebar toggler button.
 		});
 
 		// Iterate through custom interceptors
-		for (let interceptor of this.AxiosInterceptors.keys()){
+		for (let interceptor of this.AxiosInterceptors.keys()) {
 			this.interceptorRequest(axios, interceptor);
 		}
 
@@ -283,7 +283,7 @@ it is accessible by the sidebar toggler button.
 		// Add a request interceptor
 		axios.interceptors.request.use(
 			interceptor,
-			function(error) {
+			function (error) {
 				return Promise.reject(error)
 			});
 	}
@@ -417,12 +417,13 @@ it is accessible by the sidebar toggler button.
 		* success
 	*/
 
-	addAlert(level, message, expire = 5) {
+	addAlert(level, message, shouldBeTranslated = false, expire = 5) {
 		this.Store.dispatch({
 			type: ADD_ALERT,
 			level: level,
 			message: message,
-			expire: expire
+			expire: expire,
+			shouldBeTranslated
 		});
 	}
 
@@ -474,8 +475,8 @@ it is accessible by the sidebar toggler button.
 		if (this.state.SplashscreenRequestors > 0) return (
 			<Provider store={this.Store}>
 				<div className="app">
-					<AlertsComponent app={this} />
 					<Suspense fallback={<SplashScreen app={this} />}>
+						<AlertsComponent app={this} />
 						<TenantSelectionCard app={this} />
 					</Suspense>
 					<SplashScreen app={this} />
@@ -530,7 +531,7 @@ it is accessible by the sidebar toggler button.
 														<>
 															{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') ?
 																<Breadcrumbs routes={this.Router.Routes} match={props.match} />
-															: null}
+																: null}
 															<ErrorHandler>
 																<route.component app={this} {...props} {...route.props} />
 															</ErrorHandler>

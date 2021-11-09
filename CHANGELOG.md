@@ -70,6 +70,8 @@
 
 - Uncollapse sidebar items when in sidebar there 2 or less items + Uncollapse active sidebar item + New ordering of sidebar items (INDIGO Sprint 211029, [!201](https://github.com/TeskaLabs/asab-webui/pull/201))
 
+- Translate alert messages within the AlertsComponent  (INDIGO Sprint 211029, [!197](https://github.com/TeskaLabs/asab-webui/pull/197))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
@@ -155,6 +157,8 @@
 - Refactor ErrorHandler (remove react-ace from the component) and add time when error occurred (INDIGO Sprint 211029, [!192](https://github.com/TeskaLabs/asab-webui/pull/192))
 
 - Move About sidebar nav item alongside collapse button (INDIGO Sprint 211029, [!194](https://github.com/TeskaLabs/asab-webui/pull/194))
+
+- Refactor alert messages position  (INDIGO Sprint 211029, [!200](https://github.com/TeskaLabs/asab-webui/pull/200))
 
 ### Bugfixes
 
