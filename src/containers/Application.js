@@ -243,7 +243,7 @@ class Application extends Component {
 	axiosCreate(service, props) {
 		var service_url = this.getServiceURL(service);
 		if (service_url == undefined) {
-			this.addAlert('danger', "ASABApplicationContainer|Service URL is undefined, please check service paths passed to axios", true);
+			this.addAlert('danger', "ASABApplicationContainer|Service URL is undefined, please check service paths passed to axios", 5, true);
 			return undefined;
 		}
 
@@ -327,7 +327,7 @@ class Application extends Component {
 	createWebSocket(service, subpath) {
 		var socket_url = this.getWebSocketURL(service, subpath);
 		if (socket_url == undefined) {
-			this.addAlert('danger', "ASABApplicationContainer|WebSocket URL is undefined, please check service and subpath passed to WebSocket", true);
+			this.addAlert('danger', "ASABApplicationContainer|WebSocket URL is undefined, please check service and subpath passed to WebSocket", 5, true);
 			return undefined;
 		}
 
@@ -441,9 +441,9 @@ class Application extends Component {
 		});
 
 		if (enabled) {
-			this.addAlert('warning', "ASABApplicationContainer|Advanced mode enabled", true, 1);
+			this.addAlert('warning', "ASABApplicationContainer|Advanced mode enabled", 1, true);
 		} else {
-			this.addAlert('success', "ASABApplicationContainer|Advanced mode disabled", true, 1);
+			this.addAlert('success', "ASABApplicationContainer|Advanced mode disabled", 1, true);
 		}
 	}
 
@@ -508,12 +508,12 @@ class Application extends Component {
 						<div className="app-body">
 							{
 								(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') &&
-									<Sidebar
-										app={this}
-										navigation={this.Navigation}
-										display="lg"
-										sidebarItemsOrder={this.props.sidebarItemsOrder}
-									/>
+								<Sidebar
+									app={this}
+									navigation={this.Navigation}
+									display="lg"
+									sidebarItemsOrder={this.props.sidebarItemsOrder}
+								/>
 							}
 							<Main hasSidebar={this.props.hasSidebar}>
 								<Suspense

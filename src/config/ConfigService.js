@@ -56,12 +56,12 @@ export default class ConfigService extends Service {
 						this.Config.dispatch(this.App.Store);
 					}
 				} else {
-					this.App.addAlert("danger", "ASABConfigService|Incorrect/invalid config file downloaded", true);
+					this.App.addAlert("danger", "ASABConfigService|Incorrect/invalid config file downloaded", 5, true);
 				}
 			})
 				.catch(error => {
 					console.log(error);
-					this.App.addAlert("danger", "ASABConfigService|Error when downloading a config file. The path might be corrupted", true);
+					this.App.addAlert("danger", "ASABConfigService|Error when downloading a config file. The path might be corrupted", 5, true);
 				})
 				.then(() => this.App.removeSplashScreenRequestor(this));
 		}

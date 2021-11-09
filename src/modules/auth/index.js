@@ -81,7 +81,7 @@ export default class AuthModule extends Module {
 					let tenantAuthorized = this.validateTenant();
 					let logoutTimeout = this.App.Config.get("authorizationLogoutTimeout") ? this.App.Config.get("authorizationLogoutTimeout") : 60000;
 					if (!tenantAuthorized) {
-						this.App.addAlert("danger", "ASABAuthModule|You are not authorized to use this application", true, logoutTimeout);
+						this.App.addAlert("danger", "ASABAuthModule|You are not authorized to use this application", logoutTimeout, true);
 						// Logout after some time
 						setTimeout(() => {
 							this.logout();
@@ -139,7 +139,7 @@ export default class AuthModule extends Module {
 			}
 
 		*/
-		this.App.addAlert("warning", "ASABAuthModule|You are in DEV mode and using MOCK login parameters", true, 3);
+		this.App.addAlert("warning", "ASABAuthModule|You are in DEV mode and using MOCK login parameters", 3, true);
 		let mockParams = mock_userinfo;
 		if (mockParams.resources) {
 			mockParams["resources"] = Object.values(mockParams.resources)
@@ -246,7 +246,7 @@ export default class AuthModule extends Module {
 		// if session has expired
 		if (!isUserInfoIpdated && oldUserInfo) {
 			oldUserInfo = null;
-			that.App.addAlert("danger", "ASABAuthModule|Your session has expired", true, 3600 * 1000);
+			that.App.addAlert("danger", "ASABAuthModule|Your session has expired", 3600 * 1000, true);
 		}
 		else {
 			let exp = new Date(that.UserInfo.exp).getTime(); // Expiration timestamp
@@ -265,7 +265,7 @@ export default class AuthModule extends Module {
 			*/
 			if (difference < 60000 && exp > Date.now() && !fAlert) {
 				const expire = exp > Date.now() ? difference / 1000 : 5;
-				that.App.addAlert("warning", "ASABAuthModule|Your session will expire soon", true, expire);
+				that.App.addAlert("warning", "ASABAuthModule|Your session will expire soon", expire, true);
 				fAlert = true;
 			}
 
