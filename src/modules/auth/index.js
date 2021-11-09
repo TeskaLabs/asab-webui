@@ -46,16 +46,16 @@ export default class AuthModule extends Module {
 				qs.delete('code');
 
 				// Construct the new URL without `code` in the query string
-				let reload_url;
+				let reloadUrl;
 				if (qs.values.length == 0) {
 					// Remove `?` part from URL completely, if empty
-					reload_url = window.location.pathname + window.location.hash;
+					reloadUrl = window.location.pathname + window.location.hash;
 				} else {
-					reload_url = window.location.pathname + '?' + qs.toString() + window.location.hash;
+					reloadUrl = window.location.pathname + '?' + qs.toString() + window.location.hash;
 				}
 
 				// Reload the app
-				window.location.replace(reload_url);
+				window.location.replace(reloadUrl);
 				await new Promise(r => setTimeout(r, 3600*1000)); // Basically wait forever, this the app is going to be reloaded
 			}
 
@@ -287,7 +287,7 @@ export default class AuthModule extends Module {
 			response = await this.Api.userinfo(this.OAuthToken.access_token);
 		}
 		catch (err) {
-			console.log("Failed to update user info", err);
+			console.error("Failed to update user info", err);
 			this.UserInfo = null;
 			if (this.App.Store != null) {
 				this.App.Store.dispatch({ type: types.AUTH_USERINFO, payload: this.UserInfo });
@@ -316,10 +316,9 @@ export default class AuthModule extends Module {
 			response = await this.Api.token_authorization_code(authorization_code, this.RedirectURL);
 		}
 		catch (err) {
-			console.log("Failed to update token", err);
+			console.error("Failed to update token", err);
 			return false;
 		}
-
 		this.OAuthToken = response.data;
 		sessionStorage.setItem('SeaCatOAuth2Token', JSON.stringify(response.data));
 
