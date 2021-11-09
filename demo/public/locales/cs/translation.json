@@ -14,5 +14,27 @@
 		"Change a password": "Změna hesla",
 		"Logout": "Odhlásit"
 	},
+	"ASABConfigService": {
+		"Incorrect/invalid config file downloaded": "Došlo ke stažení nesprávného/nevalidního konfiguračního souboru",
+		"Error when downloading a config file. The path might be corrupted": "Chyba při stahování konfiguračního souboru. Cesta může být nesprávná"
+	},
+	"ASABApplicationContainer": {
+		"Service URL is undefined, please check service paths passed to axios": "URL servisy není definováno, prosím zkotrolujte URL cestu servisy poskytnuté do axios",
+		"WebSocket URL is undefined, please check service and subpath passed to WebSocket": "WebSocket URL není definováno, prosím zkotrolujte servisu a URL cestu poskytnuté do WebSocket",
+		"Advanced mode enabled": "Pokročilý režim spuštěn",
+		"Advanced mode disabled": "Pokročilý režim deaktivován"
+	},
+	"ASABAuthModule": {
+		"You are not authorized to use this application": "Nejste autorizováni k používání této aplikace",
+		"You are in DEV mode and using MOCK login parameters": "Jste v DEV režimu a používáte MOCK přihlašovací údaje",
+		"Your session has expired": "Vaše relace vypršela",
+		"Your session will expire soon": "Vaše relace brzy vyprší"
+	},
+	"ASABTenantModule": {
+		"Invalid tenant": "Neplatný tenant :-("
+	},
+	"ASABToolsModule": {
+		"Unable to load the data from site": "Nepodařilo se načíst data ze stránky"
+	},
 	"You do not have access rights to perform this action": "Váš přístup je omezen, nemáte dostatečná oprávnění"
 }

@@ -14,5 +14,27 @@
 		"Change a password": "Change a password",
 		"Logout": "Logout"
 	},
+	"ASABConfigService": {
+		"Incorrect/invalid config file downloaded": "Incorrect/invalid config file downloaded",
+		"Error when downloading a config file. The path might be corrupted": "Error when downloading a config file. The path might be corrupted"
+	},
+	"ASABApplicationContainer": {
+		"Service URL is undefined, please check service paths passed to axios": "Service URL is undefined, please check service paths passed to axios",
+		"WebSocket URL is undefined, please check service and subpath passed to WebSocket": "WebSocket URL is undefined, please check service and subpath passed to WebSocket",
+		"Advanced mode enabled": "Advanced mode enabled",
+		"Advanced mode disabled": "Advanced mode disabled"
+	},
+	"ASABAuthModule": {
+		"You are not authorized to use this application": "You are not authorized to use this application",
+		"You are in DEV mode and using MOCK login parameters": "You are in DEV mode and using MOCK login parameters",
+		"Your session has expired": "Your session has expired",
+		"Your session will expire soon": "Your session will expire soon"
+	},
+	"ASABTenantModule": {
+		"Invalid tenant": "Invalid tenant :-("
+	},
+	"ASABToolsModule": {
+		"Unable to load the data from site": "Unable to load the data from site"
+	},
 	"You do not have access rights to perform this action": "You do not have access rights to perform this action"
 }
