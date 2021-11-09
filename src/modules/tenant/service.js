@@ -50,7 +50,7 @@ export default class TenantService extends Service {
 			if (filtered_tenant.length < 1) {
 				// Display Invalid tenant alert message only when authorization is disabled
 				if (this.App.Config.get("authorization") === "disabled") {
-					this.App.addAlert("danger", "Invalid tenant :-(", 40000);
+					this.App.addAlert("danger", "ASABTenantModule|Invalid tenant", true, 40000);
 				}
 			}
 			current_tenant = filtered_tenant[0];

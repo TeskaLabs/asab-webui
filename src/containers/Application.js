@@ -243,7 +243,7 @@ class Application extends Component {
 	axiosCreate(service, props) {
 		var service_url = this.getServiceURL(service);
 		if (service_url == undefined) {
-			this.addAlert('error', "Service URL is undefined, please check service paths passed to axios.");
+			this.addAlert('danger', "ASABApplicationContainer|Service URL is undefined, please check service paths passed to axios", true);
 			return undefined;
 		}
 
@@ -327,7 +327,7 @@ class Application extends Component {
 	createWebSocket(service, subpath) {
 		var socket_url = this.getWebSocketURL(service, subpath);
 		if (socket_url == undefined) {
-			this.addAlert('error', "WebSocket URL is undefined, please check service and subpath passed to WebSocket.");
+			this.addAlert('danger', "ASABApplicationContainer|WebSocket URL is undefined, please check service and subpath passed to WebSocket", true);
 			return undefined;
 		}
 
@@ -441,9 +441,9 @@ class Application extends Component {
 		});
 
 		if (enabled) {
-			this.addAlert('warning', "Advanced mode enabled.", 1);
+			this.addAlert('warning', "ASABApplicationContainer|Advanced mode enabled", true, 1);
 		} else {
-			this.addAlert('success', "Advanced mode disabled", 1);
+			this.addAlert('success', "ASABApplicationContainer|Advanced mode disabled", true, 1);
 		}
 	}
 

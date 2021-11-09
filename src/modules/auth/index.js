@@ -8,7 +8,7 @@ import AccessControlScreen from './AccessControlScreen';
 
 export default class AuthModule extends Module {
 
-	constructor(app, name){
+	constructor(app, name) {
 		super(app, "AuthModule");
 
 		this.OAuthToken = JSON.parse(sessionStorage.getItem('SeaCatOAuth2Token'));
@@ -31,7 +31,7 @@ export default class AuthModule extends Module {
 
 	async initialize() {
 		const headerService = this.App.locateService("HeaderService");
-		headerService.addComponent(HeaderComponent, {AuthModule: this});
+		headerService.addComponent(HeaderComponent, { AuthModule: this });
 		if (this.App.DevConfig.get('MOCK_USERINFO')) {
 			/* This section is only for DEV purposes! */
 			this.simulateUserinfo(this.App.DevConfig.get('MOCK_USERINFO'))
@@ -56,7 +56,7 @@ export default class AuthModule extends Module {
 
 				// Reload the app
 				window.location.replace(reload_url);
-				await new Promise(r => setTimeout(r, 3600*1000)); // Basically wait forever, this the app is going to be reloaded
+				await new Promise(r => setTimeout(r, 3600 * 1000)); // Basically wait forever, this the app is going to be reloaded
 			}
 
 			// Do we have an oauth token (we are authorized to use the app)
@@ -81,7 +81,7 @@ export default class AuthModule extends Module {
 					let tenantAuthorized = this.validateTenant();
 					let logoutTimeout = this.App.Config.get("authorizationLogoutTimeout") ? this.App.Config.get("authorizationLogoutTimeout") : 60000;
 					if (!tenantAuthorized) {
-						this.App.addAlert("danger", "You are not authorized to use this application.", logoutTimeout);
+						this.App.addAlert("danger", "ASABAuthModule|You are not authorized to use this application", true, logoutTimeout);
 						// Logout after some time
 						setTimeout(() => {
 							this.logout();
@@ -139,7 +139,7 @@ export default class AuthModule extends Module {
 			}
 
 		*/
-		this.App.addAlert("warning", "You are in DEV mode and using MOCK login parameters.", 3);
+		this.App.addAlert("warning", "ASABAuthModule|You are in DEV mode and using MOCK login parameters", true, 3);
 		let mockParams = mock_userinfo;
 		if (mockParams.resources) {
 			mockParams["resources"] = Object.values(mockParams.resources)
@@ -189,7 +189,7 @@ export default class AuthModule extends Module {
 			resources = this.UserInfo.resources ? this.UserInfo.resources : [];
 		}
 		// Add item name from Navigation based on Access resource to the list of unauthorized items
-		await Promise.all(getItems.items.map(async(itm, idx) => {
+		await Promise.all(getItems.items.map(async (itm, idx) => {
 			if (itm.resource) {
 				let access_auth = this.validateItem(itm.resource, resources);
 				if (!access_auth) {
@@ -198,7 +198,7 @@ export default class AuthModule extends Module {
 			}
 			// Add unauthorized Navigation children name based on Access resource to the list of unauthorized children
 			if (itm.children) {
-				await Promise.all(itm.children.map(async(child, id) => {
+				await Promise.all(itm.children.map(async (child, id) => {
 					if (child.resource) {
 						let access_auth = this.validateItem(child.resource, resources);
 						if (!access_auth) {
@@ -239,14 +239,14 @@ export default class AuthModule extends Module {
 		return valid;
 	}
 
-	async _notifyOnExpiredSession (that = this, oldUserInfo = null, fAlert = false) {
+	async _notifyOnExpiredSession(that = this, oldUserInfo = null, fAlert = false) {
 		const isUserInfoIpdated = await that.updateUserInfo();
-
+		console.log(isUserInfoIpdated)
+		console.log(oldUserInfo)
 		// if session has expired
 		if (!isUserInfoIpdated && oldUserInfo) {
 			oldUserInfo = null;
-			const alertMessage = await that.App.i18n.t("Your session has expired");
-			that.App.addAlert("danger", alertMessage, 3600*1000);
+			that.App.addAlert("danger", "ASABAuthModule|Your session has expired", true, 3600 * 1000);
 		}
 		else {
 			let exp = new Date(that.UserInfo.exp).getTime(); // Expiration timestamp
@@ -264,9 +264,8 @@ export default class AuthModule extends Module {
 			* then first message will be shown until expiration date will come
 			*/
 			if (difference < 60000 && exp > Date.now() && !fAlert) {
-				const expire = exp > Date.now() ? difference/1000 : 5;
-				const alertMessage = await that.App.i18n.t("Your session will expire soon");
-				that.App.addAlert("warning", alertMessage, expire);
+				const expire = exp > Date.now() ? difference / 1000 : 5;
+				that.App.addAlert("warning", "ASABAuthModule|Your session will expire soon", true, expire);
 				fAlert = true;
 			}
 
