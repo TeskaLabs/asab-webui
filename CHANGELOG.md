@@ -148,7 +148,7 @@
 
 - Refactor coreui components (Header, Footer, Sidebar, Breadcrumbs and Main), create our own and use them (INDIGO Sprint 211001, [!180](https://github.com/TeskaLabs/asab-webui/pull/180))
 
-- Refactor _updateUserInfo method of auth module - split it into two functions _notifyOnExpiredSession() and updateUserInfo() (INDIGO Sprint 211015, [!187](https://github.com/TeskaLabs/asab-webui/pull/187))
+- Refactor updateUserInfo method of auth module - split it into two functions notifyOnExpiredSession() and updateUserInfo() (INDIGO Sprint 211015, [!187](https://github.com/TeskaLabs/asab-webui/pull/187))
 
 - Change color of second alert message about expired session (INDIGO Sprint 211029, [!190](https://github.com/TeskaLabs/asab-webui/pull/190))
 
@@ -156,7 +156,9 @@
 
 - Move About sidebar nav item alongside collapse button (INDIGO Sprint 211029, [!194](https://github.com/TeskaLabs/asab-webui/pull/194))
 
-- Refactor alert messages position  (INDIGO Sprint 211029, [!200](https://github.com/TeskaLabs/asab-webui/pull/200))
+- Refactor alert messages position (INDIGO Sprint 211029, [!200](https://github.com/TeskaLabs/asab-webui/pull/200))
+
+- Update page reloads in tenant module with location.pathname to correct redirect on subpaths (INDIGO Sprint 211029, [!202](https://github.com/TeskaLabs/asab-webui/pull/202))
 
 ### Bugfixes
 
