@@ -37,7 +37,7 @@ import { ADD_ALERT, SET_ADVANCED_MODE, CHANGE_HELP_URL } from '../actions';
 class Application extends Component {
 
 	/*
-	Example of use hasSidebar and hasBreadcrumb.
+	Example of use hasSidebar and disableAppBreadcrumbs.
 	It must be set in Application.
 	If not set, it is considered as true.
 	
@@ -45,7 +45,7 @@ class Application extends Component {
 	
 	const config = {
 		hasSidebar: false,
-		hasBreadcrumb: false
+		disableAppBreadcrumbs: true
 	}
 	
 	
@@ -524,7 +524,7 @@ class Application extends Component {
 													name={route.name}
 													render={props => (
 														<>
-															{(this.props.hasBreadcrumb || typeof this.props.hasBreadcrumb === 'undefined') && !route.disableBreadcrumbs ?
+															{!this.props.disableAppBreadcrumbs && !route.disableBreadcrumbs ?
 																<Breadcrumbs routes={this.Router.Routes} match={props.match} />
 																: null}
 															<ErrorHandler>
