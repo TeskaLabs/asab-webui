@@ -46,16 +46,16 @@ export default class AuthModule extends Module {
 				qs.delete('code');
 
 				// Construct the new URL without `code` in the query string
-				let reload_url;
+				let reloadUrl;
 				if (qs.values.length == 0) {
 					// Remove `?` part from URL completely, if empty
-					reload_url = window.location.pathname + window.location.hash;
+					reloadUrl = window.location.pathname + window.location.hash;
 				} else {
-					reload_url = window.location.pathname + '?' + qs.toString() + window.location.hash;
+					reloadUrl = window.location.pathname + '?' + qs.toString() + window.location.hash;
 				}
 
 				// Reload the app
-				window.location.replace(reload_url);
+				window.location.replace(reloadUrl);
 				await new Promise(r => setTimeout(r, 3600*1000)); // Basically wait forever, this the app is going to be reloaded
 			}
 
