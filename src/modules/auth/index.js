@@ -46,6 +46,7 @@ export default class AuthModule extends Module {
 				qs.delete('code');
 
 				// Construct the new URL without `code` in the query string
+				// For this case, condition on empty qs string is sufficient and tested
 				let reloadUrl;
 				if (qs.toString() == '') {
 					// Remove `?` part from URL completely, if empty
