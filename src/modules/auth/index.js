@@ -47,7 +47,7 @@ export default class AuthModule extends Module {
 
 				// Construct the new URL without `code` in the query string
 				let reloadUrl;
-				if (qs.values.length == 0) {
+				if (qs.toString() == '') {
 					// Remove `?` part from URL completely, if empty
 					reloadUrl = window.location.pathname + window.location.hash;
 				} else {
