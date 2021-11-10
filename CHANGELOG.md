@@ -164,6 +164,10 @@
 
 - Update page reloads in tenant module with location.pathname to correct redirect on subpaths (INDIGO Sprint 211029, [!202](https://github.com/TeskaLabs/asab-webui/pull/202))
 
+- Adds i18n translations to alert messages (INDIGO Sprint 211029, [!203](https://github.com/TeskaLabs/asab-webui/pull/203))
+
+
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
