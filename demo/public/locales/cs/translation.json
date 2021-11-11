@@ -15,13 +15,13 @@
 		"Logout": "Odhlásit"
 	},
 	"ASABConfigService": {
-		"Incorrect/invalid config file downloaded": "Došlo ke stažení nesprávného/nevalidního konfiguračního souboru",
-		"Error when downloading a config file. The path might be corrupted": "Chyba při stahování konfiguračního souboru. Cesta může být nesprávná"
+		"Incorrect/invalid config file downloaded": "Došlo ke stažení neplatné konfigurace",
+		"Error when downloading a config file. The path might be corrupted": "Chyba při stahování kofigurace. Cesta k souboru nemusí být správně"
 	},
 	"ASABApplicationContainer": {
-		"Service URL is undefined, please check service paths passed to axios": "URL servisy není definováno, prosím zkotrolujte URL cestu servisy poskytnuté do axios",
-		"WebSocket URL is undefined, please check service and subpath passed to WebSocket": "WebSocket URL není definováno, prosím zkotrolujte servisu a URL cestu poskytnuté do WebSocket",
-		"Advanced mode enabled": "Pokročilý režim spuštěn",
+		"Service URL is undefined, please check service paths passed to axios": "URL servicy není definována, prosím zkontrolujte nastavení cest servis předávaných axiosu",
+		"WebSocket URL is undefined, please check service and subpath passed to WebSocket": "WebSocket URL není definována, prosím zkontrolujte nastavení servis a dílčích cest předávaných WebSocketu",
+		"Advanced mode enabled": "Pokročilý režim aktivován",
 		"Advanced mode disabled": "Pokročilý režim deaktivován"
 	},
 	"ASABAuthModule": {
