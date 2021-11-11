@@ -1,31 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { useTranslation } from 'react-i18next'
 import {
 	Container, Col, Row, Button
 } from "reactstrap";
 
 
-export default class ToolsDashboard extends Component {
+export default function ToolsDashboard(props){
 
 	/* Example of use
 
 	{"tools":[{"name":"Kibana","url":127.0.0.1/kibana,"image":"tools/kibana.svg"}]}
 
 	*/
-
-	constructor(props) {
-		super(props);
-		this.App = props.app;
-		this.Config = this.App.Config;
-	}
+		const { t } = useTranslation();
+		const App = props.app;
+		const Config = App.Config;
 
 
-	render() {
 		let config = undefined;
-		if (this.Config === undefined) {
+		if (Config === undefined) {
 			config = config;
-			this.App.addAlert("warning", "ASABToolsModule|Unable to load the data from site", 5, true);
+			App.addAlert("warning", t("ASABToolsModule|Unable to load the data from site"), 5);
 		} else {
-			config = this.Config.get('tools');
+			config = Config.get('tools');
 		}
 
 		return (
@@ -58,5 +55,4 @@ export default class ToolsDashboard extends Component {
 				</React.Fragment>
 				: null
 		);
-	}
-};
+	};
