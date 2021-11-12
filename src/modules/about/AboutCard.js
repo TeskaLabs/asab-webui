@@ -31,8 +31,6 @@ function AboutCard(props) {
 	const website = App.Config.get("website");
 	const email = App.Config.get("email");
 
-
-
 	return(
 		<Card className="shadow animated fadeIn">
 			<CardHeader className="text-center">
