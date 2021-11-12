@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -31,6 +31,8 @@ function AboutCard(props) {
 	const website = App.Config.get("website");
 	const email = App.Config.get("email");
 
+
+
 	return(
 		<Card className="shadow animated fadeIn">
 			<CardHeader className="text-center">
@@ -61,13 +63,19 @@ function AboutCard(props) {
 						</Row>
 					</React.Fragment>
 				}
-				<hr/>
-				<Row>
-					<Col></Col>
-					<Col>
-						<a href={`mailto:${email}`}>{email}</a>
-					</Col>
-				</Row>
+				{ email &&
+					<React.Fragment>
+						<hr/>
+						<Row>
+							<Col>
+								<h5>{t('AboutCard|Email')}</h5>
+							</Col>
+							<Col>
+								<a href={`mailto:${email}`}>{email}</a>
+							</Col>
+						</Row>
+				</React.Fragment>
+				}
 			</CardBody>
 		</Card>
 	)
