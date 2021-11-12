@@ -18,6 +18,7 @@ const SidebarItem = ({ item, unauthorizedNavChildren, uncollapseAll }) => {
 
 	// Should collapsed item uncollapse
 	useEffect(() => {
+		console.log(item)
 		if (item.children) {
 			// if length of all sidebar items is 2 or less
 			if (uncollapseAll) {
@@ -44,7 +45,7 @@ const SidebarItem = ({ item, unauthorizedNavChildren, uncollapseAll }) => {
 	}
 
 	return (
-		<NavItem className={`${item.children ? "sidebar-dropdown" : "sidebar-item"} ${isOpen ? "sidebar-dropdown-open": ""}`}>
+		<NavItem title={item.name} className={`${item.children ? "sidebar-dropdown" : "sidebar-item"} ${isOpen ? "sidebar-dropdown-open": ""}`}>
 			<NavLink
 				className={`${location.pathname === item.url ? "active" : ""}`}
 				onClick={onNavLink}
