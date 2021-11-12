@@ -68,7 +68,7 @@ function AboutCard(props) {
 						<hr/>
 						<Row>
 							<Col>
-								<h5>{t('AboutCard|Email')}</h5>
+								<h5>Email</h5>
 							</Col>
 							<Col>
 								<a href={`mailto:${email}`}>{email}</a>
