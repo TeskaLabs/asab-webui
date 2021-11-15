@@ -15,7 +15,7 @@ const SidebarItem = ({ item, unauthorizedNavChildren, uncollapseAll }) => {
 	const history = useHistory();
 
 	const { t } = useTranslation();
-
+console.log(item)
 	// Should collapsed item uncollapse
 	useEffect(() => {
 		if (item.children) {
@@ -44,7 +44,7 @@ const SidebarItem = ({ item, unauthorizedNavChildren, uncollapseAll }) => {
 	}
 
 	return (
-		<NavItem className={`${item.children ? "sidebar-dropdown" : "sidebar-item"} ${isOpen ? "sidebar-dropdown-open": ""}`}>
+		<NavItem className={`${item.children ? "sidebar-dropdown" : "sidebar-item"} ${isOpen ? "sidebar-dropdown-open": ""}`}  title={t(`Sidebar|${item.name}`)}>
 			<NavLink
 				className={`${location.pathname === item.url ? "active" : ""}`}
 				onClick={onNavLink}
