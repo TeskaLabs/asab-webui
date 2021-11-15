@@ -1,9 +1,16 @@
 // Switch styles
 
+<<<<<<< HEAD
 .switch-container, .switch-container-disabled {
 	width: 40px;
 	height: 20px;
 	border: 1px solid #6c757d;
+=======
+.switch-container {
+	width: 40px;
+	height: 20px;
+	border: 1px solid black;
+>>>>>>> 576d698 (implement controlled switch)
 	display: inline-block;
 	border-radius: 50px;
 	cursor: pointer;
@@ -20,6 +27,7 @@
 		display: inline-block;
 
 		.circle {
+<<<<<<< HEAD
 			width: 50%;
 		}
 	}
@@ -44,10 +52,22 @@
 		background-color: #20a8d8;
 		.circle {
 			border: 2px solid #20a8d8;
+=======
+			background-color: white;
+			width: 50%
+		}
+	}
+
+	.on {
+		background-color: rgb(45, 158, 252);
+		.circle {
+			margin-left: 19px;
+>>>>>>> 576d698 (implement controlled switch)
 		}
 	}
 
 	.off {
+<<<<<<< HEAD
 		background-color: #c8ced3;
 		.circle {
 			border: 2px solid #c8ced3;
@@ -64,3 +84,12 @@
 		border: 2px solid #c8ced3;
 	}
 }
+=======
+		background-color: rgb(114, 114, 114);
+		.circle {
+			margin-left: 0px;
+		}
+	}
+
+}
+>>>>>>> 576d698 (implement controlled switch)

@@ -11,7 +11,11 @@ export { Spinner } from './containers/Spinner';
 export { KnowledgeBase } from './containers/KnowledgeBase';
 export { default as SplashScreen } from './containers/SplashScreen';
 export { default as Pagination } from './containers/Pagination';
+<<<<<<< HEAD
 export { default as ControlledSwitch } from './containers/ControlledSwitch';
 export { default as UncontrolledSwitch } from './containers/UncontrolledSwitch';
+=======
+import { default as ControlledSwitch } from './containers/ControlledSwitch';
+>>>>>>> 576d698 (implement controlled switch)
 
 import "./style.scss";
