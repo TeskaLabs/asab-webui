@@ -166,7 +166,9 @@
 
 - Adds i18n translations to alert messages (INDIGO Sprint 211029, [!203](https://github.com/TeskaLabs/asab-webui/pull/203))
 
-- Adds missing email title to AboutCard module (INDIGO Spring 211112, [!205](https://github.com/TeskaLabs/asab-webui/pull/205))
+- Adds missing email title to AboutCard module (INDIGO Sprint 211112, [!205](https://github.com/TeskaLabs/asab-webui/pull/205))
+
+- SidebarItem's name is revealed upon hover (INDIGO Sprint 211112, [!208](https://github.com/TeskaLabs/asab-webui/pull/208))
 
 ### Bugfixes
 

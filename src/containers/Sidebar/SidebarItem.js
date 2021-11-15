@@ -15,7 +15,7 @@ const SidebarItem = ({ item, unauthorizedNavChildren, uncollapseAll }) => {
 	const history = useHistory();
 
 	const { t } = useTranslation();
-console.log(item)
+	
 	// Should collapsed item uncollapse
 	useEffect(() => {
 		if (item.children) {
