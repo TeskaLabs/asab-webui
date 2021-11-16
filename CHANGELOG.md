@@ -166,6 +166,8 @@
 
 - Adds i18n translations to alert messages (INDIGO Sprint 211029, [!203](https://github.com/TeskaLabs/asab-webui/pull/203))
 
+- Refactoring ToolsModule.js class component into a functional component (INDIGO Sprint 211112, [!204](https://github.com/TeskaLabs/asab-webui/pull/204))
+
 - Adds missing email title to AboutCard module (INDIGO Spring 211112, [!205](https://github.com/TeskaLabs/asab-webui/pull/205))
 
 ### Bugfixes
