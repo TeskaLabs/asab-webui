@@ -242,8 +242,6 @@ export default class AuthModule extends Module {
 
 	async _notifyOnExpiredSession(that = this, oldUserInfo = null, fAlert = false) {
 		const isUserInfoIpdated = await that.updateUserInfo();
-		console.log(isUserInfoIpdated)
-		console.log(oldUserInfo)
 		// if session has expired
 		if (!isUserInfoIpdated && oldUserInfo) {
 			oldUserInfo = null;
