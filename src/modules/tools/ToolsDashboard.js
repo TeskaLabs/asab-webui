@@ -13,16 +13,13 @@ export default function ToolsDashboard(props){
 
 	*/
 		const { t } = useTranslation();
-		const App = props.app;
-		const Config = App.Config;
-
 
 		let config = undefined;
-		if (Config === undefined) {
+		if (props.app.Config === undefined) {
 			config = config;
-			App.addAlert("warning", t("ASABToolsModule|Unable to load the data from site"), 5);
+			props.app.addAlert("warning", t("ASABToolsModule|Unable to load the data from site"));
 		} else {
-			config = Config.get('tools');
+			config = props.app.Config.get('tools');
 		}
 
 		return (
