@@ -61,13 +61,19 @@ function AboutCard(props) {
 						</Row>
 					</React.Fragment>
 				}
-				<hr/>
-				<Row>
-					<Col></Col>
-					<Col>
-						<a href={`mailto:${email}`}>{email}</a>
-					</Col>
-				</Row>
+				{ email &&
+					<React.Fragment>
+						<hr/>
+						<Row>
+							<Col>
+								<h5>Email</h5>
+							</Col>
+							<Col>
+								<a href={`mailto:${email}`}>{email}</a>
+							</Col>
+						</Row>
+				</React.Fragment>
+				}
 			</CardBody>
 		</Card>
 	)
