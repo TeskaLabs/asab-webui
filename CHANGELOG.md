@@ -74,6 +74,8 @@
 
 - Add possibility to disable breadcrumbs in specific containers (INDIGO Sprint 211029, [!193](https://github.com/TeskaLabs/asab-webui/pull/193))
 
+- Create ControlledSwitch component (INDIGO Sprint 211112, [!207](https://github.com/TeskaLabs/asab-webui/pull/207))
+
 - Update Tools module with option to define Tools configuration dynamically (INDIGO Sprint 211112, [!212](https://github.com/TeskaLabs/asab-webui/pull/212))
 
 ### Refactoring
