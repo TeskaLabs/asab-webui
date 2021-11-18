@@ -74,6 +74,8 @@
 
 - Add possibility to disable breadcrumbs in specific containers (INDIGO Sprint 211029, [!193](https://github.com/TeskaLabs/asab-webui/pull/193))
 
+- Create ControlledSwitch component (INDIGO Sprint 211112, [!207](https://github.com/TeskaLabs/asab-webui/pull/207))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
