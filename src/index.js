@@ -11,6 +11,5 @@ export { Spinner } from './containers/Spinner';
 export { KnowledgeBase } from './containers/KnowledgeBase';
 export { default as SplashScreen } from './containers/SplashScreen';
 export { default as Pagination } from './containers/Pagination';
-import { default as ControlledSwitch } from './containers/ControlledSwitch';
 
 import "./style.scss";
