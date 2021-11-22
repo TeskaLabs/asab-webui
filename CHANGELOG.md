@@ -170,6 +170,8 @@
 
 - Adds missing email title to AboutCard module (INDIGO Spring 211112, [!205](https://github.com/TeskaLabs/asab-webui/pull/205))
 
+- SidebarItem's name is revealed upon hover (INDIGO Sprint 211112, [!208](https://github.com/TeskaLabs/asab-webui/pull/208))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
