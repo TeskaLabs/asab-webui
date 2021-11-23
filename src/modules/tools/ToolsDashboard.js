@@ -40,7 +40,7 @@ export default function ToolsDashboard(props){
 			// Tools config is loaded from Zookeeper (dynamic configuration)
 			const ASABConfigAPI = props.app.axiosCreate('asab_config');
 			try {
-				let response = await ASABConfigAPI.get("/config/" + type + "/" + props.config + props.variant);
+				let response = await ASABConfigAPI.get(`/config/${type}/${props.config}${props.variant}`);
 				if (response.data.result == 'FAIL') {
 					throw new Error(t("ASABToolsModule|Unable to get config data from service, please check the config settings"))
 				}
