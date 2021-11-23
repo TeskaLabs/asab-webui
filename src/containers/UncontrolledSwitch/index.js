@@ -1,26 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { ControlledSwitch } from 'asab-webui';
-import './switch.scss'
 
-const UncontrolledSwitch = ({ defaultValue = false, disabled = false, className, size="default", register, setValue }) => {
 
-    const [isOn, setIsOn] = useState(defaultValue)
+const UncontrolledSwitch = ({ 
+	defaultValue = false, disabled = false, 
+	title, register, setValue
+}) => {
+		const [isOn, setIsOn] = useState(defaultValue)
 
-    const toggle = () => {
-      setIsOn(!isOn)
-      setValue(register.name, isOn)
-    }
+		useEffect(() => {
+			setValue(register.name, defaultValue)
+		},[])
 
-    useEffect(() => {
-      setValue(register.name, defaultValue)
-    },[])
+		useEffect(() => {
+			setValue(register.name, isOn, { shouldDirty: true })
+		}, [isOn])
 
-    return (
-      <>
-        <ControlledSwitch isOn={isOn} toggle={toggle}/>
-        <input type="checbox" {...register} style={{display:"none"}}></input>
-      </>
-    )
+		return (
+			<>
+				<ControlledSwitch
+					isOn={isOn}
+					title={title}
+					disabled={disabled}
+					toggle={() => setIsOn(prev => !prev)}
+				/>
+				<input type="checkbox" {...register} style={{display:"none"}}></input>
+			</>
+		)
 }
 
 export default UncontrolledSwitch;
