@@ -16,7 +16,7 @@ const Sidebar = (props) => {
 	const memoizedItemsList = useMemo(() => {
 		let itemsList = [...navConfig]
 		if (props.sidebarItemsOrder) {
-			const sidebarItemsOrder = props.sidebarItemsOrder.reverse();
+			const sidebarItemsOrder = [...props.sidebarItemsOrder].reverse();
 			itemsList.sort((a, b) => {
 				if (sidebarItemsOrder.indexOf(a.name) > sidebarItemsOrder.indexOf(b.name)) return -1;
 				else return 1;
