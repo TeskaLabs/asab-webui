@@ -32,28 +32,28 @@
 	}
 
 	.on {
-		background-color: rgb(45, 158, 252);
+		background-color: #20a8d8;
 		.circle {
 			margin-left: 19px;
-			border: 2px solid rgb(45, 158, 252);
+			border: 2px solid #20a8d8;
 		}
 	}
 
 	.off {
-		background-color: rgb(114, 114, 114);
+		background-color: #c8ced3;
 		.circle {
 			margin-left: 0px;
-			border: 2px solid rgb(114, 114, 114);
+			border: 2px solid #c8ced3;
 		}
 	}
 }
 
 .switch-container-disabled {
 	.off, .on {
-		background-color: rgb(143, 143, 143);
+		background-color: #c8ced3;
 	}
 	.circle {
-		background-color: rgb(114, 114, 114);
-		border: 2px solid rgb(143, 143, 143);
+		background-color: #73818f;
+		border: 2px solid #c8ced3;
 	}
 }
