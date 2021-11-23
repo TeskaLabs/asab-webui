@@ -1,5 +1,9 @@
 # External tools
 
+External tools is a module, which serves the purpose of rendering dashboard with widgets (buttons), which on click redirect to an approriate external tool.
+
+Configuration of the external tools module can be static or dynamic.
+
 ## Setup
 
 In the top-level `index.js` of your ASAB UI application, load the Tools module 
