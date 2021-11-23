@@ -20,10 +20,17 @@
 		display: inline-block;
 
 		.circle {
-			background-color: white;
 			width: 50%;
 		}
 	}
+}
+
+.switch-container {
+	.circle {
+		background-color: white;
+		width: 50%;
+	}
+
 	.on {
 		.circle {
 			margin-left: 19px;
@@ -37,6 +44,7 @@
 		}
 	}
 }
+<<<<<<< HEAD
 
 .switch-container {
 	.circle {
@@ -65,5 +73,15 @@
 	.circle {
 		background-color: #73818f;
 		border: 2px solid #c8ced3;
+=======
+
+.switch-container-disabled {
+	.off, .on {
+		background-color: rgb(143, 143, 143);
+	}
+	.circle {
+		background-color: rgb(114, 114, 114);
+		border: 2px solid rgb(143, 143, 143);
+>>>>>>> eae640a (add styles for disabled)
 	}
 }
