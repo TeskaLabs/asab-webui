@@ -28,7 +28,7 @@ export default function ToolsDashboard(props){
 		if (configuration == undefined) {
 			if (props.config == undefined) {
 				props.app.addAlert("warning", t("ASABToolsModule|Can't load the configuration, 'config' property has not been specified"));
-				console.warn("'config' property is undefined. Specify it in the module of the application.")
+				console.warn("'config' property is undefined. Specify it in the module of the application.");
 				return;
 			}
 
