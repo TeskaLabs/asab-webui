@@ -1,6 +1,6 @@
 // Switch styles
 
-.switch-container {
+.switch-container, .switch-container-disabled {
 	width: 40px;
 	height: 20px;
 	border: 1px solid black;
@@ -20,9 +20,15 @@
 		display: inline-block;
 
 		.circle {
-			background-color: white;
 			width: 50%;
 		}
+	}
+}
+
+.switch-container {
+	.circle {
+		background-color: white;
+		width: 50%;
 	}
 
 	.on {
@@ -40,5 +46,14 @@
 			border: 2px solid rgb(114, 114, 114);
 		}
 	}
+}
 
+.switch-container-disabled {
+	.off, .on {
+		background-color: rgb(143, 143, 143);
+	}
+	.circle {
+		background-color: rgb(114, 114, 114);
+		border: 2px solid rgb(143, 143, 143);
+	}
 }
