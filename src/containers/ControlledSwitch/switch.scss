@@ -23,18 +23,26 @@
 			width: 50%;
 		}
 	}
+	.on {
+		.circle {
+			margin-left: 19px;
+		}
+	}
+	.off {
+		.circle {
+			margin-left: 0px;
+		}
+	}
 }
 
 .switch-container {
 	.circle {
 		background-color: white;
-		width: 50%;
 	}
 
 	.on {
 		background-color: #20a8d8;
 		.circle {
-			margin-left: 19px;
 			border: 2px solid #20a8d8;
 		}
 	}
@@ -42,7 +50,6 @@
 	.off {
 		background-color: #c8ced3;
 		.circle {
-			margin-left: 0px;
 			border: 2px solid #c8ced3;
 		}
 	}
