@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ControlledSwitch } from 'asab-webui';
 
+// documentation available in asab-webui/doc/switch-components.md
 
 const UncontrolledSwitch = ({ 
 	defaultValue = false, disabled = false, 

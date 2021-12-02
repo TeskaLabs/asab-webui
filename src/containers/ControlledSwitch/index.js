@@ -2,6 +2,8 @@ import React from 'react';
 
 import './switch.scss';
 
+// documentation available in asab-webui/doc/switch-components.md
+
 const Switch = ({ isOn, toggle, disabled=false, title }) => {
 	const onClick = () => {
 		if (!disabled) toggle();
