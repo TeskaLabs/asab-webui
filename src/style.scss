@@ -189,6 +189,56 @@ main > .container-fluid, main > .container {
 	}
 }
 
+// User-bar
+.header-userbar-toggler {
+	display: none;
+}
+
+.user-bar {
+	display: none;
+	&-sm {
+		display: none;
+	}
+}
+
+@media (max-width: 800px) {
+	.header-userbar-toggler{
+		display: inline-flex;
+		align-items: center;
+		font-size: 1.5rem;
+		margin-left: auto !important;
+		transform: rotate(0deg);
+		transition: transform 0.25s ease;
+		  &.open{
+			transform: rotate(180deg);
+			transition: transform 0.25s ease;
+		  }
+	}
+	.user-bar {
+		display: none !important;
+		// 
+		background-color: cyan;
+		&-sm {
+			display: block;
+			justify-content: right ;
+			margin-left: auto !important;
+		}
+	}
+	.op + .app-body {
+		margin-top: 103px;
+	}
+	.op + .app-body > .sidebar-bottom {
+		margin-bottom: 55px;
+	}
+	.nav-link:first-child {
+		margin-left: auto;
+	}
+}
+
+.hidden {
+	display: none;
+}
+
 // Sidebar
 
 .app-sidebar-minimized, .app-sidebar-minimized-closed {
