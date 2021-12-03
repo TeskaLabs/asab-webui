@@ -219,8 +219,8 @@ main > .container-fluid, main > .container {
 		// 
 		background-color: cyan;
 		&-sm {
-			display: block;
-			justify-content: right ;
+			display: flex;
+			justify-content: right;
 			margin-left: auto !important;
 		}
 	}
@@ -230,8 +230,11 @@ main > .container-fluid, main > .container {
 	.op + .app-body > .sidebar-bottom {
 		margin-bottom: 55px;
 	}
-	.nav-link:first-child {
-		margin-left: auto;
+}
+
+@media (max-width: 600px) {
+	.user-bar-sm {
+		justify-content: center;
 	}
 }
 
@@ -487,6 +490,7 @@ main > .container-fluid, main > .container {
 .breadcrumbs {
 	display: block;
 	background-color: #fff;
+	z-index: 1000 ;
 }
 
 // Import styles
