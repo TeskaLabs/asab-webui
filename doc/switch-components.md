@@ -6,7 +6,7 @@ https://reactjs.org/docs/forms.html#controlled-components
 - parameters
     - isOn (boolean) - sets state
     - toggle (function) - triggered upon click
-    - title (string)
+    - title (string / optional)
     - disabled (boolean / optional)
 
 - example:
@@ -27,13 +27,14 @@ https://reactjs.org/docs/forms.html#controlled-components
 # Uncontrolled Switch Component
 https://reactjs.org/docs/uncontrolled-components.html#gatsby-focus-wrapper
 
+- react-hook-form needs to be installed and imported
 - Form data is handled by the DOM itself
 
 - parameters
 	title () - switcher's title
     register () - method allowing you to register an input
     setValue () -  function allowing you to dynamically set the value of a registered field
-    name - registered field's name (key)
+    name (required only in React Hook Form V6) - registered field's name (key)
     id 
 	defaultValue (optional)
     disabled (optional)
@@ -49,6 +50,9 @@ https://reactjs.org/docs/uncontrolled-components.html#gatsby-focus-wrapper
         return (
             <form onSubmit={ handleSubmit((values) => console.log(values))}> 
                             <UncontrolledSwitch register={register('setTotp')} setValue={setValue}/>
+
+                            // ... rest of your form ...
+
                             <input type="submit"></input>
             </form>
         ) 
