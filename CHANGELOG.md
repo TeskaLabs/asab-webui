@@ -217,3 +217,5 @@
 - Fix breadcrumbs for dynamic routes or crumbs which doesn't have name (INDIGO Sprint 211029, [!196](https://github.com/TeskaLabs/asab-webui/pull/196))
 
 - Fix sidebar items order for minimized sidebar (INDIGO Sprint 211112, [!210](https://github.com/TeskaLabs/asab-webui/pull/210))
+
+- Fix sidebar auto open (INDIGO Sprint 211126,[!215](https://github.com/TeskaLabs/asab-webui/pull/215))
