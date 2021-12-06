@@ -7,7 +7,7 @@ export default class TenantService extends Service {
 		super(app, name);
 	}
 
-	async initialize() {
+	initialize() {
 
 		// If the tenant list is in the configuration, use it
 		// This is useful when tenants are present but auth not
@@ -27,7 +27,7 @@ export default class TenantService extends Service {
 	*/
 	set_tenants(tenants_list) {
 		// Extract a current tenant from URL params
-		var tenant_id = this.extract_tenant_from_url();
+		var tenant_id = this._extract_tenant_from_url();
 
 		// If tenant has not been provided in access URL, pick a first tenant from a list
 		if (tenant_id == null && tenants_list && tenants_list.length > 0) {
@@ -72,13 +72,13 @@ export default class TenantService extends Service {
 		let currentTenant = state.tenant.current;
 		// If current tenant is not in redux store yet, get it from the URL params
 		if (!currentTenant) {
-			currentTenant = this.extract_tenant_from_url();
+			currentTenant = this._extract_tenant_from_url();
 		}
 		return currentTenant;
 	}
 
 	// Extract tenant from URL params
-	extract_tenant_from_url() {
+	_extract_tenant_from_url() {
 		const search = window.location.search;
 		const params = new URLSearchParams(search);
 		let tenant = params.get('tenant');
