@@ -23,7 +23,7 @@ const Sidebar = (props) => {
 			});
 		}
 
-		if (unauthorizedNavItems != undefined || unauthorizedNavItems.length != 0) {
+		if (unauthorizedNavItems != undefined && unauthorizedNavItems.length != 0) {
 			itemsList = itemsList.filter((item) => unauthorizedNavItems.indexOf(item.name) == -1);
 		}
 
@@ -41,7 +41,7 @@ const Sidebar = (props) => {
 							key={idx}
 							item={item}
 							unauthorizedNavChildren={unauthorizedNavChildren}
-							uncollapseAll={memoizedItemsList.length <= 2}
+							uncollapseAll={memoizedItemsList?.length <= 2}
 						/>
 					))}
 				</Nav>
