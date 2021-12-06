@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import {
 	Nav,
-	NavItem, Button, Collapse, Card, CardBody
+	NavItem
 } from 'reactstrap';
 
 import HelpButton from '../../helpButton';
@@ -13,11 +13,7 @@ import NavbarBrand from './NavbarBrand';
 export function Header(props) {
 	const HeaderService = props.app.locateService("HeaderService");
 
-	const [userbarOpen, setUserbarOpen] = useState(false)
-
-	useEffect(() => {
-		console.log(userbarOpen)
-	}, [userbarOpen])
+	const [userbarOpen, setUserbarOpen] = useState(false);
 
 	return (
 		<header className={userbarOpen ? 'op' : ''}>
@@ -77,7 +73,7 @@ export function Header(props) {
 			<div className={`application-header user-bar-sm mt-5`} >
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
 				(
-					<Nav className="" navbar>
+					<Nav navbar>
 						<HelpButton />
 						{HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>
