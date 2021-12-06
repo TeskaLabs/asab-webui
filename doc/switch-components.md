@@ -32,28 +32,29 @@ https://reactjs.org/docs/uncontrolled-components.html#gatsby-focus-wrapper
 
 - parameters
 	title () - switcher's title
-    register () - method allowing you to register an input
-    setValue () -  function allowing you to dynamically set the value of a registered field
-    name (required only in React Hook Form V6 - https://react-hook-form.com/v6/api#register ) - registered field's name (key)
+    register (required) - method allowing you to register an input
+    setValue (required) -  function allowing you to dynamically set the value of a registered field
+    name (required) - registered field's name (key)
     id 
 	defaultValue (optional)
     disabled (optional)
 
 - example:
     <!-- 
-    import React from 'react'
-    import { UncontrolledSwitch } from 'asab-webui'
-    import { useForm } from 'react-hook-form'
+    import React from 'react';
+    import { UncontrolledSwitch } from 'asab-webui';
+    import { useForm } from 'react-hook-form';
+    import { Button } from 'reactstrap';
 
     const YourComponent = (props) => {
         const { register, handleSubmit, setValue } = useForm();
         return (
             <form onSubmit={ handleSubmit((values) => console.log(values))}> 
-                            <UncontrolledSwitch register={register('setTotp')} setValue={setValue}/>
+                            <UncontrolledSwitch register={register} setValue={setValue} name='setTotp'/>
 
                             // ... rest of your form ...
 
-                            <input type="submit"></input>
+                            <Button type="submit">Save</Button>
             </form>
         ) 
     -->
