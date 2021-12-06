@@ -5,18 +5,12 @@ import { ControlledSwitch } from 'asab-webui';
 
 const UncontrolledSwitch = ({ 
 	defaultValue = false, disabled = false, 
-	title, register, setValue, name, id
+	title, register, setValue, name = 'uncontrolled switch', id
 }) => {
-		const [isOn, setIsOn] = useState(defaultValue)
-		// console.log(register)
-		useEffect(() => {
-			const key = register?.name ? register.name : name
-			setValue(key, defaultValue)
-		},[])
+		const [isOn, setIsOn] = useState(defaultValue);
 
 		useEffect(() => {
-			const key = register?.name ? register.name : name
-			setValue(key, isOn, { shouldDirty: true })
+			setValue(name, isOn, { shouldDirty: true })
 		}, [isOn])
 
 		return (
@@ -32,7 +26,7 @@ const UncontrolledSwitch = ({
 					name={name}
 					id={id}
 					ref={register}
-					{...register}
+					{...register(name)}
 					style={{ display:"none" }} 
 				/>
 			</>
