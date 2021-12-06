@@ -218,4 +218,6 @@
 
 - Fix sidebar items order for minimized sidebar (INDIGO Sprint 211112, [!210](https://github.com/TeskaLabs/asab-webui/pull/210))
 
-- Fix sidebar auto open (INDIGO Sprint 211126,[!215](https://github.com/TeskaLabs/asab-webui/pull/215))
+- Fix sidebar auto open (INDIGO Sprint 211126, [!215](https://github.com/TeskaLabs/asab-webui/pull/215))
+
+- Fix sidebar items filter condition (INDIGO Sprint 211126, [!216](https://github.com/TeskaLabs/asab-webui/pull/216))
