@@ -8,13 +8,15 @@ const UncontrolledSwitch = ({
 	title, register, setValue, name, id
 }) => {
 		const [isOn, setIsOn] = useState(defaultValue)
-
+		// console.log(register)
 		useEffect(() => {
-			setValue(register.name || name, defaultValue)
+			const key = register?.name ? register.name : name
+			setValue(key, defaultValue)
 		},[])
 
 		useEffect(() => {
-			setValue(register.name || name, isOn, { shouldDirty: true })
+			const key = register?.name ? register.name : name
+			setValue(key, isOn, { shouldDirty: true })
 		}, [isOn])
 
 		return (
@@ -29,6 +31,7 @@ const UncontrolledSwitch = ({
 					type="checkbox"
 					name={name}
 					id={id}
+					ref={register}
 					{...register}
 					style={{ display:"none" }} 
 				/>
