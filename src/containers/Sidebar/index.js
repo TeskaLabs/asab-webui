@@ -41,7 +41,7 @@ const Sidebar = (props) => {
 							key={idx}
 							item={item}
 							unauthorizedNavChildren={unauthorizedNavChildren}
-							uncollapseAll={memoizedItemsList?.length <= 2}
+							uncollapseAll={memoizedItemsList.length <= 2}
 						/>
 					))}
 				</Nav>
