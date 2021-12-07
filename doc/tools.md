@@ -205,8 +205,8 @@ Example of the schema configuration
 					"description": "Fill the path to the tool image in public folder or add base64 image string",
 					"default": "",
 					"$defs": {
-                        "textarea": { "type": "textarea" }
-                    },
+						"textarea": { "type": "textarea" }
+					},
 					"examples": [
 						"tools/my-tool.svg"
 					]
