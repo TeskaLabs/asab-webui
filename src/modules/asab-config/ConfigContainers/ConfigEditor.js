@@ -259,12 +259,14 @@ export default function ConfigEditor(props) {
 									</React.Fragment>
 								</TabPane>
 								<TabPane tabId="advanced">
-									<ReactJson
-										src={jsonValues}
-										onEdit={ e => { setJsonValues(e.updated_src)} }
-										enableClipboard={false}
-										name={false}
-									/>
+									<div style={{overflow: "auto"}}>
+										<ReactJson
+											src={jsonValues}
+											onEdit={ e => { setJsonValues(e.updated_src)} }
+											enableClipboard={false}
+											name={false}
+										/>
+									</div>
 								</TabPane>
 							</TabContent>
 						</CardBody>
