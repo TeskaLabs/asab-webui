@@ -12,9 +12,7 @@ export default class ToolsModule extends Module {
 			name: "Tools",
 			component: ToolsDashboard,
 			props: {
-				type: "tools",
-				config: "config",
-				variant: ".json"
+				type: "Tools"
 			}
 		});
 
