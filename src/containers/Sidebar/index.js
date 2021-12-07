@@ -23,7 +23,7 @@ const Sidebar = (props) => {
 			});
 		}
 
-		if (unauthorizedNavItems != undefined || unauthorizedNavItems.length != 0) {
+		if (unauthorizedNavItems != undefined && unauthorizedNavItems.length != 0) {
 			itemsList = itemsList.filter((item) => unauthorizedNavItems.indexOf(item.name) == -1);
 		}
 
