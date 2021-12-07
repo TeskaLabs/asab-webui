@@ -22,6 +22,13 @@ export default function ToolsDashboard(props){
 		// First, look for Tools configuration in app config file (static configuration)
 		if (props.app.Config != undefined) {
 			configuration = await props.app.Config.get('tools');
+			if (configuration != undefined) {
+				let configArray = [];
+				Object.keys(configuration).map((key, idx) => {
+					configArray.push(configuration[key])
+				})
+				configuration = configArray;
+			}
 		}
 
 		// If Tools configuration not present in app config file, try to get the configuration from Zookeeper
