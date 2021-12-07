@@ -176,6 +176,8 @@
 
 - Collapsable 'userbar' on screensize below 800px, NavbarBrand position adjustment (INDIGO 211126, [!214](https://github.com/TeskaLabs/asab-webui/pull/214))
 
+- Make init method of tenant service syncronous and make _extract_tenant_from_url() a private method (INDIGO Sprint 211126, [!217](https://github.com/TeskaLabs/asab-webui/pull/217))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
@@ -219,3 +221,7 @@
 - Fix breadcrumbs for dynamic routes or crumbs which doesn't have name (INDIGO Sprint 211029, [!196](https://github.com/TeskaLabs/asab-webui/pull/196))
 
 - Fix sidebar items order for minimized sidebar (INDIGO Sprint 211112, [!210](https://github.com/TeskaLabs/asab-webui/pull/210))
+
+- Fix sidebar auto open (INDIGO Sprint 211126, [!215](https://github.com/TeskaLabs/asab-webui/pull/215))
+
+- Fix sidebar items filter condition (INDIGO Sprint 211126, [!216](https://github.com/TeskaLabs/asab-webui/pull/216))
