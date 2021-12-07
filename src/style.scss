@@ -192,32 +192,32 @@ main > .container-fluid, main > .container {
 	}
 }
 
-// User-bar
-.header-userbar-toggler {
-	display: none;
-}
+// header-props
 
-.user-bar {
+.header-props {
 	display: none;
 	&-sm {
+		display: none;
+	}
+	&-toggler {
 		display: none;
 	}
 }
 
 @media (max-width: 800px) {
-	.header-userbar-toggler{
+	.header-props-toggler{
 		display: inline-flex;
 		align-items: center;
 		font-size: 1.5rem;
 		margin-left: auto !important;
 		transform: rotate(0deg);
 		transition: transform 0.25s ease;
-		  &.open{
+		  &.header-props-open{
 			transform: rotate(180deg);
 			transition: transform 0.25s ease;
 		  }
 	}
-	.user-bar {
+	.header-props {
 		display: none !important;
 		&-sm {
 			display: flex;
@@ -225,23 +225,23 @@ main > .container-fluid, main > .container {
 			margin-left: auto !important;
 		}
 	}
-	.op + .app-body {
+	.header-props-open + .app-body {
 		margin-top: 103px;
 		height: calc(100vh - 155px) !important;
 
 	}
-	.op + .app-body > .sidebar-bottom {
+	.header-props-open + .app-body > .sidebar-bottom {
 		margin-bottom: 55px;
 	}
-	.op + .app-body .app-sidebar,
-	.op + .app-body .app-sidebar-minimized,
-	.op + .app-body .app-sidebar-minimized-closed {
+	.header-props-open + .app-body .app-sidebar,
+	.header-props-open + .app-body .app-sidebar-minimized,
+	.header-props-open + .app-body .app-sidebar-minimized-closed {
 		height: calc(100vh - 103px) !important;
 	}
 }
 
 @media (max-width: 600px) {
-	.user-bar-sm {
+	.header-props-sm {
 		justify-content: center;
 	}
 }

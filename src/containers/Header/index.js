@@ -13,10 +13,10 @@ import NavbarBrand from './NavbarBrand';
 export function Header(props) {
 	const HeaderService = props.app.locateService("HeaderService");
 
-	const [userbarOpen, setUserbarOpen] = useState(false);
+	const [headerProperties, setHeaderProperties] = useState(false);
 
 	return (
-		<header className={userbarOpen ? 'op' : ''}>
+		<header className={headerProperties && 'header-props-open' }>
 			<div className="application-header">
 			<NavbarBrand {...props}/>
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
@@ -32,7 +32,7 @@ export function Header(props) {
 
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
 				(
-					<Nav className="ml-auto user-bar" navbar>
+					<Nav className="ml-auto header-props" navbar>
 						<HelpButton />
 						{HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>
@@ -42,7 +42,7 @@ export function Header(props) {
 					</Nav>
 				)
 			:
-				<Nav className="ml-auto user-bar" navbar>
+				<Nav className="ml-auto header-props" navbar>
 					<HelpButton />
 					{HeaderService.Items.map((item, idx) => (
 						window.innerWidth < 1024 && item.componentProps.children !== undefined && item.componentProps.children === "LanguageDropdown" ?
@@ -62,15 +62,15 @@ export function Header(props) {
 			}
 
 {/* toggler */}
-				<div className={`header-userbar-toggler mt-1 mr-3 p-0 ${userbarOpen ? 'open' : ''}`} onClick={() => setUserbarOpen(!userbarOpen)}>
-					<i className="cil-caret-bottom"></i>
+				<div className={`header-props-toggler mt-1 mr-3 p-0 ${headerProperties && 'header-props-open' }`} onClick={() => setHeaderProperties(!headerProperties)}>
+					<i className="cil-chevron-bottom"></i>
 				</div>
 
 			</div>
 {/* smallscreen menu  */}
 
-			{ userbarOpen && 
-			<div className={`application-header user-bar-sm mt-5`} >
+			{ headerProperties && 
+			<div className={`application-header header-props-sm mt-5`} >
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
 				(
 					<Nav navbar>
@@ -83,7 +83,7 @@ export function Header(props) {
 					</Nav>
 				)
 			:
-				<Nav className="user-bar-sm" navbar>
+				<Nav className="header-props-sm" navbar>
 					<HelpButton />
 					{HeaderService.Items.map((item, idx) => (
 						window.innerWidth < 1024 && item.componentProps.children !== undefined && item.componentProps.children === "LanguageDropdown" ?
