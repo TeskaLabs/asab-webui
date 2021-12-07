@@ -94,19 +94,20 @@ export function TreeViewComponent(props) {
 				dataChart.push(obj);
 
 				var index = dataChart.indexOf(obj);
-
-				element[key].map((e) => {
-					if (typeof e === "object" && e !== null) {
-						addTreeStructure(e, dataChart[index].nodes);
-					} else if (typeof e === "string" && e !== null) {
-						var strObj = {
-							type: "file", // this is not needed yet, but it might be useful for icons
-							key: e,
-							label: e
-						};
-						dataChart[index].nodes.push(strObj);
-					}
-				})
+				if (element[key] != undefined) {
+					element[key].map((e) => {
+						if (typeof e === "object" && e !== null) {
+							addTreeStructure(e, dataChart[index].nodes);
+						} else if (typeof e === "string" && e !== null) {
+							var strObj = {
+								type: "file", // this is not needed yet, but it might be useful for icons
+								key: e,
+								label: e
+							};
+							dataChart[index].nodes.push(strObj);
+						}
+					})
+				}
 			})
 		} else if (element !== undefined) {
 			dataChart.push(
