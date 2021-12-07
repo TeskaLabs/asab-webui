@@ -34,7 +34,7 @@ https://reactjs.org/docs/uncontrolled-components.html#gatsby-focus-wrapper
 	title () - switcher's title
     register (required) - method allowing you to register an input
     setValue (required) -  function allowing you to dynamically set the value of a registered field
-    name (required) - registered field's name (key)
+    name (required (yes, also in react hook form version 6)) - registered field's name (key)
     id 
 	defaultValue (optional)
     disabled (optional)
