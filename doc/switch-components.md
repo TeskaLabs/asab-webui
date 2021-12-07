@@ -10,9 +10,8 @@ https://reactjs.org/docs/forms.html#controlled-components
     - disabled (boolean / optional)
 
 - example:
-<!-- 
-    import React, { useState } from 'react'
-    import {ControlledSwitch} from 'asab-webui'
+```import React, { useState } from 'react';
+    import { ControlledSwitch } from 'asab-webui';
 
     const YourComponent = (props) => {
 	    const [isOn, setIsOn] = useState(false)
@@ -20,9 +19,7 @@ https://reactjs.org/docs/forms.html#controlled-components
 			<ControlledSwitch  toggle={() => setIsOn(!isOn)} title='setTotp' isOn={isOn}/>
 		)
     } 
--->
-
-,,,,,
+```
 
 # Uncontrolled Switch Component
 https://reactjs.org/docs/uncontrolled-components.html#gatsby-focus-wrapper
@@ -31,17 +28,16 @@ https://reactjs.org/docs/uncontrolled-components.html#gatsby-focus-wrapper
 - Form data is handled by the DOM itself
 
 - parameters
-	title () - switcher's title
-    register (required) - method allowing you to register an input
-    setValue (required) -  function allowing you to dynamically set the value of a registered field
-    name (required (yes, also in react hook form version 6)) - registered field's name (key)
-    id 
-	defaultValue (optional)
-    disabled (optional)
+	- title () - switcher's title
+    - register (required) - method allowing you to register an input
+    - setValue (required) -  function allowing you to dynamically set the value of a registered field
+    - name (required (yes, also in react hook form version 6)) - registered field's name (key)
+    - id 
+	- defaultValue (optional)
+    - disabled (optional)
 
 - example:
-    <!-- 
-    import React from 'react';
+```import React from 'react';
     import { UncontrolledSwitch } from 'asab-webui';
     import { useForm } from 'react-hook-form';
     import { Button } from 'reactstrap';
@@ -57,4 +53,4 @@ https://reactjs.org/docs/uncontrolled-components.html#gatsby-focus-wrapper
                             <Button type="submit">Save</Button>
             </form>
         ) 
-    -->
+```
