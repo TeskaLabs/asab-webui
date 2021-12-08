@@ -29,6 +29,7 @@ export default function ConfigEditor(props) {
 	const [ typeData, setTypeData ] = useState(undefined);
 	const [ adHocValues, setAdHocValues ] = useState({});
 	const [ adHocSections, setAdHocSections ] = useState({});
+	const [ configData, setConfigData ] = useState(undefined);
 	const { register, handleSubmit, setValue, getValues, errors, reset } = useForm();
 
 	let App = props.app;
@@ -45,24 +46,61 @@ export default function ConfigEditor(props) {
 
 
 	useEffect(() => {
+		reset({}); // Reset form on config change
 		initialLoad();
-	},[ configType, configName ]); // The container will be re-rendered on configType or configName change
+	}, [ configType, configName ]); // The container will be re-rendered on configType or configName change
 
+	useEffect(() => {
+		if (typeData && configData) {
+			handleConfigValues();
+		}
+	}, [typeData, configData])
+
+	const handleConfigValues = () => {
+		let schema = typeData;
+		let ahValues = {};
+		let ahSections = {};
+		for (var section in configData) {
+			let arrValues = [];
+			let arrSections = [];
+			for (var key in configData[section]) {
+				// Set config values to the schema (if available)
+				setValue('[' + section + '] ' + key, configData[section][key])
+				// Check if config key values are in schema and if not, add it to adhoc values
+				let s = {};
+				let v = {};
+				if (schema.properties) {
+					if (schema.properties[section] == undefined) {
+						s[key] = configData[section][key];
+						arrSections.push(s);
+						ahSections[section] = arrSections;
+					} else if (schema.properties[section]?.properties[key] == undefined) {
+						v[key] = configData[section][key];
+						arrValues.push(v);
+						ahValues[section] = arrValues;
+					}
+				}
+			}
+		}
+
+		// TODO: HANDLE ad hoc values for patternIndexes
+		setAdHocValues(ahValues);
+		setAdHocSections(ahSections);
+		setJsonValues(configData);
+	}
 
 	const initialLoad = async () => {
 		let values = undefined;
-		let type = undefined;
+		let schema = undefined;
 		setConfigNotExist(false);
 
 		try {
 			let response = await ASABConfigAPI.get("/type/" + configType);
 			// TODO: validate responses which are not 200
-			type = response.data;
-			if (type.result == 'FAIL') {
+			schema = response.data;
+			if (schema.result == 'FAIL') {
 				App.addAlert("warning", t(`ASABConfig|Something went wrong! Unable to get data`, {type: configType}));
 				return;
-			} else {
-				setTypeData(type);
 			}
 		}
 		catch(e) {
@@ -71,8 +109,6 @@ export default function ConfigEditor(props) {
 			return;
 		}
 
-
-		reset({}); // Reset form on config change
 		try {
 			let response = await ASABConfigAPI.get("/config/" + configType + "/" + configName + "?format=json");
 			values = response.data;
@@ -83,6 +119,34 @@ export default function ConfigEditor(props) {
 			App.addAlert("warning", t(`ASABConfig|Unable to get config data. Try to reload the page`, {config: configName}));
 			return;
 		}
+
+		// TODO: handle nested patternProperties
+		if (schema.patternProperties) {
+			Promise.all(Object.keys(values).map((section, idx) => {
+				let typeName = Object.keys(schema.patternProperties)[0];
+				let patternRename = {};
+				// If section string pattern match, then rename the section index
+				if (section.match(typeName) != null) {
+					patternRename[section.match(typeName)[0]] = schema.patternProperties[typeName];
+					delete schema.patternProperties[typeName];
+					schema.patternProperties[section.match(typeName)[0]] = patternRename[section.match(typeName)[0]];
+				}
+				if (schema.required) {
+					let req = [];
+					schema.required.map((r,i) => {
+						if (section.match(r) != null) {
+							req.push(section.match(r)[0]);
+						} else {
+							req.push(r);
+						}
+					})
+					schema.required = req;
+				}
+			}))
+		}
+		setTypeData(schema);
+		setConfigData(values);
+
 
 		// // MOCKED DATA
 		// values = {
@@ -100,33 +164,7 @@ export default function ConfigEditor(props) {
 		// 	},
 		// };
 
-		if (values && Object.keys(values).length >= 0 && values.result != "FAIL") {
-			let ahValues = {};
-			let ahSections = {};
-			for (var section in values) {
-				let arrValues = [];
-				let arrSections = [];
-				for (var key in values[section]) {
-					// Set config values to the schema (if available)
-					setValue('['+section + "] " + key, values[section][key], { shouldValidate: false })
-					// Check if config key values are in schema and if not, add it to adhoc values
-					let s = {};
-					let v = {};
-					if (type?.properties[section] == undefined) {
-						s[key] = values[section][key];
-						arrSections.push(s);
-						ahSections[section] = arrSections;
-					} else if (type?.properties[section]?.properties[key] == undefined) {
-						v[key] = values[section][key];
-						arrValues.push(v);
-						ahValues[section] = arrValues;
-					}
-				}
-			}
-			setAdHocValues(ahValues);
-			setAdHocSections(ahSections);
-			setJsonValues(values);
-		} else {
+		if (!values && Object.keys(values).length == 0 && values.result == "FAIL") {
 			App.addAlert("warning", t(`ASABConfig|Config file does not exist`));
 			setConfigNotExist(true);
 		}
@@ -241,6 +279,16 @@ export default function ConfigEditor(props) {
 											<ConfigSection
 												key={idx}
 												section={typeData.properties[section_name]}
+												sectionname={section_name}
+												register={register}
+												adhocvalues={adHocValues}
+											/>
+										)}
+										{/*TODO: use better handling of patternProperies (e.g. if there will be properies and also patternProperties*/}
+										{typeData && typeData.patternProperties && Object.keys(typeData.patternProperties).map((section_name, idx) =>
+											<ConfigSection
+												key={idx}
+												section={typeData.patternProperties[section_name]}
 												sectionname={section_name}
 												register={register}
 												adhocvalues={adHocValues}
