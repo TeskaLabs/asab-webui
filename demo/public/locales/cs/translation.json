@@ -34,7 +34,9 @@
 		"Invalid tenant": "Neplatný tenant :-("
 	},
 	"ASABToolsModule": {
-		"Unable to load the data from site": "Nepodařilo se načíst data ze stránky"
+		"Can't load the configuration, 'config' property has not been specified": "Nelze získat konfiguraci, 'config' nebyl specifikován",
+		"Unable to get config data from service, please check the config settings": "Nelze získat konfiguraci ze servicy, zkontrolujte prosím nastavení konfigurace",
+		"Something went wrong, unable to get config data from service": "Něco je špatně, nelze získat konfiguraci ze servicy"
 	},
 	"You do not have access rights to perform this action": "Váš přístup je omezen, nemáte dostatečná oprávnění"
 }
