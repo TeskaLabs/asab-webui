@@ -124,13 +124,15 @@ export default function ConfigEditor(props) {
 		if (schema.patternProperties) {
 			Promise.all(Object.keys(values).map((section, idx) => {
 				let typeName = Object.keys(schema.patternProperties)[0];
-				let patternRename = {};
 				// If section string pattern match, then rename the section index
 				if (section.match(typeName) != null) {
+					let patternRename = {};
 					patternRename[section.match(typeName)[0]] = schema.patternProperties[typeName];
 					delete schema.patternProperties[typeName];
 					schema.patternProperties[section.match(typeName)[0]] = patternRename[section.match(typeName)[0]];
 				}
+				// TODO: Not sure if renaming implemented below would be needed
+				// Rename required items in array
 				if (schema.required) {
 					let req = [];
 					schema.required.map((r,i) => {
@@ -142,27 +144,18 @@ export default function ConfigEditor(props) {
 					})
 					schema.required = req;
 				}
+				// Rename default of the schema
+				if (schema.default && Object.keys(schema.default).length > 0 && section.match(typeName) != null) {
+					let defaultRename = {};
+					defaultRename[section.match(typeName)[0]] = schema.default[typeName];
+					delete schema.default[typeName];
+					schema.default[section.match(typeName)[0]] = defaultRename[section.match(typeName)[0]];
+				}
+				// TODO: add Examples renaming
 			}))
 		}
 		setTypeData(schema);
 		setConfigData(values);
-
-
-		// // MOCKED DATA
-		// values = {
-		// 	'asab:docker': {
-		// 		'type': "fool",
-		// 		'meky': 'zbirka'
-		// 	},
-		// 	'general': {
-		// 		'uid': "123",
-		// 		'ahoj1': 'jdasj',
-		// 		'paskal': 'kopytho'
-		// 	},
-		// 	'admiral': {
-		// 		'papillon': "666",
-		// 	},
-		// };
 
 		if (!values && Object.keys(values).length == 0 && values.result == "FAIL") {
 			App.addAlert("warning", t(`ASABConfig|Config file does not exist`));
