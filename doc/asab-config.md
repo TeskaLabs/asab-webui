@@ -15,11 +15,6 @@ In `config` file, define ASAB Config as a service:
 ```
 module.exports = {
 	app: {
-		BASE_URL: 'http://localhost:3000',
-		API_PATH: 'api',
-		SERVICES: {
-			asab_config: 'asab-config',
-		},
 
 		...
 
@@ -27,10 +22,10 @@ module.exports = {
 	webpackDevServer: {
 		port: 3000,
 		proxy: {
-			'/api/asab-config': {
+			'/api/asab_config': {
 				target: 'http://localhost:8082',
-				pathRewrite: {'^/api/asab-config' : ''},
-				ws: true,
+				pathRewrite: {'^/api/asab_config' : ''},
+				ws: true
 			},
 		}
 	}
@@ -55,6 +50,10 @@ ReactDOM.render((
 	</HashRouter>
 ), document.getElementById('app'));
 ```
+
+## Schema and configuration files
+
+TODO
 
 ## Language localisations
 
