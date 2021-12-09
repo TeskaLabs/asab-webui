@@ -74,7 +74,8 @@ export function StringItems(props) {
 }
 
 export function ConfigItem(props) {
-	let myid = '['+props.sectionname + "] " + props.itemname;
+	let myid = `${props.sectionname} ${props.itemname}`;
+	const reg = props.register(myid) == undefined ? props.register() : props.register(myid);
 	return (
 		<FormGroup>
 			<Label for={myid}>
@@ -85,7 +86,9 @@ export function ConfigItem(props) {
 				name={myid}
 				id={myid}
 				placeholder={props.item['default']}
-				innerRef={props.register()}
+				innerRef={props.register(myid) == undefined ? reg : reg.ref}
+				onChange={reg.onChange}
+				onBlur={reg.onBlur}
 			/>
 			<FormText color="muted">
 				{props.item['description']}
@@ -96,7 +99,6 @@ export function ConfigItem(props) {
 
 
 export function NumberConfigItem(props) {
-	let myid = '['+props.sectionname + "] " + props.itemname;
 	if (props.defs && Object.keys(props.defs)[0] == 'select') {
 		return (
 			<SelectConfigItem
@@ -106,6 +108,8 @@ export function NumberConfigItem(props) {
 				register={props.register}
 			/>)
 	} else {
+		let myid = `${props.sectionname} ${props.itemname}`;
+		const reg = props.register(myid) == undefined ? props.register() : props.register(myid);
 		return (
 			<FormGroup>
 				<Label for={myid}>
@@ -117,7 +121,9 @@ export function NumberConfigItem(props) {
 					id={myid}
 					placeholder={props.item['default']}
 					defaultValue={props.item['default']}
-					innerRef={props.register()}
+					innerRef={props.register(myid) == undefined ? reg : reg.ref}
+					onChange={reg.onChange}
+					onBlur={reg.onBlur}
 				/>
 				<FormText color="muted">
 					{props.item['description']}
@@ -129,7 +135,8 @@ export function NumberConfigItem(props) {
 
 
 export function UrlConfigItem(props) {
-	let myid = '['+props.sectionname + "] " + props.itemname;
+	let myid = `${props.sectionname} ${props.itemname}`;
+	const reg = props.register(myid) == undefined ? props.register() : props.register(myid);
 	return (
 		<FormGroup>
 			<Label for={myid}>
@@ -140,7 +147,9 @@ export function UrlConfigItem(props) {
 				name={myid}
 				id={myid}
 				placeholder={props.item['default']}
-				innerRef={props.register()}
+				innerRef={props.register(myid) == undefined ? reg : reg.ref}
+				onChange={reg.onChange}
+				onBlur={reg.onBlur}
 			/>
 			<FormText color="muted">
 				{props.item['description']}
@@ -151,7 +160,8 @@ export function UrlConfigItem(props) {
 
 
 export function EmailConfigItem(props) {
-	let myid = '['+props.sectionname + "] " + props.itemname;
+	let myid = `${props.sectionname} ${props.itemname}`;
+	const reg = props.register(myid) == undefined ? props.register() : props.register(myid);
 	return (
 		<FormGroup>
 			<Label for={myid}>
@@ -162,7 +172,9 @@ export function EmailConfigItem(props) {
 				name={myid}
 				id={myid}
 				placeholder={props.item['default']}
-				innerRef={props.register()}
+				innerRef={props.register(myid) == undefined ? reg : reg.ref}
+				onChange={reg.onChange}
+				onBlur={reg.onBlur}
 			/>
 			<FormText color="muted">
 				{props.item['description']}
@@ -173,7 +185,8 @@ export function EmailConfigItem(props) {
 
 
 export function PasswordConfigItem(props) {
-	let myid = '['+props.sectionname + "] " + props.itemname;
+	let myid = `${props.sectionname} ${props.itemname}`;
+	const reg = props.register(myid) == undefined ? props.register() : props.register(myid);
 	return (
 		<FormGroup>
 			<Label for={myid}>
@@ -184,7 +197,9 @@ export function PasswordConfigItem(props) {
 				name={myid}
 				id={myid}
 				placeholder={props.item['default']}
-				innerRef={props.register()}
+				innerRef={props.register(myid) == undefined ? reg : reg.ref}
+				onChange={reg.onChange}
+				onBlur={reg.onBlur}
 			/>
 			<FormText color="muted">
 				{props.item['description']}
@@ -195,7 +210,8 @@ export function PasswordConfigItem(props) {
 
 
 export function CheckBoxConfigItem(props) {
-	let myid = '['+props.sectionname + "] " + props.itemname;
+	let myid = `${props.sectionname} ${props.itemname}`;
+	const reg = props.register(myid) == undefined ? props.register() : props.register(myid);
 	return (
 		<FormGroup>
 			<Label for={myid}>
@@ -207,7 +223,9 @@ export function CheckBoxConfigItem(props) {
 				type="checkbox"
 				name={myid}
 				id={myid}
-				innerRef={props.register()}
+				innerRef={props.register(myid) == undefined ? reg : reg.ref}
+				onChange={reg.onChange}
+				onBlur={reg.onBlur}
 			/>
 			<br />
 			<FormText color="muted">
@@ -219,7 +237,8 @@ export function CheckBoxConfigItem(props) {
 
 // TODO: Implement and test radio button when there will be a case for it
 export function RadioButtonConfigItem(props) {
-	let myid = '['+props.sectionname + "] " + props.itemname;
+	let myid = `${props.sectionname} ${props.itemname}`;
+	const reg = props.register(myid) == undefined ? props.register() : props.register(myid);
 	return (
 		<React.Fragment>
 			<FormGroup check>
@@ -233,7 +252,9 @@ export function RadioButtonConfigItem(props) {
 						name={myid}
 						id={myid}
 						value={"True"}
-						innerRef={props.register()}
+						innerRef={props.register(myid) == undefined ? reg : reg.ref}
+						onChange={reg.onChange}
+						onBlur={reg.onBlur}
 					/>{' '}
 					True
 				</Label>
@@ -245,7 +266,9 @@ export function RadioButtonConfigItem(props) {
 						name={myid}
 						id={myid}
 						value={"False"}
-						innerRef={props.register()}
+						innerRef={props.register(myid) == undefined ? reg : reg.ref}
+						onChange={reg.onChange}
+						onBlur={reg.onBlur}
 					/>{' '}
 					False
 				</Label>
@@ -259,7 +282,8 @@ export function RadioButtonConfigItem(props) {
 
 
 export function SelectConfigItem(props) {
-	let myid = '['+props.sectionname + "] " + props.itemname;
+	let myid = `${props.sectionname} ${props.itemname}`;
+	const reg = props.register(myid) == undefined ? props.register() : props.register(myid);
 	return (
 		<FormGroup>
 			<Label for={myid}>
@@ -269,7 +293,9 @@ export function SelectConfigItem(props) {
 				type="select"
 				name={myid}
 				id={myid}
-				innerRef={props.register()}
+				innerRef={props.register(myid) == undefined ? reg : reg.ref}
+				onChange={reg.onChange}
+				onBlur={reg.onBlur}
 			>
 				{props.item['default'].length > 0 ? props.item['default'].map((val, idx) => {return(
 					<option key={idx}>{val}</option>
@@ -284,7 +310,8 @@ export function SelectConfigItem(props) {
 
 
 export function TextAreaConfigItem(props) {
-	let myid = '['+props.sectionname + "] " + props.itemname;
+	let myid = `${props.sectionname} ${props.itemname}`;
+	const reg = props.register(myid) == undefined ? props.register() : props.register(myid);
 	return (
 		<FormGroup>
 			<Label for={myid}>
@@ -294,7 +321,9 @@ export function TextAreaConfigItem(props) {
 				type="textarea"
 				name={myid}
 				id={myid}
-				innerRef={props.register()}
+				innerRef={props.register(myid) == undefined ? reg : reg.ref}
+				onChange={reg.onChange}
+				onBlur={reg.onBlur}
 			/>
 			<FormText color="muted">
 				{props.item['description']}
@@ -302,7 +331,6 @@ export function TextAreaConfigItem(props) {
 		</FormGroup>
 	);
 }
-
 
 export function ConfigAdHocItem(props) {
 	const { t, i18n } = useTranslation();
