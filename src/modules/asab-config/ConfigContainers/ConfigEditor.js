@@ -30,7 +30,7 @@ export default function ConfigEditor(props) {
 	const [ adHocValues, setAdHocValues ] = useState({});
 	const [ adHocSections, setAdHocSections ] = useState({});
 	const [ configData, setConfigData ] = useState(undefined);
-	const { register, handleSubmit, setValue, getValues, errors, reset } = useForm();
+	const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm();
 
 	let App = props.app;
 	// Retrieve the asab config url from config file
@@ -46,12 +46,12 @@ export default function ConfigEditor(props) {
 
 
 	useEffect(() => {
-		reset({}); // Reset form on config change
 		initialLoad();
 	}, [ configType, configName ]); // The container will be re-rendered on configType or configName change
 
 	useEffect(() => {
 		if (typeData && configData) {
+			reset({}); // Reset values before setting up new values to prevent wrong re-rendering
 			handleConfigValues();
 		}
 	}, [typeData, configData])
@@ -60,12 +60,13 @@ export default function ConfigEditor(props) {
 		let schema = typeData;
 		let ahValues = {};
 		let ahSections = {};
+
 		for (var section in configData) {
 			let arrValues = [];
 			let arrSections = [];
 			for (var key in configData[section]) {
 				// Set config values to the schema (if available)
-				setValue('[' + section + '] ' + key, configData[section][key])
+				setValue(`${section} ${key}`, configData[section][key]);
 				// Check if config key values are in schema and if not, add it to adhoc values
 				let s = {};
 				let v = {};
@@ -122,7 +123,7 @@ export default function ConfigEditor(props) {
 
 		// TODO: handle nested patternProperties
 		if (schema.patternProperties) {
-			Promise.all(Object.keys(values).map((section, idx) => {
+			await Promise.all(Object.keys(values).map((section, idx) => {
 				let typeName = Object.keys(schema.patternProperties)[0];
 				// If section string pattern match, then rename the section index
 				if (section.match(typeName) != null) {
@@ -154,8 +155,8 @@ export default function ConfigEditor(props) {
 				// TODO: add Examples renaming
 			}))
 		}
-		setTypeData(schema);
 		setConfigData(values);
+		setTypeData(schema);
 
 		if (!values && Object.keys(values).length == 0 && values.result == "FAIL") {
 			App.addAlert("warning", t(`ASABConfig|Config file does not exist`));
