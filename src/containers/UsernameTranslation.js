@@ -17,16 +17,17 @@ import { UsernameTranslation } from 'asab-webui';
 
 export function UsernameTranslation(props) {
 
-	// const id = Array.isArray(props.userId) ? props.userId : [props.userId] ;
+	const id = Array.isArray(props.userId) ? props.userId : [props.userId] ;
 	const apiPath = props.apiPath ?? 'seacat_auth';
 	const { t } = useTranslation();
 	let API = props.app.axiosCreate(apiPath);
-	const [usernames, setUsernames] = useState();
+	const [usernames, setUsernames] = useState({});
 	const USERNAMES_CACHE = "usernames";
 	const twoWeeks = 1000 * 60 * 60 * 24 * 14;
-	const kryton = 'mongodb:ext:618ced0fe6f6e38ab6a9c8b8';
-	const rimmer = 'mongodb:ext:618be17866f6ee5de4ae5328';
-	const id = [kryton, rimmer];
+	// test ids
+	// const kryton = 'mongodb:ext:618ced0fe6f6e38ab6a9c8b8';
+	// const rimmer = 'mongodb:ext:618be17866f6ee5de4ae5328';
+	// const id = [kryton,  rimmer];
 
 	const retrieveUserNames = async () => {
 		try {
@@ -35,8 +36,9 @@ export function UsernameTranslation(props) {
 				throw new Error(t("TenantDetailContainer|Something went wrong, failed to fetch assigned credentials"));
 			} 
 			console.log('id: ', id, 'response.data.data: ', response.data.data);
-			setUsernamesToCache(id, response.data.data);
 			setUsernames(response.data.data);
+			setUsernamesToCache(id, response.data.data);
+			
 		} catch (e) {
 			console.error(e);
 			props.app.addAlert("warning", t("TenantDetailContainer|Something went wrong, failed to fetch assigned credentials"));
@@ -57,15 +59,12 @@ export function UsernameTranslation(props) {
 		catch(e){
 			console.error(e.message);
 		}
-		// console.log('line 56', usernamesCache)
 		return usernamesCache
 	}
 
 	const setUsernamesToCache = (userId, value) => {
 		userId.map((element) => {
-			const usernamesCache = getUsernamesCache();
-			// console.log('line 63', usernamesCache)
-	
+			const usernamesCache = getUsernamesCache();	
 			const data = usernamesCache.data;
 			const item = {
 				id: element,
@@ -75,7 +74,6 @@ export function UsernameTranslation(props) {
 			data[element] = item;
 			try{
 				localStorage.setItem(USERNAMES_CACHE, JSON.stringify(usernamesCache));
-				// console.log('localstorage usernames line 74: ', JSON.parse(localStorage.getItem(USERNAMES_CACHE)))
 			}
 			catch(e){
 				// cleanUpStorage(data);
@@ -84,6 +82,10 @@ export function UsernameTranslation(props) {
 		})
 	}
 
+	// const currentTime = () => {
+	// 	return Date.now()
+	// }
+	
 	// const cleanUpStorage = (data) => {
 	// 	let isDeleted
 	// 	let oldest
@@ -100,7 +102,7 @@ export function UsernameTranslation(props) {
 	// 		//finding the oldest cache in case none of them are expired
 	// 		if (!oldest || oldest > expiry) {
 	// 		  oldest = expiry
-	// 		  oldestKey=key
+	// 		  oldestKey = key
 	// 		}
 	// 	}
 	// 	//remove the oldest cache if there is no more space in local storage (5 MB)
@@ -108,55 +110,36 @@ export function UsernameTranslation(props) {
 	// 		delete data[oldestKey]
 	// 	}
 	
-	// 	localStorage.setItem( USERNAMES_CACHE, { data: data, nextCleanup: currentTime() + twoWeeks } )
+	// 	localStorage.setItem( USERNAMES_CACHE, JSON.stringify({ data: data, nextCleanup: currentTime() + twoWeeks }) )
 	// }
-
-	const usePrevious = (value) => {
-        const ref = useRef();
-        useEffect(() => {
-		  ref.current = value;
-		//   console.log('line 113: ', ref, ref.current)
-        });
-        return ref.current;
-	}
-	
-	// const currentTime = () => {
-	// 	return Date.now()
-	// }
-
-	const prevUser = usePrevious(id);
-	console.log('line 119 prevuser: ', prevUser)
 
 	useEffect(() => {
-		console.log('126 cached usernames', getUsernamesCache());
-		const cachedUsernames = getUsernamesCache();
-		id.map((el) => {
-			cachedUsernames.data[el] 
+		console.log('usernames: ', usernames)
+		const cachedUsernames = getUsernamesCache().data;
+		id.map((element) => {
+			try{
+				if (cachedUsernames[element]) {
+					const curTime = currentTime()
+					if (cachedUsernames[element].expiry <= curTime) {
+						retrieveUserNames()
+					} else {
+					let newUsernames = usernames //object
+					newUsernames[element] = cachedUsernames[element].username
+					setUsernames(newUsernames)
+					}
+				} else if (!cachedUsernames[element]) {
+					retrieveUserNames();
+				}
+			}
+			catch(e){
+				console.error(e)
+			}
 		})
-
-		retrieveUserNames();
 	}, [])
-
-	useEffect(() => {
-		// usernames && console.log('line 120: ', usernames);
-		console.log('localstorage usernames line 121: ', JSON.parse(localStorage.getItem(USERNAMES_CACHE)))
-	}, [usernames])
-
-	useEffect(() => {
-        if (prevUser !== id) {
-            setUsernames(undefined);
-        }
-        const cache = getUsernamesCache("USERNAMES_CACHE")
-        if(id in cache.data){
-			setUsernames(cache.data[id].usernames)
-			console.log('we here on line 132')
-        }
-        console.log('line 134 usernames: ', usernames)
-	}, [id, usernames])
 
     return (
 			<>
-				{usernames && usernames.length != 0 ?
+				{usernames != {} ?
 					Object.keys(usernames).map((key) => {
 						return (
 							<div title={key}>
