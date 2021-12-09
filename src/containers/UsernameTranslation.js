@@ -17,13 +17,16 @@ import { UsernameTranslation } from 'asab-webui';
 
 export function UsernameTranslation(props) {
 
-	const id = Array.isArray(props.userId) ? props.userId : [props.userId] ;
+	// const id = Array.isArray(props.userId) ? props.userId : [props.userId] ;
 	const apiPath = props.apiPath ?? 'seacat_auth';
 	const { t } = useTranslation();
 	let API = props.app.axiosCreate(apiPath);
 	const [usernames, setUsernames] = useState();
 	const USERNAMES_CACHE = "usernames";
 	const twoWeeks = 1000 * 60 * 60 * 24 * 14;
+	const kryton = 'mongodb:ext:618ced0fe6f6e38ab6a9c8b8';
+	const rimmer = 'mongodb:ext:618be17866f6ee5de4ae5328';
+	const id = [kryton, rimmer];
 
 	const retrieveUserNames = async () => {
 		try {
@@ -42,7 +45,7 @@ export function UsernameTranslation(props) {
 
 	const getUsernamesCache = () => {
 		let usernamesCache = {
-				usernames: {},
+				data: {},
 				nextCleanup: new Date().getTime() + twoWeeks
 		};
 		try {
@@ -54,29 +57,31 @@ export function UsernameTranslation(props) {
 		catch(e){
 			console.error(e.message);
 		}
-		console.log('line 56', usernamesCache)
+		// console.log('line 56', usernamesCache)
 		return usernamesCache
 	}
 
 	const setUsernamesToCache = (userId, value) => {
-		const usernamesCache = getUsernamesCache();
-		console.log('line 63', usernamesCache)
-
-		const usernames = usernamesCache.usernames;
-		const item = {
-			id: userId,
-			expiry: new Date().getTime() + twoWeeks,
-			usernames: value
-		};
-		// usernames[userId] = item;
-		try{
-			localStorage.setItem(USERNAMES_CACHE, JSON.stringify(usernamesCache));
-			console.log('localstorage usernames line 74: ', JSON.parse(localStorage.getItem(USERNAMES_CACHE)))
-		}
-		catch(e){
-			// cleanUpStorage(data);
-			console.error(e)
-		}
+		userId.map((element) => {
+			const usernamesCache = getUsernamesCache();
+			// console.log('line 63', usernamesCache)
+	
+			const data = usernamesCache.data;
+			const item = {
+				id: element,
+				username: value[element],
+				expiry: new Date().getTime() + twoWeeks
+			};
+			data[element] = item;
+			try{
+				localStorage.setItem(USERNAMES_CACHE, JSON.stringify(usernamesCache));
+				// console.log('localstorage usernames line 74: ', JSON.parse(localStorage.getItem(USERNAMES_CACHE)))
+			}
+			catch(e){
+				// cleanUpStorage(data);
+				console.error(e)
+			}
+		})
 	}
 
 	// const cleanUpStorage = (data) => {
@@ -115,34 +120,39 @@ export function UsernameTranslation(props) {
         return ref.current;
 	}
 	
-	const currentTime = () => {
-		return Date.now()
-	}
+	// const currentTime = () => {
+	// 	return Date.now()
+	// }
 
 	const prevUser = usePrevious(id);
-	// console.log('line 119 prevuser: ', prevUser)
+	console.log('line 119 prevuser: ', prevUser)
 
 	useEffect(() => {
+		console.log('126 cached usernames', getUsernamesCache());
+		const cachedUsernames = getUsernamesCache();
+		id.map((el) => {
+			cachedUsernames.data[el] 
+		})
+
 		retrieveUserNames();
 	}, [])
 
 	useEffect(() => {
-		usernames && console.log('line 120: ', usernames);
+		// usernames && console.log('line 120: ', usernames);
 		console.log('localstorage usernames line 121: ', JSON.parse(localStorage.getItem(USERNAMES_CACHE)))
-
 	}, [usernames])
 
-	// useEffect(() => {
-    //     if (prevUser !== id) {
-    //         setUsernames(undefined);
-    //     }
-    //     const cache = getUsernamesCache("USERNAMES_CACHE")
-    //     if(id in cache.data){
-	// 		setUsernames(cache.data[id].usernames)
-	// 		console.log('we here on line 132')
-    //     }
-    //     console.log('line 134 usernames: ', usernames)
-	// }, [id, usernames])
+	useEffect(() => {
+        if (prevUser !== id) {
+            setUsernames(undefined);
+        }
+        const cache = getUsernamesCache("USERNAMES_CACHE")
+        if(id in cache.data){
+			setUsernames(cache.data[id].usernames)
+			console.log('we here on line 132')
+        }
+        console.log('line 134 usernames: ', usernames)
+	}, [id, usernames])
 
     return (
 			<>
