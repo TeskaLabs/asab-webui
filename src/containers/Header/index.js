@@ -16,7 +16,7 @@ export function Header(props) {
 	const [headerProperties, setHeaderProperties] = useState(false);
 
 	return (
-		<header className={headerProperties && 'header-props-open' }>
+		<header className={headerProperties ? 'header-props-open' : undefined }>
 			<div className="application-header">
 			<NavbarBrand {...props}/>
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
