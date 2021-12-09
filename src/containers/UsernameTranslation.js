@@ -35,7 +35,6 @@ export function UsernameTranslation(props) {
 			if (response.data.result !== "OK") {
 				throw new Error(t("TenantDetailContainer|Something went wrong, failed to fetch assigned credentials"));
 			} 
-			console.log('id: ', id, 'response.data.data: ', response.data.data);
 			setUsernames(response.data.data);
 			setUsernamesToCache(id, response.data.data);
 			
@@ -114,7 +113,6 @@ export function UsernameTranslation(props) {
 	// }
 
 	useEffect(() => {
-		console.log('usernames: ', usernames)
 		const cachedUsernames = getUsernamesCache().data;
 		id.map((element) => {
 			try{
