@@ -51,7 +51,6 @@ export default function ConfigEditor(props) {
 
 	useEffect(() => {
 		if (typeData && configData) {
-			reset({}); // Reset values before setting up new values to prevent wrong re-rendering
 			handleConfigValues();
 		}
 	}, [typeData, configData])
@@ -155,8 +154,9 @@ export default function ConfigEditor(props) {
 				// TODO: add Examples renaming
 			}))
 		}
-		setConfigData(values);
 		setTypeData(schema);
+		reset({}); // Reset old schema before setting new values to prevent wrong re-rendering
+		setConfigData(values);
 
 		if (!values && Object.keys(values).length == 0 && values.result == "FAIL") {
 			App.addAlert("warning", t(`ASABConfig|Config file does not exist`));
@@ -213,7 +213,8 @@ export default function ConfigEditor(props) {
 			// TODO: validate responses which are not 200
 		}
 		catch {
-			App.addAlert("warning", t('ASABConfig|Something went wrong'));
+			App.addAlert("warning", t('ASABConfig|Something went wrong, failed to update data'));
+			initialLoad();
 			return;
 		}
 	}
