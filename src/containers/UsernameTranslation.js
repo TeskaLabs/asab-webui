@@ -37,7 +37,6 @@ export function UsernameTranslation(props) {
 			} 
 			setUsernames(response.data.data);
 			setUsernamesToCache(id, response.data.data);
-			
 		} catch (e) {
 			console.error(e);
 			props.app.addAlert("warning", t("TenantDetailContainer|Something went wrong, failed to fetch assigned credentials"));
