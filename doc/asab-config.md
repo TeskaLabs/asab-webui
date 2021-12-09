@@ -71,6 +71,7 @@ Example:
 		"Basic": "Basic",
 		"Advanced": "Advanced",
 		"Data updated successfuly": "Data updated successfuly",
+		"Something went wrong, failed to update data": "Something went wrong, failed to update data",
 		"Something went wrong": "Something went wrong!",
 		"We are sorry, but the file cannot be found": "We are sorry, but the file cannot be found :-(",
 		"Config file does not exist": "Config file does not exist",
