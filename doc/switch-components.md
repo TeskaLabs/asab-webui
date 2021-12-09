@@ -1,5 +1,4 @@
-# Controlled Switch Component
-https://reactjs.org/docs/forms.html#controlled-components
+# Controlled Switch Componen
 
 - Our custom switch component substituting reactstrap's <CustomInput type="switch"/>
 - The input’s value is driven by the React state
@@ -10,7 +9,8 @@ https://reactjs.org/docs/forms.html#controlled-components
     - disabled (boolean / optional)
 
 - example:
-```import React, { useState } from 'react';
+```
+    import React, { useState } from 'react';
     import { ControlledSwitch } from 'asab-webui';
 
     const YourComponent = (props) => {
@@ -22,7 +22,6 @@ https://reactjs.org/docs/forms.html#controlled-components
 ```
 
 # Uncontrolled Switch Component
-https://reactjs.org/docs/uncontrolled-components.html#gatsby-focus-wrapper
 
 - react-hook-form needs to be installed and imported
 - Form data is handled by the DOM itself
@@ -37,7 +36,8 @@ https://reactjs.org/docs/uncontrolled-components.html#gatsby-focus-wrapper
     - disabled (optional)
 
 - example:
-```import React from 'react';
+```
+    import React from 'react';
     import { UncontrolledSwitch } from 'asab-webui';
     import { useForm } from 'react-hook-form';
     import { Button } from 'reactstrap';
