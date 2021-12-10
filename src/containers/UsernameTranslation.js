@@ -23,7 +23,7 @@ export function UsernameTranslation(props) {
 	let API = props.app.axiosCreate(apiPath);
 	const [usernames, setUsernames] = useState({});
 	const USERNAMES_CACHE = "usernames";
-	const twoWeeks = 1000 * 60 * 60 * 24 * 14;
+	const cleanupTime = props.cleanupTime ?? 1000 * 60 * 60 * 24;
 	// test ids
 	// const kryton = 'mongodb:ext:618ced0fe6f6e38ab6a9c8b8';
 	// const rimmer = 'mongodb:ext:618be17866f6ee5de4ae5328';
@@ -33,45 +33,45 @@ export function UsernameTranslation(props) {
 		try {
 			let response = await API.put(`usernames`, id);
 			if (response.data.result !== "OK") {
-				throw new Error(t("TenantDetailContainer|Something went wrong, failed to fetch assigned credentials"));
+				throw new Error(t("ASABUsernameTranslation|Something went wrong, failed to fetch assigned credentials"));
 			} 
 			setUsernames(response.data.data);
-			setUsernamesToCache(id, response.data.data);
+			setUsernamesToLS(id, response.data.data);
 		} catch (e) {
 			console.error(e);
-			props.app.addAlert("warning", t("TenantDetailContainer|Something went wrong, failed to fetch assigned credentials"));
+			props.app.addAlert("warning", t("ASABUsernameTranslation|Something went wrong, failed to fetch assigned credentials"));
 		}
 	}
 
-	const getUsernamesCache = () => {
-		let usernamesCache = {
+	const getUsernamesFromLS = () => {
+		let usernamesInLS = {
 				data: {},
-				nextCleanup: new Date().getTime() + twoWeeks
+				nextCleanup: new Date().getTime() + cleanupTime
 		};
 		try {
 			const data = localStorage.getItem(USERNAMES_CACHE);
 			if (data){
-				usernamesCache = JSON.parse(data);
+				usernamesInLS = JSON.parse(data);
 			}
 		}
 		catch(e){
 			console.error(e.message);
 		}
-		return usernamesCache
+		return usernamesInLS
 	}
 
-	const setUsernamesToCache = (userId, value) => {
+	const setUsernamesToLS = (userId, value) => {
 		userId.map((element) => {
-			const usernamesCache = getUsernamesCache();	
-			const data = usernamesCache.data;
+			const usernamesInLS = getUsernamesFromLS();	
+			const data = usernamesInLS.data;
 			const item = {
 				id: element,
 				username: value[element],
-				expiry: new Date().getTime() + twoWeeks
+				expiry: new Date().getTime() + cleanupTime
 			};
 			data[element] = item;
 			try{
-				localStorage.setItem(USERNAMES_CACHE, JSON.stringify(usernamesCache));
+				localStorage.setItem(USERNAMES_CACHE, JSON.stringify(usernamesInLS));
 			}
 			catch(e){
 				// cleanUpStorage(data);
@@ -108,23 +108,23 @@ export function UsernameTranslation(props) {
 	// 		delete data[oldestKey]
 	// 	}
 	
-	// 	localStorage.setItem( USERNAMES_CACHE, JSON.stringify({ data: data, nextCleanup: currentTime() + twoWeeks }) )
+	// 	localStorage.setItem( USERNAMES_CACHE, JSON.stringify({ data: data, nextCleanup: currentTime() + cleanupTime }) )
 	// }
 
 	useEffect(() => {
-		const cachedUsernames = getUsernamesCache().data;
+		const usernamesInLS = getUsernamesFromLS().data;
 		id.map((element) => {
 			try{
-				if (cachedUsernames[element]) {
+				if (usernamesInLS[element]) {
 					const curTime = currentTime()
-					if (cachedUsernames[element].expiry <= curTime) {
+					if (usernamesInLS[element].expiry <= curTime) {
 						retrieveUserNames()
 					} else {
 					let newUsernames = usernames //object
-					newUsernames[element] = cachedUsernames[element].username
+					newUsernames[element] = usernamesInLS[element].username
 					setUsernames(newUsernames)
 					}
-				} else if (!cachedUsernames[element]) {
+				} else if (!usernamesInLS[element]) {
 					retrieveUserNames();
 				}
 			}
