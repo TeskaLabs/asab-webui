@@ -26,10 +26,12 @@ import './configuration.css';
 
 export default function ConfigEditor(props) {
 
-	const [ typeData, setTypeData ] = useState(undefined);
+	// const [ typeData, setTypeData ] = useState(undefined);
 	const [ adHocValues, setAdHocValues ] = useState({});
 	const [ adHocSections, setAdHocSections ] = useState({});
 	const [ configData, setConfigData ] = useState(undefined);
+	const [ formStruct, setFormStruct ] = useState({});
+
 	const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm();
 
 	let App = props.app;
@@ -46,47 +48,54 @@ export default function ConfigEditor(props) {
 
 
 	useEffect(() => {
+		// setFormStruct({});
+		reset({}); // Reset old schema before setting new values to prevent wrong re-rendering
 		initialLoad();
 	}, [ configType, configName ]); // The container will be re-rendered on configType or configName change
 
 	useEffect(() => {
-		if (typeData && configData) {
+		if (Object.keys(formStruct).length > 0) {
 			handleConfigValues();
 		}
-	}, [typeData, configData])
+	}, [formStruct])
 
 	const handleConfigValues = () => {
-		let schema = typeData;
-		let ahValues = {};
-		let ahSections = {};
-
-		for (var section in configData) {
-			let arrValues = [];
-			let arrSections = [];
-			for (var key in configData[section]) {
-				// Set config values to the schema (if available)
-				setValue(`${section} ${key}`, configData[section][key]);
-				// Check if config key values are in schema and if not, add it to adhoc values
-				let s = {};
-				let v = {};
-				if (schema.properties) {
-					if (schema.properties[section] == undefined) {
-						s[key] = configData[section][key];
-						arrSections.push(s);
-						ahSections[section] = arrSections;
-					} else if (schema.properties[section]?.properties[key] == undefined) {
-						v[key] = configData[section][key];
-						arrValues.push(v);
-						ahValues[section] = arrValues;
-					}
-				}
-			}
+		if (formStruct.data) {
+			Object.entries(formStruct.data).map((entry, idx) => {
+				setValue(`${entry[0]}`, entry[1]);
+			})
 		}
+		// let schema = formStruct;
+		// let ahValues = {};
+		// let ahSections = {};
 
-		// TODO: HANDLE ad hoc values for patternIndexes
-		setAdHocValues(ahValues);
-		setAdHocSections(ahSections);
-		setJsonValues(configData);
+		// for (var section in configData) {
+		// 	let arrValues = [];
+		// 	let arrSections = [];
+		// 	for (var key in configData[section]) {
+		// 		// Set config values to the schema (if available)
+		// 		setValue(`${section} ${key}`, configData[section][key]);
+		// 		// Check if config key values are in schema and if not, add it to adhoc values
+		// 		let s = {};
+		// 		let v = {};
+		// 		if (schema.properties) {
+		// 			if (schema.properties[section] == undefined) {
+		// 				s[key] = configData[section][key];
+		// 				arrSections.push(s);
+		// 				ahSections[section] = arrSections;
+		// 			} else if (schema.properties[section]?.properties[key] == undefined) {
+		// 				v[key] = configData[section][key];
+		// 				arrValues.push(v);
+		// 				ahValues[section] = arrValues;
+		// 			}
+		// 		}
+		// 	}
+		// }
+
+		// // TODO: HANDLE ad hoc values for patternIndexes
+		// setAdHocValues(ahValues);
+		// setAdHocSections(ahSections);
+		// setJsonValues(configData);
 	}
 
 	const initialLoad = async () => {
@@ -120,43 +129,51 @@ export default function ConfigEditor(props) {
 			return;
 		}
 
-		// TODO: handle nested patternProperties
-		if (schema.patternProperties) {
-			await Promise.all(Object.keys(values).map((section, idx) => {
-				let typeName = Object.keys(schema.patternProperties)[0];
-				// If section string pattern match, then rename the section index
-				if (section.match(typeName) != null) {
-					let patternRename = {};
-					patternRename[section.match(typeName)[0]] = schema.patternProperties[typeName];
-					delete schema.patternProperties[typeName];
-					schema.patternProperties[section.match(typeName)[0]] = patternRename[section.match(typeName)[0]];
-				}
-				// TODO: Not sure if renaming implemented below would be needed
-				// Rename required items in array
-				if (schema.required) {
-					let req = [];
-					schema.required.map((r,i) => {
-						if (section.match(r) != null) {
-							req.push(section.match(r)[0]);
-						} else {
-							req.push(r);
-						}
-					})
-					schema.required = req;
-				}
-				// Rename default of the schema
-				if (schema.default && Object.keys(schema.default).length > 0 && section.match(typeName) != null) {
-					let defaultRename = {};
-					defaultRename[section.match(typeName)[0]] = schema.default[typeName];
-					delete schema.default[typeName];
-					schema.default[section.match(typeName)[0]] = defaultRename[section.match(typeName)[0]];
-				}
-				// TODO: add Examples renaming
+		console.log(values, "VALUES")
+
+		// TODO: Add ad hoc values
+		let fs = {};
+		let schemaProps = {};
+		let data = {};
+		if (schema.properties) {
+			// console.log(values)
+			await Promise.all(Object.keys(values).map(async (section, idx) => {
+				await Promise.all(Object.keys(values[section]).map((key, id) => {
+					data[`${section} ${key}`] = values[section][key];
+				}))
 			}))
 		}
-		setTypeData(schema);
-		reset({}); // Reset old schema before setting new values to prevent wrong re-rendering
-		setConfigData(values);
+
+		// TODO: handle nested patternProperties
+		if (schema.patternProperties) {
+			await Promise.all(Object.keys(values).map(async (section, idx) => {
+				// console.log(Object.keys(schema.patternProperties), "LLLL")
+				let sectionName = Object.keys(schema.patternProperties)[0];
+				await Promise.all(Object.keys(schema.patternProperties).map(async (sectionName, id) => {
+					// Check for matching section name
+					if (section.match(sectionName) != null) {
+						// If matched, then add schema to schema props
+						schemaProps[`${section}`] = schema.patternProperties[sectionName];
+						await Promise.all(Object.keys(values[section]).map((key, i) => {
+							// Add data for that section
+							data[`${section} ${key}`] = values[section][key];
+						}))
+					}
+				}))
+			}))
+		}
+		console.log(data, 'STRUCTURE AFTER')
+		console.log(schemaProps, "SCHEMA PROPS")
+		fs["data"] = data;
+		fs["properties"] = schemaProps;
+
+		console.log(fs, "FSSSSSSSSSSSSSSSSSSSSSSs")
+		setFormStruct(fs);
+		setJsonValues(values);
+		// setTypeData(schema);
+		// reset({}); // Reset old schema before setting new values to prevent wrong re-rendering
+		// setConfigData(values);
+
 
 		if (!values && Object.keys(values).length == 0 && values.result == "FAIL") {
 			App.addAlert("warning", t(`ASABConfig|Config file does not exist`));
@@ -225,7 +242,7 @@ export default function ConfigEditor(props) {
 	}
 
 	return (
-		!typeData ?
+		!formStruct ?
 			<div style={{paddingTop: "100px", display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
 				<Spinner />
 			</div>
@@ -270,20 +287,10 @@ export default function ConfigEditor(props) {
 								<TabPane tabId="basic">
 									<React.Fragment>
 										{/* List of Sections (it may consist also of AdHocValues) */}
-										{typeData && typeData.properties && Object.keys(typeData.properties).map((section_name, idx) =>
+										{formStruct && formStruct.properties && Object.keys(formStruct.properties).map((section_name, idx) =>
 											<ConfigSection
 												key={idx}
-												section={typeData.properties[section_name]}
-												sectionname={section_name}
-												register={register}
-												adhocvalues={adHocValues}
-											/>
-										)}
-										{/*TODO: use better handling of patternProperies (e.g. if there will be properies and also patternProperties*/}
-										{typeData && typeData.patternProperties && Object.keys(typeData.patternProperties).map((section_name, idx) =>
-											<ConfigSection
-												key={idx}
-												section={typeData.patternProperties[section_name]}
+												section={formStruct.properties[section_name]}
 												sectionname={section_name}
 												register={register}
 												adhocvalues={adHocValues}
