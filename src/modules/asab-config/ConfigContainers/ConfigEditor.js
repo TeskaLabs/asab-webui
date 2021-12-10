@@ -135,6 +135,7 @@ export default function ConfigEditor(props) {
 		let fs = {};
 		let schemaProps = {};
 		let data = {};
+		// TODO: Update also properties the same way as patternProperties (Except that matching)
 		if (schema.properties) {
 			// console.log(values)
 			await Promise.all(Object.keys(values).map(async (section, idx) => {
