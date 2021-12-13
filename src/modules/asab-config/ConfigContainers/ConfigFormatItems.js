@@ -46,7 +46,7 @@ export function StringItems(props) {
 				/>)
 		} else if (def == 'select') {
 			return (
-				<SelectionConfigItem
+				<SelectConfigItem
 					item={props.item}
 					itemname={props.itemname}
 					sectionname={props.sectionname}
@@ -334,7 +334,7 @@ export function TextAreaConfigItem(props) {
 
 export function ConfigAdHocItem(props) {
 	const { t, i18n } = useTranslation();
-	let myid = props.sectionname;
+	let myid = props.valuename;
 	return (
 		props.values.length > 1 ?
 			props.values.map(obj => {
