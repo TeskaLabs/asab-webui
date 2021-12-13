@@ -129,16 +129,19 @@ export default function ConfigEditor(props) {
 			return;
 		}
 
-		console.log(values, "VALUES")
+		// console.log(values, "VALUES")
 
 		// TODO: Add ad hoc values
 		let fs = {};
 		let schemaProps = {};
 		let data = {};
+		let ahValues = {};
+		let ahSections = values;
+
 		// TODO: Update also properties the same way as patternProperties (Except that matching)
 		if (schema.properties) {
 			// console.log(values)
-			await Promise.all(Object.keys(values).map(async (section, idx) => {
+			await Promise.all(values && Object.keys(values).map(async (section, idx) => {
 				await Promise.all(Object.keys(values[section]).map((key, id) => {
 					data[`${section} ${key}`] = values[section][key];
 				}))
@@ -147,9 +150,7 @@ export default function ConfigEditor(props) {
 
 		// TODO: handle nested patternProperties
 		if (schema.patternProperties) {
-			await Promise.all(Object.keys(values).map(async (section, idx) => {
-				// console.log(Object.keys(schema.patternProperties), "LLLL")
-				let sectionName = Object.keys(schema.patternProperties)[0];
+			await Promise.all(values && Object.keys(values).map(async (section, idx) => {
 				await Promise.all(Object.keys(schema.patternProperties).map(async (sectionName, id) => {
 					// Check for matching section name
 					if (section.match(sectionName) != null) {
@@ -159,18 +160,24 @@ export default function ConfigEditor(props) {
 							// Add data for that section
 							data[`${section} ${key}`] = values[section][key];
 						}))
+						// Mutate adHoc section based on the matching sections
+						// If section name match with schema, then remove it from adHoc sections
+						ahSections = Object.assign({}, ahSections);
+						delete ahSections[section];
 					}
+					// TODO: add ad hoc values
 				}))
 			}))
+
+
 		}
-		console.log(data, 'STRUCTURE AFTER')
-		console.log(schemaProps, "SCHEMA PROPS")
+
 		fs["data"] = data;
 		fs["properties"] = schemaProps;
 
-		console.log(fs, "FSSSSSSSSSSSSSSSSSSSSSSs")
 		setFormStruct(fs);
 		setJsonValues(values);
+		setAdHocSections(ahSections);
 		// setTypeData(schema);
 		// reset({}); // Reset old schema before setting new values to prevent wrong re-rendering
 		// setConfigData(values);
@@ -415,18 +422,18 @@ function ConfigAdHocSection(props) {
 			<h5>
 				{myid}
 			</h5>
-			{props.values.length > 0 && props.values.map((obj, idx) =>
+			{Object.keys(props.values).length > 0 && Object.keys(props.values).map((key, idx) =>
 				{
 				return (
 					<FormGroup key={idx}>
 						<Label for={myid}>
-							{Object.keys(obj)}
+							{key}
 						</Label>
 						<Input
 							type="text"
 							name={myid}
 							id={myid}
-							value={Object.values(obj)}
+							value={props.values[key]}
 							readOnly
 						/>
 						<FormText color="muted">
