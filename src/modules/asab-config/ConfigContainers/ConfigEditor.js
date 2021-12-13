@@ -43,8 +43,8 @@ export default function ConfigEditor(props) {
 	const configType = props.configType;
 	const configName = props.configName;
 	const [ configNotExist, setConfigNotExist ] = useState(false);
-	const [ jsonValues, setJsonValues] = useState({});
-	const [activeTab, setActiveTab] = useState('basic');
+	const [ jsonValues, setJsonValues ] = useState({});
+	const [ activeTab, setActiveTab ] = useState('basic');
 
 
 	useEffect(() => {
@@ -129,8 +129,6 @@ export default function ConfigEditor(props) {
 			return;
 		}
 
-		// console.log(values, "VALUES")
-
 		// TODO: Add ad hoc values
 		let fs = {};
 		let schemaProps = {};
@@ -156,12 +154,26 @@ export default function ConfigEditor(props) {
 					if (section.match(sectionName) != null) {
 						// If matched, then add schema to schema props
 						schemaProps[`${section}`] = schema.patternProperties[sectionName];
+						let arrAHValues = [];
 						await Promise.all(Object.keys(values[section]).map((key, i) => {
-							// Add data for that section
+							// Add data for section
 							data[`${section} ${key}`] = values[section][key];
+							// Check for adHoc values in properties
+							if (schemaProps[`${section}`].properties) {
+								// Check if key exist in schema and if not, add it to adHoc values
+								if (schemaProps[`${section}`].properties[`${key}`] == undefined) {
+									let v = {};
+									v[key] = values[section][key];
+									arrAHValues.push(v);
+									ahValues[`${section}`] = arrAHValues;
+									// Remove adHoc values from data to submit
+									delete data[`${section} ${key}`];
+								}
+							}
+
 						}))
 						// Mutate adHoc section based on the matching sections
-						// If section name match with schema, then remove it from adHoc sections
+						// If section name match with schema, then remove it from adHoc sections (it is also removed for submit)
 						ahSections = Object.assign({}, ahSections);
 						delete ahSections[section];
 					}
@@ -178,6 +190,7 @@ export default function ConfigEditor(props) {
 		setFormStruct(fs);
 		setJsonValues(values);
 		setAdHocSections(ahSections);
+		setAdHocValues(ahValues);
 		// setTypeData(schema);
 		// reset({}); // Reset old schema before setting new values to prevent wrong re-rendering
 		// setConfigData(values);
@@ -211,12 +224,14 @@ export default function ConfigEditor(props) {
 					sectionTitle = splitKey[0],
 					sectionKey = splitKey[1],
 					sectionValue = data[key]
+
 					if (prevSection == sectionTitle) {
 						section[sectionKey] = sectionValue;
 					} else {
 						section = {};
 						section[sectionKey] = sectionValue;
 					}
+
 					prevSection = sectionTitle,
 					parsedSections[sectionTitle] = section
 				})
