@@ -137,16 +137,40 @@ export default function ConfigEditor(props) {
 		let ahSections = values;
 
 		// TODO: Update also properties the same way as patternProperties (Except that matching)
+		// Check for properties of schema
 		if (schema.properties) {
-			// console.log(values)
+			schemaProps = schema.properties;
 			await Promise.all(values && Object.keys(values).map(async (section, idx) => {
-				await Promise.all(Object.keys(values[section]).map((key, id) => {
-					data[`${section} ${key}`] = values[section][key];
-				}))
-			}))
+				await Promise.all(Object.keys(schema.properties).map(async (sectionName, id) => {
+					if (section == sectionName) {
+						let arrAHValues = [];
+						await Promise.all(Object.keys(values[section]).map((key, id) => {
+							data[`${section} ${key}`] = values[section][key];
+							// Check for adHoc values in properties of section
+							if (schemaProps[`${section}`].properties) {
+								// Check if key exist in schema and if not, add it to adHoc values
+								if (schemaProps[`${section}`].properties[`${key}`] == undefined) {
+									let v = {};
+									v[key] = values[section][key];
+									arrAHValues.push(v);
+									ahValues[`${section}`] = arrAHValues;
+									// TODO: dont remove add hoc values from data to be submitted
+									// Remove adHoc values from data to submit
+									// delete data[`${section} ${key}`];
+								}
+							}
+						}));
+						// Mutate adHoc section based on the matching sections
+						// If section name match with schema, then remove it from adHoc sections (it is also removed for submit)
+						ahSections = Object.assign({}, ahSections);
+						delete ahSections[section];
+					}
+				}));
+			}));
 		}
 
-		// TODO: handle nested patternProperties
+		// TODO: handle nested patternProperties (in items)
+		// Check for pattern properties of schema
 		if (schema.patternProperties) {
 			await Promise.all(values && Object.keys(values).map(async (section, idx) => {
 				await Promise.all(Object.keys(schema.patternProperties).map(async (sectionName, id) => {
@@ -158,7 +182,7 @@ export default function ConfigEditor(props) {
 						await Promise.all(Object.keys(values[section]).map((key, i) => {
 							// Add data for section
 							data[`${section} ${key}`] = values[section][key];
-							// Check for adHoc values in properties
+							// Check for adHoc values in properties of section
 							if (schemaProps[`${section}`].properties) {
 								// Check if key exist in schema and if not, add it to adHoc values
 								if (schemaProps[`${section}`].properties[`${key}`] == undefined) {
@@ -167,24 +191,22 @@ export default function ConfigEditor(props) {
 									arrAHValues.push(v);
 									ahValues[`${section}`] = arrAHValues;
 									// Remove adHoc values from data to submit
-									delete data[`${section} ${key}`];
+									// delete data[`${section} ${key}`];
 								}
 							}
-
-						}))
+						}));
 						// Mutate adHoc section based on the matching sections
 						// If section name match with schema, then remove it from adHoc sections (it is also removed for submit)
 						ahSections = Object.assign({}, ahSections);
 						delete ahSections[section];
 					}
-					// TODO: add ad hoc values
-				}))
-			}))
-
-
+				}));
+			}));
 		}
 
+		// Assign data to form struct under data key
 		fs["data"] = data;
+		// Assign schema to form struct under properties key
 		fs["properties"] = schemaProps;
 
 		setFormStruct(fs);
@@ -205,6 +227,7 @@ export default function ConfigEditor(props) {
 
 	// Parse data to JSON format, stringify it and save to config file
 	const onSubmit = async (data) => {
+		console.log(data, "DATAAAA")
 		let splitKey = "";
 		let sectionTitle = "";
 		let sectionKey = "";
@@ -236,7 +259,7 @@ export default function ConfigEditor(props) {
 					parsedSections[sectionTitle] = section
 				})
 		}
-
+		console.log(parsedSections, "PARSED ")
 		try {
 			// TODO: make config dynamic value
 			let response = await ASABConfigAPI.put("/config/" + configType + "/" + configName,
