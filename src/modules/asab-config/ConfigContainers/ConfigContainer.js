@@ -10,7 +10,6 @@ import { useTranslation } from 'react-i18next';
 
 import { TreeViewComponent } from "./TreeViewComponent";
 import ConfigEditor from "./ConfigEditor";
-import './configuration.css';
 
 export default function ConfigContainer(props) {
 

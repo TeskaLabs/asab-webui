@@ -4,6 +4,8 @@ import ConfigContainer from "./ConfigContainers/ConfigContainer";
 import MicroservicesContainer from "./MicroservicesContainers/MicroservicesContainer";
 import MicroserviceDetailContainer from "./MicroservicesContainers/MicroserviceDetailContainer";
 
+import "./ConfigContainers/configuration.css";
+
 export default class ConfigModule extends Module {
 	constructor(app, name) {
 		super(app, "ASABConfigModule");
