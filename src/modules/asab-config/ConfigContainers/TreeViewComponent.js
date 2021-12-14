@@ -3,9 +3,6 @@ import TreeMenu from 'react-simple-tree-menu';
 import { useHistory } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
-import './configuration.css';
-
-
 export function TreeViewComponent(props) {
 
 	let App = props.app;
