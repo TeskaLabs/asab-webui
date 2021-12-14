@@ -22,99 +22,88 @@ import {
 
 import { Spinner } from 'asab-webui';
 
-import './configuration.css';
-
 export default function ConfigEditor(props) {
+	const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm();
+	const { t, i18n } = useTranslation();
+	const ASABConfigAPI = props.app.axiosCreate('asab_config');
 
-	// const [ typeData, setTypeData ] = useState(undefined);
 	const [ adHocValues, setAdHocValues ] = useState({});
 	const [ adHocSections, setAdHocSections ] = useState({});
-	const [ configData, setConfigData ] = useState(undefined);
 	const [ formStruct, setFormStruct ] = useState({});
+	const [ jsonValues, setJsonValues ] = useState({});
 
-	const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm();
-
-	let App = props.app;
 	// Retrieve the asab config url from config file
-	const ASABConfigAPI = App.axiosCreate('asab_config');
-	const { t, i18n } = useTranslation();
-	const homeScreenImg = App.Config.get('brand_image').full;
-	const homeScreenAlt = App.Config.get('title');
+	const homeScreenImg = props.app.Config.get('brand_image').full;
+	const homeScreenAlt = props.app.Config.get('title');
 	const configType = props.configType;
 	const configName = props.configName;
+
 	const [ configNotExist, setConfigNotExist ] = useState(false);
-	const [ jsonValues, setJsonValues ] = useState({});
 	const [ activeTab, setActiveTab ] = useState('basic');
 
-
+	// The container will be re-rendered on configType or configName change
 	useEffect(() => {
-		// setFormStruct({});
-		reset({}); // Reset old schema before setting new values to prevent wrong re-rendering
+		// Reset old schema before setting new values to prevent unintended data submitting
+		reset({});
 		initialLoad();
-	}, [ configType, configName ]); // The container will be re-rendered on configType or configName change
+	}, [ configType, configName ]);
 
+	// Set values based on form struct
 	useEffect(() => {
 		if (Object.keys(formStruct).length > 0) {
-			handleConfigValues();
+			setValues();
 		}
 	}, [formStruct])
 
-	const handleConfigValues = () => {
-		// Set values from form struct for registration and submitting
-		if (formStruct.data) {
-			Object.entries(formStruct.data).map((entry, idx) => {
-				setValue(`${entry[0]}`, entry[1]);
-			})
-		}
-		// Set adHoc sections for submitting
-		if (adHocSections) {
-			Object.keys(adHocSections).map((section, idx) => {
-				Object.keys(adHocSections[section]).map((key, id) => {
-					setValue(`${section} ${key}`, adHocSections[section][key]);
-				});
-			});
-		}
-	}
-
+	// Load data and set up the data for form struct
 	const initialLoad = async () => {
 		let values = undefined;
 		let schema = undefined;
 		setConfigNotExist(false);
 
 		try {
-			let response = await ASABConfigAPI.get("/type/" + configType);
+			let response = await ASABConfigAPI.get(`/type/${configType}`);
 			// TODO: validate responses which are not 200
 			schema = response.data;
 			if (schema.result == 'FAIL') {
-				App.addAlert("warning", t(`ASABConfig|Something went wrong! Unable to get data`, {type: configType}));
+				props.app.addAlert("warning", t(`ASABConfig|Something went wrong! Unable to get data`, {type: configType}));
 				return;
 			}
 		}
 		catch(e) {
-			console.log(e);
-			App.addAlert("warning", t(`ASABConfig|Unable to get type data. Try to reload the page`, {type: configType}));
+			console.error(e);
+			props.app.addAlert("warning", t(`ASABConfig|Unable to get type data. Try to reload the page`, {type: configType}));
 			return;
 		}
 
 		try {
-			let response = await ASABConfigAPI.get("/config/" + configType + "/" + configName + "?format=json");
+			let response = await ASABConfigAPI.get(`/config/${configType}/${configName}?format=json`);
 			values = response.data;
+			if (values.result == "FAIL") {
+				props.app.addAlert("warning", t(`ASABConfig|Config file does not exist`));
+				setConfigNotExist(true);
+				return;
+			}
 			// TODO: validate responses which are not 200
 		}
 		catch(e) {
-			console.log(e);
-			App.addAlert("warning", t(`ASABConfig|Unable to get config data. Try to reload the page`, {config: configName}));
+			// Set the states to initial state on failed response to clear the inputs
+			setFormStruct({});
+			setAdHocValues({});
+			setAdHocSections({});
+			setJsonValues({});
+			console.error(e);
+			props.app.addAlert("warning", t(`ASABConfig|Unable to get config data. Try to reload the page`, {config: configName}));
 			return;
 		}
 
-		// TODO: Add ad hoc values
 		let fs = {};
 		let schemaProps = {};
 		let data = {};
 		let ahValues = {};
 		let ahSections = values;
 
-		// TODO: Update also properties the same way as patternProperties (Except that matching)
+		// TODO: handle nested patternProperties (in items)
 		// Check for properties of schema
 		if (schema.properties) {
 			schemaProps = schema.properties;
@@ -177,20 +166,37 @@ export default function ConfigEditor(props) {
 			}));
 		}
 
-
+		// Set values for JSON view
 		setJsonValues(values);
+		// Set data for adHoc sections
 		setAdHocSections(ahSections);
+		// Set data for adHoc values
 		setAdHocValues(ahValues);
 
 		// Assign data to form struct under data key
 		fs["data"] = data;
 		// Assign schema to form struct under properties key
 		fs["properties"] = schemaProps;
+		// Set data and properties for form struct
 		setFormStruct(fs);
+	}
 
-		if (!values && Object.keys(values).length == 0 && values.result == "FAIL") {
-			App.addAlert("warning", t(`ASABConfig|Config file does not exist`));
-			setConfigNotExist(true);
+
+	// Set values from form struct and adHoc sections
+	const setValues = () => {
+		// Set values from form struct for registration and submitting
+		if (formStruct.data) {
+			Object.entries(formStruct.data).map((entry, idx) => {
+				setValue(`${entry[0]}`, entry[1]);
+			});
+		}
+		// Set adHoc sections for submitting
+		if (adHocSections) {
+			Object.keys(adHocSections).map((section, idx) => {
+				Object.keys(adHocSections[section]).map((key, id) => {
+					setValue(`${section} ${key}`, adHocSections[section][key]);
+				});
+			});
 		}
 	}
 
@@ -205,7 +211,7 @@ export default function ConfigEditor(props) {
 		let parsedSections = {};
 		let prevSection = "";
 
-		// Sort data by the key name
+		// Sort data by the key name before parsing them
 		const sortedData = Object.keys(data).sort().reduce((obj, key) => { obj[key] = data[key]; return obj;}, {});
 
 		if (activeTab == 'advanced') {
@@ -213,42 +219,41 @@ export default function ConfigEditor(props) {
 			parsedSections = jsonValues;
 		} else {
 			// Parse data to object
-			Object.keys(sortedData).map((key, idx) =>
-				{
-					splitKey = key.split(" ");
-					sectionTitle = splitKey[0];
-					sectionKey = splitKey[1];
-					sectionValue = sortedData[key];
+			Object.keys(sortedData).map((key, idx) => {
+				splitKey = key.split(" ");
+				sectionTitle = splitKey[0];
+				sectionKey = splitKey[1];
+				sectionValue = sortedData[key];
 
-					if (prevSection == sectionTitle) {
-						section[sectionKey] = sectionValue;
-					} else {
-						section = {};
-						section[sectionKey] = sectionValue;
-					}
+				if (prevSection == sectionTitle) {
+					section[sectionKey] = sectionValue;
+				} else {
+					section = {};
+					section[sectionKey] = sectionValue;
+				}
 
-					prevSection = sectionTitle;
-					parsedSections[sectionTitle] = section;
-				})
+				prevSection = sectionTitle;
+				parsedSections[sectionTitle] = section;
+			});
 		}
 
 		try {
-			// TODO: make config dynamic value
-			let response = await ASABConfigAPI.put("/config/" + configType + "/" + configName,
+			let response = await ASABConfigAPI.put(`/config/${configType}/${configName}`,
 				JSON.parse(JSON.stringify(parsedSections)),
 					{ headers: {
 						'Content-Type': 'application/json'
 						}
 					}
 				)
-			if (response.data.result == "OK"){
-				App.addAlert("success", t('ASABConfig|Data updated successfuly'));
-				initialLoad(); // Load the new data after saving
+			if (response.data.result != "OK"){
+				throw new Error(t('ASABConfig|Something went wrong, failed to update data'));
 			}
-			// TODO: validate responses which are not 200
+			props.app.addAlert("success", t('ASABConfig|Data updated successfuly'));
+			initialLoad(); // Load the new data after saving
 		}
-		catch {
-			App.addAlert("warning", t('ASABConfig|Something went wrong, failed to update data'));
+		catch(e) {
+			console.error(e);
+			props.app.addAlert("warning", t('ASABConfig|Something went wrong, failed to update data'));
 			initialLoad();
 			return;
 		}
