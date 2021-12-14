@@ -264,12 +264,8 @@ export default function ConfigEditor(props) {
 		if(activeTab !== tab) setActiveTab(tab);
 	}
 
+	// TODO: add Content loader when available as a component in ASAB WebUI
 	return (
-		!formStruct ?
-			<div style={{paddingTop: "100px", display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
-				<Spinner />
-			</div>
-		:
 		configNotExist ?
 			<ConfigMessageCard
 				homeScreenImg={homeScreenImg}
@@ -328,7 +324,7 @@ export default function ConfigEditor(props) {
 												values={adHocSections[section_name]}
 											/>
 										)}
-										<hr className="config-hr"/>
+										<hr/>
 									</React.Fragment>
 								</TabPane>
 								<TabPane tabId="advanced">
@@ -361,7 +357,7 @@ export default function ConfigEditor(props) {
 function ConfigSection(props) {
 	return (
 		<React.Fragment>
-			<hr className="config-hr"/>
+			<hr/>
 			<h5>
 				{props.section['title']}
 			</h5>
@@ -433,7 +429,7 @@ function ConfigAdHocSection(props) {
 	let myid = props.sectionname;
 	return (
 		<React.Fragment>
-			<hr className="config-hr"/>
+			<hr/>
 			<h5>
 				{myid}
 			</h5>

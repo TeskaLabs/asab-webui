@@ -24,10 +24,6 @@
 	overflow-x: hidden !important;
 }
 
-hr.config-hr {
-  border: 0.8px solid;
-}
-
 /*TreeView*/
 .rstm-toggle-icon {
 	display: inline-block; }
