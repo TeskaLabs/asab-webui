@@ -298,7 +298,7 @@ export function SelectConfigItem(props) {
 				onBlur={reg.onBlur}
 			>
 				{props.item['default'].length > 0 ? props.item['default'].map((val, idx) => {return(
-					<option key={idx}>{val}</option>
+					<option key={idx} value={val}>{val}</option>
 				)}) : null}
 			</Input>
 			<FormText color="muted">
