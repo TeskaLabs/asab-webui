@@ -60,42 +60,20 @@ export default function ConfigEditor(props) {
 	}, [formStruct])
 
 	const handleConfigValues = () => {
+		// Set values from form struct for registration and submitting
 		if (formStruct.data) {
 			Object.entries(formStruct.data).map((entry, idx) => {
 				setValue(`${entry[0]}`, entry[1]);
 			})
 		}
-		// let schema = formStruct;
-		// let ahValues = {};
-		// let ahSections = {};
-
-		// for (var section in configData) {
-		// 	let arrValues = [];
-		// 	let arrSections = [];
-		// 	for (var key in configData[section]) {
-		// 		// Set config values to the schema (if available)
-		// 		setValue(`${section} ${key}`, configData[section][key]);
-		// 		// Check if config key values are in schema and if not, add it to adhoc values
-		// 		let s = {};
-		// 		let v = {};
-		// 		if (schema.properties) {
-		// 			if (schema.properties[section] == undefined) {
-		// 				s[key] = configData[section][key];
-		// 				arrSections.push(s);
-		// 				ahSections[section] = arrSections;
-		// 			} else if (schema.properties[section]?.properties[key] == undefined) {
-		// 				v[key] = configData[section][key];
-		// 				arrValues.push(v);
-		// 				ahValues[section] = arrValues;
-		// 			}
-		// 		}
-		// 	}
-		// }
-
-		// // TODO: HANDLE ad hoc values for patternIndexes
-		// setAdHocValues(ahValues);
-		// setAdHocSections(ahSections);
-		// setJsonValues(configData);
+		// Set adHoc sections for submitting
+		if (adHocSections) {
+			Object.keys(adHocSections).map((section, idx) => {
+				Object.keys(adHocSections[section]).map((key, id) => {
+					setValue(`${section} ${key}`, adHocSections[section][key]);
+				});
+			});
+		}
 	}
 
 	const initialLoad = async () => {
@@ -154,9 +132,6 @@ export default function ConfigEditor(props) {
 									v[key] = values[section][key];
 									arrAHValues.push(v);
 									ahValues[`${section}`] = arrAHValues;
-									// TODO: dont remove add hoc values from data to be submitted
-									// Remove adHoc values from data to submit
-									// delete data[`${section} ${key}`];
 								}
 							}
 						}));
@@ -190,8 +165,6 @@ export default function ConfigEditor(props) {
 									v[key] = values[section][key];
 									arrAHValues.push(v);
 									ahValues[`${section}`] = arrAHValues;
-									// Remove adHoc values from data to submit
-									// delete data[`${section} ${key}`];
 								}
 							}
 						}));
@@ -204,19 +177,16 @@ export default function ConfigEditor(props) {
 			}));
 		}
 
+
+		setJsonValues(values);
+		setAdHocSections(ahSections);
+		setAdHocValues(ahValues);
+
 		// Assign data to form struct under data key
 		fs["data"] = data;
 		// Assign schema to form struct under properties key
 		fs["properties"] = schemaProps;
-
 		setFormStruct(fs);
-		setJsonValues(values);
-		setAdHocSections(ahSections);
-		setAdHocValues(ahValues);
-		// setTypeData(schema);
-		// reset({}); // Reset old schema before setting new values to prevent wrong re-rendering
-		// setConfigData(values);
-
 
 		if (!values && Object.keys(values).length == 0 && values.result == "FAIL") {
 			App.addAlert("warning", t(`ASABConfig|Config file does not exist`));
@@ -227,7 +197,6 @@ export default function ConfigEditor(props) {
 
 	// Parse data to JSON format, stringify it and save to config file
 	const onSubmit = async (data) => {
-		console.log(data, "DATAAAA")
 		let splitKey = "";
 		let sectionTitle = "";
 		let sectionKey = "";
@@ -236,17 +205,20 @@ export default function ConfigEditor(props) {
 		let parsedSections = {};
 		let prevSection = "";
 
+		// Sort data by the key name
+		const sortedData = Object.keys(data).sort().reduce((obj, key) => { obj[key] = data[key]; return obj;}, {});
+
 		if (activeTab == 'advanced') {
 			// If data are being submitted from JSON view, dont parse data to object
 			parsedSections = jsonValues;
 		} else {
 			// Parse data to object
-			Object.keys(data).map((key, idx) =>
+			Object.keys(sortedData).map((key, idx) =>
 				{
-					splitKey = key.split(" "),
-					sectionTitle = splitKey[0],
-					sectionKey = splitKey[1],
-					sectionValue = data[key]
+					splitKey = key.split(" ");
+					sectionTitle = splitKey[0];
+					sectionKey = splitKey[1];
+					sectionValue = sortedData[key];
 
 					if (prevSection == sectionTitle) {
 						section[sectionKey] = sectionValue;
@@ -255,11 +227,11 @@ export default function ConfigEditor(props) {
 						section[sectionKey] = sectionValue;
 					}
 
-					prevSection = sectionTitle,
-					parsedSections[sectionTitle] = section
+					prevSection = sectionTitle;
+					parsedSections[sectionTitle] = section;
 				})
 		}
-		console.log(parsedSections, "PARSED ")
+
 		try {
 			// TODO: make config dynamic value
 			let response = await ASABConfigAPI.put("/config/" + configType + "/" + configName,
