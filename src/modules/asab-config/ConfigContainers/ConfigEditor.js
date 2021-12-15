@@ -23,7 +23,7 @@ import {
 import { Spinner } from 'asab-webui';
 
 export default function ConfigEditor(props) {
-	const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm();
+	const { register, handleSubmit, setValue, formState: { errors, isSubmitting }, reset } = useForm();
 	const { t, i18n } = useTranslation();
 	const ASABConfigAPI = props.app.axiosCreate('asab_config');
 
@@ -313,6 +313,7 @@ export default function ConfigEditor(props) {
 												sectionname={section_name}
 												register={register}
 												adhocvalues={adHocValues}
+												isSubmitting={isSubmitting}
 											/>
 										)}
 
@@ -343,6 +344,7 @@ export default function ConfigEditor(props) {
 							<Button
 								color="primary"
 								type="submit"
+								disabled={isSubmitting}
 							>
 								{t('ASABConfig|Save')}
 							</Button>
@@ -361,11 +363,43 @@ function ConfigSection(props) {
 			<h5>
 				{props.section['title']}
 			</h5>
-			{Object.keys(props.section.properties).map((item_name, idx) =>
-				// Decide what type of config item to render based on format
-				// TODO: Update also other RADIO and SELECT types
-				{switch(props.section.properties[item_name]['type']){
-					case 'string': return(<StringItems
+			<FormGroup tag="fieldset" disabled={props.isSubmitting}>
+				{Object.keys(props.section.properties).map((item_name, idx) =>
+					// Decide what type of config item to render based on format
+					// TODO: Update also other RADIO and SELECT types
+					{switch(props.section.properties[item_name]['type']){
+						case 'string': return(<StringItems
+												key={idx}
+												item={props.section.properties[item_name]}
+												itemname={item_name}
+												sectionname={props.sectionname}
+												register={props.register}
+												defs={props.section.properties[item_name]['$defs']}
+											/>)
+						case 'number': return(<NumberConfigItem
+												key={idx}
+												item={props.section.properties[item_name]}
+												itemname={item_name}
+												sectionname={props.sectionname}
+												register={props.register}
+												defs={props.section.properties[item_name]['$defs']}
+											/>)
+						case 'integer': return(<NumberConfigItem
+												key={idx}
+												item={props.section.properties[item_name]}
+												itemname={item_name}
+												sectionname={props.sectionname}
+												register={props.register}
+												defs={props.section.properties[item_name]['$defs']}
+											/>)
+						case 'boolean': return(<CheckBoxConfigItem
+												key={idx}
+												item={props.section.properties[item_name]}
+												itemname={item_name}
+												sectionname={props.sectionname}
+												register={props.register}
+											/>)
+						default: return(<StringItems
 											key={idx}
 											item={props.section.properties[item_name]}
 											itemname={item_name}
@@ -373,40 +407,9 @@ function ConfigSection(props) {
 											register={props.register}
 											defs={props.section.properties[item_name]['$defs']}
 										/>)
-					case 'number': return(<NumberConfigItem
-											key={idx}
-											item={props.section.properties[item_name]}
-											itemname={item_name}
-											sectionname={props.sectionname}
-											register={props.register}
-											defs={props.section.properties[item_name]['$defs']}
-										/>)
-					case 'integer': return(<NumberConfigItem
-											key={idx}
-											item={props.section.properties[item_name]}
-											itemname={item_name}
-											sectionname={props.sectionname}
-											register={props.register}
-											defs={props.section.properties[item_name]['$defs']}
-										/>)
-					case 'boolean': return(<CheckBoxConfigItem
-											key={idx}
-											item={props.section.properties[item_name]}
-											itemname={item_name}
-											sectionname={props.sectionname}
-											register={props.register}
-										/>)
-					default: return(<StringItems
-										key={idx}
-										item={props.section.properties[item_name]}
-										itemname={item_name}
-										sectionname={props.sectionname}
-										register={props.register}
-										defs={props.section.properties[item_name]['$defs']}
-									/>)
-				}}
-			)}
-
+					}}
+				)}
+			</FormGroup>
 			{/* List all remaining key/values (aka AdHocValues) from a config as simple Config Item  */}
 			{Object.keys(props.adhocvalues).length > 0 && Object.keys(props.adhocvalues).map((value_name, idx) =>
 				{return(props.sectionname == value_name ?
