@@ -212,7 +212,7 @@ export default function ConfigEditor(props) {
 		let prevSection = "";
 
 		// Sort data by the key name before parsing them
-		const sortedData = Object.keys(data).sort().reduce((obj, key) => { obj[key] = data[key]; return obj;}, {});
+		const sortedData = Object.keys(data).sort().reduce((obj, key) => { obj[key] = data[key]; return obj; }, {});
 
 		if (activeTab == 'advanced') {
 			// If data are being submitted from JSON view, dont parse data to object
