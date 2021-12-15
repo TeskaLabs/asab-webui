@@ -97,9 +97,9 @@ export default function ConfigEditor(props) {
 			return;
 		}
 
-		let fs = {};
+		let formStructure = {};
 		let schemaProps = {};
-		let data = {};
+		let sectionKeyData = {};
 		let ahValues = {};
 		let ahSections = values;
 
@@ -112,7 +112,7 @@ export default function ConfigEditor(props) {
 					if (section == sectionName) {
 						let arrAHValues = [];
 						await Promise.all(Object.keys(values[section]).map((key, id) => {
-							data[`${section} ${key}`] = values[section][key];
+							sectionKeyData[`${section} ${key}`] = values[section][key];
 							// Check for adHoc values in properties of section
 							if (schemaProps[`${section}`].properties) {
 								// Check if key exist in schema and if not, add it to adHoc values
@@ -145,7 +145,7 @@ export default function ConfigEditor(props) {
 						let arrAHValues = [];
 						await Promise.all(Object.keys(values[section]).map((key, i) => {
 							// Add data for section
-							data[`${section} ${key}`] = values[section][key];
+							sectionKeyData[`${section} ${key}`] = values[section][key];
 							// Check for adHoc values in properties of section
 							if (schemaProps[`${section}`].properties) {
 								// Check if key exist in schema and if not, add it to adHoc values
@@ -173,12 +173,12 @@ export default function ConfigEditor(props) {
 		// Set data for adHoc values
 		setAdHocValues(ahValues);
 
-		// Assign data to form struct under data key
-		fs["data"] = data;
+		// Assign sectionKeyData to form struct under data key
+		formStructure["data"] = sectionKeyData;
 		// Assign schema to form struct under properties key
-		fs["properties"] = schemaProps;
+		formStructure["properties"] = schemaProps;
 		// Set data and properties for form struct
-		setFormStruct(fs);
+		setFormStruct(formStructure);
 	}
 
 
