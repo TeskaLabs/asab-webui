@@ -2,7 +2,7 @@
 
 ## Setup
 
-Before using this component in your project, `react-simple-tree-menu` and `react-hook-form` must be installed and added into the project's `package.json` file:
+Before using this component in your project, `react-simple-tree-menu` and `react-hook-form - v7` must be installed and added into the project's `package.json` file:
 
 ```
 yarn add react-simple-tree-menu
