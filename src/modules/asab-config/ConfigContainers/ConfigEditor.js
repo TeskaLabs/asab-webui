@@ -116,7 +116,7 @@ export default function ConfigEditor(props) {
 
 							// Check for adHoc values in properties of section
 							if (schemaProps[`${section}`].properties) {
-								// Add empty string to keys, which are not present in configuration
+								// Add empty string to keys, which are not present in configuration, but key is present in schema
 								await Promise.all(Object.keys(schemaProps[`${section}`].properties).map((schemaKey, i) => {
 									if (Object.keys(values[section]).indexOf(schemaKey) == -1) {
 										sectionKeyData[`${section} ${schemaKey}`] = "";
@@ -156,7 +156,7 @@ export default function ConfigEditor(props) {
 
 							// Check for adHoc values in properties of section
 							if (schemaProps[`${section}`].properties) {
-								// Add empty string to keys, which are not present in configuration
+								// Add empty string to keys, which are not present in configuration, but key is present in schema
 								await Promise.all(Object.keys(schemaProps[`${section}`].properties).map((schemaKey, i) => {
 									if (Object.keys(values[section]).indexOf(schemaKey) == -1) {
 										sectionKeyData[`${section} ${schemaKey}`] = "";
