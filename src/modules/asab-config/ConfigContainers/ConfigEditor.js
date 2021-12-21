@@ -111,10 +111,17 @@ export default function ConfigEditor(props) {
 				await Promise.all(Object.keys(schema.properties).map(async (sectionName, id) => {
 					if (section == sectionName) {
 						let arrAHValues = [];
-						await Promise.all(Object.keys(values[section]).map((key, id) => {
+						await Promise.all(Object.keys(values[section]).map(async (key, id) => {
 							sectionKeyData[`${section} ${key}`] = values[section][key];
+
 							// Check for adHoc values in properties of section
 							if (schemaProps[`${section}`].properties) {
+								// Add empty string to keys, which are not present in configuration
+								await Promise.all(Object.keys(schemaProps[`${section}`].properties).map((schemaKey, i) => {
+									if (Object.keys(values[section]).indexOf(schemaKey) == -1) {
+										sectionKeyData[`${section} ${schemaKey}`] = "";
+									}
+								}));
 								// Check if key exist in schema and if not, add it to adHoc values
 								if (schemaProps[`${section}`].properties[`${key}`] == undefined) {
 									let v = {};
@@ -143,11 +150,18 @@ export default function ConfigEditor(props) {
 						// If matched, then add schema to schema props
 						schemaProps[`${section}`] = schema.patternProperties[sectionName];
 						let arrAHValues = [];
-						await Promise.all(Object.keys(values[section]).map((key, i) => {
+						await Promise.all(Object.keys(values[section]).map(async (key, i) => {
 							// Add data for section
 							sectionKeyData[`${section} ${key}`] = values[section][key];
+
 							// Check for adHoc values in properties of section
 							if (schemaProps[`${section}`].properties) {
+								// Add empty string to keys, which are not present in configuration
+								await Promise.all(Object.keys(schemaProps[`${section}`].properties).map((schemaKey, i) => {
+									if (Object.keys(values[section]).indexOf(schemaKey) == -1) {
+										sectionKeyData[`${section} ${schemaKey}`] = "";
+									}
+								}));
 								// Check if key exist in schema and if not, add it to adHoc values
 								if (schemaProps[`${section}`].properties[`${key}`] == undefined) {
 									let v = {};
@@ -244,7 +258,7 @@ export default function ConfigEditor(props) {
 				sectionTitle = splitKey[0];
 				sectionKey = splitKey[1];
 				sectionValue = sortedData[key];
-
+				// TODO: Solve parsing issue on adHoc sections/values (undefined)
 				if (prevSection == sectionTitle) {
 					let valueType = sectionTypes[sectionTitle][sectionKey];
 					section[sectionKey] = convertValueType(sectionValue, sectionTitle, valueType);
