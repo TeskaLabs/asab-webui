@@ -214,27 +214,50 @@ export default function ConfigEditor(props) {
 		// Sort data by the key name before parsing them
 		const sortedData = Object.keys(data).sort().reduce((obj, key) => { obj[key] = data[key]; return obj; }, {});
 
+		// Get 'type' of the values (if defined) from the schema
+		let formStructProperties = formStruct.properties;
+		let sectionTypes = {};
+		// Iterate through sections
+		await Promise.all(Object.keys(formStructProperties).length > 0 && Object.keys(formStructProperties).map(async (section, idx) => {
+			let valueTypes = {};
+			// Iterate through section keys
+			await Promise.all(Object.keys(formStructProperties[section]).length > 0 && Object.keys(formStructProperties[section]).map(async (key, id) => {
+				if (key === "properties") {
+					// Iterate through key properties
+					await Promise.all(Object.entries(formStructProperties[section]["properties"]).map((entry, i) => {
+						// If type of the value is undefined, then default is string
+						valueTypes[entry[0]] = entry[1].type ? entry[1].type : "string";
+					}));
+				}
+			}));
+			sectionTypes[section] = valueTypes;
+		}));
+
+		// TODO: Disable saving output from ReactJSONview component
 		if (activeTab == 'advanced') {
 			// If data are being submitted from JSON view, dont parse data to object
 			parsedSections = jsonValues;
 		} else {
 			// Parse data to object
-			Object.keys(sortedData).map((key, idx) => {
+			await Promise.all(Object.keys(sortedData).map((key, idx) => {
 				splitKey = key.split(" ");
 				sectionTitle = splitKey[0];
 				sectionKey = splitKey[1];
 				sectionValue = sortedData[key];
 
 				if (prevSection == sectionTitle) {
-					section[sectionKey] = sectionValue;
+					let valueType = sectionTypes[sectionTitle][sectionKey];
+					section[sectionKey] = convertValueType(sectionValue, sectionTitle, valueType);
 				} else {
 					section = {};
-					section[sectionKey] = sectionValue;
+					let valueType = sectionTypes[sectionTitle][sectionKey];
+					section[sectionKey] = convertValueType(sectionValue, sectionTitle, valueType);
+
 				}
 
 				prevSection = sectionTitle;
 				parsedSections[sectionTitle] = section;
-			});
+			}));
 		}
 
 		try {
@@ -262,6 +285,36 @@ export default function ConfigEditor(props) {
 	// Swith between the tabs
 	const toggle = tab => {
 		if(activeTab !== tab) setActiveTab(tab);
+	}
+
+	// Function to convert value types from string
+	function convertValueType(sectionValue, sectionTitle, valueType) {
+		/*
+			Conversion based on
+			https://json-schema.org/understanding-json-schema/reference/type.html
+		*/
+		let value;
+		// Check number type values
+		if (valueType == "number" ||
+			valueType == "integer" ||
+			valueType == "float" ||
+			valueType == "null" ||
+			valueType == "boolean") {
+			value = JSON.parse(sectionValue);
+		}
+		// Check for array type values
+		else if (valueType == "array") {
+			value = sectionValue.toString().split(",");
+		}
+		// Check for object type values
+		else if (valueType == "object") {
+			value = JSON.parse(JSON.stringify(sectionValue));
+		}
+		// If not match any of the types, return default
+		else {
+			value = sectionValue;
+		}
+		return value;
 	}
 
 	// TODO: add Content loader when available as a component in ASAB WebUI
@@ -332,7 +385,8 @@ export default function ConfigEditor(props) {
 									<div style={{overflow: "auto"}}>
 										<ReactJson
 											src={jsonValues}
-											onEdit={ e => { setJsonValues(e.updated_src)} }
+											// TODO: Editing in JSON values is disabled because users can mess with the value types
+											// onEdit={ e => { setJsonValues(e.updated_src)} }
 											enableClipboard={false}
 											name={false}
 										/>
