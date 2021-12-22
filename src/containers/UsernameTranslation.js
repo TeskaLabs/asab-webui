@@ -46,17 +46,13 @@ export function UsernameTranslation(props) {
 		}
 	}
 
-	const currentTime = () => {
-		return Date.now();
-	};
-
 	// compares array of IDs with data in localstorage
 	const matchUserIds = (usernameIDs) => {
-		let currTime = currentTime();
+		let currentTime = Date.now();
 		const usernamesInLS = getUsernamesFromLS('UsernameTranslations', cleanupTime);
 		let usernamesToRender = [];
 
-		if (usernamesInLS.usernames == undefined || usernamesInLS.usernames.length === 0 || usernamesInLS.expiration <= currTime) {
+		if (usernamesInLS.usernames == undefined || usernamesInLS.usernames.length === 0 || usernamesInLS.expiration <= currentTime) {
 			retrieveUserNames();
 			return;
 		}
