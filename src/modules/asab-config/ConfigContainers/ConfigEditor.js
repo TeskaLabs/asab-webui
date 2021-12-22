@@ -260,13 +260,20 @@ export default function ConfigEditor(props) {
 				sectionValue = sortedData[key];
 				// TODO: Solve parsing issue on adHoc sections/values (undefined)
 				if (prevSection == sectionTitle) {
-					let valueType = sectionTypes[sectionTitle][sectionKey];
-					section[sectionKey] = convertValueType(sectionValue, sectionTitle, valueType);
+					if (sectionTypes[sectionTitle] == undefined) {
+						section[sectionKey] = sectionValue;
+					} else {
+						let valueType = sectionTypes[sectionTitle][sectionKey];
+						section[sectionKey] = convertValueType(sectionValue, valueType);
+					}
 				} else {
 					section = {};
-					let valueType = sectionTypes[sectionTitle][sectionKey];
-					section[sectionKey] = convertValueType(sectionValue, sectionTitle, valueType);
-
+					if (sectionTypes[sectionTitle] == undefined) {
+						section[sectionKey] = sectionValue;
+					} else {
+						let valueType = sectionTypes[sectionTitle][sectionKey];
+						section[sectionKey] = convertValueType(sectionValue, valueType);
+					}
 				}
 
 				prevSection = sectionTitle;
@@ -302,26 +309,26 @@ export default function ConfigEditor(props) {
 	}
 
 	// Function to convert value types from string
-	function convertValueType(sectionValue, sectionTitle, valueType) {
+	function convertValueType(sectionValue, valueType) {
 		/*
 			Conversion based on
 			https://json-schema.org/understanding-json-schema/reference/type.html
 		*/
 		let value;
 		// Check number type values
-		if (valueType == "number" ||
+		if ((valueType == "number" ||
 			valueType == "integer" ||
 			valueType == "float" ||
 			valueType == "null" ||
-			valueType == "boolean") {
+			valueType == "boolean") && sectionValue != "") {
 			value = JSON.parse(sectionValue);
 		}
 		// Check for array type values
-		else if (valueType == "array") {
+		else if (valueType == "array" && sectionValue != "") {
 			value = sectionValue.toString().split(",");
 		}
 		// Check for object type values
-		else if (valueType == "object") {
+		else if (valueType == "object" && sectionValue != "") {
 			value = JSON.parse(JSON.stringify(sectionValue));
 		}
 		// If not match any of the types, return default
