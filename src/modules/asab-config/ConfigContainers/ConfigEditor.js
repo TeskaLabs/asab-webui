@@ -43,8 +43,6 @@ export default function ConfigEditor(props) {
 
 	// The container will be re-rendered on configType or configName change
 	useEffect(() => {
-		// Reset old schema before setting new values to prevent unintended data submitting
-		reset({});
 		initialLoad();
 	}, [ configType, configName ]);
 
@@ -198,6 +196,8 @@ export default function ConfigEditor(props) {
 
 	// Set values from form struct and adHoc sections
 	const setValues = () => {
+		// Reset old values before setting new values to prevent unintended data submitting
+		reset({});
 		// Set values from form struct for registration and submitting
 		if (formStruct.data) {
 			Object.entries(formStruct.data).map((entry, idx) => {
@@ -316,22 +316,37 @@ export default function ConfigEditor(props) {
 		*/
 		let value;
 		// Check number type values
-		if ((valueType == "number" ||
+		if (valueType == "number" ||
 			valueType == "integer" ||
 			valueType == "float" ||
 			valueType == "null" ||
-			valueType == "boolean") && sectionValue != "") {
-			value = JSON.parse(sectionValue);
+			valueType == "boolean") {
+			// If value is an empty string, then return undefined (to prevent parsing failures)
+			if (sectionValue === "") {
+				value = value;
+			} else {
+				value = JSON.parse(sectionValue);
+			}
 		}
 		// Check for array type values
-		else if (valueType == "array" && sectionValue != "") {
-			value = sectionValue.toString().split(",");
+		else if (valueType == "array") {
+			// If value is an empty string, then return undefined (to prevent parsing failures)
+			if (sectionValue === "") {
+				value = value;
+			} else {
+				value = sectionValue.toString().split(",");
+			}
 		}
 		// Check for object type values
-		else if (valueType == "object" && sectionValue != "") {
-			value = JSON.parse(JSON.stringify(sectionValue));
+		else if (valueType == "object") {
+			// If value is an empty string, then return undefined (to prevent parsing failures)
+			if (sectionValue === "") {
+				value = value;
+			} else {
+				value = JSON.parse(JSON.stringify(sectionValue));
+			}
 		}
-		// If not match any of the types, return default
+		// If not match any of the types, return default (string)
 		else {
 			value = sectionValue;
 		}
