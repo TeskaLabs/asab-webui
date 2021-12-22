@@ -57,17 +57,16 @@ export function UsernameTranslation(props) {
 			return;
 		}
 
-		usernameIDs.map((ID) => {
-			const indexFromLS = usernamesInLS.usernames.findIndex((itemInLS) => itemInLS.id === ID);
+		for (let i = 0; i < usernameIDs.length; i++) {
+			const indexFromLS = usernamesInLS.usernames.findIndex((itemInLS) => itemInLS.id === usernameIDs[i]);
 			if (indexFromLS === -1) {
 				retrieveUserNames();
 				return;
 			}
-			usernamesToRender.push({ username: usernamesInLS.usernames[indexFromLS].username, id: usernamesInLS.usernames[indexFromLS].id });
-		})
+		usernamesToRender.push({ username: usernamesInLS.usernames[indexFromLS].username, id: usernamesInLS.usernames[indexFromLS].id });
+		}
 		setUsernames(usernamesToRender);
 	}
-
 
 	useEffect(() => {
 		matchUserIds(userIdsArray);
