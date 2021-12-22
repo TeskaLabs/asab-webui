@@ -258,9 +258,9 @@ export default function ConfigEditor(props) {
 				sectionTitle = splitKey[0];
 				sectionKey = splitKey[1];
 				sectionValue = sortedData[key];
-				// TODO: Solve parsing issue on adHoc sections/values (undefined)
 				if (prevSection == sectionTitle) {
 					if (sectionTypes[sectionTitle] == undefined) {
+						// Values of adHoc sections
 						section[sectionKey] = sectionValue;
 					} else {
 						let valueType = sectionTypes[sectionTitle][sectionKey];
@@ -269,6 +269,7 @@ export default function ConfigEditor(props) {
 				} else {
 					section = {};
 					if (sectionTypes[sectionTitle] == undefined) {
+						// Values of adHoc sections
 						section[sectionKey] = sectionValue;
 					} else {
 						let valueType = sectionTypes[sectionTitle][sectionKey];
@@ -346,7 +347,7 @@ export default function ConfigEditor(props) {
 				value = JSON.parse(JSON.stringify(sectionValue));
 			}
 		}
-		// If not match any of the types, return default (string)
+		// If not match any of the types, return default (string). This apply also for adHoc values of sections
 		else {
 			value = sectionValue;
 		}
