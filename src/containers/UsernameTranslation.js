@@ -23,8 +23,7 @@ export function Credentials(props) {
 	const apiPath = props.apiPath ?? 'seacat_auth';
 	let API = props.app.axiosCreate(apiPath);
 
-	// const userIdsArray = Array.isArray(props.userId) ? props.userId : [props.userId] ;
-	const userIdsArray = ['mongodb:ext:618be17866f6ee5de4ae5328', 'mongodb:ext:617fcfb940cfa90b4aefaf39', 'mongodb:ext:618bd4baa2548da08bdcb2e3'];
+	const userIdsArray = Array.isArray(props.userId) ? props.userId : [props.userId] ;
 
 	const cleanupTime = props.cleanupTime ?? 1000 * 60 * 60 * 24; // 24 hrs
 
@@ -61,7 +60,7 @@ export function Credentials(props) {
 				retrieveUserNames();
 				return;
 			}
-		usernamesToRender.push({ username: usernamesInLS.credentials[indexFromLS].username, id: usernamesInLS.credentials[indexFromLS].id });
+			usernamesToRender.push({ username: usernamesInLS.credentials[indexFromLS].username, id: usernamesInLS.credentials[indexFromLS].id });
 		}
 		setUsernames(usernamesToRender);
 	}
