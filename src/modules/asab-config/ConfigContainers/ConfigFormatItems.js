@@ -75,7 +75,7 @@ export function StringItems(props) {
 
 export function ConfigItem(props) {
 	let myid = `${props.sectionname} ${props.itemname}`;
-	const reg = props.register(myid) == undefined ? props.register() : props.register(myid);
+	const reg = props.register(myid);
 	return (
 		<FormGroup>
 			<Label for={myid}>
@@ -86,7 +86,7 @@ export function ConfigItem(props) {
 				name={myid}
 				id={myid}
 				placeholder={props.item['default']}
-				innerRef={props.register(myid) == undefined ? reg : reg.ref}
+				innerRef={reg.ref}
 				onChange={reg.onChange}
 				onBlur={reg.onBlur}
 			/>
@@ -109,7 +109,7 @@ export function NumberConfigItem(props) {
 			/>)
 	} else {
 		let myid = `${props.sectionname} ${props.itemname}`;
-		const reg = props.register(myid) == undefined ? props.register() : props.register(myid);
+		const reg = props.register(myid);
 		return (
 			<FormGroup>
 				<Label for={myid}>
@@ -121,7 +121,7 @@ export function NumberConfigItem(props) {
 					id={myid}
 					placeholder={props.item['default']}
 					defaultValue={props.item['default']}
-					innerRef={props.register(myid) == undefined ? reg : reg.ref}
+					innerRef={reg.ref}
 					onChange={reg.onChange}
 					onBlur={reg.onBlur}
 				/>
@@ -136,7 +136,7 @@ export function NumberConfigItem(props) {
 
 export function UrlConfigItem(props) {
 	let myid = `${props.sectionname} ${props.itemname}`;
-	const reg = props.register(myid) == undefined ? props.register() : props.register(myid);
+	const reg = props.register(myid);
 	return (
 		<FormGroup>
 			<Label for={myid}>
@@ -147,7 +147,7 @@ export function UrlConfigItem(props) {
 				name={myid}
 				id={myid}
 				placeholder={props.item['default']}
-				innerRef={props.register(myid) == undefined ? reg : reg.ref}
+				innerRef={reg.ref}
 				onChange={reg.onChange}
 				onBlur={reg.onBlur}
 			/>
@@ -161,7 +161,7 @@ export function UrlConfigItem(props) {
 
 export function EmailConfigItem(props) {
 	let myid = `${props.sectionname} ${props.itemname}`;
-	const reg = props.register(myid) == undefined ? props.register() : props.register(myid);
+	const reg = props.register(myid);
 	return (
 		<FormGroup>
 			<Label for={myid}>
@@ -172,7 +172,7 @@ export function EmailConfigItem(props) {
 				name={myid}
 				id={myid}
 				placeholder={props.item['default']}
-				innerRef={props.register(myid) == undefined ? reg : reg.ref}
+				innerRef={reg.ref}
 				onChange={reg.onChange}
 				onBlur={reg.onBlur}
 			/>
@@ -186,7 +186,7 @@ export function EmailConfigItem(props) {
 
 export function PasswordConfigItem(props) {
 	let myid = `${props.sectionname} ${props.itemname}`;
-	const reg = props.register(myid) == undefined ? props.register() : props.register(myid);
+	const reg = props.register(myid);
 	return (
 		<FormGroup>
 			<Label for={myid}>
@@ -197,7 +197,7 @@ export function PasswordConfigItem(props) {
 				name={myid}
 				id={myid}
 				placeholder={props.item['default']}
-				innerRef={props.register(myid) == undefined ? reg : reg.ref}
+				innerRef={reg.ref}
 				onChange={reg.onChange}
 				onBlur={reg.onBlur}
 			/>
@@ -211,7 +211,7 @@ export function PasswordConfigItem(props) {
 
 export function CheckBoxConfigItem(props) {
 	let myid = `${props.sectionname} ${props.itemname}`;
-	const reg = props.register(myid) == undefined ? props.register() : props.register(myid);
+	const reg = props.register(myid);
 	return (
 		<FormGroup>
 			<Label for={myid}>
@@ -223,7 +223,7 @@ export function CheckBoxConfigItem(props) {
 				type="checkbox"
 				name={myid}
 				id={myid}
-				innerRef={props.register(myid) == undefined ? reg : reg.ref}
+				innerRef={reg.ref}
 				onChange={reg.onChange}
 				onBlur={reg.onBlur}
 			/>
@@ -238,7 +238,7 @@ export function CheckBoxConfigItem(props) {
 // TODO: Implement and test radio button when there will be a case for it
 export function RadioButtonConfigItem(props) {
 	let myid = `${props.sectionname} ${props.itemname}`;
-	const reg = props.register(myid) == undefined ? props.register() : props.register(myid);
+	const reg = props.register(myid);
 	return (
 		<React.Fragment>
 			<FormGroup check>
@@ -252,7 +252,7 @@ export function RadioButtonConfigItem(props) {
 						name={myid}
 						id={myid}
 						value={"True"}
-						innerRef={props.register(myid) == undefined ? reg : reg.ref}
+						innerRef={reg.ref}
 						onChange={reg.onChange}
 						onBlur={reg.onBlur}
 					/>{' '}
@@ -266,7 +266,7 @@ export function RadioButtonConfigItem(props) {
 						name={myid}
 						id={myid}
 						value={"False"}
-						innerRef={props.register(myid) == undefined ? reg : reg.ref}
+						innerRef={reg.ref}
 						onChange={reg.onChange}
 						onBlur={reg.onBlur}
 					/>{' '}
@@ -283,7 +283,7 @@ export function RadioButtonConfigItem(props) {
 
 export function SelectConfigItem(props) {
 	let myid = `${props.sectionname} ${props.itemname}`;
-	const reg = props.register(myid) == undefined ? props.register() : props.register(myid);
+	const reg = props.register(myid);
 	return (
 		<FormGroup>
 			<Label for={myid}>
@@ -293,7 +293,7 @@ export function SelectConfigItem(props) {
 				type="select"
 				name={myid}
 				id={myid}
-				innerRef={props.register(myid) == undefined ? reg : reg.ref}
+				innerRef={reg.ref}
 				onChange={reg.onChange}
 				onBlur={reg.onBlur}
 			>
@@ -311,7 +311,7 @@ export function SelectConfigItem(props) {
 
 export function TextAreaConfigItem(props) {
 	let myid = `${props.sectionname} ${props.itemname}`;
-	const reg = props.register(myid) == undefined ? props.register() : props.register(myid);
+	const reg = props.register(myid);
 	return (
 		<FormGroup>
 			<Label for={myid}>
@@ -321,7 +321,7 @@ export function TextAreaConfigItem(props) {
 				type="textarea"
 				name={myid}
 				id={myid}
-				innerRef={props.register(myid) == undefined ? reg : reg.ref}
+				innerRef={reg.ref}
 				onChange={reg.onChange}
 				onBlur={reg.onBlur}
 			/>
