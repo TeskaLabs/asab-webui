@@ -1,4 +1,4 @@
-# Controlled Switch Componen
+# Controlled Switch Component
 
 - Our custom switch component substituting reactstrap's <CustomInput type="switch"/>
 - The input’s value is driven by the React state
