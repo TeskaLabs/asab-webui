@@ -7,6 +7,7 @@
     - toggle (function) - triggered upon click
     - title (string / optional)
     - disabled (boolean / optional)
+    - size ('sm', 'md', 'lg' / optional / default is 'md') - defines switchers size just as one would'd expect in reactstrap
 
 - example:
 ```
@@ -16,7 +17,7 @@
     const YourComponent = (props) => {
 	    const [isOn, setIsOn] = useState(false)
 		return (
-			<ControlledSwitch  toggle={() => setIsOn(!isOn)} title='setTotp' isOn={isOn}/>
+			<ControlledSwitch  toggle={() => setIsOn(!isOn)} title='setTotp' isOn={isOn} size='lg'/>
 		)
     } 
 ```
