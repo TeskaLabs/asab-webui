@@ -1,5 +1,5 @@
-import React from 'react'
-import moment from "moment";
+import React from 'react';
+import moment from 'moment/min/moment-with-locales';
 
 /*
 Diplays a date & time in a local timezone.
@@ -37,6 +37,7 @@ export function DateTime({ value, format }) {
 	}
 
 	const m = isNaN(value) || value > 9999999999 ? moment(value) : moment(value * 1000);
+	m.locale(window.navigator.language.slice(0, 2));
 
 	return (
 		<span className="datetime" title={m.fromNow()}>
