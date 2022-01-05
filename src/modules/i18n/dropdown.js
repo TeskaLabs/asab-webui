@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { CHANGE_LANGUAGE } from '../../actions';
+import { useDispatch } from 'react-redux'
 
 
 import {
@@ -19,6 +21,16 @@ function LanguageDropdown(props) {
 			// if the hard refresh is needed: window.location.reload(false);
 		});
 	}
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch({ type: CHANGE_LANGUAGE, language: i18n?.language ?? window.navigator.language })
+	}, [])
+
+	useEffect(() => {
+		dispatch({ type: CHANGE_LANGUAGE, language: i18n?.language ?? window.navigator.language })
+	},[i18n.language])
 
 	// This means that we basically don't know what languages are supported
 	if ((i18n.options.supportedLngs == null) || (i18n.options.supportedLngs == false)) {
