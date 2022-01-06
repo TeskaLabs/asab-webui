@@ -75,6 +75,8 @@ where
 - **type** is the name of the section
 - **config** is the name of the configuration
 
+Configuration, which will not fit the schema will fall into adHoc value/section, which is strictly read-only.
+
 
 ### Basic config and schema example for Section properties
 
