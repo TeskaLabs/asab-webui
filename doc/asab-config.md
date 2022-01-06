@@ -53,7 +53,424 @@ ReactDOM.render((
 
 ## Schema and configuration files
 
-TODO
+To obtain / save configuration, ASAB config service must be running.
+
+Configuration and schema has to be saved in Zookeeper.
+
+Config structure in Zookeeper should be set as following:
+
+```
+- **main Zookeeper node**
+	- config
+		- **type**
+			- **config**
+	- type
+		- **type**
+			- schema
+```
+
+where
+
+- **main Zookeeper node** is the main node in the Zookeeper
+- **type** is the name of the section
+- **config** is the name of the configuration
+
+
+### Basic config and schema example for Section properties
+
+Config example:
+
+```
+{
+    "my-source": {
+        "data_source": "my-data-source*",
+        "datetime_field": "@timestamp",
+        "type": "elasticsearch",
+        "tenant": "default"
+    }
+}
+```
+
+Schema example:
+
+```
+{
+    "$id": "Props schema",
+    "type": "object",
+    "title": "Props schema",
+    "description": "My props schema",
+    "default": {},
+    "examples": [
+        {
+            "my-source": {
+                "data_source": "my-data-source*",
+                "datetime_field": "@timestamp",
+                "type": "elasticsearch",
+                "tenant": "default"
+            }
+        }
+    ],
+    "required": ["my-source"], // Required value is optional for properties
+    "properties": {
+        "my-source": {
+            "type": "string",
+            "title": "Some source",
+            "description": "My Some source",
+            "default": {},
+            "examples": [
+                {
+	                "data_source": "my-data-source*",
+	                "datetime_field": "@timestamp",
+	                "type": "elasticsearch",
+	                "tenant": "default"
+                }
+            ],
+            "required": [
+                "data_source",
+                "datetime_field",
+                "type",
+                "tenant"
+            ],
+            "properties": {
+                "data_source": {
+                    "type": "string",
+                    "title": "Data source",
+                    "description": "Value for Data source",
+                    "default": "",
+                    "examples": [
+                        "my-data-source*"
+                    ]
+                },
+                "datetime_field": {
+                    "type": "string",
+                    "title": "Datetime",
+                    "description": "Datetime value",
+                    "default": "",
+                    "examples": [
+                        "@timestamp"
+                    ]
+                },
+                "type": {
+                    "type": "string",
+                    "title": "Type",
+                    "description": "Select type",
+                    "default": ["elasticsearch", "api"],
+                    "$defs": {
+                        "select": { "type": "select" }
+                     },
+                    "examples": [
+                        "elasticsearch"
+                    ]
+                },
+                "tenant": {
+                    "type": "string",
+                    "title": "Tenant",
+                    "description": "Tenant value",
+                    "default": "",
+                    "examples": [
+                        "default"
+                    ]
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false
+}
+```
+
+### Basic schema example for Section pattern properties
+
+Config example:
+
+```
+{
+    "Some:source:my-source": {
+        "data_source": "my-data-source*",
+        "datetime_field": "@timestamp",
+        "type": "elasticsearch",
+        "tenant": "default"
+    }
+}
+```
+
+Schema example:
+
+```
+{
+    "$id": "Pattern props schema",
+    "type": "object",
+    "title": "Pattern props schema",
+    "description": "My pattern props schema",
+    "default": {},
+    "examples": [
+        {
+            "Some:source:my-source": {
+                "data_source": "my-data-source*",
+                "datetime_field": "@timestamp",
+                "type": "elasticsearch",
+                "tenant": "default"
+            }
+        }
+    ],
+    "required": [], // For pattern properties section, required should be left empty
+    "patternProperties": {
+        "^Some:source:.*$": {
+            "type": "string",
+            "title": "Some source",
+            "description": "My Some source",
+            "default": {},
+            "examples": [
+                {
+	                "data_source": "my-data-source*",
+	                "datetime_field": "@timestamp",
+	                "type": "elasticsearch",
+	                "tenant": "default"
+                }
+            ],
+            "required": [
+                "data_source",
+                "datetime_field",
+                "type",
+                "tenant"
+            ],
+            "properties": {
+                "data_source": {
+                    "type": "string",
+                    "title": "Data source",
+                    "description": "Value for Data source",
+                    "default": "",
+                    "examples": [
+                        "my-data-source*"
+                    ]
+                },
+                "datetime_field": {
+                    "type": "string",
+                    "title": "Datetime",
+                    "description": "Datetime value",
+                    "default": "",
+                    "examples": [
+                        "@timestamp"
+                    ]
+                },
+                "type": {
+                    "type": "string",
+                    "title": "Type",
+                    "description": "Select type",
+                    "default": ["elasticsearch", "api"],
+                    "$defs": {
+                        "select": { "type": "select" }
+                     },
+                    "examples": [
+                        "elasticsearch"
+                    ]
+                },
+                "tenant": {
+                    "type": "string",
+                    "title": "Tenant",
+                    "description": "Tenant value",
+                    "default": "",
+                    "examples": [
+                        "default"
+                    ]
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false
+}
+```
+
+## Supported inputs
+
+### String values
+
+#### Single string
+
+```
+"properties": {
+    "name": {
+        "type": "string",
+        "title": "Name",
+        "description": "Fill your name",
+        "default": "",
+        "examples": [
+            "Your Name"
+        ]
+    }
+}
+```
+
+#### Password
+
+```
+"properties": {
+    "email": {
+        "type": "string",
+        "title": "Password",
+        "description": "Fill your secret",
+        "default": "",
+        "$defs": {
+            "password": {
+                "type": "password"
+            }
+        },
+        "examples": [
+            "S0meSecr3t"
+        ]
+    }
+}
+```
+
+#### Email
+
+```
+"properties": {
+    "email": {
+        "type": "string",
+        "title": "Email",
+        "description": "Fill your email",
+        "default": "",
+        "$defs": {
+            "email": {
+                "type": "email"
+            }
+        },
+        "examples": [
+            "your@email.ex"
+        ]
+    }
+}
+```
+
+#### URL
+
+```
+"properties": {
+    "url": {
+        "type": "string",
+        "title": "URL",
+        "description": "Fill the redirect URL",
+        "default": "",
+        "$defs": {
+            "url": {
+                "type": "url"
+            }
+        },
+        "examples": [
+            "http://my-url.my"
+        ]
+    }
+}
+```
+
+#### Text area
+
+```
+"properties": {
+	"image": {
+        "type": "string",
+        "title": "Base64 image",
+        "description": "Add base64 image string",
+        "default": "",
+        "$defs": {
+            "textarea": {
+                "type": "textarea"
+            }
+        },
+        "examples": [
+            "data:image/svg;base64,iVBORw0KG..."
+        ]
+    }
+}
+```
+
+#### Select
+
+```
+"properties": {
+	"slct": {
+        "type": "string",
+        "title": "Select a string",
+        "description": "Please select a string value",
+        "default": ["string one", "string two"],
+        "$defs": {
+            "select": { "type": "select" }
+         },
+        "examples": [
+            "string one"
+        ]
+    }
+}
+```
+
+### Number values
+
+#### Single number
+
+```
+"properties": {
+    "nmbr": {
+        "type": "number",
+        "title": "Random number",
+        "description": "Add any number",
+        "default": "",
+        "$defs": {
+            "number": {
+                "type": "number"
+            }
+        },
+        "examples": [
+            666
+        ]
+    }
+}
+```
+
+#### Select
+
+```
+"properties": {
+    "nmbrslct": {
+        "type": "number",
+        "title": "Select the number you like",
+        "description": "Please select some number",
+        "default": [1,2,3],
+        "$defs": {
+            "select": {
+                "type": "select"
+            }
+        },
+        "examples": [
+            1
+        ]
+    }
+}
+```
+
+### Boolean values
+
+Using checkbox
+
+```
+"properties": {
+    "chckbx": {
+        "type": "boolean",
+        "title": "Turn on/off my checkbox",
+        "description": "Turn me on/off",
+        "default": true,
+        "$defs": {
+            "checkbox": {
+                "type": "checkbox"
+            }
+        },
+        "examples": [
+            true
+        ]
+    }
+}
+```
 
 ## Language localisations
 
