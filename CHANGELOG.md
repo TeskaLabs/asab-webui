@@ -78,6 +78,8 @@
 
 - Update Tools module with option to define Tools configuration dynamically (INDIGO Sprint 211112, [!212](https://github.com/TeskaLabs/asab-webui/pull/212))
 
+- Creates separate component to translate user IDs into usernames (INDIGO Sprint 211126, [!218](https://github.com/TeskaLabs/asab-webui/pull/218))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))

@@ -38,5 +38,8 @@
 		"Unable to get config data from service, please check the config settings": "Unable to get config data from service, please check the config settings",
 		"Something went wrong, unable to get config data from service": "Something went wrong, unable to get config data from service"
 	},
+	"ASABCredentials": {
+		"Something went wrong, failed to fetch assigned credentials": "Something went wrong, failed to fetch assigned credentials"
+	},
 	"You do not have access rights to perform this action": "You do not have access rights to perform this action"
 }
