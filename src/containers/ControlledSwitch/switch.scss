@@ -6,7 +6,23 @@
 	border: 1px solid #6c757d;
 	display: inline-block;
 	border-radius: 50px;
+	margin-bottom: -2.5px;
 	cursor: pointer;
+
+	&.lg {
+		width: 52px;
+		height: 26px;
+		.on .circle {
+				margin-left: 25px;
+			}
+	}
+	&.sm {
+		width: 32px;
+		height: 16px;
+		.on .circle {
+			margin-left: 15px;
+		}
+	}
 
 	* {
 		border-radius: 50px;
@@ -17,7 +33,7 @@
 	.on, .off {
 		position: relative;
 		width: 100%;
-		display: inline-block;
+		// display: inline-block;
 
 		.circle {
 			width: 50%;

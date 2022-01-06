@@ -5,7 +5,8 @@ import { ControlledSwitch } from 'asab-webui';
 
 const UncontrolledSwitch = ({ 
 	defaultValue = false, disabled = false, 
-	title, register, setValue, name = 'uncontrolled switch', id
+	title, register, setValue, name = 'uncontrolled switch', id, 
+	size = 'md'
 }) => {
 		const [isOn, setIsOn] = useState(defaultValue);
 
@@ -20,6 +21,7 @@ const UncontrolledSwitch = ({
 					title={title}
 					disabled={disabled}
 					toggle={() => setIsOn(prev => !prev)}
+					size={size}
 				/>
 				<input
 					type="checkbox"

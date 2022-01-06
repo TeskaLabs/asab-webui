@@ -182,6 +182,8 @@
 
 - Make init method of tenant service syncronous and make _extract_tenant_from_url() a private method (INDIGO Sprint 211126, [!217](https://github.com/TeskaLabs/asab-webui/pull/217))
 
+- Custom switch components noc accept size as a property (INDIGO Sprint 211210, [!221](https://github.com/TeskaLabs/asab-webui/pull/221))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
