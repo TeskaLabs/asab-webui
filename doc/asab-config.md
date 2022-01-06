@@ -82,12 +82,12 @@ Config example:
 
 ```
 {
-    "my-source": {
-        "data_source": "my-data-source*",
-        "datetime_field": "@timestamp",
-        "type": "elasticsearch",
-        "tenant": "default"
-    }
+	"my-source": {
+		"data_source": "my-data-source*",
+		"datetime_field": "@timestamp",
+		"type": "elasticsearch",
+		"tenant": "default"
+	}
 }
 ```
 
@@ -95,87 +95,87 @@ Schema example:
 
 ```
 {
-    "$id": "Props schema",
-    "type": "object",
-    "title": "Props schema",
-    "description": "My props schema",
-    "default": {},
-    "examples": [
-        {
-            "my-source": {
-                "data_source": "my-data-source*",
-                "datetime_field": "@timestamp",
-                "type": "elasticsearch",
-                "tenant": "default"
-            }
-        }
-    ],
-    "required": ["my-source"], // Required value is optional for properties
-    "properties": {
-        "my-source": {
-            "type": "string",
-            "title": "Some source",
-            "description": "My Some source",
-            "default": {},
-            "examples": [
-                {
-	                "data_source": "my-data-source*",
-	                "datetime_field": "@timestamp",
-	                "type": "elasticsearch",
-	                "tenant": "default"
-                }
-            ],
-            "required": [
-                "data_source",
-                "datetime_field",
-                "type",
-                "tenant"
-            ],
-            "properties": {
-                "data_source": {
-                    "type": "string",
-                    "title": "Data source",
-                    "description": "Value for Data source",
-                    "default": "",
-                    "examples": [
-                        "my-data-source*"
-                    ]
-                },
-                "datetime_field": {
-                    "type": "string",
-                    "title": "Datetime",
-                    "description": "Datetime value",
-                    "default": "",
-                    "examples": [
-                        "@timestamp"
-                    ]
-                },
-                "type": {
-                    "type": "string",
-                    "title": "Type",
-                    "description": "Select type",
-                    "default": ["elasticsearch", "api"],
-                    "$defs": {
-                        "select": { "type": "select" }
-                     },
-                    "examples": [
-                        "elasticsearch"
-                    ]
-                },
-                "tenant": {
-                    "type": "string",
-                    "title": "Tenant",
-                    "description": "Tenant value",
-                    "default": "",
-                    "examples": [
-                        "default"
-                    ]
-                }
-            },
-            "additionalProperties": false
-        }
-    },
-    "additionalProperties": false
+	"$id": "Props schema",
+	"type": "object",
+	"title": "Props schema",
+	"description": "My props schema",
+	"default": {},
+	"examples": [
+		{
+			"my-source": {
+				"data_source": "my-data-source*",
+				"datetime_field": "@timestamp",
+				"type": "elasticsearch",
+				"tenant": "default"
+			}
+		}
+	],
+	"required": ["my-source"], // Required value is optional for properties
+	"properties": {
+		"my-source": {
+			"type": "string",
+			"title": "Some source",
+			"description": "My Some source",
+			"default": {},
+			"examples": [
+				{
+					"data_source": "my-data-source*",
+					"datetime_field": "@timestamp",
+					"type": "elasticsearch",
+					"tenant": "default"
+				}
+			],
+			"required": [
+				"data_source",
+				"datetime_field",
+				"type",
+				"tenant"
+			],
+			"properties": {
+				"data_source": {
+					"type": "string",
+					"title": "Data source",
+					"description": "Value for Data source",
+					"default": "",
+					"examples": [
+						"my-data-source*"
+					]
+				},
+				"datetime_field": {
+					"type": "string",
+					"title": "Datetime",
+					"description": "Datetime value",
+					"default": "",
+					"examples": [
+						"@timestamp"
+					]
+				},
+				"type": {
+					"type": "string",
+					"title": "Type",
+					"description": "Select type",
+					"default": ["elasticsearch", "api"],
+					"$defs": {
+						"select": { "type": "select" }
+					 },
+					"examples": [
+						"elasticsearch"
+					]
+				},
+				"tenant": {
+					"type": "string",
+					"title": "Tenant",
+					"description": "Tenant value",
+					"default": "",
+					"examples": [
+						"default"
+					]
+				}
+			},
+			"additionalProperties": false
+		}
+	},
+	"additionalProperties": false
 }
 ```
 
@@ -185,12 +185,12 @@ Config example:
 
 ```
 {
-    "Some:source:my-source": {
-        "data_source": "my-data-source*",
-        "datetime_field": "@timestamp",
-        "type": "elasticsearch",
-        "tenant": "default"
-    }
+	"Some:source:my-source": {
+		"data_source": "my-data-source*",
+		"datetime_field": "@timestamp",
+		"type": "elasticsearch",
+		"tenant": "default"
+	}
 }
 ```
 
@@ -198,91 +198,91 @@ Schema example:
 
 ```
 {
-    "$id": "Pattern props schema",
-    "type": "object",
-    "title": "Pattern props schema",
-    "description": "My pattern props schema",
-    "default": {},
-    "examples": [
-        {
-            "Some:source:my-source": {
-                "data_source": "my-data-source*",
-                "datetime_field": "@timestamp",
-                "type": "elasticsearch",
-                "tenant": "default"
-            }
-        }
-    ],
-    "required": [], // For pattern properties section, required should be left empty
-    "patternProperties": {
-        "^Some:source:.*$": {
-            "type": "string",
-            "title": "Some source",
-            "description": "My Some source",
-            "default": {},
-            "examples": [
-                {
-	                "data_source": "my-data-source*",
-	                "datetime_field": "@timestamp",
-	                "type": "elasticsearch",
-	                "tenant": "default"
-                }
-            ],
-            "required": [
-                "data_source",
-                "datetime_field",
-                "type",
-                "tenant"
-            ],
-            "properties": {
-                "data_source": {
-                    "type": "string",
-                    "title": "Data source",
-                    "description": "Value for Data source",
-                    "default": "",
-                    "examples": [
-                        "my-data-source*"
-                    ]
-                },
-                "datetime_field": {
-                    "type": "string",
-                    "title": "Datetime",
-                    "description": "Datetime value",
-                    "default": "",
-                    "examples": [
-                        "@timestamp"
-                    ]
-                },
-                "type": {
-                    "type": "string",
-                    "title": "Type",
-                    "description": "Select type",
-                    "default": ["elasticsearch", "api"],
-                    "$defs": {
-                        "select": { "type": "select" }
-                     },
-                    "examples": [
-                        "elasticsearch"
-                    ]
-                },
-                "tenant": {
-                    "type": "string",
-                    "title": "Tenant",
-                    "description": "Tenant value",
-                    "default": "",
-                    "examples": [
-                        "default"
-                    ]
-                }
-            },
-            "additionalProperties": false
-        }
-    },
-    "additionalProperties": false
+	"$id": "Pattern props schema",
+	"type": "object",
+	"title": "Pattern props schema",
+	"description": "My pattern props schema",
+	"default": {},
+	"examples": [
+		{
+			"Some:source:my-source": {
+				"data_source": "my-data-source*",
+				"datetime_field": "@timestamp",
+				"type": "elasticsearch",
+				"tenant": "default"
+			}
+		}
+	],
+	"required": [], // For pattern properties section, required should be left empty
+	"patternProperties": {
+		"^Some:source:.*$": {
+			"type": "string",
+			"title": "Some source",
+			"description": "My Some source",
+			"default": {},
+			"examples": [
+				{
+					"data_source": "my-data-source*",
+					"datetime_field": "@timestamp",
+					"type": "elasticsearch",
+					"tenant": "default"
+				}
+			],
+			"required": [
+				"data_source",
+				"datetime_field",
+				"type",
+				"tenant"
+			],
+			"properties": {
+				"data_source": {
+					"type": "string",
+					"title": "Data source",
+					"description": "Value for Data source",
+					"default": "",
+					"examples": [
+						"my-data-source*"
+					]
+				},
+				"datetime_field": {
+					"type": "string",
+					"title": "Datetime",
+					"description": "Datetime value",
+					"default": "",
+					"examples": [
+						"@timestamp"
+					]
+				},
+				"type": {
+					"type": "string",
+					"title": "Type",
+					"description": "Select type",
+					"default": ["elasticsearch", "api"],
+					"$defs": {
+						"select": { "type": "select" }
+					 },
+					"examples": [
+						"elasticsearch"
+					]
+				},
+				"tenant": {
+					"type": "string",
+					"title": "Tenant",
+					"description": "Tenant value",
+					"default": "",
+					"examples": [
+						"default"
+					]
+				}
+			},
+			"additionalProperties": false
+		}
+	},
+	"additionalProperties": false
 }
 ```
 
-## Supported inputs
+## Supported inputs types
 
 ### String values
 
@@ -290,15 +290,15 @@ Schema example:
 
 ```
 "properties": {
-    "name": {
-        "type": "string",
-        "title": "Name",
-        "description": "Fill your name",
-        "default": "",
-        "examples": [
-            "Your Name"
-        ]
-    }
+	"name": {
+		"type": "string",
+		"title": "Name",
+		"description": "Fill your name",
+		"default": "",
+		"examples": [
+			"Your Name"
+		]
+	}
 }
 ```
 
@@ -306,20 +306,20 @@ Schema example:
 
 ```
 "properties": {
-    "email": {
-        "type": "string",
-        "title": "Password",
-        "description": "Fill your secret",
-        "default": "",
-        "$defs": {
-            "password": {
-                "type": "password"
-            }
-        },
-        "examples": [
-            "S0meSecr3t"
-        ]
-    }
+	"email": {
+		"type": "string",
+		"title": "Password",
+		"description": "Fill your secret",
+		"default": "",
+		"$defs": {
+			"password": {
+				"type": "password"
+			}
+		},
+		"examples": [
+			"S0meSecr3t"
+		]
+	}
 }
 ```
 
@@ -327,20 +327,20 @@ Schema example:
 
 ```
 "properties": {
-    "email": {
-        "type": "string",
-        "title": "Email",
-        "description": "Fill your email",
-        "default": "",
-        "$defs": {
-            "email": {
-                "type": "email"
-            }
-        },
-        "examples": [
-            "your@email.ex"
-        ]
-    }
+	"email": {
+		"type": "string",
+		"title": "Email",
+		"description": "Fill your email",
+		"default": "",
+		"$defs": {
+			"email": {
+				"type": "email"
+			}
+		},
+		"examples": [
+			"your@email.ex"
+		]
+	}
 }
 ```
 
@@ -348,20 +348,20 @@ Schema example:
 
 ```
 "properties": {
-    "url": {
-        "type": "string",
-        "title": "URL",
-        "description": "Fill the redirect URL",
-        "default": "",
-        "$defs": {
-            "url": {
-                "type": "url"
-            }
-        },
-        "examples": [
-            "http://my-url.my"
-        ]
-    }
+	"url": {
+		"type": "string",
+		"title": "URL",
+		"description": "Fill the redirect URL",
+		"default": "",
+		"$defs": {
+			"url": {
+				"type": "url"
+			}
+		},
+		"examples": [
+			"http://my-url.my"
+		]
+	}
 }
 ```
 
@@ -370,19 +370,19 @@ Schema example:
 ```
 "properties": {
 	"image": {
-        "type": "string",
-        "title": "Base64 image",
-        "description": "Add base64 image string",
-        "default": "",
-        "$defs": {
-            "textarea": {
-                "type": "textarea"
-            }
-        },
-        "examples": [
-            "data:image/svg;base64,iVBORw0KG..."
-        ]
-    }
+		"type": "string",
+		"title": "Base64 image",
+		"description": "Add base64 image string",
+		"default": "",
+		"$defs": {
+			"textarea": {
+				"type": "textarea"
+			}
+		},
+		"examples": [
+			"data:image/svg;base64,iVBORw0KG..."
+		]
+	}
 }
 ```
 
@@ -391,17 +391,17 @@ Schema example:
 ```
 "properties": {
 	"slct": {
-        "type": "string",
-        "title": "Select a string",
-        "description": "Please select a string value",
-        "default": ["string one", "string two"],
-        "$defs": {
-            "select": { "type": "select" }
-         },
-        "examples": [
-            "string one"
-        ]
-    }
+		"type": "string",
+		"title": "Select a string",
+		"description": "Please select a string value",
+		"default": ["string one", "string two"],
+		"$defs": {
+			"select": { "type": "select" }
+		 },
+		"examples": [
+			"string one"
+		]
+	}
 }
 ```
 
@@ -411,20 +411,20 @@ Schema example:
 
 ```
 "properties": {
-    "nmbr": {
-        "type": "number",
-        "title": "Random number",
-        "description": "Add any number",
-        "default": "",
-        "$defs": {
-            "number": {
-                "type": "number"
-            }
-        },
-        "examples": [
-            666
-        ]
-    }
+	"nmbr": {
+		"type": "number",
+		"title": "Random number",
+		"description": "Add any number",
+		"default": "",
+		"$defs": {
+			"number": {
+				"type": "number"
+			}
+		},
+		"examples": [
+			666
+		]
+	}
 }
 ```
 
@@ -432,20 +432,20 @@ Schema example:
 
 ```
 "properties": {
-    "nmbrslct": {
-        "type": "number",
-        "title": "Select the number you like",
-        "description": "Please select some number",
-        "default": [1,2,3],
-        "$defs": {
-            "select": {
-                "type": "select"
-            }
-        },
-        "examples": [
-            1
-        ]
-    }
+	"nmbrslct": {
+		"type": "number",
+		"title": "Select the number you like",
+		"description": "Please select some number",
+		"default": [1,2,3],
+		"$defs": {
+			"select": {
+				"type": "select"
+			}
+		},
+		"examples": [
+			1
+		]
+	}
 }
 ```
 
@@ -455,20 +455,36 @@ Using checkbox
 
 ```
 "properties": {
-    "chckbx": {
-        "type": "boolean",
-        "title": "Turn on/off my checkbox",
-        "description": "Turn me on/off",
-        "default": true,
-        "$defs": {
-            "checkbox": {
-                "type": "checkbox"
-            }
-        },
-        "examples": [
-            true
-        ]
-    }
+	"chckbx": {
+		"type": "boolean",
+		"title": "Turn on/off my checkbox",
+		"description": "Turn me on/off",
+		"default": true,
+		"$defs": {
+			"checkbox": {
+				"type": "checkbox"
+			}
+		},
+		"examples": [
+			true
+		]
+	}
+}
+```
+
+### Array values
+
+```
+"properties": {
+	"arr": {
+		"type": "array",
+		"title": "Array values",
+		"description": "Please write string values separated by comma",
+		"default": "",
+		"examples": [
+			"string one", "string two"
+		]
+	}
 }
 ```
 
