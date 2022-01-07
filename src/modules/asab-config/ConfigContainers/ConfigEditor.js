@@ -422,8 +422,7 @@ export default function ConfigEditor(props) {
 									<div style={{overflow: "auto"}}>
 										<ReactJson
 											src={jsonValues}
-											// TODO: Editing in JSON values is disabled because users can mess with the value types
-											// onEdit={ e => { setJsonValues(e.updated_src)} }
+											onEdit={ e => { setJsonValues(e.updated_src)} }
 											enableClipboard={false}
 											name={false}
 										/>
