@@ -85,10 +85,9 @@ Config example:
 ```
 {
 	"my-source": {
-		"data_source": "my-data-source*",
+		"source": "my-data-source*",
 		"datetime_field": "@timestamp",
-		"type": "elasticsearch",
-		"tenant": "default"
+		"type": "elasticsearch"
 	}
 }
 ```
@@ -105,10 +104,9 @@ Schema example:
 	"examples": [
 		{
 			"my-source": {
-				"data_source": "my-data-source*",
+				"source": "my-data-source*",
 				"datetime_field": "@timestamp",
-				"type": "elasticsearch",
-				"tenant": "default"
+				"type": "elasticsearch"
 			}
 		}
 	],
@@ -121,20 +119,18 @@ Schema example:
 			"default": {},
 			"examples": [
 				{
-					"data_source": "my-data-source*",
+					"source": "my-data-source*",
 					"datetime_field": "@timestamp",
-					"type": "elasticsearch",
-					"tenant": "default"
+					"type": "elasticsearch"
 				}
 			],
 			"required": [
-				"data_source",
+				"source",
 				"datetime_field",
-				"type",
-				"tenant"
+				"type"
 			],
 			"properties": {
-				"data_source": {
+				"source": {
 					"type": "string",
 					"title": "Data source",
 					"description": "Value for Data source",
@@ -162,15 +158,6 @@ Schema example:
 					 },
 					"examples": [
 						"elasticsearch"
-					]
-				},
-				"tenant": {
-					"type": "string",
-					"title": "Tenant",
-					"description": "Tenant value",
-					"default": "",
-					"examples": [
-						"default"
 					]
 				}
 			},
@@ -188,10 +175,9 @@ Config example:
 ```
 {
 	"Some:source:my-source": {
-		"data_source": "my-data-source*",
+		"source": "my-data-source*",
 		"datetime_field": "@timestamp",
-		"type": "elasticsearch",
-		"tenant": "default"
+		"type": "elasticsearch"
 	}
 }
 ```
@@ -208,10 +194,9 @@ Schema example:
 	"examples": [
 		{
 			"Some:source:my-source": {
-				"data_source": "my-data-source*",
+				"source": "my-data-source*",
 				"datetime_field": "@timestamp",
-				"type": "elasticsearch",
-				"tenant": "default"
+				"type": "elasticsearch"
 			}
 		}
 	],
@@ -224,20 +209,18 @@ Schema example:
 			"default": {},
 			"examples": [
 				{
-					"data_source": "my-data-source*",
+					"source": "my-data-source*",
 					"datetime_field": "@timestamp",
-					"type": "elasticsearch",
-					"tenant": "default"
+					"type": "elasticsearch"
 				}
 			],
 			"required": [
-				"data_source",
+				"source",
 				"datetime_field",
-				"type",
-				"tenant"
+				"type"
 			],
 			"properties": {
-				"data_source": {
+				"source": {
 					"type": "string",
 					"title": "Data source",
 					"description": "Value for Data source",
@@ -265,15 +248,6 @@ Schema example:
 					 },
 					"examples": [
 						"elasticsearch"
-					]
-				},
-				"tenant": {
-					"type": "string",
-					"title": "Tenant",
-					"description": "Tenant value",
-					"default": "",
-					"examples": [
-						"default"
 					]
 				}
 			},
