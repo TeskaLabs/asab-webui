@@ -160,7 +160,7 @@ Example of the schema configuration
 		}
 	],
 	"required": [
-		"tool"
+		"tool" // Required value is optional
 	],
 	"properties": {
 		"tool": {

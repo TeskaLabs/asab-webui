@@ -182,9 +182,11 @@
 
 - Collapsable 'userbar' on screensize below 800px, NavbarBrand position adjustment (INDIGO 211126, [!214](https://github.com/TeskaLabs/asab-webui/pull/214))
 
-- Make init method of tenant service syncronous and make _extract_tenant_from_url() a private method (INDIGO Sprint 211126, [!217](https://github.com/TeskaLabs/asab-webui/pull/217))
+- Make init method of tenant service syncronous and make `_extract_tenant_from_url()` a private method (INDIGO Sprint 211126, [!217](https://github.com/TeskaLabs/asab-webui/pull/217))
 
 - Custom switch components noc accept size as a property (INDIGO Sprint 211210, [!221](https://github.com/TeskaLabs/asab-webui/pull/221))
+
+- Refactor `asab-config` module with pattern properties schema handling, update documentation, move Configuration out of the Maintenance sidebar item (INDIGO Sprint 211210, [!219](https://github.com/TeskaLabs/asab-webui/pull/219))
 
 ### Bugfixes
 
