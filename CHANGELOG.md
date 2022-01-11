@@ -188,6 +188,8 @@
 
 - Refactor `asab-config` module with pattern properties schema handling, update documentation, move Configuration out of the Maintenance sidebar item (INDIGO Sprint 211210, [!219](https://github.com/TeskaLabs/asab-webui/pull/219))
 
+- Refactor `Tools` module with different Tools configuration processing based on ASAB-Config service changes (INDIGO Sprint 220107, [!222](https://github.com/TeskaLabs/asab-webui/pull/222))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))

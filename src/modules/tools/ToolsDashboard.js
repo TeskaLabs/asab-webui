@@ -50,6 +50,17 @@ export default function ToolsDashboard(props){
 				console.error(e);
 				props.app.addAlert("warning", t("ASABToolsModule|Something went wrong, unable to get config data from service"));
 			}
+			// Parse configuration and drop config file names
+			let configArray = [];
+			await Promise.all(configuration.map((cnfg) => {
+				if (Object.keys(cnfg) && Object.keys(cnfg).length > 0) {
+					let configContent = Object.values(cnfg)[0];
+					if (configContent && Object.keys(configContent).length > 0) {
+						configArray.push(Object.values(configContent)[0]);
+					}
+				}
+			}))
+			configuration = configArray;
 		}
 		setConfig(configuration);
 	}
@@ -68,10 +79,8 @@ export default function ToolsDashboard(props){
 };
 
 function Tool(props) {
-	let configObject;
 	return(
-		props.config.map((key, idx) => {
-			configObject = Object.values(key)[0];
+		props.config.map((configObject, idx) => {
 			return (
 				<React.Fragment key={configObject.name}>
 					<Col className="text-center pt-5 pb-5 pl-5 pr-5">

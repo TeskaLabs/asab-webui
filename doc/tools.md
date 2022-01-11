@@ -36,18 +36,14 @@ This configuration is **not editable** once the application is build.
 {
 	"tools":[
 		{
-			"tool": {
-				"name": "Grafana",
-				"url": "http://http://127.0.0.1.:3000/grafana",
-				"image": "tools/grafana.svg"
-			}
+			"name": "Grafana",
+			"url": "http://http://127.0.0.1.:3000/grafana",
+			"image": "tools/grafana.svg"
 		},
 		{
-			"tool": {
-				"name": "Kibana",
-				"url": "http://http://127.0.0.1.:3000/kibana",
-				"image": "tools/kibana.svg"
-			}
+			"name": "Kibana",
+			"url": "http://http://127.0.0.1.:3000/kibana",
+			"image": "tools/kibana.svg"
 		}
 	]
 }
@@ -69,6 +65,17 @@ To obtain configuration from Zookeeper, `asab-config` service must be set up and
 The configuration loaded from Zookeeper is **editable**.
 
 **One configuration** file stores just **one tool** configuration.
+
+
+```
+{
+	"tool": {
+		"name": "Grafana",
+		"url": "http://http://127.0.0.1.:3000/grafana",
+		"image": "tools/grafana.svg"
+	}
+}
+```
 
 ### Zookeeper config and type structure
 
