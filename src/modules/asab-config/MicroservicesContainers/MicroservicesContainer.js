@@ -11,6 +11,7 @@ export default (props) => {
 	const [list, setList] = useState([]);
 	const [page, setPage] = useState(1);
 	const [count, setCount] = useState(0);
+	const [limit, setLimit] = useState(10);
 
 	const { t } = useTranslation();
 
@@ -35,7 +36,7 @@ export default (props) => {
 	];
 
 	useEffect(() => {
-		ASABConfigAPI.get('/microservices', { params: { p: page }})
+		ASABConfigAPI.get('/microservices', { params: { p: page, limit: limit }})
 			.then(res => {
 				if (!res.data) throw new Error("response.data is undefined or null");
 				if (!res.data.data) throw new Error("response.data.data is undefined or null");
@@ -46,7 +47,7 @@ export default (props) => {
 				console.error(e);
 				props.app.addAlert("warning", t('Failed fetch'));
 			})
-	}, [page]);
+	}, [page, limit]);
 
 	const customRowStyle = {
 		style: {
@@ -67,6 +68,8 @@ export default (props) => {
 				currentPage={page}
 				setPage={setPage}
 				count={count}
+				limit={limit}
+				setLimit={setLimit}
 				title={{
 					text: "Microservices"
 				}}
