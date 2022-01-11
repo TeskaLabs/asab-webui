@@ -82,6 +82,8 @@
 
 - Sidebar autoclose on small screens  (INDIGO Sprint 220107, [!225](https://github.com/TeskaLabs/asab-webui/pull/225))
 
+- Add possibility to configure items count limit in MicroservicesContainer (INDIGO Sprint 220107, [!223](https://github.com/TeskaLabs/asab-webui/pull/223))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
