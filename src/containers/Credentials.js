@@ -17,6 +17,9 @@ export function Credentials(props) {
 
 	const [credentials, setCredentials] = useState([]);
 
+	// let db;
+	const [db, setDb] = useState(null)
+
 	// asks the server for usernames, saves them to local storage and sets usernames to render
 	const retrieveUserNames = async () => {
 		try {
@@ -50,9 +53,57 @@ export function Credentials(props) {
 		setCredentials(usernamesToRender);
 	}
 
+	const createIndexedDB = () => {
+		const request = window.indexedDB.open('ASAB|Credentials', 1);
+		let db
+		request.onupgradeneeded = (e) => {
+			console.info('Database created');
+			db = e.target.result;
+			console.log('db', db)
+			db.createObjectStore('Credentials', {keyPath: "credential_id"});
+		};
+		request.onsuccess = (e) => {
+			setDb(e.target.result);
+			console.log('success!!!!');
+		};
+		request.onerror = (e) => {
+			console.error(`IndexedDB error bráško: ${request.errorCode}`);
+		};
+		console.log('aadfasdfsdfasdfsfa', db);
+		return db
+	}
+
+	const saveToIndexDB = () => {
+		console.log('inside saveCredentialsToIndexedDB function')
+	
+		const credz = [{
+			credential_id: 'mongodb:ext:617fcfb940cfa90b4aefaf39',
+			credential_title: "lobster"
+			},{
+				credential_id: 'mongodb:ext:69420',
+				credential_title: "Blaze"
+			}
+		]
+	
+		const tx = db.transaction('Credentials', 'readwrite');
+		const credsDB = tx.objectStore('Credentials');
+		console.log('credsDB: ', credsDB)
+		credz.map((cred)=>{
+			credsDB.add(cred)
+		})
+	}
+	
 	useEffect(() => {
 		matchCredentialIds(credentials_ids);
+		// initiateIndexedDB(db)
+		setDb(createIndexedDB())
 	}, [])
+
+	useEffect(() => {
+		// setTimeout(() =>  console.log('db here bro: ', db), 2000)
+		db && saveToIndexDB()
+		// db && saveCredentialsToIndexedDB(db);
+	}, [db])
 
 	return (
 		<>
@@ -122,5 +173,66 @@ function saveUsernamesToLS(data, credentials_ids, cleanupTime) {
 		})
 		localStorage.setItem('Credentials', JSON.stringify(dataInLS));
 		return dataToLS;
+	}
+}
+
+// function initiateIndexedDB(db) {
+// 	console.log('inside CreateIndendexdDB function')
+// 	const request = window.indexedDB.open('ASAB|Credentials', 1);
+	
+// 	request.onupgradeneeded = (e) => {
+// 		console.info('Database created');
+// 		db = e.target.result;
+// 		console.log('db', db)
+// 		const credTable = db.createObjectStore('Credentials', {keypath: "credential_id"});
+		
+// 		request.onsuccess = (e) => {
+// 			// db = request.result
+// 			db = e.target.result;
+// 			console.log('success!!!!');
+// 			//  console.log(db);
+// 		};
+		
+// 		request.onerror = (e) => {
+// 			console.error(`IndexedDB error bráško: ${request.errorCode}`);
+// 		};
+// 		console.log('aadfasdfsdfasdfsfa', db)
+// 		return db	 
+// 	}
+// 	console.log('db inside createIndexedDB', db)
+// }
+	
+function saveCredentialsToIndexedDB(db) {
+	// createIndexedDB(db)
+	 console.log('inside saveCredentialsToIndexedDB function')
+	
+	 const cred = {
+	     credential_id: 'mongodb:ext:617fcfb940cfa90b4aefaf39',
+	     credential_title: "lobster"
+	 }
+	
+	 const tx = db.transaction('Credentials', 'readwrite');
+	 const credsDB = tx.objectStore('Credentials');
+	 credsDB.add(cred)
+	
+	 transaction.oncomplete = function(event) {
+	        //...
+	    };
+	
+	    transaction.onerror = function(event) {
+	      //...
+	    };
+	
+	 console.log('objectStore ln 179: ', credDB);
+	
+	 for(credentials_id of credentials_ids){ 
+	     const request = CredentialsDB.add(credentials_id) 
+	     request.onsuccess = () => { 
+	         console.log('New credential added', request.result) 
+	     };
+	
+	     request.onerror = (err) => {
+	         console.error(`Error to add new student: ${err}`)
+	     };
 	}
 }
