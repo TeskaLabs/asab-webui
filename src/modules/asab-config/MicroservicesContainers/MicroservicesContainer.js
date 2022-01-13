@@ -36,7 +36,7 @@ export default (props) => {
 	];
 
 	useEffect(() => {
-		ASABConfigAPI.get('/microservices', { params: { p: page, limit: limit }})
+		ASABConfigAPI.get('/microservices', { params: { p: page, l: limit }})
 			.then(res => {
 				if (!res.data) throw new Error("response.data is undefined or null");
 				if (!res.data.data) throw new Error("response.data.data is undefined or null");
