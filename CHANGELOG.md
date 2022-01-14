@@ -237,3 +237,5 @@
 - Fix sidebar auto open (INDIGO Sprint 211126, [!215](https://github.com/TeskaLabs/asab-webui/pull/215))
 
 - Fix sidebar items filter condition (INDIGO Sprint 211126, [!216](https://github.com/TeskaLabs/asab-webui/pull/216))
+
+- Fix issue on failed response for ASAB-Config's module TreeMenu. It broke the application when there was some issue (wrong file type) e.g. in schema or config file (INDIGO Sprint 211126, [!216](https://github.com/TeskaLabs/asab-webui/pull/226))
