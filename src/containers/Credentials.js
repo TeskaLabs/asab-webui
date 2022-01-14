@@ -54,7 +54,7 @@ export function Credentials(props) {
 		saveCredentialsToIndexedDB( [{credential_id: 'mongodb:ext:16',credential_title: "Charles Leclerc"},{credential_id: 'mongodb:ext:03',credential_title: "Daniel Ricciardo"}], 'Credentials');
 		const dataInIDB = getCredentialsFromIDB('Credentials');
 		console.log('ln63: ', dataInIDB);
-		
+
 		matchCredentialIds(credentials_ids);
 	}, [])
 
@@ -136,7 +136,7 @@ const getCredentialsFromIDB = (OSname) => {
 
 function saveUsernamesToLS(data, credentials_ids, cleanupTime) {
 	if (localStorage) {
-		let dataInLS = getUsernamesFromLS('Credentials');
+		let dataInLS = getUsernamesFromLS('Credentials', cleanupTime);
 		let dataToLS = [];
 		credentials_ids.map((credential_id) => {
 			let item = {};
