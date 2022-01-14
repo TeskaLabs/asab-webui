@@ -11,3 +11,4 @@ export const SET_DEV_CONFIG = "asab/setDevConfig";
 
 export const SET_SIDEBAR = "asab/setSidebar";
 export const CHANGE_SIDEBAR_SIZE = "asab/changeSidebarSize";
+export const SET_SCREEN = "asab/setScreen";
