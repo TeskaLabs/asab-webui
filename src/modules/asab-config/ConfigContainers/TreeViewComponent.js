@@ -54,8 +54,9 @@ export function TreeViewComponent(props) {
 		let tree = {};
 		try {
 			let response = await ASABConfigAPI.get("/config/" + typeId);
-			// TODO: validate responses which are not 200
-			tree[typeId] = response.data
+			if (response.data.result !== 'FAIL'){
+				tree[typeId] = response.data
+			}
 			return tree;
 		}
 		catch {
