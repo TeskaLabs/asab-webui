@@ -499,6 +499,13 @@ main > .container-fluid, main > .container {
 }
 
 // Footer
+@media screen and (max-width: 768px) {
+	.application-footer, .application-footer-with-sidebar,
+	.application-footer-with-sidebar-minimized {
+		margin-left: 0px !important;
+	}
+}
+
 .application-footer, .application-footer-with-sidebar,
 .application-footer-with-sidebar-minimized {
 	display: flex;
