@@ -40,6 +40,12 @@ html {
 	min-width: 0;
 }
 
+@media screen and (max-width: 768px) {
+	.main, .main-with-sidebar, .main-with-sidebar-minimized {
+		margin-left: 0px !important;
+	}
+}
+
 .main-with-sidebar {
 	margin-left: 200px;
 }
@@ -252,7 +258,27 @@ main > .container-fluid, main > .container {
 
 // Sidebar
 
-.app-sidebar-minimized, .app-sidebar-minimized-closed {
+@media screen and (max-width: 768px) {
+	.app-sidebar-minimized, .app-sidebar-minimized.closed {
+		margin-left: -50px;
+	}
+	.app-sidebar, .app-sidebar.closed {
+		margin-left: -200px !important;
+	}
+
+	.app-sidebar.small-screen.closed, .app-sidebar.closed.small-screen.closed {
+		margin-left: -200px !important;
+	}
+	.app-sidebar.small-screen, .app-sidebar.closed.small-screen {
+		margin-left: 0 !important;
+	}
+}
+
+.app-sidebar.small-screen, .app-sidebar.closed.small-screen {
+	margin-left: -200px;
+}
+
+.app-sidebar-minimized, .app-sidebar-minimized.closed {
 	width: 50px;
 	.sidebar-item-text, .sidebar-chevron, .sidebar-chevron-open {
 		display: none !important;
@@ -283,7 +309,7 @@ main > .container-fluid, main > .container {
 	}
 }
 
-.app-sidebar-minimized-closed {
+.app-sidebar-minimized.closed {
 	margin-left: -50px;
 }
 
@@ -292,7 +318,7 @@ main > .container-fluid, main > .container {
 	width: 200px;
 }
 
-.app-sidebar, .app-sidebar-closed {
+.app-sidebar, .app-sidebar.closed {
 	.sidebar-bottom {
 		height: 50px;
 		ul.nav {
@@ -310,12 +336,12 @@ main > .container-fluid, main > .container {
 	}
 }
 
-.app-sidebar-closed {
+.app-sidebar.closed {
 	margin-left: -200px;
 	width: 200px;
 }
 
-.app-sidebar, .app-sidebar-closed, .app-sidebar-minimized, .app-sidebar-minimized-closed {
+.app-sidebar, .app-sidebar.closed, .app-sidebar-minimized, .app-sidebar-minimized.closed {
 	transition: margin-left 0.25s ease-out, width .2s ease-out;
 	height: calc(100vh - 55px);
 	position: fixed;
