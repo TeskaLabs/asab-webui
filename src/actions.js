@@ -13,3 +13,4 @@ export const SET_SIDEBAR = "asab/setSidebar";
 export const CHANGE_SIDEBAR_SIZE = "asab/changeSidebarSize";
 export const SET_SMALL_SIDEBAR = "asab/setSmallSidebar";
 export const SET_HIDDEN_ITEMS_SIDEBAR = "asab/setHiddenItemsSidebar";
+export const CHANGE_THEME = "asab/changeTheme";

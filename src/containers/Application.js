@@ -22,6 +22,7 @@ import { Spinner } from '../components/Spinner';
 import alertsReducer from './Alerts/reducer';
 import sidebarReducer from './Sidebar/reducer';
 import headerHelpButtonReducer from './Header/reducer';
+import themeReducer from '../reducer/themeReducer';
 
 import ReduxService from '../services/ReduxService';
 import ConfigService from '../config/ConfigService';
@@ -98,6 +99,7 @@ class Application extends Component {
 		this.ReduxService.addReducer("advmode", advancedModeReducer);
 		this.ReduxService.addReducer("helpButton", headerHelpButtonReducer);
 		this.ReduxService.addReducer("sidebar", sidebarReducer);
+		this.ReduxService.addReducer("theme", themeReducer);
 
 		this.DefaultPath = props.defaultpath;
 
@@ -168,6 +170,8 @@ class Application extends Component {
 
 			that.removeSplashScreenRequestor(that);
 		});
+
+		this.HeaderService.addComponent(ThemeButton, {});
 	}
 
 

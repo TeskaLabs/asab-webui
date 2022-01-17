@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 const Main = ({
 	isSidebarMinimized, isSidebarOpen, hasSidebar,
-	isSmallSidebarOpen, children
+	isSmallSidebarOpen, theme, children
 }) => {
 	const withSidebar = hasSidebar !== false && isSidebarOpen ? "-with-sidebar" : "",
 		isMinimized = isSidebarOpen && isSidebarMinimized ? "-minimized" : "";
@@ -28,7 +28,7 @@ const Main = ({
 	}
 
 	return (
-		<main className={`main${withSidebar}${isMinimized}`}>
+		<main className={`main${withSidebar}${isMinimized} ${theme}`}>
 			{children}
 			{width < 768 && isSmallSidebarOpen && (
 				<div
@@ -44,7 +44,8 @@ const mapStateToProps = state => {
 	return {
 		isSidebarMinimized: state.sidebar.isSidebarMinimized,
 		isSidebarOpen: state.sidebar.isSidebarOpen,
-		isSmallSidebarOpen: state.sidebar.isSmallSidebarOpen
+		isSmallSidebarOpen: state.sidebar.isSmallSidebarOpen,
+		theme: state.theme
 	}
 }
 
