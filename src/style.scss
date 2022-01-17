@@ -40,6 +40,16 @@ html {
 	min-width: 0;
 }
 
+.stop-propagation-container {
+	height: calc(100% + 50px);
+	width: 100%;
+	position: absolute;
+	top: 55px;
+	background-color: rgba(0,0,0,0.5);
+	overflow-y: hidden;
+	
+}
+
 @media screen and (max-width: 768px) {
 	.main, .main-with-sidebar, .main-with-sidebar-minimized {
 		margin-left: 0px !important;
