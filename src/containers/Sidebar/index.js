@@ -33,26 +33,50 @@ const Sidebar = (props) => {
 	const changeSidebarSize = () => props.app.Store.dispatch({ type: CHANGE_SIDEBAR_SIZE });
 
 	return (
-		<div className={`app-sidebar${props.isSidebarMinimized ? "-minimized" : ""}${props.isSidebarOpen ? "" : "-closed"}`}>
-			<div className="sidebar-nav">
-				<Nav  vertical>
-					{memoizedItemsList.map((item, idx) => (
-						<SidebarItem
-							key={idx}
-							item={item}
-							unauthorizedNavChildren={unauthorizedNavChildren}
-							uncollapseAll={memoizedItemsList.length <= 2}
-						/>
-					))}
-				</Nav>
-				<div className="sidebar-bottom">
-					{aboutItem && <Nav vertical><SidebarItem item={aboutItem}/></Nav>}
-					<div onClick={changeSidebarSize} className={`sidebar-minimize-button${aboutItem ? "" : " w-100"}`}>
-						<i className="cil-chevron-left" />
+		<>
+			<div className={`app-sidebar${props.isSidebarMinimized ? "-minimized" : ""} ${props.isSidebarOpen ? "" : "closed"}`}>
+				<div className="sidebar-nav">
+					<Nav  vertical>
+						{memoizedItemsList.map((item, idx) => (
+							<SidebarItem
+								key={idx}
+								item={item}
+								unauthorizedNavChildren={unauthorizedNavChildren}
+								uncollapseAll={memoizedItemsList.length <= 2}
+							/>
+						))}
+					</Nav>
+					<div className="sidebar-bottom">
+						{aboutItem && <Nav vertical><SidebarItem item={aboutItem}/></Nav>}
+						<div onClick={changeSidebarSize} className={`sidebar-minimize-button${aboutItem ? "" : " w-100"}`}>
+							<i className="cil-chevron-left" />
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+			<div
+				className={`app-sidebar ${props.isSmallSidebarOpen ? "" : "closed"} small-screen`}
+			>
+				<div className="sidebar-nav">
+					<Nav  vertical>
+						{memoizedItemsList.map((item, idx) => (
+							<SidebarItem
+								key={idx}
+								item={item}
+								unauthorizedNavChildren={unauthorizedNavChildren}
+								uncollapseAll={memoizedItemsList.length <= 2}
+							/>
+						))}
+					</Nav>
+					<div className="sidebar-bottom">
+						{aboutItem && <Nav vertical><SidebarItem item={aboutItem}/></Nav>}
+						<div onClick={changeSidebarSize} className={`sidebar-minimize-button${aboutItem ? "" : " w-100"}`}>
+							<i className="cil-chevron-left" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</>
 	)
 }
 
@@ -60,6 +84,7 @@ function mapStateToProps(state) {
 	return {
 		isSidebarOpen: state.sidebar.isSidebarOpen,
 		isSidebarMinimized: state.sidebar.isSidebarMinimized,
+		isSmallSidebarOpen: state.sidebar.isSmallSidebarOpen,
 		unauthorizedNavItem: state.auth?.unauthorizedNavItem,
 		unauthorizedNavChildren: state.auth?.unauthorizedNavChildren
 	};
