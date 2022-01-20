@@ -11,7 +11,7 @@ export default (props) => {
 	const [list, setList] = useState([]);
 	const [page, setPage] = useState(1);
 	const [count, setCount] = useState(0);
-	const [limit, setLimit] = useState(10);
+	const [limit, setLimit] = useState(20);
 
 	const { t } = useTranslation();
 
@@ -70,6 +70,7 @@ export default (props) => {
 				count={count}
 				limit={limit}
 				setLimit={setLimit}
+				limitValues={[20, 50, 100]}
 				title={{
 					text: "Microservices"
 				}}
