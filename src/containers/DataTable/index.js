@@ -208,7 +208,7 @@ export function DataTable ({
 									toggle={() => setLimitDropdown(prev => !prev)}
 									className="float-right"
 								>
-									<DropdownToggle caret>
+									<DropdownToggle caret size="sm">
 										{t(translationRoute ? `${translationRoute}|Limit` : "Limit")}: {limit}
 									</DropdownToggle>
 									<DropdownMenu>
