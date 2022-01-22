@@ -28,7 +28,8 @@ export function DataTable ({
 	isLoading, translationRoute = '',
 	buttonWithAuthz, sort, noItemsComponent,
 	customButton, customComponent,
-	customRowStyle, customRowClassName
+	customRowStyle, customRowClassName,
+	limitValues = [10, 15, 25, 50]
 	}) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isSortOpen, setSortDropdown] = useState(false);
@@ -207,12 +208,12 @@ export function DataTable ({
 									toggle={() => setLimitDropdown(prev => !prev)}
 									className="float-right"
 								>
-									<DropdownToggle caret>
+									<DropdownToggle caret size="sm">
 										{t(translationRoute ? `${translationRoute}|Limit` : "Limit")}: {limit}
 									</DropdownToggle>
 									<DropdownMenu>
 									{
-										[1,2,3,4].map((item, idx) => <DropdownItem onClick={() => { setPage(1); setLimit(item*5); }} key={idx}>{item*5}</DropdownItem>)
+										limitValues.map((value, idx) => <DropdownItem onClick={() => { setPage(1); setLimit(value); }} key={idx}>{value}</DropdownItem>)
 									}
 									</DropdownMenu>
 								</Dropdown>
