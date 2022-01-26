@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import ReactJson from 'react-json-view';
@@ -106,7 +106,7 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 		);
 };
 
-const Headers = ({ headers, advmode }) => (
+const Headers = ({ headers, advmode, theme }) => (
 	<>
 		<colgroup className="data-table-colgroup">
 			{advmode && <col style={{ width: "1px" }}/>}
@@ -119,7 +119,7 @@ const Headers = ({ headers, advmode }) => (
 			)}
 		</colgroup>
 
-		<thead className="thead-light data-table-thead">
+		<thead className={`thead-${theme === "light-mode" ? "light" : "dark"} data-table-thead`}>
 			<tr className="data-table-tr">
 				{advmode && <th className="pl-3 data-table-adv-header-th">{" "}</th>}
 				{headers.map((header, idx) => <th key={idx} className={`data-table-header-th${idx !== 0 ? " pl-3" : ""}`}>{header.name}</th>)}
@@ -195,9 +195,17 @@ const TableRow = ({ obj, advmode, headers, rowStyle, rowClassName }) => {
 	)
 }
 
-const ASABTable = ({ data, headers, advmode, rowStyle, rowClassName }) => (
+const ASABTable = ({
+	data, headers, advmode,
+	rowStyle, rowClassName, theme
+}) => (
 	<Table size="sm" hover responsive>
-		<Headers headers={headers} advmode={advmode} className="data-table-header"/>
+		<Headers
+			theme={theme}
+			headers={headers}
+			advmode={advmode}
+			className="data-table-header"
+		/>
 		<tbody className="data-table-tbody">
 			{data.map((obj, idx) => (
 				<TableRow {...{ obj, advmode, headers, rowStyle, rowClassName }} key={idx}/>
@@ -206,6 +214,9 @@ const ASABTable = ({ data, headers, advmode, rowStyle, rowClassName }) => (
 	</Table>
 );
 
-const mapStateToProps = (state) => ({ advmode: state.advmode.enabled });
+const mapStateToProps = (state) => ({ 
+	advmode: state.advmode.enabled,
+	theme: state.theme
+});
 
 export default connect(mapStateToProps)(ASABTable);

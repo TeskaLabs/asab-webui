@@ -4,9 +4,37 @@ html {
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
+	// dark mode styles example
 	.dark-mode {
 		color: #e4e5e6;
 		background-color: #23282c;
+
+		.btn, i {
+			color: white;
+		}
+
+		span, td, div, .dropdown-item {
+			color: rgb(201, 200, 200);
+		}
+
+		.card-header, .card-footer, .dropdown-header {
+			background-color: #363636;
+		}
+
+		.card-body, .dropdown-menu, .dropdown-item {
+			background-color: #3e3e3e;
+		}
+
+		.card, .card-header, .card-footer, .card-body,
+		.dropdown-header, .dropdown-item, .dropdown-menu {
+			border-color: black;
+		}
+
+		.table .thead-light th {
+			color: #5c6873;
+			background-color: #e4e7ea;
+			border-color: #c8ced3;
+		}
 	}
 
 	body {
