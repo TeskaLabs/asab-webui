@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Button } from 'reactstrap';
+import Switch from './ControlledSwitch';
 
 import { CHANGE_THEME } from '../actions';
 
@@ -12,9 +12,14 @@ const ThemeButton = () => {
 	const onClick = () => dispatch({ type: CHANGE_THEME });
 
 	return (
-		<Button onClick={onClick}>
-			{theme === "light-mode" ? "dark-mode" : "light-mode"}
-		</Button>
+		<div className="mr-2">
+			<Switch
+				size="md"
+				toggle={onClick}
+				isOn={theme !== "light-mode"}
+				title="Change language"
+			/>
+		</div>
 	);
 }
 
