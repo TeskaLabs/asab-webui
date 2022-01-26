@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
 	Nav, NavItem, NavLink, Collapse
@@ -8,11 +9,17 @@ import {
 
 import Icon from './SidebarIcon';
 
-const SidebarItem = ({ item, unauthorizedNavChildren, uncollapseAll }) => {
+import { SET_SMALL_SIDEBAR } from '../../actions';
+
+const SidebarItem = ({ 
+	item, unauthorizedNavChildren, uncollapseAll
+}) => {
 	const [isOpen, setOpen] = useState(false);
+	const isSmallSidebarOpen = useSelector(state => state.sidebar.isSmallSidebarOpen);
 
 	const location = useLocation();
 	const history = useHistory();
+	const dispatch = useDispatch();
 
 	const { t } = useTranslation();
 
@@ -41,6 +48,8 @@ const SidebarItem = ({ item, unauthorizedNavChildren, uncollapseAll }) => {
 		// Preserve from collapsing when item doesn't have children
 		// or if item should always be uncollapsed
 		else if (item.children && !uncollapseAll) setOpen(prev => !prev);
+		// Close small sidebar on item click
+		if (isSmallSidebarOpen && window.innerWidth < 768) dispatch({ type: SET_SMALL_SIDEBAR });
 	}
 
 	return (
