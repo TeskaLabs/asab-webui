@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 import { TreeViewComponent } from "./TreeViewComponent";
 import ConfigEditor from "./ConfigEditor";
+import ConfigCreate from "./ConfigCreate";
 
 export default function ConfigContainer(props) {
 
@@ -34,11 +35,17 @@ export default function ConfigContainer(props) {
 				</Col>
 				<Col md={{ size: 6, offset: 1 }}>
 					{configType != '$' && configName != '$' ?
-						<ConfigEditor
-							app={App}
-							configType={configType}
-							configName={configName}
-						/>
+						configName != '!create' ?
+							<ConfigEditor
+								app={App}
+								configType={configType}
+								configName={configName}
+							/>
+						:
+							<ConfigCreate
+								app={App}
+								configType={configType}
+							/>
 					:
 						<Card>
 							<CardBody className="text-center">

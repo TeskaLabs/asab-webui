@@ -127,6 +127,10 @@ export function TreeViewComponent(props) {
 			history.push({
 				pathname: `/config/${splitKey[0]}/${splitKey[1]}`,
 			})
+		} else {
+			history.push({
+				pathname: `/config/${splitKey[0]}/!create`,
+			})
 		}
 	}
 
