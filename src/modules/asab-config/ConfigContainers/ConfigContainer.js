@@ -6,13 +6,16 @@ import {
 	Card, CardBody, CardHeader
 } from "reactstrap";
 
+import { connect } from 'react-redux';
+
 import { useTranslation } from 'react-i18next';
 
 import { TreeViewComponent } from "./TreeViewComponent";
 import ConfigEditor from "./ConfigEditor";
 import ConfigCreate from "./ConfigCreate";
+// import reducer from './reducer';
 
-export default function ConfigContainer(props) {
+function ConfigContainer(props) {
 
 	let App = props.app;
 	const { t, i18n } = useTranslation();
@@ -29,8 +32,7 @@ export default function ConfigContainer(props) {
 				<Col sm="2" className="pr-0 bcg-column">
 					<TreeViewComponent
 						app={App}
-						configType={configType}
-						configName={configName}
+						configCreated={props.config_created}
 					/>
 				</Col>
 				<Col md={{ size: 6, offset: 1 }}>
@@ -64,3 +66,11 @@ export default function ConfigContainer(props) {
 		</Container>
 	)
 }
+
+function mapStateToProps(state) {
+	return {
+		config_created: state.asab_config.config_created
+	}
+}
+
+export default connect(mapStateToProps)(ConfigContainer);

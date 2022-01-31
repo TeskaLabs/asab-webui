@@ -3,6 +3,8 @@ import TreeMenu from 'react-simple-tree-menu';
 import { useHistory } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
+import {types} from './actions/actions';
+
 export function TreeViewComponent(props) {
 
 	let App = props.app;
@@ -28,6 +30,16 @@ export function TreeViewComponent(props) {
 	useEffect(() => {
 		getChart();
 	}, [treeList]);
+
+	useEffect(() => {
+		if (props.configCreated) {
+			getTree();
+			props.app.Store.dispatch({
+				type: types.CONFIG_CREATED,
+				config_created: false
+			});
+		}
+	}, [props.configCreated])
 
 	// Obtain list of types
 	// TODO: add Error Card screen when no types are fetched

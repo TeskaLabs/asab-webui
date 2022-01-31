@@ -21,6 +21,8 @@ import {
 	StringItems
 } from './ConfigFormatItems';
 
+import {types} from './actions/actions';
+
 import { Spinner } from 'asab-webui';
 
 export default function ConfigEditor(props) {
@@ -29,8 +31,6 @@ export default function ConfigEditor(props) {
 	const ASABConfigAPI = props.app.axiosCreate('asab_config');
 	let history = useHistory();
 
-	const [ adHocValues, setAdHocValues ] = useState({});
-	const [ adHocSections, setAdHocSections ] = useState({});
 	const [ formStruct, setFormStruct ] = useState({});
 	const [ jsonValues, setJsonValues ] = useState({});
 
@@ -39,8 +39,6 @@ export default function ConfigEditor(props) {
 	const homeScreenAlt = props.app.Config.get('title');
 	const configType = props.configType;
 
-
-	const [ configNotExist, setConfigNotExist ] = useState(false);
 	const [ activeTab, setActiveTab ] = useState('basic');
 
 	const regConfigName = register("configName");
@@ -59,9 +57,7 @@ export default function ConfigEditor(props) {
 
 	// Load data and set up the data for form struct
 	const initialLoad = async () => {
-		let values = undefined;
 		let schema = undefined;
-		setConfigNotExist(false);
 
 		try {
 			let response = await ASABConfigAPI.get(`/type/${configType}`);
@@ -78,48 +74,23 @@ export default function ConfigEditor(props) {
 			return;
 		}
 
-		// try {
-		// 	let response = await ASABConfigAPI.get(`/config/${configType}/${configName}?format=json`);
-		// 	values = response.data;
-		// 	if (values.result == "FAIL") {
-		// 		props.app.addAlert("warning", t(`ASABConfig|Config file does not exist`));
-		// 		setConfigNotExist(true);
-		// 		return;
-		// 	}
-		// 	// TODO: validate responses which are not 200
-		// }
-		// catch(e) {
-		// 	// Set the states to initial state on failed response to clear the inputs
-		// 	setFormStruct({});
-		// 	setAdHocValues({});
-		// 	setAdHocSections({});
-		// 	setJsonValues({});
-		// 	console.error(e);
-		// 	props.app.addAlert("warning", t(`ASABConfig|Unable to get config data. Try to reload the page`, {config: configName}));
-		// 	return;
-		// }
 
 		let formStructure = {};
 		let schemaProps = {};
-		// // let sectionKeyData = {};
-		// // let ahValues = {};
-		// // let ahSections = values;
+
 
 		// TODO: handle nested patternProperties (in items)
 		// Check for properties of schema
 		if (schema.properties) {
 			schemaProps = schema.properties;
-			// console.log(schemaProps, "SCHEMA PRPPS")
 		}
 
 		if (schema.patternProperties) {
 			await Promise.all(Object.keys(schema.patternProperties).map((sectionName, id) => {
 				schemaProps[sectionName] = schema.patternProperties[sectionName];
 			}))
-			// schemaProps = schema.pa
 		}
 
-		// console.log(schemaProps, "LAMAPPAPPA")
 
 		// 		await Promise.all(Object.keys(schemaProps).map(async (sectionName, id) => {
 		// 			if (section == sectionName) {
@@ -193,12 +164,6 @@ export default function ConfigEditor(props) {
 		// 	}));
 		// }
 
-		// // Set values for JSON view
-		// setJsonValues(values);
-		// // Set data for adHoc sections
-		// setAdHocSections(ahSections);
-		// // Set data for adHoc values
-		// setAdHocValues(ahValues);
 
 		// Assign sectionKeyData to form struct under data key
 		formStructure["data"] = {};
@@ -327,9 +292,14 @@ export default function ConfigEditor(props) {
 				throw new Error(t('ASABConfig|Something went wrong, failed to create configuration'));
 			}
 			props.app.addAlert("success", t('ASABConfig|Configuration created successfuly'));
+			props.app.Store.dispatch({
+				type: types.CONFIG_CREATED,
+				config_created: true
+			});
 			history.push({
 				pathname: `/config/${configType}/${configName}`
 			});
+			// window.location.reload();
 		}
 		catch(e) {
 			console.error(e);
@@ -409,6 +379,7 @@ export default function ConfigEditor(props) {
 									</NavItem>
 									<NavItem>
 										<NavLink
+											disabled
 											className={classnames({ active: activeTab === 'advanced' })}
 											onClick={() => { toggle('advanced'); }}
 										>
@@ -442,24 +413,14 @@ export default function ConfigEditor(props) {
 												{t('ASABConfig|Fill out configuration file name')}
 											</FormText>
 										</FormGroup>
-										{/* List of Sections (it may consist also of AdHocValues) */}
+										{/* List of Sections */}
 										{formStruct && formStruct.properties && Object.keys(formStruct.properties).map((section_name, idx) =>
 											<ConfigSection
 												key={idx}
 												section={formStruct.properties[section_name]}
 												sectionname={section_name}
 												register={register}
-												adhocvalues={adHocValues}
 												isSubmitting={isSubmitting}
-											/>
-										)}
-
-										{/* List all remaining sections e.g. AdHocSections */}
-										{Object.keys(adHocSections).length > 0 && Object.keys(adHocSections).map((section_name, idx) =>
-											<ConfigAdHocSection
-												key={idx}
-												sectionname={section_name}
-												values={adHocSections[section_name]}
 											/>
 										)}
 										<hr/>
@@ -546,53 +507,8 @@ function ConfigSection(props) {
 					}}
 				)}
 			</FormGroup>
-			{/* List all remaining key/values (aka AdHocValues) from a config as simple Config Item  */}
-			{Object.keys(props.adhocvalues).length > 0 && Object.keys(props.adhocvalues).map((value_name, idx) =>
-				{return(props.sectionname == value_name ?
-					<ConfigAdHocItem
-						key={idx}
-						valuename={value_name}
-						values={props.adhocvalues[value_name]}
-					/>
-				: null
-				)}
-			)}
 		</React.Fragment>
 
-	);
-}
-
-
-function ConfigAdHocSection(props) {
-	const { t, i18n } = useTranslation();
-	let myid = props.sectionname;
-	return (
-		<React.Fragment>
-			<hr/>
-			<h5>
-				{myid}
-			</h5>
-			{Object.keys(props.values).length > 0 && Object.keys(props.values).map((key, idx) =>
-				{
-				return (
-					<FormGroup key={idx}>
-						<Label for={myid}>
-							{key}
-						</Label>
-						<Input
-							type="text"
-							name={myid}
-							id={myid}
-							value={props.values[key]}
-							readOnly
-						/>
-						<FormText color="muted">
-							{t('ASABConfig|Read only')}
-						</FormText>
-					</FormGroup>
-				)}
-			)}
-		</React.Fragment>
 	);
 }
 
