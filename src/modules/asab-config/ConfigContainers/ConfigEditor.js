@@ -472,6 +472,7 @@ export default function ConfigEditor(props) {
 								{t('ASABConfig|Save')}
 							</Button>
 							<span className="float-right">
+								{/*TODO: Replace with ButtonWithAuthz*/}
 								<Button
 									color="danger"
 									type="button"
