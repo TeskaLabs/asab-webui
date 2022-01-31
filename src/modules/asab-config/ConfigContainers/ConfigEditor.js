@@ -4,6 +4,7 @@ import TreeMenu from 'react-simple-tree-menu';
 import ReactJson from 'react-json-view';
 import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from "react-router-dom";
 
 import {
 	Button,
@@ -20,12 +21,15 @@ import {
 	StringItems
 } from './ConfigFormatItems';
 
+import {types} from './actions/actions';
+
 import { Spinner } from 'asab-webui';
 
 export default function ConfigEditor(props) {
 	const { register, handleSubmit, setValue, formState: { errors, isSubmitting }, reset } = useForm();
 	const { t, i18n } = useTranslation();
 	const ASABConfigAPI = props.app.axiosCreate('asab_config');
+	let history = useHistory();
 
 	const [ adHocValues, setAdHocValues ] = useState({});
 	const [ adHocSections, setAdHocSections ] = useState({});
@@ -354,6 +358,34 @@ export default function ConfigEditor(props) {
 		return value;
 	}
 
+	// Confirm message form for configuration removal
+	const removeConfigForm = () => {
+		var r = confirm(t("ASABConfig|Do you want to remove this configuration?"));
+		if (r == true) {
+			removeConfig();
+		}
+	}
+
+	// Remove configuration
+	const removeConfig = async () => {
+		try {
+			let response = await ASABConfigAPI.delete(`/config/${configType}/${configName}`);
+			if (response.data.result != "OK"){
+				throw new Error(t('ASABConfig|Something went wrong, failed remove configuration'));
+			}
+			props.app.Store.dispatch({
+				type: types.CONFIG_REMOVED,
+				config_removed: true
+			});
+			history.push({
+				pathname: `/config/$/$`
+			});
+		} catch(e) {
+			console.error(e);
+			props.app.addAlert("warning", t('ASABConfig|Something went wrong, failed to remove configuration'));
+		}
+	}
+
 	// TODO: add Content loader when available as a component in ASAB WebUI
 	return (
 		configNotExist ?
@@ -436,8 +468,20 @@ export default function ConfigEditor(props) {
 								type="submit"
 								disabled={isSubmitting}
 							>
+								<i className="cil-save pr-1"></i>
 								{t('ASABConfig|Save')}
 							</Button>
+							<span className="float-right">
+								<Button
+									color="danger"
+									type="button"
+									disabled={isSubmitting}
+									onClick={removeConfigForm}
+								>
+									<i className="cil-trash pr-1"></i>
+									{t('ASABConfig|Remove')}
+								</Button>
+							</span>
 						</CardFooter>
 					</Card>
 				</Form>
