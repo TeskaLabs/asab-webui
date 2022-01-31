@@ -58,7 +58,6 @@ export default function ConfigEditor(props) {
 	// Load data and set up the data for form struct
 	const initialLoad = async () => {
 		let schema = undefined;
-
 		try {
 			let response = await ASABConfigAPI.get(`/type/${configType}`);
 			// TODO: validate responses which are not 200
@@ -361,96 +360,96 @@ export default function ConfigEditor(props) {
 
 	// TODO: add Content loader when available as a component in ASAB WebUI
 	return (
-			<React.Fragment>
-				<Form onSubmit={handleSubmit(onSubmit)}>
-					<Card className="card-editor-layout">
-						<CardHeader>
-							<span className="cil-settings pr-3" />
-							{configType.toString() + ' / ' + "New"}
-							<div className="float-right">
-								<Nav tabs>
-									<NavItem>
-										<NavLink
-											className={classnames({ active: activeTab === 'basic' })}
-											onClick={() => { toggle('basic'); }}
-										>
-											{t('ASABConfig|Basic')}
-										</NavLink>
-									</NavItem>
-									<NavItem>
-										<NavLink
-											disabled
-											className={classnames({ active: activeTab === 'advanced' })}
-											onClick={() => { toggle('advanced'); }}
-										>
-											{t('ASABConfig|Advanced')}
-										</NavLink>
-									</NavItem>
-								</Nav>
-							</div>
-						</CardHeader>
-						<CardBody className="card-editor-body">
-							<TabContent style={{border: "none"}} activeTab={activeTab}>
-								<TabPane tabId="basic">
-									<React.Fragment>
-										<hr/>
-										<h5>
-											{t('ASABConfig|File name')}
-										</h5>
-										<FormGroup tag="fieldset" disabled={isSubmitting}>
-											<Label for="configName">
-												{t('ASABConfig|Configuration file name')}
-											</Label>
-											<Input
-												type="text"
-												name="configName"
-												id="configName"
-												innerRef={regConfigName.ref}
-												onChange={regConfigName.onChange}
-												onBlur={regConfigName.onBlur}
-											/>
-											<FormText color="muted">
-												{t('ASABConfig|Fill out configuration file name')}
-											</FormText>
-										</FormGroup>
-										{/* List of Sections */}
-										{formStruct && formStruct.properties && Object.keys(formStruct.properties).map((section_name, idx) =>
-											<ConfigSection
-												key={idx}
-												section={formStruct.properties[section_name]}
-												sectionname={section_name}
-												register={register}
-												isSubmitting={isSubmitting}
-											/>
-										)}
-										<hr/>
-									</React.Fragment>
-								</TabPane>
-								<TabPane tabId="advanced">
-									<div style={{overflow: "auto"}}>
-										<ReactJson
-											src={jsonValues}
-											onEdit={ e => { setJsonValues(e.updated_src)} }
-											enableClipboard={false}
-											name={false}
+		<React.Fragment>
+			<Form onSubmit={handleSubmit(onSubmit)}>
+				<Card className="card-editor-layout">
+					<CardHeader>
+						<span className="cil-settings pr-3" />
+						{configType.toString() + ' / ' + "New"}
+						<div className="float-right">
+							<Nav tabs>
+								<NavItem>
+									<NavLink
+										className={classnames({ active: activeTab === 'basic' })}
+										onClick={() => { toggle('basic'); }}
+									>
+										{t('ASABConfig|Basic')}
+									</NavLink>
+								</NavItem>
+								<NavItem>
+									<NavLink
+										disabled
+										className={classnames({ active: activeTab === 'advanced' })}
+										onClick={() => { toggle('advanced'); }}
+									>
+										{t('ASABConfig|Advanced')}
+									</NavLink>
+								</NavItem>
+							</Nav>
+						</div>
+					</CardHeader>
+					<CardBody className="card-editor-body">
+						<TabContent style={{border: "none"}} activeTab={activeTab}>
+							<TabPane tabId="basic">
+								<React.Fragment>
+									<hr/>
+									<h5>
+										{t('ASABConfig|File name')}
+									</h5>
+									<FormGroup tag="fieldset" disabled={isSubmitting}>
+										<Label for="configName">
+											{t('ASABConfig|Configuration file name')}
+										</Label>
+										<Input
+											type="text"
+											name="configName"
+											id="configName"
+											innerRef={regConfigName.ref}
+											onChange={regConfigName.onChange}
+											onBlur={regConfigName.onBlur}
 										/>
-									</div>
-								</TabPane>
-							</TabContent>
-						</CardBody>
-						<CardFooter>
-							<Button
-								color="primary"
-								type="submit"
-								disabled={isSubmitting}
-							>
-								<i className="pr-1">+</i>
-								{t('ASABConfig|Create')}
-							</Button>
-						</CardFooter>
-					</Card>
-				</Form>
-			</React.Fragment>
+										<FormText color="muted">
+											{t('ASABConfig|Fill out configuration file name')}
+										</FormText>
+									</FormGroup>
+									{/* List of Sections */}
+									{formStruct && formStruct.properties && Object.keys(formStruct.properties).map((section_name, idx) =>
+										<ConfigSection
+											key={idx}
+											section={formStruct.properties[section_name]}
+											sectionname={section_name}
+											register={register}
+											isSubmitting={isSubmitting}
+										/>
+									)}
+									<hr/>
+								</React.Fragment>
+							</TabPane>
+							<TabPane tabId="advanced">
+								<div style={{overflow: "auto"}}>
+									<ReactJson
+										src={jsonValues}
+										onEdit={ e => { setJsonValues(e.updated_src)} }
+										enableClipboard={false}
+										name={false}
+									/>
+								</div>
+							</TabPane>
+						</TabContent>
+					</CardBody>
+					<CardFooter>
+						<Button
+							color="primary"
+							type="submit"
+							disabled={isSubmitting || formStruct.properties == undefined}
+						>
+							<i className="pr-1">+</i>
+							{t('ASABConfig|Create')}
+						</Button>
+					</CardFooter>
+				</Card>
+			</Form>
+		</React.Fragment>
 	);
 }
 
@@ -511,20 +510,4 @@ function ConfigSection(props) {
 		</React.Fragment>
 
 	);
-}
-
-// This component returns a pre-defined messages
-function ConfigMessageCard(props) {
-	return(
-		<Card>
-			<CardBody className="text-center">
-				<img
-					src={props.homeScreenImg}
-					alt={props.homeScreenAlt}
-					style={{maxWidth: "38%"}}
-				/>
-				<h3>{props.purposeTitle}</h3>
-				<h5>{props.purposeSubtitle}</h5>
-			</CardBody>
-		</Card>)
 }
