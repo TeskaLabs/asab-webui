@@ -26,7 +26,7 @@ import {types} from './actions/actions';
 import { Spinner } from 'asab-webui';
 
 export default function ConfigEditor(props) {
-	const { register, handleSubmit, setValue, formState: { errors, isSubmitting }, reset } = useForm();
+	const { register, handleSubmit, getValues, formState: { errors, isSubmitting }, reset } = useForm();
 	const { t, i18n } = useTranslation();
 	const ASABConfigAPI = props.app.axiosCreate('asab_config');
 	let history = useHistory();
@@ -41,7 +41,12 @@ export default function ConfigEditor(props) {
 
 	const [ activeTab, setActiveTab ] = useState('basic');
 
-	const regConfigName = register("configName");
+	const regConfigName = register("configName",
+		{
+			validate: {
+				emptyInput: value => (getValues("configName") !== "") || t("ASABConfigModule|Configuration name can't be empty!"),
+			}
+		});
 
 	// The container will be re-rendered on configType or configName change
 	useEffect(() => {
@@ -408,8 +413,8 @@ export default function ConfigEditor(props) {
 											onChange={regConfigName.onChange}
 											onBlur={regConfigName.onBlur}
 										/>
-										<FormText color="muted">
-											{t('ASABConfig|Fill out configuration file name')}
+										<FormText color={errors.configName ? "danger" : "muted"}>
+											{errors.configName ? errors.configName.message : t('ASABConfig|Fill out configuration file name')}
 										</FormText>
 									</FormGroup>
 									{/* List of Sections */}
