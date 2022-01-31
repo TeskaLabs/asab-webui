@@ -33,6 +33,7 @@ function ConfigContainer(props) {
 					<TreeViewComponent
 						app={App}
 						configCreated={props.config_created}
+						configRemoved={props.config_removed}
 					/>
 				</Col>
 				<Col md={{ size: 6, offset: 1 }}>
@@ -69,7 +70,8 @@ function ConfigContainer(props) {
 
 function mapStateToProps(state) {
 	return {
-		config_created: state.asab_config.config_created
+		config_created: state.asab_config.config_created,
+		config_removed: state.asab_config.config_removed
 	}
 }
 

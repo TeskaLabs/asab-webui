@@ -32,14 +32,22 @@ export function TreeViewComponent(props) {
 	}, [treeList]);
 
 	useEffect(() => {
-		if (props.configCreated) {
+		if (props.configCreated || props.configRemoved) {
 			getTree();
-			props.app.Store.dispatch({
-				type: types.CONFIG_CREATED,
-				config_created: false
-			});
+			if (props.configCreated) {
+				props.app.Store.dispatch({
+					type: types.CONFIG_CREATED,
+					config_created: false
+				});
+			}
+			if (props.configRemoved) {
+				props.app.Store.dispatch({
+					type: types.CONFIG_REMOVED,
+					config_removed: false
+				});
+			}
 		}
-	}, [props.configCreated])
+	}, [props.configCreated, props.configRemoved])
 
 	// Obtain list of types
 	// TODO: add Error Card screen when no types are fetched
