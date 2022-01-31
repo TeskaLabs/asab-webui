@@ -54,7 +54,10 @@ export function TreeViewComponent(props) {
 	const getTypes = async () => {
 		try {
 			let response = await ASABConfigAPI.get("/type");
-			setTypeList(response.data);
+			// Sort data
+			let sortedData = response.data;
+			sortedData = sortedData.sort();
+			setTypeList(sortedData);
 			// TODO: validate responses which are not 200
 		}
 		catch {
@@ -75,7 +78,10 @@ export function TreeViewComponent(props) {
 		try {
 			let response = await ASABConfigAPI.get("/config/" + typeId);
 			if (response.data.result !== 'FAIL'){
-				tree[typeId] = response.data
+				// Sort data
+				let sortedData = response.data;
+				sortedData = sortedData.sort();
+				tree[typeId] = sortedData;
 			}
 			return tree;
 		}
