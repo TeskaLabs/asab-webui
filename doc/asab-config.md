@@ -473,7 +473,7 @@ Example:
 ```
 {
 	"ASABConfig" : {
-		"Nothing has been selected yet": "Nothing has been selected yet",
+		"Nothing has been selected": "Nothing has been selected",
 		"Please select the configuration from tree menu on the left side of the screen": "Please select the configuration from tree menu on the left side of the screen",
 		"Save": "Save",
 		"Read only": "Read only",
