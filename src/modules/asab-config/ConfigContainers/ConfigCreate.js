@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import TreeMenu from 'react-simple-tree-menu';
 import ReactJson from 'react-json-view';
 import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -249,7 +248,7 @@ export default function ConfigEditor(props) {
 			sectionTypes[section] = valueTypes;
 		}));
 
-		// TODO: Disable saving output from ReactJSONview component
+		// TODO: Enable advanced creation of configuration when ready
 		if (activeTab == 'advanced') {
 			// If data are being submitted from JSON view, dont parse data to object
 			parsedSections = jsonValues;
@@ -303,7 +302,6 @@ export default function ConfigEditor(props) {
 			history.push({
 				pathname: `/config/${configType}/${configName}`
 			});
-			// window.location.reload();
 		}
 		catch(e) {
 			console.error(e);
@@ -370,7 +368,7 @@ export default function ConfigEditor(props) {
 				<Card className="card-editor-layout">
 					<CardHeader>
 						<span className="cil-settings pr-3" />
-						{configType.toString() + ' / ' + "New"}
+						{configType.toString() + ' / ' + t('ASABConfig|New')}
 						<div className="float-right">
 							<Nav tabs>
 								<NavItem>
@@ -383,6 +381,7 @@ export default function ConfigEditor(props) {
 								</NavItem>
 								<NavItem>
 									<NavLink
+										// TODO: Enable advanced creation of configuration when ready
 										disabled
 										className={classnames({ active: activeTab === 'advanced' })}
 										onClick={() => { toggle('advanced'); }}
@@ -431,10 +430,13 @@ export default function ConfigEditor(props) {
 								</React.Fragment>
 							</TabPane>
 							<TabPane tabId="advanced">
-								<div style={{overflow: "auto"}}>
+								<div>
 									<ReactJson
+										style={{zIndex:999}}
 										src={jsonValues}
 										onEdit={ e => { setJsonValues(e.updated_src)} }
+										onDelete={ e => { setJsonValues(e.updated_src)} }
+										onAdd={ e => { setJsonValues(e.updated_src)} }
 										enableClipboard={false}
 										name={false}
 									/>
