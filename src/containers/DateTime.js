@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment/min/moment-with-locales';
-import { useSelector, connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 /*
 Diplays a date & time in a local timezone.
@@ -31,7 +31,7 @@ The default format is `lll` -> `Aug 22, 2020 1:13 PM`
 
 export function DateTime(props) {
 
-	const state = useSelector(state => state.language)
+	const language = useSelector(state => state.language)
 
 	if ((props.value === null) || (props.value === undefined)) {
 		return (
@@ -40,8 +40,8 @@ export function DateTime(props) {
 	}
 
 	const m = isNaN(props.value) || props.value > 9999999999 ? moment(props.value) : moment(props.value * 1000);
-	m.locale(state.language.slice(0, 2));
-	// m.locale(window.navigator.language.slice(0, 2));
+	m.locale(language.slice(0, 2));
+
 
 	return (
 		<span className="datetime" title={m.fromNow()}>
