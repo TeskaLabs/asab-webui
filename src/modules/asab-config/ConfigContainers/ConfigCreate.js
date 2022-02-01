@@ -248,7 +248,7 @@ export default function ConfigEditor(props) {
 			sectionTypes[section] = valueTypes;
 		}));
 
-		// TODO: Enable advanced creation of configuration when ready
+		// TODO: Disable advanced creation of configuration if needed
 		if (activeTab == 'advanced') {
 			// If data are being submitted from JSON view, dont parse data to object
 			parsedSections = jsonValues;
@@ -381,8 +381,8 @@ export default function ConfigEditor(props) {
 								</NavItem>
 								<NavItem>
 									<NavLink
-										// TODO: Enable advanced creation of configuration when ready
-										disabled
+										// TODO: Disable advanced creation if needed
+										// disabled
 										className={classnames({ active: activeTab === 'advanced' })}
 										onClick={() => { toggle('advanced'); }}
 									>
@@ -431,6 +431,27 @@ export default function ConfigEditor(props) {
 							</TabPane>
 							<TabPane tabId="advanced">
 								<div>
+									<hr/>
+									<h5>
+										{t('ASABConfig|File name')}
+									</h5>
+									<FormGroup tag="fieldset" disabled={isSubmitting}>
+										<Label for="configName">
+											{t('ASABConfig|Configuration file name')}
+										</Label>
+										<Input
+											type="text"
+											name="configName"
+											id="configName"
+											innerRef={regConfigName.ref}
+											onChange={regConfigName.onChange}
+											onBlur={regConfigName.onBlur}
+										/>
+										<FormText color={errors.configName ? "danger" : "muted"}>
+											{errors.configName ? errors.configName.message : t('ASABConfig|Fill out configuration file name')}
+										</FormText>
+									</FormGroup>
+									<hr/>
 									<ReactJson
 										style={{zIndex:999}}
 										src={jsonValues}
