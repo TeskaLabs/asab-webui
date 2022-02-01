@@ -42,7 +42,13 @@ export default function ConfigEditor(props) {
 	const regConfigName = register("configName",
 		{
 			validate: {
-				emptyInput: value => (getValues("configName") !== "") || t("ASABConfigModule|Configuration name can't be empty!"),
+				emptyInput: value => (getValues("configName") !== "" || getValues("configNameAdvanced") !== "") || t("ASABConfigModule|Configuration name can't be empty!"),
+			}
+		});
+	const regConfigNameAdvanced = register("configNameAdvanced",
+		{
+			validate: {
+				emptyInput: value => (getValues("configNameAdvanced") !== "" || getValues("configName") !== "") || t("ASABConfigModule|Configuration name can't be empty!"),
 			}
 		});
 
@@ -105,7 +111,7 @@ export default function ConfigEditor(props) {
 		let parsedSections = {};
 		let prevSection = "";
 
-		let configName = data.configName;
+		let configName = activeTab == 'basic' ? data.configName : data.configNameAdvanced;
 		delete data.configName; // Remove config name from the data object
 
 		let dataParsed = {};
@@ -333,19 +339,19 @@ export default function ConfigEditor(props) {
 										{t('ASABConfig|File name')}
 									</h5>
 									<FormGroup tag="fieldset" disabled={isSubmitting}>
-										<Label for="configName">
+										<Label for="configNameAdvanced">
 											{t('ASABConfig|Configuration file name')}
 										</Label>
 										<Input
 											type="text"
-											name="configName"
-											id="configName"
-											innerRef={regConfigName.ref}
-											onChange={regConfigName.onChange}
-											onBlur={regConfigName.onBlur}
+											name="configNameAdvanced"
+											id="configNameAdvanced"
+											innerRef={regConfigNameAdvanced.ref}
+											onChange={regConfigNameAdvanced.onChange}
+											onBlur={regConfigNameAdvanced.onBlur}
 										/>
-										<FormText color={errors.configName ? "danger" : "muted"}>
-											{errors.configName ? errors.configName.message : t('ASABConfig|Fill out configuration file name')}
+										<FormText color={errors.configNameAdvanced ? "danger" : "muted"}>
+											{errors.configNameAdvanced ? errors.configNameAdvanced.message : t('ASABConfig|Fill out configuration file name')}
 										</FormText>
 									</FormGroup>
 									<hr/>
