@@ -8,7 +8,6 @@ import { useHistory } from "react-router-dom";
 import {
 	Button,
 	Card, CardBody, CardHeader, CardFooter,
-	Collapse,
 	Form, FormGroup, FormText, Input, Label,
 	TabContent, TabPane, Nav, NavItem, NavLink
 } from "reactstrap";

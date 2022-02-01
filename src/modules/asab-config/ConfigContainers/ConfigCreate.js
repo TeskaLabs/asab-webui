@@ -8,7 +8,6 @@ import { useHistory } from "react-router-dom";
 import {
 	Button,
 	Card, CardBody, CardHeader, CardFooter,
-	Collapse,
 	Form, FormGroup, FormText, Input, Label,
 	TabContent, TabPane, Nav, NavItem, NavLink
 } from "reactstrap";
@@ -52,12 +51,6 @@ export default function ConfigEditor(props) {
 		initialLoad();
 	}, [ configType ]);
 
-	// // Set values based on form struct
-	// useEffect(() => {
-	// 	if (Object.keys(formStruct).length > 0) {
-	// 		setValues();
-	// 	}
-	// }, [formStruct])
 
 	// Load data and set up the data for form struct
 	const initialLoad = async () => {
@@ -94,109 +87,13 @@ export default function ConfigEditor(props) {
 			}))
 		}
 
-
-		// 		await Promise.all(Object.keys(schemaProps).map(async (sectionName, id) => {
-		// 			if (section == sectionName) {
-		// 				let arrAHValues = [];
-		// 				await Promise.all(Object.keys(values[section]).map(async (key, id) => {
-		// 					sectionKeyData[`${section} ${key}`] = values[section][key];
-
-		// 					// Check for adHoc values in properties of section
-		// 					if (schemaProps[`${section}`].properties) {
-		// 						// Add empty string to keys, which are not present in configuration, but key is present in schema
-		// 						await Promise.all(Object.keys(schemaProps[`${section}`].properties).map((schemaKey, i) => {
-		// 							if (Object.keys(values[section]).indexOf(schemaKey) == -1) {
-		// 								sectionKeyData[`${section} ${schemaKey}`] = "";
-		// 							}
-		// 						}));
-		// 						// Check if key exist in schema and if not, add it to adHoc values
-		// 						if (schemaProps[`${section}`].properties[`${key}`] == undefined) {
-		// 							let v = {};
-		// 							v[key] = values[section][key];
-		// 							arrAHValues.push(v);
-		// 							ahValues[`${section}`] = arrAHValues;
-		// 						}
-		// 					}
-		// 				}));
-		// 				// Mutate adHoc section based on the matching sections
-		// 				// If section name match with schema, then remove it from adHoc sections (it is also removed for submit)
-		// 				ahSections = Object.assign({}, ahSections);
-		// 				delete ahSections[section];
-		// 			}
-		// 		}));
-		// 	}));
-		// }
-
-		// // TODO: handle nested patternProperties (in items)
-		// // Check for pattern properties of schema
-		// if (schema.patternProperties) {
-		// 	await Promise.all(values && Object.keys(values).map(async (section, idx) => {
-		// 		await Promise.all(Object.keys(schema.patternProperties).map(async (sectionName, id) => {
-		// 			// Check for matching section name
-		// 			if (section.match(sectionName) != null) {
-		// 				// If matched, then add schema to schema props
-		// 				schemaProps[`${section}`] = schema.patternProperties[sectionName];
-		// 				let arrAHValues = [];
-		// 				await Promise.all(Object.keys(values[section]).map(async (key, i) => {
-		// 					// Add data for section
-		// 					sectionKeyData[`${section} ${key}`] = values[section][key];
-
-		// 					// Check for adHoc values in properties of section
-		// 					if (schemaProps[`${section}`].properties) {
-		// 						// Add empty string to keys, which are not present in configuration, but key is present in schema
-		// 						await Promise.all(Object.keys(schemaProps[`${section}`].properties).map((schemaKey, i) => {
-		// 							if (Object.keys(values[section]).indexOf(schemaKey) == -1) {
-		// 								sectionKeyData[`${section} ${schemaKey}`] = "";
-		// 							}
-		// 						}));
-		// 						// Check if key exist in schema and if not, add it to adHoc values
-		// 						if (schemaProps[`${section}`].properties[`${key}`] == undefined) {
-		// 							let v = {};
-		// 							v[key] = values[section][key];
-		// 							arrAHValues.push(v);
-		// 							ahValues[`${section}`] = arrAHValues;
-		// 						}
-		// 					}
-		// 				}));
-		// 				// Mutate adHoc section based on the matching sections
-		// 				// If section name match with schema, then remove it from adHoc sections (it is also removed for submit)
-		// 				ahSections = Object.assign({}, ahSections);
-		// 				delete ahSections[section];
-		// 			}
-		// 		}));
-		// 	}));
-		// }
-
-
-		// Assign sectionKeyData to form struct under data key
+		// Data are always empty when creating a new configuration file
 		formStructure["data"] = {};
 		// Assign schema to form struct under properties key
 		formStructure["properties"] = schemaProps;
 		// Set data and properties for form struct
 		setFormStruct(formStructure);
 	}
-
-
-	// // Set values from form struct and adHoc sections
-	// const setValues = () => {
-	// 	// Reset old values before setting new values to prevent unintended data submitting
-	// 	reset({});
-	// 	// Set values from form struct for registration and submitting
-	// 	if (formStruct.data) {
-	// 		Object.entries(formStruct.data).map((entry, idx) => {
-	// 			setValue(`${entry[0]}`, entry[1]);
-	// 		});
-	// 	}
-	// 	// Set adHoc sections for submitting
-	// 	if (adHocSections) {
-	// 		Object.keys(adHocSections).map((section, idx) => {
-	// 			Object.keys(adHocSections[section]).map((key, id) => {
-	// 				setValue(`${section} ${key}`, adHocSections[section][key]);
-	// 			});
-	// 		});
-	// 	}
-	// }
-
 
 	// Parse data to JSON format, stringify it and save to config file
 	const onSubmit = async (data) => {
