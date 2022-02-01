@@ -484,10 +484,19 @@ Example:
 		"Something went wrong": "Something went wrong!",
 		"We are sorry, but the file cannot be found": "We are sorry, but the file cannot be found :-(",
 		"Config file does not exist": "Config file does not exist",
-		"Something went wrong! Unable to get data": "Something went wrong! Unable to get {{type}} data",
-		"Unable to get types": "Unable to get types",
-		"Unable to get type data. Try to reload the page": "Unable to get type {{type}} data. Try to reload the page",
+		"Something went wrong! Unable to get schema": "Something went wrong! Unable to get schema {{type}}",
+		"Unable to get data for tree menu": "Unable to get data for tree menu",
+		"Unable to get schema. Try to reload the page": "Unable to get schema {{type}}. Try to reload the page",
 		"Unable to get config data. Try to reload the page": "Unable to get config {{config}} data. Try to reload the page"
+		"Configuration name can't be empty!": "Configuration name can't be empty!",
+		"Remove": "Remove",
+		"Something went wrong, failed to create configuration": "Something went wrong, failed to create configuration",
+		"Configuration created successfully": "Configuration created successfully",
+		"File name": "File name",
+		"Configuration file name": "Configuration file name",
+		"Fill out configuration file name": "Fill out configuration file name",
+		"Create": "Create"
+
 	}
 }
 ```

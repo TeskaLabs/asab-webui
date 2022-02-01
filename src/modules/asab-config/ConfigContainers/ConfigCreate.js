@@ -68,13 +68,13 @@ export default function ConfigEditor(props) {
 			// TODO: validate responses which are not 200
 			schema = response.data;
 			if (schema.result == 'FAIL') {
-				props.app.addAlert("warning", t(`ASABConfig|Something went wrong! Unable to get data`, {type: configType}));
+				props.app.addAlert("warning", t(`ASABConfig|Something went wrong! Unable to get schema`, {type: configType}));
 				return;
 			}
 		}
 		catch(e) {
 			console.error(e);
-			props.app.addAlert("warning", t(`ASABConfig|Unable to get type data. Try to reload the page`, {type: configType}));
+			props.app.addAlert("warning", t(`ASABConfig|Unable to get schema. Try to reload the page`, {type: configType}));
 			return;
 		}
 
@@ -295,7 +295,7 @@ export default function ConfigEditor(props) {
 			if (response.data.result != "OK"){
 				throw new Error(t('ASABConfig|Something went wrong, failed to create configuration'));
 			}
-			props.app.addAlert("success", t('ASABConfig|Configuration created successfuly'));
+			props.app.addAlert("success", t('ASABConfig|Configuration created successfully'));
 			props.app.Store.dispatch({
 				type: types.CONFIG_CREATED,
 				config_created: true

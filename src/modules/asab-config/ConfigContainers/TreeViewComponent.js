@@ -61,7 +61,7 @@ export function TreeViewComponent(props) {
 			// TODO: validate responses which are not 200
 		}
 		catch {
-			App.addAlert("warning", t(`ASABConfig|Unable to get types`));
+			App.addAlert("warning", t(`ASABConfig|Unable to get data for tree menu`));
 			return;
 		}
 	}
@@ -86,7 +86,7 @@ export function TreeViewComponent(props) {
 			return tree;
 		}
 		catch {
-			App.addAlert("warning", t(`ASABConfig|Unable to get type data. Try to reload the page`, {type: typeId}));
+			App.addAlert("warning", t(`ASABConfig|Unable to get schema. Try to reload the page`, {type: typeId}));
 			return;
 		}
 	}
