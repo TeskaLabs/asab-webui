@@ -495,7 +495,8 @@ Example:
 		"File name": "File name",
 		"Configuration file name": "Configuration file name",
 		"Fill out configuration file name": "Fill out configuration file name",
-		"Create": "Create"
+		"Create": "Create",
+		"New": "New"
 
 	}
 }
