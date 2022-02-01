@@ -113,21 +113,25 @@ export default function ConfigEditor(props) {
 
 		let configName = activeTab == 'basic' ? data.configName : data.configNameAdvanced;
 		delete data.configName; // Remove config name from the data object
+		delete data.configNameAdvanced;
 
 		let dataParsed = {};
-		if (Object.keys(data).length > 0 && typeof Object.values(data)[0] == "object") {
+		if (Object.keys(data).length > 0) {
 			await Promise.all(Object.keys(data).map(async (section, idx) => {
-				let sectionName = section.substring(1);
-				sectionName = sectionName + configName;
-				await Promise.all(Object.keys(data[section]).map((key, idx) => {
-					let sectionKey = key.replace("*$", sectionName);
-					dataParsed[sectionKey] = data[section][key];
-				}))
+				if (typeof data[section] == "object") {
+					let sectionName = section.substring(1);
+					sectionName = sectionName + configName;
+					await Promise.all(Object.keys(data[section]).map((key, idx) => {
+						let sectionKey = key.replace("*$", sectionName);
+						dataParsed[sectionKey] = data[section][key];
+					}))
+				} else {
+					dataParsed[section] = data[section];
+				}
 			}))
 		} else {
 			dataParsed = data;
 		}
-
 
 		// Sort data by the key name before parsing them
 		const sortedData = Object.keys(dataParsed).sort().reduce((obj, key) => { obj[key] = dataParsed[key]; return obj; }, {});
