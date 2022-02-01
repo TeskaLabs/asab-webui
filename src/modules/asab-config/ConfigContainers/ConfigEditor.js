@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import TreeMenu from 'react-simple-tree-menu';
 import ReactJson from 'react-json-view';
 import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -451,7 +450,7 @@ export default function ConfigEditor(props) {
 									</React.Fragment>
 								</TabPane>
 								<TabPane tabId="advanced">
-									<div style={{overflow: "auto"}}>
+									<div>
 										<ReactJson
 											src={jsonValues}
 											onEdit={ e => { setJsonValues(e.updated_src)} }
