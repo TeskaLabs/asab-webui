@@ -19,9 +19,9 @@ module.exports = {
 		const entry_path = path.resolve(config["dirs"]["src"], 'index.js');
 		const html_template_path = path.resolve(config["dirs"]["public"], 'index.html');
 		// TODO: This is temporary solution. It will be replaced by date-fns.
-		let momentLocales = /cs/; // Default locales
+		let defaultLocales = /en|cs/; // Default locales
 		if (config["app"]["locales"]) {
-			momentLocales = new RegExp(Object.values(config["app"]["locales"]).join("|"));
+			defaultLocales = new RegExp(Object.values(config["app"]["locales"]).join("|"));
 		}
 
 		return {
@@ -81,7 +81,7 @@ module.exports = {
 				}),
 				new OptimizeCssAssetsPlugin(),
 				// Remove moment locales from bundle except those which are defined as second parameter
-				new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, momentLocales),
+				new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, defaultLocales),
 				// Uncomment BundleAnalyzerPlugin in case you want to analyze bundle size (also uncomment import of this plugin above)
 				// And comment it before making Pull Request/ Merge Request
 				// new BundleAnalyzerPlugin()
