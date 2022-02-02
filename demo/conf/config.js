@@ -1,8 +1,6 @@
 module.exports = {
 	app: {
-		API_PATH: 'api',
-		modules: ["HomeModule"],
-		locales: ["cs"]
+		modules: ["HomeModule"]
 	},
 	webpackDevServer: {
 		port: 3000,
