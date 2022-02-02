@@ -26,10 +26,6 @@ function LanguageDropdown(props) {
 
 	useEffect(() => {
 		dispatch({ type: CHANGE_LANGUAGE, language: i18n?.language ?? window.navigator.language })
-	}, [])
-
-	useEffect(() => {
-		dispatch({ type: CHANGE_LANGUAGE, language: i18n?.language ?? window.navigator.language })
 	},[i18n.language])
 
 	// This means that we basically don't know what languages are supported

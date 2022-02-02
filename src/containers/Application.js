@@ -34,7 +34,7 @@ import FooterService from '../services/FooterService';
 import TenantSelectionCard from '../modules/tenant/selector/TenantSelectionCard';
 
 import { ADD_ALERT, SET_ADVANCED_MODE, CHANGE_HELP_URL } from '../actions';
-import LanguageReducer, { CHANGE_LANGUAGE } from '../reducers/LanguageReducer';
+import { CHANGE_LANGUAGE } from '../reducers/LanguageReducer';
 
 
 class Application extends Component {

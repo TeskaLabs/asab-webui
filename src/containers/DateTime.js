@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment/min/moment-with-locales';
+import moment from 'moment';
 import { useSelector } from 'react-redux';
 
 /*
@@ -31,7 +31,7 @@ The default format is `lll` -> `Aug 22, 2020 1:13 PM`
 
 export function DateTime(props) {
 
-	const language = useSelector(state => state.language)
+	const language = useSelector(state => state.language.language)
 
 	if ((props.value === null) || (props.value === undefined)) {
 		return (
@@ -50,11 +50,3 @@ export function DateTime(props) {
 		</span>
 	)
 }
-
-// function mapStateToProps(state) {
-//     return {
-//         language: state.language
-//     }
-// }
-
-// export default connect(mapStateToProps)(DateTime)
