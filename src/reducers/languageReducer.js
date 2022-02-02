@@ -9,8 +9,6 @@ export default (state = initialValue, action) => {
         case CHANGE_LANGUAGE:
             return { ...state, language: action.language }
         default:
-            return (
-                state
-            )
+            return state
     }
 }
