@@ -112,6 +112,7 @@ export default function ConfigEditor(props) {
 		let prevSection = "";
 
 		let configName = activeTab == 'basic' ? data.configName : data.configNameAdvanced;
+		let configNameLowerCased = configName.toString().toLowerCase().replace(/[^A-Z0-9]+/ig, "");
 		delete data.configName; // Remove config name from the data object
 		delete data.configNameAdvanced;
 
@@ -120,7 +121,7 @@ export default function ConfigEditor(props) {
 			await Promise.all(Object.keys(data).map(async (section, idx) => {
 				if (typeof data[section] == "object") {
 					let sectionName = section.substring(1);
-					sectionName = sectionName + configName;
+					sectionName = sectionName + configNameLowerCased;
 					await Promise.all(Object.keys(data[section]).map((key, idx) => {
 						let sectionKey = key.replace("*$", sectionName);
 						dataParsed[sectionKey] = data[section][key];
