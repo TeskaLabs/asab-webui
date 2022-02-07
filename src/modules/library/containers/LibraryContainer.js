@@ -133,7 +133,7 @@ function LibraryContainer(props) {
 			try {
 				await LMioLibraryAPI.put("/library/item-disable/" + activeNode.path);
 				setFileDisabled(prev => !prev);
-				window.location.reload();
+				retrieveTreeData();
 			} catch (e) {
 				console.error(e);
 				props.app.addAlert("warning", t(`LibraryContainer|Failed to ${isFileDisabled ? "enable" : "disable"} file`));
