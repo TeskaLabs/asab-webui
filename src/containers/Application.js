@@ -18,11 +18,13 @@ import Breadcrumbs from './Breadcrumbs';
 import { Spinner } from './Spinner';
 import ErrorHandler from './ErrorHandler';
 
-import AlertsComponent from '../alerts/AlertsComponent';
-import alertsReducer from '../alerts/reducer';
+import AlertsComponent from './AlertsComponent';
+import alertsReducer from '../reducers/alertReducer';
 
-import helpButtonReducer from '../helpButton/reducer';
-import sidebarReducer from '../sidebar/reducer';
+import helpButtonReducer from '../reducers/helpButtonReducer';
+import sidebarReducer from '../reducers/sidebarReducer';
+
+import advancedModeReducer from '../reducers/advancedModeReducer';
 
 import ReduxService from '../services/ReduxService';
 import ConfigService from '../config/ConfigService';
@@ -94,7 +96,7 @@ class Application extends Component {
 		this.FooterService = new FooterService(this, "FooterService");
 
 		this.ReduxService.addReducer("alerts", alertsReducer);
-		this.ReduxService.addReducer("advmode", AdvancedModeReducer);
+		this.ReduxService.addReducer("advmode", advancedModeReducer);
 		this.ReduxService.addReducer("helpButton", helpButtonReducer);
 		this.ReduxService.addReducer("sidebar", sidebarReducer);
 
@@ -605,24 +607,3 @@ class Navigation {
 
 
 export default withRouter(Application);
-
-
-// Advanced mode
-
-const advModeInitialState = {
-	enabled: false,
-}
-
-function AdvancedModeReducer(state = advModeInitialState, action) {
-	switch (action.type) {
-
-		case SET_ADVANCED_MODE: {
-			return Object.assign({}, state, {
-				enabled: action.enabled
-			})
-		}
-
-		default:
-			return state
-	}
-}
