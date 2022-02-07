@@ -148,6 +148,7 @@ export function TreeViewComponent(props) {
 	const onClickItem = (key, label) => {
 		// TODO: Update for multilevel tree structure
 		let splitKey = key.split("/");
+		props.setCreateConfig(false);
 		if (splitKey.length > 1) {
 			// Push params to the URL
 			history.push({
@@ -165,6 +166,8 @@ export function TreeViewComponent(props) {
 			data={treeData}
 			hasSearch={false}
 			openNodes={openNodes}
+			activeKey={props.configName != "!manage" ? `${props.configType}/${props.configName}` : `${props.configType}`}
+			focusKey={props.configName != "!manage" ? `${props.configType}/${props.configName}` : `${props.configType}`}
 			onClickItem={({ key, label, ...props }) => {
 				onClickItem(key, label)
 			}}
