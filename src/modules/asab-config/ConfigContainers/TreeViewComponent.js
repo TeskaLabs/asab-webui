@@ -155,7 +155,7 @@ export function TreeViewComponent(props) {
 			})
 		} else {
 			history.push({
-				pathname: `/config/${splitKey[0]}/!create`,
+				pathname: `/config/${splitKey[0]}/!manage`,
 			})
 		}
 	}

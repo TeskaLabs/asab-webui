@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 
 import { TreeViewComponent } from "./TreeViewComponent";
 import ConfigEditor from "./ConfigEditor";
-import ConfigCreate from "./ConfigCreate";
+import ConfigList from "./ConfigList";
 // import reducer from './reducer';
 
 function ConfigContainer(props) {
@@ -38,14 +38,14 @@ function ConfigContainer(props) {
 				</Col>
 				<Col md={{ size: 6, offset: 1 }}>
 					{configType != '$' && configName != '$' ?
-						configName != '!create' ?
+						configName != '!manage' ?
 							<ConfigEditor
 								app={App}
 								configType={configType}
 								configName={configName}
 							/>
 						:
-							<ConfigCreate
+							<ConfigList
 								app={App}
 								configType={configType}
 							/>
