@@ -4,6 +4,7 @@ import ReactJson from 'react-json-view';
 import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from "react-router-dom";
+import { connect } from 'react-redux';
 
 import {
 	Button,
@@ -21,9 +22,9 @@ import {
 
 import {types} from './actions/actions';
 
-import { Spinner } from 'asab-webui';
+import { Spinner, ButtonWithAuthz } from 'asab-webui';
 
-export default function ConfigEditor(props) {
+function ConfigEditor(props) {
 	const { register, handleSubmit, setValue, formState: { errors, isSubmitting }, reset } = useForm();
 	const { t, i18n } = useTranslation();
 	const ASABConfigAPI = props.app.axiosCreate('asab_config');
@@ -33,6 +34,7 @@ export default function ConfigEditor(props) {
 	const [ adHocSections, setAdHocSections ] = useState({});
 	const [ formStruct, setFormStruct ] = useState({});
 	const [ jsonValues, setJsonValues ] = useState({});
+	const [ isValueEmpty, setIsValueEmpty ] = useState(false);
 
 	// Retrieve the asab config url from config file
 	const homeScreenImg = props.app.Config.get('brand_image').full;
@@ -42,6 +44,9 @@ export default function ConfigEditor(props) {
 
 	const [ configNotExist, setConfigNotExist ] = useState(false);
 	const [ activeTab, setActiveTab ] = useState('basic');
+
+	const resourceRemoveConfig = "authz:superuser";
+	const resources = props.userinfo?.resources ? props.userinfo.resources : [];
 
 	// The container will be re-rendered on configType or configName change
 	useEffect(() => {
@@ -102,7 +107,6 @@ export default function ConfigEditor(props) {
 		let sectionKeyData = {};
 		let ahValues = {};
 		let ahSections = values;
-
 		// TODO: handle nested patternProperties (in items)
 		// Check for properties of schema
 		if (schema.properties) {
@@ -180,6 +184,14 @@ export default function ConfigEditor(props) {
 			}));
 		}
 
+		// Trigger only for pattern properties and only if there is no data in the response for values
+		if (values && Object.keys(values).length == 0 && schema.patternProperties) {
+			await Promise.all(Object.keys(schema.patternProperties).map((sectionName, id) => {
+				schemaProps[sectionName] = schema.patternProperties[sectionName];
+			}))
+			setIsValueEmpty(true);
+		}
+
 		// Set values for JSON view
 		setJsonValues(values);
 		// Set data for adHoc sections
@@ -226,6 +238,26 @@ export default function ConfigEditor(props) {
 		let section = {};
 		let parsedSections = {};
 		let prevSection = "";
+
+		// Parse data for initially empty configuration with pattern props schema
+		if (isValueEmpty) {
+			let dataParsed = {};
+			let configNameLowerCased = configName.toString().toLowerCase().replace(/[^A-Z0-9]+/ig, "");
+			await Promise.all(Object.keys(data).map(async (section, idx) => {
+				if (typeof data[section] == "object") {
+					let sectionName = section.substring(1);
+					sectionName = sectionName + configNameLowerCased;
+					await Promise.all(Object.keys(data[section]).map((key, idx) => {
+						let sectionKey = key.replace("*$", sectionName);
+						dataParsed[sectionKey] = data[section][key];
+					}))
+				} else {
+					dataParsed[section] = data[section];
+				}
+			}));
+			data = dataParsed;
+			setIsValueEmpty(false);
+		}
 
 		// Sort data by the key name before parsing them
 		const sortedData = Object.keys(data).sort().reduce((obj, key) => { obj[key] = data[key]; return obj; }, {});
@@ -398,7 +430,7 @@ export default function ConfigEditor(props) {
 				<Form onSubmit={handleSubmit(onSubmit)}>
 					<Card className="card-editor-layout">
 						<CardHeader>
-							<span className="cil-settings pr-3" />
+							<span className="cil-settings pr-2" />
 							{configName ? configType.toString() + ' / ' + configName.toString() : ""}
 							<div className="float-right">
 								<Nav tabs>
@@ -471,15 +503,18 @@ export default function ConfigEditor(props) {
 							</Button>
 							<span className="float-right">
 								{/*TODO: Replace with ButtonWithAuthz*/}
-								<Button
+								<ButtonWithAuthz
+									title={t('ASABConfig|Remove')}
 									color="danger"
 									type="button"
 									disabled={isSubmitting}
 									onClick={removeConfigForm}
+									resource={resourceRemoveConfig}
+									resources={resources}
 								>
 									<i className="cil-trash pr-1"></i>
 									{t('ASABConfig|Remove')}
-								</Button>
+								</ButtonWithAuthz>
 							</span>
 						</CardFooter>
 					</Card>
@@ -487,6 +522,13 @@ export default function ConfigEditor(props) {
 			</React.Fragment>
 	);
 }
+
+function mapStateToProps(state) {
+	return {
+		userinfo: state.auth.userinfo
+	}
+}
+export default connect(mapStateToProps)(ConfigEditor);
 
 
 function ConfigSection(props) {
