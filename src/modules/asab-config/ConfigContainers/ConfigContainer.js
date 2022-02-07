@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
 	Container,
@@ -17,37 +17,43 @@ import ConfigList from "./ConfigList";
 
 function ConfigContainer(props) {
 
-	let App = props.app;
 	const { t, i18n } = useTranslation();
 
 	const configType = props.match.params.configType;
 	const configName = props.match.params.configName;
 
-	const homeScreenImg = App.Config.get('brand_image').full;
-	const homeScreenAlt = App.Config.get('title');
+	const [ createConfig, setCreateConfig ] = useState(false);
+
+	const homeScreenImg = props.app.Config.get('brand_image').full;
+	const homeScreenAlt = props.app.Config.get('title');
 
 	return (
 		<Container fluid className="animated fadeIn flex mt-0 pr-0 pl-0 pt-0 config-container">
 			<Row className="config-row">
 				<Col sm="2" className="pr-0 bcg-column">
 					<TreeViewComponent
-						app={App}
+						app={props.app}
 						configCreated={props.config_created}
 						configRemoved={props.config_removed}
+						setCreateConfig={setCreateConfig}
+						configType={configType}
+						configName={configName}
 					/>
 				</Col>
 				<Col md={{ size: 6, offset: 1 }}>
 					{configType != '$' && configName != '$' ?
-						configName != '!manage' ?
+						configName != '!manage' && createConfig == false ?
 							<ConfigEditor
-								app={App}
+								app={props.app}
 								configType={configType}
 								configName={configName}
 							/>
 						:
 							<ConfigList
-								app={App}
+								app={props.app}
 								configType={configType}
+								createConfig={createConfig}
+								setCreateConfig={setCreateConfig}
 							/>
 					:
 						<Card>
