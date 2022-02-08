@@ -23,7 +23,6 @@ import alertsReducer from '../alerts/reducer';
 
 import helpButtonReducer from '../helpButton/reducer';
 import sidebarReducer from '../sidebar/reducer';
-import asabConfigReducer from '../modules/asab-config/ConfigContainers/reducer';
 
 import ReduxService from '../services/ReduxService';
 import ConfigService from '../config/ConfigService';
@@ -98,7 +97,6 @@ class Application extends Component {
 		this.ReduxService.addReducer("advmode", AdvancedModeReducer);
 		this.ReduxService.addReducer("helpButton", helpButtonReducer);
 		this.ReduxService.addReducer("sidebar", sidebarReducer);
-		this.ReduxService.addReducer("asab_config", asabConfigReducer);
 
 		this.DefaultPath = props.defaultpath;
 
