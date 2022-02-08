@@ -496,8 +496,17 @@ Example:
 		"Configuration file name": "Configuration file name",
 		"Fill out configuration file name": "Fill out configuration file name",
 		"Create": "Create",
-		"New": "New"
-
+		"New": "New",
+		"Name": "Name",
+		"Schema title": "Schema title",
+		"Schema description": "Schema description",
+		"Something went wrong! Unable to get configurations": "Something went wrong! Unable to get configurations for {{config}}",
+		"Unable to get configurations. Try to reload the page": "Unable to get configurations for {{config}}. Try to reload the page",
+		"Create configuration": "Create configuration",
+		"Do you want to remove this configuration?": "Do you want to remove this configuration?",
+		"Something went wrong, failed remove configuration": "Something went wrong, failed remove configuration",
+		"Manage": "Manage",
+		"New configuration": "New configuration"
 	}
 }
 ```

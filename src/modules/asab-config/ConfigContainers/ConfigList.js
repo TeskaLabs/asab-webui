@@ -30,7 +30,7 @@ function ConfigList(props) {
 	const regConfigName = register("configName",
 		{
 			validate: {
-				emptyInput: value => (getValues("configName") !== "" || getValues("configNameAdvanced") !== "") || t("ASABConfigModule|Configuration name can't be empty!"),
+				emptyInput: value => (getValues("configName") !== "" || t("ASABConfig|Configuration name can't be empty!")),
 			}
 		});
 
@@ -94,13 +94,13 @@ function ConfigList(props) {
 			let response = await ASABConfigAPI.get(`/config/${configType}`);
 			// TODO: validate responses which are not 200
 			if (response.data.result == 'FAIL') {
-				throw new Error(t(`ASABConfig|Something went wrong! Unable to get configurations`, {type: configType}));
+				throw new Error(t(`ASABConfig|Something went wrong! Unable to get configurations`, {config: configType}));
 			}
 			data = response.data;
 		}
 		catch(e) {
 			console.error(e);
-			props.app.addAlert("warning", t(`ASABConfig|Unable to get configurations. Try to reload the page`, {type: configType}));
+			props.app.addAlert("warning", t(`ASABConfig|Unable to get configurations. Try to reload the page`, {config: configType}));
 			return;
 		}
 
@@ -199,7 +199,7 @@ function CreateConfigCard(props) {
 	const regConfigName = register("configName",
 		{
 			validate: {
-				emptyInput: value => (getValues("configName") !== "" || t("ASABConfigModule|Configuration name can't be empty!")),
+				emptyInput: value => (getValues("configName") !== "" || t("ASABConfig|Configuration name can't be empty!")),
 			}
 		});
 
