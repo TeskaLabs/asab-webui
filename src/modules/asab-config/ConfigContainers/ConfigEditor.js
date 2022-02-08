@@ -408,7 +408,7 @@ function ConfigEditor(props) {
 				config_removed: true
 			});
 			history.push({
-				pathname: `/config/$/$`
+				pathname: `/config/${configType}/!manage`
 			});
 		} catch(e) {
 			console.error(e);
