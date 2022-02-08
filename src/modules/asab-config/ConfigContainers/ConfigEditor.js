@@ -212,6 +212,22 @@ function ConfigEditor(props) {
 	const setValues = () => {
 		// Reset old values before setting new values to prevent unintended data submitting
 		reset({});
+
+		/*
+			Set empty values for empty configuration (it will remove old values
+			from forms when config is completelly empty and which reset is not able
+			to remove)
+		*/
+		if (formStruct.properties && formStruct.data && Object.keys(formStruct.data).length == 0) {
+			Object.keys(formStruct.properties).map((key, idx) => {
+				if (formStruct.properties[key].properties) {
+					Object.keys(formStruct.properties[key].properties).map((k, i) => {
+						setValue(`${key} ${k}`, "");
+					})
+				}
+			})
+		}
+
 		// Set values from form struct for registration and submitting
 		if (formStruct.data) {
 			Object.entries(formStruct.data).map((entry, idx) => {
