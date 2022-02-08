@@ -235,7 +235,7 @@ function CreateConfigCard(props) {
 
 	return(
 		<Form onSubmit={handleSubmit(onSubmit)}>
-			<Card>
+			<Card className="w-75 offset-md-2">
 				<CardHeader>
 					<span className="cil-settings pr-2" />
 					{props.configType.toString() + ' / ' + t('ASABConfig|New configuration')}
