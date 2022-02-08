@@ -246,6 +246,7 @@ function CreateConfigCard(props) {
 							{t('ASABConfig|Configuration file name')}
 						</Label>
 						<Input
+							autoFocus
 							type="text"
 							name="configName"
 							id="configName"
