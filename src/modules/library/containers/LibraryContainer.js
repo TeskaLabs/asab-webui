@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { connect } from 'react-redux';
 import { useHistory, useLocation } from "react-router-dom";
+import { saveAs } from "file-saver";
+import m from 'moment';
 
 import {
 	Container, ListGroup, Input,
 	Row, Col, Card,
-	CardHeader, CardBody, Button
+	CardHeader, CardBody, Button,
+	ButtonGroup
 } from "reactstrap";
 import TreeMenu from 'react-simple-tree-menu';
 import { useTranslation } from 'react-i18next';
@@ -177,6 +180,21 @@ function LibraryContainer(props) {
 		}
 	}
 
+	const downloadAll = async () => {
+		try {
+			const response = await LMioLibraryAPI.get("/library/download/");
+
+			if (response.data.result !== "OK")
+				throw new Error(response);
+
+			const blob = new Blob([response.data.data], { type: "application/x-tar" });
+			saveAs(blob, "library_-.tar.gz".replace("-", m().format('D-MM-YYYY')));
+		} catch (e) {
+			console.error(e);
+			props.app.addAlert("warning", t("LibraryContainer|Failed to download library content"));
+		}
+	}
+
 	// Render function
 	return (
 		<Container fluid className="mt-0 pr-0 pl-0 pt-0 library-container">
@@ -227,36 +245,46 @@ function LibraryContainer(props) {
 										</>
 									)}
 								</div>
-								{activeNode.name && isReadOnly && (
+								<ButtonGroup>
+									{activeNode.name && isReadOnly && (
+										<Button
+											size="sm"
+											color="secondary"
+											className="mr-2"
+											onClick={() => setReadOnly(false)}
+										>
+											{t("LibraryContainer|Edit")}
+										</Button>
+									)}
+									{activeNode.name && !isReadOnly && (
+										<div>
+											<Button
+												size="sm"
+												color="success"
+												className="mr-2"
+												onClick={updateFileContent}
+												disabled={originalFileContent === fileContent}
+											>
+												{t("LibraryContainer|Save")}
+											</Button>
+											<Button
+												size="sm"
+												color="danger"
+												onClick={cancelChanges}
+											>
+												{t("LibraryContainer|Cancel")}
+											</Button>
+										</div>
+									)}
 									<Button
 										size="sm"
-										color="secondary"
+										color="primary"
 										className="mr-2"
-										onClick={() => setReadOnly(false)}
+										onClick={downloadAll}
 									>
-										{t("ASABLibraryModule|Edit")}
+										{t("LibraryContainer|Download all")}
 									</Button>
-								)}
-								{activeNode.name && !isReadOnly && (
-									<div>
-										<Button
-											size="sm"
-											color="success"
-											className="mr-2"
-											onClick={updateFileContent}
-											disabled={originalFileContent === fileContent}
-										>
-											{t("ASABLibraryModule|Save")}
-										</Button>
-										<Button
-											size="sm"
-											color="danger"
-											onClick={cancelChanges}
-										>
-											{t("ASABLibraryModule|Cancel")}
-										</Button>
-									</div>
-								)}
+								</ButtonGroup>
 							</div>
 						</CardHeader>
 						<CardBody className="card-body-editor">
