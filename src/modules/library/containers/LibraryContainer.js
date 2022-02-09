@@ -28,6 +28,7 @@ function LibraryContainer(props) {
 
 	const App = props.app;
 	const LMioLibraryAPI = App.axiosCreate('lmio_library');
+	const downloadURL = App.getServiceURL('lmio_library');
 	const history = useHistory();
 	const location = useLocation()
 	const { t } = useTranslation();
@@ -94,8 +95,8 @@ function LibraryContainer(props) {
 			}
 		} catch (e) {
 			// If response.status !== 2xx then catch block will be executed
-			console.error("Error when retrieving data: ", e); // log the error to the browser's console
-			App.addAlert("warning", t('Unable to load the data', { error: e.toString() }));
+			console.error("Error when retrieving tree data\n", e); // log the error to the browser's console
+			App.addAlert("warning", t('Unable to load the data'));
 		}
 
 	}
@@ -125,8 +126,8 @@ function LibraryContainer(props) {
 					setFileDisabled("disable-switch");
 				}
 			} catch (e) {
-				console.error("Error when retrieving data: ", e); // log the error to the browser's console
-				App.addAlert("warning", t('Unable to load the data', { error: e.toString() }));
+				console.error("Error when retrieving file content: ", e); // log the error to the browser's console
+				App.addAlert("warning", t('Unable to load the data'));
 			}
 		}
 	};
@@ -138,8 +139,8 @@ function LibraryContainer(props) {
 				setFileDisabled(prev => !prev);
 				retrieveTreeData();
 			} catch (e) {
-				console.error(e);
-				props.app.addAlert("warning", t(`ASABLibraryModule|Failed to ${isFileDisabled ? "enable" : "disable"} file`));
+				console.error("Error when swicthing file state\n", e);
+				props.app.addAlert("warning", t(`LibraryContainer|Failed to ${isFileDisabled ? "enable" : "disable"} file`));
 			}
 		}
 	}
@@ -164,8 +165,8 @@ function LibraryContainer(props) {
 			setOgFileContent(fileContent);
 			setReadOnly(true);
 		} catch (e) {
-			console.error(e);
-			props.app.addAlert("warning", t(`ASABLibraryModule|Failed to update the file`));
+			console.error("Error when updating file content\n",e);
+			props.app.addAlert("warning", t(`LibraryContainer|Failed to update the file`));
 		}
 	}
 
@@ -177,21 +178,6 @@ function LibraryContainer(props) {
 			setFileContent(originalFileContent);
 			setReadOnly(true);
 			retrieveFileContent(activeNode.path);
-		}
-	}
-
-	const downloadAll = async () => {
-		try {
-			const response = await LMioLibraryAPI.get("/library/download/");
-
-			if (response.data.result !== "OK")
-				throw new Error(response);
-
-			const blob = new Blob([response.data.data], { type: "application/x-tar" });
-			saveAs(blob, "library_-.tar.gz".replace("-", m().format('D-MM-YYYY')));
-		} catch (e) {
-			console.error(e);
-			props.app.addAlert("warning", t("LibraryContainer|Failed to download library content"));
 		}
 	}
 
@@ -276,14 +262,16 @@ function LibraryContainer(props) {
 											</Button>
 										</div>
 									)}
-									<Button
-										size="sm"
-										color="primary"
-										className="mr-2"
-										onClick={downloadAll}
-									>
-										{t("LibraryContainer|Download all")}
-									</Button>
+									<a href={`${downloadURL}/library/download`} download>
+										<Button
+											size="sm"
+											color="primary"
+											className="mr-2"
+
+										>
+											{t("LibraryContainer|Download all")}
+										</Button>
+									</a>
 								</ButtonGroup>
 							</div>
 						</CardHeader>
