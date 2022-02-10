@@ -86,7 +86,7 @@
 
 - Automatic closing of the sidebar on sidebar items click for small screens (INDIGO Sprint 220121, [!228](https://github.com/TeskaLabs/asab-webui/pull/228))
 
-- Fix progress bar position on the screen (INDIGO Sprint 220204, [!234](https://github.com/TeskaLabs/asab-webui/pull/234))
+- Fix networking indicator progress bar position on the screen (INDIGO Sprint 220204, [!234](https://github.com/TeskaLabs/asab-webui/pull/234))
 
 ### Refactoring
 
