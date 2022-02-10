@@ -136,7 +136,7 @@ function LibraryContainer(props) {
 				retrieveTreeData();
 			} catch (e) {
 				console.error(e);
-				props.app.addAlert("warning", t(`LibraryContainer|Failed to ${isFileDisabled ? "enable" : "disable"} file`));
+				props.app.addAlert("warning", t(`ASABLibraryModule|Failed to ${isFileDisabled ? "enable" : "disable"} file`));
 			}
 		}
 	}
@@ -157,19 +157,19 @@ function LibraryContainer(props) {
 			if (response.data.result !== "OK")
 				throw new Error("Something went wrong.\nResult: " + response.data.result);
 
-			props.app.addAlert("success", t(`LibraryContainer|File has been updated`));
+			props.app.addAlert("success", t(`ASABLibraryModule|File has been updated`));
 			setOgFileContent(fileContent);
 			setReadOnly(true);
 		} catch (e) {
 			console.error(e);
-			props.app.addAlert("warning", t(`LibraryContainer|Failed to update the file`));
+			props.app.addAlert("warning", t(`ASABLibraryModule|Failed to update the file`));
 		}
 	}
 
 	const editFileContent = value => setFileContent(value);
 
 	const cancelChanges = () => {
-		const confirmation = confirm(t("LibraryContainer|Are you sure you want to cancel changes?"));
+		const confirmation = confirm(t("ASABLibraryModule|Are you sure you want to cancel changes?"));
 		if (confirmation) {
 			setFileContent(originalFileContent);
 			setReadOnly(true);
@@ -194,7 +194,7 @@ function LibraryContainer(props) {
 							<>
 								<Input
 									onChange={e => search(e.target.value)}
-									placeholder={t("LibraryContainer|Search")} />
+									placeholder={t("ASABLibraryModule|Search")} />
 								<ListGroup>
 									{items.map(({ reset, ...props }) => (
 										<TreeMenuItem {...props} active="false" />
@@ -221,7 +221,7 @@ function LibraryContainer(props) {
 													size="sm"
 													isOn={!isFileDisabled}
 													toggle={switchFileState}
-													title={t(`LibraryContainer|${isFileDisabled ? "Enable" : "Disable"} file`)}
+													title={t(`ASABLibraryModule|${isFileDisabled ? "Enable" : "Disable"} file`)}
 												/>
 											)}
 										</>
@@ -234,7 +234,7 @@ function LibraryContainer(props) {
 										className="mr-2"
 										onClick={() => setReadOnly(false)}
 									>
-										{t("LibraryContainer|Edit")}
+										{t("ASABLibraryModule|Edit")}
 									</Button>
 								)}
 								{activeNode.name && !isReadOnly && (
@@ -246,14 +246,14 @@ function LibraryContainer(props) {
 											onClick={updateFileContent}
 											disabled={originalFileContent === fileContent}
 										>
-											{t("LibraryContainer|Save")}
+											{t("ASABLibraryModule|Save")}
 										</Button>
 										<Button
 											size="sm"
 											color="danger"
 											onClick={cancelChanges}
 										>
-											{t("LibraryContainer|Cancel")}
+											{t("ASABLibraryModule|Cancel")}
 										</Button>
 									</div>
 								)}
