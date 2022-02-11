@@ -1,5 +1,6 @@
-import React from 'react'
-import moment from "moment";
+import React from 'react';
+import moment from 'moment';
+import { useSelector } from 'react-redux';
 
 /*
 Diplays a date & time in a local timezone.
@@ -28,20 +29,24 @@ The default format is `lll` -> `Aug 22, 2020 1:13 PM`
 
 */
 
-export function DateTime({ value, format }) {
+export function DateTime(props) {
 
-	if ((value === null) || (value === undefined)) {
+	const language = useSelector(state => state.language.language)
+
+	if ((props.value === null) || (props.value === undefined)) {
 		return (
 			<span className="datetime">{' '}</span>
 		)
 	}
 
-	const m = isNaN(value) || value > 9999999999 ? moment(value) : moment(value * 1000);
+	const m = isNaN(props.value) || props.value > 9999999999 ? moment(props.value) : moment(props.value * 1000);
+	m.locale(language.slice(0, 2));
+
 
 	return (
 		<span className="datetime" title={m.fromNow()}>
 			<i className="cil-clock pr-1"></i>
-			{m.format(format || 'lll')}
+			{m.format(props.format || 'lll')}
 		</span>
 	)
 }
