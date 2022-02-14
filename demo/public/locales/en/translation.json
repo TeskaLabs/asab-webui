@@ -41,5 +41,23 @@
 	"ASABCredentials": {
 		"Something went wrong, failed to fetch assigned credentials": "Something went wrong, failed to fetch assigned credentials"
 	},
+	"ASABLibraryModule": {
+		"Search": "Search",
+		"Enable file": "Enable file",
+		"Disable file": "Disable file",
+		"File was successfully enabled": "File was successfully enabled",
+		"File was successfully disabled": "File was successfully disabled",
+		"Failed to enable file": "Failed to enable file",
+		"Failed to disable file": "Failed to disable file",
+		"File has been updated": "File has been updated",
+		"Failed to update the file": "Failed to update the file",
+		"Are you sure you want to cancel changes?": "Are you sure you want to cancel changes?",
+		"Edit": "Edit",
+		"Save":"Save",
+		"Cancel": "Cancel",
+		"Download all": "Stáhnout vše",
+		"Failed to download library content": "Failed to download library content"
+	},
+
 	"You do not have access rights to perform this action": "You do not have access rights to perform this action"
 }
