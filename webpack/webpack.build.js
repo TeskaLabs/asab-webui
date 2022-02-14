@@ -4,7 +4,7 @@ const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -68,9 +68,10 @@ module.exports = {
 					// "apiUrl" -> "__API_URL__"
 				),
 				// Extracts file styles.css
-				new ExtractTextPlugin({
-					filename: 'assets/css/styles.[chunkhash:8].css',
-					allChunks: true
+				new MiniCssExtractPlugin({
+					filename: 'assets/css/[name].css',
+					chunkFilename: "assets/css/[id].css",
+					ignoreOrder: false, // Enable to remove warnings about conflicting order
 				}),
 				new UglifyJsPlugin({
 					uglifyOptions: {

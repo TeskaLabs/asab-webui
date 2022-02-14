@@ -3,8 +3,8 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const common = require("./common");
 // const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
@@ -17,19 +17,13 @@ module.exports = {
 		console.log(config);
 		const entry_path = path.resolve(config["dirs"]["src"], 'index.js');
 		const html_template_path = path.resolve(config["dirs"]["public"], 'index.html');
-		// TODO: This is temporary solution. It will be replaced by date-fns.
-		let defaultLocales = /en|cs/; // Default locales
-		if (config["app"]["locales"]) {
-			defaultLocales = new RegExp(Object.values(config["app"]["locales"]).join("|"));
+		let defaultLocales = /en-gb|cs/; // Default locales
+		if (config["app"]["momentLocales"]) {
+			defaultLocales = new RegExp(Object.values(config["app"]["momentLocales"]).join("|"));
 		}
 
 		return {
-			entry: {
-				index: {
-					import: entry_path,
-					depensOn: 'shared'
-				}
-			},
+			entry: entry_path,
 			mode: 'development',
 			watch: true,
 			output: {
@@ -64,27 +58,18 @@ module.exports = {
 					// "apiUrl" -> "__API_URL__"
 				),
 				// Extracts file styles.css
-				new ExtractTextPlugin('assets/css/styles.css'),
+				new MiniCssExtractPlugin({ filename: 'assets/css/styles.css' }),
 				// Minimizes styles.css
 				// new OptimizeCssAssetsPlugin()
 				// Remove moment locales from bundle except those which are defined as second parameter
-				// new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, momentLocales),
+				new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, defaultLocales),
 				// Uncomment BundleAnalyzerPlugin in case you want to analyze bundle size (also uncomment import of this plugin above)
 				// And comment it before making Pull Request/ Merge Request
-				new BundleAnalyzerPlugin()
+				// new BundleAnalyzerPlugin()
 			],
-			optimization: {
-				splitChunks: {
-					chunks: "async",
-					chacheGroup: {
-						commons: {
-							test: /[\\/]node_modules[\\/]/,
-							name: "vendor",
-							chunks: "all",
-						}
-					}
-				}
-			}
+			devServer: {
+				overlay: true
+			},
 		};
 	}
 }
