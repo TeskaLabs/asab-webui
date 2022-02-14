@@ -49,8 +49,12 @@ export function Credentials(props) {
 		}
 		setCredentials(usernamesToRender);
 	}
-
+	
 	useEffect(() => {
+		saveCredentialsToIndexedDB( [{credential_id: 'mongodb:ext:16',credential_title: "Charles Leclerc"},{credential_id: 'mongodb:ext:03',credential_title: "Daniel Ricciardo"}], 'Credentials');
+		const dataInIDB = getCredentialsFromIDB('Credentials');
+		console.log('ln63: ', dataInIDB);
+
 		matchCredentialIds(credentials_ids);
 	}, [])
 
@@ -96,6 +100,40 @@ function getUsernamesFromLS(name, cleanupTime) {
 	return ls ? ls : { credentials: [], expiration: new Date().getTime() + cleanupTime };
 }
 
+const getCredentialsFromIDB = (OSname) => {
+	console.log('inside getCredentialsFromIDB')
+
+	let credentialsInIDB = [];
+	let db;
+
+	const request = window.indexedDB.open('ASAB|Credentials', 1);
+// if indexedDB does not exist yet, onupgradeneeded is triggered
+	request.onupgradeneeded = (e) => {
+		console.info('Database created');
+		db = e.target.result;
+		db.createObjectStore(OSname, {keyPath: "credential_id"});
+	};
+	request.onerror = (e) => {
+		console.error(e);
+	};
+	request.onsuccess = (e) => {
+		db = e.target.result;
+		db.onerror = e => console.error("Database error: " + e.target.error);
+		const tx = db.transaction([OSname], 'readonly').objectStore(OSname);
+		const requestCursor = tx.openCursor();
+		requestCursor.onsuccess = e => {
+			const cursor = e.target.result
+			if (cursor) {
+				console.log('ln 145 cursor.key: ', cursor.key, 'cursor.value.credential_title: ', cursor.value.credential_title)
+				credentialsInIDB.push({ [cursor.key] : cursor.value.credential_title })
+				cursor.continue()
+			}
+		};
+		console.log('ln149 creentialsInIDB: ', credentialsInIDB)
+		return credentialsInIDB
+	};
+}
+
 function saveUsernamesToLS(data, credentials_ids, cleanupTime) {
 	if (localStorage) {
 		let dataInLS = getUsernamesFromLS('Credentials', cleanupTime);
@@ -122,5 +160,27 @@ function saveUsernamesToLS(data, credentials_ids, cleanupTime) {
 		})
 		localStorage.setItem('Credentials', JSON.stringify(dataInLS));
 		return dataToLS;
+	}
+}
+
+const saveCredentialsToIndexedDB = (data, OSname) => {
+	// data is array of objects in this format [{ credential_id: 'mongodb:ext:007', credential_title: "James" }, ... ]
+	const request = window.indexedDB.open('ASAB|Credentials', 1);
+	let db
+	request.onupgradeneeded = (e) => {
+		console.info('Database created');
+		db = e.target.result;
+		db.createObjectStore(OSname, {keyPath: "credential_id"});
+	};
+	request.onsuccess = (e) => {
+		console.log('saveCredentialsToIndexedDB ln 189 reguest.onsuccess')
+		db = e.target.result
+		db.onerror = e => console.error("Database error: " + e.target.error);
+		const tx = db.transaction([OSname], 'readwrite')
+		const credsIDB = tx.objectStore(OSname);
+		data.map((item, i) => {
+			credsIDB.add(item);
+			console.log('this is iteration no.: ', i)
+		})
 	}
 }
