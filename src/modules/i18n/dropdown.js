@@ -11,13 +11,23 @@ import {
 	DropdownToggle,
 } from 'reactstrap';
 
+import moment from 'moment';
+
 
 function LanguageDropdown(props) {
 
 	const { t, i18n } = useTranslation();
 
+	useEffect(() => {
+		console.log(i18n.language)
+		console.log(moment)
+		import(`moment/locale/${i18n.language}`).then(() => moment.locale(i18n.language));
+	}, [])
+
 	const changeLanguage = (language) => {
 		i18n.changeLanguage(language).then(() => {
+			
+			window.location.reload(false);
 			// if the hard refresh is needed: window.location.reload(false);
 		});
 	}

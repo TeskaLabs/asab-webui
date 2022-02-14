@@ -4,7 +4,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const common = require("./common");
 // const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
@@ -24,11 +24,16 @@ module.exports = {
 		}
 
 		return {
-			entry: entry_path,
+			entry: {
+				index: {
+					import: entry_path,
+					depensOn: 'shared'
+				}
+			},
 			mode: 'development',
 			watch: true,
 			output: {
-				filename: 'assets/js/bundle.js',
+				filename: 'assets/js/[name].bundle.js',
 				chunkFilename: 'assets/js/[name].chunk.js',
 				path: config["dirs"]["dist"],
 				publicPath: '/',
@@ -63,11 +68,23 @@ module.exports = {
 				// Minimizes styles.css
 				// new OptimizeCssAssetsPlugin()
 				// Remove moment locales from bundle except those which are defined as second parameter
-				new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, defaultLocales),
+				// new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, momentLocales),
 				// Uncomment BundleAnalyzerPlugin in case you want to analyze bundle size (also uncomment import of this plugin above)
 				// And comment it before making Pull Request/ Merge Request
-				// new BundleAnalyzerPlugin()
-			]
+				new BundleAnalyzerPlugin()
+			],
+			optimization: {
+				splitChunks: {
+					chunks: "async",
+					chacheGroup: {
+						commons: {
+							test: /[\\/]node_modules[\\/]/,
+							name: "vendor",
+							chunks: "all",
+						}
+					}
+				}
+			}
 		};
 	}
 }

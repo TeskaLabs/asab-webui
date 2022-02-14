@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Container } from 'reactstrap';
 
-import { DataTable } from 'asab-webui';
+import { DataTable, DateTime } from 'asab-webui';
 
 import "./microservices.scss";
 
@@ -62,6 +62,7 @@ export default (props) => {
 
 	return (
 		<Container className="svcs-container">
+			<DateTime value={Date.now()} />
 			<DataTable 
 				headers={headers}
 				data={list}
