@@ -24,8 +24,6 @@ import alertsReducer from '../alerts/reducer';
 import helpButtonReducer from '../helpButton/reducer';
 import sidebarReducer from '../sidebar/reducer';
 
-import languageReducer from '../reducers/languageReducer'
-
 import ReduxService from '../services/ReduxService';
 import ConfigService from '../config/ConfigService';
 import HeaderService from '../services/HeaderService';
@@ -34,7 +32,6 @@ import FooterService from '../services/FooterService';
 import TenantSelectionCard from '../modules/tenant/selector/TenantSelectionCard';
 
 import { ADD_ALERT, SET_ADVANCED_MODE, CHANGE_HELP_URL } from '../actions';
-import { CHANGE_LANGUAGE } from '../reducers/LanguageReducer';
 
 
 class Application extends Component {
@@ -100,7 +97,6 @@ class Application extends Component {
 		this.ReduxService.addReducer("advmode", AdvancedModeReducer);
 		this.ReduxService.addReducer("helpButton", helpButtonReducer);
 		this.ReduxService.addReducer("sidebar", sidebarReducer);
-		this.ReduxService.addReducer("language", languageReducer)
 
 		this.DefaultPath = props.defaultpath;
 
@@ -475,14 +471,6 @@ class Application extends Component {
 			}
 		}, [])
 	}
-
-	changeLanguage(lang) {
-		this.Store.dispatch({
-			type: CHANGE_LANGUAGE,
-			language: lang
-		});
-	}
-
 
 	render() {
 		// Render the splash screen if needed

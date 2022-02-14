@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CHANGE_LANGUAGE } from '../../actions';
+import { CHANGE_LANGUAGE } from './actions';
 import { useDispatch } from 'react-redux'
 
 
