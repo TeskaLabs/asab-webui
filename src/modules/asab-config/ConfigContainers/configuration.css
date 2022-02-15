@@ -65,3 +65,9 @@
 	border: none;
 	width: 100%; }
 	
+.pattern-selection {
+	display: inline-flex;
+	width: 50%;
+	padding-right: 1rem;
+	padding-left: 1rem;
+}

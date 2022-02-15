@@ -10,7 +10,8 @@ import {
 	Button,
 	Card, CardBody, CardHeader, CardFooter,
 	Form, FormGroup, FormText, Input, Label,
-	TabContent, TabPane, Nav, NavItem, NavLink
+	TabContent, TabPane, Nav, NavItem, NavLink,
+	InputGroup, InputGroupAddon
 } from "reactstrap";
 
 import {
@@ -34,7 +35,11 @@ function ConfigEditor(props) {
 	const [ adHocSections, setAdHocSections ] = useState({});
 	const [ formStruct, setFormStruct ] = useState({});
 	const [ jsonValues, setJsonValues ] = useState({});
-	const [ isValueEmpty, setIsValueEmpty ] = useState(false);
+	const [ isValueEmpty, setIsValueEmpty ] = useState(false); // TODO: Probably not needed, remove
+
+	const [ selectPatternSections, setSelectPatternSections ] = useState([]);
+	const [ selectedSection, setSelectedSection ] = useState("");
+	const [ patternPropsSchema, setPatternPropsSchema ] = useState({});
 
 	// Retrieve the asab config url from config file
 	const homeScreenImg = props.app.Config.get('brand_image').full;
@@ -65,6 +70,8 @@ function ConfigEditor(props) {
 		let values = undefined;
 		let schema = undefined;
 		setConfigNotExist(false);
+		// Set selected pattern sections to empty
+		setSelectPatternSections([]);
 
 		try {
 			let response = await ASABConfigAPI.get(`/type/${configType}`);
@@ -147,50 +154,68 @@ function ConfigEditor(props) {
 		// TODO: handle nested patternProperties (in items)
 		// Check for pattern properties of schema
 		if (schema.patternProperties) {
-			await Promise.all(values && Object.keys(values).map(async (section, idx) => {
-				await Promise.all(Object.keys(schema.patternProperties).map(async (sectionName, id) => {
-					// Check for matching section name
-					if (section.match(sectionName) != null) {
-						// If matched, then add schema to schema props
-						schemaProps[`${section}`] = schema.patternProperties[sectionName];
-						let arrAHValues = [];
-						await Promise.all(Object.keys(values[section]).map(async (key, i) => {
-							// Add data for section
-							sectionKeyData[`${section} ${key}`] = values[section][key];
+			if (values && Object.keys(values).length > 0) {
+				await Promise.all(values && Object.keys(values).map(async (section, idx) => {
+					await Promise.all(Object.keys(schema.patternProperties).map(async (sectionName, id) => {
+						// Check for matching section name
+						if (section.match(sectionName) != null) {
+							// If matched, then add schema to schema props
+							schemaProps[`${section}`] = schema.patternProperties[sectionName];
+							let arrAHValues = [];
+							await Promise.all(Object.keys(values[section]).map(async (key, i) => {
+								// Add data for section
+								sectionKeyData[`${section} ${key}`] = values[section][key];
 
-							// Check for adHoc values in properties of section
-							if (schemaProps[`${section}`].properties) {
-								// Add empty string to keys, which are not present in configuration, but key is present in schema
-								await Promise.all(Object.keys(schemaProps[`${section}`].properties).map((schemaKey, i) => {
-									if (Object.keys(values[section]).indexOf(schemaKey) == -1) {
-										sectionKeyData[`${section} ${schemaKey}`] = "";
+								// Check for adHoc values in properties of section
+								if (schemaProps[`${section}`].properties) {
+									// Add empty string to keys, which are not present in configuration, but key is present in schema
+									await Promise.all(Object.keys(schemaProps[`${section}`].properties).map((schemaKey, i) => {
+										if (Object.keys(values[section]).indexOf(schemaKey) == -1) {
+											sectionKeyData[`${section} ${schemaKey}`] = "";
+										}
+									}));
+									// Check if key exist in schema and if not, add it to adHoc values
+									if (schemaProps[`${section}`].properties[`${key}`] == undefined) {
+										let v = {};
+										v[key] = values[section][key];
+										arrAHValues.push(v);
+										ahValues[`${section}`] = arrAHValues;
 									}
-								}));
-								// Check if key exist in schema and if not, add it to adHoc values
-								if (schemaProps[`${section}`].properties[`${key}`] == undefined) {
-									let v = {};
-									v[key] = values[section][key];
-									arrAHValues.push(v);
-									ahValues[`${section}`] = arrAHValues;
 								}
-							}
-						}));
-						// Mutate adHoc section based on the matching sections
-						// If section name match with schema, then remove it from adHoc sections (it is also removed for submit)
-						ahSections = Object.assign({}, ahSections);
-						delete ahSections[section];
-					}
+							}));
+							// Mutate adHoc section based on the matching sections
+							// If section name match with schema, then remove it from adHoc sections (it is also removed for submit)
+							ahSections = Object.assign({}, ahSections);
+							delete ahSections[section];
+						}
+					}));
 				}));
-			}));
+			} else {
+				// Trigger only for pattern properties and only if there is no data in the response for values
+				await Promise.all(Object.keys(schema.patternProperties).map(async (sectionName, id) => {
+					let section = sectionName.substring(1);
+					let sectionNameModified = section.replace(".*$", "1");
+					schemaProps[`${sectionNameModified}`] = schema.patternProperties[sectionName];
+				}))
+			}
+
+			// Trim pattern props section names and push it to array to use it in the selector for adding a new empty config section
+			let patternSections = [];
+			await Promise.all(Object.keys(schema.patternProperties).map((sectionName, idx) => {
+				let sectionTrimmed = sectionName.substring(1).replace(":.*$", "");
+				patternSections.push(sectionTrimmed);
+			}))
+			setSelectPatternSections(patternSections);
+			setPatternPropsSchema(schema.patternProperties);
 		}
 
 		// Trigger only for pattern properties and only if there is no data in the response for values
-		if (values && Object.keys(values).length == 0 && schema.patternProperties) {
-			await Promise.all(Object.keys(schema.patternProperties).map((sectionName, id) => {
-				schemaProps[sectionName] = schema.patternProperties[sectionName];
-			}))
-			setIsValueEmpty(true);
-		}
+		// if (values && Object.keys(values).length == 0 && schema.patternProperties) {
+		// 	await Promise.all(Object.keys(schema.patternProperties).map((sectionName, id) => {
+		// 		schemaProps[sectionName] = schema.patternProperties[sectionName];
+		// 	}))
+		// 	setIsValueEmpty(true);
+		// }
 
 		// Set values for JSON view
 		setJsonValues(values);
@@ -432,6 +457,29 @@ function ConfigEditor(props) {
 		}
 	}
 
+	const addNewSection = async () => {
+		let section = selectedSection != "" ? selectedSection : selectPatternSections[0];
+		let properties = formStruct.properties;
+		let cnt = 1;
+		let selectedProperties = {};
+		await Promise.all(Object.keys(properties).map((sectionName, idx) => {
+			if (sectionName.match(section) != null) {
+				cnt += 1;
+				selectedProperties = properties[sectionName];
+			}
+		}))
+
+		let formStructure = formStruct;
+		if (cnt == 1) {
+			console.log('AHOJ')
+		} else {
+			formStructure["properties"][`${section}:${cnt}`] = selectedProperties;
+		}
+		// setFormStruct({}); // Empty form struct (TODO: test if it will work without it)
+		setFormStruct(formStructure);
+		setValues(); // TODO: test if it will work like that
+	}
+
 	// TODO: add Content loader when available as a component in ASAB WebUI
 	return (
 		configNotExist ?
@@ -517,6 +565,32 @@ function ConfigEditor(props) {
 								<i className="cil-save pr-1"></i>
 								{t('ASABConfig|Save')}
 							</Button>
+							{selectPatternSections.length > 0 &&
+							<InputGroup className="pattern-selection">
+								<Input
+									id="selectPatternSection"
+									name="select"
+									type="select"
+									direction="up"
+									// defaultValue={selectPatternSections[0]}
+									onChange={(e) => {setSelectedSection(e.target.value), e.preventDefault()}}
+								>
+									{selectPatternSections.map((patternSection, idx) => {
+										return(
+											<option key={idx}>
+												{patternSection}
+											</option>
+											)
+									})}
+								</Input>
+								<Button
+									type="button"
+									onClick={addNewSection}
+								>
+									Slecet
+								</Button>
+							</InputGroup>
+							}
 							<span className="float-right">
 								{/*TODO: Replace with ButtonWithAuthz*/}
 								<ButtonWithAuthz
