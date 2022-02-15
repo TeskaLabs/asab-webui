@@ -48,7 +48,7 @@ exports.getRules = function(config) {
 				},
 				{
 					loader: 'postcss-loader',
-					options: { sourceMap: true, config: { path: 'postcss.config.js' } }
+					options: { sourceMap: true }
 				},
 				{
 					loader: 'sass-loader',
