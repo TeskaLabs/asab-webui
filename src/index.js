@@ -14,7 +14,6 @@ export { default as Pagination } from './containers/Pagination';
 export { default as ControlledSwitch } from './containers/ControlledSwitch';
 export { default as UncontrolledSwitch } from './containers/UncontrolledSwitch';
 export { Credentials } from './containers/Credentials';
-export { MyContentLoader } from './containers/ContentLoader';
-export { ChartLoader } from './containers/ContentLoader';
+export { CellContentLoader, ChartLoader } from './containers/ContentLoader';
 
 import "./style.scss";
