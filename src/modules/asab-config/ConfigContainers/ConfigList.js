@@ -128,15 +128,15 @@ function ConfigList(props) {
 
 	const createConfigComponent = (
 		<ButtonWithAuthz
-			title={t("ASABConfig|Create configuration")}
-			color="secondary"
+			title={t("ASABConfig|Create")}
+			color="primary"
 			onClick={(e) => {props.setCreateConfig(true), e.preventDefault()}}
 			resource={resourceManageConfig}
 			resources={resources}
 			size="sm"
 		>
 			<i className="pr-1">+</i>
-			{t("ASABConfig|Create configuration")}
+			{t("ASABConfig|Create")}
 		</ButtonWithAuthz>
 	);
 
