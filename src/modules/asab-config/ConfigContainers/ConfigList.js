@@ -55,11 +55,7 @@ function ConfigList(props) {
 			}
 		},
 		{
-			name: t('ASABConfig|Schema title'),
-			key: "schemaTitle"
-		},
-		{
-			name: t('ASABConfig|Schema description'),
+			name: t('ASABConfig|Description'),
 			key: "schemaDescription"
 		},
 		{
@@ -101,7 +97,6 @@ function ConfigList(props) {
 		catch(e) {
 			console.error(e);
 			props.app.addAlert("warning", t(`ASABConfig|Unable to get configurations. Try to reload the page`, {config: configType}));
-			return;
 		}
 
 		try {
@@ -115,17 +110,17 @@ function ConfigList(props) {
 		catch(e) {
 			console.error(e);
 			props.app.addAlert("warning", t(`ASABConfig|Unable to get schema. Try to reload the page`, {type: configType}));
-			return;
 		}
 
 		// Create an array of objects with name, schema title and schema description
 		let cfgList = [];
 		Promise.all(await data.map(cfg => {
-			cfgList.push({name: cfg, schemaTitle: schema?.title, schemaDescription: schema?.description});
+			cfgList.push({name: cfg, schemaDescription: schema?.description ? schema.description : ""});
 		}));
 		setConfigList(cfgList);
 	}
 
+	// Create configuration button
 	const createConfigComponent = (
 		<ButtonWithAuthz
 			title={t("ASABConfig|Create")}
@@ -171,7 +166,7 @@ function ConfigList(props) {
 			<CreateConfigCard app={props.app} configType={configType} setCreateConfig={props.setCreateConfig} />
 		:
 			<DataTable
-				title={{ text: t("ASABConfig|Manage") + ` ${configType}`, icon: "cil-settings" }}
+				title={{ text: t("ASABConfig|Type") + ` ${configType}`, icon: "cil-settings" }}
 				headers={headers}
 				data={configList}
 				limit={99999}
@@ -194,7 +189,6 @@ function CreateConfigCard(props) {
 	const { t, i18n } = useTranslation();
 	const ASABConfigAPI = props.app.axiosCreate('asab_config');
 	let history = useHistory();
-
 
 	const regConfigName = register("configName",
 		{
@@ -238,12 +232,12 @@ function CreateConfigCard(props) {
 			<Card className="w-75 offset-md-2">
 				<CardHeader>
 					<span className="cil-settings pr-2" />
-					{props.configType.toString() + ' / ' + t('ASABConfig|New configuration')}
+					{t("ASABConfig|Type") + ` ${props.configType.toString()} / ` + t('ASABConfig|New configuration')}
 				</CardHeader>
 				<CardBody>
 					<FormGroup tag="fieldset" disabled={isSubmitting}>
 						<Label for="configName">
-							{t('ASABConfig|Configuration file name')}
+							{t('ASABConfig|Configuration name')}
 						</Label>
 						<Input
 							autoFocus
@@ -255,7 +249,7 @@ function CreateConfigCard(props) {
 							onBlur={regConfigName.onBlur}
 						/>
 						<FormText color={errors.configName ? "danger" : "muted"}>
-							{errors.configName ? errors.configName.message : t('ASABConfig|Fill out configuration file name')}
+							{errors.configName ? errors.configName.message : t('ASABConfig|Fill out configuration name')}
 						</FormText>
 					</FormGroup>
 				</CardBody>
