@@ -119,16 +119,16 @@ export function CellContentLoader({rows = 10, cols = 4, title = 'Loading Data',
 				{...props}
 				>
 				{header &&
-					headRect.map((rectangle) => {
+					headRect.map((rectangle, i) => {
 						return (
-							<rect x={rectangle[0]} y={rectangle[1]} rx="3" ry="3" width={rectangle[2]} height={rectangle[3]} />
+							<rect x={rectangle[0]} y={rectangle[1]} rx="3" ry="3" width={rectangle[2]} height={rectangle[3]} key={i} />
 						)
 					})
 				} 			
 				{
-					rectangles.map((rectangle) => {
+					rectangles.map((rectangle, i) => {
 						return (
-							<rect x={rectangle[0]} y={rectangle[1]} rx="3" ry="3" width={rectangle[2]} height={rectangle[3]} />
+							<rect x={rectangle[0]} y={rectangle[1]} rx="3" ry="3" width={rectangle[2]} height={rectangle[3]} key={i} />
 						)
 					})
 				}  
