@@ -409,6 +409,7 @@ function ConfigEditor(props) {
 		}
 	}
 
+	// Add new section out of pattern properties section list
 	const addNewSection = async () => {
 		let section = selectedSection != "" ? selectedSection : selectPatternSections[0];
 		let properties = formStruct.properties;
@@ -433,9 +434,10 @@ function ConfigEditor(props) {
 			// If section already present in the configuration, use its schema props
 			formStructure["properties"][`${section}:${cnt}`] = selectedProperties;
 		}
-		// setFormStruct({}); // Empty form struct (TODO: test if it will work without it)
+
+		// Update form struct and call setValues function to load data
 		setFormStruct(formStructure);
-		setValues(); // TODO: test if it will work like that
+		setValues();
 	}
 
 	// TODO: add Content loader when available as a component in ASAB WebUI
