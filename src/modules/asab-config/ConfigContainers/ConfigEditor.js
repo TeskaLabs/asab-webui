@@ -35,8 +35,8 @@ function ConfigEditor(props) {
 	const [ adHocSections, setAdHocSections ] = useState({});
 	const [ formStruct, setFormStruct ] = useState({});
 	const [ jsonValues, setJsonValues ] = useState({});
-	const [ isValueEmpty, setIsValueEmpty ] = useState(false); // TODO: Probably not needed, remove
 
+	// States for schema sections
 	const [ selectPatternSections, setSelectPatternSections ] = useState([]);
 	const [ selectedSection, setSelectedSection ] = useState("");
 	const [ patternPropsSchema, setPatternPropsSchema ] = useState({});
@@ -192,14 +192,6 @@ function ConfigEditor(props) {
 					}));
 				}));
 			}
-			// else {
-			// 	// Trigger only for pattern properties and only if there is no data in the response for values
-			// 	await Promise.all(Object.keys(schema.patternProperties).map(async (sectionName, id) => {
-			// 		let section = sectionName.substring(1);
-			// 		let sectionNameModified = section.replace(".*$", "1");
-			// 		schemaProps[`${sectionNameModified}`] = schema.patternProperties[sectionName];
-			// 	}))
-			// }
 
 			// Trim pattern props section names and push it to array to use it in the selector for adding a new empty config section
 			let patternSections = [];
@@ -270,20 +262,22 @@ function ConfigEditor(props) {
 		let formStructProperties = formStruct.properties;
 		let sectionTypes = {};
 		// Iterate through sections
-		await Promise.all(Object.keys(formStructProperties).length > 0 && Object.keys(formStructProperties).map(async (sect, idx) => {
-			let valueTypes = {};
-			// Iterate through section keys
-			await Promise.all(Object.keys(formStructProperties[sect]).length > 0 && Object.keys(formStructProperties[sect]).map(async (key, id) => {
-				if (key === "properties") {
-					// Iterate through key properties
-					await Promise.all(Object.entries(formStructProperties[sect]["properties"]).map((entry, i) => {
-						// If type of the value is undefined, then default is string
-						valueTypes[entry[0]] = entry[1].type ? entry[1].type : "string";
-					}));
-				}
+		if (Object.keys(formStructProperties).length > 0) {
+			await Promise.all(Object.keys(formStructProperties).map(async (sect, idx) => {
+				let valueTypes = {};
+				// Iterate through section keys
+				await Promise.all(Object.keys(formStructProperties[sect]).length > 0 && Object.keys(formStructProperties[sect]).map(async (key, id) => {
+					if (key === "properties") {
+						// Iterate through key properties
+						await Promise.all(Object.entries(formStructProperties[sect]["properties"]).map((entry, i) => {
+							// If type of the value is undefined, then default is string
+							valueTypes[entry[0]] = entry[1].type ? entry[1].type : "string";
+						}));
+					}
+				}));
+				sectionTypes[sect] = valueTypes;
 			}));
-			sectionTypes[sect] = valueTypes;
-		}));
+		}
 
 		let parsedSections = {};
 		// TODO: Disable saving output from ReactJSONview component
@@ -533,10 +527,10 @@ function ConfigEditor(props) {
 							<InputGroup className="pattern-selection">
 								<Input
 									id="selectPatternSection"
+									title={t('ASABConfig|Available sections')}
 									name="select"
 									type="select"
 									direction="up"
-									// defaultValue={selectPatternSections[0]}
 									onChange={(e) => {setSelectedSection(e.target.value), e.preventDefault()}}
 								>
 									{selectPatternSections.map((patternSection, idx) => {
@@ -548,10 +542,12 @@ function ConfigEditor(props) {
 									})}
 								</Input>
 								<Button
+									title={t('ASABConfig|Add new section')}
 									type="button"
 									onClick={addNewSection}
 								>
-									Slecet
+									<i className="pr-1">+</i>
+									{t('ASABConfig|Add')}
 								</Button>
 							</InputGroup>
 							}
