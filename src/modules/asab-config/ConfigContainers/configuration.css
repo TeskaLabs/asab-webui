@@ -66,8 +66,8 @@
 	width: 100%; }
 	
 .pattern-selection {
-	display: inline-flex;
-	width: 50%;
+	display: inline-flex !important;
+	width: 50% !important;
 	padding-right: 1rem;
 	padding-left: 1rem;
 }
