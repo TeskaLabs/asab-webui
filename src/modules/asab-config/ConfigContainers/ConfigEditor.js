@@ -471,8 +471,14 @@ function ConfigEditor(props) {
 
 		let formStructure = formStruct;
 		if (cnt == 1) {
-			console.log('AHOJ')
+			// If section not present in the configuration, use schema obtained from the service
+			await Promise.all(Object.keys(patternPropsSchema).map(async (sectionName, id) => {
+				if (sectionName.match(section) != null) {
+					formStructure["properties"][`${section}:${cnt}`] = patternPropsSchema[sectionName];
+				}
+			}))
 		} else {
+			// If section already present in the configuration, use its schema props
 			formStructure["properties"][`${section}:${cnt}`] = selectedProperties;
 		}
 		// setFormStruct({}); // Empty form struct (TODO: test if it will work without it)
