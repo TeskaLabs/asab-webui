@@ -30,11 +30,16 @@ exports.getRules = function(config) {
 		{
 			test: /\.(css)$/,
 			use: [
+				"style-loader",
 				MiniCssExtractPlugin.loader,
 				{
 					loader: 'css-loader',
 					options: { sourceMap: true }
-				}
+				},
+				{
+					loader: 'postcss-loader',
+					options: { sourceMap: true }
+				},
 			]
 		},
 		{
@@ -61,7 +66,7 @@ exports.getRules = function(config) {
 			use: [{
 					loader: 'file-loader',
 					options: {
-						name: '[name].[hash].[ext]',
+						name: '[name].[contenthash].[ext]',
 						publicPath: '../',
 						outputPath: 'assets/',
 					}

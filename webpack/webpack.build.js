@@ -28,8 +28,8 @@ module.exports = {
 			entry: entry_path,
 			mode: 'production',
 			output: {
-				filename: 'assets/js/[name].[chunkhash:8].js',
-				chunkFilename: 'assets/js/[name].[chunkhash:8].chunk.js',
+				filename: 'assets/js/[name].[contenthash].js',
+				chunkFilename: 'assets/js/[name].[contenthash].chunk.js',
 				path: path.resolve(config["dirs"]["dist"]),
 				publicPath: '',
 			},
@@ -69,8 +69,8 @@ module.exports = {
 				),
 				// Extracts file styles.css
 				new MiniCssExtractPlugin({
-					filename: 'assets/css/[name].css',
-					chunkFilename: "assets/css/[id].css",
+					filename: 'assets/css/[name].[contenthash].css',
+					chunkFilename: "assets/css/[id].[contenthash].css",
 					ignoreOrder: false, // Enable to remove warnings about conflicting order
 				}),
 				new UglifyJsPlugin({
@@ -88,6 +88,16 @@ module.exports = {
 				// new BundleAnalyzerPlugin()
 			],
 			optimization: {
+				splitChunks: {
+					cacheGroups: {
+						vendor: {
+							name: 'vendors',
+							test: /node_modules/,
+							chunks: 'all',
+							enforce: true
+						}
+					}
+				},
 				minimize: true,
 				minimizer: [
 					// Minimizes output javascript
