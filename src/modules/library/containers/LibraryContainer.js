@@ -262,16 +262,18 @@ function LibraryContainer(props) {
 											</Button>
 										</div>
 									)}
-									<a href={`${downloadURL}/library/download`} download>
-										<Button
-											size="sm"
-											color="primary"
-											className="mr-2"
+									{isReadOnly && (
+										<a href={`${downloadURL}/library/download`} download>
+											<Button
+												size="sm"
+												color="primary"
+												className="mr-2"
 
-										>
-											{t("LibraryContainer|Download all")}
-										</Button>
-									</a>
+											>
+												{t("LibraryContainer|Download all")}
+											</Button>
+										</a>
+									)}
 								</ButtonGroup>
 							</div>
 						</CardHeader>
