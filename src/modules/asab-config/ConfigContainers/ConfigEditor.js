@@ -266,88 +266,52 @@ function ConfigEditor(props) {
 
 	// Parse data to JSON format, stringify it and save to config file
 	const onSubmit = async (data) => {
-		let splitKey = "";
-		let sectionTitle = "";
-		let sectionKey = "";
-		let sectionValue = "";
-		let section = {};
-		let parsedSections = {};
-		let prevSection = "";
-
-		// Parse data for initially empty configuration with pattern props schema
-		// if (isValueEmpty) {
-		// 	let dataParsed = {};
-		// 	let configNameLowerCased = configName.toString().toLowerCase().replace(/[^A-Z0-9]+/ig, "");
-		// 	await Promise.all(Object.keys(data).map(async (section, idx) => {
-		// 		if (typeof data[section] == "object") {
-		// 			let sectionName = section.substring(1);
-		// 			sectionName = sectionName + configNameLowerCased;
-		// 			await Promise.all(Object.keys(data[section]).map((key, idx) => {
-		// 				let sectionKey = key.replace("*$", sectionName);
-		// 				dataParsed[sectionKey] = data[section][key];
-		// 			}))
-		// 		} else {
-		// 			dataParsed[section] = data[section];
-		// 		}
-		// 	}));
-		// 	data = dataParsed;
-		// 	setIsValueEmpty(false);
-		// }
-
-		// Sort data by the key name before parsing them
-		const sortedData = Object.keys(data).sort().reduce((obj, key) => { obj[key] = data[key]; return obj; }, {});
-
 		// Get 'type' of the values (if defined) from the schema
 		let formStructProperties = formStruct.properties;
 		let sectionTypes = {};
 		// Iterate through sections
-		await Promise.all(Object.keys(formStructProperties).length > 0 && Object.keys(formStructProperties).map(async (section, idx) => {
+		await Promise.all(Object.keys(formStructProperties).length > 0 && Object.keys(formStructProperties).map(async (sect, idx) => {
 			let valueTypes = {};
 			// Iterate through section keys
-			await Promise.all(Object.keys(formStructProperties[section]).length > 0 && Object.keys(formStructProperties[section]).map(async (key, id) => {
+			await Promise.all(Object.keys(formStructProperties[sect]).length > 0 && Object.keys(formStructProperties[sect]).map(async (key, id) => {
 				if (key === "properties") {
 					// Iterate through key properties
-					await Promise.all(Object.entries(formStructProperties[section]["properties"]).map((entry, i) => {
+					await Promise.all(Object.entries(formStructProperties[sect]["properties"]).map((entry, i) => {
 						// If type of the value is undefined, then default is string
 						valueTypes[entry[0]] = entry[1].type ? entry[1].type : "string";
 					}));
 				}
 			}));
-			sectionTypes[section] = valueTypes;
+			sectionTypes[sect] = valueTypes;
 		}));
 
+		let parsedSections = {};
 		// TODO: Disable saving output from ReactJSONview component
 		if (activeTab == 'advanced') {
 			// If data are being submitted from JSON view, dont parse data to object
 			parsedSections = jsonValues;
 		} else {
+			let splitKey = "";
+			let sectionTitle = "";
+			let sectionKey = "";
+			let sectionValue = "";
 			// Parse data to object
-			await Promise.all(Object.keys(sortedData).map((key, idx) => {
+			await Promise.all(Object.keys(data).map((key, idx) => {
 				splitKey = key.split(" ");
 				sectionTitle = splitKey[0];
 				sectionKey = splitKey[1];
-				sectionValue = sortedData[key];
-				if (prevSection == sectionTitle) {
-					if (sectionTypes[sectionTitle] == undefined) {
-						// Values of adHoc sections
-						section[sectionKey] = sectionValue;
-					} else {
-						let valueType = sectionTypes[sectionTitle][sectionKey];
-						section[sectionKey] = convertValueType(sectionValue, valueType);
-					}
+				sectionValue = data[key];
+				// Parsing
+				let obj = {};
+				if (sectionTypes[sectionTitle] == undefined) {
+					// Values of adHoc sections
+					obj[sectionKey] = sectionValue;
+					parsedSections[sectionTitle] = {...parsedSections[sectionTitle], ...obj};
 				} else {
-					section = {};
-					if (sectionTypes[sectionTitle] == undefined) {
-						// Values of adHoc sections
-						section[sectionKey] = sectionValue;
-					} else {
-						let valueType = sectionTypes[sectionTitle][sectionKey];
-						section[sectionKey] = convertValueType(sectionValue, valueType);
-					}
+					let valueType = sectionTypes[sectionTitle][sectionKey];
+					obj[sectionKey] = convertValueType(sectionValue, valueType);
+					parsedSections[sectionTitle] = {...parsedSections[sectionTitle], ...obj};
 				}
-
-				prevSection = sectionTitle;
-				parsedSections[sectionTitle] = section;
 			}));
 		}
 
