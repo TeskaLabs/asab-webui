@@ -90,7 +90,7 @@
 
 - Move Library module from lmio-webui to asab-webui (INDIGO Sprint 220204, [!231](https://github.com/TeskaLabs/asab-webui/pull/231))
 
-- Update ASAB-Config module with option to add/remove configuration. Add option to set a new section for pattern properties (INDIGO Sprint 220204, [!229](https://github.com/TeskaLabs/asab-webui/pull/231))
+- Update ASAB-Config module with option to add/remove configuration. Add option to set a new section for pattern properties (INDIGO Sprint 220204, [!229](https://github.com/TeskaLabs/asab-webui/pull/229))
 
 ### Refactoring
 
