@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { connect } from 'react-redux';
 import { useHistory, useLocation } from "react-router-dom";
-import { saveAs } from "file-saver";
-import m from 'moment';
 
 import {
 	Container, ListGroup, Input,
