@@ -523,36 +523,7 @@ function ConfigEditor(props) {
 								<i className="cil-save pr-1"></i>
 								{t('ASABConfig|Save')}
 							</Button>
-							{selectPatternSections.length > 0 &&
-							<InputGroup className="pattern-selection">
-								<Input
-									id="selectPatternSection"
-									title={t('ASABConfig|Available sections')}
-									name="select"
-									type="select"
-									direction="up"
-									onChange={(e) => {setSelectedSection(e.target.value), e.preventDefault()}}
-								>
-									{selectPatternSections.map((patternSection, idx) => {
-										return(
-											<option key={idx}>
-												{patternSection}
-											</option>
-											)
-									})}
-								</Input>
-								<Button
-									title={t('ASABConfig|Add new section')}
-									type="button"
-									onClick={addNewSection}
-								>
-									<i className="pr-1">+</i>
-									{t('ASABConfig|Add')}
-								</Button>
-							</InputGroup>
-							}
-							<span className="float-right">
-								{/*TODO: Replace with ButtonWithAuthz*/}
+							<span className="pr-2 pl-2">
 								<ButtonWithAuthz
 									title={t('ASABConfig|Remove')}
 									color="danger"
@@ -566,6 +537,36 @@ function ConfigEditor(props) {
 									{t('ASABConfig|Remove')}
 								</ButtonWithAuthz>
 							</span>
+							{selectPatternSections.length > 0 &&
+								<span className="float-right">
+									<InputGroup>
+										<Input
+											id="selectPatternSection"
+											title={t('ASABConfig|Available sections')}
+											name="select"
+											type="select"
+											direction="up"
+											onChange={(e) => {setSelectedSection(e.target.value), e.preventDefault()}}
+										>
+											{selectPatternSections.map((patternSection, idx) => {
+												return(
+													<option key={idx}>
+														{patternSection}
+													</option>
+													)
+											})}
+										</Input>
+										<Button
+											title={t('ASABConfig|Add new section')}
+											type="button"
+											onClick={addNewSection}
+										>
+											<i className="pr-1">+</i>
+											{t('ASABConfig|Add')}
+										</Button>
+									</InputGroup>
+								</span>
+							}
 						</CardFooter>
 					</Card>
 				</Form>

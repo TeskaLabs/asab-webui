@@ -53,21 +53,17 @@
 .rstm-tree-item--active {
 	color: white;
 	background: #089bc5;
-	border-bottom: none; }
+	border-bottom: none;
+}
 .rstm-tree-item--focused {
 	box-shadow: 0 0 5px 0 #6d7175;
-	z-index: 999; }
+	z-index: 999;
+}
 
 .rstm-search {
 	padding: 1rem 1.5rem;
 	color: #43494d;
 	background: #f0f3f5;
 	border: none;
-	width: 100%; }
-	
-.pattern-selection {
-	display: inline-flex !important;
-	width: 50% !important;
-	padding-right: 1rem;
-	padding-left: 1rem;
+	width: 100%;
 }
