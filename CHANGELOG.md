@@ -94,6 +94,8 @@
 
 - Add `customCardBodyComponent` to DataTable (INDIGO Sprint 220204, [!237](https://github.com/TeskaLabs/asab-webui/pull/237))
 
+- Add download all library content feature (INDIGO Sprint 220204, [!233](https://github.com/TeskaLabs/asab-webui/pull/233))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
