@@ -505,8 +505,10 @@ Example:
 		"Create configuration": "Create configuration",
 		"Do you want to remove this configuration?": "Do you want to remove this configuration?",
 		"Something went wrong, failed remove configuration": "Something went wrong, failed remove configuration",
-		"Manage": "Manage",
-		"New configuration": "New configuration"
+		"New configuration": "New configuration",
+		"Available sections": "Available sections",
+		"Add new section": "Add new section",
+		"Add": "Add"
 	}
 }
 ```
