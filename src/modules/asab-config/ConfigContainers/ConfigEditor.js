@@ -154,6 +154,7 @@ function ConfigEditor(props) {
 		// TODO: handle nested patternProperties (in items)
 		// Check for pattern properties of schema
 		if (schema.patternProperties) {
+			// Handle only pattern properties with data
 			if (values && Object.keys(values).length > 0) {
 				await Promise.all(values && Object.keys(values).map(async (section, idx) => {
 					await Promise.all(Object.keys(schema.patternProperties).map(async (sectionName, id) => {
@@ -190,14 +191,15 @@ function ConfigEditor(props) {
 						}
 					}));
 				}));
-			} else {
-				// Trigger only for pattern properties and only if there is no data in the response for values
-				await Promise.all(Object.keys(schema.patternProperties).map(async (sectionName, id) => {
-					let section = sectionName.substring(1);
-					let sectionNameModified = section.replace(".*$", "1");
-					schemaProps[`${sectionNameModified}`] = schema.patternProperties[sectionName];
-				}))
 			}
+			// else {
+			// 	// Trigger only for pattern properties and only if there is no data in the response for values
+			// 	await Promise.all(Object.keys(schema.patternProperties).map(async (sectionName, id) => {
+			// 		let section = sectionName.substring(1);
+			// 		let sectionNameModified = section.replace(".*$", "1");
+			// 		schemaProps[`${sectionNameModified}`] = schema.patternProperties[sectionName];
+			// 	}))
+			// }
 
 			// Trim pattern props section names and push it to array to use it in the selector for adding a new empty config section
 			let patternSections = [];
@@ -208,14 +210,6 @@ function ConfigEditor(props) {
 			setSelectPatternSections(patternSections);
 			setPatternPropsSchema(schema.patternProperties);
 		}
-
-		// Trigger only for pattern properties and only if there is no data in the response for values
-		// if (values && Object.keys(values).length == 0 && schema.patternProperties) {
-		// 	await Promise.all(Object.keys(schema.patternProperties).map((sectionName, id) => {
-		// 		schemaProps[sectionName] = schema.patternProperties[sectionName];
-		// 	}))
-		// 	setIsValueEmpty(true);
-		// }
 
 		// Set values for JSON view
 		setJsonValues(values);
@@ -281,24 +275,24 @@ function ConfigEditor(props) {
 		let prevSection = "";
 
 		// Parse data for initially empty configuration with pattern props schema
-		if (isValueEmpty) {
-			let dataParsed = {};
-			let configNameLowerCased = configName.toString().toLowerCase().replace(/[^A-Z0-9]+/ig, "");
-			await Promise.all(Object.keys(data).map(async (section, idx) => {
-				if (typeof data[section] == "object") {
-					let sectionName = section.substring(1);
-					sectionName = sectionName + configNameLowerCased;
-					await Promise.all(Object.keys(data[section]).map((key, idx) => {
-						let sectionKey = key.replace("*$", sectionName);
-						dataParsed[sectionKey] = data[section][key];
-					}))
-				} else {
-					dataParsed[section] = data[section];
-				}
-			}));
-			data = dataParsed;
-			setIsValueEmpty(false);
-		}
+		// if (isValueEmpty) {
+		// 	let dataParsed = {};
+		// 	let configNameLowerCased = configName.toString().toLowerCase().replace(/[^A-Z0-9]+/ig, "");
+		// 	await Promise.all(Object.keys(data).map(async (section, idx) => {
+		// 		if (typeof data[section] == "object") {
+		// 			let sectionName = section.substring(1);
+		// 			sectionName = sectionName + configNameLowerCased;
+		// 			await Promise.all(Object.keys(data[section]).map((key, idx) => {
+		// 				let sectionKey = key.replace("*$", sectionName);
+		// 				dataParsed[sectionKey] = data[section][key];
+		// 			}))
+		// 		} else {
+		// 			dataParsed[section] = data[section];
+		// 		}
+		// 	}));
+		// 	data = dataParsed;
+		// 	setIsValueEmpty(false);
+		// }
 
 		// Sort data by the key name before parsing them
 		const sortedData = Object.keys(data).sort().reduce((obj, key) => { obj[key] = data[key]; return obj; }, {});
