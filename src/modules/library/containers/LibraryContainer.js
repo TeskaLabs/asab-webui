@@ -138,7 +138,7 @@ function LibraryContainer(props) {
 				retrieveTreeData();
 			} catch (e) {
 				console.error("Error when swicthing file state\n", e);
-				props.app.addAlert("warning", t(`LibraryContainer|Failed to ${isFileDisabled ? "enable" : "disable"} file`));
+				props.app.addAlert("warning", t(`ASABLibraryModule|Failed to ${isFileDisabled ? "enable" : "disable"} file`));
 			}
 		}
 	}
@@ -164,7 +164,7 @@ function LibraryContainer(props) {
 			setReadOnly(true);
 		} catch (e) {
 			console.error("Error when updating file content\n",e);
-			props.app.addAlert("warning", t(`LibraryContainer|Failed to update the file`));
+			props.app.addAlert("warning", t(`ASABLibraryModule|Failed to update the file`));
 		}
 	}
 
@@ -237,7 +237,7 @@ function LibraryContainer(props) {
 											className="mr-2"
 											onClick={() => setReadOnly(false)}
 										>
-											{t("LibraryContainer|Edit")}
+											{t("ASABLibraryModule|Edit")}
 										</Button>
 									)}
 									{activeNode.name && !isReadOnly && (
@@ -249,14 +249,14 @@ function LibraryContainer(props) {
 												onClick={updateFileContent}
 												disabled={originalFileContent === fileContent}
 											>
-												{t("LibraryContainer|Save")}
+												{t("ASABLibraryModule|Save")}
 											</Button>
 											<Button
 												size="sm"
 												color="danger"
 												onClick={cancelChanges}
 											>
-												{t("LibraryContainer|Cancel")}
+												{t("ASABLibraryModule|Cancel")}
 											</Button>
 										</div>
 									)}
@@ -268,7 +268,7 @@ function LibraryContainer(props) {
 												className="mr-2"
 
 											>
-												{t("LibraryContainer|Download all")}
+												{t("ASABLibraryModule|Download all")}
 											</Button>
 										</a>
 									)}
