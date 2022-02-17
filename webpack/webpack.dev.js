@@ -4,8 +4,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const common = require("./common");
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = {
@@ -17,10 +17,7 @@ module.exports = {
 		console.log(config);
 		const entry_path = path.resolve(config["dirs"]["src"], 'index.js');
 		const html_template_path = path.resolve(config["dirs"]["public"], 'index.html');
-		let defaultLocales = /en-gb|cs/; // Default locales
-		if (config["app"]["momentLocales"]) {
-			defaultLocales = new RegExp(Object.values(config["app"]["momentLocales"]).join("|"));
-		}
+		let defaultLocales = /cs/; // Default moment locales (needed for backward compatibility)
 
 		return {
 			entry: entry_path,
@@ -67,18 +64,28 @@ module.exports = {
 				// And comment it before making Pull Request/ Merge Request
 				// new BundleAnalyzerPlugin()
 			],
-			devServer: {
-				overlay: true
-			},
 			optimization: {
 				splitChunks: {
+					chunks: 'all',
 					cacheGroups: {
 						vendor: {
 							name: 'vendors',
-							test: /node_modules/,
+							test: /[\\/]node_modules[\\/]((?!(date-fns)).*)[\\/]/,
 							chunks: 'all',
 							enforce: true
-						}
+						},
+						commons: {
+							test: /[\\/]node_modules[\\/]/,
+							name(module, chunks, cacheGroupKey) {
+							  const moduleFileName = module
+								.identifier()
+								.split('/')
+								.reduceRight((item) => item);
+							  const allChunksNames = chunks.map((item) => item.name).join('~');
+							  return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
+							},
+							chunks: 'all',
+						},
 					}
 				},
 			}

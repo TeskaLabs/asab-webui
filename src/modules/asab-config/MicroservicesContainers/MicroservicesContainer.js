@@ -62,7 +62,6 @@ export default (props) => {
 
 	return (
 		<Container className="svcs-container">
-			<DateTime value={Date.now()} />
 			<DataTable 
 				headers={headers}
 				data={list}

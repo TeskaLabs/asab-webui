@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
+import { format, parseISO } from 'date-fns';
 
 /*
 Diplays a date & time in a local timezone.
@@ -30,7 +31,7 @@ The default format is `lll` -> `Aug 22, 2020 1:13 PM`
 */
 
 export function DateTime(props) {
-
+	const [locale, setLocale] = useState('');
 	const language = useSelector(state => state.language.language)
 
 	if ((props.value === null) || (props.value === undefined)) {
@@ -39,14 +40,33 @@ export function DateTime(props) {
 		)
 	}
 
-	const m = isNaN(props.value) || props.value > 9999999999 ? moment(props.value) : moment(props.value * 1000);
-	m.locale(language.slice(0, 2));
+	useEffect(() => {
+		if (language && language !== "en") {
+			fetchLocale()
+		} else {
+			setLocale(undefined);
+		}
+	}, [language])
 
+	const fetchLocale = async () => {
+		// Don't remove comment inside import
+		// it's webpack's dynamic expression
+		const importedLocale = await import(
+			/* webpackMode: "lazy", webpackChunkName: "df-[index]" */
+			`date-fns/locale/${language}/index.js`
+		);
+		setLocale(importedLocale.default);
+	}	
+
+
+	const date = isNaN(props.value) ? format(parseISO(props.value), 'PPp', { locale: locale }) :
+		props.value > 9999999999 ? format(props.value, 'PPp', { locale: locale }) :
+		format(props.value * 1000, 'PPp', { locale: locale });
 
 	return (
 		<span className="datetime" title={m.fromNow()}>
 			<i className="cil-clock pr-1"></i>
-			{m.format(props.format || 'lll')}
+			{date}
 		</span>
 	)
 }

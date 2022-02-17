@@ -7,8 +7,8 @@ const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const common = require("./common");
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
 	build: function(config) {
@@ -19,16 +19,13 @@ module.exports = {
 		const entry_path = path.resolve(config["dirs"]["src"], 'index.js');
 		const html_template_path = path.resolve(config["dirs"]["public"], 'index.html');
 		// TODO: This is temporary solution. It will be replaced by date-fns.
-		let defaultLocales = /en|cs/; // Default locales
-		if (config["app"]["locales"]) {
-			defaultLocales = new RegExp(Object.values(config["app"]["locales"]).join("|"));
-		}
+		let defaultLocales = /cs/; // Default moment locales (needed for backward compatibility)
 
 		return {
 			entry: entry_path,
 			mode: 'production',
 			output: {
-				filename: 'assets/js/[name].[contenthash].js',
+				filename: 'assets/js/[name].[contenthash].bundle.js',
 				chunkFilename: 'assets/js/[name].[contenthash].chunk.js',
 				path: path.resolve(config["dirs"]["dist"]),
 				publicPath: '',
@@ -89,13 +86,26 @@ module.exports = {
 			],
 			optimization: {
 				splitChunks: {
+					chunks: "all",
 					cacheGroups: {
 						vendor: {
 							name: 'vendors',
-							test: /node_modules/,
+							test: /[\\/]node_modules[\\/]((?!(date-fns)).*)[\\/]/,
 							chunks: 'all',
 							enforce: true
-						}
+						},
+						commons: {
+							test: /[\\/]node_modules[\\/]/,
+							name(module, chunks, cacheGroupKey) {
+							  const moduleFileName = module
+								.identifier()
+								.split('/')
+								.reduceRight((item) => item);
+							  const allChunksNames = chunks.map((item) => item.name).join('~');
+							  return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
+							},
+							chunks: 'all',
+						},
 					}
 				},
 				minimize: true,
