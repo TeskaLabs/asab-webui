@@ -42,7 +42,7 @@ export function CellContentLoader({
 	rows = 10, cols = 4, title = '', 
 	backgroundColor = "#E4E5E6", foregroundColor = "#ffffff", speed = 1.2, 
 	header = false, size = 'lg' }, props) {
-
+	
 	let rectangles = [],
 		width = size === 'lg' ? 900 : 400,
 		headRect = [
@@ -50,6 +50,9 @@ export function CellContentLoader({
 			[0, 35, width, 17]
 		],
 		y = -10;
+
+	cols > 5 ? cols = 5 : '';
+	cols < 1 ? cols = 1 : '';
 
  	if (header) {
 		y = 50
@@ -135,7 +138,6 @@ export function CellContentLoader({
 			viewBox={viewBox}
 			backgroundColor={backgroundColor}
 			foregroundColor={foregroundColor}
-			animate={true}
 			{...props}
 		>
 		{header &&
