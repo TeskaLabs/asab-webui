@@ -542,36 +542,37 @@ function ConfigEditor(props) {
 									{t('ASABConfig|Remove')}
 								</ButtonWithAuthz>
 							</span>
-							{selectPatternSections.length > 0 &&
-								<span className="float-right">
-									<Dropdown
-										direction="up"
-										isOpen={dropdownOpen}
-										toggle={toggleDropDown}
-										title={t('ASABConfig|Add new section')}
+							<span className="float-right">
+								<Dropdown
+									direction="up"
+									isOpen={dropdownOpen}
+									toggle={toggleDropDown}
+									title={t('ASABConfig|Add new section')}
+								>
+									<DropdownToggle
+										caret
+										disabled={selectPatternSections.length == 0}
 									>
-										<DropdownToggle caret>
-											<span className="pr-1">+</span>
-											{t('ASABConfig|Add')}
-										</DropdownToggle>
-										<DropdownMenu
-											className="pattern-section-dropdown"
-										>
-											{selectPatternSections.map((patternSection, idx) => {
-												return(
-													<DropdownItem
-														key={idx}
-														name={patternSection}
-														onClick={(e) => {addNewSection(patternSection), e.preventDefault()}}
-													>
-														{patternSection}
-													</DropdownItem>
-													)
-											})}
-										</DropdownMenu>
-									</Dropdown>
-								</span>
-							}
+										<span className="pr-1">+</span>
+										{t('ASABConfig|Add')}
+									</DropdownToggle>
+									<DropdownMenu
+										className="pattern-section-dropdown"
+									>
+										{selectPatternSections.map((patternSection, idx) => {
+											return(
+												<DropdownItem
+													key={idx}
+													name={patternSection}
+													onClick={(e) => {addNewSection(patternSection), e.preventDefault()}}
+												>
+													{patternSection}
+												</DropdownItem>
+												)
+										})}
+									</DropdownMenu>
+								</Dropdown>
+							</span>
 						</CardFooter>
 					</Card>
 				</Form>
