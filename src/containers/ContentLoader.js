@@ -2,12 +2,12 @@ import React from 'react';
 import ContentLoader from "react-content-loader";
 
 export function ChartLoader({
-	title = 'Loading Data', backgroundColor = "#f3f3f3", 
+	title = '', backgroundColor = "#f3f3f3", 
 	foregroundColor = "#ecebeb", speed = 1.2, width = "100%", 
 	height = 150 }, props
 	) {
 
-	let rectangleQty = new Array(55).fill(1);
+	let rectangleQty = new Array(75).fill(1);
 
 	return (
 		<ContentLoader 
@@ -39,9 +39,9 @@ export function ChartLoader({
 }
 
 export function CellContentLoader({
-	rows = 10, cols = 4, title = 'Loading Data', 
+	rows = 10, cols = 4, title = '', 
 	backgroundColor = "#E4E5E6", foregroundColor = "#ffffff", speed = 1.2, 
-	header = true, size = 'lg' }, props) {
+	header = false, size = 'lg' }, props) {
 
 	let rectangles = [],
 		width = size === 'lg' ? 900 : 400,
