@@ -7,7 +7,7 @@ export function ChartLoader({
 	height = 150 }, props
 	) {
 
-	let rectangleQty = new Array(75).fill(1);
+	let rectangleQty = new Array(100).fill(1);
 
 	return (
 		<ContentLoader 
@@ -39,7 +39,7 @@ export function ChartLoader({
 }
 
 export function CellContentLoader({
-	rows = 10, cols = 4, title = '', 
+	rows = 5, cols = 3, title = '', 
 	backgroundColor = "#E4E5E6", foregroundColor = "#ffffff", speed = 1.2, 
 	header = false, size = 'lg' }, props) {
 	
