@@ -11,7 +11,7 @@ import {
 	Card, CardBody, CardHeader, CardFooter,
 	Form, FormGroup, FormText, Input, Label,
 	TabContent, TabPane, Nav, NavItem, NavLink,
-	InputGroup, InputGroupAddon
+	Dropdown, DropdownToggle, DropdownMenu, DropdownItem
 } from "reactstrap";
 
 import {
@@ -38,7 +38,6 @@ function ConfigEditor(props) {
 
 	// States for schema sections
 	const [ selectPatternSections, setSelectPatternSections ] = useState([]);
-	const [ selectedSection, setSelectedSection ] = useState("");
 	const [ patternPropsSchema, setPatternPropsSchema ] = useState({});
 
 	// Retrieve the asab config url from config file
@@ -52,6 +51,10 @@ function ConfigEditor(props) {
 
 	const resourceRemoveConfig = "authz:superuser";
 	const resources = props.userinfo?.resources ? props.userinfo.resources : [];
+
+	// Pattern props dropdown
+	const [dropdownOpen, setDropdownOpen] = useState(false);
+	const toggleDropDown = () => setDropdownOpen(!dropdownOpen);
 
 	// The container will be re-rendered on configType or configName change
 	useEffect(() => {
@@ -410,8 +413,8 @@ function ConfigEditor(props) {
 	}
 
 	// Add new section out of pattern properties section list
-	const addNewSection = async () => {
-		let section = selectedSection != "" ? selectedSection : selectPatternSections[0];
+	const addNewSection = async (selectedSection) => {
+		let section = selectedSection;
 		let properties = formStruct.properties;
 		let cnt = 1;
 		let selectedProperties = {};
@@ -434,7 +437,7 @@ function ConfigEditor(props) {
 			// If section already present in the configuration, use its schema props
 			formStructure["properties"][`${section}:${cnt}`] = selectedProperties;
 		}
-
+		props.app.addAlert("success", t('ASABConfig|Section added'));
 		// Update form struct and call setValues function to load data
 		setFormStruct(formStructure);
 		setValues();
@@ -541,32 +544,32 @@ function ConfigEditor(props) {
 							</span>
 							{selectPatternSections.length > 0 &&
 								<span className="float-right">
-									<InputGroup>
-										<Input
-											id="selectPatternSection"
-											title={t('ASABConfig|Available sections')}
-											name="select"
-											type="select"
-											direction="up"
-											onChange={(e) => {setSelectedSection(e.target.value), e.preventDefault()}}
+									<Dropdown
+										direction="up"
+										isOpen={dropdownOpen}
+										toggle={toggleDropDown}
+										title={t('ASABConfig|Add new section')}
+									>
+										<DropdownToggle caret>
+											<span className="pr-1">+</span>
+											{t('ASABConfig|Add')}
+										</DropdownToggle>
+										<DropdownMenu
+											className="pattern-section-dropdown"
 										>
 											{selectPatternSections.map((patternSection, idx) => {
 												return(
-													<option key={idx}>
+													<DropdownItem
+														key={idx}
+														name={patternSection}
+														onClick={(e) => {addNewSection(patternSection), e.preventDefault()}}
+													>
 														{patternSection}
-													</option>
+													</DropdownItem>
 													)
 											})}
-										</Input>
-										<Button
-											title={t('ASABConfig|Add new section')}
-											type="button"
-											onClick={addNewSection}
-										>
-											<i className="pr-1">+</i>
-											{t('ASABConfig|Add')}
-										</Button>
-									</InputGroup>
+										</DropdownMenu>
+									</Dropdown>
 								</span>
 							}
 						</CardFooter>

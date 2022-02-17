@@ -67,3 +67,11 @@
 	border: none;
 	width: 100%;
 }
+
+
+/*Config Editor*/
+
+.pattern-section-dropdown {
+	max-height: 400px;
+	overflow-y: auto;
+}

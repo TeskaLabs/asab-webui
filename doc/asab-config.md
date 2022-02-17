@@ -506,7 +506,7 @@ Example:
 		"Do you want to remove this configuration?": "Do you want to remove this configuration?",
 		"Something went wrong, failed remove configuration": "Something went wrong, failed remove configuration",
 		"New configuration": "New configuration",
-		"Available sections": "Available sections",
+		"Section added": "Section added",
 		"Add new section": "Add new section",
 		"Add": "Add"
 	}
