@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { format, parseISO } from 'date-fns';
 
@@ -58,13 +57,12 @@ export function DateTime(props) {
 		setLocale(importedLocale.default);
 	}	
 
-
 	const date = isNaN(props.value) ? format(parseISO(props.value), 'PPp', { locale: locale }) :
 		props.value > 9999999999 ? format(props.value, 'PPp', { locale: locale }) :
 		format(props.value * 1000, 'PPp', { locale: locale });
 
 	return (
-		<span className="datetime" title={m.fromNow()}>
+		<span className="datetime">
 			<i className="cil-clock pr-1"></i>
 			{date}
 		</span>
