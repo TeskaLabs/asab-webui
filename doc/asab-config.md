@@ -473,7 +473,7 @@ Example:
 ```
 {
 	"ASABConfig" : {
-		"Nothing has been selected yet": "Nothing has been selected yet",
+		"Nothing has been selected": "Nothing has been selected",
 		"Please select the configuration from tree menu on the left side of the screen": "Please select the configuration from tree menu on the left side of the screen",
 		"Save": "Save",
 		"Read only": "Read only",
@@ -484,10 +484,31 @@ Example:
 		"Something went wrong": "Something went wrong!",
 		"We are sorry, but the file cannot be found": "We are sorry, but the file cannot be found :-(",
 		"Config file does not exist": "Config file does not exist",
-		"Something went wrong! Unable to get data": "Something went wrong! Unable to get {{type}} data",
-		"Unable to get types": "Unable to get types",
-		"Unable to get type data. Try to reload the page": "Unable to get type {{type}} data. Try to reload the page",
+		"Something went wrong! Unable to get schema": "Something went wrong! Unable to get schema {{type}}",
+		"Unable to get data for tree menu": "Unable to get data for tree menu",
+		"Unable to get schema. Try to reload the page": "Unable to get schema {{type}}. Try to reload the page",
 		"Unable to get config data. Try to reload the page": "Unable to get config {{config}} data. Try to reload the page"
+		"Configuration name can't be empty!": "Configuration name can't be empty!",
+		"Remove": "Remove",
+		"Something went wrong, failed to create configuration": "Something went wrong, failed to create configuration",
+		"Configuration created successfully": "Configuration created successfully",
+		"File name": "File name",
+		"Configuration file name": "Configuration file name",
+		"Fill out configuration file name": "Fill out configuration file name",
+		"Create": "Create",
+		"New": "New",
+		"Name": "Name",
+		"Schema title": "Schema title",
+		"Schema description": "Schema description",
+		"Something went wrong! Unable to get configurations": "Something went wrong! Unable to get configurations for {{config}}",
+		"Unable to get configurations. Try to reload the page": "Unable to get configurations for {{config}}. Try to reload the page",
+		"Create configuration": "Create configuration",
+		"Do you want to remove this configuration?": "Do you want to remove this configuration?",
+		"Something went wrong, failed remove configuration": "Something went wrong, failed remove configuration",
+		"New configuration": "New configuration",
+		"Section added": "Section added",
+		"Add new section": "Add new section",
+		"Add": "Add"
 	}
 }
 ```

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import TreeMenu from 'react-simple-tree-menu';
 import ReactJson from 'react-json-view';
 import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from "react-router-dom";
+import { connect } from 'react-redux';
 
 import {
 	Button,
 	Card, CardBody, CardHeader, CardFooter,
-	Collapse,
 	Form, FormGroup, FormText, Input, Label,
-	TabContent, TabPane, Nav, NavItem, NavLink
+	TabContent, TabPane, Nav, NavItem, NavLink,
+	Dropdown, DropdownToggle, DropdownMenu, DropdownItem
 } from "reactstrap";
 
 import {
@@ -20,17 +21,24 @@ import {
 	StringItems
 } from './ConfigFormatItems';
 
-import { Spinner } from 'asab-webui';
+import {types} from './actions/actions';
 
-export default function ConfigEditor(props) {
+import { Spinner, ButtonWithAuthz } from 'asab-webui';
+
+function ConfigEditor(props) {
 	const { register, handleSubmit, setValue, formState: { errors, isSubmitting }, reset } = useForm();
 	const { t, i18n } = useTranslation();
 	const ASABConfigAPI = props.app.axiosCreate('asab_config');
+	let history = useHistory();
 
 	const [ adHocValues, setAdHocValues ] = useState({});
 	const [ adHocSections, setAdHocSections ] = useState({});
 	const [ formStruct, setFormStruct ] = useState({});
 	const [ jsonValues, setJsonValues ] = useState({});
+
+	// States for schema sections
+	const [ selectPatternSections, setSelectPatternSections ] = useState([]);
+	const [ patternPropsSchema, setPatternPropsSchema ] = useState({});
 
 	// Retrieve the asab config url from config file
 	const homeScreenImg = props.app.Config.get('brand_image').full;
@@ -40,6 +48,13 @@ export default function ConfigEditor(props) {
 
 	const [ configNotExist, setConfigNotExist ] = useState(false);
 	const [ activeTab, setActiveTab ] = useState('basic');
+
+	const resourceRemoveConfig = "authz:superuser";
+	const resources = props.userinfo?.resources ? props.userinfo.resources : [];
+
+	// Pattern props dropdown
+	const [dropdownOpen, setDropdownOpen] = useState(false);
+	const toggleDropDown = () => setDropdownOpen(!dropdownOpen);
 
 	// The container will be re-rendered on configType or configName change
 	useEffect(() => {
@@ -58,19 +73,21 @@ export default function ConfigEditor(props) {
 		let values = undefined;
 		let schema = undefined;
 		setConfigNotExist(false);
+		// Set selected pattern sections to empty
+		setSelectPatternSections([]);
 
 		try {
 			let response = await ASABConfigAPI.get(`/type/${configType}`);
 			// TODO: validate responses which are not 200
 			schema = response.data;
 			if (schema.result == 'FAIL') {
-				props.app.addAlert("warning", t(`ASABConfig|Something went wrong! Unable to get data`, {type: configType}));
+				props.app.addAlert("warning", t(`ASABConfig|Something went wrong! Unable to get schema`, {type: configType}));
 				return;
 			}
 		}
 		catch(e) {
 			console.error(e);
-			props.app.addAlert("warning", t(`ASABConfig|Unable to get type data. Try to reload the page`, {type: configType}));
+			props.app.addAlert("warning", t(`ASABConfig|Unable to get schema. Try to reload the page`, {type: configType}));
 			return;
 		}
 
@@ -100,7 +117,6 @@ export default function ConfigEditor(props) {
 		let sectionKeyData = {};
 		let ahValues = {};
 		let ahSections = values;
-
 		// TODO: handle nested patternProperties (in items)
 		// Check for properties of schema
 		if (schema.properties) {
@@ -141,41 +157,53 @@ export default function ConfigEditor(props) {
 		// TODO: handle nested patternProperties (in items)
 		// Check for pattern properties of schema
 		if (schema.patternProperties) {
-			await Promise.all(values && Object.keys(values).map(async (section, idx) => {
-				await Promise.all(Object.keys(schema.patternProperties).map(async (sectionName, id) => {
-					// Check for matching section name
-					if (section.match(sectionName) != null) {
-						// If matched, then add schema to schema props
-						schemaProps[`${section}`] = schema.patternProperties[sectionName];
-						let arrAHValues = [];
-						await Promise.all(Object.keys(values[section]).map(async (key, i) => {
-							// Add data for section
-							sectionKeyData[`${section} ${key}`] = values[section][key];
+			// Handle only pattern properties with data
+			if (values && Object.keys(values).length > 0) {
+				await Promise.all(values && Object.keys(values).map(async (section, idx) => {
+					await Promise.all(Object.keys(schema.patternProperties).map(async (sectionName, id) => {
+						// Check for matching section name
+						if (section.match(sectionName) != null) {
+							// If matched, then add schema to schema props
+							schemaProps[`${section}`] = schema.patternProperties[sectionName];
+							let arrAHValues = [];
+							await Promise.all(Object.keys(values[section]).map(async (key, i) => {
+								// Add data for section
+								sectionKeyData[`${section} ${key}`] = values[section][key];
 
-							// Check for adHoc values in properties of section
-							if (schemaProps[`${section}`].properties) {
-								// Add empty string to keys, which are not present in configuration, but key is present in schema
-								await Promise.all(Object.keys(schemaProps[`${section}`].properties).map((schemaKey, i) => {
-									if (Object.keys(values[section]).indexOf(schemaKey) == -1) {
-										sectionKeyData[`${section} ${schemaKey}`] = "";
+								// Check for adHoc values in properties of section
+								if (schemaProps[`${section}`].properties) {
+									// Add empty string to keys, which are not present in configuration, but key is present in schema
+									await Promise.all(Object.keys(schemaProps[`${section}`].properties).map((schemaKey, i) => {
+										if (Object.keys(values[section]).indexOf(schemaKey) == -1) {
+											sectionKeyData[`${section} ${schemaKey}`] = "";
+										}
+									}));
+									// Check if key exist in schema and if not, add it to adHoc values
+									if (schemaProps[`${section}`].properties[`${key}`] == undefined) {
+										let v = {};
+										v[key] = values[section][key];
+										arrAHValues.push(v);
+										ahValues[`${section}`] = arrAHValues;
 									}
-								}));
-								// Check if key exist in schema and if not, add it to adHoc values
-								if (schemaProps[`${section}`].properties[`${key}`] == undefined) {
-									let v = {};
-									v[key] = values[section][key];
-									arrAHValues.push(v);
-									ahValues[`${section}`] = arrAHValues;
 								}
-							}
-						}));
-						// Mutate adHoc section based on the matching sections
-						// If section name match with schema, then remove it from adHoc sections (it is also removed for submit)
-						ahSections = Object.assign({}, ahSections);
-						delete ahSections[section];
-					}
+							}));
+							// Mutate adHoc section based on the matching sections
+							// If section name match with schema, then remove it from adHoc sections (it is also removed for submit)
+							ahSections = Object.assign({}, ahSections);
+							delete ahSections[section];
+						}
+					}));
 				}));
-			}));
+			}
+
+			// Trim pattern props section names and push it to array to use it in the selector for adding a new empty config section
+			let patternSections = [];
+			await Promise.all(Object.keys(schema.patternProperties).map((sectionName, idx) => {
+				let sectionTrimmed = sectionName.substring(1).replace(":.*$", "");
+				patternSections.push(sectionTrimmed);
+			}))
+			setSelectPatternSections(patternSections);
+			setPatternPropsSchema(schema.patternProperties);
 		}
 
 		// Set values for JSON view
@@ -198,6 +226,22 @@ export default function ConfigEditor(props) {
 	const setValues = () => {
 		// Reset old values before setting new values to prevent unintended data submitting
 		reset({});
+
+		/*
+			Set empty values for empty configuration (it will remove old values
+			from forms when config is completelly empty and which reset is not able
+			to remove)
+		*/
+		if (formStruct.properties && formStruct.data && Object.keys(formStruct.data).length == 0) {
+			Object.keys(formStruct.properties).map((key, idx) => {
+				if (formStruct.properties[key].properties) {
+					Object.keys(formStruct.properties[key].properties).map((k, i) => {
+						setValue(`${key} ${k}`, "");
+					})
+				}
+			})
+		}
+
 		// Set values from form struct for registration and submitting
 		if (formStruct.data) {
 			Object.entries(formStruct.data).map((entry, idx) => {
@@ -217,68 +261,54 @@ export default function ConfigEditor(props) {
 
 	// Parse data to JSON format, stringify it and save to config file
 	const onSubmit = async (data) => {
-		let splitKey = "";
-		let sectionTitle = "";
-		let sectionKey = "";
-		let sectionValue = "";
-		let section = {};
-		let parsedSections = {};
-		let prevSection = "";
-
-		// Sort data by the key name before parsing them
-		const sortedData = Object.keys(data).sort().reduce((obj, key) => { obj[key] = data[key]; return obj; }, {});
-
 		// Get 'type' of the values (if defined) from the schema
 		let formStructProperties = formStruct.properties;
 		let sectionTypes = {};
 		// Iterate through sections
-		await Promise.all(Object.keys(formStructProperties).length > 0 && Object.keys(formStructProperties).map(async (section, idx) => {
-			let valueTypes = {};
-			// Iterate through section keys
-			await Promise.all(Object.keys(formStructProperties[section]).length > 0 && Object.keys(formStructProperties[section]).map(async (key, id) => {
-				if (key === "properties") {
-					// Iterate through key properties
-					await Promise.all(Object.entries(formStructProperties[section]["properties"]).map((entry, i) => {
-						// If type of the value is undefined, then default is string
-						valueTypes[entry[0]] = entry[1].type ? entry[1].type : "string";
-					}));
-				}
+		if (Object.keys(formStructProperties).length > 0) {
+			await Promise.all(Object.keys(formStructProperties).map(async (sect, idx) => {
+				let valueTypes = {};
+				// Iterate through section keys
+				await Promise.all(Object.keys(formStructProperties[sect]).length > 0 && Object.keys(formStructProperties[sect]).map(async (key, id) => {
+					if (key === "properties") {
+						// Iterate through key properties
+						await Promise.all(Object.entries(formStructProperties[sect]["properties"]).map((entry, i) => {
+							// If type of the value is undefined, then default is string
+							valueTypes[entry[0]] = entry[1].type ? entry[1].type : "string";
+						}));
+					}
+				}));
+				sectionTypes[sect] = valueTypes;
 			}));
-			sectionTypes[section] = valueTypes;
-		}));
+		}
 
+		let parsedSections = {};
 		// TODO: Disable saving output from ReactJSONview component
 		if (activeTab == 'advanced') {
 			// If data are being submitted from JSON view, dont parse data to object
 			parsedSections = jsonValues;
 		} else {
+			let splitKey = "";
+			let sectionTitle = "";
+			let sectionKey = "";
+			let sectionValue = "";
 			// Parse data to object
-			await Promise.all(Object.keys(sortedData).map((key, idx) => {
+			await Promise.all(Object.keys(data).map((key, idx) => {
 				splitKey = key.split(" ");
 				sectionTitle = splitKey[0];
 				sectionKey = splitKey[1];
-				sectionValue = sortedData[key];
-				if (prevSection == sectionTitle) {
-					if (sectionTypes[sectionTitle] == undefined) {
-						// Values of adHoc sections
-						section[sectionKey] = sectionValue;
-					} else {
-						let valueType = sectionTypes[sectionTitle][sectionKey];
-						section[sectionKey] = convertValueType(sectionValue, valueType);
-					}
+				sectionValue = data[key];
+				// Parsing
+				let obj = {};
+				if (sectionTypes[sectionTitle] == undefined) {
+					// Values of adHoc sections
+					obj[sectionKey] = sectionValue;
+					parsedSections[sectionTitle] = {...parsedSections[sectionTitle], ...obj};
 				} else {
-					section = {};
-					if (sectionTypes[sectionTitle] == undefined) {
-						// Values of adHoc sections
-						section[sectionKey] = sectionValue;
-					} else {
-						let valueType = sectionTypes[sectionTitle][sectionKey];
-						section[sectionKey] = convertValueType(sectionValue, valueType);
-					}
+					let valueType = sectionTypes[sectionTitle][sectionKey];
+					obj[sectionKey] = convertValueType(sectionValue, valueType);
+					parsedSections[sectionTitle] = {...parsedSections[sectionTitle], ...obj};
 				}
-
-				prevSection = sectionTitle;
-				parsedSections[sectionTitle] = section;
 			}));
 		}
 
@@ -354,6 +384,65 @@ export default function ConfigEditor(props) {
 		return value;
 	}
 
+	// Confirm message form for configuration removal
+	const removeConfigForm = () => {
+		var r = confirm(t("ASABConfig|Do you want to remove this configuration?"));
+		if (r == true) {
+			removeConfig();
+		}
+	}
+
+	// Remove configuration
+	const removeConfig = async () => {
+		try {
+			let response = await ASABConfigAPI.delete(`/config/${configType}/${configName}`);
+			if (response.data.result != "OK"){
+				throw new Error(t('ASABConfig|Something went wrong, failed remove configuration'));
+			}
+			props.app.Store.dispatch({
+				type: types.CONFIG_REMOVED,
+				config_removed: true
+			});
+			history.push({
+				pathname: `/config/${configType}/!manage`
+			});
+		} catch(e) {
+			console.error(e);
+			props.app.addAlert("warning", t('ASABConfig|Something went wrong, failed to remove configuration'));
+		}
+	}
+
+	// Add new section out of pattern properties section list
+	const addNewSection = async (selectedSection) => {
+		let section = selectedSection;
+		let properties = formStruct.properties;
+		let cnt = 1;
+		let selectedProperties = {};
+		await Promise.all(Object.keys(properties).map((sectionName, idx) => {
+			if (sectionName.match(section) != null) {
+				cnt += 1;
+				selectedProperties = properties[sectionName];
+			}
+		}))
+
+		let formStructure = formStruct;
+		if (cnt == 1) {
+			// If section not present in the configuration, use schema obtained from the service
+			await Promise.all(Object.keys(patternPropsSchema).map(async (sectionName, id) => {
+				if (sectionName.match(section) != null) {
+					formStructure["properties"][`${section}:${cnt}`] = patternPropsSchema[sectionName];
+				}
+			}))
+		} else {
+			// If section already present in the configuration, use its schema props
+			formStructure["properties"][`${section}:${cnt}`] = selectedProperties;
+		}
+		props.app.addAlert("success", t('ASABConfig|Section added'));
+		// Update form struct and call setValues function to load data
+		setFormStruct(formStructure);
+		setValues();
+	}
+
 	// TODO: add Content loader when available as a component in ASAB WebUI
 	return (
 		configNotExist ?
@@ -368,7 +457,7 @@ export default function ConfigEditor(props) {
 				<Form onSubmit={handleSubmit(onSubmit)}>
 					<Card className="card-editor-layout">
 						<CardHeader>
-							<span className="cil-settings pr-3" />
+							<span className="cil-settings pr-2" />
 							{configName ? configType.toString() + ' / ' + configName.toString() : ""}
 							<div className="float-right">
 								<Nav tabs>
@@ -419,7 +508,7 @@ export default function ConfigEditor(props) {
 									</React.Fragment>
 								</TabPane>
 								<TabPane tabId="advanced">
-									<div style={{overflow: "auto"}}>
+									<div>
 										<ReactJson
 											src={jsonValues}
 											onEdit={ e => { setJsonValues(e.updated_src)} }
@@ -436,14 +525,67 @@ export default function ConfigEditor(props) {
 								type="submit"
 								disabled={isSubmitting}
 							>
+								<i className="cil-save pr-1"></i>
 								{t('ASABConfig|Save')}
 							</Button>
+							<span className="pr-2 pl-2">
+								<ButtonWithAuthz
+									title={t('ASABConfig|Remove')}
+									color="danger"
+									type="button"
+									disabled={isSubmitting}
+									onClick={removeConfigForm}
+									resource={resourceRemoveConfig}
+									resources={resources}
+								>
+									<i className="cil-trash pr-1"></i>
+									{t('ASABConfig|Remove')}
+								</ButtonWithAuthz>
+							</span>
+							<span className="float-right">
+								<Dropdown
+									direction="up"
+									isOpen={dropdownOpen}
+									toggle={toggleDropDown}
+									title={t('ASABConfig|Add new section')}
+								>
+									<DropdownToggle
+										caret
+										disabled={selectPatternSections.length == 0}
+									>
+										<span className="pr-1">+</span>
+										{t('ASABConfig|Add')}
+									</DropdownToggle>
+									<DropdownMenu
+										className="pattern-section-dropdown"
+									>
+										{selectPatternSections.map((patternSection, idx) => {
+											return(
+												<DropdownItem
+													key={idx}
+													name={patternSection}
+													onClick={(e) => {addNewSection(patternSection), e.preventDefault()}}
+												>
+													{patternSection}
+												</DropdownItem>
+												)
+										})}
+									</DropdownMenu>
+								</Dropdown>
+							</span>
 						</CardFooter>
 					</Card>
 				</Form>
 			</React.Fragment>
 	);
 }
+
+function mapStateToProps(state) {
+	return {
+		userinfo: state.auth.userinfo
+	}
+}
+export default connect(mapStateToProps)(ConfigEditor);
 
 
 function ConfigSection(props) {

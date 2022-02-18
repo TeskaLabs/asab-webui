@@ -4,11 +4,15 @@ import ConfigContainer from "./ConfigContainers/ConfigContainer";
 import MicroservicesContainer from "./MicroservicesContainers/MicroservicesContainer";
 import MicroserviceDetailContainer from "./MicroservicesContainers/MicroserviceDetailContainer";
 
+import asabConfigReducer from './ConfigContainers/reducer';
+
 import "./ConfigContainers/configuration.css";
 
 export default class ConfigModule extends Module {
 	constructor(app, name) {
 		super(app, "ASABConfigModule");
+		app.ReduxService.addReducer("asab_config", asabConfigReducer);
+
 
 		app.Router.addRoute({
 			path: "/config/svcs",
