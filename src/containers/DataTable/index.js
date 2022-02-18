@@ -29,6 +29,7 @@ export function DataTable ({
 	buttonWithAuthz, sort, noItemsComponent,
 	customButton, customComponent,
 	customRowStyle, customRowClassName,
+	customDescription,
 	limitValues = [10, 15, 25, 50]
 	}) {
 	const [filterValue, setFilterValue] = useState('');
@@ -160,7 +161,8 @@ export function DataTable ({
 					</CardHeader>
 
 					<CardBody className="data-table-card-body">
-						{ isLoading ? 
+						{customDescription}
+						{isLoading ? 
 							<div style={{ margin: "2rem auto" }}><Spinner /></div> :
 							<Table
 								data={data.length > limit ? data.slice(0, limit) : data}
