@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Container } from 'reactstrap';
 
-import { DataTable, DateTime } from 'asab-webui';
+import { DataTable } from 'asab-webui';
 
 import "./microservices.scss";
 
