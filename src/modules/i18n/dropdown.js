@@ -18,7 +18,6 @@ function LanguageDropdown(props) {
 
 	const changeLanguage = (language) => {
 		i18n.changeLanguage(language).then(() => {
-			// window.location.reload(false);
 			// if the hard refresh is needed: window.location.reload(false);
 		});
 	}
