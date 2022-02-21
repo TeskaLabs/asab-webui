@@ -29,7 +29,7 @@ exports.getRules = function(config, isDev=false) {
 		{
 			test: /\.(css)$/,
 			use: [
-				isDev ? "style-loader" : MiniCssExtractPlugin.loader,
+				MiniCssExtractPlugin.loader,
 				{
 					loader: 'css-loader',
 					options: { sourceMap: true }
@@ -43,7 +43,7 @@ exports.getRules = function(config, isDev=false) {
 		{
 			test: /\.(scss|sass)$/,
 			use: [
-				isDev ? "style-loader" : MiniCssExtractPlugin.loader,
+				MiniCssExtractPlugin.loader,
 				{
 					loader: 'css-loader',
 					options: { sourceMap: true }
