@@ -3,9 +3,9 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const common = require("./common");
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = {
@@ -17,18 +17,14 @@ module.exports = {
 		console.log(config);
 		const entry_path = path.resolve(config["dirs"]["src"], 'index.js');
 		const html_template_path = path.resolve(config["dirs"]["public"], 'index.html');
-		// TODO: This is temporary solution. It will be replaced by date-fns.
-		let defaultLocales = /en|cs/; // Default locales
-		if (config["app"]["locales"]) {
-			defaultLocales = new RegExp(Object.values(config["app"]["locales"]).join("|"));
-		}
+		let defaultLocales = /cs/; // Default moment locales (needed for backward compatibility)
 
 		return {
 			entry: entry_path,
 			mode: 'development',
 			watch: true,
 			output: {
-				filename: 'assets/js/bundle.js',
+				filename: 'assets/js/[name].bundle.js',
 				chunkFilename: 'assets/js/[name].chunk.js',
 				path: config["dirs"]["dist"],
 				publicPath: '/',
@@ -38,7 +34,7 @@ module.exports = {
 			},
 			resolve: config["webpack"]["resolve"],
 			module: {
-				rules: common.getRules(config, true)
+				rules: common.getRules(config)
 			},
 			plugins: [
 				new webpack.DefinePlugin(
@@ -59,7 +55,7 @@ module.exports = {
 					// "apiUrl" -> "__API_URL__"
 				),
 				// Extracts file styles.css
-				new ExtractTextPlugin('assets/css/styles.css'),
+				new MiniCssExtractPlugin({ filename: 'assets/css/styles.css' }),
 				// Minimizes styles.css
 				// new OptimizeCssAssetsPlugin()
 				// Remove moment locales from bundle except those which are defined as second parameter
@@ -67,8 +63,32 @@ module.exports = {
 				// Uncomment BundleAnalyzerPlugin in case you want to analyze bundle size (also uncomment import of this plugin above)
 				// And comment it before making Pull Request/ Merge Request
 				// new BundleAnalyzerPlugin()
-			]
+			],
+			optimization: {
+				splitChunks: {
+					chunks: 'all',
+					cacheGroups: {
+						vendor: {
+							name: 'vendors',
+							test: /[\\/]node_modules[\\/]((?!(date-fns)).*)[\\/]/,
+							chunks: 'all',
+							enforce: true
+						},
+						commons: {
+							test: /[\\/]node_modules[\\/]/,
+							name(module, chunks, cacheGroupKey) {
+							  const moduleFileName = module
+								.identifier()
+								.split('/')
+								.reduceRight((item) => item);
+							  const allChunksNames = chunks.map((item) => item.name).join('~');
+							  return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
+							},
+							chunks: 'all',
+						},
+					}
+				},
+			}
 		};
 	}
 }
-

@@ -1,5 +1,5 @@
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const { execSync } = require("child_process");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 ///
 var exports = module.exports = {}
@@ -17,14 +17,15 @@ exports.JSONStringifyValues = function(obj) {
 	return ret;
 }
 
-exports.getRules = function(config, isDev=false) {
+exports.getRules = function(config) {
 	return [
 		{
 			test: /\.(js)$/,
 			use: [{
 				loader: 'babel-loader',
-				options: { presets: [['@babel/env'],['@babel/react']], plugins: ["transform-object-rest-spread"] }
-			}]
+				options: { presets: [['@babel/preset-env'],['@babel/react']], plugins: ["transform-object-rest-spread"] }
+			}],
+			exclude: '/node_modules/' // we can exclude node_modules b/c they're already complied
 		},
 		{
 			test: /\.(css)$/,
@@ -63,7 +64,7 @@ exports.getRules = function(config, isDev=false) {
 			use: [{
 					loader: 'file-loader',
 					options: {
-						name: '[name].[hash].[ext]',
+						name: '[name].[contenthash].[ext]',
 						publicPath: '../',
 						outputPath: 'assets/',
 					}

@@ -27,7 +27,6 @@ The date&time will be converted to a local timezone of the browser.
 You may specify the format of the date&time, for details see https://momentjs.com.
 The default format is `lll` -> `Aug 22, 2020 1:13 PM`
 
-
 */
 
 export function DateTime(props) {
