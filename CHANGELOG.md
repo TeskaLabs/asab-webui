@@ -92,7 +92,7 @@
 
 - Update ASAB-Config module with option to add/remove configuration. Add option to set a new section for pattern properties (INDIGO Sprint 220204, [!229](https://github.com/TeskaLabs/asab-webui/pull/229))
 
-- Add `customDescription` to DataTable (INDIGO Sprint 220204, [!237](https://github.com/TeskaLabs/asab-webui/pull/237))
+- Add `customCardBodyComponent` to DataTable (INDIGO Sprint 220204, [!237](https://github.com/TeskaLabs/asab-webui/pull/237))
 
 ### Refactoring
 
