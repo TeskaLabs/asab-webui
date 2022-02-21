@@ -38,7 +38,7 @@ module.exports = {
 			},
 			resolve: config["webpack"]["resolve"],
 			module: {
-				rules: common.getRules(config)
+				rules: common.getRules(config, true)
 			},
 			plugins: [
 				new webpack.DefinePlugin(

@@ -17,7 +17,7 @@ exports.JSONStringifyValues = function(obj) {
 	return ret;
 }
 
-exports.getRules = function(config) {
+exports.getRules = function(config, isDev=false) {
 	return [
 		{
 			test: /\.(js)$/,
@@ -28,7 +28,17 @@ exports.getRules = function(config) {
 		},
 		{
 			test: /\.(css)$/,
-			use: ExtractTextPlugin.extract({fallback: 'style-loader', use:'css-loader'})
+			use: [
+				isDev ? "style-loader" : MiniCssExtractPlugin.loader,
+				{
+					loader: 'css-loader',
+					options: { sourceMap: true }
+				},
+				{
+					loader: 'postcss-loader',
+					options: { sourceMap: true }
+				},
+			]
 		},
 		{
 			test: /\.(scss|sass)$/,
