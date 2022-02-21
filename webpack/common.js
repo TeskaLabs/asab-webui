@@ -42,7 +42,21 @@ exports.getRules = function(config, isDev=false) {
 		},
 		{
 			test: /\.(scss|sass)$/,
-			use: ExtractTextPlugin.extract({fallback: 'style-loader', use:['css-loader', 'sass-loader']}),
+			use: [
+				isDev ? "style-loader" : MiniCssExtractPlugin.loader,
+				{
+					loader: 'css-loader',
+					options: { sourceMap: true }
+				},
+				{
+					loader: 'postcss-loader',
+					options: { sourceMap: true }
+				},
+				{
+					loader: 'sass-loader',
+					options: { sourceMap: true }
+				}
+			],
 		},
 		{
 			test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)(\?.*)?$/,
