@@ -3,7 +3,7 @@ import ContentLoader from "react-content-loader";
 
 export function ChartLoader({
 	title = '', backgroundColor = "#f3f3f3", 
-	foregroundColor = "#ecebeb", speed = 1.2, width = "100%", 
+	foregroundColor = "#fff", speed = 1.2, width = "100%", 
 	height = 150 }, props
 	) {
 
@@ -39,10 +39,10 @@ export function ChartLoader({
 }
 
 export function CellContentLoader({
-	rows = 5, cols = 3, title = '', 
+	rows = 1, cols = 3, title = '', 
 	backgroundColor = "#E4E5E6", foregroundColor = "#ffffff", speed = 1.2, 
 	header = false, size = 'lg' }, props) {
-	
+
 	let rectangles = [],
 		width = size === 'lg' ? 900 : 400,
 		headRect = [
@@ -57,12 +57,12 @@ export function CellContentLoader({
  	if (header) {
 		y = 50
 	}
-	let viewBox = `0, 0, ${width}, ${y + (rows * 60)}`;
+	let viewBox = `0, 0, ${width}, ${y + (rows * 40)}`;
 
 	for (let i = 0; i < rows ; i++){
 		if(cols === 1) {
 			rectangles.push(
-				[width*0.05 , y + 20 + (i * 55), width*0.9 , 15]
+				[width*0.05 , y + 20 + (i * 40), width*0.9 , 15]
 			)
 			headRect.push(
 				[0, 12, width * 0.15, 33],
@@ -71,9 +71,9 @@ export function CellContentLoader({
 		}
 		if(cols === 2) {
 			rectangles.push(
-				[width*0.05 , y + 20 + (i * 55), width*0.425 , 15],
-				[width*0.525 , y + 20 + (i * 55), width*0.425 , 15],
-				[width*0.01, y + (i * 55), width*0.98, 2]
+				[width*0.05 , y + 20 + (i * 40), width*0.425 , 15],
+				[width*0.525 , y + 20 + (i * 40), width*0.425 , 15],
+				[width*0.01, y + (i * 40), width*0.98, 2]
 			)
 			headRect.push(
 				[0, 12, width * 0.1, 33],
@@ -83,10 +83,10 @@ export function CellContentLoader({
 		}
 		if(cols === 3) {
 			rectangles.push(
-				[width*0.05 , y + 20 + (i * 55), width*0.85/3 , 15],
-				[width*(0.85/3 + 0.075) , y + 20 + (i * 55), width*0.85/3 , 15],
-				[width*(0.85/3*2 + 0.1) , y + 20 + (i * 55), width*0.85/3 , 15],
-				[width*0.01, y + (i * 55), width*0.98, 2]
+				[width*0.05 , y + 20 + (i * 40), width*0.85/3 , 15],
+				[width*(0.85/3 + 0.075) , y + 20 + (i * 40), width*0.85/3 , 15],
+				[width*(0.85/3*2 + 0.1) , y + 20 + (i * 40), width*0.85/3 , 15],
+				[width*0.01, y + (i * 40), width*0.98, 2]
 			)
 			headRect.push(
 				[0, 12, width * 0.1, 33],
@@ -97,11 +97,11 @@ export function CellContentLoader({
 		}
 		if(cols === 4) {
 			rectangles.push(
-				[width*0.05 , y + 20 + (i * 55), width*0.85/4, 15], 
-				[width*(0.825/4 + 0.075), y + 20 + (i * 55), width*0.825/4, 15], 
-				[width*(0.825/4*2 + 0.1), y + 20 + (i * 55), width*0.825/4, 15], 
-				[width*(0.825/4*3 + 0.125), y + 20 + (i * 55), width*0.825/4, 15], 
-				[width*0.01, y + (i * 55), width*0.98, 2]
+				[width*0.05 , y + 20 + (i * 40), width*0.85/4, 15], 
+				[width*(0.825/4 + 0.075), y + 20 + (i * 40), width*0.825/4, 15], 
+				[width*(0.825/4*2 + 0.1), y + 20 + (i * 40), width*0.825/4, 15], 
+				[width*(0.825/4*3 + 0.125), y + 20 + (i * 40), width*0.825/4, 15], 
+				[width*0.01, y + (i * 40), width*0.98, 2]
 			);
 			headRect.push(
 				[0, 12, width * 0.1, 33],
@@ -113,12 +113,12 @@ export function CellContentLoader({
 		}
 		if(cols === 5) {
 			rectangles.push(
-				[width*0.05 , y + 20 + (i * 55), width*0.85/5, 15], 
-				[width*(0.8/5 + 0.075), y + 20 + (i * 55), width*0.8/5, 15], 
-				[width*(0.8/5*2 + 0.1), y + 20 + (i * 55), width*0.8/5, 15], 
-				[width*(0.8/5*3 + 0.125), y + 20 + (i * 55), width*0.8/5, 15],
-				[width*(0.8/5*4 + 0.155), y + 20 + (i * 55), width*0.8/5, 15],
-				[width*0.01, y + (i * 55), width*0.98, 2]
+				[width*0.05 , y + 14 + (i * 40), width*0.8/5, 15], 
+				[width*(0.8/5 + 0.075), y + 14 + (i * 40), width*0.8/5, 15], 
+				[width*(0.8/5*2 + 0.1), y + 14 + (i * 40), width*0.8/5, 15], 
+				[width*(0.8/5*3 + 0.125), y + 14 + (i * 40), width*0.8/5, 15],
+				[width*(0.8/5*4 + 0.155), y + 14 + (i * 40), width*0.8/5, 15],
+				[width*0.01, y + (i * 40), width*0.98, 2]
 			);
 			headRect.push(
 				[0, 12, width * 0.075, 33],
