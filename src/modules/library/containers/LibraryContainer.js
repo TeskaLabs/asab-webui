@@ -237,6 +237,7 @@ function LibraryContainer(props) {
 											className="mr-2"
 											onClick={() => setReadOnly(false)}
 										>
+											<i className="cil-pencil mr-2" />
 											{t("ASABLibraryModule|Edit")}
 										</Button>
 									)}
@@ -264,10 +265,11 @@ function LibraryContainer(props) {
 										<a href={`${downloadURL}/library/download`} download>
 											<Button
 												size="sm"
-												color="primary"
+												color="secondary"
 												className="mr-2"
 
 											>
+												<i className="cil-cloud-download mr-2" />
 												{t("ASABLibraryModule|Download all")}
 											</Button>
 										</a>
