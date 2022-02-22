@@ -54,7 +54,16 @@ export function DateTime(props) {
 	if ((props.value === null) || (props.value === undefined)) {
 		return (
 			<span className="datetime">{' '}</span>
-		)
+		);
+	}
+
+	if (new Date(props.value).toString() === "Invalid Date") {
+		return (
+			<span className='datetime'>
+				<i className="cil-clock pr-1"></i>
+				Invalid Date
+			</span>
+		);
 	}
 	
 	const date = isNaN(props.value) ? format(parseISO(props.value), 'PPp', { locale: locale }) :
