@@ -58,6 +58,8 @@ English:
 ```json
 	"ASABLibraryModule": {
 		"Search": "Search",
+		"Failed to load data": "Failed to load data",
+		"Failed to load content of the file": "Failed to load content of the file",
 		"Enable file": "Enable file",
 		"Disable file": "Disable file",
 		"File was successfully enabled": "File was successfully enabled",
@@ -78,6 +80,8 @@ Czech:
 ```json
 	"ASABLibraryModule": {
 		"Search": "Hledat",
+		"Failed to load data": "Nepodařilo se načíst data",
+		"Failed to load content of the file": "Nepodařilo se načíst obsah souboru",
 		"Enable file": "Aktivovat soubor",
 		"Disable file": "Deaktivovat soubor",
 		"File was successfully enabled": "Soubor byl úspěšně aktivovan",

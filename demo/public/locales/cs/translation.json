@@ -43,6 +43,8 @@
 	},
 	"ASABLibraryModule": {
 		"Search": "Search",
+		"Failed to load data": "Nepodařilo se načíst data",
+		"Failed to load content of the file": "Nepodařilo se načíst obsah souboru",
 		"Enable file": "Enable file",
 		"Disable file": "Disable file",
 		"File was successfully enabled": "File was successfully enabled",

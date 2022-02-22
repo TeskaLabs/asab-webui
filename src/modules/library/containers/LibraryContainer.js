@@ -94,7 +94,7 @@ function LibraryContainer(props) {
 		} catch (e) {
 			// If response.status !== 2xx then catch block will be executed
 			console.error("Error when retrieving tree data\n", e); // log the error to the browser's console
-			App.addAlert("warning", t('Unable to load the data'));
+			App.addAlert("warning", t('ASABLibraryModule|Failed to load data'));
 		}
 
 	}
@@ -125,7 +125,8 @@ function LibraryContainer(props) {
 				}
 			} catch (e) {
 				console.error("Error when retrieving file content: ", e); // log the error to the browser's console
-				App.addAlert("warning", t('Unable to load the data'));
+				App.addAlert("warning", t('ASABLibraryModule|Failed to load content of the file'));
+				setOgFileContent("");
 			}
 		}
 	};
