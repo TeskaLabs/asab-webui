@@ -43,6 +43,8 @@
 	},
 	"ASABLibraryModule": {
 		"Search": "Search",
+		"Failed to load data": "Nepodařilo se načíst data",
+		"Failed to load content of the file": "Nepodařilo se načíst obsah souboru",
 		"Enable file": "Enable file",
 		"Disable file": "Disable file",
 		"File was successfully enabled": "File was successfully enabled",
@@ -55,8 +57,7 @@
 		"Edit": "Edit",
 		"Save":"Save",
 		"Cancel": "Cancel",
-		"Download all": "Stáhnout vše",
-		"Failed to download library content": "Failed to download library content"
+		"Download all": "Stáhnout vše"
 	},
 
 	"You do not have access rights to perform this action": "Váš přístup je omezen, nemáte dostatečná oprávnění"

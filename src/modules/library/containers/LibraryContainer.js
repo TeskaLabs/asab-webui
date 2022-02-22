@@ -5,7 +5,8 @@ import { useHistory, useLocation } from "react-router-dom";
 import {
 	Container, ListGroup, Input,
 	Row, Col, Card,
-	CardHeader, CardBody, Button
+	CardHeader, CardBody, Button,
+	ButtonGroup
 } from "reactstrap";
 import TreeMenu from 'react-simple-tree-menu';
 import { useTranslation } from 'react-i18next';
@@ -25,6 +26,7 @@ function LibraryContainer(props) {
 
 	const App = props.app;
 	const LMioLibraryAPI = App.axiosCreate('lmio_library');
+	const downloadURL = App.getServiceURL('lmio_library');
 	const history = useHistory();
 	const location = useLocation()
 	const { t } = useTranslation();
@@ -91,8 +93,8 @@ function LibraryContainer(props) {
 			}
 		} catch (e) {
 			// If response.status !== 2xx then catch block will be executed
-			console.error("Error when retrieving data: ", e); // log the error to the browser's console
-			App.addAlert("warning", t('Unable to load the data', { error: e.toString() }));
+			console.error("Error when retrieving tree data\n", e); // log the error to the browser's console
+			App.addAlert("warning", t('ASABLibraryModule|Failed to load data'));
 		}
 
 	}
@@ -122,8 +124,9 @@ function LibraryContainer(props) {
 					setFileDisabled("disable-switch");
 				}
 			} catch (e) {
-				console.error("Error when retrieving data: ", e); // log the error to the browser's console
-				App.addAlert("warning", t('Unable to load the data', { error: e.toString() }));
+				console.error("Error when retrieving file content: ", e); // log the error to the browser's console
+				App.addAlert("warning", t('ASABLibraryModule|Failed to load content of the file'));
+				setOgFileContent("");
 			}
 		}
 	};
@@ -135,7 +138,7 @@ function LibraryContainer(props) {
 				setFileDisabled(prev => !prev);
 				retrieveTreeData();
 			} catch (e) {
-				console.error(e);
+				console.error("Error when swicthing file state\n", e);
 				props.app.addAlert("warning", t(`ASABLibraryModule|Failed to ${isFileDisabled ? "enable" : "disable"} file`));
 			}
 		}
@@ -161,7 +164,7 @@ function LibraryContainer(props) {
 			setOgFileContent(fileContent);
 			setReadOnly(true);
 		} catch (e) {
-			console.error(e);
+			console.error("Error when updating file content\n",e);
 			props.app.addAlert("warning", t(`ASABLibraryModule|Failed to update the file`));
 		}
 	}
@@ -227,36 +230,52 @@ function LibraryContainer(props) {
 										</>
 									)}
 								</div>
-								{activeNode.name && isReadOnly && (
-									<Button
-										size="sm"
-										color="secondary"
-										className="mr-2"
-										onClick={() => setReadOnly(false)}
-									>
-										{t("ASABLibraryModule|Edit")}
-									</Button>
-								)}
-								{activeNode.name && !isReadOnly && (
-									<div>
+								<ButtonGroup>
+									{activeNode.name && isReadOnly && (
 										<Button
 											size="sm"
-											color="success"
+											color="secondary"
 											className="mr-2"
-											onClick={updateFileContent}
-											disabled={originalFileContent === fileContent}
+											onClick={() => setReadOnly(false)}
 										>
-											{t("ASABLibraryModule|Save")}
+											<i className="cil-pencil mr-2" />
+											{t("ASABLibraryModule|Edit")}
 										</Button>
-										<Button
-											size="sm"
-											color="danger"
-											onClick={cancelChanges}
-										>
-											{t("ASABLibraryModule|Cancel")}
-										</Button>
-									</div>
-								)}
+									)}
+									{activeNode.name && !isReadOnly && (
+										<div>
+											<Button
+												size="sm"
+												color="success"
+												className="mr-2"
+												onClick={updateFileContent}
+												disabled={originalFileContent === fileContent}
+											>
+												{t("ASABLibraryModule|Save")}
+											</Button>
+											<Button
+												size="sm"
+												color="danger"
+												onClick={cancelChanges}
+											>
+												{t("ASABLibraryModule|Cancel")}
+											</Button>
+										</div>
+									)}
+									{isReadOnly && (
+										<a href={`${downloadURL}/library/download`} download>
+											<Button
+												size="sm"
+												color="secondary"
+												className="mr-2"
+
+											>
+												<i className="cil-cloud-download mr-2" />
+												{t("ASABLibraryModule|Download all")}
+											</Button>
+										</a>
+									)}
+								</ButtonGroup>
 							</div>
 						</CardHeader>
 						<CardBody className="card-body-editor">
