@@ -70,7 +70,7 @@ English:
 		"Edit": "Edit",
 		"Save":"Save",
 		"Cancel": "Cancel",
-		"Download all": "Stáhnout vše"
+		"Download all": "Download all"
 	},
 ```
 
