@@ -54,13 +54,17 @@ export function TreeViewComponent(props) {
 	const getTypes = async () => {
 		try {
 			let response = await ASABConfigAPI.get("/type");
+			if (response.data.result != 'OK') {
+				throw new Error("Unable to get data for tree menu");
+			}
 			// Sort data
-			let sortedData = response.data;
+			let sortedData = response.data.data;
 			sortedData = sortedData.sort();
 			setTypeList(sortedData);
 			// TODO: validate responses which are not 200
 		}
-		catch {
+		catch(e) {
+			console.error(e);
 			App.addAlert("warning", t(`ASABConfig|Unable to get data for tree menu`));
 			return;
 		}
@@ -77,15 +81,18 @@ export function TreeViewComponent(props) {
 		let tree = {};
 		try {
 			let response = await ASABConfigAPI.get("/config/" + typeId);
-			if (response.data.result !== 'FAIL'){
+			if (response.data.result == 'OK'){
 				// Sort data
-				let sortedData = response.data;
-				sortedData = sortedData.sort();
-				tree[typeId] = sortedData;
+				let sortedData = response.data.data;
+				if (sortedData != undefined) {
+					sortedData = sortedData.sort();
+					tree[typeId] = sortedData;
+				}
 			}
 			return tree;
 		}
-		catch {
+		catch(e) {
+			console.error(e);
 			App.addAlert("warning", t(`ASABConfig|Unable to get schema. Try to reload the page`, {type: typeId}));
 			return;
 		}

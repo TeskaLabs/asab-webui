@@ -79,11 +79,10 @@ function ConfigEditor(props) {
 		try {
 			let response = await ASABConfigAPI.get(`/type/${configType}`);
 			// TODO: validate responses which are not 200
-			schema = response.data;
-			if (schema.result == 'FAIL') {
-				props.app.addAlert("warning", t(`ASABConfig|Something went wrong! Unable to get schema`, {type: configType}));
-				return;
+			if (response.data.result != 'OK') {
+				throw new Error("Something went wrong! Unable to get schema")
 			}
+			schema = response.data.data;
 		}
 		catch(e) {
 			console.error(e);
@@ -93,12 +92,12 @@ function ConfigEditor(props) {
 
 		try {
 			let response = await ASABConfigAPI.get(`/config/${configType}/${configName}?format=json`);
-			values = response.data;
-			if (values.result == "FAIL") {
+			if (response.data.result != "OK") {
 				props.app.addAlert("warning", t(`ASABConfig|Config file does not exist`));
 				setConfigNotExist(true);
 				return;
 			}
+			values = response.data.data;
 			// TODO: validate responses which are not 200
 		}
 		catch(e) {
