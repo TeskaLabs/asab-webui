@@ -36,18 +36,22 @@ export default (props) => {
 	];
 
 	useEffect(() => {
-		ASABConfigAPI.get('/microservices', { params: { p: page, l: limit }})
-			.then(res => {
-				if (!res.data) throw new Error("response.data is undefined or null");
-				if (!res.data.data) throw new Error("response.data.data is undefined or null");
-				setList(res.data.data);
-				setCount(res.data.count);
-			})
-			.catch(e => {
-				console.error(e);
-				props.app.addAlert("warning", t('Failed fetch'));
-			})
+		getMicroservicesList();
 	}, [page, limit]);
+
+	const getMicroservicesList = async () => {
+		try {
+			const response = await ASABConfigAPI.get('/microservices', { params: { p: page, l: limit }});
+
+			if (response.data.result !== "OK") throw new Error(res);
+
+			setList(response.data.data);
+			setCount(response.data.count);
+		} catch (e) {
+			console.error(e);
+			props.app.addAlert("warning", t('Failed fetch'));
+		}
+	}
 
 	const customRowStyle = {
 		style: {
