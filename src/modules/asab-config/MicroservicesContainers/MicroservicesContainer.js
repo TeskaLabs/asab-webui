@@ -43,7 +43,7 @@ export default (props) => {
 		try {
 			const response = await ASABConfigAPI.get('/microservices', { params: { p: page, l: limit }});
 
-			if (response.data.result !== "OK") throw new Error(res);
+			if (response.data.result !== "OK") throw new Error(response);
 
 			setList(response.data.data);
 			setCount(response.data.count);
