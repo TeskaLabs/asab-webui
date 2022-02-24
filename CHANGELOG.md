@@ -261,3 +261,5 @@
 - Fix issue on failed response for ASAB-Config's module TreeMenu. It broke the application when there was some issue (wrong file type) e.g. in schema or config file (INDIGO Sprint 211126, [!216](https://github.com/TeskaLabs/asab-webui/pull/226))
 
 - Fix broken language reducer, move i18n related components to particular i18n module (INDIGO Sprint 220204, [!235](https://github.com/TeskaLabs/asab-webui/pull/235))
+
+- Return no wrap css rule to DataTable cells (INDIGO Sprint 220218, [!242](https://github.com/TeskaLabs/asab-webui/pull/242))
