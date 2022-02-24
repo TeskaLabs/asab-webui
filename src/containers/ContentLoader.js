@@ -3,7 +3,7 @@ import ContentLoader from "react-content-loader";
 
 export function ChartLoader({
 	title = '', backgroundColor = "#f3f3f3", 
-	foregroundColor = "#fff", speed = 1.2, width = "100%", 
+	foregroundColor = "#fff", speed = 2, width = "100%", 
 	height = 150 }, props
 	) {
 
@@ -39,9 +39,9 @@ export function ChartLoader({
 }
 
 export function CellContentLoader({
-	rows = 1, cols = 3, title = '', 
-	backgroundColor = "#E4E5E6", foregroundColor = "#ffffff", speed = 1.2, 
-	header = false, size = 'lg' }, props) {
+	rows = 1, cols = 3, title = "", 
+	backgroundColor = "#E4E5E6", foregroundColor = "#ffffff", speed = 2, 
+	header = false, size = "lg" }, props) {
 
 	let rectangles = [],
 		width = size === 'lg' ? 900 : 400,
