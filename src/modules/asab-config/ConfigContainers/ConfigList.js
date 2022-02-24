@@ -43,16 +43,8 @@ function ConfigList(props) {
 	const headers = [
 		{
 			name: t('ASABConfig|Name'),
-			customComponent: {
-				generate: (obj) => (
-					<Link
-						to={{
-							pathname: `/config/${configType}/${obj.name}`,
-						}}>
-						{obj.name}
-					</Link>
-				)
-			}
+			key: "name",
+			link: { pathname: `/config/${configType}/`, key: "name" }
 		},
 		{
 			name: t('ASABConfig|Description'),
