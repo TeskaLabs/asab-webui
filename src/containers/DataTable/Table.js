@@ -14,6 +14,11 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 
 	let cell, icon;
 
+	const textLinkStyle = {
+		whiteSpace: "nowrap",
+		marginBottom: 0
+	}
+
 	if (header?.icon) {
 		icon =  typeof header.icon === 'string'
 			? (<i className={`${header.icon} pr-1`}></i>)
@@ -52,7 +57,8 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 		cell = obj[header.key] ? (
 			<Link
 				to={{ pathname }}
-				className="data-table-link mb-0"
+				className="data-table-link"
+				style={textLinkStyle}
 			>
 				{icon} {obj[header.key]}
 			</Link>
@@ -82,7 +88,7 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 	}
 
 	else cell = obj[header.key] ? (
-		<p className='mb-0'>{obj[header.key]}</p>
+		<p style={textLinkStyle}>{obj[header.key]}</p>
 	) : "-";
 
 	if (icon && !(header.link || header.datetime || header.actionButton)) {
@@ -116,7 +122,7 @@ const Headers = ({ headers, advmode }) => (
 		<thead className="thead-light data-table-thead">
 			<tr className="data-table-tr">
 				{advmode && <th className="pl-3 data-table-adv-header-th">{" "}</th>}
-				{headers.map((header, idx) => <th key={idx} className={`data-table-header-th${idx !== 0 ? " pl-3" : null}`}>{header.name}</th>)}
+				{headers.map((header, idx) => <th key={idx} className={`data-table-header-th${idx !== 0 ? " pl-3" : ""}`}>{header.name}</th>)}
 			</tr>
 		</thead>
 	</>
