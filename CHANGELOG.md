@@ -98,6 +98,8 @@
 
 - Replace `moment` with `date-fns` library and implement lazy-loading for dates' locales (bugfixed) + split bundled js file into few (INDIGO Sprint 220204, [!239](https://github.com/TeskaLabs/asab-webui/pull/239))
 
+- Created datatable content loader (INDIGO Sprint 220121, [!230](https://github.com/TeskaLabs/asab-webui/pull/230))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))

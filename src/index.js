@@ -13,6 +13,7 @@ export { default as SplashScreen } from './containers/SplashScreen';
 export { default as Pagination } from './containers/Pagination';
 export { default as ControlledSwitch } from './containers/ControlledSwitch';
 export { default as UncontrolledSwitch } from './containers/UncontrolledSwitch';
-export { Credentials } from './containers/Credentials'
+export { Credentials } from './containers/Credentials';
+export { CellContentLoader, ChartLoader } from './containers/ContentLoader';
 
 import "./style.scss";
