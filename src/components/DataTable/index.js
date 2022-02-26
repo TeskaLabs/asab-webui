@@ -63,7 +63,7 @@ export function DataTable ({
 				return JSON.stringify(item[header.key])?.replace(',', ';');
 			}).join(',')).join('\n');
 		let blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
-		let name = title.text || "";
+		let name = title?.text || "";
 		saveAs(blob, `${name.replace(' ', '_')}_${format(new Date, 'dd-MM-yyy')}.csv`);
 	}
 
