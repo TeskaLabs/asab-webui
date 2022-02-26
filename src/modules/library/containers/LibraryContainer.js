@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { connect } from 'react-redux';
 import { useHistory, useLocation } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 import {
 	Container, ListGroup, Input,
@@ -9,8 +10,7 @@ import {
 	ButtonGroup
 } from "reactstrap";
 import TreeMenu from 'react-simple-tree-menu';
-import { useTranslation } from 'react-i18next';
-import AceEditor from "react-ace";
+import Editor from '@monaco-editor/react';
 import { ControlledSwitch } from 'asab-webui';
 
 import TreeMenuItem from "./TreeMenuItem";
@@ -21,6 +21,18 @@ import "ace-builds/src-noconflict/mode-yaml";
 import 'ace-builds/src-noconflict/theme-textmate'; //light with blue
 // TODO: use the below for the dark theme:
 // import 'ace-builds/src-noconflict/theme-idle_fingers'; //dark with yellow
+
+const languages = {
+	'.html': 'html',
+	'.xml': 'xml',
+	'.js': 'javascript',
+	'.py': 'python',
+	'.yaml': 'yaml',
+	'.yml': 'yaml',
+	'.json': 'json',
+	'.css': 'css',
+	'.scss': 'scss'
+}
 
 function LibraryContainer(props) {
 
@@ -37,6 +49,7 @@ function LibraryContainer(props) {
 	const [activeNode, setActiveNode] = useState({ });
 	const [isFileDisabled, setFileDisabled] = useState("disable-switch");
 	const [isReadOnly, setReadOnly] = useState(true);
+	const [language, setLanguage] = useState('');
 	const isComponentMounted = useRef(true);
 
 	useEffect(() => {
@@ -59,6 +72,7 @@ function LibraryContainer(props) {
 		// copy originalFileContent for edditing
 		// copy is required in order to discard changes
 		setFileContent(originalFileContent);
+		setFileLanguage(activeNode.name);
 	}, [originalFileContent])
 
 	useEffect(() => {
@@ -169,7 +183,14 @@ function LibraryContainer(props) {
 		}
 	}
 
-	const editFileContent = value => setFileContent(value);
+	const setFileLanguage = value => {
+		const extension = value?.match(/\.[0-9a-z]+$/i)[0];
+		setLanguage(languages[extension] || "");
+	}
+
+	const editFileContent = value => {
+		setFileContent(value);
+	}
 
 	const cancelChanges = () => {
 		const confirmation = confirm(t("ASABLibraryModule|Are you sure you want to cancel changes?"));
@@ -279,7 +300,7 @@ function LibraryContainer(props) {
 							</div>
 						</CardHeader>
 						<CardBody className="card-body-editor">
-							<AceEditor
+							{/* <AceEditor
 								className="editor"
 								mode="yaml"
 								theme="textmate"
@@ -291,6 +312,16 @@ function LibraryContainer(props) {
 								height="100%"
 								showPrintMargin={false}
 								onChange={editFileContent}
+							/> */}
+							<Editor
+								height="100%"
+								width="100%"
+								className="editor"
+								value={fileContent}
+								defaultValue=""
+								language={language}
+								onChange={editFileContent}
+								options={{ readOnly: isReadOnly }}
 							/>
 						</CardBody>
 					</Card>
