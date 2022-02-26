@@ -219,7 +219,6 @@
 
 - Update responses in ASAB-Config Configuration by changes in asab-config service (INDIGO Sprint 220218, [!240](https://github.com/TeskaLabs/asab-webui/pull/240))
 
-
 - Refactor Microservices API calls (INDIGO Sprint 220218, [!241](https://github.com/TeskaLabs/asab-webui/pull/241))
 
 - Replace AceEditor with Monaco Editor in Library  (INDIGO Sprint 220218, [!244](https://github.com/TeskaLabs/asab-webui/pull/244))
@@ -227,6 +226,8 @@
 - Replace Spinner with ContentLoader in DataTable's index.js (INDIGO Sprint 220218, [!249](https://github.com/TeskaLabs/asab-webui/pull/249))
 
 - Restructure src folder (INDIGO Sprint 220218, [!232](https://github.com/TeskaLabs/asab-webui/pull/232))
+
+- Completely remove moment - replace moment with date-fns in DataTable  (INDIGO Sprint 220218, [!243](https://github.com/TeskaLabs/asab-webui/pull/243))
 
 ### Bugfixes
 
