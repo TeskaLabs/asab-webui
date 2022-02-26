@@ -20,23 +20,29 @@ const MicroserviceDetailContainer = (props) => {
 	const ASABConfigAPI = props.app.axiosCreate('asab_config');
 
 	useEffect(() => {
-		ASABConfigAPI.get(`microservices/${svc_name}`)
-			.then(res => res.data)
-			.then(svc => {
-				if (svc == null) {
-					props.app.addAlert("warning", t("MicroserviceDetailContainer|This microservice doesn't exist"));
-					setError("This microservice doesn't exist");
-				}
-				else {
-					setSvc(svc);
-				}
-			})
-			.catch(e => {
-				props.app.addAlert("warning", t('Failed fetch'));
-				console.error(e);
-				setError("Something went wrong and this microservice wasn't found")
-			});
+		getMicroservice();
 	}, []);
+
+	const getMicroservice = async () => {
+		try {
+			const response = await ASABConfigAPI.get(`microservices/${svc_name}`);
+
+			if (response.data.result !== "OK") throw new Error(response);
+
+			setSvc(response.data);
+		} catch (e) {
+			if (e.response.status == 400) {
+				console.error(e.response.message);
+				props.app.addAlert("warning", t("MicroserviceDetailContainer|This microservice doesn't exist"));
+				setError("This microservice doesn't exist");
+			}
+			else {
+				console.error("Failed to get service\n", e);
+				props.app.addAlert("warning", t("MicroserviceDetailContainer|Failed to get the microservice"));
+				setError("Something went wrong and this microservice wasn't found")
+			}
+		}
+	}
 
 	return (
 		<Container>
