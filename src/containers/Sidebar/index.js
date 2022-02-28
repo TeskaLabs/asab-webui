@@ -6,7 +6,11 @@ import SidebarItem from './SidebarItem';
 
 import { CHANGE_SIDEBAR_SIZE } from '../../actions';
 
-// Constructor for displaying items in Sidebar (it is triggered earlier than useEffect when placed on top of the function)
+/*
+	Custom constructor for displaying items in Sidebar
+	(it is triggered earlier than useEffect when placed
+	on top of the function)
+*/
 const useConstructor = (callBack = () => {}) => {
 	const hasBeenCalled = useRef(false);
 	if (hasBeenCalled.current) return;
@@ -37,6 +41,7 @@ const Sidebar = (props) => {
 	});
 
 	let sidebarItems = props.navigation.getItems().items;
+	// Filter out sidebar items which has been marked as hidden in ASAB Config module
 	if (sidebarConfig) {
 		let updatedSidebar = sidebarItems;
 		Object.keys(sidebarConfig).map((obj, idx) => {
