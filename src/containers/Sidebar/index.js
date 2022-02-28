@@ -46,7 +46,7 @@ const Sidebar = (props) => {
 		let updatedSidebar = sidebarItems;
 		Object.keys(sidebarConfig).map((obj, idx) => {
 			if (sidebarItems && Object.values(sidebarItems).some(sidebarObj => sidebarObj.name == sidebarConfig[obj]?.name) && sidebarConfig[obj]?.hide == true) {
-				updatedSidebar = sidebarItems.filter(item => item.name !== sidebarConfig[obj]?.name);
+				updatedSidebar = updatedSidebar.filter(item => item.name !== sidebarConfig[obj]?.name);
 			}
 		})
 		sidebarItems = updatedSidebar;
