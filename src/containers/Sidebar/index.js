@@ -22,7 +22,7 @@ const Sidebar = (props) => {
 	const ASABConfigAPI = props.app.axiosCreate('asab_config');
 
 	const [ sidebarConfig, setSidebarConfig ] = useState(undefined);
-	const configName = props.app?.props?.configdefaults?.title ? props.app.props.configdefaults.title : "";
+	const configName = props?.title ? props.title : "";
 
 	useConstructor(async () => {
 		async function getSidebarConfiguration() {
@@ -34,7 +34,7 @@ const Sidebar = (props) => {
 				setSidebarConfig(response.data.data);
 			}
 			catch(e) {
-				console.warn("ASAB Config service is not set to obtain data for Sidebar configuration");
+				console.warn("ASAB Config service can't retrieve Sidebar configuration");
 			}
 		}
 		await getSidebarConfiguration();
@@ -131,7 +131,8 @@ function mapStateToProps(state) {
 		isSidebarMinimized: state.sidebar.isSidebarMinimized,
 		isSmallSidebarOpen: state.sidebar.isSmallSidebarOpen,
 		unauthorizedNavItem: state.auth?.unauthorizedNavItem,
-		unauthorizedNavChildren: state.auth?.unauthorizedNavChildren
+		unauthorizedNavChildren: state.auth?.unauthorizedNavChildren,
+		title: state.config.title
 	};
 }
 
