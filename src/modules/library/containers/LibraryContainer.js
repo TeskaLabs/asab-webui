@@ -17,10 +17,6 @@ import TreeMenuItem from "./TreeMenuItem";
 import { formatIntoTree } from "./formatIntoTree";
 
 import './styles.scss';
-import "ace-builds/src-noconflict/mode-yaml";
-import 'ace-builds/src-noconflict/theme-textmate'; //light with blue
-// TODO: use the below for the dark theme:
-// import 'ace-builds/src-noconflict/theme-idle_fingers'; //dark with yellow
 
 const languages = {
 	'.html': 'html',
