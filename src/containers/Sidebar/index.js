@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 
 import { Nav } from 'reactstrap';
@@ -6,10 +6,50 @@ import SidebarItem from './SidebarItem';
 
 import { CHANGE_SIDEBAR_SIZE } from '../../actions';
 
+// Constructor for displaying items in Sidebar (it is triggered earlier than useEffect when placed on top of the function)
+const useConstructor = (callBack = () => {}) => {
+	const hasBeenCalled = useRef(false);
+	if (hasBeenCalled.current) return;
+	callBack();
+	hasBeenCalled.current = true;
+}
+
 const Sidebar = (props) => {
-	const navConfig = props.navigation.getItems().items.filter(item => item.name !== "About"),
+	const ASABConfigAPI = props.app.axiosCreate('asab_config');
+
+	const [ sidebarConfig, setSidebarConfig ] = useState(undefined);
+	const configName = props.app?.props?.configdefaults?.title ? props.app.props.configdefaults.title : "";
+
+	useConstructor(async () => {
+		async function getSidebarConfiguration() {
+			try {
+				let response = await ASABConfigAPI.get(`/config/Sidebar/${configName}?format=json`);
+				if (response.data.result != "OK") {
+					throw new Error("Config file to get data for Sidebar can't be found in Zookeeper")
+				}
+				setSidebarConfig(response.data.data);
+			}
+			catch(e) {
+				console.warn("ASAB Config service is not set to obtain data for Sidebar configuration");
+			}
+		}
+		await getSidebarConfiguration();
+	});
+
+	let sidebarItems = props.navigation.getItems().items;
+	if (sidebarConfig) {
+		let updatedSidebar = sidebarItems;
+		Object.keys(sidebarConfig).map((obj, idx) => {
+			if (sidebarItems && Object.values(sidebarItems).some(sidebarObj => sidebarObj.name == sidebarConfig[obj]?.name) && sidebarConfig[obj]?.hide == true) {
+				updatedSidebar = sidebarItems.filter(item => item.name !== sidebarConfig[obj]?.name);
+			}
+		})
+		sidebarItems = updatedSidebar;
+	}
+
+	const navConfig = sidebarItems.filter(item => item.name !== "About"),
 		unauthorizedNavItems = props.unauthorizedNavItem,
-		unauthorizedNavChildren= props.unauthorizedNavChildren,
+		unauthorizedNavChildren = props.unauthorizedNavChildren,
 		aboutItem = props.navigation.getItems().items.filter(item => item.name === "About")[0];
 
 	// Sort items based on config
