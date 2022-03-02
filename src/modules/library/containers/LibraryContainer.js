@@ -296,19 +296,6 @@ function LibraryContainer(props) {
 							</div>
 						</CardHeader>
 						<CardBody className="card-body-editor">
-							{/* <AceEditor
-								className="editor"
-								mode="yaml"
-								theme="textmate"
-								value={fileContent}
-								editorProps={{ $blockScrolling: true }}
-								fontSize="1.2rem"
-								readOnly={isReadOnly}
-								width="800"
-								height="100%"
-								showPrintMargin={false}
-								onChange={editFileContent}
-							/> */}
 							<Editor
 								height="100%"
 								width="100%"
