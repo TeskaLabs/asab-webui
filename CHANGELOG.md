@@ -220,7 +220,7 @@
 
 - Replace Spinner with ContentLoader in DataTable's index.js (INDIGO Sprint 220218, [!249](https://github.com/TeskaLabs/asab-webui/pull/249))
 
-- Move all reducers to reducers folder (INDIGO Sprint 220204, [!232](https://github.com/TeskaLabs/asab-webui/pull/232))
+- Restructure src folder (INDIGO Sprint 220218, [!232](https://github.com/TeskaLabs/asab-webui/pull/232))
 
 ### Bugfixes
 
