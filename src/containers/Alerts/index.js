@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux'
 import { Alert } from "reactstrap";
 
-import { ACK_ALERT, DEL_ALERT } from '../actions';
+import { ACK_ALERT, DEL_ALERT } from '../../actions';
 import { useTranslation } from 'react-i18next'
 
 
