@@ -16,9 +16,6 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 
 	const textLinkStyle = {
 		whiteSpace: "nowrap",
-		maxWidth: "40ch",
-		textOverflow: "ellipsis",
-		overflow: "hidden",
 		marginBottom: 0
 	}
 
@@ -57,14 +54,15 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 
 	else if (header.link) {
 		const pathname = header.link.pathname + obj[header.link.key];
-		cell = obj[header.key]
-			? <Link
-				style={ textLinkStyle }
+		cell = obj[header.key] ? (
+			<Link
 				to={{ pathname }}
 				className="data-table-link"
+				style={textLinkStyle}
 			>
 				{icon} {obj[header.key]}
-			</Link> : "-";
+			</Link>
+		) : "-";
 	}
 
 	else if (header.datetime) cell = obj[header.key] ? (
@@ -89,25 +87,16 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 		cell = header.customComponent.generate(obj, header);
 	}
 
-	else cell = obj[header.key]
-		? <p style={ textLinkStyle }>{obj[header.key]}</p>
-		: "-";
+	else cell = obj[header.key] ? (
+		<p style={textLinkStyle}>{obj[header.key]}</p>
+	) : "-";
 
 	if (icon && !(header.link || header.datetime || header.actionButton)) {
 		cell = <>{icon} {cell}</>;
 	}
 
 	return idx === 0 ? (
-			<th
-				className="data-table-th"
-				scope="row"
-				style={{
-					whiteSpace: "nowrap",
-					maxWidth: "40rem",
-					textOverflow: "ellipsis",
-					overflow: "hidden"
-				}}
-			>
+			<th className="data-table-th" scope="row">
 				{cell}
 			</th>
 		) : (
@@ -133,7 +122,7 @@ const Headers = ({ headers, advmode }) => (
 		<thead className="thead-light data-table-thead">
 			<tr className="data-table-tr">
 				{advmode && <th className="pl-3 data-table-adv-header-th">{" "}</th>}
-				{headers.map((header, idx) => <th key={idx} className={`data-table-header-th${idx !== 0 ? " pl-3" : null}`}>{header.name}</th>)}
+				{headers.map((header, idx) => <th key={idx} className={`data-table-header-th${idx !== 0 ? " pl-3" : ""}`}>{header.name}</th>)}
 			</tr>
 		</thead>
 	</>

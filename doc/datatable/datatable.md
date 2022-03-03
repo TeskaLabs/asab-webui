@@ -219,7 +219,7 @@ Example of fetched data:
 
 # Optional
 
-`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `customButton`, `customComponent`, `search`, `onSearch`, `isLoading`, `noItemsComponent` and `onDownload`.
+`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `customButton`, `customComponent`, `search`, `onSearch`, `isLoading`, `noItemsComponent`, `customCardBodyComponent` and `onDownload`.
 
 Example of `DataTable` with all props:
 
@@ -505,6 +505,22 @@ import { DataTable } from 'asab-webui';
 		<DataTable
 		...
 		noItemsComponent={<div className="m-auto text-bold text-primary">Some custom message</div>}
+		/>
+	);
+
+```
+
+Prop `customCardBodyComponent` is used to place your custom component in card's body between card header and table itself.
+
+Usage:
+```js
+...
+import { DataTable } from 'asab-webui';
+
+...
+	return (
+		<DataTable
+			customCardBodyComponent={<div className="m-auto text-bold text-primary">Some custom description message</div>}
 		/>
 	);
 

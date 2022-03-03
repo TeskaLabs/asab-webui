@@ -1,0 +1,91 @@
+// Switch styles
+
+.switch-container, .switch-container-disabled {
+	width: 40px;
+	height: 20px;
+	border: 1px solid #6c757d;
+	display: inline-block;
+	border-radius: 50px;
+	margin-bottom: -2.5px;
+	cursor: pointer;
+
+	&.lg {
+		width: 52px;
+		height: 26px;
+		.on .circle {
+				margin-left: 25px;
+			}
+	}
+	&.sm {
+		width: 32px;
+		height: 16px;
+		.on .circle {
+			margin-left: 15px;
+		}
+	}
+
+	* {
+		border-radius: 50px;
+		transition: background-color .2s ease-out, margin .1s;
+		height: 100%;
+	}
+
+	.on, .off {
+		position: relative;
+		width: 100%;
+		// display: inline-block;
+
+		.circle {
+			width: 50%;
+		}
+	}
+	.on {
+		.circle {
+			margin-left: 19px;
+		}
+	}
+	.off {
+		.circle {
+			margin-left: 0px;
+		}
+	}
+}
+
+.switch-container {
+	.circle {
+		background-color: white;
+	}
+
+	.on {
+		background-color: #20a8d8;
+		.circle {
+			border: 2px solid #20a8d8;
+		}
+	}
+	.off {
+		background-color: #c8ced3;
+		.circle {
+			border: 2px solid #c8ced3;
+		}
+	}
+}
+
+.switch-container-disabled {
+	.off, .on {
+		background-color: #c8ced3;
+	}
+	.circle {
+		background-color: #73818f;
+		border: 2px solid #c8ced3;
+	}
+}
+
+.switch-container-disabled {
+	.off, .on {
+		background-color: #c8ced3;
+	}
+	.circle {
+		background-color: rgb(114, 114, 114);
+		border: 2px solid rgb(143, 143, 143);
+	}
+}

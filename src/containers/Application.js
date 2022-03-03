@@ -417,7 +417,10 @@ class Application extends Component {
 		* success
 	*/
 
-	addAlert(level, message, expire = 5, shouldBeTranslated = false) {
+	addAlert(level, message, arg1, arg2) {
+		const expire = typeof arg1 === 'number' ? arg1 : typeof arg2 === 'number' ? arg2 : 5;
+		const shouldBeTranslated = typeof arg1 === 'boolean' ? arg1 : typeof arg2 === 'boolean' ? arg2 : false;
+
 		this.Store.dispatch({
 			type: ADD_ALERT,
 			level: level,
@@ -468,7 +471,6 @@ class Application extends Component {
 			}
 		}, [])
 	}
-
 
 	render() {
 		// Render the splash screen if needed

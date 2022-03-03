@@ -74,6 +74,32 @@
 
 - Add possibility to disable breadcrumbs in specific containers (INDIGO Sprint 211029, [!193](https://github.com/TeskaLabs/asab-webui/pull/193))
 
+- Create ControlledSwitch & UncontrolledSwitch component (INDIGO Sprint 211112, [!207](https://github.com/TeskaLabs/asab-webui/pull/207))
+
+- Update Tools module with option to define Tools configuration dynamically (INDIGO Sprint 211112, [!212](https://github.com/TeskaLabs/asab-webui/pull/212))
+
+- Creates separate component to translate user IDs into usernames (INDIGO Sprint 211126, [!218](https://github.com/TeskaLabs/asab-webui/pull/218))
+
+- Sidebar autoclose on small screens  (INDIGO Sprint 220107, [!225](https://github.com/TeskaLabs/asab-webui/pull/225))
+
+- Add possibility to configure items count limit in MicroservicesContainer (INDIGO Sprint 220107, [!223](https://github.com/TeskaLabs/asab-webui/pull/223))
+
+- Automatic closing of the sidebar on sidebar items click for small screens (INDIGO Sprint 220121, [!228](https://github.com/TeskaLabs/asab-webui/pull/228))
+
+- Fix networking indicator progress bar position on the screen (INDIGO Sprint 220204, [!234](https://github.com/TeskaLabs/asab-webui/pull/234))
+
+- Move Library module from lmio-webui to asab-webui (INDIGO Sprint 220204, [!231](https://github.com/TeskaLabs/asab-webui/pull/231))
+
+- Update ASAB-Config module with option to add/remove configuration. Add option to set a new section for pattern properties (INDIGO Sprint 220204, [!229](https://github.com/TeskaLabs/asab-webui/pull/229))
+
+- Add `customCardBodyComponent` to DataTable (INDIGO Sprint 220204, [!237](https://github.com/TeskaLabs/asab-webui/pull/237))
+
+- Add download all library content feature (INDIGO Sprint 220204, [!233](https://github.com/TeskaLabs/asab-webui/pull/233))
+
+- Replace `moment` with `date-fns` library and implement lazy-loading for dates' locales (bugfixed) + split bundled js file into few (INDIGO Sprint 220204, [!239](https://github.com/TeskaLabs/asab-webui/pull/239))
+
+- Created datatable content loader (INDIGO Sprint 220121, [!230](https://github.com/TeskaLabs/asab-webui/pull/230))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
@@ -170,6 +196,28 @@
 
 - Adds missing email title to AboutCard module (INDIGO Spring 211112, [!205](https://github.com/TeskaLabs/asab-webui/pull/205))
 
+- SidebarItem's name is revealed upon hover (INDIGO Sprint 211112, [!208](https://github.com/TeskaLabs/asab-webui/pull/208))
+
+- Method addAlert() now automaticaly determines whether arg1 and arg2 are the expiration time or shouldBeTranslated boolean. (INDIGO Sprint 211112, [!211](https://github.com/TeskaLabs/asab-webui/pull/211))
+
+- Collapsable 'userbar' on screensize below 800px, NavbarBrand position adjustment (INDIGO 211126, [!214](https://github.com/TeskaLabs/asab-webui/pull/214))
+
+- Make init method of tenant service syncronous and make `_extract_tenant_from_url()` a private method (INDIGO Sprint 211126, [!217](https://github.com/TeskaLabs/asab-webui/pull/217))
+
+- Dates display as per user's browser's location standard. (INDIGO Sprint 211210, [!220](https://github.com/TeskaLabs/asab-webui/pull/220))
+
+- Custom switch components noc accept size as a property (INDIGO Sprint 211210, [!221](https://github.com/TeskaLabs/asab-webui/pull/221))
+
+- Refactor `asab-config` module with pattern properties schema handling, update documentation, move Configuration out of the Maintenance sidebar item (INDIGO Sprint 211210, [!219](https://github.com/TeskaLabs/asab-webui/pull/219))
+
+- Refactor `Tools` module with different Tools configuration processing based on ASAB-Config service changes (INDIGO Sprint 220107, [!222](https://github.com/TeskaLabs/asab-webui/pull/222))
+
+- Update responses in ASAB-Config Configuration by changes in asab-config service (INDIGO Sprint 220218, [!240](https://github.com/TeskaLabs/asab-webui/pull/240))
+
+- Refactor Microservices API calls (INDIGO Sprint 220218, [!241](https://github.com/TeskaLabs/asab-webui/pull/241))
+
+- Replace AceEditor with Monaco Editor in Library  (INDIGO Sprint 220218, [!244](https://github.com/TeskaLabs/asab-webui/pull/244))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
@@ -211,3 +259,15 @@
 - Fix mock userinfo in dev locale (INDIGO Sprint 211029, [!191](https://github.com/TeskaLabs/asab-webui/pull/191))
 
 - Fix breadcrumbs for dynamic routes or crumbs which doesn't have name (INDIGO Sprint 211029, [!196](https://github.com/TeskaLabs/asab-webui/pull/196))
+
+- Fix sidebar items order for minimized sidebar (INDIGO Sprint 211112, [!210](https://github.com/TeskaLabs/asab-webui/pull/210))
+
+- Fix sidebar auto open (INDIGO Sprint 211126, [!215](https://github.com/TeskaLabs/asab-webui/pull/215))
+
+- Fix sidebar items filter condition (INDIGO Sprint 211126, [!216](https://github.com/TeskaLabs/asab-webui/pull/216))
+
+- Fix issue on failed response for ASAB-Config's module TreeMenu. It broke the application when there was some issue (wrong file type) e.g. in schema or config file (INDIGO Sprint 211126, [!216](https://github.com/TeskaLabs/asab-webui/pull/226))
+
+- Fix broken language reducer, move i18n related components to particular i18n module (INDIGO Sprint 220204, [!235](https://github.com/TeskaLabs/asab-webui/pull/235))
+
+- Return no wrap css rule to DataTable cells (INDIGO Sprint 220218, [!242](https://github.com/TeskaLabs/asab-webui/pull/242))

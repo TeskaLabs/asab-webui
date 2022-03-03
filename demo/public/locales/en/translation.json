@@ -34,7 +34,31 @@
 		"Invalid tenant": "Invalid tenant :-("
 	},
 	"ASABToolsModule": {
-		"Unable to load the data from site": "Unable to load the data from site"
+		"Can't load the configuration, 'config' property has not been specified": "Can't load the configuration, 'config' property has not been specified",
+		"Unable to get config data from service, please check the config settings": "Unable to get config data from service, please check the config settings",
+		"Something went wrong, unable to get config data from service": "Something went wrong, unable to get config data from service"
 	},
+	"ASABCredentials": {
+		"Something went wrong, failed to fetch assigned credentials": "Something went wrong, failed to fetch assigned credentials"
+	},
+	"ASABLibraryModule": {
+		"Search": "Search",
+		"Failed to load data": "Failed to load data",
+		"Failed to load content of the file": "Failed to load content of the file",
+		"Enable file": "Enable file",
+		"Disable file": "Disable file",
+		"File was successfully enabled": "File was successfully enabled",
+		"File was successfully disabled": "File was successfully disabled",
+		"Failed to enable file": "Failed to enable file",
+		"Failed to disable file": "Failed to disable file",
+		"File has been updated": "File has been updated",
+		"Failed to update the file": "Failed to update the file",
+		"Are you sure you want to cancel changes?": "Are you sure you want to cancel changes?",
+		"Edit": "Edit",
+		"Save":"Save",
+		"Cancel": "Cancel",
+		"Download all": "Download all"
+	},
+
 	"You do not have access rights to perform this action": "You do not have access rights to perform this action"
 }

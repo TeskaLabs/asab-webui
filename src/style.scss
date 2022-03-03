@@ -30,13 +30,30 @@ html {
 	display: flex;
     flex-direction: row;
     flex-grow: 1;
-    overflow-x: hidden;
+	overflow-x: hidden;
+	border-top: 1px solid #c8ced4; 
 }
 
 .main, .main-with-sidebar, .main-with-sidebar-minimized {
 	transition: margin-left 0.25s ease-out;
 	flex: 1;
 	min-width: 0;
+}
+
+@media screen and (max-width: 768px) {
+	.main, .main-with-sidebar, .main-with-sidebar-minimized {
+		margin-left: 0px !important;
+	}
+
+	.stop-propagation-container {
+		height: calc(100% + 50px);
+		width: 100%;
+		position: absolute;
+		top: 55px;
+		background-color: rgba(0,0,0,0.5);
+		overflow-y: hidden;
+		z-index: 999;
+	}
 }
 
 .main-with-sidebar {
@@ -48,7 +65,7 @@ html {
 }
 
 .networking-indicator {
-	position: absolute;
+	position: fixed;
 	z-index: 1400;
 	top: 50px;
 
@@ -122,7 +139,6 @@ main > .container-fluid, main > .container {
 	padding: 0;
 	margin: 0;
 	background-color: #fff;
-	border-bottom: 1px solid #c8ced4;
 
 	.header-brand-image-full, .header-brand-image-minimized {
 		display: inline-flex;
@@ -182,6 +198,9 @@ main > .container-fluid, main > .container {
 				display: none;
 			}
 		}
+		.header-brand-image-minimized {
+			margin-left: -27.5px;
+		}
 	}
 
 	.header-sidebar-toggler {
@@ -189,9 +208,87 @@ main > .container-fluid, main > .container {
 	}
 }
 
+// header-props
+
+.header-props {
+	display: none;
+	&-sm {
+		display: none;
+	}
+	&-toggler {
+		display: none;
+	}
+}
+
+@media (max-width: 800px) {
+	.header-props-toggler{
+		display: inline-flex;
+		align-items: center;
+		font-size: 1.5rem;
+		margin-left: auto !important;
+		transform: rotate(0deg);
+		transition: transform 0.25s ease;
+		  &.header-props-open{
+			transform: rotate(180deg);
+			transition: transform 0.25s ease;
+		  }
+	}
+	.header-props {
+		display: none !important;
+		&-sm {
+			display: flex;
+			justify-content: right;
+			margin-left: auto !important;
+		}
+	}
+	.header-props-open + .app-body {
+		margin-top: 103px;
+		height: calc(100vh - 155px) !important;
+
+	}
+	.header-props-open + .app-body > .sidebar-bottom {
+		margin-bottom: 55px;
+	}
+	.header-props-open + .app-body .app-sidebar,
+	.header-props-open + .app-body .app-sidebar-minimized,
+	.header-props-open + .app-body .app-sidebar-minimized-closed {
+		height: calc(100vh - 103px) !important;
+	}
+}
+
+@media (max-width: 600px) {
+	.header-props-sm {
+		justify-content: center;
+	}
+}
+
+.hidden {
+	display: none;
+}
+
 // Sidebar
 
-.app-sidebar-minimized, .app-sidebar-minimized-closed {
+@media screen and (max-width: 768px) {
+	.app-sidebar-minimized, .app-sidebar-minimized.closed {
+		margin-left: -50px;
+	}
+	.app-sidebar, .app-sidebar.closed {
+		margin-left: -200px !important;
+	}
+
+	.app-sidebar.small-screen.closed, .app-sidebar.closed.small-screen.closed {
+		margin-left: -200px !important;
+	}
+	.app-sidebar.small-screen, .app-sidebar.closed.small-screen {
+		margin-left: 0 !important;
+	}
+}
+
+.app-sidebar.small-screen, .app-sidebar.closed.small-screen {
+	margin-left: -200px;
+}
+
+.app-sidebar-minimized, .app-sidebar-minimized.closed {
 	width: 50px;
 	.sidebar-item-text, .sidebar-chevron, .sidebar-chevron-open {
 		display: none !important;
@@ -222,7 +319,7 @@ main > .container-fluid, main > .container {
 	}
 }
 
-.app-sidebar-minimized-closed {
+.app-sidebar-minimized.closed {
 	margin-left: -50px;
 }
 
@@ -231,7 +328,7 @@ main > .container-fluid, main > .container {
 	width: 200px;
 }
 
-.app-sidebar, .app-sidebar-closed {
+.app-sidebar, .app-sidebar.closed {
 	.sidebar-bottom {
 		height: 50px;
 		ul.nav {
@@ -249,12 +346,12 @@ main > .container-fluid, main > .container {
 	}
 }
 
-.app-sidebar-closed {
+.app-sidebar.closed {
 	margin-left: -200px;
 	width: 200px;
 }
 
-.app-sidebar, .app-sidebar-closed, .app-sidebar-minimized, .app-sidebar-minimized-closed {
+.app-sidebar, .app-sidebar.closed, .app-sidebar-minimized, .app-sidebar-minimized.closed {
 	transition: margin-left 0.25s ease-out, width .2s ease-out;
 	height: calc(100vh - 55px);
 	position: fixed;
@@ -412,6 +509,13 @@ main > .container-fluid, main > .container {
 }
 
 // Footer
+@media screen and (max-width: 768px) {
+	.application-footer, .application-footer-with-sidebar,
+	.application-footer-with-sidebar-minimized {
+		margin-left: 0px !important;
+	}
+}
+
 .application-footer, .application-footer-with-sidebar,
 .application-footer-with-sidebar-minimized {
 	display: flex;

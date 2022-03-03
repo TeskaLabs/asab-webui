@@ -1,5 +1,5 @@
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const { execSync } = require("child_process");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 ///
 var exports = module.exports = {}
@@ -23,23 +23,48 @@ exports.getRules = function(config) {
 			test: /\.(js)$/,
 			use: [{
 				loader: 'babel-loader',
-				options: { presets: [['@babel/env'],['@babel/react']], plugins: ["transform-object-rest-spread"] }
-			}]
+				options: { presets: [['@babel/preset-env'],['@babel/react']], plugins: ["transform-object-rest-spread"] }
+			}],
+			exclude: '/node_modules/' // we can exclude node_modules b/c they're already complied
 		},
 		{
 			test: /\.(css)$/,
-			use: ExtractTextPlugin.extract({fallback: 'style-loader', use:'css-loader'})
+			use: [
+				MiniCssExtractPlugin.loader,
+				{
+					loader: 'css-loader',
+					options: { sourceMap: true }
+				},
+				{
+					loader: 'postcss-loader',
+					options: { sourceMap: true }
+				},
+			]
 		},
 		{
 			test: /\.(scss|sass)$/,
-			use: ExtractTextPlugin.extract({fallback: 'style-loader', use:['css-loader', 'sass-loader']}),
+			use: [
+				MiniCssExtractPlugin.loader,
+				{
+					loader: 'css-loader',
+					options: { sourceMap: true }
+				},
+				{
+					loader: 'postcss-loader',
+					options: { sourceMap: true }
+				},
+				{
+					loader: 'sass-loader',
+					options: { sourceMap: true }
+				}
+			],
 		},
 		{
 			test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)(\?.*)?$/,
 			use: [{
 					loader: 'file-loader',
 					options: {
-						name: '[name].[hash].[ext]',
+						name: '[name].[contenthash].[ext]',
 						publicPath: '../',
 						outputPath: 'assets/',
 					}
