@@ -477,7 +477,7 @@ class Application extends Component {
 		if (this.state.SplashscreenRequestors > 0) return (
 			<Provider store={this.Store}>
 				<div className="app">
-					<Suspense fallback={<SplashScreen app={this} />}>
+					<Suspense fallback={<></>}>
 						<AlertsComponent app={this} />
 						<TenantSelectionCard app={this} />
 					</Suspense>
