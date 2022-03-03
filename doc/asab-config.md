@@ -472,7 +472,7 @@ Example:
 
 ```
 {
-	"ASABConfig" : {
+	"ASABConfig": {
 		"Nothing has been selected": "Nothing has been selected",
 		"Please select the configuration from tree menu on the left side of the screen": "Please select the configuration from tree menu on the left side of the screen",
 		"Save": "Save",
@@ -487,19 +487,18 @@ Example:
 		"Something went wrong! Unable to get schema": "Something went wrong! Unable to get schema {{type}}",
 		"Unable to get data for tree menu": "Unable to get data for tree menu",
 		"Unable to get schema. Try to reload the page": "Unable to get schema {{type}}. Try to reload the page",
-		"Unable to get config data. Try to reload the page": "Unable to get config {{config}} data. Try to reload the page"
+		"Unable to get config data. Try to reload the page": "Unable to get config {{config}} data. Try to reload the page",
 		"Configuration name can't be empty!": "Configuration name can't be empty!",
 		"Remove": "Remove",
 		"Something went wrong, failed to create configuration": "Something went wrong, failed to create configuration",
 		"Configuration created successfully": "Configuration created successfully",
-		"File name": "File name",
-		"Configuration file name": "Configuration file name",
-		"Fill out configuration file name": "Fill out configuration file name",
+		"Name": "Name",
+		"Configuration name": "Configuration name",
+		"Fill out configuration name": "Fill out configuration name",
 		"Create": "Create",
 		"New": "New",
-		"Name": "Name",
-		"Type": "Type",
-		"Description": "Description",
+		"Schema title": "Schema title",
+		"Schema description": "Schema description",
 		"Something went wrong! Unable to get configurations": "Something went wrong! Unable to get configurations for {{config}}",
 		"Unable to get configurations. Try to reload the page": "Unable to get configurations for {{config}}. Try to reload the page",
 		"Create configuration": "Create configuration",
@@ -508,7 +507,10 @@ Example:
 		"New configuration": "New configuration",
 		"Section added": "Section added",
 		"Add new section": "Add new section",
-		"Add": "Add"
+		"Add": "Add",
+		"Type": "Type",
+		"Description": "Description",
+		"Do you want to remove this section?": "Do you want to remove this section?"
 	}
 }
 ```
