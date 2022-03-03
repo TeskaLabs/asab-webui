@@ -21,6 +21,7 @@ function ConfigList(props) {
 	let history = useHistory();
 
 	const [ configList, setConfigList ] = useState([]);
+	const [ description, setDescription ] = useState("");
 
 	const resourceManageConfig = "authz:superuser";
 	const resources = props.userinfo?.resources ? props.userinfo.resources : [];
@@ -45,10 +46,6 @@ function ConfigList(props) {
 			name: t('ASABConfig|Name'),
 			key: "name",
 			link: { pathname: `/config/${configType}/`, key: "name" }
-		},
-		{
-			name: t('ASABConfig|Description'),
-			key: "schemaDescription"
 		},
 		{
 			name: ' ',
@@ -107,9 +104,10 @@ function ConfigList(props) {
 		// Create an array of objects with name, schema title and schema description
 		let cfgList = [];
 		Promise.all(await data.map(cfg => {
-			cfgList.push({name: cfg, schemaDescription: schema?.description ? schema.description : ""});
+			cfgList.push({name: cfg});
 		}));
 		setConfigList(cfgList);
+		setDescription(schema?.description ? schema.description : "")
 	}
 
 	// Create configuration button
@@ -158,6 +156,7 @@ function ConfigList(props) {
 			<CreateConfigCard app={props.app} configType={configType} setCreateConfig={props.setCreateConfig} />
 		:
 			<DataTable
+				customCardBodyComponent={<div className="pb-2">{t('ASABConfig|Description')}{`: ${description}`}</div>}
 				title={{ text: t("ASABConfig|Type") + ` ${configType}`, icon: "cil-settings" }}
 				headers={headers}
 				data={configList}
