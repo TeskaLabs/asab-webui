@@ -22,6 +22,7 @@ const Sidebar = (props) => {
 	const ASABConfigAPI = props.app.axiosCreate('asab_config');
 
 	const [ sidebarConfig, setSidebarConfig ] = useState(undefined);
+	const [ readyToRender, setReadyToRender ] = useState(false);
 	const configName = props?.title ? props.title : "";
 
 	useConstructor(async () => {
@@ -38,6 +39,7 @@ const Sidebar = (props) => {
 			}
 		}
 		await getSidebarConfiguration();
+		setReadyToRender(true);
 	});
 
 	let sidebarItems = props.navigation.getItems().items;
@@ -82,7 +84,7 @@ const Sidebar = (props) => {
 			<div className={`app-sidebar${props.isSidebarMinimized ? "-minimized" : ""} ${props.isSidebarOpen ? "" : "closed"}`}>
 				<div className="sidebar-nav">
 					<Nav  vertical>
-						{memoizedItemsList.map((item, idx) => (
+						{readyToRender && memoizedItemsList.map((item, idx) => (
 							<SidebarItem
 								key={idx}
 								item={item}
@@ -104,7 +106,7 @@ const Sidebar = (props) => {
 			>
 				<div className="sidebar-nav">
 					<Nav  vertical>
-						{memoizedItemsList.map((item, idx) => (
+						{readyToRender && memoizedItemsList.map((item, idx) => (
 							<SidebarItem
 								key={idx}
 								item={item}
