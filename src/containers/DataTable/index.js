@@ -18,6 +18,7 @@ import Pagination from '../Pagination';
 // import CustomDropdownButton from './CustomDropdownButton'; DON'T REMOVE YET. IT MAY BE USEFUL ON REFACTORING DATATABLE
 
 import { Spinner } from '../Spinner';
+import { CellContentLoader } from '../ContentLoader';
 import { ButtonWithAuthz } from '../../modules/auth/ButtonWithAuthz';
 
 export function DataTable ({
@@ -163,7 +164,8 @@ export function DataTable ({
 					<CardBody className="data-table-card-body">
 						{customCardBodyComponent}
 						{isLoading ? 
-							<div style={{ margin: "2rem auto" }}><Spinner /></div> :
+							// <div style={{ margin: "2rem auto" }}><Spinner /></div> :
+							<CellContentLoader cols={headers.length} rows={limit ?? 5} /> :
 							<Table
 								data={data.length > limit ? data.slice(0, limit) : data}
 								headers={headers}
