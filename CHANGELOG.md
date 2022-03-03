@@ -271,3 +271,5 @@
 - Fix broken language reducer, move i18n related components to particular i18n module (INDIGO Sprint 220204, [!235](https://github.com/TeskaLabs/asab-webui/pull/235))
 
 - Return no wrap css rule to DataTable cells (INDIGO Sprint 220218, [!242](https://github.com/TeskaLabs/asab-webui/pull/242))
+
+- Fix DateTime issue when component is unmounted before async locale request finished (INDIGO Sprint 220218, [!246](https://github.com/TeskaLabs/asab-webui/pull/246))

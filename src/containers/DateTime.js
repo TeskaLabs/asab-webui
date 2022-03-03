@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { format, formatDistanceToNow, parseISO } from 'date-fns';
 
@@ -30,9 +30,22 @@ The default format is `lll` -> `Aug 22, 2020 1:13 PM`
 */
 
 export function DateTime(props) {
+	const isMounted = useRef(null);
 	const [locale, setLocale] = useState('');
 	const language = useSelector(state => state.language.language)
 	
+	// Sets isMounted indicator to true
+	// when component has been mounted (componentDidMount analogue)
+	// and sets isMounted to false before component 
+	// is unmounted (componentWillUnmount analogue)
+	useEffect(() => {
+		isMounted.current = true;
+
+		return () => {
+			isMounted.current = false;
+		}
+	}, [])
+
 	useEffect(() => {
 		if (language && language !== "en") {
 			fetchLocale()
@@ -48,7 +61,7 @@ export function DateTime(props) {
 			/* webpackMode: "lazy", webpackChunkName: "df-[index]" */
 			`date-fns/locale/${language}/index.js`
 		);
-		setLocale(importedLocale.default);
+		if (isMounted.current === true) setLocale(importedLocale.default);
 	}
 
 	if ((props.value === null) || (props.value === undefined)) {
