@@ -592,6 +592,7 @@ function ConfigEditor(props) {
 												adhocvalues={adHocValues}
 												isSubmitting={isSubmitting}
 												removeSectionForm={removeSectionForm}
+												selectPatternSections={selectPatternSections}
 											/>
 										)}
 
@@ -688,6 +689,7 @@ export default connect(mapStateToProps)(ConfigEditor);
 
 
 function ConfigSection(props) {
+	const { t, i18n } = useTranslation();
 	return (
 		<React.Fragment>
 			<hr/>
@@ -700,10 +702,12 @@ function ConfigSection(props) {
 				<Col>
 					<div className="float-right">
 						<Button
+							title={t('ASABConfig|Remove')}
 							color="danger"
 							size="sm"
 							type="button"
 							onClick={(e) => {props.removeSectionForm(props.sectionname)}}
+							disabled={props.selectPatternSections.length == 0}
 						>
 							<i className="cil-trash"></i>
 						</Button>
