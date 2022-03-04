@@ -164,7 +164,6 @@ export function DataTable ({
 					<CardBody className="data-table-card-body">
 						{customCardBodyComponent}
 						{isLoading ? 
-							// <div style={{ margin: "2rem auto" }}><Spinner /></div> :
 							<CellContentLoader cols={headers.length} rows={limit ?? 5} /> :
 							<Table
 								data={data.length > limit ? data.slice(0, limit) : data}

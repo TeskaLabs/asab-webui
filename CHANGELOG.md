@@ -218,6 +218,8 @@
 
 - Replace AceEditor with Monaco Editor in Library  (INDIGO Sprint 220218, [!244](https://github.com/TeskaLabs/asab-webui/pull/244))
 
+- Replace Spinner with ContentLoader in DataTable's index.js (INDIGO Sprint 220218, [!249](https://github.com/TeskaLabs/asab-webui/pull/249))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
