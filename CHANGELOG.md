@@ -273,3 +273,5 @@
 - Return no wrap css rule to DataTable cells (INDIGO Sprint 220218, [!242](https://github.com/TeskaLabs/asab-webui/pull/242))
 
 - Fix DateTime issue when component is unmounted before async locale request finished (INDIGO Sprint 220218, [!246](https://github.com/TeskaLabs/asab-webui/pull/246))
+
+- Fix double splashscreen when loading apps. (INDIGO Spring 220218, [!247](https://github.com/TeskaLabs/asab-webui/pull/247))
