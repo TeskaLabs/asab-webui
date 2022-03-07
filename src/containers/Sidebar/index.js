@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useRef } from 'react';
+import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 
 import { Nav } from 'reactstrap';
