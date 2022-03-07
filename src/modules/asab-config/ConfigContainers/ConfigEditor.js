@@ -643,35 +643,36 @@ function ConfigEditor(props) {
 								</ButtonWithAuthz>
 							</span>
 							<span className="float-right">
-								<Dropdown
-									direction="up"
-									isOpen={dropdownOpen}
-									toggle={toggleDropDown}
-									title={t('ASABConfig|Add new section')}
-								>
-									<DropdownToggle
-										caret
-										disabled={selectPatternSections.length == 0}
+								{selectPatternSections.length > 0 &&
+									<Dropdown
+										direction="up"
+										isOpen={dropdownOpen}
+										toggle={toggleDropDown}
+										title={t('ASABConfig|Add new section')}
 									>
-										<span className="pr-1">+</span>
-										{t('ASABConfig|Add')}
-									</DropdownToggle>
-									<DropdownMenu
-										className="pattern-section-dropdown"
-									>
-										{selectPatternSections.map((patternSection, idx) => {
-											return(
-												<DropdownItem
-													key={idx}
-													name={patternSection}
-													onClick={(e) => {addNewSection(patternSection), e.preventDefault()}}
-												>
-													{patternSection}
-												</DropdownItem>
-												)
-										})}
-									</DropdownMenu>
-								</Dropdown>
+										<DropdownToggle
+											caret
+										>
+											<span className="pr-1">+</span>
+											{t('ASABConfig|Add')}
+										</DropdownToggle>
+										<DropdownMenu
+											className="pattern-section-dropdown"
+										>
+											{selectPatternSections.map((patternSection, idx) => {
+												return(
+													<DropdownItem
+														key={idx}
+														name={patternSection}
+														onClick={(e) => {addNewSection(patternSection), e.preventDefault()}}
+													>
+														{patternSection}
+													</DropdownItem>
+													)
+											})}
+										</DropdownMenu>
+									</Dropdown>
+								}
 							</span>
 						</CardFooter>
 					</Card>
@@ -701,16 +702,18 @@ function ConfigSection(props) {
 				</Col>
 				<Col>
 					<div className="float-right">
-						<Button
-							title={t('ASABConfig|Remove')}
-							color="danger"
-							size="sm"
-							type="button"
-							onClick={(e) => {props.removeSectionForm(props.sectionname)}}
-							disabled={props.selectPatternSections.length == 0}
-						>
-							<i className="cil-trash"></i>
-						</Button>
+						{props.selectPatternSections.length > 0 &&
+							<Button
+								title={t('ASABConfig|Remove')}
+								color="danger"
+								size="sm"
+								type="button"
+								outline
+								onClick={(e) => {props.removeSectionForm(props.sectionname)}}
+							>
+								<i className="cil-trash"></i>
+							</Button>
+						}
 					</div>
 				</Col>
 			</Row>
