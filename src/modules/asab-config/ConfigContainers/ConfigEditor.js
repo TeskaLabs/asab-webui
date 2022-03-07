@@ -445,6 +445,7 @@ function ConfigEditor(props) {
 		setValues();
 	}
 
+	// Function for obtaining parsed sections
 	const getParsedSections = async (data) => {
 		// Get 'type' of the values (if defined) from the schema
 		let formStructProperties = formStruct.properties;
