@@ -103,7 +103,6 @@ function mapStateToProps(state) {
 		isSmallSidebarOpen: state.sidebar.isSmallSidebarOpen,
 		unauthorizedNavItem: state.auth?.unauthorizedNavItem,
 		unauthorizedNavChildren: state.auth?.unauthorizedNavChildren,
-		title: state.config.title,
 		sidebarHiddenItems: state.sidebar.sidebarHiddenItems
 	};
 }
