@@ -1,9 +1,10 @@
-import { SET_SIDEBAR, CHANGE_SIDEBAR_SIZE, SET_SMALL_SIDEBAR } from "../../actions";
+import { SET_SIDEBAR, CHANGE_SIDEBAR_SIZE, SET_SMALL_SIDEBAR, SET_HIDDEN_ITEMS_SIDEBAR } from "../../actions";
 
 const initialState = {
 	isSidebarOpen: true,
 	isSidebarMinimized: false,
-	isSmallSidebarOpen: false
+	isSmallSidebarOpen: false,
+	sidebarHiddenItems: undefined
 }
 
 export default (state = initialState, action) => {
@@ -24,6 +25,12 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				isSmallSidebarOpen: !state.isSmallSidebarOpen
+			}
+		}
+		case SET_HIDDEN_ITEMS_SIDEBAR: {
+			return {
+				...state,
+				sidebarHiddenItems: action.sidebarHiddenItems
 			}
 		}
 		default: {

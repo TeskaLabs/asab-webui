@@ -6,49 +6,18 @@ import SidebarItem from './SidebarItem';
 
 import { CHANGE_SIDEBAR_SIZE } from '../../actions';
 
-/*
-	Custom constructor for displaying items in Sidebar
-	(it is triggered earlier than useEffect when placed
-	on top of the function)
-*/
-const useConstructor = (callBack = () => {}) => {
-	const hasBeenCalled = useRef(false);
-	if (hasBeenCalled.current) return;
-	callBack();
-	hasBeenCalled.current = true;
-}
 
 const Sidebar = (props) => {
-	const ASABConfigAPI = props.app.axiosCreate('asab_config');
-
-	const [ sidebarConfig, setSidebarConfig ] = useState(undefined);
-	const [ readyToRender, setReadyToRender ] = useState(false);
-	const configName = props?.title ? props.title : "";
-
-	useConstructor(async () => {
-		async function getSidebarConfiguration() {
-			try {
-				let response = await ASABConfigAPI.get(`/config/Sidebar/${configName}?format=json`);
-				if (response.data.result != "OK") {
-					throw new Error("Config file to get data for Sidebar can't be found in Zookeeper")
-				}
-				setSidebarConfig(response.data.data);
-			}
-			catch(e) {
-				console.warn("ASAB Config service can't retrieve Sidebar configuration");
-			}
-		}
-		await getSidebarConfiguration();
-		setReadyToRender(true);
-	});
+	// Get dynamically hiddden sidebar items from store
+	let sidebarHiddenItems = props.sidebarHiddenItems;
 
 	let sidebarItems = props.navigation.getItems().items;
 	// Filter out sidebar items which has been marked as hidden in ASAB Config module
-	if (sidebarConfig) {
+	if (sidebarHiddenItems) {
 		let updatedSidebar = sidebarItems;
-		Object.keys(sidebarConfig).map((obj, idx) => {
-			if (sidebarItems && Object.values(sidebarItems).some(sidebarObj => sidebarObj.name == sidebarConfig[obj]?.name) && sidebarConfig[obj]?.hide == true) {
-				updatedSidebar = updatedSidebar.filter(item => item.name !== sidebarConfig[obj]?.name);
+		Object.keys(sidebarHiddenItems).map((obj, idx) => {
+			if (sidebarItems && Object.values(sidebarItems).some(sidebarObj => sidebarObj.name == sidebarHiddenItems[obj]?.name) && sidebarHiddenItems[obj]?.hide == true) {
+				updatedSidebar = updatedSidebar.filter(item => item.name !== sidebarHiddenItems[obj]?.name);
 			}
 		})
 		sidebarItems = updatedSidebar;
@@ -84,7 +53,7 @@ const Sidebar = (props) => {
 			<div className={`app-sidebar${props.isSidebarMinimized ? "-minimized" : ""} ${props.isSidebarOpen ? "" : "closed"}`}>
 				<div className="sidebar-nav">
 					<Nav  vertical>
-						{readyToRender && memoizedItemsList.map((item, idx) => (
+						{memoizedItemsList.map((item, idx) => (
 							<SidebarItem
 								key={idx}
 								item={item}
@@ -106,7 +75,7 @@ const Sidebar = (props) => {
 			>
 				<div className="sidebar-nav">
 					<Nav  vertical>
-						{readyToRender && memoizedItemsList.map((item, idx) => (
+						{memoizedItemsList.map((item, idx) => (
 							<SidebarItem
 								key={idx}
 								item={item}
@@ -134,7 +103,8 @@ function mapStateToProps(state) {
 		isSmallSidebarOpen: state.sidebar.isSmallSidebarOpen,
 		unauthorizedNavItem: state.auth?.unauthorizedNavItem,
 		unauthorizedNavChildren: state.auth?.unauthorizedNavChildren,
-		title: state.config.title
+		title: state.config.title,
+		sidebarHiddenItems: state.sidebar.sidebarHiddenItems
 	};
 }
 
