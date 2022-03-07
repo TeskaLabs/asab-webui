@@ -156,7 +156,7 @@ function ConfigList(props) {
 			<CreateConfigCard app={props.app} configType={configType} setCreateConfig={props.setCreateConfig} />
 		:
 			<DataTable
-				customCardBodyComponent={<div className="pb-2">{t('ASABConfig|Description')}{`: ${description}`}</div>}
+				customCardBodyComponent={<div className="pb-3">{`${description}`}</div>}
 				title={{ text: t("ASABConfig|Type") + ` ${configType}`, icon: "cil-settings" }}
 				headers={headers}
 				data={configList}
