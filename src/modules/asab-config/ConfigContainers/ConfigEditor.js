@@ -261,56 +261,8 @@ function ConfigEditor(props) {
 
 	// Parse data to JSON format, stringify it and save to config file
 	const onSubmit = async (data) => {
-		// Get 'type' of the values (if defined) from the schema
-		let formStructProperties = formStruct.properties;
-		let sectionTypes = {};
-		// Iterate through sections
-		if (Object.keys(formStructProperties).length > 0) {
-			await Promise.all(Object.keys(formStructProperties).map(async (sect, idx) => {
-				let valueTypes = {};
-				// Iterate through section keys
-				await Promise.all(Object.keys(formStructProperties[sect]).length > 0 && Object.keys(formStructProperties[sect]).map(async (key, id) => {
-					if (key === "properties") {
-						// Iterate through key properties
-						await Promise.all(Object.entries(formStructProperties[sect]["properties"]).map((entry, i) => {
-							// If type of the value is undefined, then default is string
-							valueTypes[entry[0]] = entry[1].type ? entry[1].type : "string";
-						}));
-					}
-				}));
-				sectionTypes[sect] = valueTypes;
-			}));
-		}
-
-		let parsedSections = {};
-		// TODO: Disable saving output from ReactJSONview component
-		if (activeTab == 'advanced') {
-			// If data are being submitted from JSON view, dont parse data to object
-			parsedSections = jsonValues;
-		} else {
-			let splitKey = "";
-			let sectionTitle = "";
-			let sectionKey = "";
-			let sectionValue = "";
-			// Parse data to object
-			await Promise.all(Object.keys(data).map((key, idx) => {
-				splitKey = key.split(" ");
-				sectionTitle = splitKey[0];
-				sectionKey = splitKey[1];
-				sectionValue = data[key];
-				// Parsing
-				let obj = {};
-				if (sectionTypes[sectionTitle] == undefined) {
-					// Values of adHoc sections
-					obj[sectionKey] = sectionValue;
-					parsedSections[sectionTitle] = {...parsedSections[sectionTitle], ...obj};
-				} else {
-					let valueType = sectionTypes[sectionTitle][sectionKey];
-					obj[sectionKey] = convertValueType(sectionValue, valueType);
-					parsedSections[sectionTitle] = {...parsedSections[sectionTitle], ...obj};
-				}
-			}));
-		}
+		// Get parsed sections for submit
+		let parsedSections = await getParsedSections(data);
 
 		try {
 			let response = await ASABConfigAPI.put(`/config/${configType}/${configName}`,
@@ -424,56 +376,8 @@ function ConfigEditor(props) {
 	// Remove config section
 	const removeSection = async (sectionTitle) => {
 		let data = getValues();
-		// Get 'type' of the values (if defined) from the schema
-		let formStructProperties = formStruct.properties;
-		let sectionTypes = {};
-		// Iterate through sections
-		if (Object.keys(formStructProperties).length > 0) {
-			await Promise.all(Object.keys(formStructProperties).map(async (sect, idx) => {
-				let valueTypes = {};
-				// Iterate through section keys
-				await Promise.all(Object.keys(formStructProperties[sect]).length > 0 && Object.keys(formStructProperties[sect]).map(async (key, id) => {
-					if (key === "properties") {
-						// Iterate through key properties
-						await Promise.all(Object.entries(formStructProperties[sect]["properties"]).map((entry, i) => {
-							// If type of the value is undefined, then default is string
-							valueTypes[entry[0]] = entry[1].type ? entry[1].type : "string";
-						}));
-					}
-				}));
-				sectionTypes[sect] = valueTypes;
-			}));
-		}
-
-		let parsedSections = {};
-		// TODO: Disable saving output from ReactJSONview component
-		if (activeTab == 'advanced') {
-			// If data are being submitted from JSON view, dont parse data to object
-			parsedSections = jsonValues;
-		} else {
-			let splitKey = "";
-			let sectionTitle = "";
-			let sectionKey = "";
-			let sectionValue = "";
-			// Parse data to object
-			await Promise.all(Object.keys(data).map((key, idx) => {
-				splitKey = key.split(" ");
-				sectionTitle = splitKey[0];
-				sectionKey = splitKey[1];
-				sectionValue = data[key];
-				// Parsing
-				let obj = {};
-				if (sectionTypes[sectionTitle] == undefined) {
-					// Values of adHoc sections
-					obj[sectionKey] = sectionValue;
-					parsedSections[sectionTitle] = {...parsedSections[sectionTitle], ...obj};
-				} else {
-					let valueType = sectionTypes[sectionTitle][sectionKey];
-					obj[sectionKey] = convertValueType(sectionValue, valueType);
-					parsedSections[sectionTitle] = {...parsedSections[sectionTitle], ...obj};
-				}
-			}));
-		}
+		// Get parsed section for removal section
+		let parsedSections = await getParsedSections(data);
 
 		// Remove section out of data and save result
 		delete parsedSections[sectionTitle]
@@ -539,6 +443,60 @@ function ConfigEditor(props) {
 		// Update form struct and call setValues function to load data
 		setFormStruct(formStructure);
 		setValues();
+	}
+
+	const getParsedSections = async (data) => {
+		// Get 'type' of the values (if defined) from the schema
+		let formStructProperties = formStruct.properties;
+		let sectionTypes = {};
+		// Iterate through sections
+		if (Object.keys(formStructProperties).length > 0) {
+			await Promise.all(Object.keys(formStructProperties).map(async (sect, idx) => {
+				let valueTypes = {};
+				// Iterate through section keys
+				await Promise.all(Object.keys(formStructProperties[sect]).length > 0 && Object.keys(formStructProperties[sect]).map(async (key, id) => {
+					if (key === "properties") {
+						// Iterate through key properties
+						await Promise.all(Object.entries(formStructProperties[sect]["properties"]).map((entry, i) => {
+							// If type of the value is undefined, then default is string
+							valueTypes[entry[0]] = entry[1].type ? entry[1].type : "string";
+						}));
+					}
+				}));
+				sectionTypes[sect] = valueTypes;
+			}));
+		}
+
+		let parsedSections = {};
+		// TODO: Disable saving output from ReactJSONview component
+		if (activeTab == 'advanced') {
+			// If data are being submitted from JSON view, dont parse data to object
+			parsedSections = jsonValues;
+		} else {
+			let splitKey = "";
+			let sectionTitle = "";
+			let sectionKey = "";
+			let sectionValue = "";
+			// Parse data to object
+			await Promise.all(Object.keys(data).map((key, idx) => {
+				splitKey = key.split(" ");
+				sectionTitle = splitKey[0];
+				sectionKey = splitKey[1];
+				sectionValue = data[key];
+				// Parsing
+				let obj = {};
+				if (sectionTypes[sectionTitle] == undefined) {
+					// Values of adHoc sections
+					obj[sectionKey] = sectionValue;
+					parsedSections[sectionTitle] = {...parsedSections[sectionTitle], ...obj};
+				} else {
+					let valueType = sectionTypes[sectionTitle][sectionKey];
+					obj[sectionKey] = convertValueType(sectionValue, valueType);
+					parsedSections[sectionTitle] = {...parsedSections[sectionTitle], ...obj};
+				}
+			}));
+		}
+		return parsedSections;
 	}
 
 	// TODO: add Content loader when available as a component in ASAB WebUI
