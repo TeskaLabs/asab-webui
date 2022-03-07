@@ -497,8 +497,6 @@ Example:
 		"Fill out configuration name": "Fill out configuration name",
 		"Create": "Create",
 		"New": "New",
-		"Schema title": "Schema title",
-		"Schema description": "Schema description",
 		"Something went wrong! Unable to get configurations": "Something went wrong! Unable to get configurations for {{config}}",
 		"Unable to get configurations. Try to reload the page": "Unable to get configurations for {{config}}. Try to reload the page",
 		"Create configuration": "Create configuration",
@@ -509,7 +507,6 @@ Example:
 		"Add new section": "Add new section",
 		"Add": "Add",
 		"Type": "Type",
-		"Description": "Description",
 		"Do you want to remove this section?": "Do you want to remove this section?"
 	}
 }
