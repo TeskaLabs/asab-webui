@@ -133,7 +133,7 @@ Example of the schema:
 	"$id": "Sidebar schema",
 	"type": "object",
 	"title": "Sidebar",
-	"description": "Schema for sidebar configuration",
+	"description": "Configure sidebar items to hide them in the sidebar",
 	"default": {},
 	"examples": [
 		{
