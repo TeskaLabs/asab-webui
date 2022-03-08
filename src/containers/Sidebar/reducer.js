@@ -1,4 +1,4 @@
-import { SET_SIDEBAR, CHANGE_SIDEBAR_SIZE, SET_SMALL_SIDEBAR } from "../actions";
+import { SET_SIDEBAR, CHANGE_SIDEBAR_SIZE, SET_SMALL_SIDEBAR } from "../../actions";
 
 const initialState = {
 	isSidebarOpen: true,

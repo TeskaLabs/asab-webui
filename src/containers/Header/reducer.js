@@ -1,4 +1,4 @@
-import { CHANGE_HELP_URL } from '../actions';
+import { CHANGE_HELP_URL } from '../../actions';
 
 const initialState = {
     url: "",

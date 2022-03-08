@@ -6,7 +6,7 @@ import {
 	NavItem
 } from 'reactstrap';
 
-import HelpButton from '../../helpButton';
+import HelpButton from './HelpButton';
 import SidebarToggler from './SidebarToggler';
 import NavbarBrand from './NavbarBrand';
 

@@ -1,5 +1,5 @@
 // Actions
-import { ADD_ALERT, ACK_ALERT, DEL_ALERT } from '../actions';
+import { ADD_ALERT, ACK_ALERT, DEL_ALERT } from '../../actions';
 
 const initialState = {
 	alerts: [],

@@ -15,14 +15,13 @@ import Footer from './Footer';
 import Sidebar from './Sidebar';
 import SplashScreen from './SplashScreen';
 import Breadcrumbs from './Breadcrumbs';
-import { Spinner } from './Spinner';
 import ErrorHandler from './ErrorHandler';
+import Alerts from './Alerts';
+import { Spinner } from '../components/Spinner';
 
-import AlertsComponent from '../alerts/AlertsComponent';
-import alertsReducer from '../alerts/reducer';
-
-import helpButtonReducer from '../helpButton/reducer';
-import sidebarReducer from '../sidebar/reducer';
+import alertsReducer from './Alerts/reducer';
+import sidebarReducer from './Sidebar/reducer';
+import headerHelpButtonReducer from './Header/reducer';
 
 import ReduxService from '../services/ReduxService';
 import ConfigService from '../config/ConfigService';
@@ -94,8 +93,8 @@ class Application extends Component {
 		this.FooterService = new FooterService(this, "FooterService");
 
 		this.ReduxService.addReducer("alerts", alertsReducer);
-		this.ReduxService.addReducer("advmode", AdvancedModeReducer);
-		this.ReduxService.addReducer("helpButton", helpButtonReducer);
+		this.ReduxService.addReducer("advmode", advancedModeReducer);
+		this.ReduxService.addReducer("helpButton", headerHelpButtonReducer);
 		this.ReduxService.addReducer("sidebar", sidebarReducer);
 
 		this.DefaultPath = props.defaultpath;
@@ -478,7 +477,7 @@ class Application extends Component {
 			<Provider store={this.Store}>
 				<div className="app">
 					<Suspense fallback={<></>}>
-						<AlertsComponent app={this} />
+						<Alerts app={this} />
 						<TenantSelectionCard app={this} />
 					</Suspense>
 					<SplashScreen app={this} />
@@ -498,7 +497,7 @@ class Application extends Component {
 					<Fade in={this.state.networking > 0} timeout={50} >
 						<div className="networking-indicator progress-bar progress-bar-animated progress-bar-striped" ></div>
 					</Fade>
-					<AlertsComponent app={this} />
+					<Alerts app={this} />
 					{this.Config.get('title') != null && this.Config.get('title') != undefined ?
 						<Helmet>
 							<title>{this.Config.get('site_title') ? this.Config.get('site_title') + " | " + this.Config.get('title') : this.Config.get('title')}</title>
@@ -613,7 +612,7 @@ const advModeInitialState = {
 	enabled: false,
 }
 
-function AdvancedModeReducer(state = advModeInitialState, action) {
+function advancedModeReducer(state = advModeInitialState, action) {
 	switch (action.type) {
 
 		case SET_ADVANCED_MODE: {

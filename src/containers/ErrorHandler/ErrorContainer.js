@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Container } from 'reactstrap';
 
-import { DateTime } from '../DateTime';
+import { DateTime } from '../../components/DateTime';
 
 const ErrorContainer = props => {
 	const { t } = useTranslation();
