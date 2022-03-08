@@ -102,6 +102,9 @@
 
 - Add option to dynamically hide sidebar items via ASAB-Config service (INDIGO Sprint 220218, [!245](https://github.com/TeskaLabs/asab-webui/pull/245))
 
+- Add option to remove section from config in ASAB-Config module (INDIGO Sprint 220304, [!248](https://github.com/TeskaLabs/asab-webui/pull/248))
+
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))

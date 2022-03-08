@@ -155,7 +155,7 @@ Example of the schema configuration
 	"$id": "Tool schema",
 	"type": "object",
 	"title": "Tool schema",
-	"description": "The Tool schema",
+	"description": "Configure Tools screen",
 	"default": {},
 	"examples": [
 		{

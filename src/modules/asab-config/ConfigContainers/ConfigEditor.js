@@ -11,7 +11,8 @@ import {
 	Card, CardBody, CardHeader, CardFooter,
 	Form, FormGroup, FormText, Input, Label,
 	TabContent, TabPane, Nav, NavItem, NavLink,
-	Dropdown, DropdownToggle, DropdownMenu, DropdownItem
+	Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
+	Row, Col
 } from "reactstrap";
 
 import {
@@ -26,7 +27,7 @@ import {types} from './actions/actions';
 import { Spinner, ButtonWithAuthz } from 'asab-webui';
 
 function ConfigEditor(props) {
-	const { register, handleSubmit, setValue, formState: { errors, isSubmitting }, reset } = useForm();
+	const { register, handleSubmit, setValue, getValues, formState: { errors, isSubmitting }, reset } = useForm();
 	const { t, i18n } = useTranslation();
 	const ASABConfigAPI = props.app.axiosCreate('asab_config');
 	let history = useHistory();
@@ -260,56 +261,8 @@ function ConfigEditor(props) {
 
 	// Parse data to JSON format, stringify it and save to config file
 	const onSubmit = async (data) => {
-		// Get 'type' of the values (if defined) from the schema
-		let formStructProperties = formStruct.properties;
-		let sectionTypes = {};
-		// Iterate through sections
-		if (Object.keys(formStructProperties).length > 0) {
-			await Promise.all(Object.keys(formStructProperties).map(async (sect, idx) => {
-				let valueTypes = {};
-				// Iterate through section keys
-				await Promise.all(Object.keys(formStructProperties[sect]).length > 0 && Object.keys(formStructProperties[sect]).map(async (key, id) => {
-					if (key === "properties") {
-						// Iterate through key properties
-						await Promise.all(Object.entries(formStructProperties[sect]["properties"]).map((entry, i) => {
-							// If type of the value is undefined, then default is string
-							valueTypes[entry[0]] = entry[1].type ? entry[1].type : "string";
-						}));
-					}
-				}));
-				sectionTypes[sect] = valueTypes;
-			}));
-		}
-
-		let parsedSections = {};
-		// TODO: Disable saving output from ReactJSONview component
-		if (activeTab == 'advanced') {
-			// If data are being submitted from JSON view, dont parse data to object
-			parsedSections = jsonValues;
-		} else {
-			let splitKey = "";
-			let sectionTitle = "";
-			let sectionKey = "";
-			let sectionValue = "";
-			// Parse data to object
-			await Promise.all(Object.keys(data).map((key, idx) => {
-				splitKey = key.split(" ");
-				sectionTitle = splitKey[0];
-				sectionKey = splitKey[1];
-				sectionValue = data[key];
-				// Parsing
-				let obj = {};
-				if (sectionTypes[sectionTitle] == undefined) {
-					// Values of adHoc sections
-					obj[sectionKey] = sectionValue;
-					parsedSections[sectionTitle] = {...parsedSections[sectionTitle], ...obj};
-				} else {
-					let valueType = sectionTypes[sectionTitle][sectionKey];
-					obj[sectionKey] = convertValueType(sectionValue, valueType);
-					parsedSections[sectionTitle] = {...parsedSections[sectionTitle], ...obj};
-				}
-			}));
-		}
+		// Get parsed sections for submit
+		let parsedSections = await getParsedSections(data);
 
 		try {
 			let response = await ASABConfigAPI.put(`/config/${configType}/${configName}`,
@@ -411,6 +364,46 @@ function ConfigEditor(props) {
 		}
 	}
 
+	// Confirm message form for config section removal
+	const removeSectionForm = (sectionTitle) => {
+		var r = confirm(t("ASABConfig|Do you want to remove this section?"));
+		if (r == true) {
+			removeSection(sectionTitle);
+		}
+	}
+
+	// TODO: Unify the code with onSubmit, that it does not repeat itself
+	// Remove config section
+	const removeSection = async (sectionTitle) => {
+		let data = getValues();
+		// Get parsed section for removal section
+		let parsedSections = await getParsedSections(data);
+
+		// Remove section out of data and save result
+		delete parsedSections[sectionTitle]
+
+		try {
+			let response = await ASABConfigAPI.put(`/config/${configType}/${configName}`,
+				JSON.parse(JSON.stringify(parsedSections)),
+					{ headers: {
+						'Content-Type': 'application/json'
+						}
+					}
+				)
+			if (response.data.result != "OK"){
+				throw new Error(t('ASABConfig|Something went wrong, failed to update data'));
+			}
+			props.app.addAlert("success", t('ASABConfig|Data updated successfuly'));
+			initialLoad(); // Load the new data after saving
+		}
+		catch(e) {
+			console.error(e);
+			props.app.addAlert("warning", t('ASABConfig|Something went wrong, failed to update data'));
+			initialLoad();
+			return;
+		}
+	}
+
 	// Add new section out of pattern properties section list
 	const addNewSection = async (selectedSection) => {
 		let section = selectedSection;
@@ -434,12 +427,77 @@ function ConfigEditor(props) {
 			}))
 		} else {
 			// If section already present in the configuration, use its schema props
-			formStructure["properties"][`${section}:${cnt}`] = selectedProperties;
+			let newSection = `${section}:${cnt}`;
+			// Check if there is a section of the same name in the configuration
+			await Promise.all(Object.keys(properties).map(async (sectionName, id) => {
+				// If there is a section of the same name in the config, add a random string to new section
+				if (sectionName === newSection) {
+					let randomString = Math.random().toString(36).substr(2, 1);
+					newSection = newSection + randomString;
+				}
+			}))
+			formStructure["properties"][newSection] = selectedProperties;
 		}
+
 		props.app.addAlert("success", t('ASABConfig|Section added'));
 		// Update form struct and call setValues function to load data
 		setFormStruct(formStructure);
 		setValues();
+	}
+
+	// Function for obtaining parsed sections
+	const getParsedSections = async (data) => {
+		// Get 'type' of the values (if defined) from the schema
+		let formStructProperties = formStruct.properties;
+		let sectionTypes = {};
+		// Iterate through sections
+		if (Object.keys(formStructProperties).length > 0) {
+			await Promise.all(Object.keys(formStructProperties).map(async (sect, idx) => {
+				let valueTypes = {};
+				// Iterate through section keys
+				await Promise.all(Object.keys(formStructProperties[sect]).length > 0 && Object.keys(formStructProperties[sect]).map(async (key, id) => {
+					if (key === "properties") {
+						// Iterate through key properties
+						await Promise.all(Object.entries(formStructProperties[sect]["properties"]).map((entry, i) => {
+							// If type of the value is undefined, then default is string
+							valueTypes[entry[0]] = entry[1].type ? entry[1].type : "string";
+						}));
+					}
+				}));
+				sectionTypes[sect] = valueTypes;
+			}));
+		}
+
+		let parsedSections = {};
+		// TODO: Disable saving output from ReactJSONview component
+		if (activeTab == 'advanced') {
+			// If data are being submitted from JSON view, dont parse data to object
+			parsedSections = jsonValues;
+		} else {
+			let splitKey = "";
+			let sectionTitle = "";
+			let sectionKey = "";
+			let sectionValue = "";
+			// Parse data to object
+			await Promise.all(Object.keys(data).map((key, idx) => {
+				splitKey = key.split(" ");
+				sectionTitle = splitKey[0];
+				sectionKey = splitKey[1];
+				sectionValue = data[key];
+				// Parsing
+				let obj = {};
+				if (sectionTypes[sectionTitle] == undefined) {
+					// Values of adHoc sections
+					obj[sectionKey] = sectionValue;
+					parsedSections[sectionTitle] = {...parsedSections[sectionTitle], ...obj};
+				} else {
+					let valueType = sectionTypes[sectionTitle][sectionKey];
+					obj[sectionKey] = convertValueType(sectionValue, valueType);
+					parsedSections[sectionTitle] = {...parsedSections[sectionTitle], ...obj};
+				}
+			}));
+		}
+		return parsedSections;
 	}
 
 	// TODO: add Content loader when available as a component in ASAB WebUI
@@ -492,6 +550,8 @@ function ConfigEditor(props) {
 												register={register}
 												adhocvalues={adHocValues}
 												isSubmitting={isSubmitting}
+												removeSectionForm={removeSectionForm}
+												selectPatternSections={selectPatternSections}
 											/>
 										)}
 
@@ -542,35 +602,36 @@ function ConfigEditor(props) {
 								</ButtonWithAuthz>
 							</span>
 							<span className="float-right">
-								<Dropdown
-									direction="up"
-									isOpen={dropdownOpen}
-									toggle={toggleDropDown}
-									title={t('ASABConfig|Add new section')}
-								>
-									<DropdownToggle
-										caret
-										disabled={selectPatternSections.length == 0}
+								{selectPatternSections.length > 0 &&
+									<Dropdown
+										direction="up"
+										isOpen={dropdownOpen}
+										toggle={toggleDropDown}
+										title={t('ASABConfig|Add new section')}
 									>
-										<span className="pr-1">+</span>
-										{t('ASABConfig|Add')}
-									</DropdownToggle>
-									<DropdownMenu
-										className="pattern-section-dropdown"
-									>
-										{selectPatternSections.map((patternSection, idx) => {
-											return(
-												<DropdownItem
-													key={idx}
-													name={patternSection}
-													onClick={(e) => {addNewSection(patternSection), e.preventDefault()}}
-												>
-													{patternSection}
-												</DropdownItem>
-												)
-										})}
-									</DropdownMenu>
-								</Dropdown>
+										<DropdownToggle
+											caret
+										>
+											<span className="pr-1">+</span>
+											{t('ASABConfig|Add')}
+										</DropdownToggle>
+										<DropdownMenu
+											className="pattern-section-dropdown"
+										>
+											{selectPatternSections.map((patternSection, idx) => {
+												return(
+													<DropdownItem
+														key={idx}
+														name={patternSection}
+														onClick={(e) => {addNewSection(patternSection), e.preventDefault()}}
+													>
+														{patternSection}
+													</DropdownItem>
+													)
+											})}
+										</DropdownMenu>
+									</Dropdown>
+								}
 							</span>
 						</CardFooter>
 					</Card>
@@ -588,12 +649,33 @@ export default connect(mapStateToProps)(ConfigEditor);
 
 
 function ConfigSection(props) {
+	const { t, i18n } = useTranslation();
 	return (
 		<React.Fragment>
 			<hr/>
-			<h5>
-				{props.section['title']}
-			</h5>
+			<Row>
+				<Col>
+					<h5>
+						{props.section['title']}
+					</h5>
+				</Col>
+				<Col>
+					<div className="float-right">
+						{props.selectPatternSections.length > 0 &&
+							<Button
+								title={t('ASABConfig|Remove')}
+								color="danger"
+								size="sm"
+								type="button"
+								outline
+								onClick={(e) => {props.removeSectionForm(props.sectionname)}}
+							>
+								<i className="cil-trash"></i>
+							</Button>
+						}
+					</div>
+				</Col>
+			</Row>
 			<FormGroup tag="fieldset" disabled={props.isSubmitting}>
 				{Object.keys(props.section.properties).map((item_name, idx) =>
 					// Decide what type of config item to render based on format
