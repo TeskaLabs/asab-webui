@@ -100,6 +100,8 @@
 
 - Created datatable content loader (INDIGO Sprint 220121, [!230](https://github.com/TeskaLabs/asab-webui/pull/230))
 
+- Add option to dynamically hide sidebar items via ASAB-Config service (INDIGO Sprint 220218, [!245](https://github.com/TeskaLabs/asab-webui/pull/245))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))

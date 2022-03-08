@@ -6,10 +6,26 @@ import SidebarItem from './SidebarItem';
 
 import { CHANGE_SIDEBAR_SIZE } from '../../actions';
 
+
 const Sidebar = (props) => {
-	const navConfig = props.navigation.getItems().items.filter(item => item.name !== "About"),
+	// Get dynamically hiddden sidebar items from store
+	let sidebarHiddenItems = props.sidebarHiddenItems;
+
+	let sidebarItems = props.navigation.getItems().items;
+	// Filter out sidebar items which has been marked as hidden in ASAB Config module
+	if (sidebarHiddenItems) {
+		let updatedSidebar = sidebarItems;
+		Object.keys(sidebarHiddenItems).map((obj, idx) => {
+			if (sidebarItems && Object.values(sidebarItems).some(sidebarObj => sidebarObj.name == sidebarHiddenItems[obj]?.name) && sidebarHiddenItems[obj]?.hide == true) {
+				updatedSidebar = updatedSidebar.filter(item => item.name !== sidebarHiddenItems[obj]?.name);
+			}
+		})
+		sidebarItems = updatedSidebar;
+	}
+
+	const navConfig = sidebarItems.filter(item => item.name !== "About"),
 		unauthorizedNavItems = props.unauthorizedNavItem,
-		unauthorizedNavChildren= props.unauthorizedNavChildren,
+		unauthorizedNavChildren = props.unauthorizedNavChildren,
 		aboutItem = props.navigation.getItems().items.filter(item => item.name === "About")[0];
 
 	// Sort items based on config
@@ -86,7 +102,8 @@ function mapStateToProps(state) {
 		isSidebarMinimized: state.sidebar.isSidebarMinimized,
 		isSmallSidebarOpen: state.sidebar.isSmallSidebarOpen,
 		unauthorizedNavItem: state.auth?.unauthorizedNavItem,
-		unauthorizedNavChildren: state.auth?.unauthorizedNavChildren
+		unauthorizedNavChildren: state.auth?.unauthorizedNavChildren,
+		sidebarHiddenItems: state.sidebar.sidebarHiddenItems
 	};
 }
 
