@@ -26,7 +26,7 @@ const YourComponent = () => {
 	const { t } = useTranslation();
 
 	return (
-		<CellContentLoader cols={2} row={6} title={t('Container|Message')}/>
+		<CellContentLoader cols={2} rows={6} title={t('Container|Message')}/>
 	)
 } 
 ```
