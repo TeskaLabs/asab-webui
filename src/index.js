@@ -15,4 +15,4 @@ export { default as UncontrolledSwitch } from './components/UncontrolledSwitch';
 export { Credentials } from './components/Credentials';
 export { CellContentLoader, ChartLoader } from './components/ContentLoader';
 
-import "./style.scss";
+import "./styles/index.scss";
