@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import Switch from './ControlledSwitch';
+import Switch from '../components/ControlledSwitch';
 
 import { CHANGE_THEME } from '../actions';
 

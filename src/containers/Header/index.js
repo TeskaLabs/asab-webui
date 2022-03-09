@@ -9,6 +9,7 @@ import {
 import HelpButton from './HelpButton';
 import SidebarToggler from './SidebarToggler';
 import NavbarBrand from './NavbarBrand';
+import ThemeButton from '../ThemeButton';
 
 export function Header(props) {
 	const HeaderService = props.app.locateService("HeaderService");
@@ -33,6 +34,7 @@ export function Header(props) {
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
 				(
 					<Nav className="ml-auto header-props" navbar>
+						<ThemeButton />
 						<HelpButton />
 						{HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>
@@ -43,6 +45,7 @@ export function Header(props) {
 				)
 			:
 				<Nav className="ml-auto header-props" navbar>
+					<ThemeButton />
 					<HelpButton />
 					{HeaderService.Items.map((item, idx) => (
 						window.innerWidth < 1024 && item.componentProps.children !== undefined && item.componentProps.children === "LanguageDropdown" ?
@@ -74,6 +77,7 @@ export function Header(props) {
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
 				(
 					<Nav navbar>
+						<ThemeButton />
 						<HelpButton />
 						{HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>
@@ -84,6 +88,7 @@ export function Header(props) {
 				)
 			:
 				<Nav className="header-props-sm" navbar>
+					<ThemeButton />
 					<HelpButton />
 					{HeaderService.Items.map((item, idx) => (
 						window.innerWidth < 1024 && item.componentProps.children !== undefined && item.componentProps.children === "LanguageDropdown" ?

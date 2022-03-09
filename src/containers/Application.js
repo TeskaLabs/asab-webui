@@ -170,8 +170,6 @@ class Application extends Component {
 
 			that.removeSplashScreenRequestor(that);
 		});
-
-		this.HeaderService.addComponent(ThemeButton, {});
 	}
 
 
