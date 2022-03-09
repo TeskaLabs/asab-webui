@@ -7,7 +7,8 @@ import {
 	Container, ListGroup, Input,
 	Row, Col, Card,
 	CardHeader, CardBody, Button,
-	ButtonGroup
+	ButtonGroup, Modal, ModalHeader,
+	ModalBody
 } from "reactstrap";
 import TreeMenu from 'react-simple-tree-menu';
 import Editor from '@monaco-editor/react';
@@ -46,6 +47,8 @@ function LibraryContainer(props) {
 	const [isFileDisabled, setFileDisabled] = useState("disable-switch");
 	const [isReadOnly, setReadOnly] = useState(true);
 	const [language, setLanguage] = useState('');
+	const [isUploadForm, setUploadForm] = useState(false);
+	const uploadedFileRef = useRef(null);
 	const isComponentMounted = useRef(true);
 
 	useEffect(() => {
@@ -197,9 +200,47 @@ function LibraryContainer(props) {
 		}
 	}
 
+	const uploadLibrary = async event => {
+		event.preventDefault();
+		try {
+			const data = new FormData(uploadedFileRef.current)
+			const response = await LMioLibraryAPI.put("/library/upload", data, {
+				headers: {
+					'Content-Type': 'multipart/form-data'
+				}
+			})
+
+			if (response.data.result !== "OK") throw new Error(response);
+
+			setUploadForm(false);
+			props.app.addAlert("success", t("ASABLibraryModule|Library has been successfully uploaded"));
+		} catch (e) {
+			console.error("Failed to upload library\n", e);
+			props.app.addAlert("warning", t("ASABLibraryModule|Failed to upload library"));
+		}
+		
+	}
+
 	// Render function
 	return (
 		<Container fluid className="mt-0 pr-0 pl-0 pt-0 library-container">
+			<Modal
+				isOpen={isUploadForm}
+				toggle={() => setUploadForm(prev => !prev)}
+			>
+				<ModalHeader toggle={() => setUploadForm(prev => !prev)}>Header</ModalHeader>
+				<ModalBody>
+					<form id="upload-library" ref={uploadedFileRef} onSubmit={uploadLibrary} >
+						<Input
+							type="file"
+							id="file"
+							name="file"
+							className="mb-4"
+						/>
+						<Input type="submit" />
+					</form>
+				</ModalBody>
+			</Modal>
 			<Row className="ml-0">
 				<Col xs="3" sm="3" className="pl-0 pr-0 bcg-column tree-menu">
 					<TreeMenu
@@ -280,17 +321,27 @@ function LibraryContainer(props) {
 										</div>
 									)}
 									{isReadOnly && (
-										<a href={`${downloadURL}/library/download`} download>
+										<>
+											<a href={`${downloadURL}/library/download`} download>
+												<Button
+													size="sm"
+													color="secondary"
+													className="mr-2"
+
+												>
+													<i className="cil-cloud-download mr-2" />
+													{t("ASABLibraryModule|Download all")}
+												</Button>
+											</a>
 											<Button
 												size="sm"
 												color="secondary"
 												className="mr-2"
-
+												onClick={() => setUploadForm(true)}
 											>
-												<i className="cil-cloud-download mr-2" />
-												{t("ASABLibraryModule|Download all")}
+												{t("ASABLibraryModule|Upload")}
 											</Button>
-										</a>
+										</>
 									)}
 								</ButtonGroup>
 							</div>
