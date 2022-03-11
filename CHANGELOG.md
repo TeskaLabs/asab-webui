@@ -227,6 +227,8 @@
 
 - Restructure src folder (INDIGO Sprint 220218, [!232](https://github.com/TeskaLabs/asab-webui/pull/232))
 
+- Completely remove moment - replace moment with date-fns in DataTable  (INDIGO Sprint 220218, [!243](https://github.com/TeskaLabs/asab-webui/pull/243))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))

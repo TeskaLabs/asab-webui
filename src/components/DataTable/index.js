@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { saveAs } from 'file-saver';
-import m from 'moment';
+import { format } from 'date-fns';
 
 import { 
 	Card, Row, Col,
@@ -63,7 +63,8 @@ export function DataTable ({
 				return JSON.stringify(item[header.key])?.replace(',', ';');
 			}).join(',')).join('\n');
 		let blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
-		saveAs(blob, `${title.text.replace(' ', '_')}_${m().format('D-MM-YYYY')}.csv`);
+		let name = title?.text || "";
+		saveAs(blob, `${name.replace(' ', '_')}_${format(new Date, 'dd-MM-yyyy')}.csv`);
 	}
 
 	return (
