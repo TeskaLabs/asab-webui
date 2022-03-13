@@ -1,0 +1,110 @@
+$font-size-base:                  .875rem !default;
+
+$white: #FFFFFF !default;
+$gray: #F3F4FA !default;
+$dark-gray: #DDE1F8 !default;
+$black: #0E1426 !default;
+$dark-black: #000000 !default;
+$light-black: #19223F !default;
+$lightest-black: #24366D !default;
+$blue: #31B7E3 !default;
+$dark-blue: #315EE3 !default;
+$violet: #5D31E3 !default;
+$dark-violet: #2E3AC5 !default;
+$light-violet: #E6E9FB !default;
+$red: #FA4D56 !default;
+$dark-red: #E33132 !default;
+$green: #A7F0BA !default;
+$dark-green: #0E6027 !default;
+$yellow: #F4B719 !default;
+$dark-yellow: #E3B631 !default;
+
+// :root {
+	$primary: $dark-blue !default;
+	$secondary: $dark-gray !default;
+	$success: $green !default;
+	$danger: $red !default;
+	$warning: $yellow !default;
+	$info: $blue !default;
+	$light: $gray !default;
+	$dark: $black !default;
+
+	$theme-colors: () !default;
+	$theme-colors: map-merge(
+	(
+		"primary": $primary,
+		"secondary": $secondary,
+		"success": $success,
+		"info": $info,
+		"warning": $warning,
+		"danger": $danger,
+		"light": $light,
+		"dark": $dark
+	),
+	$theme-colors
+	);
+
+	$bg-color: $white !default;
+	$bg-color-dark: $gray !default;
+	$border-color: $dark-gray !default;
+// }
+
+:root[data-theme="theme-dark"] {
+	$primary: $dark-blue !default;
+	$secondary: $dark-gray !default;
+	$success: $green !default;
+	$danger: $red !default;
+	$warning: $yellow !default;
+	$info: $blue !default;
+	$light: $gray !default;
+	$dark: $black !default;
+
+	$theme-colors: () !default;
+	$theme-colors: map-merge(
+	(
+		"primary": $primary,
+		"secondary": $secondary,
+		"success": $success,
+		"info": $info,
+		"warning": $warning,
+		"danger": $danger,
+		"light": $light,
+		"dark": $dark
+	),
+	$theme-colors
+	);
+
+	$bg-color: $light-black !default;
+	$bg-color-dark: $black !default;
+	$border-color: $lightest-black !default;
+}
+
+$header-bg: $bg-color-dark !default;
+$body-bg: $bg-color-dark !default;
+$sidebar-bg: $bg-color-dark !default;
+$breadcrumb-bg: $bg-color-dark !default;
+
+
+// // Cards
+// $card-border-color:               $border-color !default;
+// $card-cap-bg:                     $bg-color !default;
+
+// // Dropdowns (TODO: Refactor once get dropdown examples)
+// $dropdown-padding-y:              0 !default;
+// $dropdown-border-color:           $gray-300 !default;
+// $dropdown-divider-bg:             $gray-200 !default;
+
+// // Buttons (TODO: refactor)
+// $btn-secondary-border:            $gray-300 !default;
+
+// // Progress bars (TODO: refactor)
+// $progress-bg:                     $gray-100 !default;
+
+// // Tables (TODO: refactor)
+// $table-bg-accent:                 $gray-100 !default;
+// $table-bg-hover:                  $gray-100 !default;
+
+// // Forms (TODO: refactor)
+// $input-group-addon-bg:            $gray-100 !default;
+// $input-border-color:              $gray-200 !default;
+// $input-group-addon-border-color:  $gray-200 !default;
