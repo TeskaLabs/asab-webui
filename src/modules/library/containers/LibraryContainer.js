@@ -203,8 +203,10 @@ function LibraryContainer(props) {
 	const uploadLibrary = async event => {
 		event.preventDefault();
 		try {
-			const data = new FormData(uploadedFileRef.current)
-			const response = await LMioLibraryAPI.put("/library/upload", data, {
+			const data = new FormData(uploadedFileRef.current);
+			const type = data.get("upload-type");
+			data.delete("upload-type");
+			const response = await LMioLibraryAPI.put(`/library/upload?type=${type}`, data, {
 				headers: {
 					'Content-Type': 'multipart/form-data'
 				}
@@ -237,6 +239,15 @@ function LibraryContainer(props) {
 							name="file"
 							className="mb-4"
 						/>
+						<Input
+							type="select"
+							id="upload-type"
+							name="upload-type"
+							className="mb-4"
+						>
+							<option value="merge">{t("ASABLibraryModule|Merge")}</option>
+							<option value="override">{t("ASABLibraryModule|Override")}</option>
+						</Input>
 						<Input type="submit" />
 					</form>
 				</ModalBody>
