@@ -47,6 +47,9 @@ $dark-yellow: #E3B631 !default;
 	$bg-color: $white !default;
 	$bg-color-dark: $gray !default;
 	$border-color: $dark-gray !default;
+
+	$text-color: $dark-black;
+	$highligted-text-color: $dark-blue;
 // }
 
 :root[data-theme="theme-dark"] {
