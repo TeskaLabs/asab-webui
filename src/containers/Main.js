@@ -21,7 +21,6 @@ const Main = ({
 
 	const stopPropagation = e => {
 		if (width < 768 && isSmallSidebarOpen) {
-			console.log("stoped");
 			e.preventDefault();
 			e.stopPropagation();
 		}
