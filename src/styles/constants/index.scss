@@ -1,16 +1,32 @@
 @import "./light-mode.scss";
 @import "./dark-mode.scss";
 
-html {
-	--header-bg: var(--bg-color-dark);
-	--body-bg: var(--bg-color-dark);
-	--sidebar-bg: var(--bg-color-dark);
-	--breadcrumb-bg: var(--bg-color-dark);
+$primary: var(--primary);
+$secondary: var(--dark-gray);
+$success: var(--green);
+$danger: var(--red);
+$warning: var(--yellow);
+$info: var(--blue);
+$light: var(--gray);
+$dark: var(--black);
+
+$bg-color: var(--bg-color);
+$bg-color-dark: var(--bg-color-dark);
+$border-color: var(--border-color);
+
+$text-color: var(--text-color);
+$highligted-text-color: var(--highligted-text-color);
+
+$header-bg: var(--bg-color-dark);
+$body-bg: var(--bg-color-dark);
+$sidebar-bg: var(--bg-color-dark);
+$breadcrumb-bg: var(--bg-color-dark);
 
 	// Cards
-	--card-border-color:               var(--border-color);
-	--card-cap-bg:                     var(--bg-color);
+$card-border-color: var(--border-color);
+$card-cap-bg: var(--bg-color);
 
+html {
 	// Breadcrumbs
 	.breadcrumb {
 		background-color: inherit;
