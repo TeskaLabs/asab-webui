@@ -14,7 +14,6 @@ import Header from './Header';
 import Footer from './Footer';
 import Sidebar from './Sidebar';
 import SplashScreen from './SplashScreen';
-import Breadcrumbs from './Breadcrumbs';
 import ErrorHandler from './ErrorHandler';
 import Alerts from './Alerts';
 import { Spinner } from '../components/Spinner';
@@ -22,7 +21,6 @@ import { Spinner } from '../components/Spinner';
 import alertsReducer from './Alerts/reducer';
 import sidebarReducer from './Sidebar/reducer';
 import headerHelpButtonReducer from './Header/reducer';
-import themeReducer from '../reducer/themeReducer';
 
 import ReduxService from '../services/ReduxService';
 import ConfigService from '../config/ConfigService';
@@ -99,7 +97,6 @@ class Application extends Component {
 		this.ReduxService.addReducer("advmode", advancedModeReducer);
 		this.ReduxService.addReducer("helpButton", headerHelpButtonReducer);
 		this.ReduxService.addReducer("sidebar", sidebarReducer);
-		this.ReduxService.addReducer("theme", themeReducer);
 
 		this.DefaultPath = props.defaultpath;
 
@@ -383,6 +380,9 @@ class Application extends Component {
 
 	componentDidMount() {
 		document.addEventListener("keyup", this._handleKeyUp, false);
+
+		const html = document.querySelector('html');
+		html.dataset.theme = `theme-dark`;
 	}
 
 	componentWillUnmount() {
@@ -534,9 +534,6 @@ class Application extends Component {
 													name={route.name}
 													render={props => (
 														<>
-															{!this.props.disableAppBreadcrumbs && !route.disableContainerBreadcrumbs ?
-																<Breadcrumbs routes={this.Router.Routes} match={props.match} />
-																: null}
 															<ErrorHandler>
 																<route.component app={this} {...props} {...route.props} />
 															</ErrorHandler>
