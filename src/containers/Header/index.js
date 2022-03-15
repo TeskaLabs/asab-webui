@@ -48,7 +48,7 @@ export function Header(props) {
 				)
 			:
 				<Nav className="ml-auto header-props" navbar>
-					<ThemeButton />
+					<ThemeButton changeTheme={props.app.changeTheme} />
 					<HelpButton />
 					{HeaderService.Items.map((item, idx) => (
 						window.innerWidth < 1024 && item.componentProps.children !== undefined && item.componentProps.children === "LanguageDropdown" ?
@@ -67,20 +67,20 @@ export function Header(props) {
 
 			}
 
-{/* toggler */}
+				{/* toggler */}
 				<div className={`header-props-toggler mt-1 mr-3 p-0 ${headerProperties && 'header-props-open' }`} onClick={() => setHeaderProperties(!headerProperties)}>
 					<i className="cil-chevron-bottom"></i>
 				</div>
 
 			</div>
-{/* smallscreen menu  */}
-
+			
+			{/* smallscreen menu  */}
 			{ headerProperties && 
 			<div className={`application-header header-props-sm mt-5`} >
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
 				(
 					<Nav navbar>
-						<ThemeButton />
+						<ThemeButton changeTheme={props.app.changeTheme} />
 						<HelpButton />
 						{HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>
@@ -91,7 +91,7 @@ export function Header(props) {
 				)
 			:
 				<Nav className="header-props-sm" navbar>
-					<ThemeButton />
+					<ThemeButton changeTheme={props.app.changeTheme} />
 					<HelpButton />
 					{HeaderService.Items.map((item, idx) => (
 						window.innerWidth < 1024 && item.componentProps.children !== undefined && item.componentProps.children === "LanguageDropdown" ?

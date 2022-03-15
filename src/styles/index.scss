@@ -1,8 +1,14 @@
+@import './constants';
+
 html {
 	font-family: sans-serif;
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	p, span {
+		color: $text-color;
+	}
+	
 
 	// dark mode styles example
 	.dark-mode {
@@ -45,7 +51,7 @@ html {
 		line-height: 1.5;
 		color: #23282c;
 		text-align: left;
-		background-color: var(--body-bg);
+		background-color: $body-bg;
 	}
 }
 
@@ -171,7 +177,7 @@ main > .container-fluid, main > .container {
 	height: 55px;
 	padding: 0;
 	margin: 0;
-	background-color: var(--sidebar-bg);
+	background-color: $sidebar-bg;
 
 	.header-brand-image-full, .header-brand-image-minimized {
 		display: inline-flex;
@@ -243,15 +249,7 @@ main > .container-fluid, main > .container {
 
 // header-props
 
-.header-props {
-	display: none;
-	&-sm {
-		display: none;
-	}
-	&-toggler {
-		display: none;
-	}
-}
+.header-props-toggler { display: none; }
 
 @media (max-width: 800px) {
 	.header-props-toggler{
@@ -392,7 +390,7 @@ main > .container-fluid, main > .container {
 	display: flex;
 	padding: 0;
 	color: #fff;
-	background-color: var(--sidebar-bg);
+	background-color: $sidebar-bg;
 	flex: 0 0 200px;
 	order: -1;
 	.sidebar-dropdown-open {
@@ -572,11 +570,10 @@ main > .container-fluid, main > .container {
 
 // Breadcrumbs
 .breadcrumbs {
-	background-color: var(--breadcrumb-bg);
+	background-color: $breadcrumb-bg;
 }
 
 // Import styles
-@import "~@coreui/coreui/scss/coreui.scss"; // TODO: Remove this line later
 // Temp fix for reactstrap
 @import '~@coreui/coreui/scss/_dropdown-menu-right.scss';
 // Import default bootstrap styles
@@ -584,4 +581,4 @@ main > .container-fluid, main > .container {
 // CoreUI Icons Set
 @import '~@coreui/icons/css/all.css';
 // Override with custom color styles
-@import './constants';
+@import './components';

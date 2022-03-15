@@ -215,8 +215,7 @@ const ASABTable = ({
 );
 
 const mapStateToProps = (state) => ({ 
-	advmode: state.advmode.enabled,
-	theme: state.theme
+	advmode: state.advmode.enabled
 });
 
 export default connect(mapStateToProps)(ASABTable);

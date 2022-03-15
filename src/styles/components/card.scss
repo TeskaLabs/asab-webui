@@ -1,0 +1,11 @@
+@import "../constants/index.scss";
+
+.card {
+	border: $border-color;
+	
+	.card-header {}
+	.card-body {
+		background-color: $bg-color;
+	}
+	.card-footer {}
+}
