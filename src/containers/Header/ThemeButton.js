@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import Switch from '../components/ControlledSwitch';
+import Switch from '../../components/ControlledSwitch';
 
-const ThemeButton = () => {
+const ThemeButton = ({ changeTheme }) => {
 	const [theme, setTheme] = useState("theme-light");
 
 	useEffect(() => {
@@ -11,9 +11,9 @@ const ThemeButton = () => {
 	}, [])
 
 	const onClick = () => {
-		const html = document.querySelector("html");
-		html.dataset.theme = html.dataset.theme == "theme-light" ? "theme-dark" : "theme-light";
-		setTheme(html.dataset.theme);
+		const newTheme = theme === "theme-light" ? "theme-dark" : "theme-light";
+		changeTheme(newTheme)
+		setTheme(newTheme);
 	};
 
 	return (

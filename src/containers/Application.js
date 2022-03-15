@@ -381,14 +381,22 @@ class Application extends Component {
 	componentDidMount() {
 		document.addEventListener("keyup", this._handleKeyUp, false);
 
-		const html = document.querySelector('html');
-		html.dataset.theme = `theme-dark`;
+		// Load theme from localStorage
+		const theme = localStorage.getItem("theme");
+		this.changeTheme(theme);
 	}
 
 	componentWillUnmount() {
 		document.removeEventListener("keyup", this._handleKeyUp, false);
 	}
 
+
+	changeTheme(theme = "theme-light") {
+		localStorage.setItem("theme", theme);
+		
+		const html = document.querySelector('html');
+		html.dataset.theme = theme;
+	}
 
 	// Splash screen
 
