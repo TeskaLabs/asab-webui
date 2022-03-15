@@ -10,7 +10,7 @@ import {
 import HelpButton from './HelpButton';
 import SidebarToggler from './SidebarToggler';
 import NavbarBrand from './NavbarBrand';
-import ThemeButton from '../ThemeButton';
+import ThemeButton from './ThemeButton';
 import Breadcrumbs from './BreadcrumbsRouter';
 
 export function Header(props) {
@@ -37,7 +37,7 @@ export function Header(props) {
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
 				(
 					<Nav className="ml-auto header-props" navbar>
-						<ThemeButton />
+						<ThemeButton changeTheme={props.app.changeTheme} />
 						<HelpButton />
 						{HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>
