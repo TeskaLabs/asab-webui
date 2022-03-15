@@ -382,7 +382,7 @@ class Application extends Component {
 		document.addEventListener("keyup", this._handleKeyUp, false);
 
 		// Load theme from localStorage
-		const theme = localStorage.getItem("theme");
+		const theme = localStorage.getItem("theme") ?? "theme-light";
 		this.changeTheme(theme);
 	}
 
