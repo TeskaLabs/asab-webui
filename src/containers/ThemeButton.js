@@ -1,22 +1,27 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect, useRef } from 'react';
 
 import Switch from '../components/ControlledSwitch';
 
-import { CHANGE_THEME } from '../actions';
-
 const ThemeButton = () => {
-	const theme = useSelector(state => state.theme);
-	const dispatch = useDispatch();
+	const [theme, setTheme] = useState("theme-light");
 
-	const onClick = () => dispatch({ type: CHANGE_THEME });
+	useEffect(() => {
+		const html = document.querySelector("html");
+		setTheme(html.dataset.theme);
+	}, [])
+
+	const onClick = () => {
+		const html = document.querySelector("html");
+		html.dataset.theme = html.dataset.theme == "theme-light" ? "theme-dark" : "theme-light";
+		setTheme(html.dataset.theme);
+	};
 
 	return (
 		<div className="mr-2">
 			<Switch
-				size="md"
+				size="sm"
 				toggle={onClick}
-				isOn={theme !== "light-mode"}
+				isOn={theme == "theme-light"}
 				title="Change language"
 			/>
 		</div>

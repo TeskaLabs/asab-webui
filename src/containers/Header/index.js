@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, Suspense } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import {
@@ -10,6 +11,7 @@ import HelpButton from './HelpButton';
 import SidebarToggler from './SidebarToggler';
 import NavbarBrand from './NavbarBrand';
 import ThemeButton from '../ThemeButton';
+import Breadcrumbs from './BreadcrumbsRouter';
 
 export function Header(props) {
 	const HeaderService = props.app.locateService("HeaderService");
@@ -30,6 +32,7 @@ export function Header(props) {
 			:
 				null
 			}
+			<Breadcrumbs app={props.app} />
 
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
 				(

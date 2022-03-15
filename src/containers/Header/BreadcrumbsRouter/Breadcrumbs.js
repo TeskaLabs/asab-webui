@@ -22,21 +22,20 @@ const Breadcrumbs = ({ routes, match }) => {
 	if (crumbs.length == 0) return null;
 
 	return (
-		<>
-			<div className="breadcrumbs">
-				<Breadcrumb>
-					{crumbs.map((crumb, idx) => (
-						<BreadcrumbItem key={idx} active={idx === crumbs.length - 1}>
-							{idx !== crumbs.length - 1 ? 
-								<Link to={crumb.path}>{t(`Breadcrumbs|${crumb.name}`)}</Link>
-								: <span>{t(`Breadcrumbs|${crumb.name}`)}</span>
-							}
-						</BreadcrumbItem>
-					))
-					}
-				</Breadcrumb>
-			</div>
-		</>
+		<div className="breadcrumbs">
+			<h4 className="text-primary">{crumbs[crumbs.length-1].name}</h4>
+			<Breadcrumb>
+				{crumbs.map((crumb, idx) => (
+					<BreadcrumbItem key={idx} active={idx === crumbs.length - 1}>
+						{idx !== crumbs.length - 1 ? 
+							<Link to={crumb.path}>{t(`Breadcrumbs|${crumb.name}`)}</Link>
+							: <span>{t(`Breadcrumbs|${crumb.name}`)}</span>
+						}
+					</BreadcrumbItem>
+				))
+				}
+			</Breadcrumb>
+		</div>
 	)
 }
 
