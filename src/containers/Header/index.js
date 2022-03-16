@@ -8,8 +8,6 @@ import {
 } from 'reactstrap';
 
 import HelpButton from './HelpButton';
-import SidebarToggler from './SidebarToggler';
-import NavbarBrand from './NavbarBrand';
 import ThemeButton from './ThemeButton';
 import Breadcrumbs from './BreadcrumbsRouter';
 
@@ -19,19 +17,7 @@ export function Header(props) {
 	const [headerProperties, setHeaderProperties] = useState(false);
 
 	return (
-		<header className={headerProperties ? 'header-props-open' : undefined }>
-			<div className="application-header">
-			<NavbarBrand {...props}/>
-			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
-				<SidebarToggler store={props.app.Store}/>
-			: HeaderService.Items.length > 0 ?
-				props.app.Navigation.getItems().items.length > 0 && props.app.Navigation.getItems().items.length !== undefined ?
-					<SidebarToggler store={props.app.store}/>
-				:
-					null
-			:
-				null
-			}
+		<header className={`application-header ${headerProperties ? 'header-props-open' : ""}`}>
 			<Breadcrumbs app={props.app} />
 
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
@@ -71,8 +57,6 @@ export function Header(props) {
 				<div className={`header-props-toggler mt-1 mr-3 p-0 ${headerProperties && 'header-props-open' }`} onClick={() => setHeaderProperties(!headerProperties)}>
 					<i className="cil-chevron-bottom"></i>
 				</div>
-
-			</div>
 			
 			{/* smallscreen menu  */}
 			{ headerProperties && 

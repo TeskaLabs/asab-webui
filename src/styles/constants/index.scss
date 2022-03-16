@@ -9,12 +9,15 @@ $warning: var(--yellow);
 $info: var(--blue);
 $light: var(--gray);
 $dark: var(--black);
+$white-night: var(--white-night);
+$white: var(--white);
 
 $bg-color: var(--bg-color);
 $bg-color-dark: var(--bg-color-dark);
 $border-color: var(--border-color);
 
 $text-color: var(--text-color);
+$reversed-text-color: var(--reversed-text-color);
 $highligted-text-color: var(--highligted-text-color);
 
 $header-bg: var(--bg-color-dark);
@@ -22,17 +25,14 @@ $body-bg: var(--bg-color-dark);
 $sidebar-bg: var(--bg-color-dark);
 $breadcrumb-bg: var(--bg-color-dark);
 
-	// Cards
+// Cards
 $card-border-color: var(--border-color);
 $card-cap-bg: var(--bg-color);
 
-html {
-	// Breadcrumbs
-	.breadcrumb {
-		background-color: inherit;
-		padding: 0;
-	}
+// Error Handler
+$error-handler-stack-bg: var(--dark-black);
 
+html {
 	//Dropdowns (TODO: Refactor once get dropdown examples)
 	// $dropdown-padding-y:              0;
 	// $dropdown-border-color:           $gray-300;

@@ -67,7 +67,7 @@ const SidebarItem = ({
 				}
 			</NavLink>
 
-			{item.children &&
+			{/* {item.children &&
 				(
 					<Collapse isOpen={isOpen}>
 						<Nav className="nav-children">
@@ -80,7 +80,7 @@ const SidebarItem = ({
 						</Nav>
 					</Collapse>
 				)
-			}
+			} */}
 		</NavItem>
 	)
 }

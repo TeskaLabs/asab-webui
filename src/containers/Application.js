@@ -1,5 +1,4 @@
 import React, { Component, Suspense, useEffect } from 'react';
-import * as router from 'react-router-dom';
 import { withRouter } from "react-router";
 import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
@@ -9,9 +8,7 @@ import { Helmet } from "react-helmet";
 
 import { Fade } from 'reactstrap';
 
-import Main from './Main';
 import Header from './Header';
-import Footer from './Footer';
 import Sidebar from './Sidebar';
 import SplashScreen from './SplashScreen';
 import ErrorHandler from './ErrorHandler';
@@ -516,9 +513,8 @@ class Application extends Component {
 						</Helmet>
 						: null
 					}
-					<Header app={this} />
 					<ErrorHandler isParentError={true}>
-						<div className="app-body">
+						<div >
 							{
 								(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') &&
 								<Sidebar
@@ -528,34 +524,38 @@ class Application extends Component {
 									sidebarItemsOrder={this.props.sidebarItemsOrder}
 								/>
 							}
-							<Main hasSidebar={this.props.hasSidebar}>
-								<Suspense
-									fallback={<div style={{ marginTop: "1rem" }}><Spinner /></div>}
-								>
-									<Switch>
-										{this.Router.Routes.map((route, idx) => {
-											return route.component ? (
-												<Route
-													key={idx}
-													path={`${route.path}`}
-													exact={route.exact}
-													name={route.name}
-													render={props => (
-														<>
-															<ErrorHandler>
-																<route.component app={this} {...props} {...route.props} />
-															</ErrorHandler>
-														</>
-													)}
-												/>
-											) : (null);
-										})}
-										{this.DefaultPath != undefined ? <Redirect from="/" to={this.DefaultPath} /> : null}
-									</Switch>
-								</Suspense>
-							</Main>
+							<div
+								className={`app-body ${this.props.hasSidebar || this.props.hasSidebar === undefined ? "with-sidebar" : ""}`}
+							>
+								<Header app={this} />
+								<main className="main">
+									<Suspense
+										fallback={<div style={{ marginTop: "1rem" }}><Spinner /></div>}
+									>
+										<Switch>
+											{this.Router.Routes.map((route, idx) => {
+												return route.component ? (
+													<Route
+														key={idx}
+														path={`${route.path}`}
+														exact={route.exact}
+														name={route.name}
+														render={props => (
+															<>
+																<ErrorHandler>
+																	<route.component app={this} {...props} {...route.props} />
+																</ErrorHandler>
+															</>
+														)}
+													/>
+												) : (null);
+											})}
+											{this.DefaultPath != undefined ? <Redirect from="/" to={this.DefaultPath} /> : null}
+										</Switch>
+									</Suspense>
+								</main>
+							</div>
 						</div>
-						<Footer app={this} />
 					</ErrorHandler>
 				</div>
 			</Provider>
