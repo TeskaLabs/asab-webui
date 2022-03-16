@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 
 import { Nav } from 'reactstrap';
 import SidebarItem from './SidebarItem';
-
-import { CHANGE_SIDEBAR_SIZE } from '../../actions';
+import NavbarBrand from './NavbarBrand';
 
 
 const Sidebar = (props) => {
@@ -46,34 +45,13 @@ const Sidebar = (props) => {
 		return itemsList;
 	}, [navConfig])
 
-	const changeSidebarSize = () => props.app.Store.dispatch({ type: CHANGE_SIDEBAR_SIZE });
-
 	return (
 		<>
 			<div className={`app-sidebar${props.isSidebarMinimized ? "-minimized" : ""} ${props.isSidebarOpen ? "" : "closed"}`}>
 				<div className="sidebar-nav">
-					<Nav  vertical>
-						{memoizedItemsList.map((item, idx) => (
-							<SidebarItem
-								key={idx}
-								item={item}
-								unauthorizedNavChildren={unauthorizedNavChildren}
-								uncollapseAll={memoizedItemsList.length <= 2}
-							/>
-						))}
-					</Nav>
-					<div className="sidebar-bottom">
-						{aboutItem && <Nav vertical><SidebarItem item={aboutItem}/></Nav>}
-						<div onClick={changeSidebarSize} className={`sidebar-minimize-button${aboutItem ? "" : " w-100"}`}>
-							<i className="cil-chevron-left" />
-						</div>
+					<div style={{ display: "inline-block" }}>
+						<NavbarBrand {...props} isSidebarMinimized />
 					</div>
-				</div>
-			</div>
-			<div
-				className={`app-sidebar ${props.isSmallSidebarOpen ? "" : "closed"} small-screen`}
-			>
-				<div className="sidebar-nav">
 					<Nav  vertical>
 						{memoizedItemsList.map((item, idx) => (
 							<SidebarItem
@@ -86,9 +64,6 @@ const Sidebar = (props) => {
 					</Nav>
 					<div className="sidebar-bottom">
 						{aboutItem && <Nav vertical><SidebarItem item={aboutItem}/></Nav>}
-						<div onClick={changeSidebarSize} className={`sidebar-minimize-button${aboutItem ? "" : " w-100"}`}>
-							<i className="cil-chevron-left" />
-						</div>
 					</div>
 				</div>
 			</div>
@@ -98,9 +73,6 @@ const Sidebar = (props) => {
 
 function mapStateToProps(state) {
 	return {
-		isSidebarOpen: state.sidebar.isSidebarOpen,
-		isSidebarMinimized: state.sidebar.isSidebarMinimized,
-		isSmallSidebarOpen: state.sidebar.isSmallSidebarOpen,
 		unauthorizedNavItem: state.auth?.unauthorizedNavItem,
 		unauthorizedNavChildren: state.auth?.unauthorizedNavChildren,
 		sidebarHiddenItems: state.sidebar.sidebarHiddenItems

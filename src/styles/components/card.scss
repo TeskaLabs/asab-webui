@@ -2,10 +2,8 @@
 
 .card {
 	border: $border-color;
-	
-	.card-header {}
-	.card-body {
+	.card-body, .card-header, .card-footer {
 		background-color: $bg-color;
+		color: $text-color;
 	}
-	.card-footer {}
 }
