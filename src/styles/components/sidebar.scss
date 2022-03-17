@@ -1,3 +1,13 @@
+:root[data-theme="theme-light"] {
+	--sidebar-item-icon-weight: 600;
+}
+
+:root[data-theme="theme-dark"] {
+	--sidebar-item-icon-weight: 500;
+}
+
+$sidebar-item-icon-weight: var(--sidebar-item-icon-weight);
+
 .app-sidebar {
 	margin-left: 0;
 	width: 100px;
@@ -56,10 +66,8 @@
 				width: 50px;
 				border-radius: 12px;
 				color: $highlighted-text-color;
+				font-weight: $sidebar-item-icon-weight;
 			}
-
-			
-
 		}
 	}
 }
@@ -113,18 +121,5 @@
 				}
 			}
 		}
-	}
-}
-
-
-:root[data-theme="theme-light"] {
-	.sidebar-item-icon {
-		font-weight: 600;
-	}
-}
-
-:root[data-theme="theme-dark"] {
-	.sidebar-item-icon {
-		font-weight: 500;
 	}
 }

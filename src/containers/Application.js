@@ -27,7 +27,7 @@ import SidebarService from './Sidebar/service';
 
 import TenantSelectionCard from '../modules/tenant/selector/TenantSelectionCard';
 
-import { ADD_ALERT, SET_ADVANCED_MODE, CHANGE_HELP_URL } from '../actions';
+import { ADD_ALERT, SET_ADVANCED_MODE, CHANGE_HELP_URL, CHANGE_THEME } from '../actions';
 
 
 class Application extends Component {
@@ -92,6 +92,7 @@ class Application extends Component {
 
 		this.ReduxService.addReducer("alerts", alertsReducer);
 		this.ReduxService.addReducer("advmode", advancedModeReducer);
+		this.ReduxService.addReducer("theme", themeReducer);
 		this.ReduxService.addReducer("helpButton", headerHelpButtonReducer);
 		this.ReduxService.addReducer("sidebar", sidebarReducer);
 
@@ -164,6 +165,8 @@ class Application extends Component {
 
 			that.removeSplashScreenRequestor(that);
 		});
+
+		this.changeTheme = this.changeTheme.bind(this);
 	}
 
 
@@ -393,6 +396,8 @@ class Application extends Component {
 		
 		const html = document.querySelector('html');
 		html.dataset.theme = theme;
+
+		this.Store.dispatch({ type: CHANGE_THEME })
 	}
 
 	// Splash screen
@@ -621,9 +626,8 @@ const advModeInitialState = {
 	enabled: false,
 }
 
-function advancedModeReducer(state = advModeInitialState, action) {
+const advancedModeReducer = (state = advModeInitialState, action) => {
 	switch (action.type) {
-
 		case SET_ADVANCED_MODE: {
 			return Object.assign({}, state, {
 				enabled: action.enabled
@@ -632,5 +636,16 @@ function advancedModeReducer(state = advModeInitialState, action) {
 
 		default:
 			return state
+	}
+}
+const themeInitState = "theme-light";
+
+const themeReducer = (state = themeInitState, action) => {
+	switch (action.type) {
+		case CHANGE_THEME: 
+			return state !== "theme-light" ? "theme-light" : "theme-dark";
+		
+		default:
+			return state;
 	}
 }

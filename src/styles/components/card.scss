@@ -1,7 +1,18 @@
 @import "../constants/index.scss";
 
+:root[data-theme="theme-light"] {
+	--box-shadow-card-color: rgba(206, 211, 243, 0.5);
+}
+
+:root[data-theme="theme-dark"] {
+	--box-shadow-card-color: #030931;
+}
+
+$box-shadow-card-color: var(--box-shadow-card-color);
+
 .card {
 	border: $border-color;
+	box-shadow: 0px 1px 20px -4px $box-shadow-card-color;
 	.card-body, .card-header, .card-footer {
 		background-color: $bg-color;
 		color: $text-color;

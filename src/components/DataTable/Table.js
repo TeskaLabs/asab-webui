@@ -119,7 +119,7 @@ const Headers = ({ headers, advmode, theme }) => (
 			)}
 		</colgroup>
 
-		<thead className={`thead-${theme === "light-mode" ? "light" : "dark"} data-table-thead`}>
+		<thead className={`thead-${theme === "theme-light" || !theme ? "light" : "dark"} data-table-thead`}>
 			<tr className="data-table-tr">
 				{advmode && <th className="pl-3 data-table-adv-header-th">{" "}</th>}
 				{headers.map((header, idx) => <th key={idx} className={`data-table-header-th${idx !== 0 ? " pl-3" : ""}`}>{header.name}</th>)}
@@ -215,7 +215,8 @@ const ASABTable = ({
 );
 
 const mapStateToProps = (state) => ({ 
-	advmode: state.advmode.enabled
+	advmode: state.advmode.enabled,
+	theme: state.theme
 });
 
 export default connect(mapStateToProps)(ASABTable);

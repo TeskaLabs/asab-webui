@@ -10,3 +10,5 @@ export const CHANGE_CONFIG = "asab/changeConfig";
 export const SET_DEV_CONFIG = "asab/setDevConfig";
 
 export const SET_HIDDEN_ITEMS_SIDEBAR = "asab/setHiddenItemsSidebar";
+
+export const CHANGE_THEME = "asab/changeTheme";
