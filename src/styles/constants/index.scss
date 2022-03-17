@@ -12,6 +12,8 @@ $dark: var(--black);
 $white-night: var(--white-night);
 $white: var(--white);
 
+$night-blue: var(--night-blue);
+
 $bg-color: var(--bg-color);
 $bg-color-dark: var(--bg-color-dark);
 $border-color: var(--border-color);
@@ -32,7 +34,24 @@ $card-cap-bg: var(--bg-color);
 // Error Handler
 $error-handler-stack-bg: var(--dark-black);
 
+$btn-primary: var(--btn-primary);
+$btn-txt: var(--btn-txt);
+$btn-hover: var(--btn-hover);
+$btn-txt-hover: var(--btn-txt-hover);
+
+$input-bg: var(--input-bg);
+$input-border: var(--input-border);
+$input-text: var(--input-text);
+
+
 html {
+	// Breadcrumbs
+	.breadcrumb {
+		background-color: inherit;
+		padding: 0;
+	}
+}
+// html {
 	//Dropdowns (TODO: Refactor once get dropdown examples)
 	// $dropdown-padding-y:              0;
 	// $dropdown-border-color:           $gray-300;
@@ -52,4 +71,4 @@ html {
 	// $input-group-addon-bg:            $gray-100;
 	// $input-border-color:              $gray-200;
 	// $input-group-addon-border-color:  $gray-200;
-}
+// }

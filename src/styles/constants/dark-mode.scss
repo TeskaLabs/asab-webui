@@ -10,6 +10,8 @@
 	--light: var(--gray);
 	--dark: var(--black);
 
+	// --night-blue: var(--night-blue);
+
 	--bg-color: var(--light-black);
 	--bg-color-dark: var(--black);
 	--border-color: var(--lightest-black);
@@ -17,4 +19,13 @@
 	--text-color: var(--white-night);
 	--reversed-text-color: var(--dark-black);
 	--highligted-text-color: var(--violet);
+
+	--btn-primary: var(--night-blue);
+	--btn-txt: var(--light-black);
+	--btn-hover: var(--storm-blue);
+	--btn-txt-hover: var(--wandering-violet);
+
+	--input-bg: var(--dream-blue);
+	--input-border: var(--night-blue);
+	--input-text: var(--light-dream-blue);
 }
