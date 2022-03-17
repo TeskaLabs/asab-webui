@@ -23,7 +23,7 @@ const Breadcrumbs = ({ routes, match }) => {
 
 	return (
 		<div className="breadcrumbs">
-			<h4 className="text-primary mb-0">{crumbs[crumbs.length-1].name}</h4>
+			<h4 className="text-primary mb-1">{crumbs[crumbs.length-1].name}</h4>
 			<Breadcrumb>
 				{crumbs.map((crumb, idx) => (
 					<BreadcrumbItem key={idx} active={idx === crumbs.length - 1}>

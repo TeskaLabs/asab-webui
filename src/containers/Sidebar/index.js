@@ -47,11 +47,12 @@ const Sidebar = (props) => {
 
 	return (
 		<>
-			<div className={`app-sidebar${props.isSidebarMinimized ? "-minimized" : ""} ${props.isSidebarOpen ? "" : "closed"}`}>
+			<div className="app-sidebar">
+				<div style={{ display: "inline-block" }}>
+					<NavbarBrand {...props} isSidebarMinimized />
+				</div>
 				<div className="sidebar-nav">
-					<div style={{ display: "inline-block" }}>
-						<NavbarBrand {...props} isSidebarMinimized />
-					</div>
+					
 					<Nav  vertical>
 						{memoizedItemsList.map((item, idx) => (
 							<SidebarItem

@@ -21,6 +21,10 @@ html {
 	}
 }
 
+.text-primary {
+	color: $primary !important;
+}
+
 .app {
 	display: flex;
     flex-direction: column;
@@ -33,10 +37,8 @@ html {
 
 .app-body {
 	overflow-x: hidden;
-}
-
-.app-body.with-sidebar {
 	margin: 0 0 0 100px;
+	margin-left: calc(100px + 2rem);
 }
 
 .networking-indicator {

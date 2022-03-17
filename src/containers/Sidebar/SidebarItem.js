@@ -54,17 +54,10 @@ const SidebarItem = ({
 
 	return (
 		<NavItem className={`${item.children ? "sidebar-dropdown" : "sidebar-item"} ${isOpen ? "sidebar-dropdown-open": ""}`}  title={t(`Sidebar|${item.name}`)}>
-			<NavLink
-				className={`${location.pathname === item.url ? "active" : ""}`}
-				onClick={onNavLink}
-			>
-				<Icon icon={item.icon} />
-				<span className="sidebar-item-text">{t(`Sidebar|${item.name}`)}</span>
-				{item.children &&
-					<span className={`sidebar-chevron${isOpen ? "-open" : ""}`}>
-						<Icon icon="cil-chevron-left" />
-					</span>
-				}
+			<NavLink onClick={onNavLink}>
+				<div className={`sidebar-item-icon ${location.pathname === item.url ? "active" : ""}`}>
+					<Icon icon={item.icon} />
+				</div>
 			</NavLink>
 
 			{/* {item.children &&
