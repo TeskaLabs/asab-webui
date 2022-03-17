@@ -49,7 +49,7 @@ $sidebar-item-icon-weight: var(--sidebar-item-icon-weight);
 			padding: 0;
 			margin: 0 auto;
 			overflow-y: auto;
-			font-size: 18px;
+			font-size: 16px;
 			
 			.sidebar-item-icon.active {
 				background-color: $highlighted-bg-color;
@@ -57,6 +57,10 @@ $sidebar-item-icon-weight: var(--sidebar-item-icon-weight);
 					color: $reversed-text-color;
 					
 				}
+			}
+			.sidebar-item-icon.active:hover {
+				background-color: $highlighted-bg-color;
+				border: 1px solid $highlighted-bg-color;
 			}
 			.sidebar-item-icon {
 				display: flex;
@@ -67,6 +71,11 @@ $sidebar-item-icon-weight: var(--sidebar-item-icon-weight);
 				border-radius: 12px;
 				color: $highlighted-text-color;
 				font-weight: $sidebar-item-icon-weight;
+			}
+			.sidebar-item-icon:hover {
+				cursor: pointer;
+				background-color: $gray;
+				border: 2px solid $border-color;
 			}
 		}
 	}

@@ -53,9 +53,9 @@ const SidebarItem = ({
 	}
 
 	return (
-		<NavItem className={`${item.children ? "sidebar-dropdown" : "sidebar-item"} ${isOpen ? "sidebar-dropdown-open": ""}`}  title={t(`Sidebar|${item.name}`)}>
+		<NavItem className={`sidebar-item${isOpen ? " sidebar-dropdown-open": ""}`}  title={t(`Sidebar|${item.name}`)}>
 			<NavLink onClick={onNavLink}>
-				<div className={`sidebar-item-icon ${location.pathname === item.url ? "active" : ""}`}>
+				<div className={`sidebar-item-icon${location.pathname === item.url ? " active" : ""}`}>
 					<Icon icon={item.icon} />
 				</div>
 			</NavLink>

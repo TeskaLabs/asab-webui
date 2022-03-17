@@ -1,5 +1,4 @@
 import React, { useState, Suspense } from 'react';
-import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import {
