@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
-	Nav, NavItem, NavLink, Collapse
+	NavItem, NavLink, Popover,
+	PopoverBody, PopoverHeader
 } from 'reactstrap';
 
 import Icon from './SidebarIcon';
@@ -12,7 +13,7 @@ import Icon from './SidebarIcon';
 import { SET_SMALL_SIDEBAR } from '../../actions';
 
 const SidebarItem = ({ 
-	item, unauthorizedNavChildren, uncollapseAll
+	item, unauthorizedNavChildren, uncollapseAll, idx
 }) => {
 	const [isOpen, setOpen] = useState(false);
 	const isSmallSidebarOpen = useSelector(state => state.sidebar.isSmallSidebarOpen);
@@ -53,28 +54,54 @@ const SidebarItem = ({
 	}
 
 	return (
-		<NavItem className={`sidebar-item${isOpen ? " sidebar-dropdown-open": ""}`}  title={t(`Sidebar|${item.name}`)}>
-			<NavLink onClick={onNavLink}>
-				<div className={`sidebar-item-icon${location.pathname === item.url ? " active" : ""}`}>
-					<Icon icon={item.icon} />
-				</div>
-			</NavLink>
+		<>
+			<NavItem className="sidebar-item"  title={t(`Sidebar|${item.name}`)} id={"Popover-" + idx}>
+				<NavLink onClick={onNavLink}>
+					<div className={`sidebar-item-icon${location.pathname === item.url ? " active" : ""}`}>
+						<Icon icon={item.icon} />
+					</div>
+				</NavLink>
 
-			{/* {item.children &&
-				(
-					<Collapse isOpen={isOpen}>
-						<Nav className="nav-children">
-							{item.children.map((child, idx) => (
-								unauthorizedNavChildren == undefined || unauthorizedNavChildren.length == 0 ?
-									<SidebarItem key={idx} item={child} />
-								:
-									unauthorizedNavChildren.indexOf(child.name) == -1 && <SidebarItem key={idx} item={child} />
-							))}
-						</Nav>
-					</Collapse>
-				)
-			} */}
-		</NavItem>
+				{/* {item.children &&
+					(
+						<Collapse isOpen={isOpen}>
+							<Nav className="nav-children">
+								{item.children.map((child, idx) => (
+									unauthorizedNavChildren == undefined || unauthorizedNavChildren.length == 0 ?
+										<SidebarItem key={idx} item={child} />
+									:
+										unauthorizedNavChildren.indexOf(child.name) == -1 && <SidebarItem key={idx} item={child} />
+								))}
+							</Nav>
+						</Collapse>
+					)
+				} */}
+			</NavItem>
+
+			<Popover
+				target={"Popover-" + idx}
+				isOpen={isOpen}
+				toggle={() => setOpen(prev => !prev)}
+				trigger="hover"
+				placement="bottom"
+			>
+				{item.children ? (
+						<>
+							<PopoverHeader>{t(`Sidebar|${item.name}`)}</PopoverHeader>
+							<PopoverBody>
+								{item.children.map(child => (
+									<p>{child.name}</p>
+								))}
+							</PopoverBody>
+						</>
+					) : (
+						<>
+							<PopoverBody>{item.name}</PopoverBody>
+						</>
+					)
+				}
+			</Popover>
+		</>
 	)
 }
 

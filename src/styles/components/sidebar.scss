@@ -74,7 +74,7 @@ $sidebar-item-icon-weight: var(--sidebar-item-icon-weight);
 			}
 			.sidebar-item-icon:hover {
 				cursor: pointer;
-				background-color: $gray;
+				background-color: $bg-color;
 				border: 2px solid $border-color;
 			}
 		}
