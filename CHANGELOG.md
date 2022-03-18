@@ -231,6 +231,8 @@
 
 - Obsolete console.log removal (INDIGO Sprint 220304, [!251](https://github.com/TeskaLabs/asab-webui/pull/251))
 
+- DataTable accepts showContentLoader prop to add the possibility to postpone loaders appearance in order to avoid quick flickering of data/contentloader/new data (INDIGO Sprint 220304, [!252](https://github.com/TeskaLabs/asab-webui/pull/252))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
