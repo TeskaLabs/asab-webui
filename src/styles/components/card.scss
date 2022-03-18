@@ -12,6 +12,7 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 
 .card {
 	border: $border-color;
+	border-radius: 8px;
 	box-shadow: 0px 1px 20px -4px $box-shadow-card-color;
 	.card-body, .card-header, .card-footer {
 		background-color: $bg-color;

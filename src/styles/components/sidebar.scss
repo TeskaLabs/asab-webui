@@ -70,6 +70,8 @@ $sidebar-item-icon-weight: var(--sidebar-item-icon-weight);
 				width: 50px;
 				border-radius: 12px;
 				color: $highlighted-text-color;
+				background-color: transparent;
+				border-color: transparent;
 				font-weight: $sidebar-item-icon-weight;
 			}
 			.sidebar-item-icon:hover {

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import {
 	NavItem, NavLink, Popover,
-	PopoverBody, PopoverHeader
+	PopoverBody, PopoverHeader, Button
 } from 'reactstrap';
 
 import Icon from './SidebarIcon';
@@ -55,11 +55,11 @@ const SidebarItem = ({
 
 	return (
 		<>
-			<NavItem className="sidebar-item"  title={t(`Sidebar|${item.name}`)} id={"Popover-" + idx}>
+			<NavItem className="sidebar-item"  title={t(`Sidebar|${item.name}`)}>
 				<NavLink onClick={onNavLink}>
-					<div className={`sidebar-item-icon${location.pathname === item.url ? " active" : ""}`}>
+					<Button className={`sidebar-item-icon${location.pathname === item.url ? " active" : ""}`} id={"Popover-" + idx}>
 						<Icon icon={item.icon} />
-					</div>
+					</Button>
 				</NavLink>
 
 				{/* {item.children &&
