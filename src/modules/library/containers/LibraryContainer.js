@@ -8,7 +8,8 @@ import {
 	Row, Col, Card,
 	CardHeader, CardBody, Button,
 	ButtonGroup, Modal, ModalHeader,
-	ModalBody
+	ModalBody, Dropdown, DropdownMenu,
+	DropdownToggle, DropdownItem
 } from "reactstrap";
 import TreeMenu from 'react-simple-tree-menu';
 import Editor from '@monaco-editor/react';
@@ -48,6 +49,7 @@ function LibraryContainer(props) {
 	const [isReadOnly, setReadOnly] = useState(true);
 	const [language, setLanguage] = useState('');
 	const [isUploadForm, setUploadForm] = useState(false);
+	const [isDropdownMenuOpen, setDropdownMenu] = useState(false);
 	const uploadedFileRef = useRef(null);
 	const isComponentMounted = useRef(true);
 
@@ -248,7 +250,7 @@ function LibraryContainer(props) {
 							<option value="merge">{t("ASABLibraryModule|Merge")}</option>
 							<option value="override">{t("ASABLibraryModule|Override")}</option>
 						</Input>
-						<Input type="submit" />
+						<Button type="submit" color="primary">{t("ASABLibraryModule|Import")}</Button>
 					</form>
 				</ModalBody>
 			</Modal>
@@ -332,27 +334,25 @@ function LibraryContainer(props) {
 										</div>
 									)}
 									{isReadOnly && (
-										<>
-											<a href={`${downloadURL}/library/download`} download>
-												<Button
-													size="sm"
-													color="secondary"
-													className="mr-2"
-
-												>
-													<i className="cil-cloud-download mr-2" />
-													{t("ASABLibraryModule|Download all")}
-												</Button>
-											</a>
-											<Button
-												size="sm"
-												color="secondary"
-												className="mr-2"
-												onClick={() => setUploadForm(true)}
-											>
-												{t("ASABLibraryModule|Upload")}
-											</Button>
-										</>
+										<Dropdown
+											size="sm"
+											isOpen={isDropdownMenuOpen}
+											toggle={() => setDropdownMenu(prev => !prev)}
+										>
+											<DropdownToggle caret>{t("ASABLibraryModule|Export/Import")}</DropdownToggle>
+											<DropdownMenu>
+												<DropdownItem>
+													<a href={`${downloadURL}/library/download`} download className="text-dark">
+														<i className="cil-cloud-download mr-2" />
+														{t("ASABLibraryModule|Export")}
+													</a>
+												</DropdownItem>
+												<DropdownItem onClick={() => setUploadForm(true)}>
+													<i className="cil-cloud-upload mr-2" />
+													{t("ASABLibraryModule|Import")}
+												</DropdownItem>
+											</DropdownMenu>
+										</Dropdown>
 									)}
 								</ButtonGroup>
 							</div>
