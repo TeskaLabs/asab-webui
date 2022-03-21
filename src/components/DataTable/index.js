@@ -31,7 +31,7 @@ export function DataTable ({
 	customRowStyle, customRowClassName,
 	customCardBodyComponent,
 	limitValues = [10, 15, 25, 50],
-	showContentLoader = true
+	contentLoader = true
 	}) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isSortOpen, setSortDropdown] = useState(false);
@@ -171,7 +171,7 @@ export function DataTable ({
 							rowClassName={customRowClassName}
 						/>
 
-						{isLoading && showContentLoader && <CellContentLoader cols={headers.length} rows={limit ?? 5} /> }
+						{isLoading && contentLoader && <CellContentLoader cols={headers.length} rows={limit ?? 5} /> }
 
 						{count === 0 && !isLoading && (
 							noItemsComponent ? <NoItemsLayout>{noItemsComponent}</NoItemsLayout> :
