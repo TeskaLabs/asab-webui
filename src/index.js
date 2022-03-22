@@ -14,5 +14,6 @@ export { default as ControlledSwitch } from './components/ControlledSwitch';
 export { default as UncontrolledSwitch } from './components/UncontrolledSwitch';
 export { Credentials } from './components/Credentials';
 export { CellContentLoader, ChartLoader } from './components/ContentLoader';
+export { TimeToString } from './components/TimeToString'
 
 import "./style.scss";
