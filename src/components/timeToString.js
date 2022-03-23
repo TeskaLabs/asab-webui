@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { format, parseISO } from 'date-fns';
 
-export function TimeToString (props){
+export const timeToString = (value) => {
     const isMounted = useRef(null);
 	const [locale, setLocale] = useState('');
 	const language = useSelector(state => state.language.language)
@@ -12,6 +12,7 @@ export function TimeToString (props){
 	// and sets isMounted to false before component 
 	// is unmounted (componentWillUnmount analogue)
 	useEffect(() => {
+		console.log(value)
 		isMounted.current = true;
 
 		return () => {
@@ -37,17 +38,17 @@ export function TimeToString (props){
 		if (isMounted.current === true) setLocale(importedLocale.default);
 	}
 
-	if ((props.value === null) || (props.value === undefined)) {
+	if ((value === null) || (value === undefined)) {
 		return ' ';
 	}
 
-	if (new Date(props.value).toString() === "Invalid Date") {
+	if (new Date(value).toString() === "Invalid Date") {
 		return 'Invalid Date';
 	}
 	
-	const date = isNaN(props.value) ? format(parseISO(props.value), 'PPp', { locale: locale }) :
-		props.value > 9999999999 ? format(props.value, 'PPp', { locale: locale }) :
-		format(props.value * 1000, 'PPp', { locale: locale });
-
-    return date
+	const date = isNaN(value) ? format(parseISO(value), 'PPp', { locale: locale }) :
+		value > 9999999999 ? format(value, 'PPp', { locale: locale }) :
+        format(value * 1000, 'PPp', { locale: locale });
+        
+	return date
 } 
