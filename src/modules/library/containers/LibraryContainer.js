@@ -6,15 +6,14 @@ import { useTranslation } from 'react-i18next';
 import {
 	Container, ListGroup, Input,
 	Row, Col, Card,
-	CardHeader, CardBody, Button,
+	CardHeader, Button,
 	ButtonGroup, Modal, ModalHeader,
 	ModalBody, Dropdown, DropdownMenu,
 	DropdownToggle, DropdownItem
 } from "reactstrap";
 import TreeMenu from 'react-simple-tree-menu';
-import Editor from '@monaco-editor/react';
-import { ControlledSwitch } from 'asab-webui';
 
+import SwitchPanel from "./SwitchPanel";
 import TreeMenuItem from "./TreeMenuItem";
 import { formatIntoTree } from "./formatIntoTree";
 
@@ -36,7 +35,7 @@ function LibraryContainer(props) {
 
 	const App = props.app;
 	const LMioLibraryAPI = App.axiosCreate('lmio_library');
-	const downloadURL = App.getServiceURL('lmio_library');
+	const serviceURL = App.getServiceURL('lmio_library');
 	const history = useHistory();
 	const location = useLocation()
 	const { t } = useTranslation();
@@ -45,10 +44,9 @@ function LibraryContainer(props) {
 	const [originalFileContent, setOgFileContent] = useState("");
 	const [fileContent, setFileContent] = useState("");
 	const [activeNode, setActiveNode] = useState({ });
-	const [isFileDisabled, setFileDisabled] = useState("disable-switch");
 	const [isReadOnly, setReadOnly] = useState(true);
 	const [language, setLanguage] = useState('');
-	const [isUploadForm, setUploadForm] = useState(false);
+	const [chosenPanel, setChosenPanel] = useState("editor");
 	const [isDropdownMenuOpen, setDropdownMenu] = useState(false);
 	const uploadedFileRef = useRef(null);
 	const isComponentMounted = useRef(true);
@@ -132,11 +130,8 @@ function LibraryContainer(props) {
 				if (response.data) {
 					if (typeof response.data == "string") setOgFileContent(response.data);
 					else setOgFileContent(JSON.stringify(response.data, null, 4));
-					const fileState = response.headers["x-splang-disabled"] === "True" ? true : false;
-					setFileDisabled(fileState);
 				} else {
 					setOgFileContent("");
-					setFileDisabled("disable-switch");
 				}
 			} catch (e) {
 				console.error("Error when retrieving file content: ", e); // log the error to the browser's console
@@ -146,15 +141,16 @@ function LibraryContainer(props) {
 		}
 	};
 
-	const switchFileState = async () => {
+	const switchFileState = async tenant => {
 		if (activeNode.path) {
 			try {
 				await LMioLibraryAPI.put("/library/item-disable/" + activeNode.path);
-				setFileDisabled(prev => !prev);
-				retrieveTreeData();
+				await retrieveTreeData();
+				return "OK";
 			} catch (e) {
 				console.error("Error when swicthing file state\n", e);
-				props.app.addAlert("warning", t(`ASABLibraryModule|Failed to ${isFileDisabled ? "enable" : "disable"} file`));
+				props.app.addAlert("warning", t(`ASABLibraryModule|Failed to update file's state`));
+				return "FALSE";
 			}
 		}
 	}
@@ -202,7 +198,7 @@ function LibraryContainer(props) {
 		}
 	}
 
-	const uploadLibrary = async event => {
+	const importLibrary = async event => {
 		event.preventDefault();
 		try {
 			const data = new FormData(uploadedFileRef.current);
@@ -216,7 +212,6 @@ function LibraryContainer(props) {
 
 			if (response.data.result !== "OK") throw new Error(response);
 
-			setUploadForm(false);
 			props.app.addAlert("success", t("ASABLibraryModule|Library has been successfully uploaded"));
 		} catch (e) {
 			console.error("Failed to upload library\n", e);
@@ -228,32 +223,6 @@ function LibraryContainer(props) {
 	// Render function
 	return (
 		<Container fluid className="mt-0 pr-0 pl-0 pt-0 library-container">
-			<Modal
-				isOpen={isUploadForm}
-				toggle={() => setUploadForm(prev => !prev)}
-			>
-				<ModalHeader toggle={() => setUploadForm(prev => !prev)}>Header</ModalHeader>
-				<ModalBody>
-					<form id="upload-library" ref={uploadedFileRef} onSubmit={uploadLibrary} >
-						<Input
-							type="file"
-							id="file"
-							name="file"
-							className="mb-4"
-						/>
-						<Input
-							type="select"
-							id="upload-type"
-							name="upload-type"
-							className="mb-4"
-						>
-							<option value="merge">{t("ASABLibraryModule|Merge")}</option>
-							<option value="override">{t("ASABLibraryModule|Override")}</option>
-						</Input>
-						<Button type="submit" color="primary">{t("ASABLibraryModule|Import")}</Button>
-					</form>
-				</ModalBody>
-			</Modal>
 			<Row className="ml-0">
 				<Col xs="3" sm="3" className="pl-0 pr-0 bcg-column tree-menu">
 					<TreeMenu
@@ -286,23 +255,11 @@ function LibraryContainer(props) {
 								className="d-flex justify-content-between align-items-center"
 							>
 								<div>
-									<span className="cil-library mr-3" />
-									{activeNode.name && (
-										<>
-											<span className="mr-2">{activeNode.name}</span>
-											{isFileDisabled !== "disable-switch" && (
-												<ControlledSwitch
-													size="sm"
-													isOn={!isFileDisabled}
-													toggle={switchFileState}
-													title={t(`ASABLibraryModule|${isFileDisabled ? "Enable" : "Disable"} file`)}
-												/>
-											)}
-										</>
-									)}
+									<span className="cil-library mr-3 ml-2" />
+									<span>{activeNode.name}</span>
 								</div>
 								<ButtonGroup>
-									{activeNode.name && isReadOnly && (
+									{activeNode.name && isReadOnly && chosenPanel === "editor" && (
 										<Button
 											size="sm"
 											color="secondary"
@@ -311,6 +268,16 @@ function LibraryContainer(props) {
 										>
 											<i className="cil-pencil mr-2" />
 											{t("ASABLibraryModule|Edit")}
+										</Button>
+									)}
+									{chosenPanel !== "editor" && (
+										<Button
+											size="sm"
+											color="danger"
+											className="mr-2"
+											onClick={() => setChosenPanel("editor")}
+										>
+											{t("ASABLibraryModule|Back")}
 										</Button>
 									)}
 									{activeNode.name && !isReadOnly && (
@@ -339,17 +306,18 @@ function LibraryContainer(props) {
 											isOpen={isDropdownMenuOpen}
 											toggle={() => setDropdownMenu(prev => !prev)}
 										>
-											<DropdownToggle caret>{t("ASABLibraryModule|Export/Import")}</DropdownToggle>
+											<DropdownToggle caret>{t("ASABLibraryModule|Actions")}</DropdownToggle>
 											<DropdownMenu>
-												<DropdownItem>
-													<a href={`${downloadURL}/library/download`} download className="text-dark">
-														<i className="cil-cloud-download mr-2" />
-														{t("ASABLibraryModule|Export")}
-													</a>
+												<DropdownItem onClick={() => setChosenPanel("export")}>
+													<i className="cil-cloud mr-2" />
+													{t("ASABLibraryModule|Export/Import")}
 												</DropdownItem>
-												<DropdownItem onClick={() => setUploadForm(true)}>
-													<i className="cil-cloud-upload mr-2" />
-													{t("ASABLibraryModule|Import")}
+												<DropdownItem
+													onClick={() => setChosenPanel("disable")}
+													disabled={activeNode.name ? false : true}
+												>
+													<i className="cil-toggle-off mr-2" />
+													{t("ASABLibraryModule|Enable/Disable")}
 												</DropdownItem>
 											</DropdownMenu>
 										</Dropdown>
@@ -357,18 +325,23 @@ function LibraryContainer(props) {
 								</ButtonGroup>
 							</div>
 						</CardHeader>
-						<CardBody className="card-body-editor">
-							<Editor
-								height="100%"
-								width="100%"
-								className="editor"
-								value={fileContent}
-								defaultValue=""
-								language={language}
-								onChange={editFileContent}
-								options={{ readOnly: isReadOnly }}
-							/>
-						</CardBody>
+
+						<SwitchPanel
+							chosenPanel={chosenPanel}
+							switchFileState={switchFileState}
+							activeNode={activeNode}
+							editor={{
+								language,
+								isReadOnly,
+								fileContent,
+								editFileContent
+							}}
+							exportProps={{
+								importLibrary,
+								serviceURL,
+								uploadedFileRef
+							}}
+						/>
 					</Card>
 				</Col>
 			</Row>
