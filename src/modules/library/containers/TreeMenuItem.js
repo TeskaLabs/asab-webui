@@ -14,6 +14,7 @@ const TreeMenuItem = ({
 	return (
 		<li
 			{...props}
+			active="false"
 			className="tree-menu-item"
 			style={{
 				paddingLeft: paddingLeft + "rem",
