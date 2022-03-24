@@ -87,7 +87,7 @@ function LibraryContainer(props) {
 	const retrieveTreeData = async () => {
 		try {
 			// Make request for initial data
-			const response = await LMioLibraryAPI.get("/library/list/?recursive");
+			const response = await LMioLibraryAPI.get("/library/list/", { params: { recursive: true, tenant: currentTenant }});
 			// Format response for <TreeMenu />
 			if (response.data.result != "OK") throw new Error ({ response });
 			const treeMenu = formatIntoTree(response.data.data)
@@ -128,7 +128,7 @@ function LibraryContainer(props) {
 		// Requesting the endpoint and getting files content
 		if (path) {
 			try {
-				const response = await LMioLibraryAPI.get(`/library/item/${path}`, { tenant: currentTenant });
+				const response = await LMioLibraryAPI.get(`/library/item/${path}`, { params: { tenant: currentTenant }});
 				if (response.data) {
 					if (typeof response.data == "string") setOgFileContent(response.data);
 					else setOgFileContent(JSON.stringify(response.data, null, 4));
@@ -149,8 +149,13 @@ function LibraryContainer(props) {
 	const switchFileState = async () => {
 		if (activeNode.path) {
 			try {
-				await LMioLibraryAPI.put(`/library/item-disable/${activeNode.path}`, { tenant: currentTenant });
-				setFileDisabled(prev => !prev);
+				const newState = !isFileDisabled;
+				const response = await LMioLibraryAPI.put(`/library/item-disable/${activeNode.path}`, { isDisabled: newState }, { params: { tenant: currentTenant }});
+
+				// TODO: Ask Mithun to return OK instead of ok
+				if (response.data.result != "OK") throw new Error(`Response result is ${response.data.result}. Expected result is OK`);
+
+				setFileDisabled(newState);
 				retrieveTreeData();
 			} catch (e) {
 				console.error("Error when swicthing file state\n", e);
