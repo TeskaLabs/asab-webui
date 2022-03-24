@@ -12,34 +12,42 @@ const Export = ({ importLibrary, serviceURL, uploadedFileRef }) => {
 	return (
 		<CardBody>
 			<Row>
-				<Col>
-					<h5>Export whole library</h5>
-					<a href={`${serviceURL}/library/download`} download className="text-dark">
-						<Button>Export</Button>
-					</a>
-				</Col>
-			</Row>
-			<hr />
-			<Row>
-				<Col>
-					<h5>Import library</h5>
-					<form id="upload-library" ref={uploadedFileRef} onSubmit={importLibrary} >
-						<Input
-							type="file"
-							id="file"
-							name="file"
-							className="mb-4"
-						/>
-						<Input
-							type="select"
-							id="upload-type"
-							name="upload-type"
-							className="mb-4"
-						>
-							<option value="merge">{t("ASABLibraryModule|Merge")}</option>
-							<option value="override">{t("ASABLibraryModule|Override")}</option>
-						</Input>
-						<Button type="submit" color="primary">{t("ASABLibraryModule|Import")}</Button>
+				<Col >
+					<h5>{t("ASABLibraryModule|Import library")}</h5>
+					<hr />
+					<form
+						id="upload-library"
+						ref={uploadedFileRef}
+						onSubmit={importLibrary}
+					>
+						<Row>
+							<Col>
+								<Input
+									type="file"
+									id="file"
+									name="file"
+									className="mb-4"
+								/>
+							</Col>
+						</Row>
+						<Row>
+							<Col>
+								<Input
+									type="select"
+									id="upload-type"
+									name="upload-type"
+									className="mb-4"
+								>
+									<option value="merge">{t("ASABLibraryModule|Merge")}</option>
+									<option value="override">{t("ASABLibraryModule|Override")}</option>
+								</Input>
+							</Col>
+						</Row>
+						<Row>
+							<Col>
+								<Button type="submit" color="primary">{t("ASABLibraryModule|Import")}</Button>
+							</Col>
+						</Row>
 					</form>
 				</Col>
 			</Row>

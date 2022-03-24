@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
@@ -7,12 +7,12 @@ import {
 	Container, ListGroup, Input,
 	Row, Col, Card,
 	CardHeader, Button,
-	ButtonGroup, Modal, ModalHeader,
-	ModalBody, Dropdown, DropdownMenu,
+	ButtonGroup, Dropdown, DropdownMenu,
 	DropdownToggle, DropdownItem
 } from "reactstrap";
 import TreeMenu from 'react-simple-tree-menu';
 
+import ControlledSwitch from '../../../components/ControlledSwitch';
 import SwitchPanel from "./SwitchPanel";
 import TreeMenuItem from "./TreeMenuItem";
 import { formatIntoTree } from "./formatIntoTree";
@@ -40,10 +40,12 @@ function LibraryContainer(props) {
 	const location = useLocation()
 	const { t } = useTranslation();
 	
+	const currentTenant = useSelector(state => state.tenant.current);
 	const [treeData, setTreeData] = useState({});
 	const [originalFileContent, setOgFileContent] = useState("");
 	const [fileContent, setFileContent] = useState("");
 	const [activeNode, setActiveNode] = useState({ });
+	const [isFileDisabled, setFileDisabled] = useState("hide");
 	const [isReadOnly, setReadOnly] = useState(true);
 	const [language, setLanguage] = useState('');
 	const [chosenPanel, setChosenPanel] = useState("editor");
@@ -126,12 +128,15 @@ function LibraryContainer(props) {
 		// Requesting the endpoint and getting files content
 		if (path) {
 			try {
-				const response = await LMioLibraryAPI.get("/library/item/" + path);
+				const response = await LMioLibraryAPI.get(`/library/item/${path}`, { tenant: currentTenant });
 				if (response.data) {
 					if (typeof response.data == "string") setOgFileContent(response.data);
 					else setOgFileContent(JSON.stringify(response.data, null, 4));
+					const fileState = response.headers["x-splang-disabled"] === "True" ? true : false;
+					setFileDisabled(fileState);
 				} else {
 					setOgFileContent("");
+					setFileDisabled("hide");
 				}
 			} catch (e) {
 				console.error("Error when retrieving file content: ", e); // log the error to the browser's console
@@ -141,16 +146,15 @@ function LibraryContainer(props) {
 		}
 	};
 
-	const switchFileState = async tenant => {
+	const switchFileState = async () => {
 		if (activeNode.path) {
 			try {
-				await LMioLibraryAPI.put("/library/item-disable/" + activeNode.path);
-				await retrieveTreeData();
-				return "OK";
+				await LMioLibraryAPI.put(`/library/item-disable/${activeNode.path}`, { tenant: currentTenant });
+				setFileDisabled(prev => !prev);
+				retrieveTreeData();
 			} catch (e) {
 				console.error("Error when swicthing file state\n", e);
-				props.app.addAlert("warning", t(`ASABLibraryModule|Failed to update file's state`));
-				return "FALSE";
+				props.app.addAlert("warning", t(`ASABLibraryModule|Failed to ${isFileDisabled ? "enable" : "disable"} file`));
 			}
 		}
 	}
@@ -240,7 +244,11 @@ function LibraryContainer(props) {
 									placeholder={t("ASABLibraryModule|Search")} />
 								<ListGroup>
 									{items.map(({ reset, ...props }) => (
-										<TreeMenuItem {...props} active="false" />
+										<TreeMenuItem
+											active="false"
+											setChosenPanel={() => setChosenPanel("editor")}
+											{...props}
+										/>
 									))}
 								</ListGroup>
 							</>
@@ -255,8 +263,20 @@ function LibraryContainer(props) {
 								className="d-flex justify-content-between align-items-center"
 							>
 								<div>
-									<span className="cil-library mr-3 ml-2" />
-									<span>{activeNode.name}</span>
+									<span className="cil-library mr-3" />
+									{activeNode.name && (
+										<>
+											<span className="mr-2">{activeNode.name}</span>
+											{isFileDisabled !== "disable-switch" && (
+												<ControlledSwitch
+													size="sm"
+													isOn={!isFileDisabled}
+													toggle={switchFileState}
+													title={t(`ASABLibraryModule|${isFileDisabled ? "Enable" : "Disable"} file`)}
+												/>
+											)}
+										</>
+									)}
 								</div>
 								<ButtonGroup>
 									{activeNode.name && isReadOnly && chosenPanel === "editor" && (
@@ -308,16 +328,15 @@ function LibraryContainer(props) {
 										>
 											<DropdownToggle caret>{t("ASABLibraryModule|Actions")}</DropdownToggle>
 											<DropdownMenu>
-												<DropdownItem onClick={() => setChosenPanel("export")}>
-													<i className="cil-cloud mr-2" />
-													{t("ASABLibraryModule|Export/Import")}
+												<DropdownItem>
+													<a href={`${serviceURL}/library/download`} download className="text-dark dropdown-export-item">
+														<i className="cil-cloud-download mr-2" />
+														{t("ASABLibraryModule|Export")}
+													</a>
 												</DropdownItem>
-												<DropdownItem
-													onClick={() => setChosenPanel("disable")}
-													disabled={activeNode.name ? false : true}
-												>
-													<i className="cil-toggle-off mr-2" />
-													{t("ASABLibraryModule|Enable/Disable")}
+												<DropdownItem onClick={() => setChosenPanel("export")}>
+													<i className="cil-cloud-upload mr-2" />
+													{t("ASABLibraryModule|Import")}
 												</DropdownItem>
 											</DropdownMenu>
 										</Dropdown>
@@ -328,8 +347,6 @@ function LibraryContainer(props) {
 
 						<SwitchPanel
 							chosenPanel={chosenPanel}
-							switchFileState={switchFileState}
-							activeNode={activeNode}
 							editor={{
 								language,
 								isReadOnly,
@@ -338,7 +355,6 @@ function LibraryContainer(props) {
 							}}
 							exportProps={{
 								importLibrary,
-								serviceURL,
 								uploadedFileRef
 							}}
 						/>
@@ -349,8 +365,4 @@ function LibraryContainer(props) {
 	);
 }
 
-function mapStateToProps(state) {
-	return { tenant: state.tenant.current }
-}
-
-export default connect(mapStateToProps)(LibraryContainer);
+export default LibraryContainer;
