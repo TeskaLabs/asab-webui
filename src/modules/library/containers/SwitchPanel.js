@@ -3,16 +3,16 @@ import React from 'react';
 import Editor from '@monaco-editor/react';
 import { CardBody } from 'reactstrap';
 
-import Export from './Export';
+import Import from './Import';
 
 const SwitchPanel = ({ 
-	chosenPanel, editor, exportProps,
+	chosenPanel, editor, api, app
 }) => {
 
 	switch (chosenPanel) {
 		case "export":
 			return (
-				<Export {...exportProps} />
+				<Import api={api} app={app} />
 			)
 		default: 
 			return (

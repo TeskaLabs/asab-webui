@@ -50,7 +50,6 @@ function LibraryContainer(props) {
 	const [language, setLanguage] = useState('');
 	const [chosenPanel, setChosenPanel] = useState("editor");
 	const [isDropdownMenuOpen, setDropdownMenu] = useState(false);
-	const uploadedFileRef = useRef(null);
 	const isComponentMounted = useRef(true);
 
 	useEffect(() => {
@@ -207,27 +206,7 @@ function LibraryContainer(props) {
 		}
 	}
 
-	const importLibrary = async event => {
-		event.preventDefault();
-		try {
-			const data = new FormData(uploadedFileRef.current);
-			const type = data.get("upload-type");
-			data.delete("upload-type");
-			const response = await LMioLibraryAPI.put(`/library/upload?type=${type}`, data, {
-				headers: {
-					'Content-Type': 'multipart/form-data'
-				}
-			})
-
-			if (response.data.result !== "OK") throw new Error(response);
-
-			props.app.addAlert("success", t("ASABLibraryModule|Library has been successfully uploaded"));
-		} catch (e) {
-			console.error("Failed to upload library\n", e);
-			props.app.addAlert("warning", t("ASABLibraryModule|Failed to upload library"));
-		}
-		
-	}
+	
 
 	// Render function
 	return (
@@ -351,16 +330,14 @@ function LibraryContainer(props) {
 						</CardHeader>
 
 						<SwitchPanel
+							app={props.app}
+							api={LMioLibraryAPI}
 							chosenPanel={chosenPanel}
 							editor={{
 								language,
 								isReadOnly,
 								fileContent,
 								editFileContent
-							}}
-							exportProps={{
-								importLibrary,
-								uploadedFileRef
 							}}
 						/>
 					</Card>
