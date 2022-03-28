@@ -57,7 +57,6 @@ const Sidebar = (props) => {
 						{memoizedItemsList.map((item, idx) => (
 							<SidebarItem
 								key={idx}
-								idx={idx}
 								item={item}
 								unauthorizedNavChildren={unauthorizedNavChildren}
 								uncollapseAll={memoizedItemsList.length <= 2}

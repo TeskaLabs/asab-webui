@@ -4,8 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
-	NavItem, NavLink, Popover,
-	PopoverBody, PopoverHeader, Button
+	NavItem, NavLink, Button
 } from 'reactstrap';
 
 import Icon from './SidebarIcon';
@@ -13,7 +12,7 @@ import Icon from './SidebarIcon';
 import { SET_SMALL_SIDEBAR } from '../../actions';
 
 const SidebarItem = ({ 
-	item, unauthorizedNavChildren, uncollapseAll, idx
+	item, unauthorizedNavChildren, uncollapseAll
 }) => {
 	const [isOpen, setOpen] = useState(false);
 	const isSmallSidebarOpen = useSelector(state => state.sidebar.isSmallSidebarOpen);
@@ -57,8 +56,9 @@ const SidebarItem = ({
 		<>
 			<NavItem className="sidebar-item"  title={t(`Sidebar|${item.name}`)}>
 				<NavLink onClick={onNavLink}>
-					<Button className={`sidebar-item-icon${location.pathname === item.url ? " active" : ""}`} id={"Popover-" + idx}>
+					<Button className={`sidebar-item-button${location.pathname === item.url ? " active" : ""}`}>
 						<Icon icon={item.icon} />
+						<div className="sidebar-item-name ml-2">{item.name}</div>
 					</Button>
 				</NavLink>
 
@@ -77,30 +77,6 @@ const SidebarItem = ({
 					)
 				} */}
 			</NavItem>
-
-			<Popover
-				target={"Popover-" + idx}
-				isOpen={isOpen}
-				toggle={() => setOpen(prev => !prev)}
-				trigger="hover"
-				placement="bottom"
-			>
-				{item.children ? (
-						<>
-							<PopoverHeader>{t(`Sidebar|${item.name}`)}</PopoverHeader>
-							<PopoverBody>
-								{item.children.map(child => (
-									<p>{child.name}</p>
-								))}
-							</PopoverBody>
-						</>
-					) : (
-						<>
-							<PopoverBody>{item.name}</PopoverBody>
-						</>
-					)
-				}
-			</Popover>
 		</>
 	)
 }

@@ -38,7 +38,7 @@ html {
 .app-body {
 	overflow-x: hidden;
 	margin: 0 0 0 100px;
-	margin-left: calc(100px + 2rem);
+	margin-left: calc($sidebar-width + 2rem);
 }
 
 .networking-indicator {

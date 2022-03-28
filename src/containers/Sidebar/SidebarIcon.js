@@ -2,10 +2,10 @@ import React from 'react';
 
 const Icon = ({ icon }) => {
 	if (typeof icon === "string") {
-		return <i className={`${icon}`}></i>
+		return <i className={`${icon} sidebar-item-icon`}></i>
 	}
 
-	return <span>{icon}</span>;
+	return <span className='sidebar-item-icon'>{icon}</span>;
 }
 
 export default Icon;

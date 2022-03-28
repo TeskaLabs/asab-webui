@@ -1,16 +1,16 @@
 :root[data-theme="theme-light"] {
-	--sidebar-item-icon-weight: 600;
+	--sidebar-item-weight: 600;
 }
 
 :root[data-theme="theme-dark"] {
-	--sidebar-item-icon-weight: 500;
+	--sidebar-item-weight: 500;
 }
 
-$sidebar-item-icon-weight: var(--sidebar-item-icon-weight);
+$sidebar-item-weight: var(--sidebar-item-weight);
 
 .app-sidebar {
 	margin-left: 0;
-	width: 100px;
+	width: $sidebar-width;
 	transition: margin-left 0.25s ease-out, width .2s ease-out;
 	height: 100vh;
 	position: fixed;
@@ -23,14 +23,10 @@ $sidebar-item-icon-weight: var(--sidebar-item-icon-weight);
 	flex: 0 0 100px;
 	order: -1;
 
-	// This should be refactored for on hover
-	.sidebar-item-text {
-		display: none !important;
-	}
 	.sidebar-nav {
 		position: relative;
 		flex: 1;
-		width: 100px;
+		width: $sidebar-width;
 		overflow: hidden;
 		touch-action: auto;
 		overflow-anchor: none;
@@ -41,7 +37,7 @@ $sidebar-item-icon-weight: var(--sidebar-item-icon-weight);
 		align-items: center;
 
 		.nav {
-			width: 100px;
+			width: $sidebar-width;
 			display: flex;
 			align-items: center;
 			flex-direction: column;
@@ -51,33 +47,44 @@ $sidebar-item-icon-weight: var(--sidebar-item-icon-weight);
 			overflow-y: auto;
 			font-size: 16px;
 			
-			.sidebar-item-icon.active {
+			.sidebar-item-button.active {
 				background-color: $highlighted-bg-color;
-				i {	
+				.sidebar-item-icon, .sidebar-item-name {	
 					color: $reversed-text-color;
 					
 				}
 			}
-			.sidebar-item-icon.active:hover {
+			.sidebar-item-button.active:hover {
 				background-color: $highlighted-bg-color;
 				border: 1px solid $highlighted-bg-color;
 			}
-			.sidebar-item-icon {
+			.sidebar-item-button {
 				display: flex;
 				align-items: center;
-				justify-content: center;
+				padding: 0.5rem;
 				height: 50px;
-				width: 50px;
+				width: 150px;
 				border-radius: 12px;
 				color: $highlighted-text-color;
 				background-color: transparent;
 				border-color: transparent;
-				font-weight: $sidebar-item-icon-weight;
+				font-weight: $sidebar-item-weight;
 			}
-			.sidebar-item-icon:hover {
+			.sidebar-item-button:hover {
 				cursor: pointer;
 				background-color: $bg-color;
 				border: 2px solid $border-color;
+			}
+
+			.sidebar-item-icon {
+				font-weight: $sidebar-item-weight;
+			}
+
+			.sidebar-item-name {
+				max-width: 15ch;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
 			}
 		}
 	}
