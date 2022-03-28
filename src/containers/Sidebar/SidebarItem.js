@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
-	NavItem, NavLink, Button
+	NavItem, NavLink, Button,
+	Collapse, Nav
 } from 'reactstrap';
 
 import Icon from './SidebarIcon';
@@ -59,10 +60,13 @@ const SidebarItem = ({
 					<Button className={`sidebar-item-button${location.pathname === item.url ? " active" : ""}`}>
 						<Icon icon={item.icon} />
 						<div className="sidebar-item-name ml-2">{item.name}</div>
+						{item.children && item.children.length > 0 && (
+							<Icon icon={isOpen ? "cil-arrow-circle-bottom" : "cil-arrow-circle-left"} />
+						)}
 					</Button>
 				</NavLink>
 
-				{/* {item.children &&
+				{item.children &&
 					(
 						<Collapse isOpen={isOpen}>
 							<Nav className="nav-children">
@@ -75,7 +79,7 @@ const SidebarItem = ({
 							</Nav>
 						</Collapse>
 					)
-				} */}
+				}
 			</NavItem>
 		</>
 	)

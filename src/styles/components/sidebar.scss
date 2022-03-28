@@ -7,6 +7,9 @@
 }
 
 $sidebar-item-weight: var(--sidebar-item-weight);
+$sidebar-item-width: 150px;
+$sidebar-item-height: 50px;
+$sidebar-item-radius: 12px;
 
 .app-sidebar {
 	margin-left: 0;
@@ -62,9 +65,9 @@ $sidebar-item-weight: var(--sidebar-item-weight);
 				display: flex;
 				align-items: center;
 				padding: 0.5rem;
-				height: 50px;
-				width: 150px;
-				border-radius: 12px;
+				height: $sidebar-item-height;
+				width: $sidebar-item-width;
+				border-radius: $sidebar-item-radius;
 				color: $highlighted-text-color;
 				background-color: transparent;
 				border-color: transparent;
@@ -75,16 +78,36 @@ $sidebar-item-weight: var(--sidebar-item-weight);
 				background-color: $bg-color;
 				border: 2px solid $border-color;
 			}
+			.sidebar-item-button:focus {
+				outline: none;
+				box-shadow: none;
+			}
 
 			.sidebar-item-icon {
 				font-weight: $sidebar-item-weight;
+				width: 12.5%;
 			}
 
 			.sidebar-item-name {
-				max-width: 15ch;
+				width: 75%;
 				overflow: hidden;
 				white-space: nowrap;
 				text-overflow: ellipsis;
+				text-align: left;
+			}
+		}
+
+		.nav-children {
+			width: $sidebar-item-width;
+			border-radius: $sidebar-item-radius;
+			background-color: $bg-color;
+			.nav-link {
+				height: $sidebar-item-height;
+				padding: 0;
+			}
+			.sidebar-item-button:hover {
+				cursor: pointer;
+				background-color: $bg-color;
 			}
 		}
 	}
@@ -102,7 +125,7 @@ $sidebar-item-weight: var(--sidebar-item-weight);
 
 // TODO : Probably remove
 .sidebar-bottom {
-	height: 50px;
+	height: $sidebar-item-height;
 	.nav {
 		background-color: rgba(0, 0, 0, 0.3);
 		overflow: hidden;
@@ -117,7 +140,7 @@ $sidebar-item-weight: var(--sidebar-item-weight);
 			.nav-link {
 				overflow: hidden;
 				color: #fff;
-				height: 50px;
+				height: $sidebar-item-height;
 				.sidebar-item-icon {
 					color: #464b50;
 				}
