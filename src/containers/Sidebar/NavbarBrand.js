@@ -15,7 +15,7 @@ const NavbarBrand = ({ title, brand_image }) => {
 					rel="noopener noreferrer"
 				>
 					<img
-						src={brand_image.minimized}
+						src={brand_image.full}
 						alt={title}
 						width="50"
 						height="50"
@@ -29,9 +29,9 @@ const NavbarBrand = ({ title, brand_image }) => {
 		<div className={`sidebar-brand-image`}>
 			<Link to={href}>
 				<img
-					src={brand_image.minimized}
+					src={brand_image.full}
 					alt={title}
-					width="50"
+					width="150"
 					height="50"
 					className="minimized-image"
 				/>

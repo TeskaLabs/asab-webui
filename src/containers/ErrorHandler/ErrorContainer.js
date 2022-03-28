@@ -9,7 +9,7 @@ const ErrorContainer = props => {
 	const { t } = useTranslation();
 
 	return (
-		<Container style={{ marginTop: props.isParentError ? "100px" : "50px" }} fluid>
+		<Container fluid>
 			<Card>
 				<CardHeader>
 					<h3>{t("Ooops. We're sorry. Something went wrong.")} <i className="cil-sad ml-1"></i> </h3>

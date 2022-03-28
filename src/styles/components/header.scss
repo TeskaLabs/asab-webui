@@ -1,7 +1,5 @@
 .application-header {
-	position: fixed;
-	z-index: 1020;
-	width: calc(100% - $sidebar-width);
+	width: 100%;
 	display: flex;
 	flex: 0 0 55px;
 	flex-direction: row;

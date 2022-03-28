@@ -10,6 +10,7 @@ $sidebar-item-weight: var(--sidebar-item-weight);
 $sidebar-item-width: 150px;
 $sidebar-item-height: 50px;
 $sidebar-item-radius: 12px;
+$sidebar-item-font-size: 14px;
 
 .app-sidebar {
 	margin-left: 0;
@@ -48,7 +49,10 @@ $sidebar-item-radius: 12px;
 			padding: 0;
 			margin: 0 auto;
 			overflow-y: auto;
-			font-size: 16px;
+
+			.nav-link {
+				padding: 0.25rem;
+			}
 			
 			.sidebar-item-button.active {
 				background-color: $highlighted-bg-color;
@@ -85,6 +89,7 @@ $sidebar-item-radius: 12px;
 
 			.sidebar-item-icon {
 				font-weight: $sidebar-item-weight;
+				font-size: $sidebar-item-font-size;
 				width: 12.5%;
 			}
 
@@ -94,6 +99,7 @@ $sidebar-item-radius: 12px;
 				white-space: nowrap;
 				text-overflow: ellipsis;
 				text-align: left;
+				font-size: $sidebar-item-font-size;
 			}
 		}
 
