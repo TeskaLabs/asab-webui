@@ -11,6 +11,7 @@
         background-color: $input-bg;
         color: $input-text;
         border-color: $border-color;
+        box-shadow: none;
     }
 
     &::placeholder {
@@ -19,8 +20,18 @@
       }
 }
 
+.input-group-text {
+    background-color: $input-bg;
+    border: 1px solid $border-color;
+    box-shadow: 0px 2px 3px -1px $light;
+    color: $input-text;
+}
+
 html[data-theme="theme-dark"] {
     .form-control{
+        box-shadow: 0px 2px 3px -1px rgba(142, 142, 142, 0.2);
+    }
+    .input-group-text {
         box-shadow: 0px 2px 3px -1px rgba(142, 142, 142, 0.2);
     }
 }
