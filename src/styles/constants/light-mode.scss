@@ -18,11 +18,14 @@ html[data-theme="theme-light"] {
 	--reversed-text-color: var(--white);
 	--highligted-text-color: var(--dark-blue);
 
-	--btn-primary: var(--dark-blue);
+	--btn-bg-primary: var(--dark-blue);
+	// --btn-primary-hover: var(--light-violet);
 	--btn-txt: var(--white);
+	--btn-secondary-txt: var(--dark-violet);
 	--btn-hover: var(--light-violet);
 	--btn-txt-hover: var(--dark-violet);
 
 	--input-bg: var(--white);
 	--input-border: var(--light-black);
+	--input-text: var(--feather-gray);
 }

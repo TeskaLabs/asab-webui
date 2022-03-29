@@ -13,6 +13,7 @@ $white-night: var(--white-night);
 $white: var(--white);
 
 $night-blue: var(--night-blue);
+$light-violet: var(--light-violet);
 
 $bg-color: var(--bg-color);
 $bg-color-dark: var(--bg-color-dark);
@@ -34,8 +35,10 @@ $card-cap-bg: var(--bg-color);
 // Error Handler
 $error-handler-stack-bg: var(--dark-black);
 
-$btn-primary: var(--btn-primary);
+$btn-bg-primary: var(--btn-bg-primary);
+// $btn-primary-hover: var(--btn-primary-hover);
 $btn-txt: var(--btn-txt);
+$btn-secondary-txt: var(--btn-secondary-txt);
 $btn-hover: var(--btn-hover);
 $btn-txt-hover: var(--btn-txt-hover);
 
