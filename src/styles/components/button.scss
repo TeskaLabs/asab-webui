@@ -1,15 +1,157 @@
 @import "../constants/index.scss";
 
+:root[data-theme="theme-light"] {
+    
+}
+
+:root[data-theme="theme-dark"] {
+
+}
+
+$btn-secondary-hover-bg: var();
+
 .btn {
-    background-color: $btn-primary;
+    background-color: $btn-bg-primary;
     color: $btn-txt;
     font-weight: bold;
     border-radius: 0;
     padding: 0.75em 1.5em;
     border: 0;
+
+    &:hover {
+        // background-color: $btn-hover;
+
+        // filter: invert(15%);
+        filter: brightness(95%);
+        // color: $btn-txt-hover;
+    }
+    &-primary {
+        background-color: $btn-bg-primary;
+        color: $btn-txt;
+        &:hover {
+            filter: brightness(95%);
+            background-color: $btn-bg-primary;
+            // filter: invert(10%);
+
+            color:$btn-txt;
+        }
+        &:active {
+            background-color: $btn-bg-primary;
+            color: $btn-txt;
+        }
+        &:focus {
+            background-color: $btn-bg-primary;
+            color: $btn-txt;
+            border: none;
+            box-shadow: none;
+        }
+        &:not(:disabled):not(.disabled):active {
+            background-color: $btn-bg-primary;
+            color: $btn-txt;
+        }
+    }
+    &-secondary {
+        background-color: $bg-color;
+        color:$btn-secondary-txt;
+        &:hover {
+            // filter: brightness(90%);
+            filter: brightness(95%);
+            color:$btn-secondary-txt;
+            background-color: $btn-hover;
+        }
+        &:active {
+            background-color: $btn-hover;
+            color:$btn-secondary-txt;
+        }
+        &:focus {
+            background-color: $btn-hover;
+            color:$btn-secondary-txt;
+            border: none;
+            box-shadow: none;
+        }
+        &:not(:disabled):not(.disabled):active {
+            background-color: $btn-hover;
+            color:$btn-secondary-txt;
+        }
+    }
+    &-success {
+        background-color: $success;
+        &:hover {
+            background-color: $success;
+            filter: brightness(95%);
+            color:$btn-txt;
+        }
+        &:active {
+            background-color: $success;
+            color:$btn-txt;
+        }
+        &:focus {
+            background-color: $success;
+            color:$btn-txt;
+            box-shadow: none;
+            border: none;
+        }
+        &:not(:disabled):not(.disabled):active {
+            background-color: $success;
+            color:$btn-txt;
+        }
+
+    }
+    &-danger {
+        background-color: $danger;
+        &:hover {
+            background-color: $danger;
+            filter: brightness(95%);
+            color:$btn-txt;
+        }
+        &:active {
+            background-color: $danger;
+            color:$btn-txt;
+        }
+        &:focus {
+            background-color: $danger;
+            color:$btn-txt;
+            border: none;
+            box-shadow: none;
+        }
+        &:not(:disabled):not(.disabled):active {
+            background-color: $danger;
+            color:$btn-txt;
+        }
+    }
+    &-warning {
+        background-color: $warning;
+        &:hover {
+            background-color: $warning;
+            filter: brightness(95%);
+            color:$btn-txt;
+        }
+        &:active {
+            background-color: $warning;
+            color:$btn-txt;
+        }
+        &:focus {
+            background-color: $warning;
+            color:$btn-txt;
+            border: none;
+            box-shadow: none;
+        }
+        &:not(:disabled):not(.disabled):active {
+            background-color: $warning;
+            color:$btn-txt;
+        }
+    }
+    &-info {
+        background-color: $info;
+    }
+    &-light {
+        background-color: $light;
+    }
+    &-dark {
+        background-color: $dark;
+    }
 }
 
-.btn:hover {
-    background-color: $btn-hover;
-    color: $btn-txt-hover;
+.btn-outline  {
+    background-color: none;
 }
