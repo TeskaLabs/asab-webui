@@ -6,13 +6,19 @@ import { CardBody } from 'reactstrap';
 import Import from './Import';
 
 const SwitchPanel = ({ 
-	chosenPanel, editor, api, app
+	chosenPanel, setChosenPanel, editor,
+	api, app, retrieveAll
 }) => {
 
 	switch (chosenPanel) {
-		case "export":
+		case "import":
 			return (
-				<Import api={api} app={app} />
+				<Import
+					api={api}
+					app={app}
+					setChosenPanel={setChosenPanel}
+					retrieveAll={retrieveAll}
+				/>
 			)
 		default: 
 			return (
