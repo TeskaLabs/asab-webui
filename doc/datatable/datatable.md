@@ -577,7 +577,7 @@ props: {
   headers: Array<{
     name: string, // name of the headers in a table
     key: 'string'', // name of the key for searching properties in objects in props.data
-	link?: {
+	link?: function | {
 		pathname: string,
 		key: string
 	},
