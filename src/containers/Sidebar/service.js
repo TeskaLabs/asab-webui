@@ -15,8 +15,8 @@ export default class SidebarService extends Service {
 
 
 	async initialize() {
-		// Obtain application title from Configuration
-		if (this.App.Services.ConfigService) {
+		// Check if ASABConfigModule is present in the app and obtain application title from Configuration
+		if (this.App.Services.ConfigService && this.App.Modules.some(obj => obj.Name == "ASABConfigModule")) {
 			let title = this.App.Config.get("title")
 			await this.getSidebarHiddenItems(title);
 		}
