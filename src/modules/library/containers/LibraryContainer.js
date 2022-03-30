@@ -252,9 +252,9 @@ function LibraryContainer(props) {
 								className="d-flex justify-content-between align-items-center"
 							>
 								<div>
-									<span className="cil-library mr-3" />
-									{activeNode.name && (
+									{activeNode.name && chosenPanel === "editor" && (
 										<>
+											<span className="cil-library mr-3" />
 											<span className="mr-2">{activeNode.name}</span>
 											{isFileDisabled !== "disable-switch" && (
 												<ControlledSwitch
