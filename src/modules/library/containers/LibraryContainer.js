@@ -145,11 +145,16 @@ function LibraryContainer(props) {
 		}
 	};
 
+	const retrieveAll = () => {
+		retrieveFileContent();
+		retrieveTreeData();
+	}
+
 	const switchFileState = async () => {
 		if (activeNode.path) {
 			try {
 				const newState = !isFileDisabled;
-				const response = await LMioLibraryAPI.put(`/library/item-disable/${activeNode.path}`, { isDisabled: newState }, { params: { tenant: currentTenant }});
+				const response = await LMioLibraryAPI.put(`/library/item-disable/${activeNode.path}`, null , { params: { tenant: currentTenant, disable: newState ? "yes" : "no" }});
 
 				// TODO: Ask Mithun to return OK instead of ok
 				if (response.data.result != "OK") throw new Error(`Response result is ${response.data.result}. Expected result is OK`);
@@ -333,6 +338,8 @@ function LibraryContainer(props) {
 							app={props.app}
 							api={LMioLibraryAPI}
 							chosenPanel={chosenPanel}
+							setChosenPanel={setChosenPanel}
+							retrieveAll={retrieveAll}
 							editor={{
 								language,
 								isReadOnly,
