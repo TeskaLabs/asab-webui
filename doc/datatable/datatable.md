@@ -99,12 +99,26 @@ Prop `headers` is basically an array containing objects with obligatory properti
 
 Property `name` is a string that will be rendered as a header cell in headers row of the table. Property `key` is a key name for getting data from `data` prop, it must be the same as it is in objects in `data` prop.
 
-Optional property `link` is an object containing properties `pathname` and `key`. `pathname` is a string which is representing pathname for <Link> component, `key` is a key name for getting id for pathname. 
+Optional property `link` is either an object or a function. 
+Object contains properties `pathname` and `key`, where `pathname` is a string which is representing pathname for <Link> component and `key` is a key name for getting id for pathname.
 Output for link cell would look like:
 
 ```
 <Link to={{ pathname: link.pathname + obj[link.key] }} >
 ```
+A function allows more variability and returns complete path. Output for link cell would be a string returned from calling the link function.
+
+```
+const headers = [
+		...,
+		{
+			name: 'Demo Link',
+			key: 'username',
+			link: (obj, header) => `my/awesome/custom/path/${header.key}/${obj.username}`,
+		}
+	];
+```
+
 
 If `pathname` is "/user/", `key` is "_id" and data for that cell is 
 {
