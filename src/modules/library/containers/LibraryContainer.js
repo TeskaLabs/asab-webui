@@ -317,16 +317,21 @@ function LibraryContainer(props) {
 										>
 											<DropdownToggle caret>{t("ASABLibraryModule|Actions")}</DropdownToggle>
 											<DropdownMenu>
-												<DropdownItem>
-													<a href={`${serviceURL}/library/download`} download className="text-dark dropdown-export-item">
-														<i className="cil-cloud-download mr-2" />
-														{t("ASABLibraryModule|Export")}
+													<a href={`${serviceURL}/library/download`} download className="text-dark dropdown-export-item w-100">
+														<DropdownItem
+															style={{
+																borderBottom: "1px solid #c8ced3",
+																borderRadius: 0
+															}}
+														>
+															<i className="cil-cloud-download mr-2" />
+															{t("ASABLibraryModule|Export")}
+														</DropdownItem>
 													</a>
-												</DropdownItem>
-												<DropdownItem onClick={() => setChosenPanel("export")}>
-													<i className="cil-cloud-upload mr-2" />
-													{t("ASABLibraryModule|Import")}
-												</DropdownItem>
+													<DropdownItem onClick={() => setChosenPanel("import")}>
+														<i className="cil-cloud-upload mr-2" />
+														{t("ASABLibraryModule|Import")}
+													</DropdownItem>
 											</DropdownMenu>
 										</Dropdown>
 									)}
