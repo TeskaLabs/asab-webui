@@ -3,12 +3,16 @@ import { useTranslation } from 'react-i18next';
 
 import {
 	CardBody, Row, Col,
-	Button, Input
+	Button, Input, Label,
+	FormGroup
 } from 'reactstrap';
 
-const Import = ({ api, app }) => {
+const Import = ({
+	api, app, setChosenPanel, retrieveAll
+}) => {
 	const { t } = useTranslation();
 	const [chosenFilename, setChosenFilename] = useState("");
+	const [type, setType] = useState("override");
 	const [errors, setErrors] = useState("");
 	const inputFileRef = useRef(null)
 	const formRef = useRef(null);
@@ -34,20 +38,22 @@ const Import = ({ api, app }) => {
 		}
 	}
 
+	const onTypeChange = (e) => setType(e.target.value);
+
 	const importLibrary = async event => {
 		event.preventDefault();
 		try {
 			const data = new FormData(formRef.current);
-			const type = data.get("upload-type");
-			data.delete("upload-type");
 			const response = await api.put(`/library/upload?type=${type}`, data, {
 				headers: {
 					'Content-Type': 'multipart/form-data'
 				}
 			})
 
-			if (response.data.result !== "OK") throw new Error(response);
+			if (response.data.result !== "OK") throw new Error(`Response result is ${response.data.result}. Expected result is OK`);
 
+			setChosenPanel("editor");
+			retrieveAll();
 			app.addAlert("success", t("ASABLibraryModule|Library has been successfully uploaded"));
 		} catch (e) {
 			console.error("Failed to upload library\n", e);
@@ -90,7 +96,7 @@ const Import = ({ api, app }) => {
 						<Col sm={4} className="font-weight-bold">
 							{t("ASABLibraryModule|Filename")}
 						</Col>
-						<Col>
+						<Col className='p-0'>
 							{chosenFilename}
 						</Col>
 					</Row>
@@ -99,17 +105,32 @@ const Import = ({ api, app }) => {
 						<Col sm={4} className="font-weight-bold">
 							{t("ASABLibraryModule|Type")}
 						</Col>
+
 						<Col>
-							<Input
-								size="sm"
-								type="select"
-								id="upload-type"
-								name="upload-type"
-								className="w-50"
-							>
-								<option value="merge">{t("ASABLibraryModule|Merge")}</option>
-								<option value="override">{t("ASABLibraryModule|Override")}</option>
-							</Input>
+							<Row>
+								<FormGroup check>
+										<Input
+											type="radio"
+											value="override"
+											checked={type === "override"}
+											onChange={onTypeChange}
+										/>
+										<Label check>
+											{t("ASABLibraryModule|Override")}
+										</Label>
+								</FormGroup>
+								<FormGroup check className="ml-2">
+										<Input
+											type="radio"
+											value="merge"
+											checked={type === "merge"}
+											onChange={onTypeChange}
+										/>
+										<Label check>	
+											{t("ASABLibraryModule|Merge")}
+										</Label>
+								</FormGroup>
+							</Row>
 						</Col>
 					</Row>
 
