@@ -104,6 +104,8 @@
 
 - Add option to remove section from config in ASAB-Config module (INDIGO Sprint 220304, [!248](https://github.com/TeskaLabs/asab-webui/pull/248))
 
+- Add an option to construct a link in DataTable's cell using a function (INDIGO Sprint 220318, [!255](https://github.com/TeskaLabs/asab-webui/pull/255))
+
 
 ### Refactoring
 
