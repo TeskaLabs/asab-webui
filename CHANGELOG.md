@@ -106,6 +106,7 @@
 
 - Add an option to construct a link in DataTable's cell using a function (INDIGO Sprint 220318, [!255](https://github.com/TeskaLabs/asab-webui/pull/255))
 
+- Add feature to import library (INDIGO Sprint 220318, [!250](https://github.com/TeskaLabs/asab-webui/pull/250))
 
 ### Refactoring
 
