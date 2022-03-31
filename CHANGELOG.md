@@ -294,3 +294,5 @@
 - Fix double splashscreen when loading apps. (INDIGO Spring 220218, [!247](https://github.com/TeskaLabs/asab-webui/pull/247))
 
 - Sidebar service - update condition in Sidebar service to avoid triggering call to asab-config service to check Sidebar configuration, when ASAB-Config module is not part of the Application (INDIGO Sprint 220318, [!254](https://github.com/TeskaLabs/asab-webui/pull/254))
+
+- Microservices Detail - Bug with data render (INDIGO Sprint 220318, [!256](https://github.com/TeskaLabs/asab-webui/pull/256))
