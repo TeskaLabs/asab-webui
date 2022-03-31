@@ -94,7 +94,21 @@
 		"Edit": "Edit",
 		"Save":"Save",
 		"Cancel": "Cancel",
-		"Download all": "Download all"
+		"Download all": "Download all",
+		"Back": "Back",
+		"Actions": "Actions",
+		"Export": "Export",
+		"Import": "Import",
+		"Library has been successfully imported": "Library has been successfully imported",
+		"Failed to import library": "Failed to import library",
+		"Import library": "Import library",
+		"Only tar files are allowed": "Only tar files are allowed",
+		"Filename": "Filename",
+		"Type": "Type",
+		"Override": "Override",
+		"Merge": "Merge",
+		"Warning. Only tar files are allowed": "Warning. Only tar files are allowed",
+		"Choose file": "Choose file"
 	},
 
 	"You do not have access rights to perform this action": "You do not have access rights to perform this action"

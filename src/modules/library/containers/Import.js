@@ -50,14 +50,14 @@ const Import = ({
 				}
 			})
 
-			if (response.data.result !== "OK") throw new Error(`Response result is ${response.data.result}. File has not been uploaded`);
+			if (response.data.result !== "OK") throw new Error(`Response result is ${response.data.result}. File has not been imported`);
 
 			setChosenPanel("editor");
 			retrieveAll();
-			app.addAlert("success", t("ASABLibraryModule|Library has been successfully uploaded"));
+			app.addAlert("success", t("ASABLibraryModule|Library has been successfully imported"));
 		} catch (e) {
-			console.error("Failed to upload library\n", e);
-			app.addAlert("warning", t("ASABLibraryModule|Failed to upload library"));
+			console.error("Failed to import library\n", e);
+			app.addAlert("warning", t("ASABLibraryModule|Failed to import library"));
 		}
 		
 	}
