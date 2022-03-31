@@ -156,7 +156,6 @@ function LibraryContainer(props) {
 				const newState = !isFileDisabled;
 				const response = await LMioLibraryAPI.put(`/library/item-disable/${activeNode.path}`, null , { params: { tenant: currentTenant, disable: newState ? "yes" : "no" }});
 
-				// TODO: Ask Mithun to return OK instead of ok
 				if (response.data.result != "OK") throw new Error(`Response result is ${response.data.result}. State of the file has not been updated`);
 
 				setFileDisabled(newState);
