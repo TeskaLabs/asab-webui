@@ -50,7 +50,7 @@ const Import = ({
 				}
 			})
 
-			if (response.data.result !== "OK") throw new Error(`Response result is ${response.data.result}. Expected result is OK`);
+			if (response.data.result !== "OK") throw new Error(`Response result is ${response.data.result}. File has not been uploaded`);
 
 			setChosenPanel("editor");
 			retrieveAll();
@@ -74,7 +74,7 @@ const Import = ({
 					<Row>
 						<Col>
 							<h5>{t("ASABLibraryModule|Import library")}</h5>
-							<p>{t("ASABLibraryModule|Choose library you want to import (only tar files are allowed) and type of importing")}</p>
+							<p>{t("ASABLibraryModule|Only tar files are allowed")}</p>
 							<hr />
 						</Col>
 					</Row>
