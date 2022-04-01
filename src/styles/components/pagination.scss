@@ -21,5 +21,9 @@
             color:$btn-secondary-txt;
 
         }
+        &.disabled .page-link {
+            border: 1px solid $input-border;
+            filter: grayscale(60%);
+        }
     }
 }
