@@ -4,6 +4,8 @@ import {
 	Container, Col, Row, Button
 } from "reactstrap";
 
+import { validateConfiguration } from 'asab-webui';
+
 /*
 	For informations about Tools module, refer to asab-webui/doc/tools.md
 */
@@ -11,6 +13,8 @@ import {
 export default function ToolsDashboard(props){
 	const { t } = useTranslation();
 	const [ config, setConfig ] = useState(undefined);
+	// Get current tenant
+	let currentTenant = props.app.Services.TenantService ? props.app.Services.TenantService.get_current_tenant() : undefined;
 
 	useEffect(() => {
 		retrieveConfig();
@@ -52,10 +56,36 @@ export default function ToolsDashboard(props){
 			}
 			// Parse configuration and drop config file names
 			let configArray = [];
-			await Promise.all(configuration.map((cnfg) => {
+			await Promise.all(configuration.map(async (cnfg) => {
 				if (Object.keys(cnfg) && Object.keys(cnfg).length > 0) {
+					let configToAppend = {};
 					let configContent = Object.values(cnfg)[0];
 					if (configContent && Object.keys(configContent).length > 0) {
+						configToAppend = Object.values(configContent)[0];
+						// Check if current tenant is present in the configuration
+						// and if so, display the configuration only for tenants in configuration
+						if (configToAppend.tenants) {
+							// TODO: refactor tools in config to tool and tool:authorization
+							if (validateConfiguration(props, configToAppend) == false) {
+								return;
+							}
+							// if (currentTenant && typeof configToAppend.tenants == "string") {
+							// 	let tenantsSplit = configToAppend.tenants.toString().split(",");
+							// 	let tenantsArray = [];
+							// 	await Promise.all(tenantsSplit.map(value => {
+							// 		// Check if there is a whitespace in the first position of the string, and if so, erase that
+							// 		if(value.substring(0,1) == " ") {
+							// 			tenantsArray.push(value.substring(1));
+							// 		} else {
+							// 			tenantsArray.push(value);
+							// 		}
+							// 	}))
+							// 	if (tenantsArray.indexOf(currentTenant) == -1) {
+							// 		return;
+							// 	}
+							// }
+						}
+
 						configArray.push(Object.values(configContent)[0]);
 					}
 				}
