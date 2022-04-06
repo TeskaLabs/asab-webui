@@ -13,8 +13,6 @@ import { validateConfiguration } from 'asab-webui';
 export default function ToolsDashboard(props){
 	const { t } = useTranslation();
 	const [ config, setConfig ] = useState(undefined);
-	// Get current tenant
-	let currentTenant = props.app.Services.TenantService ? props.app.Services.TenantService.get_current_tenant() : undefined;
 
 	useEffect(() => {
 		retrieveConfig();
@@ -64,28 +62,9 @@ export default function ToolsDashboard(props){
 						configToAppend = Object.values(configContent)[0];
 						// Check if current tenant is present in the configuration
 						// and if so, display the configuration only for tenants in configuration
-						if (configToAppend.tenants) {
-							// TODO: refactor tools in config to tool and tool:authorization
-							if (validateConfiguration(props, configToAppend) == false) {
-								return;
-							}
-							// if (currentTenant && typeof configToAppend.tenants == "string") {
-							// 	let tenantsSplit = configToAppend.tenants.toString().split(",");
-							// 	let tenantsArray = [];
-							// 	await Promise.all(tenantsSplit.map(value => {
-							// 		// Check if there is a whitespace in the first position of the string, and if so, erase that
-							// 		if(value.substring(0,1) == " ") {
-							// 			tenantsArray.push(value.substring(1));
-							// 		} else {
-							// 			tenantsArray.push(value);
-							// 		}
-							// 	}))
-							// 	if (tenantsArray.indexOf(currentTenant) == -1) {
-							// 		return;
-							// 	}
-							// }
+						if (validateConfiguration(props, configContent)) {
+							return;
 						}
-
 						configArray.push(Object.values(configContent)[0]);
 					}
 				}
