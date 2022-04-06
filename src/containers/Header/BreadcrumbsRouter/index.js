@@ -7,7 +7,7 @@ const BreadcrumbsRouter = (props) => {
 	const app = props.app;
 
 	return (
-		<div className='ml-5'>
+		<div>
 			<Switch>
 				{app.Router.Routes.map((route, idx) => {
 					return route.component ? (

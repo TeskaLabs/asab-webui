@@ -14,6 +14,8 @@ $white: var(--white);
 
 $night-blue: var(--night-blue);
 $light-violet: var(--light-violet);
+$gray: var(--gray);
+$dark-gray: var(--dark-gray);
 
 $bg-color: var(--bg-color);
 $bg-color-dark: var(--bg-color-dark);
@@ -21,8 +23,10 @@ $border-color: var(--border-color);
 
 $text-color: var(--text-color);
 $reversed-text-color: var(--reversed-text-color);
-$highligted-text-color: var(--highligted-text-color);
+$highlighted-text-color: var(--highlighted-text-color);
+$highlighted-bg-color: var(--highlighted-bg-color);
 
+//TODO: move all colors below to appropriate files
 $header-bg: var(--bg-color-dark);
 $body-bg: var(--bg-color-dark);
 $sidebar-bg: var(--bg-color-dark);
@@ -46,32 +50,5 @@ $input-bg: var(--input-bg);
 $input-border: var(--input-border);
 $input-text: var(--input-text);
 
+$sidebar-width: 200px;
 
-html {
-	// Breadcrumbs
-	.breadcrumb {
-		background-color: inherit;
-		padding: 0;
-	}
-}
-// html {
-	//Dropdowns (TODO: Refactor once get dropdown examples)
-	// $dropdown-padding-y:              0;
-	// $dropdown-border-color:           $gray-300;
-	// $dropdown-divider-bg:             $gray-200;
-
-	// // Buttons (TODO: refactor)
-	// $btn-secondary-border:            $gray-300;
-
-	// // Progress bars (TODO: refactor)
-	// $progress-bg:                     $gray-100;
-
-	// // Tables (TODO: refactor)
-	// $table-bg-accent:                 $gray-100;
-	// $table-bg-hover:                  $gray-100;
-
-	// Forms (TODO: refactor)
-	// $input-group-addon-bg:            $gray-100;
-	// $input-border-color:              $gray-200;
-	// $input-group-addon-border-color:  $gray-200;
-// }

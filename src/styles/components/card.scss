@@ -1,14 +1,23 @@
 @import "../constants/index.scss";
 
+:root[data-theme="theme-light"] {
+	--box-shadow-card-color: rgba(206, 211, 243, 0.5);
+}
+
+:root[data-theme="theme-dark"] {
+	--box-shadow-card-color: #030931;
+}
+
+$box-shadow-card-color: var(--box-shadow-card-color);
+
 .card {
 	border: 1px solid $card-border-color;
-	border-radius: 9px 9px 9px 0px;
-
+	border-radius: 8px;
+	box-shadow: 0px 1px 20px -4px $box-shadow-card-color;
 	.card-header {
 		border-bottom: none;
 		background-color: $bg-color;
-		border-radius: 8px 8px 0px 0px;
-
+		color: $text-color;
 	}
 	.card-body {
 		background-color: $bg-color;
@@ -16,11 +25,6 @@
 	}
 	.card-footer {
 		background-color: $bg-color;
-		border-radius: 0px 0px 8px 0px;
-		padding: .75rem 1.25rem;
+		color: $text-color;
 	}
-}
-
-html[data-theme="theme-light"] {
-	box-shadow: 0px 1px 20px -4px rgba(206, 211, 243, 0.5);
 }

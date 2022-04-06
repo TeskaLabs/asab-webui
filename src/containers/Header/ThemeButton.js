@@ -1,9 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import Switch from '../../components/ControlledSwitch';
 
+import { CHANGE_THEME } from '../../actions';
+
 const ThemeButton = ({ changeTheme }) => {
 	const [theme, setTheme] = useState("theme-light");
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const html = document.querySelector("html");
@@ -12,7 +16,7 @@ const ThemeButton = ({ changeTheme }) => {
 
 	const onClick = () => {
 		const newTheme = theme === "theme-light" ? "theme-dark" : "theme-light";
-		changeTheme(newTheme)
+		changeTheme(newTheme);
 		setTheme(newTheme);
 	};
 

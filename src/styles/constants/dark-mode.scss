@@ -1,7 +1,7 @@
 @import "./colors.scss";
 
 :root[data-theme="theme-dark"] {
-	--primary: var(--dark-blue);
+	--primary: var(--violet);
 	--secondary: var(--dark-gray);
 	--success: var(--green);
 	--danger: var(--red);
@@ -10,7 +10,7 @@
 	--light: var(--gray);
 	--dark: var(--black);
 
-	// --night-blue: var(--night-blue);
+	--night-blue: var(--night-blue);
 
 	--bg-color: var(--light-black);
 	--bg-color-dark: var(--black);
@@ -19,9 +19,9 @@
 	--text-color: var(--white-night);
 	--reversed-text-color: var(--dark-black);
 	--highligted-text-color: var(--violet);
+	--highlighted-bg-color: var(--violet);
 
 	--btn-bg-primary: var(--night-blue);
-
 
 	--btn-txt: var(--light-black);
 	--btn-secondary-txt: var(--wandering-violet);

@@ -1,12 +1,10 @@
 .application-header {
-	position: fixed;
-	z-index: 1020;
-	width: calc(100% - 100px);
+	width: 100%;
 	display: flex;
 	flex: 0 0 55px;
 	flex-direction: row;
-	height: 55px;
-	padding: 0;
+	height: 100px;
+	padding: 1.6rem 1rem 1rem 1rem;
 	background-color: $header-bg;
 
 	.navbar-nav {
