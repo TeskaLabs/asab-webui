@@ -38,11 +38,34 @@
 		}
 	```
 
+	Example of config for validateConfiguration function
+
+	```
+		...
+
+		let config = {
+				...
+
+				"SectionName:datasource" {
+					...
+				},
+				"SectionName:authorization" {
+					"tenants": "tenant1, tenant2"
+				},
+				...
+			}
+
+		if (validateConfiguration(props, config)) {
+			return;
+		}
+		...
+
+	```
+
 	The result of processing after validation should be that configuration, which has specified tenants
 	in the configuration and does match the criterion (match the configured tenants in the `:authorization`
 	section with current tenant of the user), will be visible only to the users, whos current tenant matches
 	the criteria.
-
 
 */
 export const validateConfiguration = (props, config) => {
