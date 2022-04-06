@@ -106,6 +106,7 @@
 
 - Add an option to construct a link in DataTable's cell using a function (INDIGO Sprint 220318, [!255](https://github.com/TeskaLabs/asab-webui/pull/255))
 
+- Make monaco loader part of the application (INDIGO Sprint 220401, [!258](https://github.com/TeskaLabs/asab-webui/pull/258))
 
 ### Refactoring
 
