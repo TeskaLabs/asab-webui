@@ -86,7 +86,7 @@ export const validateConfiguration = (props, config) => {
 					tenantsArray.push(value);
 				}
 			})
-			if (tenantsArray.indexOf(currentTenant) == -1) {
+			if (tenantsArray[0] != "" && tenantsArray.indexOf(currentTenant) == -1) {
 				return true;
 			}
 		}
