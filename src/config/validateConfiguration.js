@@ -76,7 +76,7 @@ export const validateConfiguration = (props, config) => {
 		let authSection = Object.keys(config).filter(res => res.includes(`:authorization`));
 		// Check if current tenant exist and if authorization section is present within the configuration
 		if (currentTenant && config[authSection[0]]) {
-			let tenantsSplit = config[authSection[0]]?.tenants.toString().split(",");
+			let tenantsSplit = config[authSection[0]]?.tenants ? config[authSection[0]]?.tenants.toString().split(",") : [""];
 			let tenantsArray = [];
 			tenantsSplit.map(value => {
 				// Check if there is a whitespace in the first position of the string, and if so, erase that
