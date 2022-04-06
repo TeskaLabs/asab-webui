@@ -20,8 +20,6 @@ $btn-secondary-hover-bg: var();
 
     &:hover {
         // background-color: $btn-hover;
-
-        // filter: invert(15%);
         filter: brightness(95%);
         // color: $btn-txt-hover;
     }
@@ -50,11 +48,10 @@ $btn-secondary-hover-bg: var();
             color: $btn-txt;
         }
     }
-    &-secondary {
+    &-outline-primary {
         background-color: $bg-color;
         color:$btn-secondary-txt;
         &:hover {
-            // filter: brightness(90%);
             filter: brightness(95%);
             color:$btn-secondary-txt;
             background-color: $btn-hover;
