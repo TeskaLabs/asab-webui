@@ -22,7 +22,14 @@ module.exports = {
 		let defaultLocales = /cs/; // Default moment locales (needed for backward compatibility)
 
 		return {
-			entry: entry_path,
+			entry: {
+				app: entry_path,
+				'editor.worker': 'monaco-editor/esm/vs/editor/editor.worker.js',
+				'json.worker': 'monaco-editor/esm/vs/language/json/json.worker',
+				'css.worker': 'monaco-editor/esm/vs/language/css/css.worker',
+				'html.worker': 'monaco-editor/esm/vs/language/html/html.worker',
+				'ts.worker': 'monaco-editor/esm/vs/language/typescript/ts.worker'
+			},
 			mode: 'production',
 			output: {
 				filename: 'assets/js/[name].[contenthash].bundle.js',
@@ -69,6 +76,9 @@ module.exports = {
 					filename: 'assets/css/[name].[contenthash].css',
 					chunkFilename: "assets/css/[id].[contenthash].css",
 					ignoreOrder: false, // Enable to remove warnings about conflicting order
+				}),
+				new MonacoWebpackPlugin({
+					languages: ['json', 'javascript', 'html', 'yaml', 'xml']
 				}),
 				new UglifyJsPlugin({
 					uglifyOptions: {
