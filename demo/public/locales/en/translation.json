@@ -102,12 +102,11 @@
 		"Library has been successfully imported": "Library has been successfully imported",
 		"Failed to import library": "Failed to import library",
 		"Import library": "Import library",
-		"Only tar files are allowed": "Only tar files are allowed",
 		"Filename": "Filename",
 		"Type": "Type",
 		"Override": "Override",
 		"Merge": "Merge",
-		"Warning. Only tar files are allowed": "Warning. Only tar files are allowed",
+		"Only tar.gz files are allowed": "Only tar.gz files are allowed",
 		"Choose file": "Choose file"
 	},
 

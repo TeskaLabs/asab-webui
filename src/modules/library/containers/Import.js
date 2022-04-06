@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import {
 	CardBody, Row, Col,
 	Button, Input, Label,
-	FormGroup
+	FormGroup, FormText
 } from 'reactstrap';
 
 const Import = ({
@@ -12,7 +12,7 @@ const Import = ({
 }) => {
 	const { t } = useTranslation();
 	const [chosenFilename, setChosenFilename] = useState("");
-	const [type, setType] = useState("override");
+	const [type, setType] = useState("merge");
 	const [errors, setErrors] = useState("");
 	const inputFileRef = useRef(null)
 	const formRef = useRef(null);
@@ -31,7 +31,7 @@ const Import = ({
 		setChosenFilename(filename);
 
 		// Check if file is tar
-		if (!filename.includes(".tar")) {
+		if (!filename.includes(".tar.gz")) {
 			setErrors(true);
 		} else {
 			setErrors(false);
@@ -70,90 +70,58 @@ const Import = ({
 				onSubmit={importLibrary}
 			>
 				<Col>
+					<h5>{t("ASABLibraryModule|Import library")}</h5>
+					<hr />
 
-					<Row>
-						<Col>
-							<h5>{t("ASABLibraryModule|Import library")}</h5>
-							<p>{t("ASABLibraryModule|Only tar files are allowed")}</p>
-							<hr />
-						</Col>
-					</Row>
-
-					<Row>
-						<Col>
-							<Input
-								type="file"
-								id="file"
-								name="file"
-								className="hidden-file-input"
-								innerRef={inputFileRef}
-								onChange={updateFilename}
-							/>
-						</Col>
-					</Row>
-
-					<Row className="mb-2">
-						<Col sm={4} className="font-weight-bold">
-							{t("ASABLibraryModule|Filename")}
-						</Col>
-						<Col className='p-0'>
-							{chosenFilename}
-						</Col>
-					</Row>
-
-					<Row>
-						<Col sm={4} className="font-weight-bold">
-							{t("ASABLibraryModule|Type")}
-						</Col>
-
-						<Col>
-							<Row>
-								<FormGroup check>
-										<Input
-											type="radio"
-											value="override"
-											checked={type === "override"}
-											onChange={onTypeChange}
-										/>
-										<Label check>
-											{t("ASABLibraryModule|Override")}
-										</Label>
-								</FormGroup>
-								<FormGroup check className="ml-2">
-										<Input
-											type="radio"
-											value="merge"
-											checked={type === "merge"}
-											onChange={onTypeChange}
-										/>
-										<Label check>	
-											{t("ASABLibraryModule|Merge")}
-										</Label>
-								</FormGroup>
-							</Row>
-						</Col>
-					</Row>
-
-					{errors && (
+					<Input
+						id="file"
+						name="file"
+						type="file"
+						className="hidden-file-input"
+						innerRef={inputFileRef}
+						onChange={updateFilename}
+					/>
+					<FormGroup className="file-input" onClick={chooseFile}>
+							<Input type="button" className="file-button" value={t("Choose file")} />
+							<div className="filename-text">
+								{chosenFilename}
+							</div>
+						<FormText>{t("ASABLibraryModule|Only tar.gz files are allowed")}</FormText>
+					</FormGroup>
+					
+					<Col>
 						<Row>
-							<Col>
-								<span className="text-danger">
-									{t("ASABLibraryModule|Warning. Only tar files are allowed")}
-								</span>
-							</Col>
-						</Row>
-					)}
 
+							<FormGroup check className="mr-2">
+									<Input
+										type="radio"
+										value="merge"
+										checked={type === "merge"}
+										onChange={onTypeChange}
+									/>
+									<Label check>	
+										{t("ASABLibraryModule|Merge")}
+									</Label>
+							</FormGroup>
+
+							<FormGroup check>
+									<Input
+										type="radio"
+										value="override"
+										checked={type === "override"}
+										onChange={onTypeChange}
+									/>
+									<Label check>
+										{t("ASABLibraryModule|Override")}
+									</Label>
+							</FormGroup>
+
+						</Row>
+					</Col>
 					<hr />
 
 					<Row>
 						<Col>
-							<Button
-								className="mr-2"
-								onClick={chooseFile}
-							>
-								{t("ASABLibraryModule|Choose file")}
-							</Button>
 							<Button
 								type="submit"
 								color="primary"

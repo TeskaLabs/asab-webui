@@ -102,12 +102,11 @@
 		"Library has been successfully imported": "Knihovna byla úspěšně importována",
 		"Failed to import library": "Nepodařilo se importovat knihovnu",
 		"Import library": "Import knihovny",
-		"Only tar files are allowed": "Povoleny jsou pouze soubory tar",
 		"Filename": "Název souboru",
 		"Type": "Typ",
 		"Override": "Přepsat",
 		"Merge": "Spojit",
-		"Warning. Only tar files are allowed": "Upozornění. Povoleny jsou pouze soubory tar",
+		"Only tar.gz files are allowed": "Povoleny jsou pouze soubory tar.gz",
 		"Choose file": "Vyberte soubor"
 	},
 

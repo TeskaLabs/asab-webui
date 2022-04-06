@@ -48,7 +48,7 @@ function LibraryContainer(props) {
 	const [isFileDisabled, setFileDisabled] = useState("hide");
 	const [isReadOnly, setReadOnly] = useState(true);
 	const [language, setLanguage] = useState('');
-	const [chosenPanel, setChosenPanel] = useState("editor");
+	const [chosenPanel, setChosenPanel] = useState("import");
 	const [isDropdownMenuOpen, setDropdownMenu] = useState(false);
 	const isComponentMounted = useRef(true);
 

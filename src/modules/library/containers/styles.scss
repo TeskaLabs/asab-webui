@@ -100,3 +100,57 @@
 .hidden-file-input {
 	display: none;
 }
+
+.file-input {
+	cursor: pointer;
+	overflow: hidden;
+	display: flex;
+	flex-wrap: wrap;
+	flex: 1 5;
+	.file-button {
+		font-size: .75rem;
+		width: 15%;
+		border-radius: 5px 0 0 5px;
+		border: 1px solid #c8ced3;
+		background-color: #c8ced3;
+		&:focus {
+			box-shadow: none;
+		}
+	}
+	.filename-text {
+		width: 85%;
+		border-radius: 0 5px 5px 0;
+		border: 1px solid #c8ced3;
+		padding: .25rem;
+		cursor: pointer;
+		&:focus {
+			box-shadow: none;
+		}
+	}
+}
+
+.form-control[type=file]:not(:disabled):not([readonly]) {
+    cursor: pointer;
+}
+
+.form-control[type=file] {
+    overflow: hidden;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
