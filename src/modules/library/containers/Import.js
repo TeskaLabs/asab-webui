@@ -4,16 +4,16 @@ import { useTranslation } from 'react-i18next';
 import {
 	CardBody, Row, Col,
 	Button, Input, Label,
-	FormGroup, FormText
+	FormGroup, FormText, InputGroup, InputGroupText
 } from 'reactstrap';
 
 const Import = ({
 	api, app, setChosenPanel, retrieveAll
 }) => {
 	const { t } = useTranslation();
-	const [chosenFilename, setChosenFilename] = useState("");
+	const [chosenFilename, setChosenFilename] = useState("No file chosen");
 	const [type, setType] = useState("merge");
-	const [errors, setErrors] = useState("");
+	const [errors, setErrors] = useState(false);
 	const inputFileRef = useRef(null)
 	const formRef = useRef(null);
 
@@ -81,12 +81,12 @@ const Import = ({
 						innerRef={inputFileRef}
 						onChange={updateFilename}
 					/>
-					<FormGroup className="file-input" onClick={chooseFile}>
-							<Input type="button" className="file-button" value={t("Choose file")} />
-							<div className="filename-text">
-								{chosenFilename}
-							</div>
-						<FormText>{t("ASABLibraryModule|Only tar.gz files are allowed")}</FormText>
+					<FormGroup className="file-input">
+						<InputGroup onClick={chooseFile}>
+							<InputGroupText>{t("Choose file")}</InputGroupText>
+							<Input type="text" value={t(`ASABLibraryModule|${chosenFilename}`)} />
+						</InputGroup>
+						<FormText color={errors ? "danger" : ""}>{t("ASABLibraryModule|Only tar.gz files are allowed")}</FormText>
 					</FormGroup>
 					
 					<Col>

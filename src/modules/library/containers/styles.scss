@@ -102,30 +102,22 @@
 }
 
 .file-input {
-	cursor: pointer;
 	overflow: hidden;
 	display: flex;
 	flex-wrap: wrap;
 	flex: 1 5;
-	.file-button {
-		font-size: .75rem;
-		width: 15%;
-		border-radius: 5px 0 0 5px;
-		border: 1px solid #c8ced3;
-		background-color: #c8ced3;
-		&:focus {
-			box-shadow: none;
-		}
-	}
-	.filename-text {
-		width: 85%;
-		border-radius: 0 5px 5px 0;
-		border: 1px solid #c8ced3;
-		padding: .25rem;
+	input {
 		cursor: pointer;
 		&:focus {
 			box-shadow: none;
+			border-color: #ced4da;
 		}
+	}
+	.input-group-text {
+		cursor: pointer;
+		border-radius: 5px 0 0 5px;
+		border-color: #ced4da;
+		border-right: none;
 	}
 }
 

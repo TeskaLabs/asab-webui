@@ -7,8 +7,8 @@ import {
 	Container, ListGroup, Input,
 	Row, Col, Card,
 	CardHeader, Button,
-	ButtonGroup, Dropdown, DropdownMenu,
-	DropdownToggle, DropdownItem
+	ButtonGroup, ButtonDropdown, DropdownMenu,
+	DropdownToggle, DropdownItem, InputGroup, InputGroupText
 } from "reactstrap";
 import TreeMenu from 'react-simple-tree-menu';
 
@@ -48,7 +48,7 @@ function LibraryContainer(props) {
 	const [isFileDisabled, setFileDisabled] = useState("hide");
 	const [isReadOnly, setReadOnly] = useState(true);
 	const [language, setLanguage] = useState('');
-	const [chosenPanel, setChosenPanel] = useState("import");
+	const [chosenPanel, setChosenPanel] = useState("editor");
 	const [isDropdownMenuOpen, setDropdownMenu] = useState(false);
 	const isComponentMounted = useRef(true);
 
@@ -227,9 +227,40 @@ function LibraryContainer(props) {
 					>
 						{({ search, items }) => (
 							<>
-								<Input
-									onChange={e => search(e.target.value)}
-									placeholder={t("ASABLibraryModule|Search")} />
+								<InputGroup>
+									<InputGroupText className="p-0 border-0">
+										<ButtonDropdown
+											size="sm"
+											className="h-100"
+											isOpen={isDropdownMenuOpen}
+											toggle={() => setDropdownMenu(prev => !prev)}
+										>
+											<DropdownToggle caret>{t("ASABLibraryModule|Actions")}</DropdownToggle>
+											<DropdownMenu>
+													<a href={`${serviceURL}/library/download`} download className="text-dark dropdown-export-item w-100">
+														<DropdownItem
+															style={{
+																borderBottom: "1px solid #c8ced3",
+																borderRadius: 0
+															}}
+														>
+															<i className="cil-cloud-download mr-2" />
+															{t("ASABLibraryModule|Export")}
+														</DropdownItem>
+													</a>
+													<DropdownItem onClick={() => setChosenPanel("import")}>
+														<i className="cil-cloud-upload mr-2" />
+														{t("ASABLibraryModule|Import")}
+													</DropdownItem>
+											</DropdownMenu>
+										</ButtonDropdown>
+									</InputGroupText>
+									<Input
+										size="sm"
+										onChange={e => search(e.target.value)}
+										placeholder={t("ASABLibraryModule|Search")}
+									/>
+								</InputGroup>
 								<ListGroup>
 									{items.map(({ reset, ...props }) => (
 										<TreeMenuItem
@@ -307,32 +338,6 @@ function LibraryContainer(props) {
 												{t("ASABLibraryModule|Cancel")}
 											</Button>
 										</div>
-									)}
-									{isReadOnly && (
-										<Dropdown
-											size="sm"
-											isOpen={isDropdownMenuOpen}
-											toggle={() => setDropdownMenu(prev => !prev)}
-										>
-											<DropdownToggle caret>{t("ASABLibraryModule|Actions")}</DropdownToggle>
-											<DropdownMenu>
-													<a href={`${serviceURL}/library/download`} download className="text-dark dropdown-export-item w-100">
-														<DropdownItem
-															style={{
-																borderBottom: "1px solid #c8ced3",
-																borderRadius: 0
-															}}
-														>
-															<i className="cil-cloud-download mr-2" />
-															{t("ASABLibraryModule|Export")}
-														</DropdownItem>
-													</a>
-													<DropdownItem onClick={() => setChosenPanel("import")}>
-														<i className="cil-cloud-upload mr-2" />
-														{t("ASABLibraryModule|Import")}
-													</DropdownItem>
-											</DropdownMenu>
-										</Dropdown>
 									)}
 								</ButtonGroup>
 							</div>
