@@ -10,7 +10,7 @@ import {
 	ButtonGroup
 } from "reactstrap";
 import TreeMenu from 'react-simple-tree-menu';
-import Editor from '@monaco-editor/react';
+import Editor from 'react-monaco-editor';
 import { ControlledSwitch } from 'asab-webui';
 
 import TreeMenuItem from "./TreeMenuItem";
@@ -181,7 +181,7 @@ function LibraryContainer(props) {
 
 	const setFileLanguage = value => {
 		const extension = value?.match(/\.[0-9a-z]+$/i)[0];
-		setLanguage(languages[extension] || "");
+		setLanguage(languages[extension] || null);
 	}
 
 	const editFileContent = value => {
@@ -297,8 +297,6 @@ function LibraryContainer(props) {
 						</CardHeader>
 						<CardBody className="card-body-editor">
 							<Editor
-								height="100%"
-								width="100%"
 								className="editor"
 								value={fileContent}
 								defaultValue=""
