@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Editor from '@monaco-editor/react';
+import Editor from 'react-monaco-editor';
 import { CardBody } from 'reactstrap';
 
 import Import from './Import';
@@ -24,11 +24,9 @@ const SwitchPanel = ({
 			return (
 				<CardBody className="card-body-editor">
 					<Editor
-						height="100%"
-						width="100%"
 						className="editor"
-						value={editor.fileContent}
 						defaultValue=""
+						value={editor.fileContent}
 						language={editor.language}
 						onChange={editor.editFileContent}
 						options={{ readOnly: editor.isReadOnly }}

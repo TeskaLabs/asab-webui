@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 import {
 	CardBody, Row, Col,
 	Button, Input, Label,
-	FormGroup, FormText, InputGroup, InputGroupText
+	FormGroup, FormText, InputGroup,
+	InputGroupText
 } from 'reactstrap';
 
 const Import = ({
