@@ -194,7 +194,7 @@ function LibraryContainer(props) {
 
 	const setFileLanguage = value => {
 		const extension = value?.match(/\.[0-9a-z]+$/i)[0];
-		setLanguage(languages[extension] || "");
+		setLanguage(languages[extension] || null);
 	}
 
 	const editFileContent = value => {

@@ -4,6 +4,8 @@ import {
 	Container, Col, Row, Button
 } from "reactstrap";
 
+import { validateConfiguration } from 'asab-webui';
+
 /*
 	For informations about Tools module, refer to asab-webui/doc/tools.md
 */
@@ -52,10 +54,17 @@ export default function ToolsDashboard(props){
 			}
 			// Parse configuration and drop config file names
 			let configArray = [];
-			await Promise.all(configuration.map((cnfg) => {
+			await Promise.all(configuration.map(async (cnfg) => {
 				if (Object.keys(cnfg) && Object.keys(cnfg).length > 0) {
+					let configToAppend = {};
 					let configContent = Object.values(cnfg)[0];
 					if (configContent && Object.keys(configContent).length > 0) {
+						configToAppend = Object.values(configContent)[0];
+						// Check if current tenant is present in the configuration
+						// and if so, display the configuration only for tenants in configuration
+						if (validateConfiguration(props, configContent)) {
+							return;
+						}
 						configArray.push(Object.values(configContent)[0]);
 					}
 				}
