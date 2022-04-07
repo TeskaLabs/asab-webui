@@ -1,6 +1,6 @@
 import { format, parseISO } from 'date-fns';
 
-export const timeToString = (value, locale = undefined) => {
+const timeToString = (value, locale = undefined) => {
 
 	if ((value === null) || (value === undefined)) {
 		return ' ';
@@ -15,3 +15,5 @@ export const timeToString = (value, locale = undefined) => {
 					format(value * 1000, 'PPp', { locale });
 	return date;
 }
+
+export default timeToString;
