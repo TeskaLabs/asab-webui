@@ -57,13 +57,13 @@ const SidebarItem = ({
 		<>
 			<NavItem className="sidebar-item"  title={t(`Sidebar|${item.name}`)}>
 				<NavLink onClick={onNavLink}>
-					<Button className={`sidebar-item-button${location.pathname === item.url ? " active" : ""}`}>
+					<button className={`sidebar-item-button${location.pathname === item.url ? " active " : " "}btn`}>
 						<Icon icon={item.icon} />
 						<div className="sidebar-item-name ml-2">{item.name}</div>
 						{item.children && item.children.length > 0 && (
 							<Icon icon={isOpen ? "cil-arrow-circle-bottom" : "cil-arrow-circle-left"} />
 						)}
-					</Button>
+					</button>
 				</NavLink>
 
 				{item.children &&
