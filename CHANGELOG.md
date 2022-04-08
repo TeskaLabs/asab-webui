@@ -106,6 +106,11 @@
 
 - Add an option to construct a link in DataTable's cell using a function (INDIGO Sprint 220318, [!255](https://github.com/TeskaLabs/asab-webui/pull/255))
 
+- Add feature to import library (INDIGO Sprint 220318, [!250](https://github.com/TeskaLabs/asab-webui/pull/250))
+
+- Add global validateConfiguration function, which validate configuration based on current tenant (INDIGO Sprint 220401, [!257](https://github.com/TeskaLabs/asab-webui/pull/257))
+
+- Make monaco loader part of the application (INDIGO Sprint 220401, [!258](https://github.com/TeskaLabs/asab-webui/pull/258))
 
 ### Refactoring
 
@@ -298,3 +303,5 @@
 - Sidebar service - update condition in Sidebar service to avoid triggering call to asab-config service to check Sidebar configuration, when ASAB-Config module is not part of the Application (INDIGO Sprint 220318, [!254](https://github.com/TeskaLabs/asab-webui/pull/254))
 
 - Microservices Detail - Bug with data render (INDIGO Sprint 220318, [!256](https://github.com/TeskaLabs/asab-webui/pull/256))
+
+- Add monaco loader plugin to webpack.build.js (INDIGO Sprint 220401, [!260](https://github.com/TeskaLabs/asab-webui/pull/260))

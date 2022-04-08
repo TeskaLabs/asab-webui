@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 import {
 	Container, ListGroup, Input,
 	Row, Col, Card,
-	CardHeader, CardBody, Button,
-	ButtonGroup
+	CardHeader, Button,
+	ButtonGroup, ButtonDropdown, DropdownMenu,
+	DropdownToggle, DropdownItem, InputGroup, InputGroupText
 } from "reactstrap";
 import TreeMenu from 'react-simple-tree-menu';
-import Editor from '@monaco-editor/react';
-import { ControlledSwitch } from 'asab-webui';
 
+import ControlledSwitch from '../../../components/ControlledSwitch';
+import SwitchPanel from "./SwitchPanel";
 import TreeMenuItem from "./TreeMenuItem";
 import { formatIntoTree } from "./formatIntoTree";
 
@@ -34,18 +35,21 @@ function LibraryContainer(props) {
 
 	const App = props.app;
 	const LMioLibraryAPI = App.axiosCreate('lmio_library');
-	const downloadURL = App.getServiceURL('lmio_library');
+	const serviceURL = App.getServiceURL('lmio_library');
 	const history = useHistory();
 	const location = useLocation()
 	const { t } = useTranslation();
 	
+	const currentTenant = useSelector(state => state.tenant.current);
 	const [treeData, setTreeData] = useState({});
 	const [originalFileContent, setOgFileContent] = useState("");
 	const [fileContent, setFileContent] = useState("");
 	const [activeNode, setActiveNode] = useState({ });
-	const [isFileDisabled, setFileDisabled] = useState("disable-switch");
+	const [isFileDisabled, setFileDisabled] = useState("hide");
 	const [isReadOnly, setReadOnly] = useState(true);
 	const [language, setLanguage] = useState('');
+	const [chosenPanel, setChosenPanel] = useState("editor");
+	const [isDropdownMenuOpen, setDropdownMenu] = useState(false);
 	const isComponentMounted = useRef(true);
 
 	useEffect(() => {
@@ -82,7 +86,7 @@ function LibraryContainer(props) {
 	const retrieveTreeData = async () => {
 		try {
 			// Make request for initial data
-			const response = await LMioLibraryAPI.get("/library/list/?recursive");
+			const response = await LMioLibraryAPI.get("/library/list/", { params: { recursive: true, tenant: currentTenant }});
 			// Format response for <TreeMenu />
 			if (response.data.result != "OK") throw new Error ({ response });
 			const treeMenu = formatIntoTree(response.data.data)
@@ -123,7 +127,7 @@ function LibraryContainer(props) {
 		// Requesting the endpoint and getting files content
 		if (path) {
 			try {
-				const response = await LMioLibraryAPI.get("/library/item/" + path);
+				const response = await LMioLibraryAPI.get(`/library/item/${path}`, { params: { tenant: currentTenant }});
 				if (response.data) {
 					if (typeof response.data == "string") setOgFileContent(response.data);
 					else setOgFileContent(JSON.stringify(response.data, null, 4));
@@ -131,7 +135,7 @@ function LibraryContainer(props) {
 					setFileDisabled(fileState);
 				} else {
 					setOgFileContent("");
-					setFileDisabled("disable-switch");
+					setFileDisabled("hide");
 				}
 			} catch (e) {
 				console.error("Error when retrieving file content: ", e); // log the error to the browser's console
@@ -141,11 +145,20 @@ function LibraryContainer(props) {
 		}
 	};
 
+	const retrieveAll = () => {
+		retrieveFileContent();
+		retrieveTreeData();
+	}
+
 	const switchFileState = async () => {
 		if (activeNode.path) {
 			try {
-				await LMioLibraryAPI.put("/library/item-disable/" + activeNode.path);
-				setFileDisabled(prev => !prev);
+				const newState = !isFileDisabled;
+				const response = await LMioLibraryAPI.put(`/library/item-disable/${activeNode.path}`, null , { params: { tenant: currentTenant, disable: newState ? "yes" : "no" }});
+
+				if (response.data.result != "OK") throw new Error(`Response result is ${response.data.result}. State of the file has not been updated`);
+
+				setFileDisabled(newState);
 				retrieveTreeData();
 			} catch (e) {
 				console.error("Error when swicthing file state\n", e);
@@ -181,7 +194,7 @@ function LibraryContainer(props) {
 
 	const setFileLanguage = value => {
 		const extension = value?.match(/\.[0-9a-z]+$/i)[0];
-		setLanguage(languages[extension] || "");
+		setLanguage(languages[extension] || null);
 	}
 
 	const editFileContent = value => {
@@ -196,6 +209,8 @@ function LibraryContainer(props) {
 			retrieveFileContent(activeNode.path);
 		}
 	}
+
+	
 
 	// Render function
 	return (
@@ -212,12 +227,47 @@ function LibraryContainer(props) {
 					>
 						{({ search, items }) => (
 							<>
-								<Input
-									onChange={e => search(e.target.value)}
-									placeholder={t("ASABLibraryModule|Search")} />
+								<InputGroup>
+									<InputGroupText className="p-0 border-0">
+										<ButtonDropdown
+											size="sm"
+											className="h-100"
+											isOpen={isDropdownMenuOpen}
+											toggle={() => setDropdownMenu(prev => !prev)}
+										>
+											<DropdownToggle caret>{t("ASABLibraryModule|Actions")}</DropdownToggle>
+											<DropdownMenu>
+													<a href={`${serviceURL}/library/download`} download className="text-dark dropdown-export-item w-100">
+														<DropdownItem
+															style={{
+																borderBottom: "1px solid #c8ced3",
+																borderRadius: 0
+															}}
+														>
+															<i className="cil-cloud-download mr-2" />
+															{t("ASABLibraryModule|Export")}
+														</DropdownItem>
+													</a>
+													<DropdownItem onClick={() => setChosenPanel("import")}>
+														<i className="cil-cloud-upload mr-2" />
+														{t("ASABLibraryModule|Import")}
+													</DropdownItem>
+											</DropdownMenu>
+										</ButtonDropdown>
+									</InputGroupText>
+									<Input
+										size="sm"
+										onChange={e => search(e.target.value)}
+										placeholder={t("ASABLibraryModule|Search")}
+									/>
+								</InputGroup>
 								<ListGroup>
 									{items.map(({ reset, ...props }) => (
-										<TreeMenuItem {...props} active="false" />
+										<TreeMenuItem
+											active="false"
+											setChosenPanel={() => setChosenPanel("editor")}
+											{...props}
+										/>
 									))}
 								</ListGroup>
 							</>
@@ -232,9 +282,9 @@ function LibraryContainer(props) {
 								className="d-flex justify-content-between align-items-center"
 							>
 								<div>
-									<span className="cil-library mr-3" />
-									{activeNode.name && (
+									{activeNode.name && chosenPanel === "editor" && (
 										<>
+											<span className="cil-library mr-3" />
 											<span className="mr-2">{activeNode.name}</span>
 											{isFileDisabled !== "disable-switch" && (
 												<ControlledSwitch
@@ -248,7 +298,7 @@ function LibraryContainer(props) {
 									)}
 								</div>
 								<ButtonGroup>
-									{activeNode.name && isReadOnly && (
+									{activeNode.name && isReadOnly && chosenPanel === "editor" && (
 										<Button
 											size="sm"
 											color="secondary"
@@ -257,6 +307,16 @@ function LibraryContainer(props) {
 										>
 											<i className="cil-pencil mr-2" />
 											{t("ASABLibraryModule|Edit")}
+										</Button>
+									)}
+									{chosenPanel !== "editor" && (
+										<Button
+											size="sm"
+											color="danger"
+											className="mr-2"
+											onClick={() => setChosenPanel("editor")}
+										>
+											{t("ASABLibraryModule|Back")}
 										</Button>
 									)}
 									{activeNode.name && !isReadOnly && (
@@ -279,34 +339,23 @@ function LibraryContainer(props) {
 											</Button>
 										</div>
 									)}
-									{isReadOnly && (
-										<a href={`${downloadURL}/library/download`} download>
-											<Button
-												size="sm"
-												color="secondary"
-												className="mr-2"
-
-											>
-												<i className="cil-cloud-download mr-2" />
-												{t("ASABLibraryModule|Download all")}
-											</Button>
-										</a>
-									)}
 								</ButtonGroup>
 							</div>
 						</CardHeader>
-						<CardBody className="card-body-editor">
-							<Editor
-								height="100%"
-								width="100%"
-								className="editor"
-								value={fileContent}
-								defaultValue=""
-								language={language}
-								onChange={editFileContent}
-								options={{ readOnly: isReadOnly }}
-							/>
-						</CardBody>
+
+						<SwitchPanel
+							app={props.app}
+							api={LMioLibraryAPI}
+							chosenPanel={chosenPanel}
+							setChosenPanel={setChosenPanel}
+							retrieveAll={retrieveAll}
+							editor={{
+								language,
+								isReadOnly,
+								fileContent,
+								editFileContent
+							}}
+						/>
 					</Card>
 				</Col>
 			</Row>
@@ -314,8 +363,4 @@ function LibraryContainer(props) {
 	);
 }
 
-function mapStateToProps(state) {
-	return { tenant: state.tenant.current }
-}
-
-export default connect(mapStateToProps)(LibraryContainer);
+export default LibraryContainer;

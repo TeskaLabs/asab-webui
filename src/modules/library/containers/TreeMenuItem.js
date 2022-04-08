@@ -6,13 +6,15 @@ const TreeMenuItem = ({
 	level = 0, hasNodes, isOpen,
 	label, searchTerm, openNodes,
 	toggleNode, matchSearch, focused,
-	type, isDisabled, ...props
+	type, isDisabled, setChosenPanel,
+	...props
 }) => {
 	const paddingLeft = 0.75 + 3.5 * level
 
 	return (
 		<li
 			{...props}
+			active="false"
 			className="tree-menu-item"
 			style={{
 				paddingLeft: paddingLeft + "rem",
@@ -26,6 +28,7 @@ const TreeMenuItem = ({
 					style={{ display: 'inline-block' }}
 					onClick={e => {
 						e.stopPropagation();
+						setChosenPanel();
 						hasNodes && toggleNode && toggleNode();
 					}}
 				>
