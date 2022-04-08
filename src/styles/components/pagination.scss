@@ -1,0 +1,29 @@
+.pagination {
+    background-color: $bg-color;
+    & .page-item {
+        & .page-link {
+            background-color: $bg-color;
+            border: 1px solid $input-border;
+            color: $primary;
+            &:hover {
+                color: $btn-txt-hover;
+            }
+            & > span {
+
+                color: $primary;
+                &:hover {
+                    color: $btn-txt-hover;
+                }
+            }
+        }
+        &.active > .page-link{
+            background-color: $btn-hover;
+            color:$btn-secondary-txt;
+
+        }
+        &.disabled .page-link {
+            border: 1px solid $input-border;
+            filter: grayscale(60%);
+        }
+    }
+}

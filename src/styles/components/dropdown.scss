@@ -1,0 +1,55 @@
+@import "../constants/index.scss";
+
+.dropdown-toggle {
+    // background-color: plum;
+    &:active {
+        // background-color: $btn-hover;
+    }
+}
+.dropdown-menu {
+    background-color: plum;
+    border-radius: 8px;
+    background-color: $dark;
+    color: $text-color;
+
+    &:hover {
+        color: $white;
+    }
+
+    & .dropdown-item {
+        background-color: $dark;
+        // color: $text-color;
+        color: $btn-secondary-txt;
+
+
+        &:hover {
+            // background-color: $night-blue;
+            background-color: $btn-hover;
+        }
+    }
+}
+
+.show>.btn-secondary.dropdown-toggle {
+    background-color: $btn-hover;
+    color: $btn-secondary-txt;
+    &:focus,:active {
+        border: none;
+        box-shadow: none;
+    }
+}
+
+html[data-theme="theme-light"] {
+	.dropdown-menu {
+        background-color: $light;
+
+        & .dropdown-item {
+            background-color: $light;
+            color: $btn-secondary-txt;
+
+
+            &:hover {
+                background-color: $btn-hover;
+            }
+        }
+    }
+}

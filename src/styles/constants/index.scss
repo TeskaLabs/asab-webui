@@ -11,6 +11,9 @@ $light: var(--gray);
 $dark: var(--black);
 $white-night: var(--white-night);
 $white: var(--white);
+
+$night-blue: var(--night-blue);
+$light-violet: var(--light-violet);
 $gray: var(--gray);
 $dark-gray: var(--dark-gray);
 
@@ -23,6 +26,7 @@ $reversed-text-color: var(--reversed-text-color);
 $highlighted-text-color: var(--highlighted-text-color);
 $highlighted-bg-color: var(--highlighted-bg-color);
 
+//TODO: move all colors below to appropriate files
 $header-bg: var(--bg-color-dark);
 $body-bg: var(--bg-color-dark);
 $sidebar-bg: var(--bg-color-dark);
@@ -34,5 +38,16 @@ $card-cap-bg: var(--bg-color);
 
 // Error Handler
 $error-handler-stack-bg: var(--dark-black);
+
+$btn-bg-primary: var(--btn-bg-primary);
+// $btn-primary-hover: var(--btn-primary-hover);
+$btn-txt: var(--btn-txt);
+$btn-secondary-txt: var(--btn-secondary-txt);
+$btn-hover: var(--btn-hover);
+$btn-txt-hover: var(--btn-txt-hover);
+
+$input-bg: var(--input-bg);
+$input-border: var(--input-border);
+$input-text: var(--input-text);
 
 $sidebar-width: 200px;
