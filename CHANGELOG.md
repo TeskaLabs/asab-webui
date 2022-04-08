@@ -104,6 +104,13 @@
 
 - Add option to remove section from config in ASAB-Config module (INDIGO Sprint 220304, [!248](https://github.com/TeskaLabs/asab-webui/pull/248))
 
+- Add an option to construct a link in DataTable's cell using a function (INDIGO Sprint 220318, [!255](https://github.com/TeskaLabs/asab-webui/pull/255))
+
+- Add feature to import library (INDIGO Sprint 220318, [!250](https://github.com/TeskaLabs/asab-webui/pull/250))
+
+- Add global validateConfiguration function, which validate configuration based on current tenant (INDIGO Sprint 220401, [!257](https://github.com/TeskaLabs/asab-webui/pull/257))
+
+- Make monaco loader part of the application (INDIGO Sprint 220401, [!258](https://github.com/TeskaLabs/asab-webui/pull/258))
 
 ### Refactoring
 
@@ -227,6 +234,14 @@
 
 - Restructure src folder (INDIGO Sprint 220218, [!232](https://github.com/TeskaLabs/asab-webui/pull/232))
 
+- Completely remove moment - replace moment with date-fns in DataTable  (INDIGO Sprint 220218, [!243](https://github.com/TeskaLabs/asab-webui/pull/243))
+
+- Obsolete console.log removal (INDIGO Sprint 220304, [!251](https://github.com/TeskaLabs/asab-webui/pull/251))
+
+- DataTable accepts showContentLoader prop to add the possibility to postpone loaders appearance in order to avoid quick flickering of data/contentloader/new data (INDIGO Sprint 220304, [!252](https://github.com/TeskaLabs/asab-webui/pull/252))
+
+- ASAB-Config - refactorisation of Add dropdown button that it displays the title of the section taken from the Schema, add ASAB-Config locales to demo app (INDIGO Sprint 220318, [!254](https://github.com/TeskaLabs/asab-webui/pull/254))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
@@ -284,3 +299,9 @@
 - Fix DateTime issue when component is unmounted before async locale request finished (INDIGO Sprint 220218, [!246](https://github.com/TeskaLabs/asab-webui/pull/246))
 
 - Fix double splashscreen when loading apps. (INDIGO Spring 220218, [!247](https://github.com/TeskaLabs/asab-webui/pull/247))
+
+- Sidebar service - update condition in Sidebar service to avoid triggering call to asab-config service to check Sidebar configuration, when ASAB-Config module is not part of the Application (INDIGO Sprint 220318, [!254](https://github.com/TeskaLabs/asab-webui/pull/254))
+
+- Microservices Detail - Bug with data render (INDIGO Sprint 220318, [!256](https://github.com/TeskaLabs/asab-webui/pull/256))
+
+- Add monaco loader plugin to webpack.build.js (INDIGO Sprint 220401, [!260](https://github.com/TeskaLabs/asab-webui/pull/260))

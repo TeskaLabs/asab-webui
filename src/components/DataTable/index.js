@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { saveAs } from 'file-saver';
-import m from 'moment';
+import { format } from 'date-fns';
 
 import { 
 	Card, Row, Col,
@@ -30,7 +30,8 @@ export function DataTable ({
 	customButton, customComponent,
 	customRowStyle, customRowClassName,
 	customCardBodyComponent,
-	limitValues = [10, 15, 25, 50]
+	limitValues = [10, 15, 25, 50],
+	contentLoader = true
 	}) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isSortOpen, setSortDropdown] = useState(false);
@@ -63,7 +64,8 @@ export function DataTable ({
 				return JSON.stringify(item[header.key])?.replace(',', ';');
 			}).join(',')).join('\n');
 		let blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
-		saveAs(blob, `${title.text.replace(' ', '_')}_${m().format('D-MM-YYYY')}.csv`);
+		let name = title?.text || "";
+		saveAs(blob, `${name.replace(' ', '_')}_${format(new Date, 'dd-MM-yyyy')}.csv`);
 	}
 
 	return (
@@ -162,15 +164,15 @@ export function DataTable ({
 
 					<CardBody className="data-table-card-body">
 						{customCardBodyComponent}
-						{isLoading ? 
-							<CellContentLoader cols={headers.length} rows={limit ?? 5} /> :
-							<Table
-								data={data.length > limit ? data.slice(0, limit) : data}
-								headers={headers}
-								rowStyle={customRowStyle}
-								rowClassName={customRowClassName}
-							/>
-						}
+						<Table
+							data={data.length > limit ? data.slice(0, limit) : data}
+							headers={headers}
+							rowStyle={customRowStyle}
+							rowClassName={customRowClassName}
+						/>
+
+						{isLoading && contentLoader && <CellContentLoader cols={headers.length} rows={limit ?? 5} /> }
+
 						{count === 0 && !isLoading && (
 							noItemsComponent ? <NoItemsLayout>{noItemsComponent}</NoItemsLayout> :
 							<NoItemsLayout>{t(translationRoute ? `${translationRoute}|No items` : "No items")}</NoItemsLayout>

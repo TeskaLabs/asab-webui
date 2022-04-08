@@ -500,6 +500,18 @@ function ConfigEditor(props) {
 		return parsedSections;
 	}
 
+	// Convert pattern section name for Add button from technical name to Title of the section defined in schema
+	const sectionNameString = (patternpropsSchema, patternSection) => {
+		let patternKey = Object.keys(patternPropsSchema) ? Object.keys(patternPropsSchema).filter(key => key.match(patternSection)) : "";
+		let returnString = patternSection;
+		Object.keys(patternPropsSchema) && Object.keys(patternPropsSchema).map((key,idx) => {
+			if (patternKey[0] == key) {
+				returnString = patternPropsSchema[key]?.title ? patternPropsSchema[key]?.title : patternSection;
+			}
+		})
+		return returnString;
+	}
+
 	// TODO: add Content loader when available as a component in ASAB WebUI
 	return (
 		configNotExist ?
@@ -625,7 +637,7 @@ function ConfigEditor(props) {
 														name={patternSection}
 														onClick={(e) => {addNewSection(patternSection), e.preventDefault()}}
 													>
-														{patternSection}
+														{sectionNameString(patternPropsSchema, patternSection)}
 													</DropdownItem>
 													)
 											})}

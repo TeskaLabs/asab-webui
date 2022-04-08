@@ -53,7 +53,12 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 	);
 
 	else if (header.link) {
-		const pathname = header.link.pathname + obj[header.link.key];
+		let pathname = "#";
+		if (typeof header.link === "object") {
+			pathname = header.link.pathname + obj[header.link.key];
+		} else if (typeof header.link === "function") {
+			pathname = header.link(obj, header);
+		}
 		cell = obj[header.key] ? (
 			<Link
 				to={{ pathname }}
