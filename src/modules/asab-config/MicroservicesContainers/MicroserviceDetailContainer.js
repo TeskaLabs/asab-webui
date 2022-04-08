@@ -71,6 +71,10 @@ const MicroserviceDetailContainer = (props) => {
 											<DateTime value={svc?.launchtime} />
 										</Col>
 									</Row>
+									<Row className="mt-3">
+										<Col md={3}>{t("MicroserviceDetailContainer|Launch time")}</Col>
+										<Col>{svc?.version}</Col>
+									</Row>
 								</>
 							)}
 						</CardBody>

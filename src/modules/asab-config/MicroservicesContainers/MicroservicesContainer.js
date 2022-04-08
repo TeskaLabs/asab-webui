@@ -32,7 +32,8 @@ export default (props) => {
 		},
 		{ name: t('MicroservicesContainer|ID'), key: 'id', link: { key: "id", pathname: "/config/svcs/" } },
 		{ name: t('MicroservicesContainer|Launch time'), key: 'launchtime', datetime: true },
-		{ name: t('MicroservicesContainer|Host'), key: 'hostname' }
+		{ name: t('MicroservicesContainer|Host'), key: 'hostname' },
+		{ name: t('MicroservicesContainer|Version'), key: 'version'}
 	];
 
 	useEffect(() => {
