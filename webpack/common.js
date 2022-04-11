@@ -23,7 +23,19 @@ exports.getRules = function(config) {
 			test: /\.(js)$/,
 			use: [{
 				loader: 'babel-loader',
-				options: { presets: [['@babel/preset-env'],['@babel/react']], plugins: ["transform-object-rest-spread"] }
+				options: { presets: [[
+					'@babel/preset-env', 
+					{
+						useBuiltIns: "entry",
+						targets: {
+						esmodules: true,
+						},
+						corejs: {
+							version: "3",
+							proposals: true
+						}
+				 	}
+				],['@babel/react']], plugins: ["transform-object-rest-spread"] }
 			}],
 			exclude: '/node_modules/' // we can exclude node_modules b/c they're already complied
 		},

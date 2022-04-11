@@ -30,7 +30,8 @@ export function DataTable ({
 	customButton, customComponent,
 	customRowStyle, customRowClassName,
 	customCardBodyComponent,
-	limitValues = [10, 15, 25, 50]
+	limitValues = [10, 15, 25, 50],
+	contentLoader = true
 	}) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isSortOpen, setSortDropdown] = useState(false);
@@ -163,15 +164,15 @@ export function DataTable ({
 
 					<CardBody className="data-table-card-body">
 						{customCardBodyComponent}
-						{isLoading ? 
-							<CellContentLoader cols={headers.length} rows={limit ?? 5} /> :
-							<Table
-								data={data.length > limit ? data.slice(0, limit) : data}
-								headers={headers}
-								rowStyle={customRowStyle}
-								rowClassName={customRowClassName}
-							/>
-						}
+						<Table
+							data={data.length > limit ? data.slice(0, limit) : data}
+							headers={headers}
+							rowStyle={customRowStyle}
+							rowClassName={customRowClassName}
+						/>
+
+						{isLoading && contentLoader && <CellContentLoader cols={headers.length} rows={limit ?? 5} /> }
+
 						{count === 0 && !isLoading && (
 							noItemsComponent ? <NoItemsLayout>{noItemsComponent}</NoItemsLayout> :
 							<NoItemsLayout>{t(translationRoute ? `${translationRoute}|No items` : "No items")}</NoItemsLayout>

@@ -29,7 +29,7 @@ const MicroserviceDetailContainer = (props) => {
 
 			if (response.data.result !== "OK") throw new Error(response);
 
-			setSvc(response.data);
+			setSvc(response.data.data);
 		} catch (e) {
 			if (e.response.status == 400) {
 				console.error(e.response.message);

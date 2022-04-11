@@ -4,6 +4,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const common = require("./common");
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
@@ -20,7 +21,14 @@ module.exports = {
 		let defaultLocales = /cs/; // Default moment locales (needed for backward compatibility)
 
 		return {
-			entry: entry_path,
+			entry: {
+				app: entry_path,
+				'editor.worker': 'monaco-editor/esm/vs/editor/editor.worker.js',
+				'json.worker': 'monaco-editor/esm/vs/language/json/json.worker',
+				'css.worker': 'monaco-editor/esm/vs/language/css/css.worker',
+				'html.worker': 'monaco-editor/esm/vs/language/html/html.worker',
+				'ts.worker': 'monaco-editor/esm/vs/language/typescript/ts.worker'
+			},
 			mode: 'development',
 			watch: true,
 			output: {
@@ -56,6 +64,9 @@ module.exports = {
 				),
 				// Extracts file styles.css
 				new MiniCssExtractPlugin({ filename: 'assets/css/styles.css' }),
+				new MonacoWebpackPlugin({
+					languages: ['json', 'javascript', 'html', 'yaml', 'xml']
+				}),
 				// Minimizes styles.css
 				// new OptimizeCssAssetsPlugin()
 				// Remove moment locales from bundle except those which are defined as second parameter

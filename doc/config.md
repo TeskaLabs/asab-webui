@@ -81,3 +81,69 @@ Note: Mechanism for auto adding this element to index.html doesn't exist yet. Fo
 ```
 
 And replace `*dynamic config url*` with your url to dynamic configuration.
+
+# Configuration validation
+
+Function for configuration validation with current tenant
+
+It will work only when Tenant module is loaded in the application
+It require app props and configuration
+Configuration has to be of type `object` (not array of objects)
+It returns `false` if configuration does not match validation criteria on tenant
+It returns `true` if configuration match the validation criteria on tenant
+
+Example of usage in the configuration:
+
+```
+	"SectionName:authorization" {
+		"tenants": "tenant1, tenant2"
+	}
+```
+
+Example of usage within the code:
+
+```
+import { validateConfiguration } from 'asab-webui';
+
+...
+
+
+	if (configuration && Object.keys(configuration).length > 0) {
+
+		...
+
+		// This part will manage if the configuration is suitable for further processing
+		if (validateConfiguration(props, configuration)) {
+			return;
+		}
+
+		// Processing configuration which passed the authorization criteria
+		...
+	}
+```
+
+Example of config for validateConfiguration function
+
+```
+	...
+
+	let config = {
+			...
+
+			"SectionName:datasource" {
+				...
+			},
+			"SectionName:authorization" {
+				"tenants": "tenant1, tenant2"
+			},
+			...
+		}
+
+	if (validateConfiguration(props, config)) {
+		return;
+	}
+	...
+
+```
+
+The result of processing after validation should be that configuration, which has specified tenants in the configuration and does match the criterion (match the configured tenants in the `:authorization` section with current tenant of the user), will be visible only to the users, whos current tenant matches the criteria.

@@ -73,6 +73,9 @@ The configuration loaded from Zookeeper is **editable**.
 		"name": "Grafana",
 		"url": "http://http://127.0.0.1.:3000/grafana",
 		"image": "tools/grafana.svg"
+	},
+	"tool:authorization": {
+		"tenants": "tenant one, tenant two"
 	}
 }
 ```
@@ -135,6 +138,26 @@ Example of the Grafana config file
 	}
 }
 ```
+
+### Authorization (optional setup)
+
+Tool configuration can be limited for access only with specific tenant(s). This means, that users without particular tenant(s) are not able to access the particular tool with its setting. This is convenient e.g. when administrator wants to limit access to tool configuration with sensitive data to particular group(s) of users.
+
+Example of `tool:authorization` settings within the configuration:
+
+```
+{
+	...
+
+	"tool:authorization": {
+		"tenants": "tenant one, tenant two"
+	}
+
+	...
+}
+```
+
+Where key **tenants** serves the purpose of displaying and using the configuration only by specific tenant(s). Multiple tenants can be specified, separated by comma. The type of the `tenants` key is `string`.
 
 ### Type (schema) configuration
 
@@ -218,8 +241,26 @@ Example of the schema configuration
 						"tools/my-tool.svg"
 					]
 				}
-			},
-			"additionalProperties": false
+			}
+		},
+		"tool:authorization": {
+			"type": "string",
+			"title": "Tool authorization",
+			"description": "Limit access to Tool button by tenant settings",
+			"default": {},
+			"examples": [],
+			"required": [],
+			"properties": {
+				"tenants": {
+					"type": "string",
+					"title": "Tenants",
+					"description": "Specify the tenant(s) separated by comma to restrict the usage of this configuration (optional)",
+					"default": "",
+					"examples": [
+						"tenant1, tenant2"
+					]
+				}
+			}
 		}
 	},
 	"additionalProperties": false
