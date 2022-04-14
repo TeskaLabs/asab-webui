@@ -133,7 +133,10 @@ const Headers = ({ headers, advmode }) => (
 	</>
 );
 
-const TableRow = ({ obj, advmode, headers, rowStyle, rowClassName }) => {
+const TableRow = ({
+	obj, advmode, headers,
+	rowStyle, rowClassName, sublistsKey
+}) => {
 	const [isUnwrapped, setUnwrapped] = useState(false);
 
 	const getStyle = (obj) => {
@@ -166,6 +169,8 @@ const TableRow = ({ obj, advmode, headers, rowStyle, rowClassName }) => {
 	const className = useMemo(() => getClassName(obj), [obj]);
 	const jsonTheme = useMemo(() => getJsonTheme(obj), [obj]);
 
+	console.log("obj[sublistsKey]: ", obj[sublistsKey])
+
 	return (
 		<>
 			<tr className={`data-table-tr ${className}`} style={style}>
@@ -180,6 +185,19 @@ const TableRow = ({ obj, advmode, headers, rowStyle, rowClassName }) => {
 					/>
 				))}
 			</tr>
+			{sublistsKey && obj[sublistsKey] && obj[sublistsKey].map((child, idx) => (
+				<tr className="data-table-tr-child" style={style} key={`child-${idx}`}>
+					{headers.map((header, idx) => (
+						<TableCell 
+							obj={child}
+							header={header}
+							idx={idx}
+							key={idx}
+							jsonTheme={jsonTheme}
+						/>
+					))}
+				</tr>
+			))}
 			
 			
 			{advmode && isUnwrapped && (
@@ -200,12 +218,15 @@ const TableRow = ({ obj, advmode, headers, rowStyle, rowClassName }) => {
 	)
 }
 
-const ASABTable = ({ data, headers, advmode, rowStyle, rowClassName }) => (
+const ASABTable = ({ 
+	data, headers, advmode,
+	rowStyle, rowClassName, sublistsKey
+}) => (
 	<Table size="sm" hover responsive>
 		<Headers headers={headers} advmode={advmode} className="data-table-header"/>
 		<tbody className="data-table-tbody">
 			{data.map((obj, idx) => (
-				<TableRow {...{ obj, advmode, headers, rowStyle, rowClassName }} key={idx}/>
+				<TableRow {...{ obj, advmode, headers, rowStyle, rowClassName, sublistsKey }} key={idx}/>
 			))}
 		</tbody>
 	</Table>
