@@ -72,7 +72,13 @@ const MicroserviceDetailContainer = (props) => {
 										</Col>
 									</Row>
 									<Row className="mt-3">
-										<Col md={3}>{t("MicroserviceDetailContainer|Launch time")}</Col>
+										<Col md={3}>{t("MicroserviceDetailContainer|Created at")}</Col>
+										<Col>
+											<DateTime value={svc?.created_at} />
+										</Col>
+									</Row>
+									<Row className="mt-3">
+										<Col md={3}>{t("MicroserviceDetailContainer|Version")}</Col>
 										<Col>{svc?.version}</Col>
 									</Row>
 								</>
