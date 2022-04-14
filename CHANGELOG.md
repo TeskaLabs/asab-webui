@@ -305,3 +305,5 @@
 - Microservices Detail - Bug with data render (INDIGO Sprint 220318, [!256](https://github.com/TeskaLabs/asab-webui/pull/256))
 
 - Add monaco loader plugin to webpack.build.js (INDIGO Sprint 220401, [!260](https://github.com/TeskaLabs/asab-webui/pull/260))
+
+- Fix library global styles (INDIGO Sprint 220401, [!262](https://github.com/TeskaLabs/asab-webui/pull/262))
