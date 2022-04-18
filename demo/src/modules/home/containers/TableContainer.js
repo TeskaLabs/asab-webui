@@ -26,7 +26,29 @@ const initData = {
 			"_c": "2021-01-12T15:57:51.471000",
 			"_m": "2021-01-12T15:57:51.471000",
 			"phone": "3240715",
-			"username": "Harry Potter"
+			"username": "Harry Potter",
+			"children": [
+				{
+					"_id": "mongodb:ext:5ffdc6ffa5a3c6fe397c4dfd",
+					"_type": "mongodb",
+					"_provider_id": "ext",
+					"_v": 12,
+					"_c": "2021-01-12T15:57:51.471000",
+					"_m": "2021-01-12T15:57:51.471000",
+					"phone": "3240715",
+					"username": "Ron Weasley",
+				},
+				{
+					"_id": "mongodb:ext:5ffdc6ffa5a3c6fe397c4dfd",
+					"_type": "mongodb",
+					"_provider_id": "ext",
+					"_v": 13,
+					"_c": "2021-01-12T15:57:51.471000",
+					"_m": "2021-01-12T15:57:51.471000",
+					"phone": "3240715",
+					"username": "Hermione Granger",
+				}
+			]
 		},
 		{
 			"_id": "mongodb:ext:5ffdc6ffa5a3c6fe397c4dfd",
@@ -165,7 +187,6 @@ const initData = {
 				generate: (obj) => (
 					<div style={{ color: "red"}}>
 						<p style={{ margin: 0}}>{obj.username}</p>
-						<p style={{ margin: 0}}>{obj._type}</p>
 					</div>
 				),
 				onDownload: (obj) => `${obj.username}/${obj._type}`
@@ -272,6 +293,7 @@ export default function (props) {
 		<Container>
 			<Button onClick={() => setLoading(prev => !prev)} className="mb-2">Set Loading</Button>
 			<DataTable
+				sublistsKey="children"
 				title={{text: "Table Demo", icon: 'cil-user'}}
 				data={data}
 				headers={headers}
