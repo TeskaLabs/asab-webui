@@ -143,7 +143,7 @@ const TableRow = ({
 	rowStyle, rowClassName, sublistsKey
 }) => {
 	const [isAdvUnwrapped, setAdvUnwrapped] = useState(false);
-	const [isSubUnwrapped, setSubUwrapped] = useState(false);
+	const [isSubUnwrapped, setSubUwrapped] = useState(true);
 
 	const getStyle = (obj) => {
 		if (rowStyle?.condition && rowStyle?.condition(obj)) {
@@ -182,7 +182,7 @@ const TableRow = ({
 				{obj[sublistsKey] ? isSubUnwrapped ? (
 					<td onClick={() => setSubUwrapped(false)}>-</td>
 	 			) : (
-					<td onClick={() => setSubUwrapped(true)}>-</td>
+					<td onClick={() => setSubUwrapped(true)}>+</td>
 				) : <td></td>}
 				{headers.map((header, idx) => (
 					<TableCell 
@@ -194,10 +194,10 @@ const TableRow = ({
 					/>
 				))}
 			</tr>
-			{sublistsKey && obj[sublistsKey] && obj[sublistsKey].map((child, idx) => (
+			{sublistsKey && obj[sublistsKey] && isSubUnwrapped && obj[sublistsKey].map((child, idx) => (
 				<tr className="data-table-tr-child" style={style} key={`child-${idx}`}>
 					{advmode && <td></td>}
-					<td>-</td>
+					<td></td>
 					{headers.map((header, idx) => (
 						<TableCell
 							isSublist
