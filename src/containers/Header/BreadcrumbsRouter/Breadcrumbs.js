@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 
 
-const Breadcrumbs = ({ routes, match }) => {
+const Breadcrumbs = ({
+	routes, match, app, disableContainerBreadcrumbs
+}) => {
 	const { t } = useTranslation();
-
 	// Get new crumbs each time location has been changed
 	const crumbs = routes.filter(({ path }) => match.path.includes(path)).
 		map(({ path, ...rest }) => ({
@@ -21,9 +22,11 @@ const Breadcrumbs = ({ routes, match }) => {
 
 	if (crumbs.length == 0) return null;
 
+
+	// TODO: Add disabling breadcrumbs
 	return (
-		<div className="breadcrumbs">
-			<h4 className="text-primary mb-1">{crumbs[crumbs.length-1].name}</h4>
+		<div className="breadcrumbs p-auto">
+			<h4 className="text-primary">{crumbs[crumbs.length-1].name}</h4>
 			<Breadcrumb>
 				{crumbs.map((crumb, idx) => (
 					<BreadcrumbItem key={idx} active={idx === crumbs.length - 1}>
