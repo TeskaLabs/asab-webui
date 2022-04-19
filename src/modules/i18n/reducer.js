@@ -7,7 +7,7 @@ const initialValue = {
 export default function languageReducer (state = initialValue, action) {
 	switch (action.type) {
 		case CHANGE_LANGUAGE:
-			return { ...state, language: action.language }
+			return { ...state, current: action.language }
 		default:
 			return state
 	}
