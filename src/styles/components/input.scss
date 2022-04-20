@@ -1,4 +1,14 @@
-@import "../constants/index.scss";
+:root[data-theme="theme-light"] {
+	--input-bg: var(--white);
+	--input-text: var(--feather-gray);
+}	
+:root[data-theme="theme-dark"] {
+	--input-bg: var(--dream-blue);
+	--input-text: var(--light-dream-blue);
+}
+
+$input-bg: var(--input-bg);
+$input-text: var(--input-text);
 
 .form-control {
     box-shadow: 0px 2px 3px -1px $light;
