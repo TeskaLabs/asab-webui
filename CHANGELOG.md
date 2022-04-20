@@ -112,6 +112,8 @@
 
 - Make monaco loader part of the application (INDIGO Sprint 220401, [!258](https://github.com/TeskaLabs/asab-webui/pull/258))
 
+- Add version field to MicroservicesDetail and MicroservicesList (INDIGO Sprint 220401, [!261](https://github.com/TeskaLabs/asab-webui/pull/261))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
@@ -305,3 +307,5 @@
 - Microservices Detail - Bug with data render (INDIGO Sprint 220318, [!256](https://github.com/TeskaLabs/asab-webui/pull/256))
 
 - Add monaco loader plugin to webpack.build.js (INDIGO Sprint 220401, [!260](https://github.com/TeskaLabs/asab-webui/pull/260))
+
+- Fix library global styles (INDIGO Sprint 220401, [!262](https://github.com/TeskaLabs/asab-webui/pull/262))
