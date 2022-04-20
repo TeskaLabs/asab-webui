@@ -1,12 +1,14 @@
 import React, { useMemo } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 
 import { Nav } from 'reactstrap';
 import SidebarItem from './SidebarItem';
 import NavbarBrand from './NavbarBrand';
+import SidebarBottomItem from './SidebarBottomItem';
 
 
 const Sidebar = (props) => {
+	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
 	// Get dynamically hiddden sidebar items from store
 	let sidebarHiddenItems = props.sidebarHiddenItems;
 
@@ -47,7 +49,7 @@ const Sidebar = (props) => {
 
 	return (
 		<>
-			<div className="app-sidebar">
+			<div className={`app-sidebar${isSidebarCollapsed ? " collapsed" : ""}`}>
 				<div style={{ display: "inline-block" }}>
 					<NavbarBrand {...props} isSidebarMinimized />
 				</div>
@@ -63,9 +65,7 @@ const Sidebar = (props) => {
 							/>
 						))}
 					</Nav>
-					<div className="sidebar-bottom">
-						{aboutItem && <Nav vertical><SidebarItem item={aboutItem}/></Nav>}
-					</div>
+					<SidebarBottomItem item={aboutItem} />
 				</div>
 			</div>
 		</>

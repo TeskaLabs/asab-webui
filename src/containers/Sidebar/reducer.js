@@ -1,7 +1,8 @@
-import { SET_HIDDEN_ITEMS_SIDEBAR } from "../../actions";
+import { SET_HIDDEN_ITEMS_SIDEBAR, COLLAPSE_SIDEBAR } from "../../actions";
 
 const initialState = {
-	sidebarHiddenItems: undefined
+	sidebarHiddenItems: undefined,
+	isSidebarCollapsed: false
 }
 
 export default (state = initialState, action) => {
@@ -10,6 +11,12 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				sidebarHiddenItems: action.sidebarHiddenItems
+			}
+		}
+		case COLLAPSE_SIDEBAR: {
+			return {
+				...state,
+				isSidebarCollapsed: action.isSidebarCollapsed
 			}
 		}
 		default: {

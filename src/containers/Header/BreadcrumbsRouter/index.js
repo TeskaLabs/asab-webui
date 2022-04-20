@@ -17,11 +17,12 @@ const BreadcrumbsRouter = (props) => {
 							exact={route.exact}
 							name={route.name}
 							render={props => (
-								<>
-									{!app.props.disableAppBreadcrumbs && !route.disableContainerBreadcrumbs &&
-										<Breadcrumbs routes={app.Router.Routes} match={props.match} />
-									}
-								</>
+								<Breadcrumbs
+									app={app}
+									match={props.match}
+									routes={app.Router.Routes}
+									disableContainerBreadcrumbs={route.disableContainerBreadcrumbs}
+								/>
 							)}
 						/>
 					) : null;

@@ -4,8 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
-	NavItem, NavLink, Button,
-	Collapse, Nav
+	NavItem, NavLink, Collapse, Nav
 } from 'reactstrap';
 
 import Icon from './SidebarIcon';
