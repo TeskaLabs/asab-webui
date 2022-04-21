@@ -237,7 +237,7 @@ function LibraryContainer(props) {
 										>
 											<DropdownToggle caret>{t("ASABLibraryModule|Actions")}</DropdownToggle>
 											<DropdownMenu>
-													<a href={`${serviceURL}/library/download`} download className="text-dark dropdown-export-item w-100">
+													<a href={`${serviceURL}/library/export`} download className="text-dark dropdown-export-item w-100">
 														<DropdownItem
 															style={{
 																borderBottom: "1px solid #c8ced3",
