@@ -244,6 +244,8 @@
 
 - ASAB-Config - refactorisation of Add dropdown button that it displays the title of the section taken from the Schema, add ASAB-Config locales to demo app (INDIGO Sprint 220318, [!254](https://github.com/TeskaLabs/asab-webui/pull/254))
 
+- Rename Library import and export endpoints (INDIGO Sprint 220419, [!266](http://gitlab.teskalabs.int/bitswan/bitswan-webui/-/merge_requests/266))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
