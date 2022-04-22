@@ -12,6 +12,7 @@ html[data-theme="theme-light"] {
 
 	--bg-color: var(--white);
 	--bg-color-dark: var(--gray);
+	--bg-color-darker: var(--darker-gray);
 	--border-color: var(--dark-gray);
 
 	--text-color: var(--dark-black);
@@ -29,4 +30,5 @@ html[data-theme="theme-light"] {
 	--input-bg: var(--white);
 	--input-border: var(--light-black);
 	--input-text: var(--feather-gray);
+	
 }
