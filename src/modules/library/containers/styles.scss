@@ -4,11 +4,6 @@
 	height: 100%;
 }
 
-.tree-menu {
-	height: calc(100vh - 105px);
-	overflow-y: scroll;
-}
-
 .library-container {
 	height: 100%;
 }
@@ -87,10 +82,6 @@
 	// overflow-wrap: break-word;
 	// border-color: rgba(0, 0, 0, 0.125) !important;
 	// color: black;
-}
-
-.tree-menu > ul {
-	list-style-type: none;
 }
 
 .dropdown-export-item, .dropdown-export-item:hover {

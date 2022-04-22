@@ -1,154 +1,170 @@
-@import "../constants/index.scss";
-
 :root[data-theme="theme-light"] {
-    
-}
-
+	--btn-secondary-bg-color: var(--off-white);
+	--btn-primary-bg-color: var(--dark-blue);
+	--btn-primary-outline-bg-color: var(--light-violet);
+	--btn-txt: var(--white);
+}	
 :root[data-theme="theme-dark"] {
-
+	--btn-secondary-bg-color: var(--light-blue);
+	--btn-primary-bg-color: var(--night-blue);
+	--btn-primary-outline-bg-color: var(--storm-blue);
+	--btn-txt: var(--light-black);
 }
 
-$btn-secondary-hover-bg: var();
+$btn-secondary-bg-color: var(--btn-secondary-bg-color);
+$btn-primary-bg-color: var(--btn-primary-bg-color);
+$btn-primary-outline-bg-color: var(--btn-primary-outline-bg-color);
+$btn-txt: var(--btn-txt);
+
+.btn, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info {
+	color: $btn-txt;
+	&:hover {
+		filter: brightness(95%);
+	}
+	&:hover, &:active, &:not(:disabled):not(.disabled):active {
+		color:$btn-txt;
+		border: none;
+		box-shadow: none;
+	}
+}
+
+.btn-outline, .btn-outline-primary, .btn-outline-secondary, .btn-outline-success, .btn-outline-danger, .btn-outline-warning, .btn-outline-info {
+	&:hover, &:active, &:not(:disabled):not(.disabled):active {
+		color: $btn-txt;
+		filter: none;
+		box-shadow: none;
+	}
+}
 
 .btn {
-    background-color: $btn-bg-primary;
-    color: $btn-txt;
-    font-weight: bold;
-    border-radius: 0;
-    padding: 0.75em 1.5em;
-    border: 0;
+	background-color: $btn-primary-bg-color;
+	font-weight: bold;
+	border-radius: 0;
+	padding: 0.75em 1.5em;
+	border: 0;
 
-    &:hover {
-        // background-color: $btn-hover;
-        filter: brightness(95%);
-        // color: $btn-txt-hover;
-    }
-    &-primary {
-        background-color: $btn-bg-primary;
-        color: $btn-txt;
-        &:hover {
-            filter: brightness(95%);
-            background-color: $btn-bg-primary;
-            // filter: invert(10%);
+//PRIMARY
+	&-primary {
+		background-color: $btn-primary-bg-color;
+		&:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active {
+			background-color: $btn-primary-bg-color;
+		}
+	}
+	&-outline-primary {
+		background-color: $bg-color;
+		color: $btn-primary-bg-color;
+		&:hover, &:active, &:not(:disabled):not(.disabled):active {
+			background-color: $btn-primary-outline-bg-color;
+			color: $btn-primary-bg-color;
 
-            color:$btn-txt;
-        }
-        &:active {
-            background-color: $btn-bg-primary;
-            color: $btn-txt;
-        }
-        &:focus {
-            background-color: $btn-bg-primary;
-            color: $btn-txt;
-            border: none;
-            box-shadow: none;
-        }
-        &:not(:disabled):not(.disabled):active {
-            background-color: $btn-bg-primary;
-            color: $btn-txt;
-        }
-    }
-    &-outline-primary {
-        background-color: $bg-color;
-        color:$btn-secondary-txt;
-        &:hover {
-            filter: brightness(95%);
-            color:$btn-secondary-txt;
-            background-color: $btn-hover;
-        }
-        &:active {
-            background-color: $btn-hover;
-            color:$btn-secondary-txt;
-        }
-        &:focus {
-            background-color: $btn-hover;
-            color:$btn-secondary-txt;
-            border: none;
-            box-shadow: none;
-        }
-        &:not(:disabled):not(.disabled):active {
-            background-color: $btn-hover;
-            color:$btn-secondary-txt;
-        }
-    }
+		}
+	}
+
+//SECONDARY
+	&-secondary {
+		background-color: $btn-secondary-bg-color;
+		&:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active {
+			background-color: $btn-secondary-bg-color;
+		}
+	}
+	&-outline-secondary {
+		background-color: $bg-color;
+		color:$btn-secondary-bg-color;
+		&:hover, &:active, &:not(:disabled):not(.disabled):active {
+			background-color: $btn-secondary-bg-color;
+		}
+	}
+
+//SUCCESS
     &-success {
         background-color: $success;
-        &:hover {
+        &:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active {
             background-color: $success;
-            filter: brightness(95%);
-            color:$btn-txt;
         }
-        &:active {
-            background-color: $success;
-            color:$btn-txt;
-        }
-        &:focus {
-            background-color: $success;
-            color:$btn-txt;
-            box-shadow: none;
-            border: none;
-        }
-        &:not(:disabled):not(.disabled):active {
-            background-color: $success;
-            color:$btn-txt;
-        }
-
     }
+    &-outline-success {
+        background-color: $bg-color;
+        color: $success;
+        &:hover, &:active, &:not(:disabled):not(.disabled):active {
+            background-color: $success;
+        }
+    }
+
+//DANGER
     &-danger {
         background-color: $danger;
-        &:hover {
+        &:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active {
             background-color: $danger;
-            filter: brightness(95%);
-            color:$btn-txt;
-        }
-        &:active {
-            background-color: $danger;
-            color:$btn-txt;
-        }
-        &:focus {
-            background-color: $danger;
-            color:$btn-txt;
-            border: none;
-            box-shadow: none;
-        }
-        &:not(:disabled):not(.disabled):active {
-            background-color: $danger;
-            color:$btn-txt;
         }
     }
+    &-outline-danger {
+        background-color: $bg-color;
+        color: $danger;
+        &:hover, &:active, &:not(:disabled):not(.disabled):active {
+            background-color: $danger;
+        }
+    }
+
+//WARNING
     &-warning {
         background-color: $warning;
-        &:hover {
+        &:hover, &:active, &:not(:disabled):not(.disabled):active {
             background-color: $warning;
-            filter: brightness(95%);
-            color:$btn-txt;
-        }
-        &:active {
-            background-color: $warning;
-            color:$btn-txt;
-        }
-        &:focus {
-            background-color: $warning;
-            color:$btn-txt;
-            border: none;
-            box-shadow: none;
-        }
-        &:not(:disabled):not(.disabled):active {
-            background-color: $warning;
-            color:$btn-txt;
         }
     }
+    &-outline-warning {
+        background-color: $bg-color;
+        color: $danger;
+        &:hover, &:active, &:not(:disabled):not(.disabled):active {
+            background-color: $danger;
+        }
+    }
+
+//INFO
     &-info {
         background-color: $info;
+        &:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active {
+            background-color: $info;
+        }
     }
+    &-outline-info {
+        background-color: $bg-color;
+        color: $danger;
+        &:hover, &:active, &:not(:disabled):not(.disabled):active {
+            background-color: $danger;
+        }
+    }
+
+//LIGHT
     &-light {
         background-color: $light;
     }
-    &-dark {
-        background-color: $dark;
+    &-outline-light {
+        background-color: $bg-color;
+        color: $danger;
+        &:hover, &:active, &:not(:disabled):not(.disabled):active {
+            background-color: $danger;
+        }
     }
+
+//DARK
+	&-dark {
+		background-color: $dark;
+	}
+	&-outline-dark {
+		background-color: $bg-color;
+		color: $danger;
+		&:hover, &:active, &:not(:disabled):not(.disabled):active {
+			background-color: $danger;
+		}
+	}
 }
 
 .btn-outline  {
-    background-color: none;
+	background-color: none;
+}
+
+// ICONS INSIDE BUTTONS
+.card .btn [class^="cil-"], .card .btn [class*=" cil-"] {
+	color: $btn-txt;
 }

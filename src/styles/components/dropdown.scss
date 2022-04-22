@@ -1,5 +1,17 @@
 @import "../constants/index.scss";
 
+:root[data-theme="theme-light"] {
+	--bg: var(--off-white);
+}
+
+:root[data-theme="theme-dark"] {
+	--bg: var(--light-blue);
+}
+ 
+$btn-secondary-hover-bg: var();
+$dropdown-toggle-bg: var(--bg);
+
+
 .dropdown-toggle {
     // background-color: plum;
     &:active {
@@ -7,32 +19,34 @@
     }
 }
 .dropdown-menu {
-    background-color: plum;
+    // background-color: plum;
     border-radius: 8px;
-    background-color: $dark;
-    color: $text-color;
+    background-color: $dropdown-toggle-bg;
+    color: $btn-txt;
 
     &:hover {
-        color: $white;
+        // color: $white;
     }
 
     & .dropdown-item {
-        background-color: $dark;
-        // color: $text-color;
-        color: $btn-secondary-txt;
+        // background-color: $dark;
+        color: $btn-txt;
+        // color: $btn-secondary-txt;
 
 
         &:hover {
             // background-color: $night-blue;
-            background-color: $btn-hover;
+            background-color: $dropdown-toggle-bg;
+            filter: brightness(90%);
         }
     }
 }
 
-.show>.btn-secondary.dropdown-toggle {
-    background-color: $btn-hover;
-    color: $btn-secondary-txt;
-    &:focus,:active {
+.show > .btn-secondary.dropdown-toggle {
+    background-color: $dropdown-toggle-bg;
+    // color: $btn-txt;
+    color: $btn-txt;
+    &:focus, &:active {
         border: none;
         box-shadow: none;
     }
@@ -40,15 +54,18 @@
 
 html[data-theme="theme-light"] {
 	.dropdown-menu {
-        background-color: $light;
+        // background-color: $light;
+        // background-color: $dropdown-toggle-bg;
 
         & .dropdown-item {
-            background-color: $light;
-            color: $btn-secondary-txt;
+            // background-color: $light;
+            // background-color: $dropdown-toggle-bg;
+            // color: $btn-txt;
+            // color: $btn-secondary-txt;
 
 
             &:hover {
-                background-color: $btn-hover;
+                // background-color: $dropdown-toggle-bg;
             }
         }
     }

@@ -1,28 +1,45 @@
+:root[data-theme="theme-light"] {
+    --link-hover-txt-color: var(--dark-violet);
+	--active-link-txt-color: var(--dark-violet);
+	--active-link-bg-color: var(--light-violet);
+}
+
+:root[data-theme="theme-dark"] {
+    --link-hover-txt-color: var(--wandering-violet);
+    --active-link-txt-color: var(--wandering-violet);
+	--active-link-bg-color: var(--storm-blue);
+}
+ 
+$link-hover-txt-color: var(--link-hover-txt-color);
+$active-link-txt-color: var(--active-link-txt-color);
+$active-link-bg-color: var(--active-link-bg-color);
+
 .pagination {
     background-color: $bg-color;
+    justify-content: center;
     & .page-item {
         & .page-link {
             background-color: $bg-color;
-            border: 1px solid $input-border;
+            border: 1px solid $border-color;
             color: $primary;
             &:hover {
-                color: $btn-txt-hover;
+                color: $link-hover-txt-color;
             }
             & > span {
 
                 color: $primary;
                 &:hover {
-                    color: $btn-txt-hover;
+                    color: $link-hover-txt-color;
                 }
             }
         }
         &.active > .page-link{
-            background-color: $btn-hover;
-            color:$btn-secondary-txt;
+            background-color: $active-link-bg-color;
+            color: $active-link-txt-color;
 
         }
         &.disabled .page-link {
-            border: 1px solid $input-border;
+            border: 1px solid $border-color;
             filter: grayscale(60%);
         }
     }
