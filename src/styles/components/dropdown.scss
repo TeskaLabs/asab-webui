@@ -49,7 +49,14 @@ $dropdown-toggle-bg: var(--bg);
     &:focus, &:active {
         border: none;
         box-shadow: none;
+        & [class^="cil-"] {
+			color: $btn-txt !important;
+		}
     }
+}
+
+.show > .btn-outline-secondary.dropdown-toggle [class^="cil-"] {
+    color: $btn-txt !important;
 }
 
 html[data-theme="theme-light"] {

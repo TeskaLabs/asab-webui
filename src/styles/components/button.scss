@@ -33,8 +33,13 @@ $btn-txt: var(--btn-txt);
 		color: $btn-txt;
 		filter: none;
 		box-shadow: none;
+		& [class^="cil-"] {
+			color: $btn-txt !important;
+		}
 	}
 }
+
+//  ADD STYLE FOR BUTTON WITHIN .INPUT-GROUP
 
 .btn {
 	background-color: $btn-primary-bg-color;
@@ -42,6 +47,9 @@ $btn-txt: var(--btn-txt);
 	border-radius: 0;
 	padding: 0.75em 1.5em;
 	border: 0;
+	min-height: 50px;
+	display: flex;
+	align-items: center;
 
 //PRIMARY
 	&-primary {
@@ -56,7 +64,12 @@ $btn-txt: var(--btn-txt);
 		&:hover, &:active, &:not(:disabled):not(.disabled):active {
 			background-color: $btn-primary-outline-bg-color;
 			color: $btn-primary-bg-color;
-
+			& [class^="cil-"] {
+				color: $btn-primary-bg-color !important;
+			}
+		}
+		& [class^="cil-"] {
+			color: $btn-primary-bg-color !important;
 		}
 	}
 
@@ -69,9 +82,12 @@ $btn-txt: var(--btn-txt);
 	}
 	&-outline-secondary {
 		background-color: $bg-color;
-		color:$btn-secondary-bg-color;
+		color: $btn-secondary-bg-color;
 		&:hover, &:active, &:not(:disabled):not(.disabled):active {
 			background-color: $btn-secondary-bg-color;
+		}
+		& [class^="cil-"] {
+			color: $btn-secondary-bg-color !important;
 		}
 	}
 
@@ -86,13 +102,16 @@ $btn-txt: var(--btn-txt);
         background-color: $bg-color;
         color: $success;
         &:hover, &:active, &:not(:disabled):not(.disabled):active {
-            background-color: $success;
-        }
+			background-color: $success;
+		}
+		& [class^="cil-"] {
+			color: $success !important;
+		}
     }
 
 //DANGER
     &-danger {
-        background-color: $danger;
+		background-color: $danger;
         &:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active {
             background-color: $danger;
         }
@@ -102,7 +121,10 @@ $btn-txt: var(--btn-txt);
         color: $danger;
         &:hover, &:active, &:not(:disabled):not(.disabled):active {
             background-color: $danger;
-        }
+		}
+		& [class^="cil-"] {
+			color: $danger !important;
+		}
     }
 
 //WARNING
@@ -114,9 +136,12 @@ $btn-txt: var(--btn-txt);
     }
     &-outline-warning {
         background-color: $bg-color;
-        color: $danger;
+        color: $warning;
         &:hover, &:active, &:not(:disabled):not(.disabled):active {
-            background-color: $danger;
+			background-color: $warning;
+		}
+		& [class^="cil-"] {
+			color: $warning !important;
         }
     }
 
@@ -129,9 +154,12 @@ $btn-txt: var(--btn-txt);
     }
     &-outline-info {
         background-color: $bg-color;
-        color: $danger;
+        color: $info;
         &:hover, &:active, &:not(:disabled):not(.disabled):active {
-            background-color: $danger;
+			background-color: $info;
+		}
+		& [class^="cil-"] {
+			color: $info !important;
         }
     }
 
@@ -141,9 +169,12 @@ $btn-txt: var(--btn-txt);
     }
     &-outline-light {
         background-color: $bg-color;
-        color: $danger;
+        color: $light;
         &:hover, &:active, &:not(:disabled):not(.disabled):active {
-            background-color: $danger;
+			background-color: $light;
+		}
+		& [class^="cil-"] {
+			color: $light !important;
         }
     }
 
@@ -153,9 +184,12 @@ $btn-txt: var(--btn-txt);
 	}
 	&-outline-dark {
 		background-color: $bg-color;
-		color: $danger;
+		color: $dark;
 		&:hover, &:active, &:not(:disabled):not(.disabled):active {
-			background-color: $danger;
+			background-color: $dark;
+		}
+		& [class^="cil-"] {
+			color: $btn-secondary-bg-color !important;
 		}
 	}
 }
