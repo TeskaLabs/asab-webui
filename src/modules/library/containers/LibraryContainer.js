@@ -4,17 +4,14 @@ import { useHistory, useLocation } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 import {
-	Container, ListGroup, Input,
-	Row, Col, Card,
-	CardHeader, Button,
-	ButtonGroup, ButtonDropdown, DropdownMenu,
-	DropdownToggle, DropdownItem, InputGroup, InputGroupText
+	Container, Row, Col, 
+	Card, CardHeader, Button,
+	ButtonGroup, DropdownMenu, DropdownItem
 } from "reactstrap";
-import TreeMenu from 'react-simple-tree-menu';
 
+import TreeMenu from '../../../components/TreeMenu';
 import ControlledSwitch from '../../../components/ControlledSwitch';
 import SwitchPanel from "./SwitchPanel";
-import TreeMenuItem from "./TreeMenuItem";
 import { formatIntoTree } from "./formatIntoTree";
 
 import './styles.scss';
@@ -113,16 +110,6 @@ function LibraryContainer(props) {
 
 	}
 
-	const onClickItem = (key, type) => {
-		// Push params to the URL
-		if (history.location.pathname !== `/library/${key}` && type === "file") {
-			history.push({
-				pathname: `/library/${key}`,
-			})
-		}
-	}
-
-
 	const retrieveFileContent = async (path) => {
 		// Requesting the endpoint and getting files content
 		if (path) {
@@ -210,73 +197,62 @@ function LibraryContainer(props) {
 		}
 	}
 
-	
+	const onTreeMenuItemClick = ({ key, type }) => {
+		// Push params to the URL
+		if (history.location.pathname !== `/library/${key}` && type === "file") {
+			history.push({
+				pathname: `/library/${key}`,
+			})
+		}
+
+		// switch to editor
+		setChosenPanel("editor");
+	}
+
+	const TreeMenuDropdownMenu = (
+		<DropdownMenu>
+				<a href={`${serviceURL}/library/download`} download className="text-dark dropdown-export-item w-100">
+					<DropdownItem
+						style={{
+							borderBottom: "1px solid #c8ced3",
+							borderRadius: 0
+						}}
+					>
+						<i className="cil-cloud-download mr-2" />
+						{t("ASABLibraryModule|Export")}
+					</DropdownItem>
+				</a>
+				<DropdownItem onClick={() => setChosenPanel("import")}>
+					<i className="cil-cloud-upload mr-2" />
+					{t("ASABLibraryModule|Import")}
+				</DropdownItem>
+		</DropdownMenu>
+	);
 
 	// Render function
 	return (
-		<Container fluid className="mt-0 pr-0 pl-0 pt-0 library-container">
-			<Row className="ml-0">
-				<Col xs="3" sm="3" className="pl-0 pr-0 bcg-column tree-menu">
+		<Container fluid className="mt-0 h-100 library-container">
+			<Row className="ml-0 h-100">
+				<Col xs="3" sm="3" className="tree-menu">
 					<TreeMenu
 						data={treeData}
 						hasSearch={true} // The search option is nice, but has no api to translate the hint/placeholder
-						onClickItem={({ key, type }) => onClickItem(key, type)}
+						onClickItem={onTreeMenuItemClick}
 						initialActiveKey={location.pathname.replace('/library', '')}
 						initialFocusKey={location.pathname.replace('/library', '')}
 						initialOpenNodes={location.pathname.replace('/library', '').split("/")}
-					>
-						{({ search, items }) => (
-							<>
-								<InputGroup>
-									<InputGroupText className="p-0 border-0">
-										<ButtonDropdown
-											size="sm"
-											className="h-100"
-											isOpen={isDropdownMenuOpen}
-											toggle={() => setDropdownMenu(prev => !prev)}
-										>
-											<DropdownToggle caret>{t("ASABLibraryModule|Actions")}</DropdownToggle>
-											<DropdownMenu>
-													<a href={`${serviceURL}/library/download`} download className="text-dark dropdown-export-item w-100">
-														<DropdownItem
-															style={{
-																borderBottom: "1px solid #c8ced3",
-																borderRadius: 0
-															}}
-														>
-															<i className="cil-cloud-download mr-2" />
-															{t("ASABLibraryModule|Export")}
-														</DropdownItem>
-													</a>
-													<DropdownItem onClick={() => setChosenPanel("import")}>
-														<i className="cil-cloud-upload mr-2" />
-														{t("ASABLibraryModule|Import")}
-													</DropdownItem>
-											</DropdownMenu>
-										</ButtonDropdown>
-									</InputGroupText>
-									<Input
-										size="sm"
-										onChange={e => search(e.target.value)}
-										placeholder={t("ASABLibraryModule|Search")}
-									/>
-								</InputGroup>
-								<ListGroup>
-									{items.map(({ reset, ...props }) => (
-										<TreeMenuItem
-											active="false"
-											setChosenPanel={() => setChosenPanel("editor")}
-											{...props}
-										/>
-									))}
-								</ListGroup>
-							</>
-						)}
-					</TreeMenu>
+						searchOptions={{
+							placeholder: t("ASABLibraryModule|Search"),
+							dropdown: {
+								title: t("ASABLibraryModule|Actions"),
+								children: TreeMenuDropdownMenu
+							}
+						}}
+					/>
 				</Col>
-				<Col xs="9" sm="9" className="pl-0 pt-0 pb-0">
-					<Card className="mb-0 h-100">
-						<CardHeader style={{ minHeight: "50px", height: "50px" }}>
+				<Col xs="9" sm="9">
+					<Card className="h-100">
+						<CardHeader style={{ height: "50px" }}>
 							<div
 								style={{ height: "28px" }}
 								className="d-flex justify-content-between align-items-center"
@@ -300,12 +276,10 @@ function LibraryContainer(props) {
 								<ButtonGroup>
 									{activeNode.name && isReadOnly && chosenPanel === "editor" && (
 										<Button
-											size="sm"
+											outline
 											color="secondary"
-											className="mr-2"
 											onClick={() => setReadOnly(false)}
 										>
-											<i className="cil-pencil mr-2" />
 											{t("ASABLibraryModule|Edit")}
 										</Button>
 									)}

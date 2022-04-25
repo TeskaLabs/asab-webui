@@ -1,34 +1,27 @@
 import React from 'react';
 
-import "./styles.scss";
-
 const TreeMenuItem = ({
 	level = 0, hasNodes, isOpen,
 	label, searchTerm, openNodes,
 	toggleNode, matchSearch, focused,
-	type, isDisabled, setChosenPanel,
-	...props
+	type, isDisabled, ...props
 }) => {
-	const paddingLeft = 0.75 + 3.5 * level
+	const paddingLeft = 1.25 * level + 0.5;
+	const selected = focused && !hasNodes ? " selected" : "";
+	const disabled = isDisabled ? " disabled" : "";
 
 	return (
 		<li
 			{...props}
 			active="false"
-			className="tree-menu-item"
-			style={{
-				paddingLeft: paddingLeft + "rem",
-				boxShadow: focused ? '0px 0px 5px 0px #222' : 'none',
-				zIndex: focused ? 999 : 'unset',
-				color: type==="file" && isDisabled ? '#6a6a6a8f' : "initial"
-			}}
+			className={`tree-menu-item${selected}${disabled}`}
+			style={{ paddingLeft: `${paddingLeft}rem` }}
 		>
 			{hasNodes && (
 				<div
 					style={{ display: 'inline-block' }}
 					onClick={e => {
 						e.stopPropagation();
-						setChosenPanel();
 						hasNodes && toggleNode && toggleNode();
 					}}
 				>
