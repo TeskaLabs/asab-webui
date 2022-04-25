@@ -231,12 +231,12 @@ function LibraryContainer(props) {
 
 	// Render function
 	return (
-		<Container fluid className="mt-0 h-100 library-container">
+		<Container fluid className="h-100 library-container">
 			<Row className="ml-0 h-100">
-				<Col xs="3" sm="3" className="tree-menu">
+				<Col xs="3" sm="3" className="h-100">
 					<TreeMenu
 						data={treeData}
-						hasSearch={true} // The search option is nice, but has no api to translate the hint/placeholder
+						hasSearch={true}
 						onClickItem={onTreeMenuItemClick}
 						initialActiveKey={location.pathname.replace('/library', '')}
 						initialFocusKey={location.pathname.replace('/library', '')}

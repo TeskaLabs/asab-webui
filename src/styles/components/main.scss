@@ -1,6 +1,10 @@
 // might be removed after refactoring
 .main {
 	height: calc(100vh - 120px);
+
+	.container, .container-fluid {
+		margin-top: 0;
+	}
 }
 
 @media screen and (max-width: 768px) {

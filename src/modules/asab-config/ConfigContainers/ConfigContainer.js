@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 
 import {
-	Container,
-	Col, Row,
-	Card, CardBody, CardHeader
+	Container, Col, Row,
+	Card, CardBody
 } from "reactstrap";
 
 import { connect } from 'react-redux';
@@ -13,7 +12,6 @@ import { useTranslation } from 'react-i18next';
 import { TreeViewComponent } from "./TreeViewComponent";
 import ConfigEditor from "./ConfigEditor";
 import ConfigList from "./ConfigList";
-// import reducer from './reducer';
 
 function ConfigContainer(props) {
 
@@ -28,9 +26,9 @@ function ConfigContainer(props) {
 	const homeScreenAlt = props.app.Config.get('title');
 
 	return (
-		<Container fluid className="animated fadeIn flex mt-0 pr-0 pl-0 pt-0 config-container">
-			<Row className="config-row">
-				<Col sm="2" className="pr-0 bcg-column">
+		<Container fluid className="config-container animated fadeIn">
+			<Row className="ml-0 h-100">
+				<Col xs="3" sm="3" className="h-100">
 					<TreeViewComponent
 						app={props.app}
 						configCreated={props.config_created}
@@ -40,7 +38,7 @@ function ConfigContainer(props) {
 						configName={configName}
 					/>
 				</Col>
-				<Col md={{ size: 6, offset: 1 }}>
+				<Col xs="9" sm="9" className="h-100">
 					{configType != '$' && configName != '$' ?
 						configName != '!manage' && createConfig == false ?
 							<ConfigEditor

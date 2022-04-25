@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import TreeMenu from 'react-simple-tree-menu';
 import { useHistory } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
-import {types} from './actions/actions';
+import TreeMenu from '../../../components/TreeMenu';
+
+import { types } from './actions/actions';
 
 export function TreeViewComponent(props) {
 
@@ -152,7 +153,7 @@ export function TreeViewComponent(props) {
 	}
 
 	// Get the configType and configName from the TreeView menu
-	const onClickItem = (key, label) => {
+	const onClickItem = ({ key }) => {
 		// TODO: Update for multilevel tree structure
 		let splitKey = key.split("/");
 		props.setCreateConfig(false);
@@ -173,12 +174,9 @@ export function TreeViewComponent(props) {
 			data={treeData}
 			hasSearch={false}
 			openNodes={openNodes}
-			activeKey={props.configName != "!manage" ? `${props.configType}/${props.configName}` : `${props.configType}`}
-			focusKey={props.configName != "!manage" ? `${props.configType}/${props.configName}` : `${props.configType}`}
-			onClickItem={({ key, label, ...props }) => {
-				onClickItem(key, label)
-			}}
-		>
-		</TreeMenu>
-		)
+			initialActiveKey={props.configName != "!manage" ? `${props.configType}/${props.configName}` : `${props.configType}`}
+			initialFocusKey={props.configName != "!manage" ? `${props.configType}/${props.configName}` : `${props.configType}`}
+			onClickItem={onClickItem}
+		/>
+	);
 }
