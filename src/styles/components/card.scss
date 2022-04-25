@@ -14,11 +14,38 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 	border: 1px solid $border-color;
 	border-radius: 8px;
 	box-shadow: 0px 1px 20px -4px $box-shadow-card-color;
+	background-color: $bg-color;
 	.card-header {
 		border-bottom: none;
 		background-color: $bg-color;
 		color: $text-color;
 		border-radius: 8px 8px 0 0;
+		padding: 0;
+		display: flex;
+		justify-content: space-between;
+    	min-height: 50px;
+		flex-wrap: wrap;
+		.card-header-title {
+			color: $text-secondary-color;
+			font-family: 'Arial';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 1rem;
+			line-height: 50px;
+			// padding: 0.75rem 1.5rem;
+			margin: auto 1.5rem;
+			height:  50px;
+		}
+		.btn-group {
+			padding: 0;
+			margin-left: auto;
+			.btn {
+				white-space: nowrap;
+			}
+		}
+		.input-group{
+			padding: 8px;
+		}
 	}
 	.card-body {
 		background-color: $bg-color;
@@ -31,4 +58,12 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 		padding: 0;
 		border-radius: 0 0 8px 8px;
 	}
+}
+
+.border-bottom {
+	border-bottom: 1px solid $border-color;
+}
+
+.border-top {
+	border-top: 1px solid $border-color;
 }
