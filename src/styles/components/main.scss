@@ -1,6 +1,6 @@
 // might be removed after refactoring
 .main {
-	margin: 1rem;
+	height: calc(100vh - 120px);
 }
 
 @media screen and (max-width: 768px) {

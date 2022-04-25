@@ -231,8 +231,8 @@ function LibraryContainer(props) {
 
 	// Render function
 	return (
-		<Container fluid className="mt-0 pr-0 pl-0 pt-0 library-container">
-			<Row className="ml-0">
+		<Container fluid className="mt-0 h-100 library-container">
+			<Row className="ml-0 h-100">
 				<Col xs="3" sm="3" className="tree-menu">
 					<TreeMenu
 						data={treeData}

@@ -1,5 +1,10 @@
 @import './constants';
 
+
+* {
+	box-sizing: border-box;
+}
+
 html {
 	font-family: sans-serif;
     line-height: 1.15;
@@ -31,14 +36,11 @@ html {
     min-height: 100vh;
 }
 
-* {
-	box-sizing: border-box;
-}
-
 .app-body {
 	overflow-x: hidden;
 	margin: 0 0 0 100px;
 	margin-left: calc($sidebar-width + 2rem);
+	min-height: 100vh;
 }
 
 .networking-indicator {
