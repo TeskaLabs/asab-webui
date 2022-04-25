@@ -14,6 +14,10 @@ html {
 		color: $text-color;
 	}
 
+	hr {
+		background-color: $border-color;
+	}
+
 	body {
 		margin: 0;
 		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -45,8 +49,7 @@ html {
 
 .networking-indicator {
 	position: fixed;
-	z-index: 1400;
-	top: 50px;
+	z-index: 2000;
 
 	width: 100%;
 	height: 5px;
