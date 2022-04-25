@@ -45,7 +45,7 @@ const Import = ({
 		event.preventDefault();
 		try {
 			const data = new FormData(formRef.current);
-			const response = await api.put(`/library/upload?type=${type}`, data, {
+			const response = await api.put(`/library/import?type=${type}`, data, {
 				headers: {
 					'Content-Type': 'multipart/form-data'
 				}
