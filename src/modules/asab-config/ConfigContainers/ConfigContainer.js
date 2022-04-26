@@ -38,7 +38,7 @@ function ConfigContainer(props) {
 						configName={configName}
 					/>
 				</Col>
-				<Col xs="9" sm="9" className="h-100">
+				<Col xs="8" sm="8" className="h-100">
 					{configType != '$' && configName != '$' ?
 						configName != '!manage' && createConfig == false ?
 							<ConfigEditor

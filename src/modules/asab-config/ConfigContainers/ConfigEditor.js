@@ -12,7 +12,7 @@ import {
 	Form, FormGroup, FormText, Input, Label,
 	TabContent, TabPane, Nav, NavItem, NavLink,
 	Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
-	Row, Col
+	Row, Col, ButtonGroup
 } from "reactstrap";
 
 import {
@@ -533,8 +533,8 @@ function ConfigEditor(props) {
 							{configName ? configType.toString() + ' / ' + configName.toString() : ""}
 						</div>
 						{/* TODO: Replace div.float-right with ButtonGroup */}
-						<div className="float-right">
-							<Nav tabs>
+						<ButtonGroup className="p-1">
+							<Nav tabs className="border-0">
 								<NavItem>
 									<NavLink
 										className={classnames({ active: activeTab === 'basic' })}
@@ -552,7 +552,7 @@ function ConfigEditor(props) {
 									</NavLink>
 								</NavItem>
 							</Nav>
-						</div>
+						</ButtonGroup>
 					</CardHeader>
 					<CardBody className="card-editor-body">
 						<TabContent style={{border: "none"}} activeTab={activeTab}>
@@ -596,15 +596,15 @@ function ConfigEditor(props) {
 						</TabContent>
 					</CardBody>
 					<CardFooter>
-						<Button
-							outline
-							color="primary"
-							type="submit"
-							disabled={isSubmitting}
-						>
-							{t('ASABConfig|Save')}
-						</Button>
-						<span>
+						<ButtonGroup>
+							<Button
+								outline
+								color="primary"
+								type="submit"
+								disabled={isSubmitting}
+							>
+								{t('ASABConfig|Save')}
+							</Button>
 							<ButtonWithAuthz
 								outline
 								title={t('ASABConfig|Remove')}
@@ -617,39 +617,39 @@ function ConfigEditor(props) {
 							>
 								{t('ASABConfig|Remove')}
 							</ButtonWithAuthz>
-						</span>
-						<span className="float-right">
-							{selectPatternSections.length > 0 &&
-								<Dropdown
-									direction="up"
-									isOpen={dropdownOpen}
-									toggle={toggleDropDown}
-									title={t('ASABConfig|Add new section')}
+						</ButtonGroup>
+						{selectPatternSections.length > 0 &&
+							<span className="float-right">
+							<Dropdown
+								direction="up"
+								isOpen={dropdownOpen}
+								toggle={toggleDropDown}
+								title={t('ASABConfig|Add new section')}
+							>
+								<DropdownToggle
+									caret
 								>
-									<DropdownToggle
-										caret
-									>
-										<span className="pr-1">+</span>
-										{t('ASABConfig|Add')}
-									</DropdownToggle>
-									<DropdownMenu
-										className="pattern-section-dropdown"
-									>
-										{selectPatternSections.map((patternSection, idx) => {
-											return(
-												<DropdownItem
-													key={idx}
-													name={patternSection}
-													onClick={(e) => {addNewSection(patternSection), e.preventDefault()}}
-												>
-													{sectionNameString(patternPropsSchema, patternSection)}
-												</DropdownItem>
-												)
-										})}
-									</DropdownMenu>
-								</Dropdown>
-							}
+									<span className="pr-1">+</span>
+									{t('ASABConfig|Add')}
+								</DropdownToggle>
+								<DropdownMenu
+									className="pattern-section-dropdown"
+								>
+									{selectPatternSections.map((patternSection, idx) => {
+										return(
+											<DropdownItem
+												key={idx}
+												name={patternSection}
+												onClick={(e) => {addNewSection(patternSection), e.preventDefault()}}
+											>
+												{sectionNameString(patternPropsSchema, patternSection)}
+											</DropdownItem>
+											)
+									})}
+								</DropdownMenu>
+							</Dropdown>
 						</span>
+						}
 					</CardFooter>
 				</Form>
 			</Card>

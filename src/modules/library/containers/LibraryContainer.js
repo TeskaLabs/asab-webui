@@ -252,69 +252,65 @@ function LibraryContainer(props) {
 				</Col>
 				<Col xs="9" sm="9">
 					<Card className="h-100">
-						<CardHeader style={{ height: "50px" }}>
-							<div
-								style={{ height: "28px" }}
-								className="d-flex justify-content-between align-items-center"
-							>
-								<div>
-									{activeNode.name && chosenPanel === "editor" && (
-										<>
-											<span className="cil-library mr-3" />
-											<span className="mr-2">{activeNode.name}</span>
-											{isFileDisabled !== "disable-switch" && (
-												<ControlledSwitch
-													size="sm"
-													isOn={!isFileDisabled}
-													toggle={switchFileState}
-													title={t(`ASABLibraryModule|${isFileDisabled ? "Enable" : "Disable"} file`)}
-												/>
-											)}
-										</>
-									)}
-								</div>
-								<ButtonGroup>
-									{activeNode.name && isReadOnly && chosenPanel === "editor" && (
+						<CardHeader className="border-bottom">
+							<div className="card-header-title">
+								{activeNode.name && chosenPanel === "editor" && (
+									<>
+										<span className="cil-library mr-3" />
+										<span className="mr-2">{activeNode.name}</span>
+										{isFileDisabled !== "disable-switch" && (
+											<ControlledSwitch
+												size="sm"
+												isOn={!isFileDisabled}
+												toggle={switchFileState}
+												title={t(`ASABLibraryModule|${isFileDisabled ? "Enable" : "Disable"} file`)}
+											/>
+										)}
+									</>
+								)}
+							</div>
+							<ButtonGroup>
+								{activeNode.name && isReadOnly && chosenPanel === "editor" && (
+									<Button
+										outline
+										color="secondary"
+										onClick={() => setReadOnly(false)}
+									>
+										{t("ASABLibraryModule|Edit")}
+									</Button>
+								)}
+								{chosenPanel !== "editor" && (
+									<Button
+										size="sm"
+										color="danger"
+										className="mr-2"
+										onClick={() => setChosenPanel("editor")}
+									>
+										{t("ASABLibraryModule|Back")}
+									</Button>
+								)}
+								{activeNode.name && !isReadOnly && (
+									<>
 										<Button
 											outline
-											color="secondary"
-											onClick={() => setReadOnly(false)}
+											size="sm"
+											color="success"
+											onClick={updateFileContent}
+											disabled={originalFileContent === fileContent}
 										>
-											{t("ASABLibraryModule|Edit")}
+											{t("ASABLibraryModule|Save")}
 										</Button>
-									)}
-									{chosenPanel !== "editor" && (
 										<Button
+											outline
 											size="sm"
 											color="danger"
-											className="mr-2"
-											onClick={() => setChosenPanel("editor")}
+											onClick={cancelChanges}
 										>
-											{t("ASABLibraryModule|Back")}
+											{t("ASABLibraryModule|Cancel")}
 										</Button>
-									)}
-									{activeNode.name && !isReadOnly && (
-										<div>
-											<Button
-												size="sm"
-												color="success"
-												className="mr-2"
-												onClick={updateFileContent}
-												disabled={originalFileContent === fileContent}
-											>
-												{t("ASABLibraryModule|Save")}
-											</Button>
-											<Button
-												size="sm"
-												color="danger"
-												onClick={cancelChanges}
-											>
-												{t("ASABLibraryModule|Cancel")}
-											</Button>
-										</div>
-									)}
-								</ButtonGroup>
-							</div>
+									</>
+								)}
+							</ButtonGroup>
 						</CardHeader>
 
 						<SwitchPanel

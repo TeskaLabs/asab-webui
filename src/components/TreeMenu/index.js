@@ -27,7 +27,6 @@ const TreeMenu = ({
 									{searchOptions?.dropdown && (
 										<ButtonDropdown
 											size="sm"
-											className="h-100"
 											isOpen={isDropdownMenuOpen}
 											toggle={() => setDropdownMenu(prev => !prev)}
 										>
