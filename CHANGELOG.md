@@ -246,6 +246,8 @@
 
 - Rename Library import and export endpoints (INDIGO Sprint 220419, [!266](http://gitlab.teskalabs.int/bitswan/bitswan-webui/-/merge_requests/266))
 
+- Refactor validateConfiguration function to be able to handle "Authorization" section name of configuration (INDIGO Sprint 220419, [!268](http://gitlab.teskalabs.int/bitswan/bitswan-webui/-/merge_requests/268))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
