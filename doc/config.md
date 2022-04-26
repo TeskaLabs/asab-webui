@@ -95,7 +95,7 @@ It returns `true` if configuration match the validation criteria on tenant
 Example of usage in the configuration:
 
 ```
-	"SectionName:authorization" {
+	"Authorization" {
 		"tenants": "tenant1, tenant2"
 	}
 ```
@@ -133,7 +133,7 @@ Example of config for validateConfiguration function
 			"SectionName:datasource" {
 				...
 			},
-			"SectionName:authorization" {
+			"Authorization" {
 				"tenants": "tenant1, tenant2"
 			},
 			...
@@ -146,4 +146,4 @@ Example of config for validateConfiguration function
 
 ```
 
-The result of processing after validation should be that configuration, which has specified tenants in the configuration and does match the criterion (match the configured tenants in the `:authorization` section with current tenant of the user), will be visible only to the users, whos current tenant matches the criteria.
+The result of processing after validation should be that configuration, which has specified tenants in the configuration and does match the criterion (match the configured tenants in the `Authorization` section with current tenant of the user), will be visible only to the users, whos current tenant matches the criteria.
