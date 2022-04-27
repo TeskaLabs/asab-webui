@@ -40,6 +40,13 @@ $dropdown-toggle-bg: var(--bg);
             filter: brightness(90%);
         }
     }
+    & .dropdown-item span {
+        color: $btn-txt !important;
+    }
+
+    & .dropdown-header {
+        color: var(--btn-txt);
+    }
 }
 
 .show > .btn-secondary.dropdown-toggle {
