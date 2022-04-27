@@ -15,8 +15,8 @@
     //add custom dropdown style
     --box-shadow-card-color: #030931;
     --text-dropdown-color: var(--btn-txt);
-    --toggle-bg: var(--light-blue);
-    --toggle-text-color: var(--light-black);
+    --toggle-bg: var(transparentize);
+    --toggle-text-color: var(--night-blue);
 }
  
 $btn-secondary-hover-bg: var();
@@ -45,7 +45,7 @@ $toggle-text-color: var(--toggle-text-color);
 }
 .dropdown-menu {
     // background-color: plum;
-    border-radius: 8px;
+    border-radius: 0;
     background-color: $dropdown-toggle-bg;
     color: $btn-txt;
     box-shadow: 0 1px 20px -4px $box-shadow-card-color;
