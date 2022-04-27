@@ -1,21 +1,46 @@
 @import "../constants/index.scss";
 
 :root[data-theme="theme-light"] {
-	--bg: var(--off-white);
+	//--bg: var(--off-white);
+	--bg: var(--bg-color);
+    //add custom dropdown style
+    --box-shadow-card-color: rgba(206, 211, 243, 0.5);
+    --text-dropdown-color: var(--text-color);
+    --toggle-bg: var(--gray);
+    --toggle-text-color: var(--off-white);
 }
 
 :root[data-theme="theme-dark"] {
 	--bg: var(--light-blue);
+    //add custom dropdown style
+    --box-shadow-card-color: #030931;
+    --text-dropdown-color: var(--btn-txt);
+    --toggle-bg: var(--light-blue);
+    --toggle-text-color: var(--light-black);
 }
  
 $btn-secondary-hover-bg: var();
 $dropdown-toggle-bg: var(--bg);
+//add custom variables
+$box-shadow-card-color: var(--box-shadow-card-color);
+$text-dropdown-color: var(--text-dropdown-color);
+$toggle-bg: var(--toggle-bg);
+$toggle-text-color: var(--toggle-text-color);
 
 
 .dropdown-toggle {
+    //small dropdown
+    padding: 8px;
+    min-height: 30px;
+    //fix theme styles
+    background-color: $toggle-bg !important;
+    color: $toggle-text-color !important;
     // background-color: plum;
     &:active {
         // background-color: $btn-hover;
+    }
+    & span {
+        color: $toggle-text-color !important;
     }
 }
 .dropdown-menu {
@@ -23,6 +48,7 @@ $dropdown-toggle-bg: var(--bg);
     border-radius: 8px;
     background-color: $dropdown-toggle-bg;
     color: $btn-txt;
+    box-shadow: 0 1px 20px -4px $box-shadow-card-color;
 
     &:hover {
         // color: $white;
@@ -30,8 +56,7 @@ $dropdown-toggle-bg: var(--bg);
 
     & .dropdown-item {
         // background-color: $dark;
-        color: $btn-txt;
-        // color: $btn-secondary-txt;
+        //color: $btn-txt;
 
 
         &:hover {
@@ -41,11 +66,13 @@ $dropdown-toggle-bg: var(--bg);
         }
     }
     & .dropdown-item span {
-        color: $btn-txt !important;
+        //color: $btn-txt !important;
+        color: $text-dropdown-color;
     }
 
     & .dropdown-header {
-        color: var(--btn-txt);
+        //color: var(--btn-txt);
+        color: $text-dropdown-color;
     }
 }
 
@@ -57,13 +84,15 @@ $dropdown-toggle-bg: var(--bg);
         border: none;
         box-shadow: none;
         & [class^="cil-"] {
-			color: $btn-txt !important;
+			//color: $btn-txt !important;
+            //color: $toggle-text-color !important;
 		}
     }
 }
 
 .show > .btn-outline-secondary.dropdown-toggle [class^="cil-"] {
-    color: $btn-txt !important;
+    //color: $btn-txt !important;
+    color: $toggle-text-color !important;
 }
 
 html[data-theme="theme-light"] {
