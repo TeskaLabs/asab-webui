@@ -8,34 +8,17 @@
 	--bg: var(--light-blue);
 }
  
-$btn-secondary-hover-bg: var();
 $dropdown-toggle-bg: var(--bg);
 
-
-.dropdown-toggle {
-    // background-color: plum;
-    &:active {
-        // background-color: $btn-hover;
-    }
-}
 .dropdown-menu {
-    // background-color: plum;
     border-radius: 8px;
     background-color: $dropdown-toggle-bg;
     color: $btn-txt;
-
-    &:hover {
-        // color: $white;
-    }
+    border-color: $border-color;
 
     & .dropdown-item {
-        // background-color: $dark;
         color: $btn-txt;
-        // color: $btn-secondary-txt;
-
-
         &:hover {
-            // background-color: $night-blue;
             background-color: $dropdown-toggle-bg;
             filter: brightness(90%);
         }
@@ -44,7 +27,6 @@ $dropdown-toggle-bg: var(--bg);
 
 .show > .btn-secondary.dropdown-toggle {
     background-color: $dropdown-toggle-bg;
-    // color: $btn-txt;
     color: $btn-txt;
     &:focus, &:active {
         border: none;
@@ -57,23 +39,4 @@ $dropdown-toggle-bg: var(--bg);
 
 .show > .btn-outline-secondary.dropdown-toggle [class^="cil-"] {
     color: $btn-txt !important;
-}
-
-html[data-theme="theme-light"] {
-	.dropdown-menu {
-        // background-color: $light;
-        // background-color: $dropdown-toggle-bg;
-
-        & .dropdown-item {
-            // background-color: $light;
-            // background-color: $dropdown-toggle-bg;
-            // color: $btn-txt;
-            // color: $btn-secondary-txt;
-
-
-            &:hover {
-                // background-color: $dropdown-toggle-bg;
-            }
-        }
-    }
 }

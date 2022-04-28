@@ -10,12 +10,14 @@ import {
 	Button, Input, InputGroup,
 	InputGroupAddon, InputGroupText,
 	Dropdown, DropdownToggle,
-	DropdownMenu, DropdownItem, Container
+	DropdownMenu, DropdownItem, Container, ButtonGroup
 } from 'reactstrap';
 
 import Table from './Table';
 import Pagination from '../Pagination';
 // import CustomDropdownButton from './CustomDropdownButton'; DON'T REMOVE YET. IT MAY BE USEFUL ON REFACTORING DATATABLE
+
+import './table.scss';
 
 import { CellContentLoader } from '../ContentLoader';
 import { ButtonWithAuthz } from '../../modules/auth/ButtonWithAuthz';
@@ -24,7 +26,7 @@ export function DataTable ({
 	data, headers, limit = 10,
 	setLimit, count, currentPage = 1,
 	setPage, title, createButton,
-	search, onSearch, onDownload,
+	search, onSearch,
 	isLoading, translationRoute = '',
 	buttonWithAuthz, sort, noItemsComponent,
 	customButton, customComponent,
@@ -37,6 +39,7 @@ export function DataTable ({
 	const [isSortOpen, setSortDropdown] = useState(false);
 	const [isLimitOpen, setLimitDropdown] = useState(false);
 	const timeoutRef = useRef(null);
+	const [countDigit, setCountDigit] = useState(1)
 	
 	const { t } = useTranslation();
 
@@ -52,34 +55,56 @@ export function DataTable ({
 		}, 500);
 	}, [filterValue]);
 
-	const downloadHandler = () => {
-		const list = onDownload();
-		let csv = headers.map(header => header.name).join(',') + "\n" + 
-			list.map(item => headers.map(header => {
-				if (header.customComponent) {
-					if (header.customComponent.onDownload)
-						return header.customComponent.onDownload(item, header).replace(',', ';');
-					return '-';
-				}
-				return JSON.stringify(item[header.key])?.replace(',', ';');
-			}).join(',')).join('\n');
-		let blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
-		let name = title?.text || "";
-		saveAs(blob, `${name.replace(' ', '_')}_${format(new Date, 'dd-MM-yyyy')}.csv`);
-	}
+	useEffect(() => {
+		if((data.length - (currentPage*limit) + 1) < 1) {
+			setCountDigit(1)
+		} else if (limit < data.length && currentPage === 1 ){
+			setCountDigit(1)
+		} else {
+			setCountDigit(data.length - (currentPage*limit) + 1)
+		}
+
+	}, [limit])
 
 	return (
 		<Row>
 			<Col>
 				<Card className="data-table-card">
-					<CardHeader className="data-table-card-header">
-						{title.icon && typeof title.icon === 'string' ? 
-							<i className={title.icon}></i> : title.icon
+					<CardHeader className="data-table-card-header border-bottom">
+						<div className="data-table-title card-header-title">
+							{title.icon && typeof title.icon === 'string' ? 
+								<i className={`${title.icon} mr-2`}></i> : title.icon
+							}
+							{title.text}
+						</div>
+
+				
+					
+					<ButtonGroup>
+
+					
+						{search && 
+							<div className="data-table-search align-self-center mx-2 data-table-button">
+								<InputGroup>
+								{search.icon && 
+									<InputGroupAddon addonType="prepend">
+									<InputGroupText className="data-table-input-group-text pl-2"><i className={search.icon}></i></InputGroupText>
+									</InputGroupAddon>
+								}
+								<Input
+									value={filterValue}
+									onChange={e => setFilterValue(e.target.value)}
+									placeholder={search.placeholder}
+									type="text"
+									bsSize="sm"
+								/>
+								</InputGroup>
+							</div>
 						}
-						{title.text}
-						<div className="float-right ml-3 data-table-create-button">{customComponent}</div>
+
+						<div className="data-table-create-button data-table-button">{customComponent}</div>
 						{customButton && 
-							<div className="float-right ml-3 data-table-create-button">
+							<div className="data-table-create-button data-table-button">
 								<Button
 									tag="span"
 									size="sm"
@@ -96,36 +121,28 @@ export function DataTable ({
 								</Button>
 							</div>
 						}
-						{buttonWithAuthz && <ButtonWithAuthz {...buttonWithAuthz} className="float-right ml-3 data-table-button-with-authz"/>}
+						{buttonWithAuthz && <ButtonWithAuthz {...buttonWithAuthz} className="data-table-button-with-authz data-table-button"/>}
 						{createButton &&
-							<div className="float-right ml-3 data-table-create-button">
+							<div className="data-table-create-button data-table-button">
+									<Button outline tag="span" size="sm">
 								<Link to={{ pathname: createButton.pathname }}>
-									<Button tag="span" size="sm">
 										{createButton.icon && 
 											<span className="pr-1">
 												{typeof createButton.icon === 'string' ? <i className={createButton.icon}></i> : createButton.icon}
 											</span>
 										}
 										{createButton.text}
-									</Button>
 								</Link>
-							</div>
-						}
-						{onDownload &&
-							<div className="float-right ml-3 data-table-download-button">
-								<Button tag="span" size="sm" onClick={downloadHandler} >
-									<i className="cil-arrow-bottom"></i>
-									Download
-								</Button>
+									</Button>
 							</div>
 						}
 						{sort && 
-							<div className="float-right ml-3 data-table-sort">
+							<div className="data-table-sort data-table-button">
 								<Dropdown
 									isOpen={isSortOpen}
 									toggle={() => setSortDropdown(prev => !prev)}
 								>
-									<DropdownToggle size="sm" caret>
+									<DropdownToggle size="sm" caret outline>
 										{sort.icon && <i className={`${sort.icon} mr-1`}></i>}
 										{sort.title}
 									</DropdownToggle>
@@ -142,24 +159,7 @@ export function DataTable ({
 								</Dropdown>
 							</div>
 						}
-						{search && 
-							<div className="float-right ml-3 data-table-search">
-								<InputGroup>
-								{search.icon && 
-									<InputGroupAddon addonType="prepend">
-									<InputGroupText><i className={search.icon}></i></InputGroupText>
-									</InputGroupAddon>
-								}
-								<Input
-									value={filterValue}
-									onChange={e => setFilterValue(e.target.value)}
-									placeholder={search.placeholder}
-									type="text"
-									bsSize="sm"
-								/>
-								</InputGroup>
-							</div>
-						}
+					</ButtonGroup>
 					</CardHeader>
 
 					<CardBody className="data-table-card-body">
@@ -181,49 +181,46 @@ export function DataTable ({
 					</CardBody>
 
 					<CardFooter className="data-table-card-footer">
-						<Row>
-						{count ? (
-							<Col sm="4">
-								<div>
-									{t(translationRoute ? 
-										`${translationRoute}|Showing item(s)` 
-										: "Showing item(s)",
-										{ length: data.length, count: count }
-									)}
+
+						<div className="data-table-card-footer-left">
+							{setLimit &&
+								<div className="data-table-limit">
+									{/* {t(translationRoute ? `${translationRoute}|Limit` : "Limit")}: */}
+									{/* TODO: Add translation */}
+									Items per page: 
+									<Dropdown
+											isOpen={isLimitOpen}
+											toggle={() => setLimitDropdown(prev => !prev)}
+											className="data-table-limit-dropdown"
+										>
+											<DropdownToggle caret size="sm">
+												{limit}
+											</DropdownToggle>
+											<DropdownMenu>
+											{
+												limitValues.map((value, idx) => <DropdownItem onClick={() => { setPage(1); setLimit(value); }} key={idx}>{value}</DropdownItem>)
+											}
+											</DropdownMenu>
+										</Dropdown>
 								</div>
-							</Col>
-							) : null
-						}
+							}
+
+							{count ? (
+									<div className="data-table-count">
+									{/* TODO: add translations */}
+											{countDigit + (currentPage - 1) * limit} - {data.length + (currentPage -1 ) * limit} of {count} item(s)
+									</div>
+								) : null
+							}
+						</div>
 
 						{count > limit && setPage &&
-							<Col>
-								<Pagination 
+							<Pagination 
 								currentPage={currentPage}
 								setPage={setPage}
 								lastPage={Math.ceil(count/limit)}
-								/>
-							</Col>
+							/>
 						}
-
-						{setLimit &&
-							<Col>
-								<Dropdown
-									isOpen={isLimitOpen}
-									toggle={() => setLimitDropdown(prev => !prev)}
-									className="float-right"
-								>
-									<DropdownToggle caret size="sm">
-										{t(translationRoute ? `${translationRoute}|Limit` : "Limit")}: {limit}
-									</DropdownToggle>
-									<DropdownMenu>
-									{
-										limitValues.map((value, idx) => <DropdownItem onClick={() => { setPage(1); setLimit(value); }} key={idx}>{value}</DropdownItem>)
-									}
-									</DropdownMenu>
-								</Dropdown>
-							</Col>
-						}
-						</Row>
 					</CardFooter>
 				</Card>
 			</Col>

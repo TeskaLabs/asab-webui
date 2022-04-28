@@ -16,12 +16,17 @@ $active-link-bg-color: var(--active-link-bg-color);
 
 .pagination {
     background-color: $bg-color;
-    justify-content: center;
+    display: flex;
+    border-radius: 0 0 7px 0;
     & .page-item {
         & .page-link {
             background-color: $bg-color;
-            border: 1px solid $border-color;
             color: $primary;
+            height: 50px;
+            width: 50px;
+            border-radius: 0;
+            border: none;
+            border-left: 1px solid var(--border-color);
             &:hover {
                 color: $link-hover-txt-color;
             }
@@ -39,8 +44,41 @@ $active-link-bg-color: var(--active-link-bg-color);
 
         }
         &.disabled .page-link {
-            border: 1px solid $border-color;
+            border-radius: 0;
+            border: none;
+            border-left: 1px solid var(--border-color);
+
             filter: grayscale(60%);
         }
+        &:last-child, &:last-child .page-link{
+            border-radius: 0 0 8px 0;
+        }
     }
+}
+
+.data-table-card-footer {
+    font-size: 14px;
+    font-weight: normal;
+    & .show > .btn-secondary.dropdown-toggle {
+        background-color: $bg-color;
+        color: $text-color;
+        font-size: 14px;
+        font-weight: normal;
+    }
+
+    & .pagination, .dropdown-toggle, .dropdown-menu.show, .dropdown-item {
+        background-color: $bg-color;
+        color: $text-color;
+        font-size: 14px;
+        font-weight: normal;
+        margin-bottom: 0;
+        min-width: 50px;
+    }
+}
+
+.data-table-pagination {
+    display: flex;
+    align-items: center;
+    border-left: 1px solid $border-color;
+    border-radius: 0 0 7px 0;
 }
