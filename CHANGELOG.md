@@ -110,6 +110,8 @@
 
 - Make monaco loader part of the application (INDIGO Sprint 220401, [!258](https://github.com/TeskaLabs/asab-webui/pull/258))
 
+- Make webpack configuration extandable (INDIGO Sprint 220419, [!271](https://github.com/TeskaLabs/asab-webui/pull/271))
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
