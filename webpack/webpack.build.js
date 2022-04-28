@@ -7,9 +7,27 @@ const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const common = require("./common");
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+// extended configuration template
+let extendedConfig = {
+	entry: {},
+	output: {},
+	extraPlugins: [],
+	optimization: {},
+	module: {
+		extraRules: []
+	}
+};
+
+// load extended configuration
+try {
+	extendedConfig = { ...extendedConfig, ...require("../../asab-webui.config") } ;
+	console.log("Extended webpack configuration has been loaded:");
+} catch {
+	console.log("Extended webpack configuration hasn't been found.");
+}
 
 module.exports = {
 	build: function(config) {
@@ -22,14 +40,36 @@ module.exports = {
 		// TODO: This is temporary solution. It will be replaced by date-fns.
 		let defaultLocales = /cs/; // Default moment locales (needed for backward compatibility)
 
+		const globalVars = new webpack.DefinePlugin(
+			common.JSONStringifyValues(Object.assign({
+				"__CONFIG__": config["app"],
+				"__DEV_CONFIG__": config["devConfig"],
+				"__VERSION__": version,
+				"__BUILD_DATE__": buildDate
+			}))
+		);
+
+		const defaultPlugins = [
+			new HtmlWebpackPlugin({
+				template: html_template_path
+			}),
+			new InterpolateHtmlPlugin(
+				common.convertKeysForHtml(config["app"])
+				// Converts keys like this:
+				// "publicUrl" -> "__PUBLIC_URL__"
+				// "apiUrl" -> "__API_URL__"
+			),
+			// Extracts file styles.css
+			new MiniCssExtractPlugin({ filename: 'assets/css/styles.css' }),
+			
+			// Remove moment locales from bundle except those which are defined as second parameter
+			new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, defaultLocales),
+		];
+
 		return {
 			entry: {
 				app: entry_path,
-				'editor.worker': 'monaco-editor/esm/vs/editor/editor.worker.js',
-				'json.worker': 'monaco-editor/esm/vs/language/json/json.worker',
-				'css.worker': 'monaco-editor/esm/vs/language/css/css.worker',
-				'html.worker': 'monaco-editor/esm/vs/language/html/html.worker',
-				'ts.worker': 'monaco-editor/esm/vs/language/typescript/ts.worker'
+				...extendedConfig.entry
 			},
 			mode: 'production',
 			output: {
@@ -37,63 +77,19 @@ module.exports = {
 				chunkFilename: 'assets/js/[name].[contenthash].chunk.js',
 				path: path.resolve(config["dirs"]["dist"]),
 				publicPath: '',
+				...extendedConfig.output
 			},
 			resolve: config["webpack"]["resolve"],
 			module: {
-				rules: common.getRules(config)
+				rules: [
+					...common.getRules(config),
+					...extendedConfig.module.extraRules
+				]
 			},
 			plugins: [
-				new webpack.DefinePlugin(
-					common.JSONStringifyValues({
-						"__CONFIG__": config["app"],
-						"__DEV_CONFIG__": {},
-						"__VERSION__": version,
-						"__BUILD_DATE__": buildDate
-					})
-				),
-				new HtmlWebpackPlugin({
-					template: html_template_path,
-					minify: {
-						removeComments: true,
-						collapseWhitespace: true,
-						removeRedundantAttributes: true,
-						useShortDoctype: true,
-						removeEmptyAttributes: true,
-						removeStyleLinkTypeAttributes: true,
-						keepClosingSlash: true,
-						minifyJS: true,
-						minifyCSS: true,
-						minifyURLs: true,
-					},
-				}),
-				new InterpolateHtmlPlugin(
-					common.convertKeysForHtml(config["app"])
-					// Converts keys like this:
-					// "publicUrl" -> "__PUBLIC_URL__"
-					// "apiUrl" -> "__API_URL__"
-				),
-				// Extracts file styles.css
-				new MiniCssExtractPlugin({
-					filename: 'assets/css/[name].[contenthash].css',
-					chunkFilename: "assets/css/[id].[contenthash].css",
-					ignoreOrder: false, // Enable to remove warnings about conflicting order
-				}),
-				new MonacoWebpackPlugin({
-					languages: ['json', 'javascript', 'html', 'yaml', 'xml']
-				}),
-				new UglifyJsPlugin({
-					uglifyOptions: {
-						output: {
-						comments: false
-						}
-					}
-				}),
-				new OptimizeCssAssetsPlugin(),
-				// Remove moment locales from bundle except those which are defined as second parameter
-				new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, defaultLocales),
-				// Uncomment BundleAnalyzerPlugin in case you want to analyze bundle size (also uncomment import of this plugin above)
-				// And comment it before making Pull Request/ Merge Request
-				// new BundleAnalyzerPlugin()
+				globalVars,
+				...defaultPlugins,
+				...extendedConfig.extraPlugins
 			],
 			optimization: {
 				splitChunks: {
@@ -143,7 +139,8 @@ module.exports = {
 							}
 						}
 					})
-				]
+				],
+				...extendedConfig.optimization
 			},
 		};
 	}
