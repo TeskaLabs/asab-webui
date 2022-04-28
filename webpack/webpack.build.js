@@ -23,7 +23,7 @@ let extendedConfig = {
 // load extended configuration
 try {
 	extendedConfig = { ...extendedConfig, ...require("../../asab-webui.config") } ;
-	console.log("Extended webpack configuration has been loaded:");
+	console.log("Extended webpack configuration has been loaded.");
 } catch {
 	console.log("Extended webpack configuration hasn't been found.");
 }
