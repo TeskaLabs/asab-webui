@@ -182,7 +182,8 @@ export function DataTable ({
 
 					<CardFooter className="data-table-card-footer">
 						{/* <Row> */}
-					<div style={{display: 'flex', alignItems: 'center'}}>
+					<div className="data-table-card-footer-left">
+					{/* <div style={{display: 'flex', alignItems: 'center'}}> */}
 						{setLimit &&
 						<div className="data-table-limit">
 							{/* {t(translationRoute ? `${translationRoute}|Limit` : "Limit")}: */}

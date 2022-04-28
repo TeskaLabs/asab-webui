@@ -67,7 +67,7 @@
     &-limit {
         display: flex;
         align-items: center;
-        margin: auto 1.5rem;
+        // margin: auto 1.5rem;
         border-right: 1px solid $border-color;
         &-dropdown {
             display: flex;
@@ -87,5 +87,13 @@
     }
     &-count {
         justify-self: flex-start;
+    }
+
+    &-card-footer-left {
+        display: inherit;
+        align-items: center;
+        & > div:first-child {
+            margin: auto 1.5rem;
+        }
     }
 }
