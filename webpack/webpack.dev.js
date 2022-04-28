@@ -4,10 +4,27 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const common = require("./common");
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-// const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+
+// extended configuration template
+let extendedConfig = {
+	entry: {},
+	output: {},
+	extraPlugins: [],
+	optimization: {},
+	module: {
+		extraRules: []
+	}
+};
+
+// load extended configuration
+try {
+	extendedConfig = { ...extendedConfig, ...require("../../asab-webui.config") } ;
+	console.log("Extended webpack configuration has been loaded:");
+} catch {
+	console.log("Extended webpack configuration hasn't been found.");
+}
+
 
 module.exports = {
 	build: function(config) {
@@ -20,14 +37,36 @@ module.exports = {
 		const html_template_path = path.resolve(config["dirs"]["public"], 'index.html');
 		let defaultLocales = /cs/; // Default moment locales (needed for backward compatibility)
 
+		const globalVars = new webpack.DefinePlugin(
+			common.JSONStringifyValues(Object.assign({
+				"__CONFIG__": config["app"],
+				"__DEV_CONFIG__": config["devConfig"],
+				"__VERSION__": version,
+				"__BUILD_DATE__": buildDate
+			}))
+		);
+
+		const defaultPlugins = [
+			new HtmlWebpackPlugin({
+				template: html_template_path
+			}),
+			new InterpolateHtmlPlugin(
+				common.convertKeysForHtml(config["app"])
+				// Converts keys like this:
+				// "publicUrl" -> "__PUBLIC_URL__"
+				// "apiUrl" -> "__API_URL__"
+			),
+			// Extracts file styles.css
+			new MiniCssExtractPlugin({ filename: 'assets/css/styles.css' }),
+			
+			// Remove moment locales from bundle except those which are defined as second parameter
+			new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, defaultLocales),
+		]
+
 		return {
 			entry: {
 				app: entry_path,
-				'editor.worker': 'monaco-editor/esm/vs/editor/editor.worker.js',
-				'json.worker': 'monaco-editor/esm/vs/language/json/json.worker',
-				'css.worker': 'monaco-editor/esm/vs/language/css/css.worker',
-				'html.worker': 'monaco-editor/esm/vs/language/html/html.worker',
-				'ts.worker': 'monaco-editor/esm/vs/language/typescript/ts.worker'
+				...extendedConfig.entry
 			},
 			mode: 'development',
 			watch: true,
@@ -39,41 +78,19 @@ module.exports = {
 				// Point sourcemap entries to original disk location (format as URL on Windows)
 				devtoolModuleFilenameTemplate: info =>
 					path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
+				...extendedConfig.output
 			},
 			resolve: config["webpack"]["resolve"],
 			module: {
-				rules: common.getRules(config)
+				rules: [
+					...common.getRules(config),
+					...extendedConfig.module.extraRules
+				]
 			},
 			plugins: [
-				new webpack.DefinePlugin(
-					common.JSONStringifyValues(Object.assign({
-						"__CONFIG__": config["app"],
-						"__DEV_CONFIG__": config["devConfig"],
-						"__VERSION__": version,
-						"__BUILD_DATE__": buildDate
-					}))
-				),
-				new HtmlWebpackPlugin({
-					template: html_template_path
-				}),
-				new InterpolateHtmlPlugin(
-					common.convertKeysForHtml(config["app"])
-					// Converts keys like this:
-					// "publicUrl" -> "__PUBLIC_URL__"
-					// "apiUrl" -> "__API_URL__"
-				),
-				// Extracts file styles.css
-				new MiniCssExtractPlugin({ filename: 'assets/css/styles.css' }),
-				new MonacoWebpackPlugin({
-					languages: ['json', 'javascript', 'html', 'yaml', 'xml']
-				}),
-				// Minimizes styles.css
-				// new OptimizeCssAssetsPlugin()
-				// Remove moment locales from bundle except those which are defined as second parameter
-				new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, defaultLocales),
-				// Uncomment BundleAnalyzerPlugin in case you want to analyze bundle size (also uncomment import of this plugin above)
-				// And comment it before making Pull Request/ Merge Request
-				// new BundleAnalyzerPlugin()
+				globalVars,
+				...defaultPlugins,
+				...extendedConfig.extraPlugins
 			],
 			optimization: {
 				splitChunks: {
@@ -99,6 +116,7 @@ module.exports = {
 						},
 					}
 				},
+				...extendedConfig.optimization
 			}
 		};
 	}
