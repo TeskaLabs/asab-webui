@@ -25,7 +25,7 @@ const ThemeButton = ({ changeTheme }) => {
 			<Switch
 				size="sm"
 				toggle={onClick}
-				isOn={theme == "theme-light"}
+				isOn={theme == "theme-dark"}
 				title="Change language"
 			/>
 		</div>
