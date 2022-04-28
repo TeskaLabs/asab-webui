@@ -6,13 +6,13 @@ const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const common = require("./common");
 
-// extended configuration template
+// initial extended configuration
 let extendedConfig = {
-	entry: {},
-	output: {},
+	extraEntries: {},
+	extraOutputs: {},
 	extraPlugins: [],
-	optimization: {},
-	module: {
+	extraOptimization: {},
+	extraModule: {
 		extraRules: []
 	}
 };
@@ -63,10 +63,15 @@ module.exports = {
 			new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, defaultLocales),
 		];
 
+		const filteredExtendedConfig = listOfRenamedProps.forEach(prop => delete extendedConfig[prop]);
+
+		const newModule =  JSON.parse(JSON.stringify(extendedConfig.extraModule));
+		delete newModule.extraRules;
+
 		return {
 			entry: {
 				app: entry_path,
-				...extendedConfig.entry
+				...extendedConfig.extraEntries
 			},
 			mode: 'development',
 			watch: true,
@@ -78,14 +83,15 @@ module.exports = {
 				// Point sourcemap entries to original disk location (format as URL on Windows)
 				devtoolModuleFilenameTemplate: info =>
 					path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
-				...extendedConfig.output
+				...extendedConfig.extraOutputs
 			},
 			resolve: config["webpack"]["resolve"],
 			module: {
 				rules: [
 					...common.getRules(config),
-					...extendedConfig.module.extraRules
-				]
+					...extendedConfig.extraModule.extraRules
+				],
+				...newModule
 			},
 			plugins: [
 				globalVars,
@@ -116,8 +122,9 @@ module.exports = {
 						},
 					}
 				},
-				...extendedConfig.optimization
-			}
+				...extendedConfig.extraOptimization
+			},
+			...filteredExtendedConfig
 		};
 	}
 }

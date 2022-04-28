@@ -6,11 +6,11 @@
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
-	entry: { /* add more entries here */ },
-	output: { /* add more outputs here */ },
+	extraEntries: { /* add more entries here */ },
+	extraOutputs: { /* add more outputs here */ },
 	extraPlugins: [ /* add more plugins here */ ],
-	optimization: { /* add more optimizations rules here */ },
-	module: {
+	extraOptimization: { /* add more optimizations rules here */ },
+	extraModule: {
 		extraRules: [ /* add more module rules here */ ]
 	}
 };

@@ -9,20 +9,22 @@ const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const common = require("./common");
 
-// extended configuration template
+// initial extended configuration
 let extendedConfig = {
-	entry: {},
-	output: {},
+	extraEntries: {},
+	extraOutputs: {},
 	extraPlugins: [],
-	optimization: {},
-	module: {
+	extraOptimization: {},
+	extraModule: {
 		extraRules: []
 	}
 };
 
+const listOfRenamedProps = ["extraEntries", "extraOutputs", "extraPlugins", "extraOptimization", "extraModule"];
+
 // load extended configuration
 try {
-	extendedConfig = { ...extendedConfig, ...require("../../asab-webui.config") } ;
+	extendedConfig = { ...extendedConfig, ...require("../../asab-webui.config") };
 	console.log("Extended webpack configuration has been loaded.");
 } catch {
 	console.log("Extended webpack configuration hasn't been found.");
@@ -72,10 +74,16 @@ module.exports = {
 			new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, defaultLocales),
 		];
 
+		const filteredExtendedConfig = {...extendedConfig};
+		listOfRenamedProps.forEach(prop => delete filteredExtendedConfig[prop]);
+
+		const newModule =  {...extendedConfig.extraModule};
+		delete newModule.extraRules;
+
 		return {
 			entry: {
 				app: entry_path,
-				...extendedConfig.entry
+				...extendedConfig.extraEntries
 			},
 			mode: 'production',
 			output: {
@@ -83,14 +91,15 @@ module.exports = {
 				chunkFilename: 'assets/js/[name].[contenthash].chunk.js',
 				path: path.resolve(config["dirs"]["dist"]),
 				publicPath: '',
-				...extendedConfig.output
+				...extendedConfig.extraOutputs
 			},
 			resolve: config["webpack"]["resolve"],
 			module: {
 				rules: [
 					...common.getRules(config),
-					...extendedConfig.module.extraRules
-				]
+					...extendedConfig.extraModule.extraRules
+				],
+				...newModule
 			},
 			plugins: [
 				globalVars,
@@ -146,8 +155,9 @@ module.exports = {
 						}
 					})
 				],
-				...extendedConfig.optimization
+				...extendedConfig.extraOptimization
 			},
+			...filteredExtendedConfig
 		};
 	}
 }
