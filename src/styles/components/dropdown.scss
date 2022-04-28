@@ -1,42 +1,64 @@
 @import "../constants/index.scss";
 
 :root[data-theme="theme-light"] {
-	--bg: var(--off-white);
+	--bg: var(--bg-color);
+	--box-shadow-card-color: rgba(206, 211, 243, 0.5);
+	--text-dropdown-color: var(--text-color);
+	--toggle-bg: var(--gray);
+	--toggle-text-color: var(--off-white);
 }
 
 :root[data-theme="theme-dark"] {
 	--bg: var(--light-blue);
+	--box-shadow-card-color: #030931;
+	--text-dropdown-color: var(--btn-txt);
+	--toggle-bg: var(transparentize);
+	--toggle-text-color: var(--night-blue);
 }
- 
+
 $dropdown-toggle-bg: var(--bg);
+$box-shadow-card-color: var(--box-shadow-card-color);
+$text-dropdown-color: var(--text-dropdown-color);
+$toggle-bg: var(--toggle-bg);
+$toggle-text-color: var(--toggle-text-color);
+
+.dropdown-toggle {
+	padding: 8px;
+	min-height: 30px;
+	background-color: $toggle-bg !important;
+	color: $toggle-text-color !important;
+	& span {
+		color: $toggle-text-color !important;
+	}
+}
 
 .dropdown-menu {
-    border-radius: 8px;
-    background-color: $dropdown-toggle-bg;
-    color: $btn-txt;
-    border-color: $border-color;
+	border-radius: 0;
+	background-color: $dropdown-toggle-bg;
+	color: $btn-txt;
+	box-shadow: 0 1px 20px -4px $box-shadow-card-color;
 
-    & .dropdown-item {
-        color: $btn-txt;
-        &:hover {
-            background-color: $dropdown-toggle-bg;
-            filter: brightness(90%);
-        }
-    }
+	&:hover {
+		background-color: $dropdown-toggle-bg;
+		filter: brightness(90%);
+	}
+	& .dropdown-item span {
+		color: $text-dropdown-color;
+	}
+	& .dropdown-header {
+		color: $text-dropdown-color;
+	}
 }
 
 .show > .btn-secondary.dropdown-toggle {
-    background-color: $dropdown-toggle-bg;
-    color: $btn-txt;
-    &:focus, &:active {
-        border: none;
-        box-shadow: none;
-        & [class^="cil-"] {
-			color: $btn-txt !important;
-		}
-    }
+	background-color: $dropdown-toggle-bg;
+	color: $btn-txt;
+	&:focus, &:active {
+		border: none;
+		box-shadow: none;
+	}
 }
 
 .show > .btn-outline-secondary.dropdown-toggle [class^="cil-"] {
-    color: $btn-txt !important;
+	color: $toggle-text-color !important;
 }
