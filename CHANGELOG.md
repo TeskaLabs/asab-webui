@@ -313,3 +313,5 @@
 - Fix library global styles (INDIGO Sprint 220401, [!262](https://github.com/TeskaLabs/asab-webui/pull/262))
 
 - Fix missing authorization bearer token in the header of Sidebar request on ASAB-Config service (INDIGO Sprint 220419, [!265](https://github.com/TeskaLabs/asab-webui/pull/265))
+
+- Fix typo "pimary => primary" in demo/public/index.html (INDIGO Sprint 220419, [!272](https://github.com/TeskaLabs/asab-webui/pull/272)
