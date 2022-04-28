@@ -30,6 +30,14 @@ $input-text: var(--input-text);
       }
 }
 
+.form-control:read-only {
+    box-shadow: 0px 2px 3px -1px $light;
+    border: 1px solid $border-color;
+    border-radius: 2px;
+    background-color: $input-bg;
+    color: $text-color;
+}
+
 .input-group-text {
     background-color: $input-bg;
     border: 1px solid $border-color;
