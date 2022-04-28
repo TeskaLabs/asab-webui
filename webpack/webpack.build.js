@@ -8,7 +8,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const common = require("./common");
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 // extended configuration template
 let extendedConfig = {
@@ -59,9 +58,16 @@ module.exports = {
 				// "publicUrl" -> "__PUBLIC_URL__"
 				// "apiUrl" -> "__API_URL__"
 			),
+			new UglifyJsPlugin({
+				uglifyOptions: {
+					output: {
+						comments: false
+					}
+				}
+			}),
 			// Extracts file styles.css
 			new MiniCssExtractPlugin({ filename: 'assets/css/styles.css' }),
-			
+			new OptimizeCssAssetsPlugin(),
 			// Remove moment locales from bundle except those which are defined as second parameter
 			new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, defaultLocales),
 		];
