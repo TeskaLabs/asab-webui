@@ -181,39 +181,38 @@ export function DataTable ({
 					</CardBody>
 
 					<CardFooter className="data-table-card-footer">
-						{/* <Row> */}
-					<div className="data-table-card-footer-left">
-					{/* <div style={{display: 'flex', alignItems: 'center'}}> */}
-						{setLimit &&
-						<div className="data-table-limit">
-							{/* {t(translationRoute ? `${translationRoute}|Limit` : "Limit")}: */}
-							{/* TODO: Add translation */}
-							Items per page: 
-							<Dropdown
-									isOpen={isLimitOpen}
-									toggle={() => setLimitDropdown(prev => !prev)}
-									className="data-table-limit-dropdown"
-								>
-									<DropdownToggle caret size="sm">
-										{limit}
-									</DropdownToggle>
-									<DropdownMenu>
-									{
-										limitValues.map((value, idx) => <DropdownItem onClick={() => { setPage(1); setLimit(value); }} key={idx}>{value}</DropdownItem>)
-									}
-									</DropdownMenu>
-								</Dropdown>
-						</div>
-						}
 
-						{count ? (
-								<div className="data-table-count">
-								{/* TODO: add translations */}
-										{countDigit + (currentPage - 1) * limit} - {data.length + (currentPage -1 ) * limit} of {count} item(s)
+						<div className="data-table-card-footer-left">
+							{setLimit &&
+								<div className="data-table-limit">
+									{/* {t(translationRoute ? `${translationRoute}|Limit` : "Limit")}: */}
+									{/* TODO: Add translation */}
+									Items per page: 
+									<Dropdown
+											isOpen={isLimitOpen}
+											toggle={() => setLimitDropdown(prev => !prev)}
+											className="data-table-limit-dropdown"
+										>
+											<DropdownToggle caret size="sm">
+												{limit}
+											</DropdownToggle>
+											<DropdownMenu>
+											{
+												limitValues.map((value, idx) => <DropdownItem onClick={() => { setPage(1); setLimit(value); }} key={idx}>{value}</DropdownItem>)
+											}
+											</DropdownMenu>
+										</Dropdown>
 								</div>
-							) : null
-						}
-					</div>
+							}
+
+							{count ? (
+									<div className="data-table-count">
+									{/* TODO: add translations */}
+											{countDigit + (currentPage - 1) * limit} - {data.length + (currentPage -1 ) * limit} of {count} item(s)
+									</div>
+								) : null
+							}
+						</div>
 
 						{count > limit && setPage &&
 							<Pagination 
