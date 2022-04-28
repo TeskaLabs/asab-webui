@@ -17,6 +17,8 @@ let extendedConfig = {
 	}
 };
 
+const listOfRenamedProps = ["extraEntries", "extraOutputs", "extraPlugins", "extraOptimization", "extraModule"];
+
 // load extended configuration
 try {
 	extendedConfig = { ...extendedConfig, ...require("../../asab-webui.config") } ;
@@ -63,9 +65,10 @@ module.exports = {
 			new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, defaultLocales),
 		];
 
-		const filteredExtendedConfig = listOfRenamedProps.forEach(prop => delete extendedConfig[prop]);
+		const filteredExtendedConfig = {...extendedConfig};
+		listOfRenamedProps.forEach(prop => delete filteredExtendedConfig[prop]);
 
-		const newModule =  JSON.parse(JSON.stringify(extendedConfig.extraModule));
+		const newModule =  {...extendedConfig.extraModule};
 		delete newModule.extraRules;
 
 		return {
