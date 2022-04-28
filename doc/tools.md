@@ -69,12 +69,12 @@ The configuration loaded from Zookeeper is **editable**.
 
 ```
 {
-	"tool": {
+	"Tool": {
 		"name": "Grafana",
 		"url": "http://http://127.0.0.1.:3000/grafana",
 		"image": "tools/grafana.svg"
 	},
-	"tool:authorization": {
+	"Authorization": {
 		"tenants": "tenant one, tenant two"
 	}
 }
@@ -131,7 +131,7 @@ Example of the Grafana config file
 
 ```
 {
-	"tool": {
+	"Tool": {
 		"name": "Grafana",
 		"url": "http://http://127.0.0.1.:3000/grafana",
 		"image": "tools/grafana.svg"
@@ -143,13 +143,13 @@ Example of the Grafana config file
 
 Tool configuration can be limited for access only with specific tenant(s). This means, that users without particular tenant(s) are not able to access the particular tool with its setting. This is convenient e.g. when administrator wants to limit access to tool configuration with sensitive data to particular group(s) of users.
 
-Example of `tool:authorization` settings within the configuration:
+Example of `Authorization` settings within the configuration:
 
 ```
 {
 	...
 
-	"tool:authorization": {
+	"Authorization": {
 		"tenants": "tenant one, tenant two"
 	}
 
@@ -182,7 +182,7 @@ Example of the schema configuration
 	"default": {},
 	"examples": [
 		{
-			"tool": {
+			"Tool": {
 				"name": "MyTool",
 				"url": "http://lm1/my-tool",
 				"image": "tools/my-tool.svg"
@@ -193,7 +193,7 @@ Example of the schema configuration
 		"tool" // Required value is optional
 	],
 	"properties": {
-		"tool": {
+		"Tool": {
 			"type": "object",
 			"title": "Tool configuration",
 			"description": "The Tool configuration",
@@ -243,7 +243,7 @@ Example of the schema configuration
 				}
 			}
 		},
-		"tool:authorization": {
+		"Authorization": {
 			"type": "string",
 			"title": "Tool authorization",
 			"description": "Limit access to Tool button by tenant settings",
@@ -278,7 +278,7 @@ Example of image loaded from `public` folder
 
 ```
 {
-	"tool": {
+	"Tool": {
 		...
 		"image": "tools/grafana.svg"
 	}
@@ -293,7 +293,7 @@ Example of image inserted as base64 string
 
 ```
 {
-	"tool": {
+	"Tool": {
 		...
 		"image": "data:image/svg;base64,iVBORw0KG..."
 	}
