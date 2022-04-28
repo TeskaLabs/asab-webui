@@ -1,0 +1,41 @@
+.config-container {
+	height: 100%;
+
+	.card-editor-layout {
+		height: 100%;
+		width: 100%;
+
+		form {
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+		}
+	}
+
+	.card-editor-body {
+		height: 100% !important;
+		overflow: scroll !important;
+		overflow-x: hidden !important;
+	}
+
+	/* ConfigList DataTable */
+	.config-list-dt {
+		height: 100%;
+		.row {
+			height: 100%;
+			.card, .col {
+				height: 100%;
+			}
+			.card-body {
+				overflow: scroll;
+			}
+		}
+	}
+
+	/*Config Editor*/
+	.pattern-section-dropdown {
+		max-height: 400px;
+		overflow-y: auto;
+	}
+}
+

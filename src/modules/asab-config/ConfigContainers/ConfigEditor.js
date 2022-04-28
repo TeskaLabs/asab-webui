@@ -12,7 +12,7 @@ import {
 	Form, FormGroup, FormText, Input, Label,
 	TabContent, TabPane, Nav, NavItem, NavLink,
 	Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
-	Row, Col
+	Row, Col, ButtonGroup
 } from "reactstrap";
 
 import {
@@ -512,143 +512,147 @@ function ConfigEditor(props) {
 		return returnString;
 	}
 
-	// TODO: add Content loader when available as a component in ASAB WebUI
-	return (
-		configNotExist ?
+	if (configNotExist) {
+		return (
 			<ConfigMessageCard
 				homeScreenImg={homeScreenImg}
 				homeScreenAlt={homeScreenAlt}
 				purposeTitle={t("ASABConfig|Config file does not exist")}
 				purposeSubtitle={t("ASABConfig|We are sorry, but the file cannot be found")}
 			/>
-		:
-			<React.Fragment>
+		)
+	}
+
+	// TODO: add Content loader when available as a component in ASAB WebUI
+	return (
+			<Card className="card-editor-layout">
 				<Form onSubmit={handleSubmit(onSubmit)}>
-					<Card className="card-editor-layout">
-						<CardHeader>
+					<CardHeader>
+						<div className="card-header-title">
 							<span className="cil-settings pr-2" />
 							{configName ? configType.toString() + ' / ' + configName.toString() : ""}
-							<div className="float-right">
-								<Nav tabs>
-									<NavItem>
-										<NavLink
-											className={classnames({ active: activeTab === 'basic' })}
-											onClick={() => { toggle('basic'); }}
-										>
-											{t('ASABConfig|Basic')}
-										</NavLink>
-									</NavItem>
-									<NavItem>
-										<NavLink
-											className={classnames({ active: activeTab === 'advanced' })}
-											onClick={() => { toggle('advanced'); }}
-										>
-											{t('ASABConfig|Advanced')}
-										</NavLink>
-									</NavItem>
-								</Nav>
-							</div>
-						</CardHeader>
-						<CardBody className="card-editor-body">
-							<TabContent style={{border: "none"}} activeTab={activeTab}>
-								<TabPane tabId="basic">
-									<React.Fragment>
-										{/* List of Sections (it may consist also of AdHocValues) */}
-										{formStruct && formStruct.properties && Object.keys(formStruct.properties).map((section_name, idx) =>
-											<ConfigSection
-												key={idx}
-												section={formStruct.properties[section_name]}
-												sectionname={section_name}
-												register={register}
-												adhocvalues={adHocValues}
-												isSubmitting={isSubmitting}
-												removeSectionForm={removeSectionForm}
-												selectPatternSections={selectPatternSections}
-											/>
-										)}
-
-										{/* List all remaining sections e.g. AdHocSections */}
-										{Object.keys(adHocSections).length > 0 && Object.keys(adHocSections).map((section_name, idx) =>
-											<ConfigAdHocSection
-												key={idx}
-												sectionname={section_name}
-												values={adHocSections[section_name]}
-											/>
-										)}
-										<hr/>
-									</React.Fragment>
-								</TabPane>
-								<TabPane tabId="advanced">
-									<div>
-										<ReactJson
-											src={jsonValues}
-											onEdit={ e => { setJsonValues(e.updated_src)} }
-											enableClipboard={false}
-											name={false}
+						</div>
+						{/* TODO: Replace div.float-right with ButtonGroup */}
+						<ButtonGroup className="p-1">
+							<Nav tabs className="border-0">
+								<NavItem>
+									<NavLink
+										className={classnames({ active: activeTab === 'basic' })}
+										onClick={() => { toggle('basic'); }}
+									>
+										{t('ASABConfig|Basic')}
+									</NavLink>
+								</NavItem>
+								<NavItem>
+									<NavLink
+										className={classnames({ active: activeTab === 'advanced' })}
+										onClick={() => { toggle('advanced'); }}
+									>
+										{t('ASABConfig|Advanced')}
+									</NavLink>
+								</NavItem>
+							</Nav>
+						</ButtonGroup>
+					</CardHeader>
+					<CardBody className="card-editor-body">
+						<TabContent style={{border: "none"}} activeTab={activeTab}>
+							<TabPane tabId="basic">
+								<React.Fragment>
+									{/* List of Sections (it may consist also of AdHocValues) */}
+									{formStruct && formStruct.properties && Object.keys(formStruct.properties).map((section_name, idx) =>
+										<ConfigSection
+											key={idx}
+											section={formStruct.properties[section_name]}
+											sectionname={section_name}
+											register={register}
+											adhocvalues={adHocValues}
+											isSubmitting={isSubmitting}
+											removeSectionForm={removeSectionForm}
+											selectPatternSections={selectPatternSections}
 										/>
-									</div>
-								</TabPane>
-							</TabContent>
-						</CardBody>
-						<CardFooter>
+									)}
+
+									{/* List all remaining sections e.g. AdHocSections */}
+									{Object.keys(adHocSections).length > 0 && Object.keys(adHocSections).map((section_name, idx) =>
+										<ConfigAdHocSection
+											key={idx}
+											sectionname={section_name}
+											values={adHocSections[section_name]}
+										/>
+									)}
+									<hr/>
+								</React.Fragment>
+							</TabPane>
+							<TabPane tabId="advanced">
+								<div>
+									<ReactJson
+										src={jsonValues}
+										onEdit={ e => { setJsonValues(e.updated_src)} }
+										enableClipboard={false}
+										name={false}
+									/>
+								</div>
+							</TabPane>
+						</TabContent>
+					</CardBody>
+					<CardFooter>
+						<ButtonGroup>
 							<Button
+								outline
 								color="primary"
 								type="submit"
 								disabled={isSubmitting}
 							>
-								<i className="cil-save pr-1"></i>
 								{t('ASABConfig|Save')}
 							</Button>
-							<span className="pr-2 pl-2">
-								<ButtonWithAuthz
-									title={t('ASABConfig|Remove')}
-									color="danger"
-									type="button"
-									disabled={isSubmitting}
-									onClick={removeConfigForm}
-									resource={resourceRemoveConfig}
-									resources={resources}
-								>
-									<i className="cil-trash pr-1"></i>
-									{t('ASABConfig|Remove')}
-								</ButtonWithAuthz>
-							</span>
+							<ButtonWithAuthz
+								outline
+								title={t('ASABConfig|Remove')}
+								color="danger"
+								type="button"
+								disabled={isSubmitting}
+								onClick={removeConfigForm}
+								resource={resourceRemoveConfig}
+								resources={resources}
+							>
+								{t('ASABConfig|Remove')}
+							</ButtonWithAuthz>
+						</ButtonGroup>
+						{selectPatternSections.length > 0 &&
 							<span className="float-right">
-								{selectPatternSections.length > 0 &&
-									<Dropdown
-										direction="up"
-										isOpen={dropdownOpen}
-										toggle={toggleDropDown}
-										title={t('ASABConfig|Add new section')}
-									>
-										<DropdownToggle
-											caret
-										>
-											<span className="pr-1">+</span>
-											{t('ASABConfig|Add')}
-										</DropdownToggle>
-										<DropdownMenu
-											className="pattern-section-dropdown"
-										>
-											{selectPatternSections.map((patternSection, idx) => {
-												return(
-													<DropdownItem
-														key={idx}
-														name={patternSection}
-														onClick={(e) => {addNewSection(patternSection), e.preventDefault()}}
-													>
-														{sectionNameString(patternPropsSchema, patternSection)}
-													</DropdownItem>
-													)
-											})}
-										</DropdownMenu>
-									</Dropdown>
-								}
-							</span>
-						</CardFooter>
-					</Card>
+							<Dropdown
+								direction="up"
+								isOpen={dropdownOpen}
+								toggle={toggleDropDown}
+								title={t('ASABConfig|Add new section')}
+							>
+								<DropdownToggle
+									caret
+								>
+									<span className="pr-1">+</span>
+									{t('ASABConfig|Add')}
+								</DropdownToggle>
+								<DropdownMenu
+									className="pattern-section-dropdown"
+								>
+									{selectPatternSections.map((patternSection, idx) => {
+										return(
+											<DropdownItem
+												key={idx}
+												name={patternSection}
+												onClick={(e) => {addNewSection(patternSection), e.preventDefault()}}
+											>
+												{sectionNameString(patternPropsSchema, patternSection)}
+											</DropdownItem>
+											)
+									})}
+								</DropdownMenu>
+							</Dropdown>
+						</span>
+						}
+					</CardFooter>
 				</Form>
-			</React.Fragment>
+			</Card>
 	);
 }
 
