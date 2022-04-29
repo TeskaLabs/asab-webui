@@ -246,6 +246,8 @@
 
 - Rename Library import and export endpoints (INDIGO Sprint 220419, [!266](http://gitlab.teskalabs.int/bitswan/bitswan-webui/-/merge_requests/266))
 
+- Remove all classes in div in index.html file (INDIGO Sprint 220419, [!272](https://github.com/TeskaLabs/asab-webui/pull/272)
+
 - Refactor validateConfiguration function to be able to handle "Authorization" section name of configuration (INDIGO Sprint 220419, [!268](http://gitlab.teskalabs.int/bitswan/bitswan-webui/-/merge_requests/268))
 
 - Replace 0.0.0.0 to localhost (INDIGO Sprint 220419, [!270](http://gitlab.teskalabs.int/bitswan/bitswan-webui/-/merge_requests/270))
