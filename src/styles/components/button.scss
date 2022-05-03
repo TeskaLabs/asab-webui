@@ -44,7 +44,6 @@ $btn-info-outline-hover-bg-color: var(--btn-info-outline-hover-bg-color);
 $btn-light-outline-hover-bg-color: var(--btn-light-outline-hover-bg-color);
 $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 
-// green 48b063
 
 .btn, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info {
 	color: $btn-txt;
@@ -56,6 +55,9 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 		border: none;
 		box-shadow: none;
 	}
+	&:focus {
+		box-shadow: none;
+	}
 }
 
 .btn-outline, .btn-outline-primary, .btn-outline-secondary, .btn-outline-success, .btn-outline-danger, .btn-outline-warning, .btn-outline-info {
@@ -63,9 +65,12 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 		color: $btn-txt;
 		filter: none;
 		box-shadow: none;
-		& [class^="cil-"] {
-			color: $btn-txt !important;
-		}
+		// & [class^="cil-"] {
+		// 	color: $btn-txt !important;
+		// }
+	}
+	&:focus {
+		box-shadow: none;
 	}
 }
 
@@ -125,6 +130,9 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 		&:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
 			background-color: $btn-secondary-outline-hover-bg-color;
 			color: $btn-secondary-bg-color;
+			& [class^="cil-"] {
+				color: $btn-secondary-bg-color !important;
+			}
 		}
 		& [class^="cil-"] {
 			color: $btn-secondary-bg-color !important;
