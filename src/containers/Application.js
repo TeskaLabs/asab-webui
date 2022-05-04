@@ -397,7 +397,7 @@ class Application extends Component {
 		const html = document.querySelector('html');
 		html.dataset.theme = theme;
 
-		this.Store.dispatch({ type: CHANGE_THEME })
+		this.Store.dispatch({ type: CHANGE_THEME, payload: theme });
 	}
 
 	// Splash screen
@@ -643,7 +643,7 @@ const themeInitState = "theme-light";
 const themeReducer = (state = themeInitState, action) => {
 	switch (action.type) {
 		case CHANGE_THEME: 
-			return state !== "theme-light" ? "theme-light" : "theme-dark";
+			return action.payload;
 		
 		default:
 			return state;
