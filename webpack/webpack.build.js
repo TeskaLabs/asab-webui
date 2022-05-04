@@ -42,12 +42,12 @@ module.exports = {
 		let defaultLocales = /cs/; // Default moment locales (needed for backward compatibility)
 
 		const globalVars = new webpack.DefinePlugin(
-			common.JSONStringifyValues(Object.assign({
+			common.JSONStringifyValues({
 				"__CONFIG__": config["app"],
-				"__DEV_CONFIG__": config["devConfig"],
+				"__DEV_CONFIG__": {},
 				"__VERSION__": version,
 				"__BUILD_DATE__": buildDate
-			}))
+			})
 		);
 
 		const defaultPlugins = [
