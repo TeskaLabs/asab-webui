@@ -1,6 +1,6 @@
 // might be removed after refactoring
 .main {
-	height: calc(100vh - 120px);
+	height: calc(100vh - $header-height - 10px);
 	margin-right: 1rem;
 	.container, .container-fluid {
 		margin-top: 0;

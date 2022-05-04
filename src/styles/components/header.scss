@@ -3,8 +3,8 @@
 	display: flex;
 	flex: 0 0 55px;
 	flex-direction: row;
-	height: 100px;
-	padding: 1.6rem 1rem 1rem 1rem;
+	height: $header-height;
+	padding: 0.5rem 1rem;
 	background-color: $header-bg;
 
 	.navbar-nav {
