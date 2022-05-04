@@ -184,7 +184,7 @@ $sidebar-item-font-size: 14px;
 			}
 		}
 		.sidebar-bottom {
-			height: calc($sidebar-item-height * 2);
+			height: auto;
 			.nav-link {
 				width: $collapsed-sidebar-item-width;
 				display: block !important;
