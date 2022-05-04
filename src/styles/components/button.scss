@@ -3,12 +3,31 @@
 	--btn-primary-bg-color: var(--dark-blue);
 	--btn-primary-outline-bg-color: var(--light-violet);
 	--btn-txt: var(--white);
+
+	--btn-secondary-outline-hover-bg-color: #75757526;
+	--btn-success-outline-hover-bg-color: #e1ffe9;
+	--btn-danger-outline-hover-bg-color: #ffdadc;
+	--btn-warning-outline-hover-bg-color: #ffefc5;
+	--btn-info-outline-hover-bg-color: #bdeeff;
+	--btn-light-outline-hover-bg-color: #f8f8f84a;
+	--btn-dark-outline-hover-bg-color: #828eb0;
+
+
 }	
 :root[data-theme="theme-dark"] {
 	--btn-secondary-bg-color: var(--light-blue);
 	--btn-primary-bg-color: var(--night-blue);
 	--btn-primary-outline-bg-color: var(--storm-blue);
 	--btn-txt: var(--light-black);
+
+	--btn-secondary-outline-hover-bg-color: #7b717136;
+	--btn-success-outline-hover-bg-color: #284b30;
+	--btn-danger-outline-hover-bg-color: #602124;
+	--btn-warning-outline-hover-bg-color: #56471d;
+	--btn-info-outline-hover-bg-color: #004d67;
+	--btn-light-outline-hover-bg-color: #cccccc;
+	--btn-dark-outline-hover-bg-color: #39487a;
+
 }
 
 $btn-secondary-bg-color: var(--btn-secondary-bg-color);
@@ -16,14 +35,27 @@ $btn-primary-bg-color: var(--btn-primary-bg-color);
 $btn-primary-outline-bg-color: var(--btn-primary-outline-bg-color);
 $btn-txt: var(--btn-txt);
 
+//btn outline :onhover BG colors variables
+$btn-secondary-outline-hover-bg-color: var(--btn-secondary-outline-hover-bg-color);
+$btn-success-outline-hover-bg-color: var(--btn-success-outline-hover-bg-color);
+$btn-danger-outline-hover-bg-color: var(--btn-danger-outline-hover-bg-color);
+$btn-warning-outline-hover-bg-color: var(--btn-warning-outline-hover-bg-color);
+$btn-info-outline-hover-bg-color: var(--btn-info-outline-hover-bg-color);
+$btn-light-outline-hover-bg-color: var(--btn-light-outline-hover-bg-color);
+$btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
+
+
 .btn, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info {
 	color: $btn-txt;
 	&:hover {
 		filter: brightness(95%);
 	}
-	&:hover, &:active, &:not(:disabled):not(.disabled):active {
+	&:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
 		color:$btn-txt;
 		border: none;
+		box-shadow: none;
+	}
+	&:focus {
 		box-shadow: none;
 	}
 }
@@ -33,13 +65,16 @@ $btn-txt: var(--btn-txt);
 		color: $btn-txt;
 		filter: none;
 		box-shadow: none;
-		& [class^="cil-"] {
-			color: $btn-txt !important;
-		}
+		// & [class^="cil-"] {
+		// 	color: $btn-txt !important;
+		// }
+	}
+	&:focus {
+		box-shadow: none;
 	}
 }
 
-//  ADD STYLE FOR BUTTON WITHIN .INPUT-GROUP
+//  TODO: ADD STYLE FOR BUTTON WITHIN .INPUT-GROUP
 
 .btn {
 	background-color: $btn-primary-bg-color;
@@ -54,14 +89,17 @@ $btn-txt: var(--btn-txt);
 //PRIMARY
 	&-primary {
 		background-color: $btn-primary-bg-color;
-		&:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active {
+		&:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
 			background-color: $btn-primary-bg-color;
+		}
+		&.disabled, &:disabled {
+			filter: opacity(60%);
 		}
 	}
 	&-outline-primary {
 		background-color: $bg-color;
 		color: $btn-primary-bg-color;
-		&:hover, &:active, &:not(:disabled):not(.disabled):active {
+		&:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
 			background-color: $btn-primary-outline-bg-color;
 			color: $btn-primary-bg-color;
 			& [class^="cil-"] {
@@ -71,134 +109,213 @@ $btn-txt: var(--btn-txt);
 		& [class^="cil-"] {
 			color: $btn-primary-bg-color !important;
 		}
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
 	}
 
 //SECONDARY
 	&-secondary {
 		background-color: $btn-secondary-bg-color;
-		&:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active {
+		&:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
 			background-color: $btn-secondary-bg-color;
+		}
+		&.disabled, &:disabled {
+			filter: opacity(60%);
 		}
 	}
 	&-outline-secondary {
 		background-color: $bg-color;
 		color: $btn-secondary-bg-color;
-		&:hover, &:active, &:not(:disabled):not(.disabled):active {
-			background-color: $btn-secondary-bg-color;
+		&:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+			background-color: $btn-secondary-outline-hover-bg-color;
+			color: $btn-secondary-bg-color;
+			& [class^="cil-"] {
+				color: $btn-secondary-bg-color !important;
+			}
 		}
 		& [class^="cil-"] {
 			color: $btn-secondary-bg-color !important;
+		}
+		&.disabled, &:disabled {
+			filter: opacity(60%);
 		}
 	}
 
 //SUCCESS
     &-success {
         background-color: $success;
-        &:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active {
+        &:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
             background-color: $success;
         }
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
     }
     &-outline-success {
         background-color: $bg-color;
         color: $success;
-        &:hover, &:active, &:not(:disabled):not(.disabled):active {
-			background-color: $success;
+        &:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+			background-color: $btn-success-outline-hover-bg-color;
+			color: $success;
 		}
 		& [class^="cil-"] {
 			color: $success !important;
+		}
+		&.disabled, &:disabled {
+			filter: opacity(60%);
 		}
     }
 
 //DANGER
     &-danger {
 		background-color: $danger;
-        &:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active {
+        &:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
             background-color: $danger;
         }
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
     }
     &-outline-danger {
         background-color: $bg-color;
         color: $danger;
-        &:hover, &:active, &:not(:disabled):not(.disabled):active {
-            background-color: $danger;
+        &:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+			background-color: $btn-danger-outline-hover-bg-color;
+			color: $danger;
 		}
 		& [class^="cil-"] {
 			color: $danger !important;
+		}
+		&.disabled, &:disabled {
+			filter: opacity(60%);
 		}
     }
 
 //WARNING
     &-warning {
         background-color: $warning;
-        &:hover, &:active, &:not(:disabled):not(.disabled):active {
+        &:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
             background-color: $warning;
         }
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
     }
     &-outline-warning {
         background-color: $bg-color;
         color: $warning;
-        &:hover, &:active, &:not(:disabled):not(.disabled):active {
-			background-color: $warning;
+        &:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+			background-color: $btn-warning-outline-hover-bg-color;
+			color: $warning;
 		}
 		& [class^="cil-"] {
 			color: $warning !important;
         }
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
     }
 
 //INFO
     &-info {
         background-color: $info;
-        &:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active {
+        &:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
             background-color: $info;
         }
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
     }
     &-outline-info {
         background-color: $bg-color;
         color: $info;
-        &:hover, &:active, &:not(:disabled):not(.disabled):active {
-			background-color: $info;
+        &:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+			background-color: $btn-info-outline-hover-bg-color;
+			color: $info;
 		}
 		& [class^="cil-"] {
 			color: $info !important;
         }
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
     }
 
 //LIGHT
     &-light {
-        background-color: $light;
-    }
+		background-color: $light;
+		&:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+            background-color: $light;
+		}
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
+	}
     &-outline-light {
         background-color: $bg-color;
         color: $light;
-        &:hover, &:active, &:not(:disabled):not(.disabled):active {
-			background-color: $light;
+        &:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+			background-color: $btn-light-outline-hover-bg-color;
+			color: $light;
 		}
 		& [class^="cil-"] {
 			color: $light !important;
         }
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
     }
 
 //DARK
 	&-dark {
 		background-color: $dark;
+		&:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+			background-color: $dark;
+		}
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
 	}
 	&-outline-dark {
 		background-color: $bg-color;
 		color: $dark;
-		&:hover, &:active, &:not(:disabled):not(.disabled):active {
-			background-color: $dark;
+		&:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+			background-color: $btn-dark-outline-hover-bg-color;
+			color: $dark;
 		}
 		& [class^="cil-"] {
 			color: $btn-secondary-bg-color !important;
 		}
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
 	}
-}
 
-.btn-outline  {
-	background-color: none;
+//LINK - does't have outline variant
+	&-link {
+		background-color: transparent;
+		font-weight: 400;
+    	color: $primary;
+		text-decoration: none;
+		&:hover, &.disabled, &:disabled {
+			color: $night-blue;
+		}
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
+	}
 }
 
 // ICONS INSIDE BUTTONS
 .card .btn [class^="cil-"], .card .btn [class*=" cil-"] {
 	color: $btn-txt;
+}
+
+.btn-group>.btn {
+	flex: none;
+}
+
+.btn-group-sm .btn{
+	min-height: 38px;
 }

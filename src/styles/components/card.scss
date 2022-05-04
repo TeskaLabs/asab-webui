@@ -13,7 +13,7 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 .card {
 	border: 1px solid $border-color;
 	border-radius: 8px;
-	box-shadow: 0px 1px 20px -4px $box-shadow-card-color;
+	box-shadow: 0 1px 20px -4px $box-shadow-card-color;
 	background-color: $bg-color;
 	.card-header {
 		border-bottom: none;
@@ -32,38 +32,64 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 			font-weight: 700;
 			font-size: 1rem;
 			line-height: 50px;
-			// padding: 0.75rem 1.5rem;
 			margin: auto 1.5rem;
 			height:  50px;
+			[class^="cil-"], [class*=" cil-"] {
+				color: $primary;
+				font-weight: 700;
+			}
 		}
 		.btn-group {
 			padding: 0;
 			margin-left: auto;
+			// flex-wrap: wrap;
+			border-radius: 0 8px 0 0;
+			&:last-child {
+				border-radius: 0 8px 0 0;
+			}
 			.btn {
 				white-space: nowrap;
+				&:last-child {
+					border-radius: 0 7px 0 0;
+				}
 			}
 		}
 		.input-group{
 			padding: 8px;
+			// max-width: 250px;
 		}
 	}
 	.card-body {
 		background-color: $bg-color;
 		color: $text-color;
 		border-radius: 8px;
+		flex: 1 1 auto;
+    	min-height: 1px;
+    	padding: 1.25rem;
 	}
 	.card-footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		min-height: 50px;
 		background-color: $bg-color;
 		color: $text-color;
 		padding: 0;
 		border-radius: 0 0 8px 8px;
+		.btn-group {
+			flex-wrap: wrap;
+			.btn:first-child {
+				border-radius: 0 0 0 7px;
+			}
+		}
 	}
 }
 
 .border-bottom {
-	border-bottom: 1px solid $border-color;
+	border-bottom: 1px solid $border-color !important;
 }
 
 .border-top {
-	border-top: 1px solid $border-color;
+	border-top: 1px solid $border-color !important;
 }
