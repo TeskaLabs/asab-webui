@@ -112,7 +112,11 @@
 
 - Make monaco loader part of the application (INDIGO Sprint 220401, [!258](https://github.com/TeskaLabs/asab-webui/pull/258))
 
-- Implement DataTable Sublist (INDIGO Sprint 220401, [!264](https://github.com/TeskaLabs/asab-webui/pull/264))
+- Implement DataTable Sublist (INDIGO Sprint 220429, [!264](https://github.com/TeskaLabs/asab-webui/pull/264))
+
+- Make webpack configuration extandable (INDIGO Sprint 220419, [!271](https://github.com/TeskaLabs/asab-webui/pull/271))
+
+- Add version field to MicroservicesDetail and MicroservicesList (INDIGO Sprint 220401, [!261](https://github.com/TeskaLabs/asab-webui/pull/261))
 
 ### Refactoring
 
@@ -244,6 +248,14 @@
 
 - ASAB-Config - refactorisation of Add dropdown button that it displays the title of the section taken from the Schema, add ASAB-Config locales to demo app (INDIGO Sprint 220318, [!254](https://github.com/TeskaLabs/asab-webui/pull/254))
 
+- Rename Library import and export endpoints (INDIGO Sprint 220419, [!266](http://gitlab.teskalabs.int/bitswan/bitswan-webui/-/merge_requests/266))
+
+- Remove all classes in div in index.html file (INDIGO Sprint 220419, [!272](https://github.com/TeskaLabs/asab-webui/pull/272)
+
+- Refactor validateConfiguration function to be able to handle "Authorization" section name of configuration (INDIGO Sprint 220419, [!268](http://gitlab.teskalabs.int/bitswan/bitswan-webui/-/merge_requests/268))
+
+- Replace 0.0.0.0 to localhost (INDIGO Sprint 220419, [!270](http://gitlab.teskalabs.int/bitswan/bitswan-webui/-/merge_requests/270))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
@@ -307,3 +319,7 @@
 - Microservices Detail - Bug with data render (INDIGO Sprint 220318, [!256](https://github.com/TeskaLabs/asab-webui/pull/256))
 
 - Add monaco loader plugin to webpack.build.js (INDIGO Sprint 220401, [!260](https://github.com/TeskaLabs/asab-webui/pull/260))
+
+- Fix library global styles (INDIGO Sprint 220401, [!262](https://github.com/TeskaLabs/asab-webui/pull/262))
+
+- Fix missing authorization bearer token in the header of Sidebar request on ASAB-Config service (INDIGO Sprint 220419, [!265](https://github.com/TeskaLabs/asab-webui/pull/265))
