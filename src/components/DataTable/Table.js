@@ -180,9 +180,13 @@ const TableRow = ({
 			<tr className={`data-table-tr ${className}`} style={style}>
 				{advmode && <TableCell obj={obj} showJson={() => setAdvUnwrapped(prev => !prev)}/>}
 				{isSubUnwrapped ? (
-					<td onClick={() => setSubUwrapped(false)}>-</td>
+					<td onClick={() => setSubUwrapped(false)}>
+						<i className="cil-chevron-circle-down-alt"></i>
+					</td>
 	 			) : (
-					<td onClick={() => setSubUwrapped(true)}>+</td>
+					<td onClick={() => setSubUwrapped(true)}>
+						<i className="cil-chevron-circle-right-alt"></i>
+					</td>
 				)}
 				{category ? (
 						headers.map((_, idx) => {
