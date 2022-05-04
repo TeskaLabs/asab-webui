@@ -519,7 +519,7 @@ class Application extends Component {
 						: null
 					}
 					<ErrorHandler isParentError={true}>
-						<div>
+						<div className='d-flex w-100'>
 							{
 								(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') &&
 								<Sidebar

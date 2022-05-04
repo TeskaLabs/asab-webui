@@ -21,8 +21,6 @@ $sidebar-item-font-size: 14px;
 	width: $sidebar-width;
 	transition: margin-left 0.25s ease-out, width .2s ease-out;
 	height: 100vh;
-	position: fixed;
-	z-index: 1019;
 	display: flex;
 	flex-direction: column;
 	padding: 0;
