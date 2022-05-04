@@ -31,7 +31,7 @@ export function DataTable ({
 	customRowStyle, customRowClassName,
 	customCardBodyComponent,
 	limitValues = [10, 15, 25, 50],
-	contentLoader = true, sublistsKey
+	contentLoader = true, category
 	}) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isSortOpen, setSortDropdown] = useState(false);
@@ -167,7 +167,7 @@ export function DataTable ({
 						<Table
 							data={data.length > limit ? data.slice(0, limit) : data}
 							headers={headers}
-							sublistsKey={sublistsKey}
+							category={category}
 							rowStyle={customRowStyle}
 							rowClassName={customRowClassName}
 						/>
