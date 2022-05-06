@@ -101,48 +101,14 @@ export function DataTable ({
 								</InputGroup>
 							</div>
 						}
-
-						<div className="data-table-create-button data-table-button">{customComponent}</div>
-						{customButton && 
-							<div className="data-table-create-button data-table-button">
-								<Button
-									tag="span"
-									size="sm"
-									{...customButton?.props}
-								>
-									{customButton.icon && 
-										<span className="pr-1">
-											{typeof customButton.icon === 'string' ? 
-												<i className={customButton.icon}></i> : customButton.icon
-											}
-										</span>
-									}
-									{customButton?.text}
-								</Button>
-							</div>
-						}
-						{buttonWithAuthz && <ButtonWithAuthz {...buttonWithAuthz} className="data-table-button-with-authz data-table-button"/>}
-						{createButton &&
-							<div className="data-table-create-button data-table-button">
-									<Button outline tag="span" size="sm">
-								<Link to={{ pathname: createButton.pathname }}>
-										{createButton.icon && 
-											<span className="pr-1">
-												{typeof createButton.icon === 'string' ? <i className={createButton.icon}></i> : createButton.icon}
-											</span>
-										}
-										{createButton.text}
-								</Link>
-									</Button>
-							</div>
-						}
+						
 						{sort && 
 							<div className="data-table-sort data-table-button">
 								<Dropdown
 									isOpen={isSortOpen}
 									toggle={() => setSortDropdown(prev => !prev)}
 								>
-									<DropdownToggle size="sm" caret outline>
+									<DropdownToggle  caret outline>
 										{sort.icon && <i className={`${sort.icon} mr-1`}></i>}
 										{sort.title}
 									</DropdownToggle>
@@ -159,6 +125,41 @@ export function DataTable ({
 								</Dropdown>
 							</div>
 						}
+
+						<div className="data-table-create-button data-table-button">{customComponent}</div>
+						{customButton && 
+							<div className="data-table-create-button data-table-button">
+								<Button
+									tag="span"
+									{...customButton?.props}
+								>
+									{customButton.icon && 
+										<span className="pr-1">
+											{typeof customButton.icon === 'string' ? 
+												<i className={customButton.icon}></i> : customButton.icon
+											}
+										</span>
+									}
+									{customButton?.text}
+								</Button>
+							</div>
+						}
+						{buttonWithAuthz && <ButtonWithAuthz {...buttonWithAuthz} className="data-table-button-with-authz data-table-button"/>}
+						{createButton &&
+							<div className="data-table-create-button data-table-button">
+									<Button outline tag="span" >
+								<Link to={{ pathname: createButton.pathname }}>
+										{createButton.icon && 
+											<span className="pr-1">
+												{typeof createButton.icon === 'string' ? <i className={createButton.icon}></i> : createButton.icon}
+											</span>
+										}
+										{createButton.text}
+								</Link>
+									</Button>
+							</div>
+						}
+						
 					</ButtonGroup>
 					</CardHeader>
 
@@ -180,7 +181,7 @@ export function DataTable ({
 
 					</CardBody>
 
-					<CardFooter className="data-table-card-footer">
+					<CardFooter className="data-table-card-footer  border-top">
 
 						<div className="data-table-card-footer-left">
 							{setLimit &&
@@ -193,7 +194,7 @@ export function DataTable ({
 											toggle={() => setLimitDropdown(prev => !prev)}
 											className="data-table-limit-dropdown"
 										>
-											<DropdownToggle caret size="sm">
+											<DropdownToggle caret >
 												{limit}
 											</DropdownToggle>
 											<DropdownMenu>

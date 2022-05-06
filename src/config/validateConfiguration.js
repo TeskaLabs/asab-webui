@@ -11,7 +11,7 @@
 	Example of usage in the configuration:
 
 	```
-		"SectionName:authorization" {
+		"Authorization" {
 			"tenants": "tenant1, tenant2"
 		}
 	```
@@ -49,7 +49,7 @@
 				"SectionName:datasource" {
 					...
 				},
-				"SectionName:authorization" {
+				"Authorization" {
 					"tenants": "tenant1, tenant2"
 				},
 				...
@@ -63,7 +63,7 @@
 	```
 
 	The result of processing after validation should be that configuration, which has specified tenants
-	in the configuration and does match the criterion (match the configured tenants in the `:authorization`
+	in the configuration and does match the criterion (match the configured tenants in the `Authorization`
 	section with current tenant of the user), will be visible only to the users, whos current tenant matches
 	the criteria.
 
@@ -73,7 +73,8 @@ export const validateConfiguration = (props, config) => {
 	if (props.app.Services.TenantService) {
 		let currentTenant = props.app.Services.TenantService.get_current_tenant();
 		// Get object with authorization setup (if defined in the configuration)
-		let authSection = Object.keys(config).filter(res => res.includes(`:authorization`));
+		// TODO: Remove support of ":authorization" by the end of 2022
+		let authSection = Object.keys(config).filter(res => res.includes(`:authorization`) || res == "Authorization");
 		// Check if current tenant exist and if authorization section is present within the configuration
 		if (currentTenant && config[authSection[0]]) {
 			let tenantsSplit = config[authSection[0]]?.tenants ? config[authSection[0]]?.tenants.toString().split(",") : [""];

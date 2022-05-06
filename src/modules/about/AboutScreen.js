@@ -8,9 +8,11 @@ import {
 	Container, Row, Col,
 } from 'reactstrap';
 
+import "./styles.scss";
+
 function AboutScreen(props) {
 	return (
-		<Container>
+		<Container className='about-container'>
 			<Row className="justify-content-center">
 				<Col md="6">
 					<AboutCard app={props.app} />

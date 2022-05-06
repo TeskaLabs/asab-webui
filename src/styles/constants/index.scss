@@ -14,8 +14,10 @@ $white: var(--white);
 
 $night-blue: var(--night-blue);
 $light-violet: var(--light-violet);
+$light-gray: var(--light-gray);
 $gray: var(--gray);
 $dark-gray: var(--dark-gray);
+$beige-gray: var(--beige-gray);
 $off-white: var(--off-white);
 
 $bg-color: var(--bg-color);
@@ -28,6 +30,11 @@ $text-color: var(--text-color);
 $text-secondary-color: var(--text-secondary-color);
 $reversed-text-color: var(--reversed-text-color);
 $highlighted-text-color: var(--highlighted-text-color);
+$link-color: var(--link-color);
+$text-code-highlight: var(--text-code-highlight);
+
+// Header
+$header-height: 65px;
 
 //TODO: move all colors below to appropriate files
 $header-bg: var(--bg-color-dark);

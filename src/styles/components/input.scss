@@ -1,22 +1,27 @@
 :root[data-theme="theme-light"] {
 	--input-bg: var(--white);
 	--input-text: var(--feather-gray);
-}	
+    --input-border: var(--light-gray);
+}
 :root[data-theme="theme-dark"] {
 	--input-bg: var(--dream-blue);
 	--input-text: var(--light-dream-blue);
+    --input-border: var(--night-blue);
 }
 
 $input-bg: var(--input-bg);
 $input-text: var(--input-text);
+$input-border: var(--input-border);
 
 .form-control {
-    box-shadow: 0px 2px 3px -1px $light;
+    //box-shadow: 0px 2px 3px -1px $light;
+    box-shadow: 0 2px 3px -1px $beige-gray;
     border: 1px solid $border-color;
     border-radius: 2px;
     background-color: $input-bg;
     color: $input-text;
-    
+    // height: 48px;
+    // 
     &:focus {
         background-color: $input-bg;
         color: $input-text;
@@ -41,15 +46,15 @@ $input-text: var(--input-text);
 .input-group-text {
     background-color: $input-bg;
     border: 1px solid $border-color;
-    box-shadow: 0px 2px 3px -1px $light;
+    box-shadow: 0 2px 3px -1px $light;
     color: $input-text;
 }
 
 html[data-theme="theme-dark"] {
     .form-control{
-        box-shadow: 0px 2px 3px -1px rgba(142, 142, 142, 0.2);
+        box-shadow: 0 2px 3px -1px rgba(142, 142, 142, 0.2);
     }
     .input-group-text {
-        box-shadow: 0px 2px 3px -1px rgba(142, 142, 142, 0.2);
+        box-shadow: 0 2px 3px -1px rgba(142, 142, 142, 0.2);
     }
 }
