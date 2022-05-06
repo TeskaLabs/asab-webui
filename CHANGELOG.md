@@ -323,3 +323,5 @@
 - Fix missing authorization bearer token in the header of Sidebar request on ASAB-Config service (INDIGO Sprint 220419, [!265](https://github.com/TeskaLabs/asab-webui/pull/265))
 
 - Fix global vars (INDIGO Sprint 220429, [!272](https://github.com/TeskaLabs/asab-webui/pull/272))
+
+- Fix pagination' diappearance issue upon last item removal in DataTable (INDIGO Sprint 220429, [!274](https://github.com/TeskaLabs/asab-webui/pull/274))
