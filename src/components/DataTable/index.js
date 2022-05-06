@@ -195,12 +195,12 @@ export function DataTable ({
 							) : null
 						}
 
-						{count > limit && setPage &&
+						{setPage &&
 							<Col>
 								<Pagination 
-								currentPage={currentPage}
-								setPage={setPage}
-								lastPage={Math.ceil(count/limit)}
+									currentPage={currentPage}
+									setPage={setPage}
+									lastPage={Math.ceil(count/limit)}
 								/>
 							</Col>
 						}
