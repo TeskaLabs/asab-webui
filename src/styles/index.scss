@@ -5,6 +5,14 @@
 	box-sizing: border-box;
 }
 
+html[data-theme="theme-light"] {
+	color-scheme: light;
+}
+
+html[data-theme="theme-dark"] {
+	color-scheme: dark;
+}
+
 html {
 	font-family: sans-serif;
     line-height: 1.15;
