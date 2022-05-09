@@ -64,6 +64,7 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 				to={{ pathname }}
 				className="data-table-link"
 				style={textLinkStyle}
+				title={obj[header.key]}
 			>
 				{icon} {obj[header.key]}
 			</Link>
@@ -93,7 +94,7 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 	}
 
 	else cell = obj[header.key] ? (
-		<p style={textLinkStyle}>{obj[header.key]}</p>
+		<p style={textLinkStyle} title={obj[header.key]}>{obj[header.key]}</p>
 	) : "-";
 
 	if (icon && !(header.link || header.datetime || header.actionButton)) {
