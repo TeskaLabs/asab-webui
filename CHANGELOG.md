@@ -254,6 +254,8 @@
 
 - Replace 0.0.0.0 to localhost (INDIGO Sprint 220419, [!270](http://gitlab.teskalabs.int/bitswan/bitswan-webui/-/merge_requests/270))
 
+- Apply ellipsis to shorten long titles is DataTable (INDIGO Sprint 220419, [!275](https://github.com/TeskaLabs/asab-webui/pull/275))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
