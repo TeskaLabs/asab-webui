@@ -73,10 +73,12 @@ export function DataTable ({
 			<Col>
 				<Card className="data-table-card">
 					<CardHeader className="data-table-card-header">
-						{title.icon && typeof title.icon === 'string' ? 
-							<i className={title.icon}></i> : title.icon
-						}
-						{title.text}
+						<div className="data-table-title card-header-title">
+							{title.icon && typeof title.icon === 'string' ?
+								<i className={title.icon}></i> : title.icon
+							}
+							{title.text}
+						</div>
 						<div className="float-right ml-3 data-table-create-button">{customComponent}</div>
 						{customButton && 
 							<div className="float-right ml-3 data-table-create-button">
