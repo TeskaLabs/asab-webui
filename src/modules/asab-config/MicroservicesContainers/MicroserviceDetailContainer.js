@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -12,6 +13,7 @@ import ReactJSON from 'react-json-view';
 import AttentionCard from './AttentionCard';
 
 const MicroserviceDetailContainer = (props) => {
+	const theme = useSelector(state => state.theme);
 	const [svc, setSvc] = useState(null);
 	const [error, setError] = useState(null);
 	const { t } = useTranslation();
@@ -49,7 +51,11 @@ const MicroserviceDetailContainer = (props) => {
 			<Row className="justify-content-md-center">
 				<Col md={8}>
 					<Card>
-						<CardHeader>{svc?.appclass || t("MicroserviceDetailContainer|Service")}</CardHeader>
+						<CardHeader>
+							<div className="card-header-title">
+								{svc?.appclass || t("MicroserviceDetailContainer|Service")}
+							</div>
+						</CardHeader>
 						<CardBody>
 							{error ? (
 									<div className="text-center">
@@ -89,10 +95,14 @@ const MicroserviceDetailContainer = (props) => {
 			</Row>
 
 			{svc && (
-				<Row className="justify-content-md-center">
+				<Row className="justify-content-md-center mt-2">
 					<Col md={8}>
 						<Card>
-							<CardHeader>{t("MicroserviceDetailContainer|Detail")}</CardHeader>
+							<CardHeader>
+								<div className="card-header-title">
+									{t("MicroserviceDetailContainer|Detail")}
+								</div>
+							</CardHeader>
 							<CardBody>
 								<Row className="m-auto" >
 									<Col>
@@ -100,6 +110,7 @@ const MicroserviceDetailContainer = (props) => {
 											src={svc}
 											name={false}
 											enableClipboard={false}
+											theme={theme === 'theme-dark' ? "chalk" : "rjv-default"}
 										/>
 									</Col>
 								</Row>
