@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 
 import Switch from '../../components/ControlledSwitch';
 
-import { CHANGE_THEME } from '../../actions';
-
 const ThemeButton = ({ changeTheme }) => {
 	const [theme, setTheme] = useState("theme-light");
-	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const html = document.querySelector("html");
