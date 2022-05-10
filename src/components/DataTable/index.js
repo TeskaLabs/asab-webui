@@ -67,9 +67,9 @@ export function DataTable ({
 	}, [limit])
 
 	return (
-		<Row>
+		<Row className="h-100">
 			<Col>
-				<Card className="data-table-card">
+				<Card className="h-100 data-table-card">
 					<CardHeader className="data-table-card-header border-bottom">
 						<div className="data-table-title card-header-title">
 							{title.icon && typeof title.icon === 'string' ? 
