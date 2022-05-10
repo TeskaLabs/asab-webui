@@ -1,6 +1,6 @@
 @import "./colors.scss";
 
-html[data-theme="light"] {
+:root[data-theme="dark"] {
 	--primary: var(--dark-blue);
 	--secondary: var(--dark-gray);
 	--success: var(--green);
