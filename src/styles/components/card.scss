@@ -78,6 +78,9 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 		padding: 0;
 		border-radius: 0 0 8px 8px;
 		border-top: none;
+		.btn:first-child:not(.dropdown-toggle) {
+			border-radius: 0 0 0 7px;
+		}
 		.btn-group {
 			flex-wrap: wrap;
 			.btn:first-child {
