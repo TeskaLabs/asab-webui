@@ -7,7 +7,7 @@ import {
 } from 'reactstrap';
 
 import HelpButton from './HelpButton';
-import ThemeButton from './ThemeButton';
+import ThemeButton from '../../theme/ThemeButton';
 import Breadcrumbs from './BreadcrumbsRouter';
 
 export function Header(props) {
@@ -22,7 +22,7 @@ export function Header(props) {
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
 				(
 					<Nav className="ml-auto header-props" navbar>
-						<ThemeButton changeTheme={props.app.changeTheme} />
+						<ThemeButton />
 						<HelpButton />
 						{HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>
@@ -33,7 +33,7 @@ export function Header(props) {
 				)
 			:
 				<Nav className="ml-auto header-props" navbar>
-					<ThemeButton changeTheme={props.app.changeTheme} />
+					<ThemeButton />
 					<HelpButton />
 					{HeaderService.Items.map((item, idx) => (
 						window.innerWidth < 1024 && item.componentProps.children !== undefined && item.componentProps.children === "LanguageDropdown" ?
@@ -63,7 +63,7 @@ export function Header(props) {
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
 				(
 					<Nav navbar>
-						<ThemeButton changeTheme={props.app.changeTheme} />
+						<ThemeButton />
 						<HelpButton />
 						{HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>
@@ -74,7 +74,7 @@ export function Header(props) {
 				)
 			:
 				<Nav className="header-props-sm" navbar>
-					<ThemeButton changeTheme={props.app.changeTheme} />
+					<ThemeButton />
 					<HelpButton />
 					{HeaderService.Items.map((item, idx) => (
 						window.innerWidth < 1024 && item.componentProps.children !== undefined && item.componentProps.children === "LanguageDropdown" ?
