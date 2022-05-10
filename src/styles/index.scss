@@ -1,15 +1,14 @@
 @import './constants';
 
-
 * {
 	box-sizing: border-box;
 }
 
-html[data-theme="theme-light"] {
+html[data-theme="light"] {
 	color-scheme: light;
 }
 
-html[data-theme="theme-dark"] {
+html[data-theme="dark"] {
 	color-scheme: dark;
 }
 
@@ -119,11 +118,11 @@ html {
 
 /* Import styles */
 
-// Temp fix for reactstrap
-@import '~@coreui/coreui/scss/_dropdown-menu-right.scss';
 // Import default bootstrap styles
 @import '~bootstrap/dist/css/bootstrap.min.css';
+
 // CoreUI Icons Set
 @import '~@coreui/icons/css/all.css';
+
 // Override with custom color styles
 @import './components';

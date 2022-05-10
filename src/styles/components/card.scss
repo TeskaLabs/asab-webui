@@ -1,10 +1,10 @@
 @import "../constants/index.scss";
 
-:root[data-theme="theme-light"] {
+:root[data-theme="light"] {
 	--box-shadow-card-color: rgba(206, 211, 243, 0.5);
 }
 
-:root[data-theme="theme-dark"] {
+:root[data-theme="dark"] {
 	--box-shadow-card-color: #030931;
 }
 
