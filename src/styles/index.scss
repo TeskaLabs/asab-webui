@@ -22,6 +22,13 @@ html {
 		color: $text-color;
 	}
 
+	.react-json-view {
+		background-color: $bg-color !important;
+		p, span, h1, h2, h3, h4, h5, h6 {
+			color: inherit
+		}
+	}
+
 	hr {
 		background-color: $border-color;
 	}
