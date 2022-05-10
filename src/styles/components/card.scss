@@ -66,6 +66,17 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 		flex: 1 1 auto;
     	min-height: 1px;
     	padding: 1.25rem;
+
+		& .card-body-row {
+			padding: 8px 0;
+
+			&:last-child{
+				padding-bottom: 0;
+			}
+			&:first-child {
+				padding-top: 0;
+			}
+		}
 	}
 	.card-footer {
 		display: flex;
