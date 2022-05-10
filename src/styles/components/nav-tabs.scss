@@ -1,0 +1,16 @@
+.nav-tabs {
+	border-bottom: 0;
+	.nav-item {
+		.nav-link {
+			background-color: inherit;
+			border: 0;
+			color: $text-secondary-color;
+			cursor: pointer;
+			&.active {
+				border-bottom: 2px solid $primary;
+				font-weight: 500;
+				cursor: default;
+			}
+		}
+	}
+}

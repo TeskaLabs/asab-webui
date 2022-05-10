@@ -6,7 +6,7 @@ import MicroserviceDetailContainer from "./MicroservicesContainers/MicroserviceD
 
 import asabConfigReducer from './ConfigContainers/reducer';
 
-import "./ConfigContainers/configuration.css";
+import "./ConfigContainers/configuration.scss";
 
 export default class ConfigModule extends Module {
 	constructor(app, name) {

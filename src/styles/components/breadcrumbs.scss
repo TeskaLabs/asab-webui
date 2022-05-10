@@ -1,9 +1,25 @@
 .breadcrumbs {
 	background-color: inherit;
+	display: flex;
+	align-items: center;
+	color: $highlighted-text-color;
+	
+	h4 {
+		color: inherit;
+		margin-bottom: 0;
+	}
+
+	.breadcrumb {
+		margin: 0 !important;
+		padding: 0;
+		background-color: inherit;
+		color: inherit;
+
+		.breadcrumb-item>a {
+			color: inherit;
+			font-size: 1rem;
+			font-weight: 500;
+		}
+	}
 }
 
-.breadcrumb {
-	margin: 0 !important;
-	padding: 0;
-	background-color: inherit;
-}

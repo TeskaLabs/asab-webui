@@ -26,17 +26,19 @@ const Breadcrumbs = ({
 	// TODO: Add disabling breadcrumbs
 	return (
 		<div className="breadcrumbs p-auto">
-			<h4 className="text-primary">{crumbs[crumbs.length-1].name}</h4>
+			<h4 className="mr-2">{crumbs[crumbs.length-1].name} {crumbs.length > 1 ? "/" : ""}</h4>
 			<Breadcrumb>
-				{crumbs.map((crumb, idx) => (
-					<BreadcrumbItem key={idx} active={idx === crumbs.length - 1}>
-						{idx !== crumbs.length - 1 ? 
-							<Link to={crumb.path}>{t(`Breadcrumbs|${crumb.name}`)}</Link>
-							: <span>{t(`Breadcrumbs|${crumb.name}`)}</span>
-						}
-					</BreadcrumbItem>
-				))
-				}
+				{crumbs.map((crumb, idx) => {
+					if (idx === (crumbs.length - 1)) return ;
+					return (
+						<BreadcrumbItem key={idx} active={idx === crumbs.length - 1}>
+							{idx !== crumbs.length - 1 ? 
+								<Link to={crumb.path}>{t(`Breadcrumbs|${crumb.name}`)}</Link>
+								: <span>{t(`Breadcrumbs|${crumb.name}`)}</span>
+							}
+						</BreadcrumbItem>
+					)}
+				)}
 			</Breadcrumb>
 		</div>
 	)

@@ -1,115 +1,78 @@
 @import "../constants/index.scss";
 
 :root[data-theme="theme-light"] {
-	//--bg: var(--off-white);
 	--bg: var(--bg-color);
-    //add custom dropdown style
-    --box-shadow-card-color: rgba(206, 211, 243, 0.5);
-    --text-dropdown-color: var(--text-color);
-    --toggle-bg: var(--gray);
-    --toggle-text-color: var(--off-white);
+	--box-shadow-card-color: rgba(206, 211, 243, 0.5);
+	--text-dropdown-color: var(--text-color);
+	--toggle-bg: var(--gray);
+	--toggle-text-color: var(--off-white);
 }
 
 :root[data-theme="theme-dark"] {
 	--bg: var(--light-blue);
-    //add custom dropdown style
-    --box-shadow-card-color: #030931;
-    --text-dropdown-color: var(--btn-txt);
-    --toggle-bg: var(transparentize);
-    --toggle-text-color: var(--night-blue);
+	--box-shadow-card-color: #030931;
+	--text-dropdown-color: var(--btn-txt);
+	--toggle-bg: var(transparentize);
+	--toggle-text-color: var(--night-blue);
 }
- 
-$btn-secondary-hover-bg: var();
+
 $dropdown-toggle-bg: var(--bg);
-//add custom variables
 $box-shadow-card-color: var(--box-shadow-card-color);
 $text-dropdown-color: var(--text-dropdown-color);
 $toggle-bg: var(--toggle-bg);
 $toggle-text-color: var(--toggle-text-color);
 
-
 .dropdown-toggle {
-    //small dropdown
-    padding: 8px;
-    min-height: 30px;
-    //fix theme styles
-    background-color: $toggle-bg !important;
-    color: $toggle-text-color !important;
-    // background-color: plum;
-    &:active {
-        // background-color: $btn-hover;
-    }
-    & span {
-        color: $toggle-text-color !important;
-    }
+	// padding: 8px;
+	// min-height: 30px;
+	// background-color: $toggle-bg !important;
+	// color: $toggle-text-color !important;
+	& span {
+		// color: $toggle-text-color !important;
+	}
 }
+
 .dropdown-menu {
-    // background-color: plum;
-    border-radius: 0;
-    background-color: $dropdown-toggle-bg;
-    color: $btn-txt;
-    box-shadow: 0 1px 20px -4px $box-shadow-card-color;
+	border-radius: 0;
+	background-color: $dropdown-toggle-bg;
+	color: $btn-txt;
+	box-shadow: 0 1px 20px -4px $box-shadow-card-color;
+	padding: 0;
+	border: 1px solid $border-color;
+	&:hover {
+		background-color: $dropdown-toggle-bg;
+	}
+	& .dropdown-item {
+		background-color: $dropdown-toggle-bg;
+		padding-top: 0.5rem;
+		padding-bottom: 0.5rem;
 
-    &:hover {
-        // color: $white;
-    }
-
-    & .dropdown-item {
-        // background-color: $dark;
-        //color: $btn-txt;
-
-
-        &:hover {
-            // background-color: $night-blue;
-            background-color: $dropdown-toggle-bg;
-            filter: brightness(90%);
-        }
-    }
-    & .dropdown-item span {
-        //color: $btn-txt !important;
-        color: $text-dropdown-color;
-    }
-
-    & .dropdown-header {
-        //color: var(--btn-txt);
-        color: $text-dropdown-color;
-    }
-}
-
-.show > .btn-secondary.dropdown-toggle {
-    background-color: $dropdown-toggle-bg;
-    // color: $btn-txt;
-    color: $btn-txt;
-    &:focus, &:active {
-        border: none;
-        box-shadow: none;
-        & [class^="cil-"] {
-			//color: $btn-txt !important;
-            //color: $toggle-text-color !important;
+		&:hover {
+			filter: brightness(90%);
 		}
-    }
+		& span {
+			color: $text-dropdown-color;
+		}
+	}
+	& .dropdown-header {
+		color: $text-dropdown-color;
+	}
 }
 
-.show > .btn-outline-secondary.dropdown-toggle [class^="cil-"] {
-    //color: $btn-txt !important;
-    color: $toggle-text-color !important;
+.show > .btn-secondary.dropdown-toggle, .show > .btn-outline-secondary.dropdown-toggle {
+	// background-color: $dropdown-toggle-bg;
+	// color: $text-secondary-color;
+
+	background-color: $bg-color;
+	color: $btn-secondary-bg-color;
+	&:focus, &:active {
+		border: none;
+		box-shadow: none;
+		// background-color: $dropdown-toggle-bg;
+		color: $btn-secondary-bg-color;
+	}
 }
 
-html[data-theme="theme-light"] {
-	.dropdown-menu {
-        // background-color: $light;
-        // background-color: $dropdown-toggle-bg;
-
-        & .dropdown-item {
-            // background-color: $light;
-            // background-color: $dropdown-toggle-bg;
-            // color: $btn-txt;
-            // color: $btn-secondary-txt;
-
-
-            &:hover {
-                // background-color: $dropdown-toggle-bg;
-            }
-        }
-    }
-}
+// .show > .btn-outline-secondary.dropdown-toggle [class^="cil-"] {
+// 	color: $toggle-text-color !important;
+// }

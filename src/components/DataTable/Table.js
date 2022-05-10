@@ -9,6 +9,9 @@ import { DateTime } from '../DateTime';
 
 import ActionButton from './ActionButton';
 
+import './table.scss';
+
+
 const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 	if (!obj) return <td className="pl-3" style={{ whiteSpace: "nowrap" }}>-</td>
 
