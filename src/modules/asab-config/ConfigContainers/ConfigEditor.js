@@ -534,7 +534,7 @@ function ConfigEditor(props) {
 						</div>
 						{/* TODO: Replace div.float-right with ButtonGroup */}
 						<ButtonGroup className="p-1">
-							<Nav tabs className="border-0">
+							<Nav tabs>
 								<NavItem>
 									<NavLink
 										className={classnames({ active: activeTab === 'basic' })}
