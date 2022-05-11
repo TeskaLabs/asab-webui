@@ -109,6 +109,28 @@
 		"Only tar.gz files are allowed": "Povoleny jsou pouze soubory tar.gz",
 		"Choose file": "Vyberte soubor"
 	},
+	"MicroservicesContainer": {
+		"ID": "ID",
+		"Launch time": "Čas spuštění",
+		"Host": "Host",
+		"Created at": "Vytvořeno v",
+		"Version": "Verze",
+		"Microservices": "Mikroslužby",
+		"Failed to fetch data": "Nezdařilo se získat data"
+	},
+	"MicroserviceDetailContainer" : {
+		"This microservice doesn't exist": "Tato mikroslužba neexistuje",
+		"Failed to get the microservice": "Nezdařilo se získat mikroslužbu",
+		"Something went wrong and this microservice wasn't found": "Něco se pokazilo a tato mikroslužba nebyla nalezena",
+		"Service": "Servica",
+		"Detail": "Detail",
+		"ID": "ID",
+		"Host": "Host",
+		"Launch time": "Čas spuštění",
+		"Created at": "Vytvořeno v",
+		"Version": "Verze",
+		"Attention": "Pozor"
+	},
 
 	"You do not have access rights to perform this action": "Váš přístup je omezen, nemáte dostatečná oprávnění"
 }
