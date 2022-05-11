@@ -24,10 +24,11 @@ import ConfigService from '../config/ConfigService';
 import HeaderService from '../services/HeaderService';
 import FooterService from '../services/FooterService';
 import SidebarService from './Sidebar/service';
+import ThemeService from '../theme/ThemeService';
 
 import TenantSelectionCard from '../modules/tenant/selector/TenantSelectionCard';
 
-import { ADD_ALERT, SET_ADVANCED_MODE, CHANGE_HELP_URL, CHANGE_THEME } from '../actions';
+import { ADD_ALERT, SET_ADVANCED_MODE, CHANGE_HELP_URL } from '../actions';
 
 
 class Application extends Component {
@@ -89,10 +90,10 @@ class Application extends Component {
 		this.HeaderService = new HeaderService(this, "HeaderService");
 		this.FooterService = new FooterService(this, "FooterService");
 		this.SidebarService = new SidebarService(this, "SidebarService");
+		this.ThemeService = new ThemeService(this, "ThemeService");
 
 		this.ReduxService.addReducer("alerts", alertsReducer);
 		this.ReduxService.addReducer("advmode", advancedModeReducer);
-		this.ReduxService.addReducer("theme", themeReducer);
 		this.ReduxService.addReducer("helpButton", headerHelpButtonReducer);
 		this.ReduxService.addReducer("sidebar", sidebarReducer);
 
@@ -166,7 +167,6 @@ class Application extends Component {
 			that.removeSplashScreenRequestor(that);
 		});
 
-		this.changeTheme = this.changeTheme.bind(this);
 	}
 
 
@@ -380,25 +380,12 @@ class Application extends Component {
 
 	componentDidMount() {
 		document.addEventListener("keyup", this._handleKeyUp, false);
-
-		// Load theme from localStorage
-		const theme = localStorage.getItem("theme") ?? "theme-light";
-		this.changeTheme(theme);
 	}
 
 	componentWillUnmount() {
 		document.removeEventListener("keyup", this._handleKeyUp, false);
 	}
 
-
-	changeTheme(theme = "theme-light") {
-		localStorage.setItem("theme", theme);
-		
-		const html = document.querySelector('html');
-		html.dataset.theme = theme;
-
-		this.Store.dispatch({ type: CHANGE_THEME, payload: theme });
-	}
 
 	// Splash screen
 
@@ -636,16 +623,5 @@ const advancedModeReducer = (state = advModeInitialState, action) => {
 
 		default:
 			return state
-	}
-}
-const themeInitState = "theme-light";
-
-const themeReducer = (state = themeInitState, action) => {
-	switch (action.type) {
-		case CHANGE_THEME: 
-			return action.payload;
-		
-		default:
-			return state;
 	}
 }
