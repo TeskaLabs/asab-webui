@@ -68,7 +68,7 @@ $sidebar-item-font-size: 14px;
 			}
 			.sidebar-item-button.active:hover {
 				background-color: $highlighted-bg-color;
-				border: 1px solid $highlighted-bg-color;
+				border: 2px solid $highlighted-bg-color;
 			}
 			.sidebar-item-button {
 				display: flex;
@@ -77,6 +77,7 @@ $sidebar-item-font-size: 14px;
 				height: $sidebar-item-height;
 				width: $sidebar-item-width;
 				border-radius: $sidebar-item-radius;
+				border: 2px solid transparent;
 				color: $highlighted-text-color;
 				background-color: transparent;
 				border-color: transparent;
