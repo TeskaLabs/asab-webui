@@ -305,6 +305,14 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 			filter: opacity(60%);
 		}
 	}
+
+// SMALL 
+	&-sm {
+		padding: 0.25rem 0.875rem;
+		border: 0;
+		min-height: 35px;
+		font-size: 0.75rem;
+	}
 }
 
 // ICONS INSIDE BUTTONS
@@ -312,8 +320,14 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 	color: $btn-txt;
 }
 
-.btn-group>.btn {
-	flex: none;
+.btn-group {
+
+	&>.btn {
+		flex: none;
+	}
+	&>.btn:not(:first-child) {
+		margin-left: 0;
+	}
 }
 
 .btn-group-sm .btn{
