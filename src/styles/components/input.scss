@@ -43,11 +43,23 @@ $input-border: var(--input-border);
     color: $text-color;
 }
 
-.input-group-text {
-    background-color: $input-bg;
-    border: 1px solid $border-color;
-    box-shadow: 0 2px 3px -1px $light;
-    color: $input-text;
+.input-group {
+    align-items: stretch;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    width: 100%;
+    &-text {
+        background-color: $input-bg;
+        border: 1px solid $border-color;
+        box-shadow: 0 2px 3px -1px $light;
+        color: $input-text;
+    }
+    &-addon {
+        display: flex;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
 }
 
 html[data-theme="dark"] {

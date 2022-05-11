@@ -246,11 +246,11 @@
 
 - ASAB-Config - refactorisation of Add dropdown button that it displays the title of the section taken from the Schema, add ASAB-Config locales to demo app (INDIGO Sprint 220318, [!254](https://github.com/TeskaLabs/asab-webui/pull/254))
 
-- Rename Library import and export endpoints (INDIGO Sprint 220419, [!266](http://gitlab.teskalabs.int/bitswan/bitswan-webui/-/merge_requests/266))
+- Rename Library import and export endpoints (INDIGO Sprint 220419, [!266](https://github.com/TeskaLabs/asab-webui/pull/266))
 
 - Remove all classes in div in index.html file (INDIGO Sprint 220419, [!272](https://github.com/TeskaLabs/asab-webui/pull/272)
 
-- Refactor validateConfiguration function to be able to handle "Authorization" section name of configuration (INDIGO Sprint 220419, [!268](http://gitlab.teskalabs.int/bitswan/bitswan-webui/-/merge_requests/268))
+- Refactor validateConfiguration function to be able to handle "Authorization" section name of configuration (INDIGO Sprint 220419, [!268](https://github.com/TeskaLabs/asab-webui/pull/268))
 
 - Replace 0.0.0.0 to localhost (INDIGO Sprint 220419, [!270](http://gitlab.teskalabs.int/bitswan/bitswan-webui/-/merge_requests/270))
 
