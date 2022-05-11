@@ -12,12 +12,13 @@ export default (props) => {
 	const [page, setPage] = useState(1);
 	const [count, setCount] = useState(0);
 	const [limit, setLimit] = useState(20);
-	const [runDocker, setRunDocker] = useState(true);
+	const [WSdata, setWSdata] = useState([]);
+	// const ws ;
 
 	const { t } = useTranslation();
 
 	const ASABConfigAPI = props.app.axiosCreate('asab_config');
-	const remoteControlAPI = props.app.axiosCreate('remote_control');
+	const remoteControlAPI = props.app.axiosCreate('lmio_remote_control');
 
 	const headers = [
 		{ 
@@ -66,7 +67,8 @@ export default (props) => {
 
 	useEffect(() => {
 		getMicroservicesList();
-	}, [page, limit, runDocker]);
+		// listAll();
+	}, [page, limit]);
 
 	// useEffect(() => {
 	// }, [])
@@ -85,10 +87,38 @@ export default (props) => {
 		}
 	}
 	
+	useEffect(() => {
+		const ws = new WebSocket('ws://10.17.175.184:8083/list_containers_ws')
+		
+		// const ws = props.app.createWebSocket('lmio_remote_control', '/list_containers_ws')
+		
+		ws.onopen = (event) => {
+			// 	ws.send('/list_containers_ws');
+			console.log('this is on line 96', event)
+		};
+		// 
+		ws.onmessage = (message) => {
+			let data = [];
+			let mes = JSON.parse(message.data)
+			console.log('message from websocket: ', mes['remote-control-eliska']['containers_list'])
+			mes['remote-control-eliska']['containers_list'].map((el) => {
+					// setWSdata([ ...WSdata, {name: el.Name, status: el.State.Status}])
+					// console.log(el.Name)
+					data.push([el.Name, el.State.Status])
+				})
+			setWSdata([...data])
+			};
+			
+			ws.onerror = () => {
+				console.log('ln 103 connection lost')
+			}
+			
+		}, [])
 	const listAll = async () => {
 		try {
 			const response = await remoteControlAPI.get('/list')
 			console.log('response: ', response.data)
+			// setList(response.data.data.connections)
 		} catch (e) {
 			console.error(e);
 			props.app.addAlert("warning", t('Failed fetch'));
@@ -108,7 +138,7 @@ export default (props) => {
 	const docker = async (servername, container, action) => {
 		try {
 			const response = await remoteControlAPI.post('/control', { servername: servername, container: container, command: action})
-			console.log('response: ', response)
+			console.log('response from docker function: ', response)
 			if (response.data.result == 'OK') {
 				setTimeout(() => {
 					getMicroservicesList();
@@ -146,6 +176,7 @@ export default (props) => {
 	}
 
 	return (
+	<>
 		<Container className="svcs-container">
 			<DataTable 
 				headers={headers}
@@ -163,5 +194,14 @@ export default (props) => {
 				customRowStyle={customRowStyle}
 			/>
 		</Container>
+{/*  */}
+		<Container>
+			{WSdata.map((el) => {
+				return (
+					<p>name:  <b>{el[0]}</b>, status: <b>{el[1]}</b>.</p>
+				)
+			})}
+		</Container>
+	</>
 	)
 }
