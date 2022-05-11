@@ -1,9 +1,9 @@
-:root[data-theme="theme-light"] {
+:root[data-theme="light"] {
 	--input-bg: var(--white);
 	--input-text: var(--feather-gray);
     --input-border: var(--light-gray);
 }
-:root[data-theme="theme-dark"] {
+:root[data-theme="dark"] {
 	--input-bg: var(--dream-blue);
 	--input-text: var(--light-dream-blue);
     --input-border: var(--night-blue);
@@ -50,7 +50,7 @@ $input-border: var(--input-border);
     color: $input-text;
 }
 
-html[data-theme="theme-dark"] {
+html[data-theme="dark"] {
     .form-control{
         box-shadow: 0 2px 3px -1px rgba(142, 142, 142, 0.2);
     }

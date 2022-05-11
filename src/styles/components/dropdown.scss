@@ -1,6 +1,6 @@
 @import "../constants/index.scss";
 
-:root[data-theme="theme-light"] {
+:root[data-theme="light"] {
 	--bg: var(--bg-color);
 	--box-shadow-card-color: rgba(206, 211, 243, 0.5);
 	--text-dropdown-color: var(--text-color);
@@ -8,7 +8,7 @@
 	--toggle-text-color: var(--off-white);
 }
 
-:root[data-theme="theme-dark"] {
+:root[data-theme="dark"] {
 	--bg: var(--light-blue);
 	--box-shadow-card-color: #030931;
 	--text-dropdown-color: var(--btn-txt);

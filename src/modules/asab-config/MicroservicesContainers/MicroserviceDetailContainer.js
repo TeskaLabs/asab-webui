@@ -110,7 +110,7 @@ const MicroserviceDetailContainer = (props) => {
 											src={svc}
 											name={false}
 											enableClipboard={false}
-											theme={theme === 'theme-dark' ? "chalk" : "rjv-default"}
+											theme={theme === 'dark' ? "chalk" : "rjv-default"}
 										/>
 									</Col>
 								</Row>

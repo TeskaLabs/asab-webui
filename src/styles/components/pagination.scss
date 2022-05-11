@@ -1,10 +1,10 @@
-:root[data-theme="theme-light"] {
+:root[data-theme="light"] {
     --link-hover-txt-color: var(--dark-violet);
 	--active-link-txt-color: var(--dark-violet);
 	--active-link-bg-color: var(--light-violet);
 }
 
-:root[data-theme="theme-dark"] {
+:root[data-theme="dark"] {
     --link-hover-txt-color: var(--wandering-violet);
     --active-link-txt-color: var(--wandering-violet);
 	--active-link-bg-color: var(--storm-blue);

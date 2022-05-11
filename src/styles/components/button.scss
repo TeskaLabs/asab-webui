@@ -1,4 +1,4 @@
-:root[data-theme="theme-light"] {
+:root[data-theme="light"] {
 	--btn-secondary-bg-color: var(--off-white);
 	--btn-primary-bg-color: var(--dark-blue);
 	--btn-primary-outline-bg-color: var(--light-violet);
@@ -14,7 +14,7 @@
 
 
 }	
-:root[data-theme="theme-dark"] {
+:root[data-theme="dark"] {
 	--btn-secondary-bg-color: var(--light-blue);
 	--btn-primary-bg-color: var(--night-blue);
 	--btn-primary-outline-bg-color: var(--storm-blue);
