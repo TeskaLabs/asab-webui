@@ -5,8 +5,9 @@ import {
     CardBody, Row, Col,
     Button, Input, Label,
     FormGroup, FormText, InputGroup,
-    InputGroupText
+    InputGroupText, Card, CardHeader
 } from 'reactstrap';
+
 
 const Import = ({
                     api, app, setChosenPanel, retrieveAll
@@ -64,78 +65,96 @@ const Import = ({
     }
 
     return (
-        <CardBody>
-            <form
-                id="upload-library"
-                ref={formRef}
-                onSubmit={importLibrary}
-            >
-                <Col>
-                    <h5>{t("ASABConfig|Import configuration")}</h5>
-                    <hr />
-
-                    <Input
-                        id="file"
-                        name="file"
-                        type="file"
-                        className="hidden-file-input"
-                        innerRef={inputFileRef}
-                        onChange={updateFilename}
-                    />
-                    <FormGroup className="file-input">
-                        <InputGroup onClick={chooseFile}>
-                            <InputGroupText>{t("Choose file")}</InputGroupText>
-                            <Input type="text" value={t(`ASABConfig|${chosenFilename}`)} />
-                        </InputGroup>
-                        <FormText color={errors ? "danger" : ""}>{t("ASABConfig|Only tar.gz files are allowed")}</FormText>
-                    </FormGroup>
-
+        <Card>
+            <CardHeader>
+                <div
+                    style={{ height: "28px" }}
+                    className="d-flex justify-content-between align-items-center"
+                >
+                    <div className="card-header-title"></div>
+                    <Button
+                        size="sm"
+                        color="danger"
+                        className="mr-2 ml-auto"
+                        onClick={() => setChosenPanel("editor")}
+                    >
+                        {t("ASABLibraryModule|Back")}
+                    </Button>
+                </div>
+            </CardHeader>
+            <CardBody>
+                <form
+                    id="upload-library"
+                    ref={formRef}
+                    onSubmit={importLibrary}
+                >
                     <Col>
-                        <Row>
+                        <h5>{t("ASABConfig|Import configuration")}</h5>
+                        <hr />
 
-                            <FormGroup check className="mr-2">
-                                <Input
-                                    type="radio"
-                                    value="merge"
-                                    checked={type === "merge"}
-                                    onChange={onTypeChange}
-                                />
-                                <Label check>
-                                    {t("ASABConfig|Merge")}
-                                </Label>
-                            </FormGroup>
+                        <Input
+                            id="file"
+                            name="file"
+                            type="file"
+                            className="hidden-file-input"
+                            innerRef={inputFileRef}
+                            onChange={updateFilename}
+                        />
+                        <FormGroup className="file-input">
+                            <InputGroup onClick={chooseFile}>
+                                <InputGroupText>{t("Choose file")}</InputGroupText>
+                                <Input type="text" value={t(`ASABConfig|${chosenFilename}`)} />
+                            </InputGroup>
+                            <FormText color={errors ? "danger" : ""}>{t("ASABConfig|Only tar.gz files are allowed")}</FormText>
+                        </FormGroup>
 
-                            <FormGroup check>
-                                <Input
-                                    type="radio"
-                                    value="override"
-                                    checked={type === "override"}
-                                    onChange={onTypeChange}
-                                />
-                                <Label check>
-                                    {t("ASABConfig|Override")}
-                                </Label>
-                            </FormGroup>
-
-                        </Row>
-                    </Col>
-                    <hr />
-
-                    <Row>
                         <Col>
-                            <Button
-                                type="submit"
-                                color="primary"
-                                disabled={errors || !chosenFilename}
-                            >
-                                {t("ASABConfig|Import")}
-                            </Button>
-                        </Col>
-                    </Row>
+                            <Row>
 
-                </Col>
-            </form>
-        </CardBody>
+                                <FormGroup check className="mr-2">
+                                    <Input
+                                        type="radio"
+                                        value="merge"
+                                        checked={type === "merge"}
+                                        onChange={onTypeChange}
+                                    />
+                                    <Label check>
+                                        {t("ASABConfig|Merge")}
+                                    </Label>
+                                </FormGroup>
+
+                                <FormGroup check>
+                                    <Input
+                                        type="radio"
+                                        value="override"
+                                        checked={type === "override"}
+                                        onChange={onTypeChange}
+                                    />
+                                    <Label check>
+                                        {t("ASABConfig|Override")}
+                                    </Label>
+                                </FormGroup>
+
+                            </Row>
+                        </Col>
+                        <hr />
+
+                        <Row>
+                            <Col>
+                                <Button
+                                    type="submit"
+                                    color="primary"
+                                    disabled={errors || !chosenFilename}
+                                >
+                                    {t("ASABConfig|Import")}
+                                </Button>
+                            </Col>
+                        </Row>
+
+                    </Col>
+                </form>
+            </CardBody>
+        </Card>
     )
 }
 
