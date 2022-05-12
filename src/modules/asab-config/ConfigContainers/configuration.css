@@ -102,3 +102,7 @@
 	border-color: #ced4da;
 	border-right: none;
 }
+
+.input-radio {
+	cursor: pointer;
+}

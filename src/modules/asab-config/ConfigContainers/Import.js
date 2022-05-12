@@ -113,6 +113,7 @@ const Import = ({
 
                                 <FormGroup check className="mr-2">
                                     <Input
+                                        className="input-radio"
                                         type="radio"
                                         value="merge"
                                         checked={type === "merge"}
@@ -125,6 +126,7 @@ const Import = ({
 
                                 <FormGroup check>
                                     <Input
+                                        className="input-radio"
                                         type="radio"
                                         value="override"
                                         checked={type === "override"}
