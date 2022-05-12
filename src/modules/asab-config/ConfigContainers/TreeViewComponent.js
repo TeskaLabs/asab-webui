@@ -14,7 +14,6 @@ import {
 	ButtonDropdown, DropdownToggle,
 	DropdownMenu, DropdownItem, ListGroup
 } from "reactstrap";
-import TreeMenuItem from "./TreeMenuItem"
 
 export function TreeViewComponent(props) {
 	const setChosenPanel = props.setChosenPanel;
@@ -232,15 +231,6 @@ export function TreeViewComponent(props) {
 						/>
 					</InputGroup>
 					{defaultChildren({items})}
-					{/*<ListGroup>*/}
-					{/*	{items.map(({ reset, ...props }) => (*/}
-					{/*		<TreeMenuItem*/}
-					{/*			active="false"*/}
-					{/*			setChosenPanel={() => setChosenPanel("love")}*/}
-					{/*			{...props}*/}
-					{/*		/>*/}
-					{/*	))}*/}
-					{/*</ListGroup>*/}
 				</>
 			)}
 		</TreeMenu>
