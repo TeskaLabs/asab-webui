@@ -49,6 +49,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 	color: $btn-txt;
 	&:hover {
 		filter: brightness(95%);
+		transition: background-color 0.15s ease-in-out;
 	}
 	&:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
 		color:$btn-txt;
@@ -78,13 +79,18 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 
 .btn {
 	background-color: $btn-primary-bg-color;
-	font-weight: bold;
+	font-weight: $highlighted-font-weight;
 	border-radius: 0;
 	padding: 0.75em 1.5em;
 	border: 0;
 	min-height: 50px;
 	display: flex;
 	align-items: center;
+	transition: none;
+
+	// &:hover {
+	// 	transition: background-color 0.15s ease-in-out;
+	// }
 
 //PRIMARY
 	&-primary {
