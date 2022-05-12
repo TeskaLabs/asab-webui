@@ -1,17 +1,32 @@
 import React, { useState, useEffect } from "react";
-import TreeMenu from 'react-simple-tree-menu';
+import TreeMenu, { defaultChildren } from 'react-simple-tree-menu';
 import { useHistory } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 import {types} from './actions/actions';
 
+import {
+	Container,
+	Col, Row,
+	Card, CardBody, CardHeader,
+	Input,
+	InputGroup, InputGroupText,
+	ButtonDropdown, DropdownToggle,
+	DropdownMenu, DropdownItem, ListGroup
+} from "reactstrap";
+import TreeMenuItem from "./TreeMenuItem"
+
 export function TreeViewComponent(props) {
+	const setChosenPanel = props.setChosenPanel;
 
 	let App = props.app;
 	// Retrieve the asab config url from config file
 	const ASABConfigAPI = App.axiosCreate('asab_config');
+	const serviceURL = App.getServiceURL('asab_config');
 	let history = useHistory();
 	const { t, i18n } = useTranslation();
+
+	const [isDropdownMenuOpen, setDropdownMenu] = useState(false);
 
 	const [ typeList, setTypeList ] = useState([]);
 	const [ treeList, setTreeList ] = useState({});
@@ -70,7 +85,7 @@ export function TreeViewComponent(props) {
 		}
 	}
 
-	// Obtain the list of configs parsed to the type key 
+	// Obtain the list of configs parsed to the type key
 	const getTree = async () => {
 		let tree = await Promise.all(typeList.map(t => getConfigs(t)));
 		setTreeList(tree);
@@ -171,14 +186,63 @@ export function TreeViewComponent(props) {
 	return (
 		<TreeMenu
 			data={treeData}
-			hasSearch={false}
+			hasSearch={true}
 			openNodes={openNodes}
 			activeKey={props.configName != "!manage" ? `${props.configType}/${props.configName}` : `${props.configType}`}
 			focusKey={props.configName != "!manage" ? `${props.configType}/${props.configName}` : `${props.configType}`}
 			onClickItem={({ key, label, ...props }) => {
-				onClickItem(key, label)
+				onClickItem(key, label);
+				setChosenPanel('editor');
 			}}
 		>
+			{({ search, items }) => (
+				<>
+					<InputGroup>
+						<InputGroupText className="p-0 border-0">
+							<ButtonDropdown
+								size="sm"
+								className="h-100"
+								isOpen={isDropdownMenuOpen}
+								toggle={() => setDropdownMenu(prev => !prev)}
+							>
+								<DropdownToggle caret>{t("ASABConfig|Actions")}</DropdownToggle>
+								<DropdownMenu>
+									<a href={`${serviceURL}/export`} download className="text-dark dropdown-export-item w-100">
+										<DropdownItem
+											style={{
+												borderBottom: "1px solid #c8ced3",
+												borderRadius: 0
+											}}
+										>
+											<i className="cil-cloud-download mr-2" />
+											{t("ASABConfig|Export")}
+										</DropdownItem>
+									</a>
+									<DropdownItem onClick={() => setChosenPanel("import")}>
+										<i className="cil-cloud-upload mr-2" />
+										{t("ASABConfig|Import")}
+									</DropdownItem>
+								</DropdownMenu>
+							</ButtonDropdown>
+						</InputGroupText>
+						<Input
+							bsSize="sm"
+							onChange={e => search(e.target.value)}
+							placeholder={t("ASABConfig|Search")}
+						/>
+					</InputGroup>
+					{defaultChildren({items})}
+					{/*<ListGroup>*/}
+					{/*	{items.map(({ reset, ...props }) => (*/}
+					{/*		<TreeMenuItem*/}
+					{/*			active="false"*/}
+					{/*			setChosenPanel={() => setChosenPanel("love")}*/}
+					{/*			{...props}*/}
+					{/*		/>*/}
+					{/*	))}*/}
+					{/*</ListGroup>*/}
+				</>
+			)}
 		</TreeMenu>
-		)
+	)
 }

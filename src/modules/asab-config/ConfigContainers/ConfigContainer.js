@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { TreeViewComponent } from "./TreeViewComponent";
 import ConfigEditor from "./ConfigEditor";
 import ConfigList from "./ConfigList";
+import Import from "./Import";
 // import reducer from './reducer';
 
 function ConfigContainer(props) {
@@ -23,6 +24,7 @@ function ConfigContainer(props) {
 	const configName = props.match.params.configName;
 
 	const [ createConfig, setCreateConfig ] = useState(false);
+	const [chosenPanel, setChosenPanel] = useState("editor");
 
 	const homeScreenImg = props.app.Config.get('brand_image').full;
 	const homeScreenAlt = props.app.Config.get('title');
@@ -30,8 +32,9 @@ function ConfigContainer(props) {
 	return (
 		<Container fluid className="animated fadeIn flex mt-0 pr-0 pl-0 pt-0 config-container">
 			<Row className="config-row">
-				<Col sm="2" className="pr-0 bcg-column">
+				<Col sm="3" className="pr-0 bcg-column">
 					<TreeViewComponent
+						setChosenPanel={setChosenPanel}
 						app={props.app}
 						configCreated={props.config_created}
 						configRemoved={props.config_removed}
@@ -39,9 +42,11 @@ function ConfigContainer(props) {
 						configType={configType}
 						configName={configName}
 					/>
+					{console.log(chosenPanel, 'WHAT IS HERE')}
 				</Col>
 				<Col md={{ size: 6, offset: 1 }}>
-					{configType != '$' && configName != '$' ?
+					{chosenPanel != 'import' ?
+						configType != '$' && configName != '$' ?
 						configName != '!manage' && createConfig == false ?
 							<ConfigEditor
 								app={props.app}
@@ -55,18 +60,20 @@ function ConfigContainer(props) {
 								createConfig={createConfig}
 								setCreateConfig={setCreateConfig}
 							/>
-					:
-						<Card>
-							<CardBody className="text-center">
-								<img
-									src={homeScreenImg}
-									alt={homeScreenAlt}
-									style={{maxWidth: "38%"}}
-								/>
-								<h3>{t('ASABConfig|Nothing has been selected')}</h3>
-								<h5>{t('ASABConfig|Please select the configuration from tree menu on the left side of the screen')}</h5>
-							</CardBody>
-						</Card>
+						:
+							<Card>
+								<CardBody className="text-center">
+									<img
+										src={homeScreenImg}
+										alt={homeScreenAlt}
+										style={{maxWidth: "38%"}}
+									/>
+									<h3>{t('ASABConfig|Nothing has been selected')}</h3>
+									<h5>{t('ASABConfig|Please select the configuration from tree menu on the left side of the screen')}</h5>
+								</CardBody>
+							</Card>
+						:
+						<Import/>
 					}
 				</Col>
 			</Row>
