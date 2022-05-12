@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import {
 	Container,
 	Col, Row,
-	Card, CardBody, CardHeader
+	Card, CardBody
 } from "reactstrap";
 
 import { connect } from 'react-redux';
@@ -73,13 +73,16 @@ function ConfigContainer(props) {
 								</CardBody>
 							</Card>
 						:
-						<Import/>
+						<Import
+							setChosenPanel={setChosenPanel}
+						/>
 					}
 				</Col>
 			</Row>
 		</Container>
 	)
 }
+
 
 function mapStateToProps(state) {
 	return {
