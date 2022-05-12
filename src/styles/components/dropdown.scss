@@ -16,63 +16,54 @@
 	--toggle-text-color: var(--night-blue);
 }
 
+$btn-secondary-hover-bg: var();
 $dropdown-toggle-bg: var(--bg);
 $box-shadow-card-color: var(--box-shadow-card-color);
 $text-dropdown-color: var(--text-dropdown-color);
 $toggle-bg: var(--toggle-bg);
 $toggle-text-color: var(--toggle-text-color);
 
+
 .dropdown-toggle {
-	// padding: 8px;
-	// min-height: 30px;
-	// background-color: $toggle-bg !important;
-	// color: $toggle-text-color !important;
+	padding: 8px;
+	min-height: 30px;
+	background-color: $toggle-bg !important;
+	color: $toggle-text-color !important;
+
 	& span {
-		// color: $toggle-text-color !important;
+		color: $toggle-text-color !important;
 	}
 }
-
 .dropdown-menu {
 	border-radius: 0;
 	background-color: $dropdown-toggle-bg;
 	color: $btn-txt;
 	box-shadow: 0 1px 20px -4px $box-shadow-card-color;
-	padding: 0;
-	border: 1px solid $border-color;
-	&:hover {
-		background-color: $dropdown-toggle-bg;
-	}
-	& .dropdown-item {
-		background-color: $dropdown-toggle-bg;
-		padding-top: 0.5rem;
-		padding-bottom: 0.5rem;
 
+	& .dropdown-item {
 		&:hover {
+			background-color: $dropdown-toggle-bg;
 			filter: brightness(90%);
 		}
-		& span {
-			color: $text-dropdown-color;
-		}
 	}
+	& .dropdown-item span {
+		color: $text-dropdown-color;
+	}
+
 	& .dropdown-header {
 		color: $text-dropdown-color;
 	}
 }
 
-.show > .btn-secondary.dropdown-toggle, .show > .btn-outline-secondary.dropdown-toggle {
-	// background-color: $dropdown-toggle-bg;
-	// color: $text-secondary-color;
-
-	background-color: $bg-color;
-	color: $btn-secondary-bg-color;
+.show > .btn-secondary.dropdown-toggle {
+	background-color: $dropdown-toggle-bg;
+	color: $btn-txt;
 	&:focus, &:active {
 		border: none;
 		box-shadow: none;
-		// background-color: $dropdown-toggle-bg;
-		color: $btn-secondary-bg-color;
 	}
 }
 
-// .show > .btn-outline-secondary.dropdown-toggle [class^="cil-"] {
-// 	color: $toggle-text-color !important;
-// }
+.show > .btn-outline-secondary.dropdown-toggle [class^="cil-"] {
+	color: $toggle-text-color !important;
+}

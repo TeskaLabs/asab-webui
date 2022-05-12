@@ -19,6 +19,10 @@ $gray: var(--gray);
 $dark-gray: var(--dark-gray);
 $beige-gray: var(--beige-gray);
 $off-white: var(--off-white);
+$light-green: var(--light-green);
+$dark-green: var(--dark-green);
+$pink: var(--pink);
+$dark-pink: var(--dark--pink);
 
 $bg-color: var(--bg-color);
 $bg-color-dark: var(--bg-color-dark);
@@ -32,6 +36,8 @@ $reversed-text-color: var(--reversed-text-color);
 $highlighted-text-color: var(--highlighted-text-color);
 $link-color: var(--link-color);
 $text-code-highlight: var(--text-code-highlight);
+
+$highlighted-font-weight: 500;
 
 // Header
 $header-height: 65px;

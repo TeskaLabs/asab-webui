@@ -28,7 +28,7 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 		.card-header-title {
 			color: $text-secondary-color;
 			font-style: normal;
-			font-weight: 700;
+			font-weight: 500;
 			font-size: 1rem;
 			line-height: 50px;
 			margin: auto 1.25rem;
@@ -65,6 +65,17 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 		flex: 1 1 auto;
     	min-height: 1px;
     	padding: 1.25rem;
+
+		& .card-body-row {
+			padding: 8px 0;
+
+			&:last-child{
+				padding-bottom: 0;
+			}
+			&:first-child {
+				padding-top: 0;
+			}
+		}
 	}
 	.card-footer {
 		display: flex;
