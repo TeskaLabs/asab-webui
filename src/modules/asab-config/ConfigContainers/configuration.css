@@ -75,3 +75,30 @@
 	max-height: 400px;
 	overflow-y: auto;
 }
+
+/*Import*/
+
+.hidden-file-input {
+	display: none;
+}
+
+.file-input {
+	overflow: hidden;
+	display: flex;
+	flex-wrap: wrap;
+	flex: 1 5;
+}
+.file-input input {
+	cursor: pointer;
+}
+
+.file-input input:focus {
+	box-shadow: none;
+	border-color: #ced4da;
+}
+.input-group-text {
+	cursor: pointer;
+	border-radius: 5px 0 0 5px;
+	border-color: #ced4da;
+	border-right: none;
+}
