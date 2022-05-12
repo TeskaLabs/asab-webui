@@ -27,8 +27,8 @@ $toggle-text-color: var(--toggle-text-color);
 .dropdown-toggle {
 	padding: 8px;
 	min-height: 30px;
-	background-color: $toggle-bg !important;
-	color: $toggle-text-color !important;
+	// background-color: $toggle-bg !important;
+	color: $toggle-text-color;
 
 	& span {
 		color: $toggle-text-color !important;
