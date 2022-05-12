@@ -6,13 +6,10 @@ import { useTranslation } from 'react-i18next';
 import {types} from './actions/actions';
 
 import {
-	Container,
-	Col, Row,
-	Card, CardBody, CardHeader,
 	Input,
 	InputGroup, InputGroupText,
 	ButtonDropdown, DropdownToggle,
-	DropdownMenu, DropdownItem, ListGroup
+	DropdownMenu, DropdownItem
 } from "reactstrap";
 
 export function TreeViewComponent(props) {

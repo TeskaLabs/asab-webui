@@ -42,7 +42,6 @@ function ConfigContainer(props) {
 						configType={configType}
 						configName={configName}
 					/>
-					{console.log(chosenPanel, 'WHAT IS HERE')}
 				</Col>
 				<Col md={{ size: 6, offset: 1 }}>
 					{chosenPanel != 'import' ?
@@ -73,16 +72,13 @@ function ConfigContainer(props) {
 								</CardBody>
 							</Card>
 						:
-						<Import
-							setChosenPanel={setChosenPanel}
-						/>
+						<Import setChosenPanel={setChosenPanel}/>
 					}
 				</Col>
 			</Row>
 		</Container>
 	)
 }
-
 
 function mapStateToProps(state) {
 	return {
