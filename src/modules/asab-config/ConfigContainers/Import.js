@@ -10,8 +10,8 @@ import {
 
 
 const Import = ({
-                    api, app, setChosenPanel, retrieveAll
-                }) => {
+	api, app, setChosenPanel, retrieveAll
+}) => {
     const { t } = useTranslation();
     const [chosenFilename, setChosenFilename] = useState("No file chosen");
     const [type, setType] = useState("merge");
