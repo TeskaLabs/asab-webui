@@ -21,6 +21,11 @@ th, td {
     height: 48px;
     border: none;
     padding: 0.7rem;
+    font-weight: inherit;
+}
+
+thead {
+    font-weight: bold;
 }
 
 tbody {
