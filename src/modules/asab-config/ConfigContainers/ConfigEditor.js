@@ -681,9 +681,9 @@ function ConfigSection(props) {
 							<Button
 								title={t('ASABConfig|Remove')}
 								color="danger"
+								outline
 								size="sm"
 								type="button"
-								outline
 								onClick={(e) => {props.removeSectionForm(props.sectionname)}}
 							>
 								<i className="cil-trash"></i>
