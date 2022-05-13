@@ -42,7 +42,9 @@ const Import = ({
 
     const onTypeChange = (e) => setType(e.target.value);
 
-    const importLibrary = async event => {
+    const onTextChange = (e) => setChosenFilename(e.target.value)
+
+    const importConfiguration = async event => {
         event.preventDefault();
         try {
             const data = new FormData(formRef.current);
@@ -56,10 +58,10 @@ const Import = ({
 
             setChosenPanel("editor");
             retrieveAll();
-            app.addAlert("success", t("ASABConfig|Library has been successfully imported"));
+            app.addAlert("success", t("ASABConfig|onfiguration has been successfully imported"));
         } catch (e) {
             console.error("Failed to import library\n", e);
-            app.addAlert("warning", t("ASABConfig|Failed to import library"));
+            app.addAlert("warning", t("ASABConfig|Failed to import configuration"));
         }
 
     }
@@ -86,7 +88,7 @@ const Import = ({
                 <form
                     id="upload-library"
                     ref={formRef}
-                    onSubmit={importLibrary}
+                    onSubmit={importConfiguration}
                 >
                     <Col>
                         <h5>{t("ASABConfig|Import configuration")}</h5>
@@ -103,7 +105,7 @@ const Import = ({
                         <FormGroup className="file-input">
                             <InputGroup onClick={chooseFile}>
                                 <InputGroupText>{t("ASABConfig|Choose file")}</InputGroupText>
-                                <Input type="text" value={t(`ASABConfig|${chosenFilename}`)} />
+                                <Input type="text" onChange={onTextChange} value={t(`ASABConfig|${chosenFilename}`)} />
                             </InputGroup>
                             <FormText color={errors ? "danger" : ""}>{t("ASABConfig|Only tar.gz files are allowed")}</FormText>
                         </FormGroup>
