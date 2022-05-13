@@ -102,7 +102,7 @@ const Import = ({
                         />
                         <FormGroup className="file-input">
                             <InputGroup onClick={chooseFile}>
-                                <InputGroupText>{t("Choose file")}</InputGroupText>
+                                <InputGroupText>{t("ASABConfig|Choose file")}</InputGroupText>
                                 <Input type="text" value={t(`ASABConfig|${chosenFilename}`)} />
                             </InputGroup>
                             <FormText color={errors ? "danger" : ""}>{t("ASABConfig|Only tar.gz files are allowed")}</FormText>
