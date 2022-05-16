@@ -56,9 +56,7 @@ const Import = ({
 
 			if (response.data.result !== "OK") throw new Error(`Response result is ${response.data.result}. File has not been imported`);
 			getTypes();
-			console.log(getTypes, "get types");
 			setChosenPanel("configurator");
-			// retrieveAll();
 			app.addAlert("success", t("ASABConfig|Configuration has been successfully imported"));
 		} catch (e) {
 			console.error("Failed to import configuration\n", e);
