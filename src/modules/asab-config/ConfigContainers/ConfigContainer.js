@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
 	Container,
@@ -14,26 +14,173 @@ import { TreeViewComponent } from "./TreeViewComponent";
 import ConfigEditor from "./ConfigEditor";
 import ConfigList from "./ConfigList";
 import Import from "./Import";
-// import reducer from './reducer';
+import {types} from "./actions/actions";
 
 function ConfigContainer(props) {
 
-	const { t, i18n } = useTranslation();
+	const App = props.app;
+	const ASABConfigAPI = App.axiosCreate('asab_config');
+	const serviceURL = App.getServiceURL('asab_config');
+	const { t } = useTranslation();
 
 	const configType = props.match.params.configType;
 	const configName = props.match.params.configName;
 
-	const [ createConfig, setCreateConfig ] = useState(false);
-	const [chosenPanel, setChosenPanel] = useState("editor");
-
 	const homeScreenImg = props.app.Config.get('brand_image').full;
 	const homeScreenAlt = props.app.Config.get('title');
 
+	const [treeData, setTreeData] = useState({});
+	const [ createConfig, setCreateConfig ] = useState(false);
+	const [chosenPanel, setChosenPanel] = useState("configurator");
+	const [ typeList, setTypeList ] = useState([]);
+	const [ treeList, setTreeList ] = useState({});
+	const [ openNodes, setOpenNodes ] = useState([]); // Set open nodes in the TreeMenu
+
+
+	// To get the full overview on schemas and configs it is needed to update the tree list and data state
+	useEffect(() => {
+		getTypes();
+	}, []);
+
+	useEffect(() => {
+		getTree();
+	}, [typeList])
+
+	useEffect(() => {
+		getChart();
+	}, [treeList]);
+
+	useEffect(() => {
+		if (props.configCreated || props.configRemoved) {
+			getTree();
+			if (props.configCreated) {
+				props.app.Store.dispatch({
+					type: types.CONFIG_CREATED,
+					config_created: false
+				});
+			}
+			if (props.configRemoved) {
+				props.app.Store.dispatch({
+					type: types.CONFIG_REMOVED,
+					config_removed: false
+				});
+			}
+		}
+	}, [props.configCreated, props.configRemoved])
+
+	// Obtain list of types
+	// TODO: add Error Card screen when no types are fetched
+	const getTypes = async () => {
+		try {
+			let response = await ASABConfigAPI.get("/type");
+			if (response.data.result != 'OK') {
+				throw new Error("Unable to get data for tree menu");
+			}
+			// Sort data
+			let sortedData = response.data.data;
+			sortedData = sortedData.sort();
+			setTypeList(sortedData);
+			// TODO: validate responses which are not 200
+		}
+		catch(e) {
+			console.error(e);
+			App.addAlert("warning", t(`ASABConfig|Unable to get data for tree menu`));
+			return;
+		}
+	}
+
+	// Obtain the list of configs parsed to the type key
+	const getTree = async () => {
+		let tree = await Promise.all(typeList.map(t => getConfigs(t)));
+		setTreeList(tree);
+	}
+
+
+	const getConfigs = async (typeId) => {
+		let tree = {};
+		try {
+			let response = await ASABConfigAPI.get("/config/" + typeId);
+			if (response.data.result == 'OK'){
+				// Sort data
+				let sortedData = response.data.data;
+				if (sortedData != undefined) {
+					sortedData = sortedData.sort();
+					tree[typeId] = sortedData;
+				}
+			}
+			return tree;
+		}
+		catch(e) {
+			console.error(e);
+			App.addAlert("warning", t(`ASABConfig|Unable to get schema. Try to reload the page`, {type: typeId}));
+			return;
+		}
+	}
+
+	// Handle treeList to obtain the structure to render the tree
+	const getChart = () => {
+		let dataChart = [];
+		Object.values(treeList).map((element, idx) => {
+			addTreeStructure(element, dataChart);
+		});
+		let nodes = [];
+		dataChart.map(node => {
+			nodes.push(node.key)
+		});
+		setOpenNodes(nodes);
+		setTreeData(dataChart);
+	}
+
+
+	const addTreeStructure = (element, dataChart) => {
+		if (typeof element === 'object' && element !== null) {
+			Object.keys(element).map((key) => {
+				var obj = {
+					type: "folder", // this is not needed yet, but it might be useful for icons
+					key: key,
+					label: key,
+					nodes: []
+				};
+				dataChart.push(obj);
+
+				var index = dataChart.indexOf(obj);
+				if (element[key] != undefined) {
+					element[key].map((e) => {
+						if (typeof e === "object" && e !== null) {
+							addTreeStructure(e, dataChart[index].nodes);
+						} else if (typeof e === "string" && e !== null) {
+							var strObj = {
+								type: "file", // this is not needed yet, but it might be useful for icons
+								key: e,
+								label: e
+							};
+							dataChart[index].nodes.push(strObj);
+						}
+					})
+				}
+			})
+		} else if (element !== undefined) {
+			dataChart.push(
+				{
+					type: "file", // this is not needed yet, but it might be useful for icons
+					key: element,
+					label: element,
+				}
+			);
+		}
+	}
+
+
+	// Render function
 	return (
 		<Container fluid className="animated fadeIn flex mt-0 pr-0 pl-0 pt-0 config-container">
 			<Row className="config-row">
 				<Col sm="3" className="pr-0 bcg-column">
 					<TreeViewComponent
+						serviceURL={serviceURL}
+						openNodes={openNodes}
+						treeData={treeData}
+						setTreeData={setTreeData}
 						setChosenPanel={setChosenPanel}
 						app={props.app}
 						configCreated={props.config_created}
@@ -46,20 +193,20 @@ function ConfigContainer(props) {
 				<Col md={{ size: 6, offset: 1 }}>
 					{chosenPanel != 'import' ?
 						configType != '$' && configName != '$' ?
-						configName != '!manage' && createConfig == false ?
-							<ConfigEditor
-								app={props.app}
-								configType={configType}
-								configName={configName}
-							/>
-						:
-							<ConfigList
-								app={props.app}
-								configType={configType}
-								createConfig={createConfig}
-								setCreateConfig={setCreateConfig}
-							/>
-						:
+							configName != '!manage' && createConfig == false ?
+								<ConfigEditor
+									app={props.app}
+									configType={configType}
+									configName={configName}
+								/>
+								:
+								<ConfigList
+									app={props.app}
+									configType={configType}
+									createConfig={createConfig}
+									setCreateConfig={setCreateConfig}
+								/>
+							:
 							<Card>
 								<CardBody className="text-center">
 									<img
@@ -72,7 +219,13 @@ function ConfigContainer(props) {
 								</CardBody>
 							</Card>
 						:
-						<Import setChosenPanel={setChosenPanel}/>
+						<Import
+							setChosenPanel={setChosenPanel}
+							app={App}
+							api={ASABConfigAPI}
+							getTypes={getTypes}
+							// retrieveAll={retrieveAll}
+						/>
 					}
 				</Col>
 			</Row>
