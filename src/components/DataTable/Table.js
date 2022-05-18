@@ -12,11 +12,15 @@ import ActionButton from './ActionButton';
 const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 	if (!obj) return <td className="pl-3" style={{ whiteSpace: "nowrap" }}>-</td>
 
-	let cell, icon;
+	let cell, icon, customStyle;
 
 	const textLinkStyle = {
 		whiteSpace: "nowrap",
 		marginBottom: 0
+	}
+
+	if (header.customStyle) {
+		customStyle = header.customStyle;
 	}
 
 	if (header?.icon) {
@@ -102,11 +106,11 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 	}
 
 	return idx === 0 ? (
-			<th className="data-table-th" scope="row">
+			<th className="data-table-th" scope="row" style={{...customStyle}}>
 				{cell}
 			</th>
 		) : (
-			<td className="pl-3 data-table-td" style={{ whiteSpace: "nowrap" }}>
+			<td className="pl-3 data-table-td" style={{ whiteSpace: "nowrap", ...customStyle }}>
 				{cell}
 			</td>
 		);
