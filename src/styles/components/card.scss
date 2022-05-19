@@ -88,6 +88,7 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 		color: $text-color;
 		padding: 0;
 		border-radius: 0 0 8px 8px;
+		border-top: 1px solid $border-color;
 		.btn-group {
 			flex-wrap: wrap;
 			.btn:first-child {
