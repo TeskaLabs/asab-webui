@@ -1,10 +1,10 @@
 @import "../constants/index.scss";
 
-:root[data-theme="theme-light"] {
+:root[data-theme="light"] {
 	--box-shadow-card-color: rgba(206, 211, 243, 0.5);
 }
 
-:root[data-theme="theme-dark"] {
+:root[data-theme="dark"] {
 	--box-shadow-card-color: #030931;
 }
 
@@ -15,6 +15,9 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 	border-radius: 8px;
 	box-shadow: 0 1px 20px -4px $box-shadow-card-color;
 	background-color: $bg-color;
+	&-subtitle {
+		margin-top: -1.5rem;
+	}
 	.card-header {
 		border-bottom: none;
 		background-color: $bg-color;
@@ -27,9 +30,8 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 		flex-wrap: wrap;
 		.card-header-title {
 			color: $text-secondary-color;
-			font-family: 'Arial';
 			font-style: normal;
-			font-weight: 700;
+			font-weight: 500;
 			font-size: 1rem;
 			line-height: 50px;
 			margin: auto 1.25rem;
@@ -57,6 +59,22 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 		.input-group{
 			padding: 8px;
 			// max-width: 250px;
+		}
+	}
+	.card-header-login {
+		min-height: 85px;
+		text-align: center;
+		// color: $text-secondary-color !important;
+		.card-header-title {
+			margin: 0.25rem auto;
+			h1 {
+				color: $text-color;
+				font-size: 2.2rem;
+			}
+			& p.card-subtitle {
+				color: inherit;
+				font-weight: 300 !important;
+			}
 		}
 	}
 	.card-body {
@@ -88,7 +106,10 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 		color: $text-color;
 		padding: 0;
 		border-radius: 0 0 8px 8px;
-		border-top: 1px solid $border-color;
+		border-top: none;
+		.btn:first-child:not(.dropdown-toggle) {
+			border-radius: 0 0 0 7px;
+		}
 		.btn-group {
 			flex-wrap: wrap;
 			.btn:first-child {

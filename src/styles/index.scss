@@ -1,48 +1,51 @@
 @import './constants';
 
-
 * {
 	box-sizing: border-box;
 }
 
-html[data-theme="theme-light"] {
+html[data-theme="light"] {
 	color-scheme: light;
 }
 
-html[data-theme="theme-dark"] {
+html[data-theme="dark"] {
 	color-scheme: dark;
 }
 
 html {
-	font-family: sans-serif;
-    line-height: 1.15;
-    -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-	p, span, h1, h2, h3, h4, h5, h6 {
-		color: $text-color;
-	}
-
-	.react-json-view {
-		background-color: $bg-color !important;
-		p, span, h1, h2, h3, h4, h5, h6 {
-			color: inherit
-		}
-	}
-
-	hr {
-		background-color: $border-color;
-	}
-
 	body {
-		margin: 0;
-		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+		margin: 0;	
+		text-align: left;
+
+		font-family: "Verdana", sans-serif;
+		line-height: 1.5;
 		font-size: 0.875rem;
 		font-weight: 400;
-		line-height: 1.5;
-		color: #23282c;
-		text-align: left;
+
+		color: $text-color;
 		background-color: $body-bg;
+
+		p, span, h1, h2, h3, h4, h5, h6, div {
+			color: $text-color;
+		}
+		
+		.react-json-view {
+			// background-color: $bg-color !important;
+			background-color: inherit ;
+			p, span, h1, h2, h3, h4, h5, h6 {
+				color: inherit
+			}
+		}
 	}
+}
+
+
+hr {
+	background-color: $border-color;
+}
+
+.table {
+	color: $text-color;
 }
 
 .text-primary {
@@ -51,7 +54,7 @@ html {
 
 .app {
 	display: flex;
-    min-height: 100vh;
+	min-height: 100vh;
 }
 
 .app-body {
@@ -82,35 +85,38 @@ html {
 
 // Progress Bar
 .fade {
-    transition: opacity 0.15s linear;
+	transition: opacity 0.15s linear;
 }
 
 .fade:not(.show) {
-    opacity: 0;
+	opacity: 0;
 }
 
 .progress-bar-animated {
-    animation: 1s linear infinite progress-bar-stripes;
+	animation: 1s linear infinite progress-bar-stripes;
 }
 
 .progress-bar-striped {
-    background-image: linear-gradient(
+	background-image: linear-gradient(
 		45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%,
 		rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent
 	);
-    background-size: 1rem 1rem;
+	background-size: 1rem 1rem;
 }
 
 .progress-bar {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow: hidden;
-    color: #fff;
-    text-align: center;
-    white-space: nowrap;
-    background-color: #20a8d8;
-    transition: width 0.6s ease;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	overflow: hidden;
+
+	color: $dark;
+	background-color: $primary;
+
+	text-align: center;
+	white-space: nowrap;
+	
+	transition: width 0.6s ease;
 }
 
 .hidden {
@@ -119,11 +125,11 @@ html {
 
 /* Import styles */
 
-// Temp fix for reactstrap
-@import '~@coreui/coreui/scss/_dropdown-menu-right.scss';
 // Import default bootstrap styles
 @import '~bootstrap/dist/css/bootstrap.min.css';
+
 // CoreUI Icons Set
 @import '~@coreui/icons/css/all.css';
+
 // Override with custom color styles
 @import './components';

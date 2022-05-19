@@ -1,4 +1,4 @@
-:root[data-theme="theme-light"] {
+:root[data-theme="light"] {
 	--btn-secondary-bg-color: var(--off-white);
 	--btn-primary-bg-color: var(--dark-blue);
 	--btn-primary-outline-bg-color: var(--light-violet);
@@ -14,7 +14,7 @@
 
 
 }	
-:root[data-theme="theme-dark"] {
+:root[data-theme="dark"] {
 	--btn-secondary-bg-color: var(--light-blue);
 	--btn-primary-bg-color: var(--night-blue);
 	--btn-primary-outline-bg-color: var(--storm-blue);
@@ -49,6 +49,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 	color: $btn-txt;
 	&:hover {
 		filter: brightness(95%);
+		transition: background-color 0.15s ease-in-out;
 	}
 	&:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
 		color:$btn-txt;
@@ -78,13 +79,18 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 
 .btn {
 	background-color: $btn-primary-bg-color;
-	font-weight: bold;
+	font-weight: $highlighted-font-weight;
 	border-radius: 0;
 	padding: 0.75em 1.5em;
 	border: 0;
 	min-height: 50px;
 	display: flex;
 	align-items: center;
+	transition: none;
+
+	// &:hover {
+	// 	transition: background-color 0.15s ease-in-out;
+	// }
 
 //PRIMARY
 	&-primary {
@@ -305,6 +311,31 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 			filter: opacity(60%);
 		}
 	}
+
+// SMALL 
+	&-sm {
+		padding: 0.25rem 0.875rem;
+		border: 0;
+		min-height: 35px;
+		font-size: 0.75rem;
+	}
+
+// LARGE 
+	&-lg {
+		border: 0;
+		min-height: 60px;
+		font-size: 1.1rem;
+		line-height: 1.5;
+		padding: 0.5rem 1rem;
+	}
+
+// BLOCK 
+	&-block {
+		display: block;
+		width: 100%;
+	}
+
+
 }
 
 // ICONS INSIDE BUTTONS
@@ -312,8 +343,14 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 	color: $btn-txt;
 }
 
-.btn-group>.btn {
-	flex: none;
+.btn-group {
+
+	&>.btn {
+		flex: none;
+	}
+	&>.btn:not(:first-child) {
+		margin-left: 0;
+	}
 }
 
 .btn-group-sm .btn{

@@ -56,6 +56,7 @@ function ConfigList(props) {
 							size="sm"
 							color="danger"
 							className="m-0"
+							outline
 							title={t('ASABConfig|Remove') + ` ${obj.name}`}
 							resource={resourceManageConfig}
 							resources={resources}
@@ -119,9 +120,7 @@ function ConfigList(props) {
 			onClick={(e) => {props.setCreateConfig(true), e.preventDefault()}}
 			resource={resourceManageConfig}
 			resources={resources}
-			size="sm"
 		>
-			<i className="pr-1">+</i>
 			{t("ASABConfig|Create")}
 		</ButtonWithAuthz>
 	);

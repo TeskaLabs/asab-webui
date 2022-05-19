@@ -1,6 +1,6 @@
 @import "./colors.scss";
 
-:root[data-theme="theme-dark"] {
+:root[data-theme="dark"] {
 	--primary: var(--violet);
 	--secondary: var(--dark-gray);
 	--success: var(--green);

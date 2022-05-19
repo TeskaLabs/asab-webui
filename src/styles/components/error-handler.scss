@@ -1,8 +1,8 @@
-html[data-theme="theme-light"] {
+html[data-theme="light"] {
 	--error-handler-text-color: var(--white);
 }
 
-html[data-theme="theme-dark"] {
+html[data-theme="dark"] {
 	--error-handler-text-color: var(--white-night);
 }
 
