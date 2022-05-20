@@ -62,7 +62,7 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 		}
 	}
 	.card-header-login {
-		min-height: 100px;
+		min-height: 90px;
 		text-align: center;
 		// color: $text-secondary-color !important;
 		.card-header-title {
@@ -82,8 +82,9 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 			& p.card-subtitle {
 				color: inherit;
 				font-weight: 300 ;
-				margin-top: -0.75rem;
 				font-size: 16px;
+				line-height: 28px;
+				margin-top: 0;
 			}
 		}
 	}
