@@ -9,7 +9,7 @@ import {
 } from 'reactstrap';
 
 
-const Import = ({
+const ConfigImport = ({
 	api, app, setChosenPanel, getTypes
 }) => {
 	const { t } = useTranslation();
@@ -161,4 +161,4 @@ const Import = ({
 	)
 }
 
-export default Import;
+export default ConfigImport;

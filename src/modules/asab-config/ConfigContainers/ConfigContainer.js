@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { TreeViewComponent } from "./TreeViewComponent";
 import ConfigEditor from "./ConfigEditor";
 import ConfigList from "./ConfigList";
-import Import from "./Import";
+import ConfigImport from "./ConfigImport";
 import {types} from "./actions/actions";
 
 function ConfigContainer(props) {
@@ -219,7 +219,7 @@ function ConfigContainer(props) {
 								</CardBody>
 							</Card>
 						:
-						<Import
+						<ConfigImport
 							setChosenPanel={setChosenPanel}
 							app={App}
 							api={ASABConfigAPI}
