@@ -7,61 +7,67 @@ const initData = {
 		{
 			"_id": "mongodb:ext:5ffdc6ffa5a3c6fe397c4dfd",
 			"category": "Harry Potter",
-			"children": [
-				{
-					"_id": "mongodb:ext:5ffdc6ffa5a3c6fe397c4dfd",
-					"_type": "mongodb",
-					"_provider_id": "ext",
-					"_v": 12,
-					"_c": "2021-01-12T15:57:51.471000",
-					"_m": "2021-01-12T15:57:51.471000",
-					"phone": "3240715",
-					"username": "Ron Weasley",
-				},
-				{
-					"_id": "mongodb:ext:5ffdc6ffa5a3c6fe397c4dfd",
-					"_type": "mongodb",
-					"_provider_id": "ext",
-					"_v": 13,
-					"_c": "2021-01-12T15:57:51.471000",
-					"_m": "2021-01-12T15:57:51.471000",
-					"phone": "3240715",
-					"username": "Hermione Granger",
-				}
-			]
+			"children": {
+				"data": [
+					{
+						"_id": "mongodb:ext:5ffdc6ffa5a3c6fe397c4dfd",
+						"_type": "mongodb",
+						"_provider_id": "ext",
+						"_v": 12,
+						"_c": "2021-01-12T15:57:51.471000",
+						"_m": "2021-01-12T15:57:51.471000",
+						"phone": "3240715",
+						"username": "Ron Weasley",
+					},
+					{
+						"_id": "mongodb:ext:5ffdc6ffa5a3c6fe397c4dfd",
+						"_type": "mongodb",
+						"_provider_id": "ext",
+						"_v": 13,
+						"_c": "2021-01-12T15:57:51.471000",
+						"_m": "2021-01-12T15:57:51.471000",
+						"phone": "3240715",
+						"username": "Hermione Granger",
+					}
+				],
+				"count": 2
+			}
 		},
 		{
 			"_id": "mongodb:ext:5ffdc6ffa5a3c6fe397c4dfd",
 			"category": "Spider-Man",
-			"children": [
-				{
-					"_id": "mongodb:ext:5ffdc6ffa5a3c6fe397c4dfd",
-					"_type": "mongodb",
-					"_provider_id": "ext",
-					"_c": "2021-01-12T15:57:51.471000",
-					"_m": "2021-01-12T15:57:51.471000",
-					"phone": "3240715",
-					"username": "Peter Parker"
-				},
-				{
-					"_id": "mongodb:ext:5ffdc6ffa5a3c6fe397c4dfd",
-					"_type": "mongodb",
-					"_provider_id": "ext",
-					"_c": "2021-01-12T15:57:51.471000",
-					"_m": "2021-01-12T15:57:51.471000",
-					"phone": "3240715",
-					"username": "MJ"
-				},
-				{
-					"_id": "mongodb:ext:5ffdc6ffa5a3c6fe397c4dfd",
-					"_type": "mongodb",
-					"_provider_id": "ext",
-					"_c": "2021-01-12T15:57:51.471000",
-					"_m": "2021-01-12T15:57:51.471000",
-					"phone": "3240715",
-					"username": "Harry Osborn"
-				}
-			]
+			"children": {
+				"data": [
+					{
+						"_id": "mongodb:ext:5ffdc6ffa5a3c6fe397c4dfd",
+						"_type": "mongodb",
+						"_provider_id": "ext",
+						"_c": "2021-01-12T15:57:51.471000",
+						"_m": "2021-01-12T15:57:51.471000",
+						"phone": "3240715",
+						"username": "Peter Parker"
+					},
+					{
+						"_id": "mongodb:ext:5ffdc6ffa5a3c6fe397c4dfd",
+						"_type": "mongodb",
+						"_provider_id": "ext",
+						"_c": "2021-01-12T15:57:51.471000",
+						"_m": "2021-01-12T15:57:51.471000",
+						"phone": "3240715",
+						"username": "MJ"
+					},
+					{
+						"_id": "mongodb:ext:5ffdc6ffa5a3c6fe397c4dfd",
+						"_type": "mongodb",
+						"_provider_id": "ext",
+						"_c": "2021-01-12T15:57:51.471000",
+						"_m": "2021-01-12T15:57:51.471000",
+						"phone": "3240715",
+						"username": "Harry Osborn"
+					}
+				],
+				"count": 3
+			}
 		}
 	],
 	fetch (limit=10, page) {

@@ -216,21 +216,22 @@ const TableRow = ({
 					)
 				}
 			</tr>
-			{category?.sublistKey && obj[category.sublistKey] && isSubUnwrapped && obj[category.sublistKey].map((child, idx) => (
-				<tr className="data-table-tr-child" style={style} key={`child-${idx}`}>
-					{advmode && <td></td>}
-					<td></td>
-					{headers.map((header, idx) => (
-						<TableCell
-							isSublist
-							obj={child}
-							header={header}
-							idx={idx}
-							key={idx}
-							jsonTheme={jsonTheme}
-						/>
-					))}
-				</tr>
+			{category?.sublistKey && obj[category.sublistKey] && isSubUnwrapped && 
+				obj[category.sublistKey]["data"].map((child, idx) => (
+					<tr className="data-table-tr-child" style={style} key={`child-${idx}`}>
+						{advmode && <td></td>}
+						<td></td>
+						{headers.map((header, idx) => (
+							<TableCell
+								isSublist
+								obj={child}
+								header={header}
+								idx={idx}
+								key={idx}
+								jsonTheme={jsonTheme}
+							/>
+						))}
+					</tr>
 			))}
 			
 			
