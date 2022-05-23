@@ -67,22 +67,6 @@ const ConfigImport = ({
 
 	return (
 		<Card>
-			<CardHeader>
-				<div
-					style={{ height: "28px" }}
-					className="d-flex justify-content-between align-items-center"
-				>
-					<div className="card-header-title"></div>
-					<Button
-						size="sm"
-						color="danger"
-						className="mr-2 ml-auto"
-						onClick={() => setChosenPanel("editor")}
-					>
-						{t("ASABLibraryModule|Back")}
-					</Button>
-				</div>
-			</CardHeader>
 			<CardBody>
 				<form
 					id="upload-library"
@@ -145,11 +129,18 @@ const ConfigImport = ({
 						<Row>
 							<Col>
 								<Button
+									className="mr-2"
 									type="submit"
 									color="primary"
 									disabled={errors || !chosenFilename}
 								>
 									{t("ASABConfig|Import")}
+								</Button>
+								<Button
+									color="danger"
+									onClick={() => setChosenPanel("editor")}
+								>
+									{t("ASABLibraryModule|Back")}
 								</Button>
 							</Col>
 						</Row>
