@@ -256,6 +256,8 @@
 
 - Update of locales in modules/asab-config/MicroservicesContainers (INDIGO Sprint 220429, [!276](https://github.com/TeskaLabs/asab-webui/pull/276))
 
+- DataTable decomposition (INDIGO Sprint 220513, [!279](https://github.com/TeskaLabs/asab-webui/pull/279))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
