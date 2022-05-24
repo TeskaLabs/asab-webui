@@ -35,12 +35,18 @@ $toggle-text-color: var(--toggle-text-color);
 	}
 }
 .dropdown-menu {
+	margin: 0;
+	padding: 0;
 	border-radius: 0;
 	background-color: $dropdown-toggle-bg;
 	color: $btn-txt;
 	box-shadow: 0 1px 20px -4px $box-shadow-card-color;
-
+	& .dropdown-header {
+		font-weight: bold;
+		border-bottom: 1px solid $border-color;
+	}
 	& .dropdown-item {
+		padding: 0.5rem 1.5rem;
 		&:hover {
 			background-color: $dropdown-toggle-bg;
 			filter: brightness(90%);
@@ -56,8 +62,6 @@ $toggle-text-color: var(--toggle-text-color);
 }
 
 .show > .btn-secondary.dropdown-toggle {
-	background-color: $dropdown-toggle-bg !important;
-	color: $text-color !important;
 	&:focus, &:active {
 		border: none;
 		box-shadow: none;
