@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
@@ -22,6 +22,12 @@ export default function ({ currentPage, setPage, lastPage }) {
 	for (let i = start; i <= end; i++) {
 		pages.push(i);
 	}
+
+	useEffect(() => {
+		if (currentPage > lastPage && lastPage != 0) {
+			setPage(lastPage);
+		}
+	}, [lastPage])
 
 	return (
 		<Pagination>

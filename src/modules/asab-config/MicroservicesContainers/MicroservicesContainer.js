@@ -51,7 +51,7 @@ export default (props) => {
 			setCount(response.data.count);
 		} catch (e) {
 			console.error(e);
-			props.app.addAlert("warning", t('Failed fetch'));
+			props.app.addAlert("warning", t('MicroservicesContainer|Failed to fetch data'));
 		}
 	}
 
@@ -78,7 +78,7 @@ export default (props) => {
 				setLimit={setLimit}
 				limitValues={[20, 50, 100]}
 				title={{
-					text: "Microservices"
+					text: t('MicroservicesContainer|Microservices')
 				}}
 				customRowStyle={customRowStyle}
 			/>

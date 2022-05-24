@@ -89,15 +89,32 @@ Prop `title` is an object that has obligatory property `text` which is string an
 Example:
 
 ```js
+headers: [ 
+		{ 
+			name: 'Name',
+			key: 'username',
+			customStyle: { textOverflow: "ellipsis", 
+							overflow: "hidden", 
+							whiteSpace: "nowrap", 
+							maxWidth: "15ch"
+						}
+		},
+```
+
+Prop `headers` is basically an array containing objects with obligatory properties `name` and `key` and optional properties `link`, `datetime`, `json`, `actionButton`, `customStyle` and `customComponent`. Order of headers in a table is the same as it is in prop `headers`.
+
+Property `name` is a string that will be rendered as a header cell in headers row of the table. Property `key` is a key name for getting data from `data` prop, it must be the same as it is in objects in `data` prop.
+
+Property `customData` is an object, which allows developers to use custom styling for all cells in column assigned below partucilar header.
+
+Example:
+
+```
 title: {
 	text: "Table Demo",
 	icon: "cil-user"
 }
 ```
-
-Prop `headers` is basically an array containing objects with obligatory properties `name` and `key` and optional properties `link`, `datetime`, `json`, `actionButton` and `customComponent`. Order of headers in a table is the same as it is in prop `headers`.
-
-Property `name` is a string that will be rendered as a header cell in headers row of the table. Property `key` is a key name for getting data from `data` prop, it must be the same as it is in objects in `data` prop.
 
 Optional property `link` is either an object or a function. 
 Object contains properties `pathname` and `key`, where `pathname` is a string which is representing pathname for <Link> component and `key` is a key name for getting id for pathname.
@@ -622,7 +639,8 @@ props: {
 		pathname: string,
 		key: string
 	},
-	datetime?: boolean | { format: string }
+	datetime?: boolean | { format: string },
+	customStyle?: object
   }>,
   count: number, // count of all items
   currentPage: number, // current page of the table

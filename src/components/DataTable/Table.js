@@ -15,11 +15,15 @@ const TableCell = ({
 }) => {
 	if (!obj) return <td className="pl-3" style={{ whiteSpace: "nowrap" }}>-</td>
 
-	let cell, icon;
+	let cell, icon, customStyle;
 
 	const textLinkStyle = {
 		whiteSpace: "nowrap",
 		marginBottom: 0
+	}
+
+	if (header.customStyle) {
+		customStyle = header.customStyle;
 	}
 
 	if (header?.icon) {
@@ -67,6 +71,7 @@ const TableCell = ({
 				to={{ pathname }}
 				className="data-table-link"
 				style={textLinkStyle}
+				title={obj[header.key]}
 			>
 				{icon} {obj[header.key]}
 			</Link>
@@ -96,7 +101,7 @@ const TableCell = ({
 	}
 
 	else cell = obj[header.key] ? (
-		<p style={textLinkStyle}>{obj[header.key]}</p>
+		<p style={textLinkStyle} title={obj[header.key]}>{obj[header.key]}</p>
 	) : "-";
 
 	if (icon && !(header.link || header.datetime || header.actionButton)) {
@@ -104,11 +109,11 @@ const TableCell = ({
 	}
 
 	return idx === 0 && !isSublist ? (
-			<th className="data-table-th" scope="row">
+			<th className="data-table-th" scope="row" style={{...customStyle}}>
 				{cell}
 			</th>
 		) : (
-			<td className="pl-3 data-table-td" style={{ whiteSpace: "nowrap" }}>
+			<td className="pl-3 data-table-td" style={{ whiteSpace: "nowrap", ...customStyle }}>
 				{cell}
 			</td>
 		);

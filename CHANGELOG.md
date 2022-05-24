@@ -256,6 +256,10 @@
 
 - Replace 0.0.0.0 to localhost (INDIGO Sprint 220419, [!270](http://gitlab.teskalabs.int/bitswan/bitswan-webui/-/merge_requests/270))
 
+- Apply ellipsis to shorten long titles is DataTable (INDIGO Sprint 220419, [!275](https://github.com/TeskaLabs/asab-webui/pull/275))
+
+- Update of locales in modules/asab-config/MicroservicesContainers (INDIGO Sprint 220429, [!276](https://github.com/TeskaLabs/asab-webui/pull/276))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
@@ -323,3 +327,7 @@
 - Fix library global styles (INDIGO Sprint 220401, [!262](https://github.com/TeskaLabs/asab-webui/pull/262))
 
 - Fix missing authorization bearer token in the header of Sidebar request on ASAB-Config service (INDIGO Sprint 220419, [!265](https://github.com/TeskaLabs/asab-webui/pull/265))
+
+- Fix global vars (INDIGO Sprint 220429, [!272](https://github.com/TeskaLabs/asab-webui/pull/272))
+
+- Fix pagination' diappearance issue upon last item removal in DataTable (INDIGO Sprint 220429, [!274](https://github.com/TeskaLabs/asab-webui/pull/274))
