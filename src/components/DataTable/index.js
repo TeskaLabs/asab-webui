@@ -76,13 +76,9 @@ export function DataTable ({
 								<i className={`${title.icon} mr-2`}></i> : title.icon
 							}
 							{title.text}
-						</div>
-
-				
+						</div>				
 					
 					<ButtonGroup>
-
-					
 						{search && 
 							<div className="data-table-search align-self-center mx-2 data-table-button">
 								<InputGroup>

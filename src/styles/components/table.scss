@@ -1,3 +1,12 @@
+:root[data-theme="light"] {
+	--table-bg-color-hover: #F9FAFF;
+}	
+:root[data-theme="dark"] {
+	--table-bg-color-hover: #0A1940;
+}
+
+$table-bg-color-hover: var(--table-bg-color-hover);
+
 table {
     color: $text-color;
 }
@@ -40,6 +49,5 @@ tbody {
 
 .table-hover tbody tr:hover {
     color: $text-color;
-    background-color: $bg-color-dark;
-    filter: (brightness(90%));
+    background-color: $table-bg-color-hover;
 }
