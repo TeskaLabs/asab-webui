@@ -23,6 +23,12 @@ $text-dropdown-color: var(--text-dropdown-color);
 $toggle-bg: var(--toggle-bg);
 $toggle-text-color: var(--toggle-text-color);
 
+.dropdown, .dropdown .btn {
+	transition: none;
+	&:focus {
+		border: none;
+	}
+}
 
 .dropdown-toggle {
 	padding: 8px;
@@ -44,6 +50,7 @@ $toggle-text-color: var(--toggle-text-color);
 	& .dropdown-header {
 		font-weight: bold;
 		border-bottom: 1px solid $border-color;
+		padding: 1rem 1.5rem;
 	}
 	& .dropdown-item {
 		padding: 0.5rem 1.5rem;
