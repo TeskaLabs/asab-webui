@@ -204,6 +204,7 @@ const TableRow = ({
 								<TableCell
 									idx={idx}
 									obj={obj}
+									key={idx}
 									header={category}
 								>
 									{obj[category.key]}
@@ -270,7 +271,7 @@ const ASABTable = ({
 		<Headers sublists={!!category} headers={headers} advmode={advmode} className="data-table-header"/>
 		<tbody className="data-table-tbody">
 			{data.map((obj, idx) => (
-				<TableRow {...{ obj, advmode, headers, rowStyle, rowClassName, category }} key={idx}/>
+				<TableRow {...{ obj, advmode, headers, rowStyle, rowClassName, category }} key={idx} />
 			))}
 		</tbody>
 	</Table>
