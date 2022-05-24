@@ -9,18 +9,19 @@ import {
 import HelpButton from './HelpButton';
 import ThemeButton from '../../theme/ThemeButton';
 import Breadcrumbs from './BreadcrumbsRouter';
+import {Link} from "react-router-dom";
 
 export function Header(props) {
 	const HeaderService = props.app.locateService("HeaderService");
+	const href = props.brand_image.href ?? "/";
 
 	const [headerProperties, setHeaderProperties] = useState(false);
 
 	return (
 		<header className={`application-header ${headerProperties ? 'header-props-open' : ""}`}>
-			<Breadcrumbs app={props.app} />
-
-			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
-				(
+			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar == 'undefined') ?
+				<>
+					<Breadcrumbs app={props.app}/>
 					<Nav className="ml-auto header-props" navbar>
 						<ThemeButton />
 						<HelpButton />
@@ -30,8 +31,19 @@ export function Header(props) {
 							</NavItem>
 						))}
 					</Nav>
-				)
+				</>
 			:
+				<>
+				<div >
+					<Link to={href}>
+						<img
+							src={props.brand_image.full}
+							alt={props.title}
+							width="150"
+							height="50"
+						/>
+					</Link>
+				</div>
 				<Nav className="ml-auto header-props" navbar>
 					<ThemeButton />
 					<HelpButton />
@@ -49,6 +61,7 @@ export function Header(props) {
 								null
 					))}
 				</Nav>
+				</>
 
 			}
 
