@@ -52,7 +52,7 @@ tbody {
     border-bottom: 0;
 }
 
-.table-hover tbody tr:hover {
+.table-hover tbody tr:hover, tbody tr:hover {
     color: $text-color;
     background-color: $table-bg-color-hover;
 }
