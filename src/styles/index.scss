@@ -30,15 +30,13 @@ html {
 		}
 		
 		.react-json-view {
-			// background-color: $bg-color !important;
-			background-color: inherit ;
+			background-color: inherit !important;
 			p, span, h1, h2, h3, h4, h5, h6 {
-				color: inherit
+				color: inherit;
 			}
 		}
 	}
 }
-
 
 hr {
 	background-color: $border-color;
