@@ -26,10 +26,10 @@ $toggle-text-color: var(--toggle-text-color);
 
 .dropdown-toggle {
 	padding: 8px;
-	min-height: 30px;
+	// min-height: 30px;
 	// background-color: $toggle-bg !important;
 	color: $toggle-text-color;
-
+	justify-content: center;
 	& span {
 		color: $toggle-text-color !important;
 	}
@@ -56,14 +56,23 @@ $toggle-text-color: var(--toggle-text-color);
 }
 
 .show > .btn-secondary.dropdown-toggle {
-	background-color: $dropdown-toggle-bg;
-	color: $btn-txt;
+	background-color: $dropdown-toggle-bg !important;
+	color: $text-color !important;
 	&:focus, &:active {
 		border: none;
 		box-shadow: none;
 	}
 }
 
-.show > .btn-outline-secondary.dropdown-toggle [class^="cil-"] {
-	color: $toggle-text-color !important;
+.show > .btn-outline-secondary.dropdown-toggle {
+	color: $btn-secondary-bg-color !important;
+	background-color: $btn-secondary-outline-hover-bg-color;
+	[class^="cil-"] {
+		color: $toggle-text-color !important;
+	}
+	&:focus, &:active {
+		[class^="cil-"] {
+			color: $btn-secondary-bg-color !important;
+		}
+	}
 }
