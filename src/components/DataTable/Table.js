@@ -212,7 +212,7 @@ const TableRow = ({
 							);
 						}
 
-						return <td></td>
+						return <td key={idx}></td>
 					})) : (
 						headers.map((header, idx) => (
 							<TableCell 
