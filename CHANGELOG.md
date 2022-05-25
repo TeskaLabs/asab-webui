@@ -112,6 +112,8 @@
 
 - Make monaco loader part of the application (INDIGO Sprint 220401, [!258](https://github.com/TeskaLabs/asab-webui/pull/258))
 
+- Implement DataTable Sublist (INDIGO Sprint 220429, [!264](https://github.com/TeskaLabs/asab-webui/pull/264))
+
 - Make webpack configuration extandable (INDIGO Sprint 220419, [!271](https://github.com/TeskaLabs/asab-webui/pull/271))
 
 - Add version field to MicroservicesDetail and MicroservicesList (INDIGO Sprint 220401, [!261](https://github.com/TeskaLabs/asab-webui/pull/261))

@@ -9,7 +9,10 @@ import { DateTime } from '../DateTime';
 
 import ActionButton from './ActionButton';
 
-const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
+const TableCell = ({
+	obj, header, idx,
+	showJson, jsonTheme, isSublist
+}) => {
 	if (!obj) return <td className="pl-3" style={{ whiteSpace: "nowrap" }}>-</td>
 
 	let cell, icon, customStyle;
@@ -105,7 +108,7 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 		cell = <>{icon} {cell}</>;
 	}
 
-	return idx === 0 ? (
+	return idx === 0 && !isSublist ? (
 			<th className="data-table-th" scope="row" style={{...customStyle}}>
 				{cell}
 			</th>
@@ -116,10 +119,11 @@ const TableCell = ({ obj, header, idx, showJson, jsonTheme }) => {
 		);
 };
 
-const Headers = ({ headers, advmode }) => (
+const Headers = ({ headers, advmode, sublists }) => (
 	<>
 		<colgroup className="data-table-colgroup">
-			{advmode && <col style={{ width: "1px" }}/>}
+			{advmode && <col style={{ width: "1px" }} />}
+			{sublists && <col style={{ width: "1px" }} />}
 			{headers.map((_, idx) =>
 				<col
 					className={`data-table-col${idx}`}
@@ -132,14 +136,19 @@ const Headers = ({ headers, advmode }) => (
 		<thead className="thead-light data-table-thead">
 			<tr className="data-table-tr">
 				{advmode && <th className="pl-3 data-table-adv-header-th">{" "}</th>}
+				{sublists && <th className="pl-3 data-table-sub-header-th">{" "}</th>}
 				{headers.map((header, idx) => <th key={idx} className={`data-table-header-th${idx !== 0 ? " pl-3" : ""}`}>{header.name}</th>)}
 			</tr>
 		</thead>
 	</>
 );
 
-const TableRow = ({ obj, advmode, headers, rowStyle, rowClassName }) => {
-	const [isUnwrapped, setUnwrapped] = useState(false);
+const TableRow = ({
+	obj, advmode, headers,
+	rowStyle, rowClassName, category
+}) => {
+	const [isAdvUnwrapped, setAdvUnwrapped] = useState(false);
+	const [isSubUnwrapped, setSubUwrapped] = useState(true);
 
 	const getStyle = (obj) => {
 		if (rowStyle?.condition && rowStyle?.condition(obj)) {
@@ -174,20 +183,69 @@ const TableRow = ({ obj, advmode, headers, rowStyle, rowClassName }) => {
 	return (
 		<>
 			<tr className={`data-table-tr ${className}`} style={style}>
-				{advmode && <TableCell obj={obj} showJson={() => setUnwrapped(prev => !prev)}/>}
-				{headers.map((header, idx) => (
-					<TableCell 
-						obj={obj}
-						header={header}
-						idx={idx}
-						key={idx}
-						jsonTheme={jsonTheme}
-					/>
-				))}
+				{advmode && <TableCell obj={obj} showJson={() => setAdvUnwrapped(prev => !prev)}/>}
+				{category && (
+					<>
+						{isSubUnwrapped ? (
+							<td onClick={() => setSubUwrapped(false)}>
+								<i className="cil-chevron-circle-down-alt"></i>
+							</td>
+						) : (
+							<td onClick={() => setSubUwrapped(true)}>
+								<i className="cil-chevron-circle-right-alt"></i>
+							</td>
+						)}
+					</>
+				)}
+				{category ? (
+						headers.map((_, idx) => {
+						if (idx === 0) {
+							return (
+								<TableCell
+									idx={idx}
+									obj={obj}
+									key={idx}
+									header={category}
+								>
+									{obj[category.key]}
+								</TableCell>
+							);
+						}
+
+						return <td key={idx}></td>
+					})) : (
+						headers.map((header, idx) => (
+							<TableCell 
+								obj={obj}
+								header={header}
+								idx={idx}
+								key={idx}
+								jsonTheme={jsonTheme}
+							/>
+						))
+					)
+				}
 			</tr>
+			{category?.sublistKey && obj[category.sublistKey] && isSubUnwrapped && 
+				obj[category.sublistKey]["data"].map((child, idx) => (
+					<tr className="data-table-tr-child" style={style} key={`child-${idx}`}>
+						{advmode && <td></td>}
+						<td></td>
+						{headers.map((header, idx) => (
+							<TableCell
+								isSublist
+								obj={child}
+								header={header}
+								idx={idx}
+								key={idx}
+								jsonTheme={jsonTheme}
+							/>
+						))}
+					</tr>
+			))}
 			
 			
-			{advmode && isUnwrapped && (
+			{advmode && isAdvUnwrapped && (
 				<tr className="data-table-adv-tr" style={{ backgroundColor: "rgba(0, 0, 0, 0.025)"}}>
 					<td 
 						colSpan={headers.length+1}
@@ -205,12 +263,15 @@ const TableRow = ({ obj, advmode, headers, rowStyle, rowClassName }) => {
 	)
 }
 
-const ASABTable = ({ data, headers, advmode, rowStyle, rowClassName }) => (
+const ASABTable = ({ 
+	data, headers, advmode,
+	rowStyle, rowClassName, category
+}) => (
 	<Table size="sm" hover responsive>
-		<Headers headers={headers} advmode={advmode} className="data-table-header"/>
+		<Headers sublists={!!category} headers={headers} advmode={advmode} className="data-table-header"/>
 		<tbody className="data-table-tbody">
 			{data.map((obj, idx) => (
-				<TableRow {...{ obj, advmode, headers, rowStyle, rowClassName }} key={idx}/>
+				<TableRow {...{ obj, advmode, headers, rowStyle, rowClassName, category }} key={idx} />
 			))}
 		</tbody>
 	</Table>
