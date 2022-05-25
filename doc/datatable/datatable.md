@@ -476,20 +476,41 @@ let ConfigDefaults = {
 };
 ```
 
-Prop `sublistsKey` is a string which represents a key for target object from list of data. It will be used to generate sublist for current item. If `sublistKey` is not present in target object then sublist for this object will not be generated 
+Prop `category` is an object which contains a key `sublistKey` for children object from list of data and `key` which will be taken to render td for target parent object. Also you can path some type prop like `link` or `customComponent` to generate cell component for parent.
+`sublistKey` value of parent object also should an object with such structure: 
+```js
+"children": {
+	"data": [...],
+	"count": 10
+}
+```
+NOTE: If `sublistKey` is not present in target parent object then sublist for this object will not be generated 
 
 ```js
 const data = [
 	{ // this item will have sublist
-		"name": "Parent item",
+		"parent_title": "Parent item",
 		"children": [
 			{
-				"name": "Child item"
-			}
+				"child_title": "Child item",
+				"age": 0
+			},
+			"count": 1
 		]
 	},
 	{ // this item will not have a sublist
-		"name": "Item without children"
+		"parent-title": "Item without children"
+	}
+]
+
+const headers = [
+	{
+		key: "child_title",
+		name: "Title"
+	},
+	{
+		key: "age",
+		name: "Age"
 	}
 ]
 
@@ -498,7 +519,11 @@ return (
 	<DataTable 
 		...
 		data={data}
-		sublistsKey="children"
+		category={{
+			key: "parent_title",
+			sublistsKey:"children",
+			customComponent: (parentObj) => parentObj.name
+		}}
 	/>
 );
 ```
