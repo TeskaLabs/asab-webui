@@ -109,6 +109,28 @@
 		"Only tar.gz files are allowed": "Only tar.gz files are allowed",
 		"Choose file": "Choose file"
 	},
+	"MicroservicesContainer": {
+		"ID": "ID",
+		"Launch time": "Launch time",
+		"Host": "Host",
+		"Created at": "Created at",
+		"Version": "Version",
+		"Microservices": "Microservices",
+		"Failed to fetch data": "Failed to fetch data"
+	},
+	"MicroserviceDetailContainer" : {
+		"This microservice doesn't exist": "This microservice doesn't exist",
+		"Failed to get the microservice": "Failed to get the microservice",
+		"Something went wrong and this microservice wasn't found": "Something went wrong and this microservice wasn't found",
+		"Service": "Service",
+		"Detail": "Detail",
+		"ID": "ID",
+		"Host": "Host",
+		"Launch time": "Launch time",
+		"Created at": "Created at",
+		"Version": "Version",
+		"Attention": "Attention"
+	},
 
 	"You do not have access rights to perform this action": "You do not have access rights to perform this action"
 }
