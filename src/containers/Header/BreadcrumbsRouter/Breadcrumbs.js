@@ -26,7 +26,7 @@ const Breadcrumbs = ({
 	// TODO: Add disabling breadcrumbs
 	return (
 		<div className="breadcrumbs p-auto">
-			<h4 className="mr-2">{crumbs[crumbs.length-1].name} {crumbs.length > 1 ? "/" : ""}</h4>
+			<h4 className="mr-2">{crumbs[crumbs.length-1].name} {crumbs.length > 1 ? "|" : ""}</h4>
 			<Breadcrumb>
 				{crumbs.map((crumb, idx) => {
 					if (idx === (crumbs.length - 1)) return ;
