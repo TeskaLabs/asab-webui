@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 function SplashScreen(props) {
+	console.log(props, props.brand_image, "props");
 	
 	return (
-		<div className="text-center animated fadeIn" style={{marginTop: "20%"}}>
+		<div className="text-center animated fadeIn w-100" style={{margin: "20% auto 0"}}>
 			{props.brand_image != null ?
 			<img
 				src={props.brand_image.full}

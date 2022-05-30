@@ -28,16 +28,21 @@ html {
 		p, span, h1, h2, h3, h4, h5, h6, div {
 			color: $text-color;
 		}
+		a {
+			color: $text-secondary-color;
+			&:hover {
+				color: $primary
+			}
+		}
 		
 		.react-json-view {
-			background-color: $bg-color !important;
+			background-color: inherit !important;
 			p, span, h1, h2, h3, h4, h5, h6 {
-				color: inherit
+				color: inherit;
 			}
 		}
 	}
 }
-
 
 hr {
 	background-color: $border-color;
@@ -120,6 +125,10 @@ hr {
 
 .hidden {
 	display: none;
+}
+
+.without-sidebar {
+	margin-left: 0;
 }
 
 /* Import styles */

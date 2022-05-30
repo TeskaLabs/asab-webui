@@ -2,8 +2,7 @@
 
 // STYLES FOR Table.js
 
-.table .thead-light th, .table .thead-dark th {
-    background-color: $bg-color;
+table th, .table th {
     border: none;
     height: 48px;
     vertical-align: middle;
@@ -24,6 +23,10 @@
     padding-left: 1rem;
 }
 
+thead .data-table-tr th {
+    border-top: none;
+}
+
 .data-table-tbody {
 
     background-color: $bg-color-dark;
@@ -42,6 +45,11 @@
             padding: auto;
         }
     }
+}
+
+table ~ .react-json-view {
+    border: 1px solid blue;
+    background-color: $bg-color-dark
 }
 
 // STYLES FOR index.js
@@ -71,7 +79,7 @@
         &-dropdown {
             display: flex;
             justify-content: center;
-            color: $text-color;
+            color: $text-color !important;
             font-weight: 400;
             margin:  auto;
             & button {
