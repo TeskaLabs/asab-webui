@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Pagination, PaginationItem, PaginationLink, Dropdown, DropdownMenu, DropdownItem, DropdownToggle, ButtonDropdown } from 'reactstrap';
 
@@ -24,6 +24,12 @@ export default function ({ currentPage, setPage, lastPage }) {
 	for (let i = start; i <= end; i++) {
 		pages.push(i);
 	}
+
+	useEffect(() => {
+		if (currentPage > lastPage && lastPage != 0) {
+			setPage(lastPage);
+		}
+	}, [lastPage])
 
 	return (
 		<div className="data-table-pagination">	

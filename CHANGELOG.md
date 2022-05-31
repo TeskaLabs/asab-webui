@@ -112,6 +112,8 @@
 
 - Make monaco loader part of the application (INDIGO Sprint 220401, [!258](https://github.com/TeskaLabs/asab-webui/pull/258))
 
+- Implement DataTable Sublist (INDIGO Sprint 220429, [!264](https://github.com/TeskaLabs/asab-webui/pull/264))
+
 - Make webpack configuration extandable (INDIGO Sprint 220419, [!271](https://github.com/TeskaLabs/asab-webui/pull/271))
 
 - Add version field to MicroservicesDetail and MicroservicesList (INDIGO Sprint 220401, [!261](https://github.com/TeskaLabs/asab-webui/pull/261))
@@ -254,6 +256,10 @@
 
 - Replace 0.0.0.0 to localhost (INDIGO Sprint 220419, [!270](http://gitlab.teskalabs.int/bitswan/bitswan-webui/-/merge_requests/270))
 
+- Apply ellipsis to shorten long titles is DataTable (INDIGO Sprint 220419, [!275](https://github.com/TeskaLabs/asab-webui/pull/275))
+
+- Update of locales in modules/asab-config/MicroservicesContainers (INDIGO Sprint 220429, [!276](https://github.com/TeskaLabs/asab-webui/pull/276))
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
@@ -323,3 +329,5 @@
 - Fix missing authorization bearer token in the header of Sidebar request on ASAB-Config service (INDIGO Sprint 220419, [!265](https://github.com/TeskaLabs/asab-webui/pull/265))
 
 - Fix global vars (INDIGO Sprint 220429, [!272](https://github.com/TeskaLabs/asab-webui/pull/272))
+
+- Fix pagination' diappearance issue upon last item removal in DataTable (INDIGO Sprint 220429, [!274](https://github.com/TeskaLabs/asab-webui/pull/274))
