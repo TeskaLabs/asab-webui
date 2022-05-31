@@ -13,7 +13,7 @@ DataTable can be mounted in its own container as it is implemented in demo app o
 
 Example from demo:
 
-```
+```js
 import HomeContainer from './containers/HomeContainer'
 import Module from 'asab-webui/abc/Module';
 import TableContainer from './containers/TableContainer';
@@ -43,7 +43,7 @@ DataTable needs obligatory props `headers`, `data`, `count`, `currentPage`, `set
 
 Example of `DataTable` with obligatory props:
 
-```
+```js
 <DataTable
 	title={{text: "Table Demo", icon: 'cil-user'}}
 	data={data}
@@ -58,7 +58,7 @@ Some props can be obtained from configuration of the project  (e.g. in demo app 
 
 Example of configuration for `DataTable`:
 
-```
+```js
 let ConfigDefaults = {
 	...
 	table: {
@@ -76,7 +76,7 @@ let ConfigDefaults = {
 
 Example of obtaining configuration in Container:
 
-```
+```js
 	...
 	const headers = props.app.Config.get('table').headers;
 	const configLimit = props.app.Config.get('table').limit;
@@ -88,6 +88,27 @@ Prop `title` is an object that has obligatory property `text` which is string an
 
 Example:
 
+```js
+headers: [ 
+		{ 
+			name: 'Name',
+			key: 'username',
+			customStyle: { textOverflow: "ellipsis", 
+							overflow: "hidden", 
+							whiteSpace: "nowrap", 
+							maxWidth: "15ch"
+						}
+		},
+```
+
+Prop `headers` is basically an array containing objects with obligatory properties `name` and `key` and optional properties `link`, `datetime`, `json`, `actionButton`, `customStyle` and `customComponent`. Order of headers in a table is the same as it is in prop `headers`.
+
+Property `name` is a string that will be rendered as a header cell in headers row of the table. Property `key` is a key name for getting data from `data` prop, it must be the same as it is in objects in `data` prop.
+
+Property `customData` is an object, which allows developers to use custom styling for all cells in column assigned below partucilar header.
+
+Example:
+
 ```
 title: {
 	text: "Table Demo",
@@ -95,20 +116,16 @@ title: {
 }
 ```
 
-Prop `headers` is basically an array containing objects with obligatory properties `name` and `key` and optional properties `link`, `datetime`, `json`, `actionButton` and `customComponent`. Order of headers in a table is the same as it is in prop `headers`.
-
-Property `name` is a string that will be rendered as a header cell in headers row of the table. Property `key` is a key name for getting data from `data` prop, it must be the same as it is in objects in `data` prop.
-
 Optional property `link` is either an object or a function. 
 Object contains properties `pathname` and `key`, where `pathname` is a string which is representing pathname for <Link> component and `key` is a key name for getting id for pathname.
 Output for link cell would look like:
 
-```
+```js
 <Link to={{ pathname: link.pathname + obj[link.key] }} >
 ```
 A function allows more variability and returns complete path. Output for link cell would be a string returned from calling the link function.
 
-```
+```js
 const headers = [
 		...,
 		{
@@ -139,7 +156,7 @@ About how to use optional property `customComponent` you may find information in
 
 Example:
 
-```
+```js
 headers: [
 	{ name: 'ID', key: '_id' },
 	{ name: 'Name', key: 'username', link: { pathname: '/user/', key: '_id' } },
@@ -168,7 +185,7 @@ Array `data` may be fetched from `axios` in container of the `DataTable` for exa
 
 Example of fetching data with axios:
 
-```
+```js
 const fetchData = (page, searchValue="", limit=10) => {
 	Axios.get("", {params: {p:page, i: limit, f: searchValue}})
 	.then(response => {
@@ -185,7 +202,7 @@ Also `DataTable` needs props `count`, `currentPage` and `setPage`. Prop `count` 
 
 Example of handling and using `data`, `count`, `currentPage` and `setPage`:
 
-```
+```js
 import React, { useState } from 'react';
 ...
 
@@ -224,7 +241,7 @@ Prop `count` is ussualy obtained from API endpoint with fetched data.
 
 Example of fetched data:
 
-```
+```js
 {
 	data: [...],
 	count: /*some amount*/
@@ -233,11 +250,11 @@ Example of fetched data:
 
 # Optional
 
-`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `customButton`, `customComponent`, `search`, `onSearch`, `isLoading`, `noItemsComponent`, `customCardBodyComponent` and `onDownload`.
+`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `customButton`, `customComponent`, `search`, `onSearch`, `isLoading`, `noItemsComponent`, `customCardBodyComponent`, `sublistsKey` and `onDownload`.
 
 Example of `DataTable` with all props:
 
-```
+```js
 <DataTable
 	title={{text: "Table Demo", icon: 'cil-user'}}
 	data={data}
@@ -263,7 +280,7 @@ Props `limit` and `setLimit` is used to handle limiting the amount of objects pe
 
 Example of handling and using:
 
-```
+```js
 import React, { useState } from 'react';
 
 ...
@@ -289,7 +306,7 @@ Property `icon` can either be a React Component (e.g. from package `@material-ui
 
 Example:
 
-```
+```js
 	...
 	return (
 		<DataTable
@@ -317,7 +334,7 @@ let ConfigDefaults = {
 You may also use `buttonWithAuthz` which will create `ButtonWithAuthz` component in the header. `buttonWithAuthz` accepts all `ButtonWithAuthz` props. For additional information check how to use `ButtonWithAuthz`
 
 Example of `buttonWithAuthz`:
-```
+```js
 ...
 	const buttonWithAuthzProps = {
 		title:"Button with authz",
@@ -348,7 +365,7 @@ Prop `customButton` accepts object with three properties:
 3) `props` - object with props which will be passed to `Button` component of `reactstrap`
 
 Example of `customButton`:
-```
+```js
 ...
 	const customButton = {
 		text: "Custom button",
@@ -376,7 +393,7 @@ Example of `customButton`:
 Prop `customComponent` is used in case if you need to create custom component in the header of `DataTable`. It accepts some component which will be placed at the end of the header:
 
 Example of `customComponent`:
-```
+```js
 ...
 	const customComponent = (
 		<Button
@@ -405,7 +422,7 @@ Second prop `onSearch` is a function which executes after 500ms after last chang
 
 Example of handling and using search and onSearch:
 
-```
+```js
 import React, { useState } from 'react';
 ...
 
@@ -449,7 +466,7 @@ function (props) {
 
 Example of configDefaults for `search`:
 
-```
+```js
 let ConfigDefaults = {
 	...
 	table: {
@@ -459,13 +476,65 @@ let ConfigDefaults = {
 };
 ```
 
+Prop `category` is an object which contains a key `sublistKey` for children object from list of data and `key` which will be taken to render td for target parent object. Also you can path some type prop like `link` or `customComponent` to generate cell component for parent.
+`sublistKey` value of parent object also should an object with such structure: 
+```js
+"children": {
+	"data": [...],
+	"count": 10
+}
+```
+NOTE: If `sublistKey` is not present in target parent object then sublist for this object will not be generated 
+
+```js
+const data = [
+	{ // this item will have sublist
+		"parent_title": "Parent item",
+		"children": [
+			{
+				"child_title": "Child item",
+				"age": 0
+			},
+			"count": 1
+		]
+	},
+	{ // this item will not have a sublist
+		"parent-title": "Item without children"
+	}
+]
+
+const headers = [
+	{
+		key: "child_title",
+		name: "Title"
+	},
+	{
+		key: "age",
+		name: "Age"
+	}
+]
+
+...
+return (
+	<DataTable 
+		...
+		data={data}
+		category={{
+			key: "parent_title",
+			sublistsKey:"children",
+			customComponent: (parentObj) => parentObj.name
+		}}
+	/>
+);
+```
+
 Prop `onDownload` is a function that returns a list of items that needs to be downloaded. When such function is provided `DataTable` will automatically download csv with provided list.
 For downloading content which is displayed with custom components check section Custom Components.
 
 Prop `isLoading` is used to notify user if content of DataTable is loading. It accepts boolean and if `true` then `DataTable` return `Spinner` component in it's body. You may set it to true when your application is trying to fetch data for you `DataTable` and set to false when fetching has finished.
 
 Example of using `isLoading`:
-```
+```js
 const [isLoading, setLoading] = useState(false);
 
 useEffect(() => {
@@ -494,7 +563,7 @@ return (
 Prop `noItemsComponent` is used if you want to define custom component or string for displaying message when number of items in data passed into `DataTable` is zero. As string just write message you want to display. 
 
 Example of using `noItemsComponent` as string:
-```
+```js
 ...
 import { DataTable } from 'asab-webui';
 
@@ -510,7 +579,7 @@ import { DataTable } from 'asab-webui';
 Also you can pass into `noItemsComponent` your custom component instead of string. `DataTable` will render it instead of default one with default styles.
 
 Example of using `noItemsComponent` as string:
-```
+```js
 ...
 import { DataTable } from 'asab-webui';
 
@@ -548,7 +617,7 @@ Optional property `customComponent` is needed to provide some uncommon component
 
 Function `generate` is called with two arguments during `DataTable` rendering process and it should return component which will be placed inside table cell. First argument is object from data array representing row. Below is example how such header may look like:
 
-```
+```js
 headers = [
 	...
 	{
@@ -562,7 +631,7 @@ headers = [
 
 Second argument that `DataTable` pass to `generate` is header itself and it is needed if you want to provide some data from header to your custom component. Example of using that is below:
 
-```
+```js
 {
 	name: "Fancy text",
 	customComponent:{
@@ -573,7 +642,7 @@ Second argument that `DataTable` pass to `generate` is header itself and it is n
 
 Property `onDownload` of `customComponent` is needed if you want to use custom components with downloading `DataTable` content functionality. It is a simple function that returns some string and which will be called when csv file is generating. It should also accept object and header as arguments. Below you may find example:
 
-```
+```js
 {
 	name: "Fancy text",
 	customComponent:{
@@ -585,7 +654,7 @@ Property `onDownload` of `customComponent` is needed if you want to use custom c
 
 # DataTable props
 
-```
+```js
 props: {
   data: Array<objects> // objects that will represent rows in a table
   headers: Array<{
@@ -595,7 +664,8 @@ props: {
 		pathname: string,
 		key: string
 	},
-	datetime?: boolean | { format: string }
+	datetime?: boolean | { format: string },
+	customStyle?: object
   }>,
   count: number, // count of all items
   currentPage: number, // current page of the table

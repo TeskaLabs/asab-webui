@@ -112,6 +112,8 @@
 
 - Make monaco loader part of the application (INDIGO Sprint 220401, [!258](https://github.com/TeskaLabs/asab-webui/pull/258))
 
+- Implement DataTable Sublist (INDIGO Sprint 220429, [!264](https://github.com/TeskaLabs/asab-webui/pull/264))
+
 - Make webpack configuration extandable (INDIGO Sprint 220419, [!271](https://github.com/TeskaLabs/asab-webui/pull/271))
 
 - Add version field to MicroservicesDetail and MicroservicesList (INDIGO Sprint 220401, [!261](https://github.com/TeskaLabs/asab-webui/pull/261))
@@ -253,6 +255,8 @@
 - Refactor validateConfiguration function to be able to handle "Authorization" section name of configuration (INDIGO Sprint 220419, [!268](http://gitlab.teskalabs.int/bitswan/bitswan-webui/-/merge_requests/268))
 
 - Replace 0.0.0.0 to localhost (INDIGO Sprint 220419, [!270](http://gitlab.teskalabs.int/bitswan/bitswan-webui/-/merge_requests/270))
+
+- Apply ellipsis to shorten long titles is DataTable (INDIGO Sprint 220419, [!275](https://github.com/TeskaLabs/asab-webui/pull/275))
 
 - Update of locales in modules/asab-config/MicroservicesContainers (INDIGO Sprint 220429, [!276](https://github.com/TeskaLabs/asab-webui/pull/276))
 
