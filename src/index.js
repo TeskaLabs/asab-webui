@@ -17,5 +17,6 @@ export { DateTime } from './components/DateTime';
 export { default as timeToString } from './components/DateTime/timeToString';
 export { default as useDateFNSLocale } from './components/DateTime/useDateFNSLocale';
 export { validateConfiguration } from './config/validateConfiguration';
+export { default as Editor } from './components/Editor';
 
 import "./style.scss";
