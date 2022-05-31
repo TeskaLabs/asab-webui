@@ -260,6 +260,8 @@
 
 - Update of locales in modules/asab-config/MicroservicesContainers (INDIGO Sprint 220429, [!276](https://github.com/TeskaLabs/asab-webui/pull/276))
 
+- DataTable decomposition (INDIGO Sprint 220513, [!279](https://github.com/TeskaLabs/asab-webui/pull/279))
+
 - MicroserviceDetailContainer Fallbacks and Container Info Update (INDIGO Sprint 220527, [!281](https://github.com/TeskaLabs/asab-webui/pull/281))
 
 ### Bugfixes
