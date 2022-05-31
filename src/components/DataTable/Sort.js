@@ -10,23 +10,23 @@ const Sort = ({ sort }) => {
 
 	return (
 		<Dropdown
-            isOpen={isSortOpen}
-            toggle={() => setSortDropdown(prev => !prev)}
-        >
-            <DropdownToggle size="sm" caret>
-                {sort.icon && <i className={`${sort.icon} mr-1`}></i>}
-                {sort.title}
-            </DropdownToggle>
-            <DropdownMenu>
-            {sort.items.map((item, idx) => (
-                <DropdownItem onClick={() => sort.onClick(item.value)} key={idx}>
-                    {item.icon && <i className={`${item.icon} mr-1`}></i>}
-                    {item.name}
-                </DropdownItem>
-                ))
-            }
-            </DropdownMenu>
-        </Dropdown>
+			isOpen={isSortOpen}
+			toggle={() => setSortDropdown(prev => !prev)}
+		>
+			<DropdownToggle size="sm" caret>
+				{sort.icon && <i className={`${sort.icon} mr-1`}></i>}
+				{sort.title}
+			</DropdownToggle>
+			<DropdownMenu>
+				{sort.items.map((item, idx) => (
+					<DropdownItem onClick={() => sort.onClick(item.value)} key={idx}>
+						{item.icon && <i className={`${item.icon} mr-1`}></i>}
+						{item.name}
+					</DropdownItem>
+					))
+				}
+			</DropdownMenu>
+		</Dropdown>
 	);
 }
 
