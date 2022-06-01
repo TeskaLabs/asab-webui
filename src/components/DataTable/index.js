@@ -157,7 +157,7 @@ export function DataTable ({
 
 						<div className="data-table-card-footer-left">
 							{setLimit &&
-								<div className="data-table-limit">
+
 										<LimitDropdown 
 											translationRoute={translationRoute}
 											limit={limit}
@@ -165,7 +165,7 @@ export function DataTable ({
 											setPage={setPage}
 											limitValues={limitValues}
 										/>
-								</div>
+
 							}
 
 							{count ? (

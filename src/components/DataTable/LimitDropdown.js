@@ -12,20 +12,25 @@ const LimitDropdown = ({ translationRoute = '', limit = 10, limitValues, setPage
 	const [isLimitOpen, setLimitDropdown] = useState(false);
 
 	return (
-		<Dropdown
-			isOpen={isLimitOpen}
-			toggle={() => setLimitDropdown(prev => !prev)}
-			className="float-right"
-		>
-			<DropdownToggle caret size="sm">
-				{t(translationRoute ? `${translationRoute}|Limit` : "Limit")}: {limit}
-			</DropdownToggle>
-			<DropdownMenu>
+		<div className="data-table-limit">
+			{/* {t(translationRoute ? `${translationRoute}|Limit` : "Limit")}: */}
+			{/* TODO: Add translation */}
+			Items per page: 
+			<Dropdown
+				isOpen={isLimitOpen}
+				toggle={() => setLimitDropdown(prev => !prev)}
+				className="data-table-limit-dropdown"
+			>
+				<DropdownToggle caret >
+					{limit}
+				</DropdownToggle>
+				<DropdownMenu>
 				{
 					limitValues.map((value, idx) => <DropdownItem onClick={() => { setPage(1); setLimit(value); }} key={idx}>{value}</DropdownItem>)
 				}
-			</DropdownMenu>
-		</Dropdown>
+				</DropdownMenu>
+			</Dropdown>
+		</div>
 	);
 }
 
