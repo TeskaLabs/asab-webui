@@ -126,6 +126,7 @@
 		"Detail": "Detail",
 		"ID": "ID",
 		"Host": "Host",
+		"Server": "Server",
 		"Launch time": "Launch time",
 		"Created at": "Created at",
 		"Version": "Version",
