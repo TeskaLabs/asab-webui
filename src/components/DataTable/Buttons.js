@@ -9,7 +9,7 @@ export const CreateButton = ({ createButton }) => {
 	return (
 		<div className="float-right ml-3 data-table-create-button">
 			<Link to={{ pathname: createButton.pathname }}>
-				<Button tag="span" size="sm">
+				<Button tag="span">
 					{createButton.icon && 
 						<span className="pr-1">
 							{typeof createButton.icon === 'string' ? <i className={createButton.icon}></i> : createButton.icon}
@@ -41,10 +41,12 @@ export const DownloadButton = ({ onDownload, headers, title }) => {
 	}
 
 	return (
-		<Button tag="span" size="sm" onClick={downloadHandler} >
-			<i className="cil-arrow-bottom"></i>
-			Download
-		</Button>
+		<div className="float-right ml-3 data-table-download-button">
+			<Button tag="span" onClick={downloadHandler} >
+				<i className="cil-arrow-bottom"></i>
+				Download
+			</Button>
+		</div>
 	);
 }
 
@@ -86,6 +88,27 @@ export const ActionButton = ({ actionButton, row, header }) => {
 				))}
 			</DropdownMenu>
 		</Dropdown>
+	)
+}
+
+export const CustomButton = ({ customButton }) => {
+
+	return (
+		<div className="data-table-create-button data-table-button">
+			<Button
+				tag="span"
+				{...customButton?.props}
+			>
+				{customButton.icon && 
+					<span className="pr-1">
+						{typeof customButton.icon === 'string' ? 
+							<i className={customButton.icon}></i> : customButton.icon
+						}
+					</span>
+				}
+				{customButton?.text}
+			</Button>
+		</div>
 	)
 }
 

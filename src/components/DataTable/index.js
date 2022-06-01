@@ -4,14 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { 
 	Card, Row, Col, ButtonGroup,
 	CardFooter, CardHeader, CardBody,
-	Button, Dropdown, DropdownToggle,
-	DropdownMenu, DropdownItem, Container
+	Button, Container
 } from 'reactstrap';
 
 import Table from './Table';
 import Pagination from '../Pagination';
 import LimitDropdown from './LimitDropdown';
-import { DownloadButton, CreateButton } from './Buttons';
+import { DownloadButton, CreateButton, CustomButton } from './Buttons';
 import Search from './Search';
 import Sort from './Sort';
 // import CustomDropdownButton from './CustomDropdownButton'; DON'T REMOVE YET. IT MAY BE USEFUL ON REFACTORING DATATABLE
@@ -77,59 +76,29 @@ export function DataTable ({
 
 						<ButtonGroup>
 							{search && 
-								<div className="float-right ml-3 data-table-search">
 									<Search 
 										search={search}
 										filterValue={filterValue}
 										setFilterValue={setFilterValue}
 									/>
-								</div>
 							}
 							
-							{sort && 
-								<div className="float-right ml-3 data-table-sort">
-									<Sort 
-										sort={sort} 
-									/>
-								</div>
-							}
+							{sort && <Sort sort={sort} />}
 
 							<div className="data-table-create-button data-table-button">{customComponent}</div>
 
-							{customButton && 
-								<div className="data-table-create-button data-table-button">
-									<Button
-										tag="span"
-										{...customButton?.props}
-									>
-										{customButton.icon && 
-											<span className="pr-1">
-												{typeof customButton.icon === 'string' ? 
-													<i className={customButton.icon}></i> : customButton.icon
-												}
-											</span>
-										}
-										{customButton?.text}
-									</Button>
-								</div>
-							}
+							{customButton && <CustomButton customButton={CustomButton} />}
 
 							{buttonWithAuthz && <ButtonWithAuthz {...buttonWithAuthz} className="data-table-button-with-authz data-table-button"/>}
 							
-							{createButton &&
-								<CreateButton 
-									createButton={createButton}
-								/>
-							}
+							{createButton && <CreateButton createButton={createButton} />}
 
 							{onDownload &&
-								<div className="float-right ml-3 data-table-download-button">
 									<DownloadButton
 										onDownload={onDownload}
 										headers={headers}
 										title={title}
 									/>
-								</div>
 							}
 						</ButtonGroup>
 					</CardHeader>
@@ -157,15 +126,13 @@ export function DataTable ({
 
 						<div className="data-table-card-footer-left">
 							{setLimit &&
-
-										<LimitDropdown 
-											translationRoute={translationRoute}
-											limit={limit}
-											setLimit={setLimit}
-											setPage={setPage}
-											limitValues={limitValues}
-										/>
-
+								<LimitDropdown 
+									translationRoute={translationRoute}
+									limit={limit}
+									setLimit={setLimit}
+									setPage={setPage}
+									limitValues={limitValues}
+								/>
 							}
 
 							{count ? (
