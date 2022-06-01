@@ -628,8 +628,8 @@ function ConfigEditor(props) {
 							>
 								<DropdownToggle
 									caret
+									outline
 								>
-									<span className="pr-1">+</span>
 									{t('ASABConfig|Add')}
 								</DropdownToggle>
 								<DropdownMenu
