@@ -1,20 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { saveAs } from 'file-saver';
-import { format } from 'date-fns';
 
 import { 
-	Card, Row, Col,
+	Card, Row, Col, ButtonGroup,
 	CardFooter, CardHeader, CardBody,
-	Button, Input, InputGroup,
-	InputGroupAddon, InputGroupText,
-	Dropdown, DropdownToggle,
-	DropdownMenu, DropdownItem, Container, ButtonGroup
+	Button, Dropdown, DropdownToggle,
+	DropdownMenu, DropdownItem, Container
 } from 'reactstrap';
 
 import Table from './Table';
 import Pagination from '../Pagination';
+import LimitDropdown from './LimitDropdown';
+import { DownloadButton, CreateButton } from './Buttons';
+import Search from './Search';
+import Sort from './Sort';
 // import CustomDropdownButton from './CustomDropdownButton'; DON'T REMOVE YET. IT MAY BE USEFUL ON REFACTORING DATATABLE
 
 import './table.scss';
@@ -26,7 +25,7 @@ export function DataTable ({
 	data, headers, limit = 10,
 	setLimit, count, currentPage = 1,
 	setPage, title, createButton,
-	search, onSearch,
+	search, onSearch, onDownload,
 	isLoading, translationRoute = '',
 	buttonWithAuthz, sort, noItemsComponent,
 	customButton, customComponent,
@@ -36,7 +35,6 @@ export function DataTable ({
 	contentLoader = true, category
 	}) {
 	const [filterValue, setFilterValue] = useState('');
-	const [isSortOpen, setSortDropdown] = useState(false);
 	const [isLimitOpen, setLimitDropdown] = useState(false);
 	const timeoutRef = useRef(null);
 	const [countDigit, setCountDigit] = useState(1)
@@ -63,7 +61,6 @@ export function DataTable ({
 		} else {
 			setCountDigit(data.length - (currentPage*limit) + 1)
 		}
-
 	}, [limit])
 
 	return (
@@ -77,97 +74,75 @@ export function DataTable ({
 							}
 							{title.text}
 						</div>				
-					
-					<ButtonGroup>
-						{search && 
-							<div className="data-table-search align-self-center mx-2 data-table-button">
-								<InputGroup>
-								{search.icon && 
-									<InputGroupAddon addonType="prepend">
-									<InputGroupText className="data-table-input-group-text pl-2"><i className={search.icon}></i></InputGroupText>
-									</InputGroupAddon>
-								}
-								<Input
-									value={filterValue}
-									onChange={e => setFilterValue(e.target.value)}
-									placeholder={search.placeholder}
-									type="text"
-									bsSize="sm"
-								/>
-								</InputGroup>
-							</div>
-						}
-						
-						{sort && 
-							<div className="data-table-sort data-table-button">
-								<Dropdown
-									isOpen={isSortOpen}
-									toggle={() => setSortDropdown(prev => !prev)}
-								>
-									<DropdownToggle  caret outline>
-										{sort.icon && <i className={`${sort.icon} mr-1`}></i>}
-										{sort.title}
-									</DropdownToggle>
-									<DropdownMenu>
-									{
-										sort.items.map((item, idx) => (
-											<DropdownItem onClick={() => sort.onClick(item.value)} key={idx}>
-												{item.icon && <i className={`${item.icon} mr-1`}></i>}
-												{item.name}
-											</DropdownItem>
-										))
-									}
-									</DropdownMenu>
-								</Dropdown>
-							</div>
-						}
 
-						<div className="data-table-create-button data-table-button">{customComponent}</div>
-						{customButton && 
-							<div className="data-table-create-button data-table-button">
-								<Button
-									tag="span"
-									{...customButton?.props}
-								>
-									{customButton.icon && 
-										<span className="pr-1">
-											{typeof customButton.icon === 'string' ? 
-												<i className={customButton.icon}></i> : customButton.icon
-											}
-										</span>
-									}
-									{customButton?.text}
-								</Button>
-							</div>
-						}
-						{buttonWithAuthz && <ButtonWithAuthz {...buttonWithAuthz} className="data-table-button-with-authz data-table-button"/>}
-						{createButton &&
-							<div className="data-table-create-button data-table-button">
-									<Button outline tag="span" >
-								<Link to={{ pathname: createButton.pathname }}>
-										{createButton.icon && 
+						<ButtonGroup>
+							{search && 
+								<div className="float-right ml-3 data-table-search">
+									<Search 
+										search={search}
+										filterValue={filterValue}
+										setFilterValue={setFilterValue}
+									/>
+								</div>
+							}
+							
+							{sort && 
+								<div className="float-right ml-3 data-table-sort">
+									<Sort 
+										sort={sort} 
+									/>
+								</div>
+							}
+
+							<div className="data-table-create-button data-table-button">{customComponent}</div>
+
+							{customButton && 
+								<div className="data-table-create-button data-table-button">
+									<Button
+										tag="span"
+										{...customButton?.props}
+									>
+										{customButton.icon && 
 											<span className="pr-1">
-												{typeof createButton.icon === 'string' ? <i className={createButton.icon}></i> : createButton.icon}
+												{typeof customButton.icon === 'string' ? 
+													<i className={customButton.icon}></i> : customButton.icon
+												}
 											</span>
 										}
-										{createButton.text}
-								</Link>
+										{customButton?.text}
 									</Button>
-							</div>
-						}
-						
-					</ButtonGroup>
+								</div>
+							}
+
+							{buttonWithAuthz && <ButtonWithAuthz {...buttonWithAuthz} className="data-table-button-with-authz data-table-button"/>}
+							
+							{createButton &&
+								<CreateButton 
+									createButton={createButton}
+								/>
+							}
+
+							{onDownload &&
+								<div className="float-right ml-3 data-table-download-button">
+									<DownloadButton
+										onDownload={onDownload}
+										headers={headers}
+										title={title}
+									/>
+								</div>
+							}
+						</ButtonGroup>
 					</CardHeader>
 
 					<CardBody className="data-table-card-body">
 						{customCardBodyComponent}
-						<Table
+						{!isLoading && <Table
 							data={data.length > limit ? data.slice(0, limit) : data}
 							headers={headers}
 							category={category}
 							rowStyle={customRowStyle}
 							rowClassName={customRowClassName}
-						/>
+						/>}
 
 						{isLoading && contentLoader && <CellContentLoader cols={headers.length} rows={limit ?? 5} /> }
 
@@ -183,23 +158,13 @@ export function DataTable ({
 						<div className="data-table-card-footer-left">
 							{setLimit &&
 								<div className="data-table-limit">
-									{/* {t(translationRoute ? `${translationRoute}|Limit` : "Limit")}: */}
-									{/* TODO: Add translation */}
-									Items per page: 
-									<Dropdown
-											isOpen={isLimitOpen}
-											toggle={() => setLimitDropdown(prev => !prev)}
-											className="data-table-limit-dropdown"
-										>
-											<DropdownToggle caret >
-												{limit}
-											</DropdownToggle>
-											<DropdownMenu>
-											{
-												limitValues.map((value, idx) => <DropdownItem onClick={() => { setPage(1); setLimit(value); }} key={idx}>{value}</DropdownItem>)
-											}
-											</DropdownMenu>
-										</Dropdown>
+										<LimitDropdown 
+											translationRoute={translationRoute}
+											limit={limit}
+											setLimit={setLimit}
+											setPage={setPage}
+											limitValues={limitValues}
+										/>
 								</div>
 							}
 

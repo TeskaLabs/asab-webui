@@ -7,7 +7,7 @@ import { Table } from 'reactstrap';
 
 import { DateTime } from '../DateTime';
 
-import ActionButton from './ActionButton';
+import { ActionButton } from './Buttons';
 
 const TableCell = ({
 	obj, header, idx,
