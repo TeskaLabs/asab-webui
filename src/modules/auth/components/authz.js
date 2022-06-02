@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+// Used for Button and Switches with authz
 export const authz = (childProps) => {
 	const { t, i18n } = useTranslation();
 
