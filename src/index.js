@@ -4,9 +4,9 @@ export { default as Application } from './containers/Application';
 
 export { Humanize } from './components/Humanize';
 export { DataTable } from './components/DataTable';
-export { ButtonWithAuthz } from './modules/auth/ButtonWithAuthz';
-export { ControlledSwitchWithAuthz } from './modules/auth/ControlledSwitchWithAuthz';
-export { UncontrolledSwitchWithAuthz } from './modules/auth/UncontrolledSwitchWithAuthz';
+export { ButtonWithAuthz } from './modules/auth/components/ButtonWithAuthz';
+export { ControlledSwitchWithAuthz } from './modules/auth/components/ControlledSwitchWithAuthz';
+export { UncontrolledSwitchWithAuthz } from './modules/auth/components/UncontrolledSwitchWithAuthz';
 export { Spinner } from './components/Spinner';
 export { KnowledgeBase } from './components/KnowledgeBase';
 export { default as SplashScreen } from './containers/SplashScreen';

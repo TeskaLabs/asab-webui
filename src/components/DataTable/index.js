@@ -19,7 +19,7 @@ import Sort from './Sort';
 // import CustomDropdownButton from './CustomDropdownButton'; DON'T REMOVE YET. IT MAY BE USEFUL ON REFACTORING DATATABLE
 
 import { CellContentLoader } from '../ContentLoader';
-import { ButtonWithAuthz } from '../../modules/auth/ButtonWithAuthz';
+import { ButtonWithAuthz } from '../../modules/auth/components/ButtonWithAuthz';
 
 export function DataTable ({
 	data, headers, limit = 10,
