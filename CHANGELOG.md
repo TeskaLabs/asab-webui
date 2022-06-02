@@ -120,6 +120,9 @@
 
 - Add docs for customRowStyle and customRowClassName (INDIGO Sprint 220527, [!280](https://github.com/TeskaLabs/asab-webui/pull/280))
 
+- Implement Switches with Authz (INDIGO Sprint 220527, [!283](https://github.com/TeskaLabs/asab-webui/pull/283))
+
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
