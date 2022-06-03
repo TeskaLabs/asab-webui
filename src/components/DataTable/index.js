@@ -153,6 +153,7 @@ export function DataTable ({
 									currentPage={currentPage}
 									setPage={setPage}
 									lastPage={Math.ceil(count/limit)}
+									style={{marginBottom: "0"}}
 								/>
 							</Col>
 						}

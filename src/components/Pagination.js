@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
-export default function ({ currentPage, setPage, lastPage }) {
+export default function ({ currentPage, setPage, lastPage, style }) {
 	const slots = Math.min(5, lastPage);
 
 	let start = currentPage - Math.floor(slots / 2);
@@ -30,7 +30,7 @@ export default function ({ currentPage, setPage, lastPage }) {
 	}, [lastPage])
 
 	return (
-		<Pagination>
+		<Pagination style={style}>
 			<PaginationItem disabled={currentPage == 1}>
 				<PaginationLink
 					onClick={() => setPage(1)}
