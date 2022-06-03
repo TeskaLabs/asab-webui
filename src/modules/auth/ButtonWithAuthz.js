@@ -59,7 +59,7 @@ export function ButtonWithAuthz(props) {
 	let childProps = {...props}; // Create a new child component to have option to remove props
 	let disabled = childProps.resources ? childProps.resources.indexOf(childProps.resource) === -1 : true;
 	// If user is superuser, then button is enabled
-	if (childProps.resources.indexOf('authz:superuser') !== -1) {
+	if (childProps.resources && childProps.resources.indexOf('authz:superuser') !== -1) {
 		disabled = false;
 	}
 	// If defined, hide the disabled button
