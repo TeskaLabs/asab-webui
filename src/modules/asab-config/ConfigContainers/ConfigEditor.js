@@ -4,7 +4,7 @@ import ReactJson from 'react-json-view';
 import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from "react-router-dom";
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import {
 	Button,
@@ -50,8 +50,8 @@ function ConfigEditor(props) {
 	const [ configNotExist, setConfigNotExist ] = useState(false);
 	const [ activeTab, setActiveTab ] = useState('basic');
 
-	const resourceRemoveConfig = "authz:superuser";
-	const resources = props.userinfo?.resources ? props.userinfo.resources : [];
+	const resourceManageConfig = "config:admin";
+	const resources = useSelector(state => state.auth?.userinfo?.resources);
 
 	// Pattern props dropdown
 	const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -563,14 +563,17 @@ function ConfigEditor(props) {
 							</TabContent>
 						</CardBody>
 						<CardFooter>
-							<Button
+							<ButtonWithAuthz
+								title={t("ASABConfig|Save")}
 								color="primary"
 								type="submit"
 								disabled={isSubmitting}
+								resource={resourceManageConfig}
+								resources={resources}
 							>
 								<i className="cil-save pr-1"></i>
 								{t('ASABConfig|Save')}
-							</Button>
+							</ButtonWithAuthz>
 							<span className="float-right">
 								{selectPatternSections.length > 0 &&
 									<Dropdown
@@ -610,12 +613,7 @@ function ConfigEditor(props) {
 	);
 }
 
-function mapStateToProps(state) {
-	return {
-		userinfo: state.auth.userinfo
-	}
-}
-export default connect(mapStateToProps)(ConfigEditor);
+export default ConfigEditor;
 
 
 function ConfigSection(props) {
