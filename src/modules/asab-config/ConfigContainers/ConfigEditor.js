@@ -336,34 +336,6 @@ function ConfigEditor(props) {
 		return value;
 	}
 
-	// Confirm message form for configuration removal
-	const removeConfigForm = () => {
-		var r = confirm(t("ASABConfig|Do you want to remove this configuration?"));
-		if (r == true) {
-			removeConfig();
-		}
-	}
-
-	// Remove configuration
-	const removeConfig = async () => {
-		try {
-			let response = await ASABConfigAPI.delete(`/config/${configType}/${configName}`);
-			if (response.data.result != "OK"){
-				throw new Error(t('ASABConfig|Something went wrong, failed remove configuration'));
-			}
-			props.app.Store.dispatch({
-				type: types.CONFIG_REMOVED,
-				config_removed: true
-			});
-			history.push({
-				pathname: `/config/${configType}/!manage`
-			});
-		} catch(e) {
-			console.error(e);
-			props.app.addAlert("warning", t('ASABConfig|Something went wrong, failed to remove configuration'));
-		}
-	}
-
 	// Confirm message form for config section removal
 	const removeSectionForm = (sectionTitle) => {
 		var r = confirm(t("ASABConfig|Do you want to remove this section?"));
@@ -599,20 +571,6 @@ function ConfigEditor(props) {
 								<i className="cil-save pr-1"></i>
 								{t('ASABConfig|Save')}
 							</Button>
-							<span className="pr-2 pl-2">
-								<ButtonWithAuthz
-									title={t('ASABConfig|Remove')}
-									color="danger"
-									type="button"
-									disabled={isSubmitting}
-									onClick={removeConfigForm}
-									resource={resourceRemoveConfig}
-									resources={resources}
-								>
-									<i className="cil-trash pr-1"></i>
-									{t('ASABConfig|Remove')}
-								</ButtonWithAuthz>
-							</span>
 							<span className="float-right">
 								{selectPatternSections.length > 0 &&
 									<Dropdown
