@@ -543,10 +543,14 @@ main > .container-fluid, main > .container {
 	background-color: #fff;
 }
 
-// Import styles
-@import "~@coreui/coreui/scss/coreui.scss";
-// Temp fix for reactstrap
-@import '~@coreui/coreui/scss/_dropdown-menu-right.scss';
+//DataTable's card footer items position
+.data-table-card .card-footer .row {
+	align-items: center;
+}
+// // Import styles
+// @import "~@coreui/coreui/scss/coreui.scss";
+// // Temp fix for reactstrap
+// @import '~@coreui/coreui/scss/_dropdown-menu-right.scss';
 // Import default bootstrap styles
 @import '~bootstrap/dist/css/bootstrap.min.css';
 // CoreUI Icons Set
