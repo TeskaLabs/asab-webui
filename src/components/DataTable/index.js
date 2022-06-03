@@ -134,41 +134,41 @@ export function DataTable ({
 
 					<CardFooter className="data-table-card-footer">
 						<Row>
-						{count ? (
 							<Col sm="4">
-								<div>
-									{t(translationRoute ? 
-										`${translationRoute}|Showing item(s)` 
-										: "Showing item(s)",
-										{ length: data.length, count: count }
-									)}
-								</div>
+								{count ? (
+									<div>
+										{t(translationRoute ? 
+											`${translationRoute}|Showing item(s)` 
+											: "Showing item(s)",
+											{ length: data.length, count: count }
+										)}
+									</div>
+									) : null
+								}
 							</Col>
-							) : null
-						}
 
-						{setPage &&
 							<Col>
-								<Pagination 
-									currentPage={currentPage}
-									setPage={setPage}
-									lastPage={Math.ceil(count/limit)}
-									style={{marginBottom: "0"}}
-								/>
+								{setPage && data.length > 0 &&
+									<Pagination 
+										currentPage={currentPage}
+										setPage={setPage}
+										lastPage={Math.ceil(count/limit)}
+										style={{marginBottom: "0", justifyContent: "center"}}
+									/>
+								}
 							</Col>
-						}
 
-						{setLimit &&
 							<Col>
-								<LimitDropdown 
-									translationRoute={translationRoute}
-									limit={limit}
-									setLimit={setLimit}
-									setPage={setPage}
-									limitValues={limitValues}
-								/>
+								{setLimit &&
+									<LimitDropdown 
+										translationRoute={translationRoute}
+										limit={limit}
+										setLimit={setLimit}
+										setPage={setPage}
+										limitValues={limitValues}
+									/>
+								}
 							</Col>
-						}
 						</Row>
 					</CardFooter>
 				</Card>
