@@ -51,6 +51,10 @@ ReactDOM.render((
 ), document.getElementById('app'));
 ```
 
+## Authorization (resources)
+
+To provide any of these actions - `Create`, `Remove`, `Save` - configuration, one needs to have `config:admin` and/or `authz:superuser` resource.
+
 ## Schema and configuration files
 
 To obtain / save configuration, ASAB config service must be running.
@@ -103,7 +107,7 @@ Schema example:
 	"default": {},
 	"examples": [
 		{
-			"my-source": {
+			"My:source": {
 				"source": "my-data-source*",
 				"datetime_field": "@timestamp",
 				"type": "elasticsearch"
@@ -112,7 +116,7 @@ Schema example:
 	],
 	"required": ["my-source"], // Required value is optional for properties
 	"properties": {
-		"my-source": {
+		"My:source": {
 			"type": "string",
 			"title": "Some source",
 			"description": "My Some source",

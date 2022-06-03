@@ -4,7 +4,7 @@ import ReactJson from 'react-json-view';
 import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from "react-router-dom";
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import {
 	Button,
@@ -50,8 +50,8 @@ function ConfigEditor(props) {
 	const [ configNotExist, setConfigNotExist ] = useState(false);
 	const [ activeTab, setActiveTab ] = useState('basic');
 
-	const resourceRemoveConfig = "authz:superuser";
-	const resources = props.userinfo?.resources ? props.userinfo.resources : [];
+	const resourceManageConfig = "config:admin";
+	const resources = useSelector(state => state.auth?.userinfo?.resources);
 
 	// Pattern props dropdown
 	const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -336,34 +336,6 @@ function ConfigEditor(props) {
 		return value;
 	}
 
-	// Confirm message form for configuration removal
-	const removeConfigForm = () => {
-		var r = confirm(t("ASABConfig|Do you want to remove this configuration?"));
-		if (r == true) {
-			removeConfig();
-		}
-	}
-
-	// Remove configuration
-	const removeConfig = async () => {
-		try {
-			let response = await ASABConfigAPI.delete(`/config/${configType}/${configName}`);
-			if (response.data.result != "OK"){
-				throw new Error(t('ASABConfig|Something went wrong, failed remove configuration'));
-			}
-			props.app.Store.dispatch({
-				type: types.CONFIG_REMOVED,
-				config_removed: true
-			});
-			history.push({
-				pathname: `/config/${configType}/!manage`
-			});
-		} catch(e) {
-			console.error(e);
-			props.app.addAlert("warning", t('ASABConfig|Something went wrong, failed to remove configuration'));
-		}
-	}
-
 	// Confirm message form for config section removal
 	const removeSectionForm = (sectionTitle) => {
 		var r = confirm(t("ASABConfig|Do you want to remove this section?"));
@@ -564,6 +536,8 @@ function ConfigEditor(props) {
 												isSubmitting={isSubmitting}
 												removeSectionForm={removeSectionForm}
 												selectPatternSections={selectPatternSections}
+												resources={resources}
+												resourceManageConfig={resourceManageConfig}
 											/>
 										)}
 
@@ -591,28 +565,17 @@ function ConfigEditor(props) {
 							</TabContent>
 						</CardBody>
 						<CardFooter>
-							<Button
+							<ButtonWithAuthz
+								title={t("ASABConfig|Save")}
 								color="primary"
 								type="submit"
 								disabled={isSubmitting}
+								resource={resourceManageConfig}
+								resources={resources}
 							>
 								<i className="cil-save pr-1"></i>
 								{t('ASABConfig|Save')}
-							</Button>
-							<span className="pr-2 pl-2">
-								<ButtonWithAuthz
-									title={t('ASABConfig|Remove')}
-									color="danger"
-									type="button"
-									disabled={isSubmitting}
-									onClick={removeConfigForm}
-									resource={resourceRemoveConfig}
-									resources={resources}
-								>
-									<i className="cil-trash pr-1"></i>
-									{t('ASABConfig|Remove')}
-								</ButtonWithAuthz>
-							</span>
+							</ButtonWithAuthz>
 							<span className="float-right">
 								{selectPatternSections.length > 0 &&
 									<Dropdown
@@ -652,12 +615,7 @@ function ConfigEditor(props) {
 	);
 }
 
-function mapStateToProps(state) {
-	return {
-		userinfo: state.auth.userinfo
-	}
-}
-export default connect(mapStateToProps)(ConfigEditor);
+export default ConfigEditor;
 
 
 function ConfigSection(props) {
@@ -674,16 +632,19 @@ function ConfigSection(props) {
 				<Col>
 					<div className="float-right">
 						{props.selectPatternSections.length > 0 &&
-							<Button
+							<ButtonWithAuthz
 								title={t('ASABConfig|Remove')}
 								color="danger"
 								size="sm"
 								type="button"
 								outline
 								onClick={(e) => {props.removeSectionForm(props.sectionname)}}
+								disabled={props.isSubmitting}
+								resource={props.resourceManageConfig}
+								resources={props.resources}
 							>
 								<i className="cil-trash"></i>
-							</Button>
+							</ButtonWithAuthz>
 						}
 					</div>
 				</Col>

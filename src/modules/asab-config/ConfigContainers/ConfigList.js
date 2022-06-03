@@ -23,7 +23,7 @@ function ConfigList(props) {
 	const [ configList, setConfigList ] = useState([]);
 	const [ description, setDescription ] = useState("");
 
-	const resourceManageConfig = "authz:superuser";
+	const resourceManageConfig = "config:admin";
 	const resources = props.userinfo?.resources ? props.userinfo.resources : [];
 
 	const configType = props.configType;

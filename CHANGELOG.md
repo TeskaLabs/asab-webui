@@ -269,6 +269,9 @@
 
 - MicroserviceDetailContainer Fallbacks and Container Info Update (INDIGO Sprint 220527, [!281](https://github.com/TeskaLabs/asab-webui/pull/281))
 
+- Delete Remove button from ASAB Config editor, add resource for config actions (INDIGO Sprint 220527, [!284](https://github.com/TeskaLabs/asab-webui/pull/284))
+
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
