@@ -536,6 +536,8 @@ function ConfigEditor(props) {
 												isSubmitting={isSubmitting}
 												removeSectionForm={removeSectionForm}
 												selectPatternSections={selectPatternSections}
+												resources={resources}
+												resourceManageConfig={resourceManageConfig}
 											/>
 										)}
 
@@ -630,16 +632,19 @@ function ConfigSection(props) {
 				<Col>
 					<div className="float-right">
 						{props.selectPatternSections.length > 0 &&
-							<Button
+							<ButtonWithAuthz
 								title={t('ASABConfig|Remove')}
 								color="danger"
 								size="sm"
 								type="button"
 								outline
 								onClick={(e) => {props.removeSectionForm(props.sectionname)}}
+								disabled={props.isSubmitting}
+								resource={props.resourceManageConfig}
+								resources={props.resources}
 							>
 								<i className="cil-trash"></i>
-							</Button>
+							</ButtonWithAuthz>
 						}
 					</div>
 				</Col>
