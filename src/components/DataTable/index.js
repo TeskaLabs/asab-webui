@@ -144,7 +144,7 @@ export function DataTable ({
 							}
 						</div>
 
-						{setPage &&
+						{setPage && data?.length > 0 &&
 							<Pagination 
 								currentPage={currentPage}
 								setPage={setPage}

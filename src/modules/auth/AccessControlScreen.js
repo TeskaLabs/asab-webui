@@ -55,11 +55,13 @@ function AccessControlCard(props) {
 
 	return(
 		<Card className="shadow animated fadeIn">
-			<CardHeader className="text-center">
-				<CardTitle tag="h1">{t('AccessControlScreen|Access control')}</CardTitle>
-				<CardSubtitle tag="p" className="lead">
-					{t('AccessControlScreen|See your details')}
-				</CardSubtitle>
+			<CardHeader className="text-center border-bottom card-header-login">
+				<div className="card-header-title">
+					<CardTitle tag="h1">{t('AccessControlScreen|Access control')}</CardTitle>
+					<CardSubtitle tag="p">
+						{t('AccessControlScreen|See your details')}
+					</CardSubtitle>
+				</div>
 			</CardHeader>
 
 			<CardBody>
@@ -69,7 +71,7 @@ function AccessControlCard(props) {
 							<React.Fragment>
 								<Row>
 									<Col>
-										<h5>{t('AccessControlScreen|Tenant')}</h5>
+										<h6>{t('AccessControlScreen|Tenant')}</h6>
 									</Col>
 									<Col>
 										<p style={{marginBottom: "5px"}}>{currentTenant}</p>
@@ -80,21 +82,21 @@ function AccessControlCard(props) {
 						}
 						<Row>
 							<Col>
-								<h5>{t('AccessControlScreen|Roles')}</h5>
+								<h6>{t('AccessControlScreen|Roles')}</h6>
 							</Col>
 							<ItemToRender userinfo={userinfo} item='roles' />
 						</Row>
 						<hr/>
 						<Row>
 							<Col>
-								<h5>{t('AccessControlScreen|Resources')}</h5>
+								<h6>{t('AccessControlScreen|Resources')}</h6>
 							</Col>
 							<ItemToRender userinfo={userinfo} item='resources' />
 						</Row>
 					</>
 					) : (
 					<div className="text-center">
-						<h5>{t("AccessControlScreen|The user information is invalid, you session is likely expired.")}</h5>
+						<h6>{t("AccessControlScreen|The user information is invalid, you session is likely expired.")}</h6>
 					</div>
 				)}
 			</CardBody>
