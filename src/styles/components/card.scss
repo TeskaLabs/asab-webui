@@ -40,6 +40,11 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 				color: $primary;
 				font-weight: 700;
 			}
+			display: flex;
+			align-items: center;
+			h3 {
+				margin: auto;
+			}
 		}
 		.btn-group {
 			padding: 0;

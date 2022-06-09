@@ -33,7 +33,9 @@ function UserInterfaceCard() {
 	return (
 		<Card className="shadow animated fadeIn mt-2">
 			<CardHeader className='border-bottom'>
-				<h3 className='card-header-title'>{t('UserInterfaceCard|User interface')}</h3>
+				<div className="card-header-title">
+					<h3>{t('UserInterfaceCard|User interface')}</h3>
+				</div>
 			</CardHeader>
 			<CardBody>
 				{ version &&

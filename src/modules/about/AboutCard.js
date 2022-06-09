@@ -34,7 +34,9 @@ function AboutCard(props) {
 	return(
 		<Card className="shadow animated fadeIn">
 			<CardHeader className='border-bottom'>
-				<h3 className='card-header-title'>{title}</h3>
+				<div className="card-header-title">
+					<h3>{title}</h3>
+				</div>
 			</CardHeader>
 
 			<CardBody>
