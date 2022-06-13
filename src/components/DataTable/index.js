@@ -18,7 +18,7 @@ import Sort from './Sort';
 import './table.scss';
 
 import { CellContentLoader } from '../ContentLoader';
-import { ButtonWithAuthz } from '../../modules/auth/ButtonWithAuthz';
+import { ButtonWithAuthz } from '../../modules/auth/components/ButtonWithAuthz';
 
 export function DataTable ({
 	data, headers, limit = 10,
@@ -136,21 +136,25 @@ export function DataTable ({
 							}
 
 							{count ? (
-									<div className="data-table-count">
-									{/* TODO: add translations */}
-											{countDigit + (currentPage - 1) * limit} - {data.length + (currentPage -1 ) * limit} of {count} item(s)
-									</div>
+								<div className="data-table-count">
+									{t(translationRoute ? 
+										`${translationRoute}|Showing item(s)` 
+										: "Showing item(s)",
+										{ length: data.length, count: count }
+									)}
+								</div>
 								) : null
 							}
 						</div>
 
-						{setPage && data?.length > 0 &&
+						{setPage && data.length > 0 &&
 							<Pagination 
 								currentPage={currentPage}
 								setPage={setPage}
 								lastPage={Math.ceil(count/limit)}
 							/>
 						}
+
 					</CardFooter>
 				</Card>
 			</Col>

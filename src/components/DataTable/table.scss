@@ -19,6 +19,11 @@ table th, .table th {
     }
 }
 
+//DataTable's card footer items position
+.data-table-card .card-footer .row {
+    align-items: center;
+}
+
 .data-table-tr th:first-child {
     padding-left: 1rem;
 }

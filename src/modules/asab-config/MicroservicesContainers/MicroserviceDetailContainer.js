@@ -65,27 +65,37 @@ const MicroserviceDetailContainer = (props) => {
 								<>
 									<Row>
 										<Col md={3}>{t("MicroserviceDetailContainer|ID")}</Col>
-										<Col>{svc_name}</Col>
+										<Col>
+											<code>{ svc_name?.toString() ?? 'N/A'}</code>
+										</Col>
 									</Row>
 									<Row className="mt-3">
 										<Col md={3}>{t("MicroserviceDetailContainer|Host")}</Col>
-										<Col>{svc?.hostname}</Col>
+										<Col>
+											<code>{svc?.hostname?.toString() ?? 'N/A'}</code>
+										</Col>
+									</Row>
+									<Row className="mt-3">
+										<Col md={3}>{t("MicroserviceDetailContainer|Server")}</Col>
+										<Col>
+											<code>{svc?.servername?.toString() ?? 'N/A'}</code>
+										</Col>
 									</Row>
 									<Row className="mt-3">
 										<Col md={3}>{t("MicroserviceDetailContainer|Launch time")}</Col>
 										<Col>
-											<DateTime value={svc?.launchtime} />
+											{svc?.launchtime ? <DateTime value={svc?.launchtime} /> : 'N/A'}
 										</Col>
 									</Row>
 									<Row className="mt-3">
 										<Col md={3}>{t("MicroserviceDetailContainer|Created at")}</Col>
 										<Col>
-											<DateTime value={svc?.created_at} />
+											{svc?.created_at ? <DateTime value={svc?.created_at} /> : 'N/A'}
 										</Col>
 									</Row>
 									<Row className="mt-3">
 										<Col md={3}>{t("MicroserviceDetailContainer|Version")}</Col>
-										<Col>{svc?.version}</Col>
+										<Col>{svc?.version ?? 'N/A'}</Col>
 									</Row>
 								</>
 							)}

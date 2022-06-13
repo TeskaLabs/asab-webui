@@ -118,6 +118,11 @@
 
 - Add version field to MicroservicesDetail and MicroservicesList (INDIGO Sprint 220401, [!261](https://github.com/TeskaLabs/asab-webui/pull/261))
 
+- Add docs for customRowStyle and customRowClassName (INDIGO Sprint 220527, [!280](https://github.com/TeskaLabs/asab-webui/pull/280))
+
+- Implement Switches with Authz (INDIGO Sprint 220527, [!283](https://github.com/TeskaLabs/asab-webui/pull/283))
+
+
 ### Refactoring
 
 - Renaming configuration option FAKE_USERINFO to MOCK_USERINFO and refactoring code accordingly (INDIGO Sprint 210406, [!91](https://github.com/TeskaLabs/asab-webui/pull/91))
@@ -262,6 +267,11 @@
 
 - DataTable decomposition (INDIGO Sprint 220513, [!279](https://github.com/TeskaLabs/asab-webui/pull/279))
 
+- MicroserviceDetailContainer Fallbacks and Container Info Update (INDIGO Sprint 220527, [!281](https://github.com/TeskaLabs/asab-webui/pull/281))
+
+- Delete Remove button from ASAB Config editor, add resource for config actions (INDIGO Sprint 220527, [!284](https://github.com/TeskaLabs/asab-webui/pull/284))
+
+
 ### Bugfixes
 
 - Update auth header dropdown and `Access control screen` to prevent app from crashing when tenant module is not enabled (INDIGO Sprint 210430, [!105](https://github.com/TeskaLabs/asab-webui/pull/105))
@@ -333,3 +343,5 @@
 - Fix global vars (INDIGO Sprint 220429, [!272](https://github.com/TeskaLabs/asab-webui/pull/272))
 
 - Fix pagination' diappearance issue upon last item removal in DataTable (INDIGO Sprint 220429, [!274](https://github.com/TeskaLabs/asab-webui/pull/274))
+
+- Fix pagination's position after decomposing of DataTable, vertical allignment in DataTable's card footer and disappearance of pagination when no data is preset (INDIGO Sprint 220527, [!285](https://github.com/TeskaLabs/asab-webui/pull/285))

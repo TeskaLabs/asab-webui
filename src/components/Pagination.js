@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Pagination, PaginationItem, PaginationLink, Dropdown, DropdownMenu, DropdownItem, DropdownToggle, ButtonDropdown } from 'reactstrap';
 
-export default function ({ currentPage, setPage, lastPage }) {
+export default function ({ currentPage, setPage, lastPage, style }) {
 	const slots = Math.min(5, lastPage);
 
 	let start = currentPage - Math.floor(slots / 2);
@@ -57,7 +57,7 @@ export default function ({ currentPage, setPage, lastPage }) {
 				of {pages.length} pages
 			</div>
 
-			<Pagination>
+			<Pagination style={style}>
 				<PaginationItem disabled={currentPage <= 1}>
 					<PaginationLink
 						previous

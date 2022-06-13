@@ -101,7 +101,7 @@ headers: [
 		},
 ```
 
-Prop `headers` is basically an array containing objects with obligatory properties `name` and `key` and optional properties `link`, `datetime`, `json`, `actionButton`, `customStyle` and `customComponent`. Order of headers in a table is the same as it is in prop `headers`.
+Prop `headers` is basically an array containing objects with obligatory properties `name` and `key` and optional properties `link`, `datetime`, `json`, `actionButton`, `customRowStyle`, `customRowClassName`, `customStyle` and `customComponent`. Order of headers in a table is the same as it is in prop `headers`.
 
 Property `name` is a string that will be rendered as a header cell in headers row of the table. Property `key` is a key name for getting data from `data` prop, it must be the same as it is in objects in `data` prop.
 
@@ -151,6 +151,41 @@ Optional property `json` is needed if data has nested objects inside itself. It 
 
 Optional property `actionButton` is needed to put an ellipsis with actions dropdown for some list of actions into the row of the datatable. This property is an object with two children — `title`, which is a string and will be placed as a dropdown header, and `actions`, which is a list of objects (actions). Those objects in the `actions` list have two required properties: a string `name` and a function `onClick` and one optional property `icon`. Property `name` will be placed as a dropdown item, clicking on it calls the `onClick` function, which accepts two arguments — `row` and `header`. `row` is the appropriate row object and `header` is a header where you defined an `actionButton`. A property `icon` is a string with the Core UI icon.
 Also `actionButton` has an alignment to the right, so the header with action buttons should be the last one in the headers list.
+
+Optional properties `customRowStyle` and `customRowClassName` are needed if you want to highlight some rows base on some condition. Both properties should be objects with key `condition` which is a function that accepts the target object, base on target object it should return boolean values. If `true` than style or class is applied to the whole row, if false then it will have default styles for row. The difference in props are in second property. For `customRowStyle` it is an object with keyname `style` with jsx styles and for `customRowClassName` it is a string with keyname `className` which will be added to `<tr>` element.
+
+Example of `customRowStyle`:
+```js
+const customRowStyle = {
+	condition: obj => obj.suspended === true,
+	style: {
+		backgroundColor: "#fff3cd",
+		color: "#856404"
+	}
+}
+
+return (
+	<DataTable
+		...
+		customRowStyle={customRowStyle}
+	>
+)
+```
+
+Example of `customRowClassName`:
+```js
+const customRowClassName = {
+	condition: obj => obj.suspended === true,
+	className: "row-suspended"
+}
+
+return (
+	<DataTable
+		...
+		customRowClassName={customRowClassName}
+	>
+)
+```
 
 About how to use optional property `customComponent` you may find information in section Custom Components.
 
