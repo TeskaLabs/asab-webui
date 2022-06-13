@@ -137,7 +137,7 @@ Example of the schema:
 	"default": {},
 	"examples": [
 		{
-			"^sidebar:item:.*$": {
+			"^Sidebar:item:.*$": {
 				"name": "Sidebar item 1",
 				"hide": true
 			}
@@ -145,7 +145,7 @@ Example of the schema:
 	],
 	"required": [],
 	"patternProperties": {
-		"^sidebar:item:.*$": {
+		"^Sidebar:item:.*$": {
 			"type": "object",
 			"title": "Sidebar item",
 			"description": "Sidebar item setup",
@@ -192,7 +192,7 @@ Example of the configuration
 
 ```
 {
-    "sidebar:item:1": {
+    "Sidebar:item:1": {
         "name": "Builders",
         "hide": true
     }

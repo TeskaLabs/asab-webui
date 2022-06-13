@@ -189,9 +189,7 @@ Example of the schema configuration
 			}
 		}
 	],
-	"required": [
-		"tool" // Required value is optional
-	],
+	"required": [],
 	"properties": {
 		"Tool": {
 			"type": "object",
