@@ -89,7 +89,7 @@ function ConfigList(props) {
 		}
 
 		try {
-			let response = await ASABConfigAPI.get(`/type/${configType}`);
+			let response = await ASABConfigAPI.get(`/type/${configType}.json`);
 			// TODO: validate responses which are not 200
 			if (response.data.result != 'OK') {
 				throw new Error(t(`ASABConfig|Something went wrong! Unable to get schema`, {type: configType}));
