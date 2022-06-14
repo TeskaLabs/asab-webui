@@ -79,11 +79,7 @@ function ConfigContainer(props) {
 				throw new Error("Unable to get data for tree menu");
 			}
 			// Sort data
-			let data = response.data.data;
-			let sortedData = [];
-			await Promise.all(data.map(name => {
-				sortedData.push(name.replace(/\.[^/.]+$/, ""));
-			}))
+			let sortedData = response.data.data;
 			sortedData = sortedData.sort();
 			setTypeList(sortedData);
 			// TODO: validate responses which are not 200
