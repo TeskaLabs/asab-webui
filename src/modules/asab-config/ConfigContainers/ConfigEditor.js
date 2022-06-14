@@ -78,7 +78,7 @@ function ConfigEditor(props) {
 		setSelectPatternSections([]);
 
 		try {
-			let response = await ASABConfigAPI.get(`/type/${configType}.json`);
+			let response = await ASABConfigAPI.get(`/type/${configType}`);
 			// TODO: validate responses which are not 200
 			if (response.data.result != 'OK') {
 				throw new Error("Something went wrong! Unable to get schema")
