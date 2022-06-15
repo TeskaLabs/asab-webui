@@ -29,9 +29,9 @@ function ConfigContainer(props) {
 	const homeScreenImg = props.app.Config.get('brand_image').full;
 	const homeScreenAlt = props.app.Config.get('title');
 
-	const [treeData, setTreeData] = useState({});
+	const [ treeData, setTreeData ] = useState({});
 	const [ createConfig, setCreateConfig ] = useState(false);
-	const [chosenPanel, setChosenPanel] = useState("configurator");
+	const [ chosenPanel, setChosenPanel ] = useState("configurator");
 	const [ typeList, setTypeList ] = useState([]);
 	const [ treeList, setTreeList ] = useState({});
 	const [ openNodes, setOpenNodes ] = useState([]); // Set open nodes in the TreeMenu
@@ -52,23 +52,21 @@ function ConfigContainer(props) {
 		getChart();
 	}, [treeList]);
 
-	useEffect(() => {
-		if (props.configCreated || props.configRemoved) {
-			getTree();
-			if (props.configCreated) {
-				props.app.Store.dispatch({
-					type: types.CONFIG_CREATED,
-					config_created: false
-				});
-			}
-			if (props.configRemoved) {
-				props.app.Store.dispatch({
-					type: types.CONFIG_REMOVED,
-					config_removed: false
-				});
-			}
-		}
-	}, [props.configCreated, props.configRemoved])
+	// useEffect(() => {
+	// 	if (props.configCreated || props.configRemoved) {
+	// 		getTree();
+	// 	}
+	// }, [props.configCreated, props.configRemoved]);
+
+	// useEffect(() => {
+	// 	if (props.configImported) {
+	// 		getTree();
+	// 		props.app.Store.dispatch({
+	// 			type: types.CONFIG_IMPORTED,
+	// 			config_imported: false
+	// 		});
+	// 	}
+	// }, [props.configImported])
 
 	// Obtain list of types
 	// TODO: add Error Card screen when no types are fetched
@@ -187,9 +185,11 @@ function ConfigContainer(props) {
 						app={props.app}
 						configCreated={props.config_created}
 						configRemoved={props.config_removed}
+						configImported={props.config_imported}
 						setCreateConfig={setCreateConfig}
 						configType={configType}
 						configName={configName}
+						getTree={getTree}
 					/>
 				</Col>
 				<Col md={{ size: 6, offset: 1 }}>
@@ -224,8 +224,10 @@ function ConfigContainer(props) {
 						<ConfigImport
 							setChosenPanel={setChosenPanel}
 							app={App}
-							api={ASABConfigAPI}
-							getTypes={getTypes}
+							getTree={getTree}
+							configImported={props.config_imported}
+							// api={ASABConfigAPI}
+							// getTypes={getTypes}
 							// retrieveAll={retrieveAll}
 						/>
 					}
@@ -238,7 +240,8 @@ function ConfigContainer(props) {
 function mapStateToProps(state) {
 	return {
 		config_created: state.asab_config.config_created,
-		config_removed: state.asab_config.config_removed
+		config_removed: state.asab_config.config_removed,
+		config_imported: state.asab_config.config_imported
 	}
 }
 
