@@ -14,7 +14,6 @@ import { TreeViewComponent } from "./TreeViewComponent";
 import ConfigEditor from "./ConfigEditor";
 import ConfigList from "./ConfigList";
 import ConfigImport from "./ConfigImport";
-import {types} from "./actions/actions";
 
 function ConfigContainer(props) {
 
@@ -52,21 +51,6 @@ function ConfigContainer(props) {
 		getChart();
 	}, [treeList]);
 
-	// useEffect(() => {
-	// 	if (props.configCreated || props.configRemoved) {
-	// 		getTree();
-	// 	}
-	// }, [props.configCreated, props.configRemoved]);
-
-	// useEffect(() => {
-	// 	if (props.configImported) {
-	// 		getTree();
-	// 		props.app.Store.dispatch({
-	// 			type: types.CONFIG_IMPORTED,
-	// 			config_imported: false
-	// 		});
-	// 	}
-	// }, [props.configImported])
 
 	// Obtain list of types
 	// TODO: add Error Card screen when no types are fetched
@@ -226,9 +210,6 @@ function ConfigContainer(props) {
 							app={App}
 							getTree={getTree}
 							configImported={props.config_imported}
-							// api={ASABConfigAPI}
-							// getTypes={getTypes}
-							// retrieveAll={retrieveAll}
 						/>
 					}
 				</Col>
