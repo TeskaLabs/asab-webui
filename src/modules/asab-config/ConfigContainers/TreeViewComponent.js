@@ -9,6 +9,7 @@ import {
 	ButtonDropdown, DropdownToggle,
 	DropdownMenu, DropdownItem
 } from "reactstrap";
+import {types} from "./actions/actions";
 
 export function TreeViewComponent(props) {
 	const setChosenPanel = props.setChosenPanel;
@@ -17,6 +18,25 @@ export function TreeViewComponent(props) {
 	const { t, i18n } = useTranslation();
 
 	const [isDropdownMenuOpen, setDropdownMenu] = useState(false);
+
+	useEffect(() => {
+		if (props.configCreated || props.configRemoved) {
+			props.getTree();
+			if (props.configCreated) {
+				props.app.Store.dispatch({
+					type: types.CONFIG_CREATED,
+					config_created: false
+				});
+			}
+			if (props.configRemoved) {
+				props.app.Store.dispatch({
+					type: types.CONFIG_REMOVED,
+					config_removed: false
+				});
+			}
+		}
+	}, [props.configCreated, props.configRemoved]);
+
 
 	// Get the configType and configName from the TreeView menu
 	const onClickItem = (key, label) => {
