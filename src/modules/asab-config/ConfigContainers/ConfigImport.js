@@ -1,23 +1,34 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
 	CardBody, Row, Col,
 	Button, Input, Label,
 	FormGroup, FormText, InputGroup,
-	InputGroupText, Card, CardHeader
+	InputGroupText, Card
 } from 'reactstrap';
+import {types} from "./actions/actions";
 
 
-const ConfigImport = ({
-	api, app, setChosenPanel, getTypes
-}) => {
+const ConfigImport = (props) => {
+
+	const ASABConfigAPI = props.app.axiosCreate('asab_config');
 	const { t } = useTranslation();
 	const [chosenFilename, setChosenFilename] = useState("No file chosen");
 	const [type, setType] = useState("merge");
 	const [errors, setErrors] = useState(false);
 	const inputFileRef = useRef(null)
 	const formRef = useRef(null);
+
+	useEffect(() => {
+		if (props.configImported) {
+			props.getTree();
+			props.app.Store.dispatch({
+				type: types.CONFIG_IMPORTED,
+				config_imported: false
+			});
+		}
+	}, [props.configImported])
 
 	const chooseFile = () => {
 		if (!inputFileRef.current) return;
@@ -48,19 +59,22 @@ const ConfigImport = ({
 		event.preventDefault();
 		try {
 			const data = new FormData(formRef.current);
-			const response = await api.put(`/import?type=${type}`, data, {
+			const response = await ASABConfigAPI.put(`/import?type=${type}`, data, {
 				headers: {
 					'Content-Type': 'multipart/form-data'
 				}
 			})
 
 			if (response.data.result !== "OK") throw new Error(`Response result is ${response.data.result}. File has not been imported`);
-			getTypes();
-			setChosenPanel("configurator");
-			app.addAlert("success", t("ASABConfig|Configuration has been successfully imported"));
+			props.app.Store.dispatch({
+				type: types.CONFIG_IMPORTED,
+				config_imported: true
+			});
+			props.setChosenPanel("editor");
+			props.app.addAlert("success", t("ASABConfig|Configuration has been successfully imported"));
 		} catch (e) {
 			console.error("Failed to import configuration\n", e);
-			app.addAlert("warning", t("ASABConfig|Failed to import configuration"));
+			props.app.addAlert("warning", t("ASABConfig|Failed to import configuration"));
 		}
 
 	}
@@ -138,7 +152,7 @@ const ConfigImport = ({
 								</Button>
 								<Button
 									color="danger"
-									onClick={() => setChosenPanel("editor")}
+									onClick={() => props.setChosenPanel("editor")}
 								>
 									{t("ASABLibraryModule|Back")}
 								</Button>
