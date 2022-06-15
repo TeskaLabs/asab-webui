@@ -30,12 +30,13 @@ const ConfigImport = (props) => {
 		}
 	}, [props.configImported])
 
+	// Choose file, click simulation on reference of the another <Input/>
 	const chooseFile = () => {
 		if (!inputFileRef.current) return;
 
 		inputFileRef.current.click();
 	}
-
+	// File formatting
 	const updateFilename = () => {
 		if (!inputFileRef.current) return;
 
@@ -55,7 +56,8 @@ const ConfigImport = (props) => {
 
 	const onTextChange = (e) => setChosenFilename(e.target.value)
 
-	const importConfiguration = async event => {
+	// Import PUT request
+	const importConfiguration = async (event) => {
 		event.preventDefault();
 		try {
 			const data = new FormData(formRef.current);
