@@ -517,7 +517,7 @@ class Application extends Component {
 								/>
 							}
 							<div
-								className={`app-body ${this.props.hasSidebar || this.props.hasSidebar === undefined ? "with-sidebar" : "without-sidebar"}`}
+								className={`app-body ${this.props.hasSidebar || this.props.hasSidebar === undefined ? "" : "without-sidebar"}`}
 							>
 								<Header app={this} />
 								<main className="main">
