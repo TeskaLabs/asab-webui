@@ -17,9 +17,8 @@ import ConfigImport from "./ConfigImport";
 
 function ConfigContainer(props) {
 
-	const App = props.app;
-	const ASABConfigAPI = App.axiosCreate('asab_config');
-	const serviceURL = App.getServiceURL('asab_config');
+	const ASABConfigAPI = props.app.axiosCreate('asab_config');
+	const serviceURL = props.app.getServiceURL('asab_config');
 	const { t } = useTranslation();
 
 	const configType = props.match.params.configType;
@@ -28,11 +27,11 @@ function ConfigContainer(props) {
 	const homeScreenImg = props.app.Config.get('brand_image').full;
 	const homeScreenAlt = props.app.Config.get('title');
 
-	const [ treeData, setTreeData ] = useState({});
-	const [ createConfig, setCreateConfig ] = useState(false);
-	const [ chosenPanel, setChosenPanel ] = useState("configurator");
-	const [ typeList, setTypeList ] = useState([]);
-	const [ treeList, setTreeList ] = useState({});
+	const [ treeData, setTreeData ] = useState({}); // Set complete data for TreeViewComponent
+	const [ createConfig, setCreateConfig ] = useState(false); // Use for condition to render components
+	const [ chosenPanel, setChosenPanel ] = useState("configurator"); // Sets the condition for showing the ConfigImport component
+	const [ typeList, setTypeList ] = useState([]); // Set data name of type for group configuration
+	const [ treeList, setTreeList ] = useState({}); // Set cleaned data for trigger UseEffect for updating TreeViewComponent, and for render the tree
 	const [ openNodes, setOpenNodes ] = useState([]); // Set open nodes in the TreeMenu
 
 
@@ -68,7 +67,7 @@ function ConfigContainer(props) {
 		}
 		catch(e) {
 			console.error(e);
-			App.addAlert("warning", t(`ASABConfig|Unable to get data for tree menu`));
+			props.app.addAlert("warning", t(`ASABConfig|Unable to get data for tree menu`));
 			return;
 		}
 	}
@@ -96,7 +95,7 @@ function ConfigContainer(props) {
 		}
 		catch(e) {
 			console.error(e);
-			App.addAlert("warning", t(`ASABConfig|Unable to get schema. Try to reload the page`, {type: typeId}));
+			props.app.addAlert("warning", t(`ASABConfig|Unable to get schema. Try to reload the page`, {type: typeId}));
 			return;
 		}
 	}
@@ -169,7 +168,6 @@ function ConfigContainer(props) {
 						app={props.app}
 						configCreated={props.config_created}
 						configRemoved={props.config_removed}
-						configImported={props.config_imported}
 						setCreateConfig={setCreateConfig}
 						configType={configType}
 						configName={configName}
@@ -207,7 +205,7 @@ function ConfigContainer(props) {
 						:
 						<ConfigImport
 							setChosenPanel={setChosenPanel}
-							app={App}
+							app={props.app}
 							getTree={getTree}
 							configImported={props.config_imported}
 						/>
