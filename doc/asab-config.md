@@ -511,7 +511,8 @@ Example:
 		"Add new section": "Add new section",
 		"Add": "Add",
 		"Type": "Type",
-		"Do you want to remove this section?": "Do you want to remove this section?"
+		"Do you want to remove this section?": "Do you want to remove this section?",
+		"Configuration name must have a file type extension": "Configuration name must have a file type extension"
 	}
 }
 ```

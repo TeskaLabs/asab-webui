@@ -213,6 +213,13 @@ function CreateConfigCard(props) {
 			});
 		}
 		catch(e) {
+			if (e.response.status == 400) {
+				if (e.response?.dataa?.message == "Cannot set configuration without extension.") {
+					console.error("Configuration must have a file type extension, e.g. '<config name>.json', '<config name>.ini', '<config name>.conf', etc.")
+					props.app.addAlert("warning", t('ASABConfig|Configuration name must have a file type extension'))
+					return;
+				}
+			}
 			console.error(e);
 			props.app.addAlert("warning", t('ASABConfig|Something went wrong, failed to create configuration'));
 		}
