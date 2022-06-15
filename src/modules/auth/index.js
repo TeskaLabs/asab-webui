@@ -241,14 +241,14 @@ export default class AuthModule extends Module {
 	}
 
 	async _notifyOnExpiredSession(that = this, oldUserInfo = null, fAlert = false) {
-		const isUserInfoIpdated = await that.updateUserInfo();
+		const isUserInfoUpdated = await that.updateUserInfo();
 		// if session has expired
-		if (!isUserInfoIpdated && oldUserInfo) {
+		if (!isUserInfoUpdated && oldUserInfo) {
 			oldUserInfo = null;
 			that.App.addAlert("danger", "ASABAuthModule|Your session has expired", 3600 * 1000, true);
 		}
 		else {
-			let exp = new Date(that.UserInfo.exp).getTime(); // Expiration timestamp
+			let exp = new Date(that.UserInfo.exp).getTime() * 1000; // Expiration timestamp
 			const difference = exp - Date.now(); // Difference between current time and expiration date in milliseconds
 
 			/**
