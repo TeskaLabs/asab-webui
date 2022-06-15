@@ -3,7 +3,8 @@ import {types} from './actions/actions';
 
 const initialState = {
 	config_created: false,
-	config_removed: false
+	config_removed: false,
+	config_imported: false
 }
 
 export default function asabConfigReducer(state = initialState, action) {
@@ -17,7 +18,10 @@ export default function asabConfigReducer(state = initialState, action) {
 			return {
 				config_removed: action.config_removed
 			}
-
+		case types.CONFIG_IMPORTED:
+			return {
+				config_imported: action.config_imported
+			}
 		default:
 			return state
 	}
