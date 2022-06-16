@@ -49,8 +49,7 @@
 		"Add new section": "Přidat novou sekci",
 		"Add": "Přidat",
 		"Type": "Typ",
-		"Do you want to remove this section?": "Opravdu chcete odstranit tuto sekci?",
-		"Configuration name must have a file type extension": "Název konfigurace musí obsahovat příponu typu souboru"
+		"Do you want to remove this section?": "Opravdu chcete odstranit tuto sekci?"
 	},
 	"ASABConfigService": {
 		"Incorrect/invalid config file downloaded": "Došlo ke stažení neplatné konfigurace",
