@@ -91,7 +91,7 @@ const TableCell = ({
 			<ActionButton
 				row={obj}
 				header={header}
-				actionButton={header.actionButton} 
+				actionButton={header.actionButton}
 			/>
 		);
 	}
@@ -195,38 +195,47 @@ const TableRow = ({
 								<i className="cil-chevron-circle-right-alt"></i>
 							</td>
 						)}
-					</>
-				)}
-				{category ? (
-						headers.map((_, idx) => {
-						if (idx === 0) {
-							return (
-								<TableCell
-									idx={idx}
-									obj={obj}
-									key={idx}
-									header={category}
-								>
-									{obj[category.key]}
-								</TableCell>
-							);
-						}
-
-						return <td key={idx}></td>
-					})) : (
-						headers.map((header, idx) => (
-							<TableCell 
-								obj={obj}
-								header={header}
+						{headers.map((header, idx) => (
+							<TableCell
 								idx={idx}
+								obj={obj}
 								key={idx}
+								header={header}
 								jsonTheme={jsonTheme}
 							/>
-						))
-					)
-				}
+						))}
+					</>
+				)}
+				{/*{category ? (*/}
+				{/*		headers.map((_, idx) => {*/}
+				{/*		if (idx === 0) {*/}
+				{/*			return (*/}
+				{/*				<TableCell*/}
+				{/*					idx={idx}*/}
+				{/*					obj={obj}*/}
+				{/*					key={idx}*/}
+				{/*					header={category}*/}
+				{/*				>*/}
+				{/*					{obj[category.key]}*/}
+				{/*				</TableCell>*/}
+				{/*			);*/}
+				{/*		}*/}
+
+				{/*		return <td key={idx}></td>*/}
+				{/*	})) : (*/}
+				{/*		headers.map((header, idx) => (*/}
+				{/*			<TableCell*/}
+				{/*				obj={obj}*/}
+				{/*				header={header}*/}
+				{/*				idx={idx}*/}
+				{/*				key={idx}*/}
+				{/*				jsonTheme={jsonTheme}*/}
+				{/*			/>*/}
+				{/*		))*/}
+				{/*	)*/}
+				{/*}*/}
 			</tr>
-			{category?.sublistKey && obj[category.sublistKey] && isSubUnwrapped && 
+			{category?.sublistKey && obj[category.sublistKey] && isSubUnwrapped &&
 				obj[category.sublistKey]["data"].map((child, idx) => (
 					<tr className="data-table-tr-child" style={style} key={`child-${idx}`}>
 						{advmode && <td></td>}
