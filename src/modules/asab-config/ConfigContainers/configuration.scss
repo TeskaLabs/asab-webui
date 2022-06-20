@@ -37,5 +37,33 @@
 		max-height: 400px;
 		overflow-y: auto;
 	}
+
+	.hidden-file-input {
+		display: none;
+	}
+
+	.file-input {
+		overflow: hidden;
+		display: flex;
+		flex-wrap: wrap;
+		flex: 1 5;
+		input {
+			cursor: pointer;
+			&:focus {
+				box-shadow: none;
+				border-color: #ced4da;
+			}
+		}
+		.input-group-text {
+			cursor: pointer;
+			border-radius: 5px 0 0 5px;
+			border-color: #ced4da;
+			border-right: none;
+		}
+	}
+
+	.dropdown-export-item, .dropdown-export-item:hover {
+		text-decoration: none;
+	}
 }
 

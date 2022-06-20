@@ -5,7 +5,7 @@ import {
 	CardBody, Row, Col,
 	Button, Input, Label,
 	FormGroup, FormText, InputGroup,
-	InputGroupText, Card
+	InputGroupText, Card, ButtonGroup
 } from 'reactstrap';
 import {types} from "./actions/actions";
 
@@ -54,8 +54,6 @@ const ConfigImport = (props) => {
 
 	const onTypeChange = (e) => setType(e.target.value);
 
-	const onTextChange = (e) => setChosenFilename(e.target.value)
-
 	// Import PUT request
 	const importConfiguration = async (event) => {
 		event.preventDefault();
@@ -78,14 +76,13 @@ const ConfigImport = (props) => {
 			console.error("Failed to import configuration\n", e);
 			props.app.addAlert("warning", t("ASABConfig|Failed to import configuration"));
 		}
-
 	}
 
 	return (
 		<Card>
 			<CardBody>
 				<form
-					id="upload-library"
+					id="upload-configuration"
 					ref={formRef}
 					onSubmit={importConfiguration}
 				>
@@ -101,20 +98,19 @@ const ConfigImport = (props) => {
 							innerRef={inputFileRef}
 							onChange={updateFilename}
 						/>
+
 						<FormGroup className="file-input">
 							<InputGroup onClick={chooseFile}>
 								<InputGroupText>{t("ASABConfig|Choose file")}</InputGroupText>
-								<Input type="text" onChange={onTextChange} value={t(`ASABConfig|${chosenFilename}`)} />
+								<Input type="text" readOnly={true} value={t(`ASABConfig|${chosenFilename}`)} />
 							</InputGroup>
 							<FormText color={errors ? "danger" : ""}>{t("ASABConfig|Only tar.gz files are allowed")}</FormText>
 						</FormGroup>
 
 						<Col>
 							<Row>
-
 								<FormGroup check className="mr-2">
 									<Input
-										className="input-radio"
 										type="radio"
 										value="merge"
 										checked={type === "merge"}
@@ -127,7 +123,6 @@ const ConfigImport = (props) => {
 
 								<FormGroup check>
 									<Input
-										className="input-radio"
 										type="radio"
 										value="override"
 										checked={type === "override"}
@@ -137,27 +132,28 @@ const ConfigImport = (props) => {
 										{t("ASABConfig|Override")}
 									</Label>
 								</FormGroup>
-
 							</Row>
 						</Col>
 						<hr />
 
 						<Row>
 							<Col>
-								<Button
-									className="mr-2"
-									type="submit"
-									color="primary"
-									disabled={errors || !chosenFilename}
-								>
-									{t("ASABConfig|Import")}
-								</Button>
-								<Button
-									color="danger"
-									onClick={() => props.setChosenPanel("editor")}
-								>
-									{t("ASABLibraryModule|Back")}
-								</Button>
+								<ButtonGroup>
+									<Button
+										type="submit"
+										color="primary"
+										disabled={errors || !chosenFilename}
+									>
+										{t("ASABConfig|Import")}
+									</Button>
+									<Button
+										color="secondary"
+										outline
+										onClick={() => props.setChosenPanel("editor")}
+									>
+										{t("ASABLibraryModule|Back")}
+									</Button>
+								</ButtonGroup>
 							</Col>
 						</Row>
 

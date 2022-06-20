@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
-import TreeMenu, { defaultChildren } from '../../../components/TreeMenu';
+import TreeMenu from '../../../components/TreeMenu';
 import { types } from './actions/actions';
 import {
 	Input,
@@ -54,59 +54,46 @@ export function TreeViewComponent(props) {
 				pathname: `/config/${splitKey[0]}/!manage`,
 			})
 		}
+		setChosenPanel('configurator')
 	}
+
+
+	const TreeMenuDropdownMenu = (
+		<DropdownMenu>
+			<a href={`${props.serviceURL}/export`} download className="text-dark dropdown-export-item w-100">
+				<DropdownItem
+					style={{
+						borderBottom: "1px solid #c8ced3",
+						borderRadius: 0
+					}}
+				>
+					<i className="cil-cloud-download mr-2" />
+					{t("ASABConfig|Export")}
+				</DropdownItem>
+			</a>
+			<DropdownItem onClick={() => setChosenPanel("import")}>
+				<i className="cil-cloud-upload mr-2" />
+				{t("ASABConfig|Import")}
+			</DropdownItem>
+		</DropdownMenu>
+	);
 
 	return (
 		<TreeMenu
 			data={props.treeData}
 			hasSearch={true}
 			openNodes={props.openNodes}
-			activeKey={props.configName != "!manage" ? `${props.configType}/${props.configName}` : `${props.configType}`}
-			focusKey={props.configName != "!manage" ? `${props.configType}/${props.configName}` : `${props.configType}`}
-			onClickItem={({ key, label, ...props }) => {
-				onClickItem(key, label);
-				setChosenPanel('configurator');
+			onClickItem={onClickItem}
+			initialActiveKey={props.configName != "!manage" ? `${props.configType}/${props.configName}` : `${props.configType}`}
+			initialFocusKey={props.configName != "!manage" ? `${props.configType}/${props.configName}` : `${props.configType}`}
+			hasNodes={false}
+			searchOptions={{
+				placeholder: t("ASABConfigModule|Search"),
+				dropdown: {
+					title: t("ASABConfigModule|Actions"),
+					children: TreeMenuDropdownMenu
+				}
 			}}
-		>
-			{({ search, items }) => (
-				<>
-					<InputGroup>
-						<InputGroupText className="p-0 border-0">
-							<ButtonDropdown
-								size="sm"
-								className="h-100"
-								isOpen={isDropdownMenuOpen}
-								toggle={() => setDropdownMenu(prev => !prev)}
-							>
-								<DropdownToggle caret>{t("ASABConfig|Actions")}</DropdownToggle>
-								<DropdownMenu>
-									<a href={`${props.serviceURL}/export`} download className="text-dark dropdown-export-item w-100">
-										<DropdownItem
-											style={{
-												borderBottom: "1px solid #c8ced3",
-												borderRadius: 0
-											}}
-										>
-											<i className="cil-cloud-download mr-2" />
-											{t("ASABConfig|Export")}
-										</DropdownItem>
-									</a>
-									<DropdownItem onClick={() => setChosenPanel("import")}>
-										<i className="cil-cloud-upload mr-2" />
-										{t("ASABConfig|Import")}
-									</DropdownItem>
-								</DropdownMenu>
-							</ButtonDropdown>
-						</InputGroupText>
-						<Input
-							bsSize="sm"
-							onChange={e => search(e.target.value)}
-							placeholder={t("ASABConfig|Search")}
-						/>
-					</InputGroup>
-					{defaultChildren({items})}
-				</>
-			)}
-		</TreeMenu>
+		/>
 	)
 }
