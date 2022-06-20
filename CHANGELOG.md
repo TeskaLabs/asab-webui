@@ -271,6 +271,8 @@
 
 - Delete Remove button from ASAB Config editor, add resource for config actions (INDIGO Sprint 220527, [!284](https://github.com/TeskaLabs/asab-webui/pull/284))
 
+- Update DataTable render TableCell info for parent row (INDIGO Sprint 220610, [!289](https://github.com/TeskaLabs/asab-webui/pull/289))
+
 
 ### Bugfixes
 
