@@ -7,7 +7,7 @@ const TreeMenuItem = ({
 	type, isDisabled, ...props
 }) => {
 	const paddingLeft = 1.25 * level + 0.5;
-	const selected = focused && !hasNodes ? " selected" : "";
+	const selected = focused ? " selected" : "";
 	const disabled = isDisabled ? " disabled" : "";
 
 	return (
