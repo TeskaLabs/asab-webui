@@ -271,6 +271,8 @@
 
 - Delete Remove button from ASAB Config editor, add resource for config actions (INDIGO Sprint 220527, [!284](https://github.com/TeskaLabs/asab-webui/pull/284))
 
+- Add download/upload and search functionality in Configuration  (INDIGO Sprint 220610, [!278](https://github.com/TeskaLabs/asab-webui/pull/278))
+
 
 ### Bugfixes
 
