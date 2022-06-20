@@ -273,6 +273,9 @@
 
 - Update DataTable render TableCell info for parent row (INDIGO Sprint 220610, [!289](https://github.com/TeskaLabs/asab-webui/pull/289))
 
+- Add download/upload and search functionality in Configuration  (INDIGO Sprint 220610, [!278](https://github.com/TeskaLabs/asab-webui/pull/278))
+
+
 
 ### Bugfixes
 
