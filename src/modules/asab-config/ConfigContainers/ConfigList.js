@@ -191,6 +191,12 @@ function CreateConfigCard(props) {
 	// Parse data to JSON format, stringify it and save to config file
 	const onSubmit = async (data) => {
 		let configName = data.configName;
+		let configNameExtension = configName.split('.').pop();
+
+		if (configName == configNameExtension) {
+			configName = `${configName}.json`
+		}
+
 		try {
 			let response = await ASABConfigAPI.put(`/config/${props.configType}/${configName}`,
 				{},

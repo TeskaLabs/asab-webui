@@ -271,10 +271,11 @@
 
 - Delete Remove button from ASAB Config editor, add resource for config actions (INDIGO Sprint 220527, [!284](https://github.com/TeskaLabs/asab-webui/pull/284))
 
+- Add .json extension to a API call for obtaining Sidebar configuration via asab-config service - this change has been done because of asab-config service refactorisation. Add default .json filetype extension for creating new configuration without specified filetype extension in ASAB-Config module. (INDIGO Sprint 220610, [!287](https://github.com/TeskaLabs/asab-webui/pull/287))
+
 - Update DataTable render TableCell info for parent row (INDIGO Sprint 220610, [!289](https://github.com/TeskaLabs/asab-webui/pull/289))
 
 - Add download/upload and search functionality in Configuration  (INDIGO Sprint 220610, [!278](https://github.com/TeskaLabs/asab-webui/pull/278))
-
 
 
 ### Bugfixes
