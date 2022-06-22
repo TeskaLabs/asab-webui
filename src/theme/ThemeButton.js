@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { NavLink } from 'reactstrap';
 
 import { CHANGE_THEME } from "./actions";
 
 const ThemeButton = ({theme}) => {
+	const { t, i18n } = useTranslation();
 	const dispatch = useDispatch();
 
-	const changeLanguage = () => {
+	const changeTheme = () => {
 		const newTheme = (theme == "light") ? "dark" : "light";
 		dispatch({
 			type: CHANGE_THEME,
@@ -20,7 +21,8 @@ const ThemeButton = ({theme}) => {
 	return (
 		<NavLink 
 			style={{ fontSize: "1.2rem", marginRight: "1rem" }}
-			onClick={changeLanguage}
+			onClick={changeTheme}
+			title={t("Change theme")}
 			href="#"
 		>
 			<i className="cil-contrast"></i>
