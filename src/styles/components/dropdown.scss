@@ -39,6 +39,11 @@ $toggle-text-color: var(--toggle-text-color);
 	& span {
 		color: $toggle-text-color !important;
 	}
+	&:hover {
+		& span {
+			color: $primary !important;
+		}
+	}
 }
 .dropdown-menu {
 	margin: 0;
