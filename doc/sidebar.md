@@ -114,9 +114,9 @@ Config structure in Zookeeper should be set as following:
 - **main Zookeeper node**
 	- config
 		- Sidebar
-			- **config**
+			- **config**.json
 	- type
-		- Sidebar
+		- Sidebar.json
 			- schema
 ```
 
@@ -124,7 +124,7 @@ where
 
 - **main Zookeeper node** is the main node in the Zookeeper
 - **Sidebar** is the name of the section
-- **config** is the name of the configuration. This has to follow `title` of the application set in the `configuration` of the application. Configuration file can be created directly from `ASAB UI Config module`.
+- **config** is the name of the configuration. This has to follow `title` of the application set in the `configuration` of the application. The title **needs to have** an `.json` extension, e.g. `LogMan.io.json`. Configuration file can be created directly from `ASAB UI Config module`.
 
 Example of the schema:
 
