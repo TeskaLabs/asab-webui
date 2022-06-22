@@ -39,12 +39,13 @@ function LanguageDropdown(props) {
 				<LanguageFlag language={i18n.language}/>
 			</DropdownToggle>
 			<DropdownMenu right>
-				<DropdownItem header>Language</DropdownItem>
+				<DropdownItem header>{t('i18n|Language')}</DropdownItem>
 
 				{i18n.options.supportedLngs.map((language, i) => {
 					if (language != 'cimode') return (
 						<DropdownItem key={language} title={language} onClick={() => {changeLanguage(language)}}>
 							<LanguageFlag language={language}/>
+							{' '}
 							{t('i18n|language|'+language)}
 						</DropdownItem>
 					);
