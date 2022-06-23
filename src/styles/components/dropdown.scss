@@ -25,6 +25,16 @@ $toggle-text-color: var(--toggle-text-color);
 
 .dropdown, .dropdown .btn {
 	transition: none;
+	& .btn-secondary {
+		background-color: $dropdown-toggle-bg;
+		color: $text-dropdown-color;
+		& span {
+			color: $text-dropdown-color !important;
+			&:hover {
+				color: $text-dropdown-color !important;
+			}
+		}
+	}
 	&:focus {
 		border: none;
 	}
@@ -36,9 +46,9 @@ $toggle-text-color: var(--toggle-text-color);
 	// background-color: $toggle-bg !important;
 	color: $toggle-text-color;
 	justify-content: center;
-	& span {
-		color: $toggle-text-color !important;
-	}
+	//& span {
+	//	color: $toggle-text-color !important;
+	//}
 	&:hover {
 		& span {
 			color: $primary !important;
