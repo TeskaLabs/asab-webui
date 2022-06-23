@@ -20,7 +20,6 @@ import {
 			"Access control": "Access control",
 			"See your details": "You can see your access permissions here",
 			"Tenant": "Tenant",
-			"Roles": "Roles",
 			"Resources": "Resources"
 		}
 	}
@@ -80,13 +79,6 @@ function AccessControlCard(props) {
 								<hr/>
 							</React.Fragment>
 						}
-						<Row>
-							<Col>
-								<h6>{t('AccessControlScreen|Roles')}</h6>
-							</Col>
-							<ItemToRender userinfo={userinfo} item='roles' />
-						</Row>
-						<hr/>
 						<Row>
 							<Col>
 								<h6>{t('AccessControlScreen|Resources')}</h6>
