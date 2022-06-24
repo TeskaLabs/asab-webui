@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { format } from 'date-fns';
+import { Link } from 'react-router-dom';
 import {
-	Link, Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem 
+	Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem
 } from 'reactstrap';
 
 export const CreateButton = ({ createButton }) => {
@@ -88,4 +89,3 @@ export const ActionButton = ({ actionButton, row, header }) => {
 		</Dropdown>
 	)
 }
-
