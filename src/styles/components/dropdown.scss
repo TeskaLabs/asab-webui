@@ -25,16 +25,6 @@ $toggle-text-color: var(--toggle-text-color);
 
 .dropdown, .dropdown .btn {
 	transition: none;
-	& .btn-secondary {
-		background-color: $dropdown-toggle-bg;
-		color: $text-dropdown-color;
-		& span {
-			color: $text-dropdown-color !important;
-			&:hover {
-				color: $text-dropdown-color !important;
-			}
-		}
-	}
 	&:focus {
 		border: none;
 	}
@@ -51,7 +41,7 @@ $toggle-text-color: var(--toggle-text-color);
 	//}
 	&:hover {
 		& span {
-			color: $primary !important;
+			color: $primary;
 		}
 	}
 }
@@ -84,6 +74,8 @@ $toggle-text-color: var(--toggle-text-color);
 }
 
 .show > .btn-secondary.dropdown-toggle {
+	background-color: $dropdown-toggle-bg;
+	color: $text-dropdown-color;
 	&:focus, &:active {
 		border: none;
 		box-shadow: none;
@@ -99,6 +91,26 @@ $toggle-text-color: var(--toggle-text-color);
 	&:focus, &:active {
 		[class^="cil-"] {
 			color: $btn-secondary-bg-color !important;
+		}
+	}
+}
+
+.dropdown, .dropdown .btn {
+	& .btn-secondary {
+		background-color: $dropdown-toggle-bg;
+		color: $text-dropdown-color;
+		& [class^="cil-"] {
+			color: $text-dropdown-color;
+		}
+		&:hover {
+			& span {
+				color: $text-dropdown-color;
+			}
+		}
+		&:active {
+			& [class^="cil-"] {
+				color: $btn-txt;
+			}
 		}
 	}
 }
