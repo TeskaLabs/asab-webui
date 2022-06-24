@@ -59,6 +59,9 @@ $toggle-text-color: var(--toggle-text-color);
 	}
 	& .dropdown-item {
 		padding: 0.5rem 1.5rem;
+		&:hover, &:active {
+			color: $text-dropdown-color;
+		}
 		&:hover {
 			background-color: $dropdown-toggle-bg;
 			filter: brightness(90%);
