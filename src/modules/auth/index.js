@@ -248,7 +248,7 @@ export default class AuthModule extends Module {
 			that.App.addAlert("danger", "ASABAuthModule|Your session has expired", 3600 * 1000, true);
 		}
 		else {
-			let exp = new Date(that.UserInfo.exp).getTime() * 1000; // Expiration timestamp
+			let exp = that.UserInfo.exp * 1000; // Expiration timestamp
 			const difference = exp - Date.now(); // Difference between current time and expiration date in milliseconds
 
 			/**
