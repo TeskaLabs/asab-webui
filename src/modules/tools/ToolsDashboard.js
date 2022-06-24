@@ -94,8 +94,8 @@ function Tool(props) {
 				<React.Fragment key={configObject.name}>
 					<Col className="text-center pt-5 pb-5 pl-5 pr-5">
 						<Row className="justify-content-center">
-							<a href={configObject.url} target="_blank" rel="noopener noreferrer">
-								<Button title={configObject.url} color="light" style={{ boxShadow: "0px 2px 4px rgba(33, 36, 41, 0.05)", borderRadius: 15, width: 130, height: 130, padding: 0 }} >
+							<a href={configObject.url} target="_blank" style={{textDecoration: "none"}} rel="noopener noreferrer">
+								<Button title={configObject.url} color="secondary" outline style={{ boxShadow: "0px 2px 4px rgba(33, 36, 41, 0.05)", display: "block", borderRadius: 15, width: 130, height: 130, padding: 0 }} >
 									<img
 										src={configObject.image}
 										style={{ width: 72 + "px", height: 72 + "px", padding: 5 }}
