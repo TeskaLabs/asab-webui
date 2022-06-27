@@ -112,4 +112,3 @@ export const CustomButton = ({ customButton }) => {
 		</div>
 	)
 }
-
