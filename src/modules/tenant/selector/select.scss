@@ -1,0 +1,26 @@
+.tenant-selection-card {
+	width: fit-content;
+	margin: 0 auto;
+	float: none;
+	margin-top: 5%;
+	margin-bottom: -15% !important;
+}
+
+.tenant-selection-wrapper {
+	display: inline-block;
+	position: absolute;
+	width: 100%;
+}
+
+
+.tenant-selection-wrapper {
+	.tenant-selection-card {
+		.card-header-title {
+			margin: auto !important;
+			line-height:  1rem !important;
+			padding-right: 10px;
+			padding-left: 10px;
+			text-align: center;
+		}
+	}
+}
