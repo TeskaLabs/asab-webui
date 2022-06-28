@@ -52,16 +52,6 @@ export function DataTable ({
 		}, 500);
 	}, [filterValue]);
 
-	useEffect(() => {
-		if((data.length - (currentPage*limit) + 1) < 1) {
-			setCountDigit(1)
-		} else if (limit < data.length && currentPage === 1 ){
-			setCountDigit(1)
-		} else {
-			setCountDigit(data.length - (currentPage*limit) + 1)
-		}
-	}, [limit])
-
 	return (
 		<Row className="h-100">
 			<Col>
@@ -140,7 +130,7 @@ export function DataTable ({
 									{t(translationRoute ? 
 										`${translationRoute}|Showing item(s)` 
 										: "Showing item(s)",
-										{ length: data.length, count: count }
+										{ count: count, first: (currentPage - 1) * limit + 1, max: count > currentPage * limit ? data.length : count}
 									)}
 								</div>
 								) : null
