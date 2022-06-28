@@ -68,5 +68,5 @@ let LanguageToFlag = {
 
 function LanguageFlag(props) {
 	let lcls = LanguageToFlag[props.language]
-	return (<i className={lcls +' pr-2'} style={{height: '1em'}}></i>)
+	return (<i className={lcls +' pr-2'} style={{height: '1em', width: '1.6em'}}></i>)
 }
