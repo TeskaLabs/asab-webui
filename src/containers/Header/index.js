@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import {
 	Nav,
-	NavItem
+	NavItem, Button
 } from 'reactstrap';
 
 import HelpButton from './HelpButton';
@@ -65,14 +65,14 @@ export function Header(props) {
 
 			}
 
-				{/* toggler */}
-				<div className={`header-props-toggler mt-1 mr-3 p-0 ${headerProperties && 'header-props-open' }`} onClick={() => setHeaderProperties(!headerProperties)}>
-					<i className="cil-chevron-bottom"></i>
-				</div>
+			{/* toggler */}
+			<div className={`header-props-toggler mr-3 p-0 ${headerProperties ? 'header-props-open' : '' }`} onClick={() => setHeaderProperties(!headerProperties)}>
+				<i className="cil-chevron-bottom"></i>
+			</div>
 			
 			{/* smallscreen menu  */}
 			{ headerProperties && 
-			<div className={`application-header header-props-sm mt-5`} >
+			<div className={`header-props-sm `} >
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
 				(
 					<Nav navbar>
