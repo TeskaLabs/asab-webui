@@ -7,7 +7,7 @@ import { Table } from 'reactstrap';
 
 import { DateTime } from '../DateTime';
 
-import { ActionButton } from './Buttons';
+import { ActionButton } from './Buttons';
 
 const TableCell = ({
 	obj, header, idx,
@@ -16,13 +16,12 @@ const TableCell = ({
 	if (!obj) return <td className="pl-3" style={{ whiteSpace: "nowrap" }}>-</td>
 
 	let cell, icon, customStyle;
-
 	const textLinkStyle = {
 		whiteSpace: "nowrap",
 		marginBottom: 0
 	}
 
-	if (header.customStyle) {
+	if (header?.customStyle) {
 		customStyle = header.customStyle;
 	}
 

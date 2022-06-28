@@ -7,7 +7,7 @@ import {
 	Button, Input
 } from 'reactstrap';
 
-import "./select.css";
+import "./select.scss";
 
 function TenantSelectionCard(props) {
 	const { t } = useTranslation();
@@ -38,32 +38,34 @@ function TenantSelectionCard(props) {
 		props.app.Services.TenantService &&
 		props.app.Modules.filter(obj => obj.Name === "AuthModule").length > 0 &&
 		props.tenants && props.current === undefined && superuser === false ?
-			<Card className="tenant-selection-card">
-				<CardHeader>
-					<CardTitle>
-						{t("TenantSelectionCard|Select valid tenant to enter the application")}
-					</CardTitle>
-				</CardHeader>
-				<CardBody>
-					<Input
-						type="select"
-						name="selectTenant"
-						id="selectTenant"
-						onClick={(e) => {selectTenant(e.target)}}
-						defaultValue={props.current}
-					>
-						<option key="def" value="99999">{t("TenantSelectionCard|Select tenant")}</option>
-						{props.tenants.length > 0 ? props.tenants.map((tenant, idx) => {return(
-							<option key={idx}>{tenant}</option>
-						)}) : null}
-					</Input>
-				</CardBody>
-				<CardFooter>
-					<Button color="primary" onClick={() => {logout()}}>
-						{t("TenantSelectionCard|Logout")}
-					</Button>
-				</CardFooter>
-			</Card>
+			<div className="tenant-selection-wrapper">
+				<Card className="tenant-selection-card">
+					<CardHeader>
+						<div className="card-header-title">
+							{t("TenantSelectionCard|Select valid tenant to enter the application")}
+						</div>
+					</CardHeader>
+					<CardBody>
+						<Input
+							type="select"
+							name="selectTenant"
+							id="selectTenant"
+							onClick={(e) => {selectTenant(e.target)}}
+							defaultValue={props.current}
+						>
+							<option key="def" value="99999">{t("TenantSelectionCard|Select tenant")}</option>
+							{props.tenants.length > 0 ? props.tenants.map((tenant, idx) => {return(
+								<option key={idx}>{tenant}</option>
+							)}) : null}
+						</Input>
+					</CardBody>
+					<CardFooter>
+						<Button color="primary" onClick={() => {logout()}}>
+							{t("TenantSelectionCard|Logout")}
+						</Button>
+					</CardFooter>
+				</Card>
+			</div>
 		: null
 	);
 }
