@@ -131,6 +131,6 @@
 		"Version": "Version",
 		"Attention": "Attention"
 	},
-
+	"Showing item(s)": "{{ from }} - {{ to }} of {{ total }} item(s)",
 	"You do not have access rights to perform this action": "You do not have access rights to perform this action"
 }

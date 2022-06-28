@@ -131,6 +131,6 @@
 		"Version": "Verze",
 		"Attention": "Pozor"
 	},
-
+	"Showing item(s)": "{{ from }} - {{ to }} z {{ total }} položek",
 	"You do not have access rights to perform this action": "Váš přístup je omezen, nemáte dostatečná oprávnění"
 }
