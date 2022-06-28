@@ -18,6 +18,9 @@ Example of your translation file:
     "Showing item(s)": "Showing {{ length }} of {{ count }} item(s)",
     "No items": "There are no items in here",
     "Limit": "There is no limits",
+    "Items per page": "Items per page",
+    "Page": "of {{pages}} page",
+	"Pages": "of {{pages}} pages",
     ...
 }
 
