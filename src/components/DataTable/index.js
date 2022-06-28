@@ -130,7 +130,7 @@ export function DataTable ({
 									{t(translationRoute ? 
 										`${translationRoute}|Showing item(s)` 
 										: "Showing item(s)",
-										{ count: count, first: (currentPage - 1) * limit + 1, max: count > currentPage * limit ? data.length : count}
+										{ from: (currentPage - 1) * limit + 1, to: count > currentPage * limit ? data.length : count, total: count }
 									)}
 								</div>
 								) : null
