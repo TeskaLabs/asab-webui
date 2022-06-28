@@ -43,7 +43,7 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 				</DropdownToggle>
 				<DropdownMenu>
 					{pages.map((page, idx) =>
-						<DropdownItem onClick={() => setPage(page)}>
+						<DropdownItem key={idx} onClick={() => setPage(page)}>
 							{page}
 						</DropdownItem>
 					)} 
