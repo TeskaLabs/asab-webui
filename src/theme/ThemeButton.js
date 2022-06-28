@@ -20,7 +20,7 @@ const ThemeButton = ({theme}) => {
 
 	return (
 		<NavLink 
-			style={{ fontSize: "1.2rem", marginRight: "1rem" }}
+			style={{ fontSize: "1.1rem", marginRight: "1rem", paddingTop: "0.4rem" }}
 			onClick={changeTheme}
 			title={t("Change theme")}
 			href="#"

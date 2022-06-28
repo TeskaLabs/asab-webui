@@ -21,7 +21,7 @@ class TenantDropdown extends Component {
 		return (
 			<UncontrolledDropdown direction="down" className="pr-3">
 				<DropdownToggle nav caret>
-					<i className="cil-apps pr-2" style={{ fontSize: "1.2rem"}}></i>
+					<i className="cil-apps pr-2" style={{ fontSize: "1.1rem"}}></i>
 					<TenantLabel tenant={this.current}/>
 				</DropdownToggle>
 				{ (this.tenants && this.tenants.length > 0) ?
@@ -61,7 +61,7 @@ class TenantLabel extends Component {
 
 	render() {
 		return (
-			<React.Fragment>{this.props.tenant}</React.Fragment>
+			<span style={{fontSize: "1rem"}}>{this.props.tenant}</span>
 		);
 	}
 }

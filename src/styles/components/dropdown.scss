@@ -36,9 +36,9 @@ $toggle-text-color: var(--toggle-text-color);
 	// background-color: $toggle-bg !important;
 	color: $toggle-text-color;
 	justify-content: center;
-	//& span {
-	//	color: $toggle-text-color !important;
-	//}
+	& span {
+		color: $toggle-text-color;
+	}
 	&:hover {
 		& span {
 			color: $primary;
