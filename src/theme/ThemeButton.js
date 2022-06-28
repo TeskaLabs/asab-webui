@@ -6,6 +6,8 @@ import { NavLink } from 'reactstrap';
 
 import { CHANGE_THEME } from "./actions";
 
+import './themebutton.scss';
+
 const ThemeButton = ({theme}) => {
 	const { t, i18n } = useTranslation();
 	const dispatch = useDispatch();
@@ -19,8 +21,8 @@ const ThemeButton = ({theme}) => {
 	}
 
 	return (
-		<NavLink 
-			style={{ fontSize: "1.1rem", marginRight: "1rem", paddingTop: "0.4rem" }}
+		<NavLink
+			className="theme-button"
 			onClick={changeTheme}
 			title={t("Change theme")}
 			href="#"
