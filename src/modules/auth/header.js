@@ -49,10 +49,10 @@ function HeaderComponent(props) {
 		<UncontrolledDropdown direction="down" className="pr-3">
 			<DropdownToggle title={props.sub} nav caret>
 				{(props.picture)
-					? <img src={props.picture} className="img-avatar" alt={props.username} style={{ fontSize: "1.2rem"}}/>
-					: <i alt={props.username} className="cil-user" style={{ fontSize: "1.2rem"}}></i>
+					? <img src={props.picture} className="img-avatar" alt={props.username} style={{ fontSize: "1.1rem"}}/>
+					: <i alt={props.username} className="cil-user" style={{fontSize: "1.1rem"}}></i>
 				}
-				<span className="pl-2" title={props.sub}>{props.username}</span>
+				<span className="pl-2" style={{fontSize: "1rem"}} title={props.sub}>{props.username}</span>
 			</DropdownToggle>
 			<DropdownMenu>
 				<DropdownItem header>{t('AuthHeaderDropdown|My account')}</DropdownItem>
