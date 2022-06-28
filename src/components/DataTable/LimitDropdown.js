@@ -13,9 +13,7 @@ const LimitDropdown = ({ translationRoute = '', limit = 10, limitValues, setPage
 
 	return (
 		<div className="data-table-limit">
-			{/* {t(translationRoute ? `${translationRoute}|Limit` : "Limit")}: */}
-			{/* TODO: Add translation */}
-			Items per page: 
+			{t("Items per page")}:
 			<Dropdown
 				isOpen={isLimitOpen}
 				toggle={() => setLimitDropdown(prev => !prev)}
