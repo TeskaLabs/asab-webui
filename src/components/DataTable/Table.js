@@ -230,8 +230,8 @@ const TableRow = ({
 			
 			{advmode && isAdvUnwrapped && (
 				<tr className="data-table-adv-tr" style={{ backgroundColor: "rgba(0, 0, 0, 0.025)"}}>
-					<td 
-						colSpan={headers.length+1}
+					<td
+						colSpan={category?.sublistKey ? headers.length+2 : headers.length+1}
 						className="data-table-adv-td"
 					>
 						<ReactJson
