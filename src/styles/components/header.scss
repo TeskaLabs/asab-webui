@@ -1,12 +1,12 @@
 :root[data-theme="light"] {
-	--toggler-color: #828eb0;
+	--toggle-text-color: #828eb0;
 }
 
 :root[data-theme="dark"] {
-	--toggler-color: #39487a;
+	--toggle-text-color: #39487a;
 }
 
-$toggler-color: var(--toggler-color);
+$toggle-text-color: var(--toggle-text-color);
 
 .application-header {
 	width: 100%;
@@ -77,7 +77,7 @@ $toggler-color: var(--toggler-color);
 	}
 		
 	.header-props-toggler{
-		color: $link-color;
+		color: $toggle-text-color;
 		visibility: visible;
 		display: inline-flex;
 		align-items: center;
