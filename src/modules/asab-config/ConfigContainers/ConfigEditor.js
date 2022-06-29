@@ -591,10 +591,7 @@ function ConfigEditor(props) {
 								toggle={toggleDropDown}
 								title={t('ASABConfig|Add new section')}
 							>
-								<DropdownToggle
-									caret
-									outline
-								>
+								<DropdownToggle caret>
 									{t('ASABConfig|Add')}
 								</DropdownToggle>
 								<DropdownMenu

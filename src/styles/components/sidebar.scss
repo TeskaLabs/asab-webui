@@ -69,7 +69,7 @@ $sidebar-item-font-size: 14px;
 				width: $sidebar-item-width;
 				border-radius: $sidebar-item-radius;
 				border: 2px solid transparent;
-				color: $highlighted-text-color;
+				color: $highlighted-text-color !important;
 				background-color: transparent;
 				border-color: transparent;
 				font-weight: $highlighted-font-weight;
