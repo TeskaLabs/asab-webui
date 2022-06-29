@@ -5,6 +5,7 @@ import { Alert } from "reactstrap";
 import { ACK_ALERT, DEL_ALERT } from '../../actions';
 import { useTranslation } from 'react-i18next'
 
+import './alerts.scss';
 
 function AlertsComponent(props) {
 	const [seconds, setSeconds] = useState(0);
@@ -45,7 +46,7 @@ function AlertsComponent(props) {
 					<Alert
 						key={alert.key}
 						color={alert.level}
-						className="shadow"
+						className="shadow alerts-style"
 						fade={true}
 						isOpen={!alert.acked}
 						toggle={() => store.dispatch({ type: ACK_ALERT, key: alert.key })}
