@@ -1,3 +1,15 @@
+@import "../constants/index.scss";
+
+:root[data-theme="light"] {
+	--nav-bar-link: var(--primary);
+}
+
+:root[data-theme="dark"] {
+	--nav-bar-link: var(--white-night);
+}
+
+$nav-bar-link: var(--nav-bar-link);
+
 .application-header {
 	width: 100%;
 	display: flex;
@@ -10,6 +22,16 @@
 	.navbar-nav {
 		flex-direction: row;
 		align-items: center;
+
+		& .nav-link {
+			&:hover {
+				color: $nav-bar-link;
+
+				& span {
+					color: $nav-bar-link;
+				}
+			}
+		}
 	}
 
 	.header-sidebar-toggler {
