@@ -132,5 +132,8 @@
 		"Attention": "Pozor"
 	},
 
-	"You do not have access rights to perform this action": "Váš přístup je omezen, nemáte dostatečná oprávnění"
+	"You do not have access rights to perform this action": "Váš přístup je omezen, nemáte dostatečná oprávnění",
+	"Items per page": "Položek na stránku",
+	"Page": "z {{pages}} stránky",
+	"Pages": "z {{pages}} stránek"
 }

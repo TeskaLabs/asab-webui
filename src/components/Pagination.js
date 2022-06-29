@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Pagination, PaginationItem, PaginationLink, Dropdown, DropdownMenu, DropdownItem, DropdownToggle, ButtonDropdown } from 'reactstrap';
 
@@ -9,6 +10,8 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 	let end = currentPage + Math.floor(slots / 2);
 
 	const [open, setOpen] = useState(false);
+
+	const { t, i18n } = useTranslation();
 
 	if (start < 1) {
 		start = 1;
@@ -54,7 +57,7 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 {/* TODO: add translations */}
 
 			<div className="mr-2">
-				of {pages.length} pages
+				{pages.length > 1 ? t('Pages', {pages: pages.length}) : t('Page', {pages: pages.length})}
 			</div>
 
 			<Pagination style={style}>
