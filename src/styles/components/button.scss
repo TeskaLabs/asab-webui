@@ -344,12 +344,14 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 }
 
 .btn-group {
-
 	&>.btn {
 		flex: none;
 	}
 	&>.btn:not(:first-child) {
 		margin-left: 0;
+	}
+	&>a:last-child>.btn {
+		border-radius: 0 8px 0 0;
 	}
 }
 

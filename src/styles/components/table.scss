@@ -23,7 +23,7 @@ tr {
 }
 
 th {
-    color: $text-secondary-color
+    color: $text-secondary-color !important
 }
 
 th, td {
@@ -50,6 +50,10 @@ tbody {
 
 .table thead th {
     border-bottom: 0;
+}
+
+.table .thead-light th {
+    background-color: transparent;
 }
 
 .table-hover tbody tr:hover, tbody tr:hover {
