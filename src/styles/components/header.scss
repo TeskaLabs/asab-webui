@@ -1,12 +1,15 @@
 :root[data-theme="light"] {
 	--toggle-text-color: #828eb0;
+	--nav-bar-link: var(--primary);
 }
 
 :root[data-theme="dark"] {
 	--toggle-text-color: #39487a;
+	--nav-bar-link: var(--white-night);
 }
 
 $toggle-text-color: var(--toggle-text-color);
+$nav-bar-link: var(--nav-bar-link);
 
 .application-header {
 	width: 100%;
@@ -20,6 +23,16 @@ $toggle-text-color: var(--toggle-text-color);
 	.navbar-nav {
 		flex-direction: row;
 		align-items: center;
+
+		& .nav-link {
+			&:hover {
+				color: $nav-bar-link;
+
+				& span {
+					color: $nav-bar-link;
+				}
+			}
+		}
 	}
 
 	.header-sidebar-toggler {

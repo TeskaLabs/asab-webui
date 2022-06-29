@@ -28,6 +28,10 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 		pages.push(i);
 	}
 
+	if (pages.length === 0) {
+		pages.push(1)
+	}
+
 	useEffect(() => {
 		if (currentPage > lastPage && lastPage != 0) {
 			setPage(lastPage);
