@@ -11,6 +11,8 @@ export default class ConfigService extends Service {
 
 	initialize() {
 		// Detect initial theme (based on color-scheme aka user prefered theme)
+		// Doesn't work in Chromiuim in Ubuntu
+		// more info https://bugs.chromium.org/p/chromium/issues/detail?id=998903
 		const prefersColorScheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
 		? "dark"
 		: "light"
