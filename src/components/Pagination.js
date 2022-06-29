@@ -28,6 +28,10 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 		pages.push(i);
 	}
 
+	if (pages.length === 0) {
+		pages.push(1)
+	}
+
 	useEffect(() => {
 		if (currentPage > lastPage && lastPage != 0) {
 			setPage(lastPage);
@@ -57,7 +61,7 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 {/* TODO: add translations */}
 
 			<div className="mr-2">
-				{pages.length > 1 ? t('Pages', {pages: pages.length}) : t('Page', {pages: pages.length})}
+				{pages.length > 0 ? t('Pages', {pages: pages.length}) : t('Page', {pages: pages.length})}
 			</div>
 
 			<Pagination style={style}>
