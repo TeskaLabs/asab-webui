@@ -47,6 +47,14 @@ $disabled-input-background-color: var(--disabled-input-background-color);
     border-radius: 2px;
     background-color: $input-bg;
     color: $disabled-input-text-color;
+}
+
+.form-control:disabled {
+    box-shadow: 0px 2px 3px -1px $light;
+    border: 1px solid $border-color;
+    border-radius: 2px;
+    background-color: $input-bg;
+    color: $disabled-input-text-color;
     background-color: $disabled-input-background-color;
 }
 
