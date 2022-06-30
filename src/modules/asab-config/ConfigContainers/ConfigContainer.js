@@ -197,8 +197,8 @@ function ConfigContainer(props) {
 										alt={homeScreenAlt}
 										style={{maxWidth: "38%"}}
 									/>
-									<h3>{t('ASABConfig|Nothing has been selected')}</h3>
-									<h5>{t('ASABConfig|Please select the configuration from tree menu on the left side of the screen')}</h5>
+									<h4>{t('ASABConfig|Nothing has been selected')}</h4>
+									<h6>{t('ASABConfig|Please select the configuration from tree menu on the left side of the screen')}</h6>
 								</CardBody>
 							</Card>
 					:
