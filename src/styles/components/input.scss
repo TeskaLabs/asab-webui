@@ -3,7 +3,7 @@
     --input-text: var(--feather-gray);
     --input-border: var(--light-gray);
     --disabled-input-text-color: var(--off-white);
-    --disabled-input-background-color: #dfe0e6;
+    --disabled-input-background-color: #f4f4f5;
 }
 
 :root[data-theme="dark"] {
@@ -11,7 +11,7 @@
     --input-text: var(--light-dream-blue);
     --input-border: var(--night-blue);
     --disabled-input-text-color: var(--feather-gray);
-    --disabled-input-background-color: #33384a;
+    --disabled-input-background-color: #232733;
 }
 
 $input-bg: var(--input-bg);
