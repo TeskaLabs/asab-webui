@@ -1,13 +1,14 @@
-@import "../constants/index.scss";
-
 :root[data-theme="light"] {
+	--toggle-text-color: #828eb0;
 	--nav-bar-link: var(--primary);
 }
 
 :root[data-theme="dark"] {
+	--toggle-text-color: #39487a;
 	--nav-bar-link: var(--white-night);
 }
 
+$toggle-text-color: var(--toggle-text-color);
 $nav-bar-link: var(--nav-bar-link);
 
 .application-header {
@@ -69,12 +70,31 @@ $nav-bar-link: var(--nav-bar-link);
 
 // header-props
 
-.header-props-toggler { display: none; }
+.header-props-toggler, .header-props-sm { 
+	visibility: hidden;
+	display: none;
+}
 
 @media (max-width: 800px) {
+	.application-header {
+		transition: height 300ms ease-out;
+	}
+
+	.application-header.header-props-open {
+		flex-direction: column;
+		height: 103px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-evenly;
+		transition: height 300ms ease;
+	}
+		
 	.header-props-toggler{
+		color: $toggle-text-color;
+		visibility: visible;
 		display: inline-flex;
 		align-items: center;
+		align-self: center;
 		font-size: 1.5rem;
 		margin-left: auto !important;
 		transform: rotate(0deg);
@@ -87,6 +107,7 @@ $nav-bar-link: var(--nav-bar-link);
 	.header-props {
 		display: none !important;
 		&-sm {
+			visibility: visible;
 			display: flex;
 			justify-content: right;
 			margin-left: auto !important;

@@ -28,6 +28,7 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 		justify-content: space-between;
     	min-height: 50px;
 		flex-wrap: wrap;
+		box-sizing:content-box;
 		.card-header-title {
 			color: $text-secondary-color;
 			font-style: normal;
@@ -62,6 +63,9 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 				&:last-child {
 					border-radius: 0 7px 0 0;
 				}
+			}
+			.btn:last-child {
+				border-radius: 0 8px 0 0;
 			}
 		}
 		.input-group{
