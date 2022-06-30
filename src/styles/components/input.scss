@@ -1,17 +1,24 @@
 :root[data-theme="light"] {
-	--input-bg: var(--white);
-	--input-text: var(--feather-gray);
+    --input-bg: var(--white);
+    --input-text: var(--feather-gray);
     --input-border: var(--light-gray);
+    --disabled-input-text-color: var(--off-white);
+    --disabled-input-background-color: #f4f4f5;
 }
+
 :root[data-theme="dark"] {
-	--input-bg: var(--dream-blue);
-	--input-text: var(--light-dream-blue);
+    --input-bg: var(--dream-blue);
+    --input-text: var(--light-dream-blue);
     --input-border: var(--night-blue);
+    --disabled-input-text-color: var(--feather-gray);
+    --disabled-input-background-color: #232733;
 }
 
 $input-bg: var(--input-bg);
 $input-text: var(--input-text);
 $input-border: var(--input-border);
+$disabled-input-text-color: var(--disabled-input-text-color);
+$disabled-input-background-color: var(--disabled-input-background-color);
 
 .form-control {
     //box-shadow: 0px 2px 3px -1px $light;
@@ -31,7 +38,7 @@ $input-border: var(--input-border);
     &::placeholder {
         color: $input-text;
         opacity: 1;
-      }
+    }
 }
 
 .form-control:read-only {
@@ -39,7 +46,8 @@ $input-border: var(--input-border);
     border: 1px solid $border-color;
     border-radius: 2px;
     background-color: $input-bg;
-    color: $text-color;
+    color: $disabled-input-text-color;
+    background-color: $disabled-input-background-color;
 }
 
 .input-group {
