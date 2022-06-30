@@ -85,8 +85,9 @@ const ConfigImport = (props) => {
 				ref={formRef}
 				onSubmit={importConfiguration}
 			>
-				<CardHeader>
+				<CardHeader className="border-bottom">
 					<div className="card-header-title">
+						<i className="cil-cloud-upload mr-2" />
 						{t("ASABConfig|Import configuration")}
 					</div>
 				</CardHeader>
