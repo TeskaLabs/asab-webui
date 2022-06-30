@@ -8,6 +8,8 @@ import {
 	Button
 } from 'reactstrap';
 
+import "./styles.scss";
+
 /*
 
 	Language localizations for AccessControlScreen can be added to the translation.json files of
@@ -29,7 +31,7 @@ import {
 function AccessControlScreen(props) {
 
 	return (
-		<Container>
+		<Container className='access-control-container'>
 			<Row className="justify-content-center">
 				<Col md="6">
 					<ConnectedAccessControlCard app={props.app} />
@@ -55,8 +57,8 @@ function AccessControlCard(props) {
 	return(
 		<Card className="shadow animated fadeIn">
 			<CardHeader className="text-center border-bottom card-header-login">
-				<div className="card-header-title">
-					<CardTitle tag="h1">{t('AccessControlScreen|Access control')}</CardTitle>
+				<div className="card-header-title text-primary">
+					{t('AccessControlScreen|Access control')}
 					<CardSubtitle tag="p">
 						{t('AccessControlScreen|See your details')}
 					</CardSubtitle>
@@ -70,7 +72,7 @@ function AccessControlCard(props) {
 							<React.Fragment>
 								<Row>
 									<Col>
-										<h6>{t('AccessControlScreen|Tenant')}</h6>
+										{t('AccessControlScreen|Tenant')}
 									</Col>
 									<Col>
 										<p style={{marginBottom: "5px"}}>{currentTenant}</p>
@@ -81,14 +83,14 @@ function AccessControlCard(props) {
 						}
 						<Row>
 							<Col>
-								<h6>{t('AccessControlScreen|Resources')}</h6>
+								{t('AccessControlScreen|Resources')}
 							</Col>
 							<ItemToRender userinfo={userinfo} item='resources' />
 						</Row>
 					</>
 					) : (
 					<div className="text-center">
-						<h6>{t("AccessControlScreen|The user information is invalid, you session is likely expired.")}</h6>
+						{t("AccessControlScreen|The user information is invalid, you session is likely expired.")}
 					</div>
 				)}
 			</CardBody>
