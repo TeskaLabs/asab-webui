@@ -19,7 +19,7 @@ const MicroserviceDetailContainer = (props) => {
 	const { t } = useTranslation();
 	const { svc_name } = useParams();
 
-	const ASABConfigAPI = props.app.axiosCreate('asab_config');
+	const LMIORemoteControlAPI = props.app.axiosCreate('lmio_remote_control');
 
 	useEffect(() => {
 		getMicroservice();
@@ -27,7 +27,7 @@ const MicroserviceDetailContainer = (props) => {
 
 	const getMicroservice = async () => {
 		try {
-			const response = await ASABConfigAPI.get(`microservices/${svc_name}`);
+			const response = await LMIORemoteControlAPI.get(`microservice/${svc_name}`);
 
 			if (response.data.result !== "OK") throw new Error(response);
 
