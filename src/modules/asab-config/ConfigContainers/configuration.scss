@@ -1,18 +1,3 @@
-@import "~asab-webui/styles/constants/index.scss";
-
-:root[data-theme="light"] {
-	--bg: var(--bg-color);
-	--text-button-color: var(--text-color);
-}
-
-:root[data-theme="dark"] {
-	--bg: var(--light-blue);
-	--text-button-color: var(--btn-txt);
-}
-
-$button-bg: var(--bg);
-$text-button-color: var(--text-button-color);
-
 .config-container {
 	height: 100%;
 
@@ -76,25 +61,7 @@ $text-button-color: var(--text-button-color);
 		}
 	}
 
-	.input-group-text {
-
-		.show > .dropdown-toggle, .dropdown-toggle, .dropdown-toggle:active {
-			border: 1px solid $border-color;
-			border-right: none;
-		}
-
-		.dropdown-toggle {
-			background-color: $button-bg !important;
-			color: $text-button-color !important;
-			&:active {
-				background-color: var(--btn-secondary-bg-color) !important;
-				color: var(--btn-txt) !important;
-			}
-		}
-	}
-
 	.dropdown-export-item, .dropdown-export-item:hover {
 		text-decoration: none;
 	}
 }
-

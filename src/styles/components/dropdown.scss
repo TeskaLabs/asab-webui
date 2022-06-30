@@ -4,6 +4,7 @@
 	--bg: var(--bg-color);
 	--box-shadow-card-color: rgba(206, 211, 243, 0.5);
 	--text-dropdown-color: var(--text-color);
+	--text-dropdown-button: var(--text-color);
 	--toggle-bg: var(--gray);
 	--toggle-text-color: var(--off-white);
 }
@@ -12,14 +13,15 @@
 	--bg: var(--light-blue);
 	--box-shadow-card-color: #030931;
 	--text-dropdown-color: var(--btn-txt);
+	--text-dropdown-button-color: var(--light-dream-blue);
 	--toggle-bg: var(transparentize);
 	--toggle-text-color: var(--night-blue);
 }
 
-$btn-secondary-hover-bg: var();
 $dropdown-toggle-bg: var(--bg);
 $box-shadow-card-color: var(--box-shadow-card-color);
 $text-dropdown-color: var(--text-dropdown-color);
+$text-dropdown-button-color: var(--text-dropdown-button-color);
 $toggle-bg: var(--toggle-bg);
 $toggle-text-color: var(--toggle-text-color);
 
@@ -32,8 +34,6 @@ $toggle-text-color: var(--toggle-text-color);
 
 .dropdown-toggle {
 	padding: 8px;
-	// min-height: 30px;
-	// background-color: $toggle-bg !important;
 	color: $toggle-text-color;
 	justify-content: center;
 	& span {
@@ -77,11 +77,15 @@ $toggle-text-color: var(--toggle-text-color);
 }
 
 .show > .btn-secondary.dropdown-toggle {
-	background-color: $dropdown-toggle-bg;
-	color: $text-dropdown-color;
+	background-color: inherit;
+	//background-color: $dropdown-toggle-bg;
+	color: $text-dropdown-button-color;
 	&:focus, &:active {
 		border: none;
 		box-shadow: none;
+	}
+	[class^="cil-"] {
+		color: inherit;
 	}
 }
 
@@ -100,20 +104,49 @@ $toggle-text-color: var(--toggle-text-color);
 
 .dropdown, .dropdown .btn {
 	& .btn-secondary {
-		background-color: $dropdown-toggle-bg;
-		color: $text-dropdown-color;
+		background-color: inherit;
+		color: $text-dropdown-button-color;
 		& [class^="cil-"] {
-			color: $text-dropdown-color;
+			color: $text-dropdown-button-color;
 		}
 		&:hover {
 			& span {
-				color: $text-dropdown-color;
+				color: $text-dropdown-button-color;
 			}
 		}
 		&:active {
 			& [class^="cil-"] {
 				color: $btn-txt;
 			}
+		}
+	}
+}
+
+.input-group {
+	& .input-group-text {
+		.dropdown-toggle.btn-secondary {
+			background-color: inherit;
+			//background-color: $dropdown-toggle-bg;
+			color: $text-dropdown-button-color;
+			& [class^="cil-"] {
+				color: $text-dropdown-color;
+			}
+			&:hover {
+				& span {
+					color: $text-dropdown-button-color;
+				}
+			}
+			&:active {
+				& [class^="cil-"] {
+					color: $btn-txt;
+				}
+			}
+		}
+		.show > .dropdown-toggle, .dropdown-toggle, .dropdown-toggle:active {
+			border: 1px solid $border-color;
+			border-right: none;
+			background-color: var(--btn-secondary-bg-color);
+			color: var(--btn-txt);
 		}
 	}
 }
