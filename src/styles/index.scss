@@ -48,6 +48,13 @@ hr {
 	background-color: $border-color;
 }
 
+code {
+	line-height: 1.5;
+	font-size: 0.875rem;
+	font-weight: 400;
+	color: $text-code-highlight;
+}
+
 .table {
 	color: $text-color;
 }
