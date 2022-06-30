@@ -33,8 +33,8 @@ function UserInterfaceCard() {
 	return (
 		<Card className="shadow animated fadeIn mt-2">
 			<CardHeader className='border-bottom'>
-				<div className="card-header-title">
-					<h3>{t('UserInterfaceCard|User interface')}</h3>
+				<div className="card-header-title text-primary">
+					{t('UserInterfaceCard|User interface')}
 				</div>
 			</CardHeader>
 			<CardBody>
@@ -42,7 +42,7 @@ function UserInterfaceCard() {
 					<React.Fragment>
 						<Row>
 							<Col>
-								<h6>{t('UserInterfaceCard|Version')}</h6>
+								{t('UserInterfaceCard|Version')}
 							</Col>
 							<Col>
 								{version}
@@ -53,7 +53,7 @@ function UserInterfaceCard() {
 				}
 				<Row>
 					<Col>
-						<h6>{t('UserInterfaceCard|Build date')}</h6>
+						{t('UserInterfaceCard|Build date')}
 					</Col>
 					<Col>
 						<DateTime value={buildDate} format="YYYY-MM-DD"/>
