@@ -57,8 +57,10 @@ function AccessControlCard(props) {
 	return(
 		<Card className="shadow animated fadeIn">
 			<CardHeader className="text-center border-bottom card-header-login">
-				<div className="card-header-title text-primary">
-					{t('AccessControlScreen|Access control')}
+				<div className="card-header-title">
+					<CardTitle className="text-primary mb-0">
+						{t('AccessControlScreen|Access control')}
+					</CardTitle>
 					<CardSubtitle tag="p">
 						{t('AccessControlScreen|See your details')}
 					</CardSubtitle>
