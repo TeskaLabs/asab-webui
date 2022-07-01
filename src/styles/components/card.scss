@@ -139,6 +139,12 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 				border-radius: 0 0 0 7px;
 			}
 		}
+		.dropdown {
+			.dropdown-toggle {
+				padding: 12px 24px;
+				border-radius: 0 0 7px 0;
+			}
+		}
 	}
 }
 
