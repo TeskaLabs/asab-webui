@@ -52,6 +52,7 @@ function ConfigEditor(props) {
 
 	const resourceManageConfig = "config:admin";
 	const resources = useSelector(state => state.auth?.userinfo?.resources);
+	const theme = useSelector(state => state?.theme);
 
 	// Pattern props dropdown
 	const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -560,6 +561,7 @@ function ConfigEditor(props) {
 							<TabPane tabId="advanced">
 								<div>
 									<ReactJson
+										theme={theme === "light" ? "rjv-default" : "brewer"}
 										src={jsonValues}
 										onEdit={ e => { setJsonValues(e.updated_src)} }
 										enableClipboard={false}
