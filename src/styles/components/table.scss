@@ -1,11 +1,17 @@
 :root[data-theme="light"] {
 	--table-bg-color-hover: #F9FAFF;
+    --disabled-row-text-color: var(--off-white);
+    --disabled-row-background-color: #f8f9fa;
 }	
 :root[data-theme="dark"] {
 	--table-bg-color-hover: #0A1940;
+    --disabled-row-text-color: var(--feather-gray);
+    --disabled-row-background-color: #232733;
 }
 
 $table-bg-color-hover: var(--table-bg-color-hover);
+$disabled-row-text-color: var(--disabled-row-text-color);
+$disabled-row-background-color: var(--disabled-row-background-color);
 
 table {
     color: $text-color;
@@ -20,7 +26,19 @@ tr {
     & th:first-child {
         padding-left: 1rem;
     }
+    &.bg-light {
+        color: $disabled-row-text-color;
+        background-color: $disabled-row-background-color !important;
+        & th, td {
+            color: $disabled-row-text-color !important;
+        }
+    }
 }
+
+.bg-light {
+    color: $disabled-row-text-color !important;
+    background-color: $disabled-row-background-color !important;}
+
 
 th {
     color: $text-secondary-color !important
