@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
-	CardBody, Row, Col,
+	CardBody, CardHeader, CardFooter, Row, Col,
 	Button, Input, Label,
 	FormGroup, FormText, InputGroup,
 	InputGroupText, Card, ButtonGroup
@@ -80,16 +80,19 @@ const ConfigImport = (props) => {
 
 	return (
 		<Card>
-			<CardBody>
-				<form
-					id="upload-configuration"
-					ref={formRef}
-					onSubmit={importConfiguration}
-				>
+			<form
+				id="upload-configuration"
+				ref={formRef}
+				onSubmit={importConfiguration}
+			>
+				<CardHeader className="border-bottom">
+					<div className="card-header-title">
+						<i className="cil-cloud-upload mr-2" />
+						{t("ASABConfig|Import configuration")}
+					</div>
+				</CardHeader>
+				<CardBody>
 					<Col>
-						<h5>{t("ASABConfig|Import configuration")}</h5>
-						<hr />
-
 						<Input
 							id="file"
 							name="file"
@@ -134,32 +137,27 @@ const ConfigImport = (props) => {
 								</FormGroup>
 							</Row>
 						</Col>
-						<hr />
-
-						<Row>
-							<Col>
-								<ButtonGroup>
-									<Button
-										type="submit"
-										color="primary"
-										disabled={errors || !chosenFilename}
-									>
-										{t("ASABConfig|Import")}
-									</Button>
-									<Button
-										color="secondary"
-										outline
-										onClick={() => props.setChosenPanel("editor")}
-									>
-										{t("ASABLibraryModule|Back")}
-									</Button>
-								</ButtonGroup>
-							</Col>
-						</Row>
-
 					</Col>
-				</form>
-			</CardBody>
+				</CardBody>
+				<CardFooter>
+					<ButtonGroup>
+						<Button
+							type="submit"
+							color="primary"
+							disabled={errors || !chosenFilename}
+						>
+							{t("ASABConfig|Import")}
+						</Button>
+						<Button
+							color="secondary"
+							outline
+							onClick={() => props.setChosenPanel("editor")}
+						>
+							{t("ASABLibraryModule|Back")}
+						</Button>
+					</ButtonGroup>
+				</CardFooter>
+			</form>
 		</Card>
 	)
 }

@@ -46,7 +46,7 @@ $disabled-input-background-color: var(--disabled-input-background-color);
     border: 1px solid $border-color;
     border-radius: 2px;
     background-color: $input-bg;
-    color: $disabled-input-text-color;
+    color: $input-text;
 }
 
 .form-control:disabled {

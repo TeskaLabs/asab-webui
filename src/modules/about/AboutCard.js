@@ -34,15 +34,15 @@ function AboutCard(props) {
 	return(
 		<Card className="shadow animated fadeIn">
 			<CardHeader className='border-bottom'>
-				<div className="card-header-title">
-					<h3>{title}</h3>
+				<div className="card-header-title text-primary">
+					{title}
 				</div>
 			</CardHeader>
 
 			<CardBody>
 				<Row>
 					<Col>
-						<h6>{t('AboutCard|Vendor')}</h6>
+						{t('AboutCard|Vendor')}
 					</Col>
 					<Col>
 						{vendor}
@@ -53,7 +53,7 @@ function AboutCard(props) {
 						<hr/>
 						<Row>
 							<Col>
-								<h6>{t('AboutCard|Website')}</h6>
+								{t('AboutCard|Website')}
 							</Col>
 							<Col>
 								<a href={website} target="_blank" rel="noopener noreferrer">
@@ -68,7 +68,7 @@ function AboutCard(props) {
 						<hr/>
 						<Row>
 							<Col>
-								<h6>Email</h6>
+								Email
 							</Col>
 							<Col>
 								<a href={`mailto:${email}`}>{email}</a>
