@@ -113,7 +113,6 @@ const TableCell = ({
 			</th>
 		) : (
 			<td className="pl-3 data-table-td" style={{ ...customStyle }}>
-			{/* <td className="pl-3 data-table-td" style={{ whiteSpace: "nowrap", ...customStyle }}> */}
 				{cell}
 			</td>
 		);
@@ -127,14 +126,12 @@ const Headers = ({ headers, advmode, sublists }) => (
 			{headers.map((_, idx) =>
 				<col
 					className={`data-table-col${idx}`}
-					// style={{ width: (idx === headers.length - 1) ? "auto" : "1px" }}
 					style={{ width: "auto"}}
 					key={idx}
 				/>
 			)}
 		</colgroup>
 
-		{/* <thead className={`thead-${theme === "theme-dark" || !theme ? "light" : "dark"} data-table-thead`}> */}
 		<thead className="data-table-thead">
 			<tr className="data-table-tr">
 				{advmode && <th className="pl-3 data-table-adv-header-th">{" "}</th>}
