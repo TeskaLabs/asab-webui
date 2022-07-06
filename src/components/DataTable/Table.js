@@ -151,6 +151,7 @@ const TableRow = ({
 }) => {
 	const [isAdvUnwrapped, setAdvUnwrapped] = useState(false);
 	const [isSubUnwrapped, setSubUwrapped] = useState(true);
+	const theme = useSelector(state => state?.theme);
 
 	const getStyle = (obj) => {
 		if (rowStyle?.condition && rowStyle?.condition(obj)) {
@@ -172,6 +173,9 @@ const TableRow = ({
 		}
 		else if (rowClassName?.jsonTheme && rowClassName?.condition(obj)) {
 			return rowClassName.jsonTheme;
+		}
+		else if (theme !== "light") {
+			return "brewer";
 		} 
 		else {
 			return "rjv-default";
@@ -180,7 +184,7 @@ const TableRow = ({
 
 	const style = useMemo(() => getStyle(obj), [obj]);
 	const className = useMemo(() => getClassName(obj), [obj]);
-	const jsonTheme = useMemo(() => getJsonTheme(obj), [obj]);
+	const jsonTheme = useMemo(() => getJsonTheme(obj, theme), [obj, theme]);
 
 	return (
 		<>
@@ -239,6 +243,7 @@ const TableRow = ({
 						<ReactJson
 							src={obj}
 							name={false}
+							theme={theme === "light" ? "rjv-default" : "brewer"}
 						/>
 					</td>
 				</tr>
