@@ -7,6 +7,8 @@
 	--text-dropdown-button: var(--text-color);
 	--text-dropdown-button-color: var(--off-white);
 	--hover-color: var(--dark-black);
+	--primary-outline-text: var(--dark-blue);
+	--primary-outline-bg: var(--light-violet);
 }
 
 :root[data-theme="dark"] {
@@ -14,7 +16,9 @@
 	--box-shadow-card-color: #030931;
 	--text-dropdown-color: var(--btn-txt);
 	--text-dropdown-button-color: var(--light-dream-blue);
-	--hover-color: var(--white-night)
+	--hover-color: var(--white-night);
+	--primary-outline-text: var(--night-blue);
+	--primary-outline-bg: var(--storm-blue);
 }
 
 $dropdown-toggle-bg: var(--bg);
@@ -22,6 +26,8 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 $text-dropdown-color: var(--text-dropdown-color);
 $text-dropdown-button-color: var(--text-dropdown-button-color);
 $hover-color: var(--hover-color);
+$primary-outline-text: var(--primary-outline-text);
+$primary-outline-bg: var(--primary-outline-bg);
 
 .dropdown, .dropdown .btn {
 	transition: none;
@@ -152,4 +158,14 @@ $hover-color: var(--hover-color);
 			color: $btn-txt;
 		}
 	}
+}
+
+.btn-outline-primary.dropdown-toggle {
+	color: $primary-outline-text;
+
+}
+
+.show > .btn-outline-primary.dropdown-toggle {
+	background-color: $primary-outline-bg;
+	color: $primary-outline-text;
 }
