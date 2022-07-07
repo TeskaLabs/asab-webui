@@ -358,3 +358,8 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 .btn-group-sm .btn{
 	min-height: 38px;
 }
+
+.btn-edit-mode .btn-outline-danger:not(:disabled):not(.disabled):active:focus {
+	box-shadow: none;
+}
+
