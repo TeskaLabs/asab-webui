@@ -53,7 +53,7 @@ ReactDOM.render((
 
 ## Authorization (resources)
 
-To provide any of these actions - `Create`, `Remove`, `Save` - configuration, one needs to have `config:admin` and/or `authz:superuser` resource.
+To provide any of these actions - `Create`, `Remove`, `Save`, `Import`, `Export` - configuration, one needs to have `config:admin` and/or `authz:superuser` resource.
 
 ## Schema and configuration files
 

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import TreeMenu from '../../../components/TreeMenu';
+import { TreeMenu } from 'asab-webui';
 import { types } from './actions/actions';
 import {
 	Input,
@@ -19,6 +20,10 @@ export function TreeViewComponent(props) {
 	const { t, i18n } = useTranslation();
 
 	const [isDropdownMenuOpen, setDropdownMenu] = useState(false);
+
+	// Obtain resources from state (if available)
+	const resources = useSelector(state => state.auth?.userinfo?.resources);
+	const resource = "config:admin";
 
 	useEffect(() => {
 		if (props.configCreated || props.configRemoved) {
@@ -60,18 +65,45 @@ export function TreeViewComponent(props) {
 
 	const TreeMenuDropdownMenu = (
 		<DropdownMenu>
-			<a href={`${props.serviceURL}/export`} download className="text-dark dropdown-export-item w-100">
+			{resources ? resources.indexOf(resource) == -1 && resources.indexOf("authz:superuser") == -1 ?
 				<DropdownItem
 					style={{
 						borderBottom: "1px solid #c8ced3",
 						borderRadius: 0
 					}}
+					disabled={true}
 				>
 					<i className="cil-cloud-download mr-2" />
 					{t("ASABConfig|Export")}
 				</DropdownItem>
-			</a>
-			<DropdownItem onClick={() => setChosenPanel("import")}>
+			:
+				<a href={`${props.serviceURL}/export`} download className="text-dark dropdown-export-item w-100">
+					<DropdownItem
+						style={{
+							borderBottom: "1px solid #c8ced3",
+							borderRadius: 0
+						}}
+					>
+						<i className="cil-cloud-download mr-2" />
+						{t("ASABConfig|Export")}
+					</DropdownItem>
+				</a>
+			:
+				<DropdownItem
+					style={{
+						borderBottom: "1px solid #c8ced3",
+						borderRadius: 0
+					}}
+					disabled={true}
+				>
+					<i className="cil-cloud-download mr-2" />
+					{t("ASABConfig|Export")}
+				</DropdownItem>
+			}
+			<DropdownItem
+				disabled={resources ? resources.indexOf(resource) == -1 && resources.indexOf("authz:superuser") == -1 : true}
+				onClick={() => setChosenPanel("import")}
+			>
 				<i className="cil-cloud-upload mr-2" />
 				{t("ASABConfig|Import")}
 			</DropdownItem>
