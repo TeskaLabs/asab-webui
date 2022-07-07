@@ -145,6 +145,14 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 				border-radius: 0 0 7px 0;
 			}
 		}
+		.data-table-pagination, .data-table-limit {
+			.dropdown {
+				.dropdown-toggle {
+					padding: 8px;
+					border-radius: 0;
+				}
+			}
+		}
 	}
 }
 
