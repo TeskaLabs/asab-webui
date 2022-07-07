@@ -9,7 +9,7 @@ export const CreateButton = ({ createButton }) => {
 
 	return (
 		<div className="float-right ml-3 data-table-create-button">
-			<Link to={{ pathname: createButton.pathname }}>
+			<Link to={{ pathname: createButton.pathname }} >
 				<Button tag="span">
 					{createButton.icon && 
 						<span className="pr-1">
