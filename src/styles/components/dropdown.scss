@@ -56,6 +56,7 @@ $toggle-text-color: var(--toggle-text-color);
 		font-weight: bold;
 		border-bottom: 1px solid $border-color;
 		padding: 1rem 1.5rem;
+		color: $text-dropdown-color;
 	}
 	& .dropdown-item {
 		padding: 0.5rem 1.5rem;
@@ -70,10 +71,10 @@ $toggle-text-color: var(--toggle-text-color);
 	& .dropdown-item span {
 		color: $text-dropdown-color;
 	}
+}
 
-	& .dropdown-header {
-		color: $text-dropdown-color;
-	}
+.action-button-dropdown-header span {
+	color: $text-dropdown-color;
 }
 
 .show > .btn-secondary.dropdown-toggle {
