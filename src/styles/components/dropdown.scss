@@ -6,8 +6,6 @@
 	--text-dropdown-color: var(--text-color);
 	--text-dropdown-button: var(--text-color);
 	--text-dropdown-button-color: var(--off-white);
-	//--toggle-bg: var(--gray);
-	//--toggle-text-color: var(--off-white);
 	--hover-color: var(--dark-black);
 }
 
@@ -16,8 +14,6 @@
 	--box-shadow-card-color: #030931;
 	--text-dropdown-color: var(--btn-txt);
 	--text-dropdown-button-color: var(--light-dream-blue);
-	//--toggle-bg: var(transparentize);
-	//--toggle-text-color: var(--light-blue);
 	--hover-color: var(--white-night)
 }
 
@@ -25,8 +21,6 @@ $dropdown-toggle-bg: var(--bg);
 $box-shadow-card-color: var(--box-shadow-card-color);
 $text-dropdown-color: var(--text-dropdown-color);
 $text-dropdown-button-color: var(--text-dropdown-button-color);
-//$toggle-bg: var(--toggle-bg);
-//$toggle-text-color: var(--toggle-text-color);
 $hover-color: var(--hover-color);
 
 .dropdown, .dropdown .btn {
@@ -57,8 +51,6 @@ $hover-color: var(--hover-color);
 	border-radius: 0;
 	background-color: $dropdown-toggle-bg;
 	color: $text-dropdown-button-color;
-	//color: $toggle-text-color;
-	//color: $test-color;
 	box-shadow: 0 1px 20px -4px $box-shadow-card-color;
 	& .dropdown-header {
 		font-weight: bold;
@@ -99,7 +91,6 @@ $hover-color: var(--hover-color);
 	color: $btn-secondary-bg-color !important;
 	background-color: $btn-secondary-outline-hover-bg-color;
 	[class^="cil-"] {
-		//color: $toggle-text-color !important;
 		color: $text-dropdown-button-color !important;
 	}
 	&:focus, &:active {
@@ -119,7 +110,7 @@ $hover-color: var(--hover-color);
 		&:hover {
 			color: $hover-color;
 			& span {
-				color: $text-dropdown-button-color;
+				color: $hover-color;
 			}
 		}
 		&:active {
@@ -136,12 +127,12 @@ $hover-color: var(--hover-color);
 			background-color: inherit;
 			color: $text-dropdown-button-color;
 			& [class^="cil-"] {
-				color: $text-dropdown-color;
+				color: $text-dropdown-button-color;
 			}
 			&:hover {
 				color: $hover-color;
 				& span {
-					color: $text-dropdown-button-color;
+					color: $hover-color;
 				}
 			}
 			&:active {
