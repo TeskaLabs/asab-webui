@@ -83,9 +83,19 @@ $toggle-text-color: var(--toggle-text-color);
 	}
 }
 
+.dropdown-menu.show {
+	.dropdown-item {
+		&:disabled {
+			color: $disabled-dropdown-item;
+		}
+	}
+	.dropdown-item.disabled{
+		color: $disabled-dropdown-item;
+	}
+}
+
 .show > .btn-secondary.dropdown-toggle {
 	background-color: inherit;
-	//background-color: $dropdown-toggle-bg;
 	color: $text-dropdown-button-color;
 	&:focus, &:active {
 		border: none;
@@ -129,22 +139,12 @@ $toggle-text-color: var(--toggle-text-color);
 	}
 }
 
-.dropdown-menu.show {
-	.dropdown-item {
-		&:disabled {
-			color: $disabled-dropdown-item;
-		}
-	}
-	.dropdown-item.disabled{
-		color: $disabled-dropdown-item;
-	}
-}
-
 .input-group {
 	& .input-group-text {
 		.dropdown-toggle.btn-secondary {
 			background-color: inherit;
 			color: $text-dropdown-button-color;
+			box-shadow: 0 2px 3px -1px var(--beige-gray);
 			& [class^="cil-"] {
 				color: $text-dropdown-color;
 			}
@@ -156,7 +156,8 @@ $toggle-text-color: var(--toggle-text-color);
 				}
 			}
 			&:active {
-				color: $text-dropdown-button-color;
+				background-color: var(--btn-secondary-bg-color);
+				color: var(--btn-txt);
 				& [class^="cil-"] {
 					color: $btn-txt;
 				}
@@ -166,11 +167,10 @@ $toggle-text-color: var(--toggle-text-color);
 		.show > .dropdown-toggle, .dropdown-toggle, .dropdown-toggle:active {
 			border: 1px solid $border-color;
 			border-right: none;
-			background-color: var(--btn-secondary-bg-color);
-			color: var(--btn-txt);
 		}
-		.show > .dropdown-toggle:hover {
-			background-color: var(--btn-secondary-bg-color);
+		.show > .dropdown-toggle:active {
+			background-color: $hover-bg;
+			color: $text-dropdown-button-color;
 		}
 	}
 }
