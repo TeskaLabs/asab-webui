@@ -6,11 +6,11 @@
 	--text-dropdown-color: var(--text-color);
 	--text-dropdown-button: var(--text-color);
 	--text-dropdown-button-color: var(--dark-black);
+	--toggle-text-color: var(--off-white);
 	--primary-outline-text: var(--dark-blue);
 	--primary-outline-bg: var(--light-violet);
 	--hover-bg: var(--white);
 	--disabled-dropdown-item: #adb5bd;
-	--toggle-text-color: var(--off-white);
 }
 
 :root[data-theme="dark"] {
@@ -18,22 +18,23 @@
 	--box-shadow-card-color: #030931;
 	--text-dropdown-color: var(--btn-txt);
 	--text-dropdown-button-color: var(--light-dream-blue);
+	--toggle-text-color: var(--night-blue);
 	--primary-outline-text: var(--night-blue);
 	--primary-outline-bg: var(--storm-blue);
 	--hover-bg: var(--dream-blue);
 	--disabled-dropdown-item: var(--feather-gray);
-	--toggle-text-color: var(--night-blue);
 }
 
 $dropdown-toggle-bg: var(--bg);
 $box-shadow-card-color: var(--box-shadow-card-color);
 $text-dropdown-color: var(--text-dropdown-color);
 $text-dropdown-button-color: var(--text-dropdown-button-color);
+$toggle-text-color: var(--toggle-text-color);
 $primary-outline-text: var(--primary-outline-text);
 $primary-outline-bg: var(--primary-outline-bg);
 $hover-bg: var(--hover-bg);
 $disabled-dropdown-item: var(--disabled-dropdown-item);
-$toggle-text-color: var(--toggle-text-color);
+
 
 .dropdown, .dropdown .btn {
 	transition: none;
@@ -107,14 +108,14 @@ $toggle-text-color: var(--toggle-text-color);
 }
 
 .show > .btn-outline-secondary.dropdown-toggle {
-	color: $btn-secondary-bg-color !important;
+	color: $btn-secondary-bg-color;
 	background-color: $btn-secondary-outline-hover-bg-color;
 	[class^="cil-"] {
-		color: $text-dropdown-button-color !important;
+		color: $text-dropdown-button-color;
 	}
 	&:focus, &:active {
 		[class^="cil-"] {
-			color: $btn-secondary-bg-color !important;
+			color: $btn-secondary-bg-color;
 		}
 	}
 }
@@ -139,25 +140,26 @@ $toggle-text-color: var(--toggle-text-color);
 	}
 }
 
+// Input group style
 .input-group {
-	& .input-group-text {
-		.dropdown-toggle.btn-secondary {
+	& .input-group-text, & .input-group-prepend {
+		.dropdown-toggle.btn-secondary, .dropdown-toggle.btn-outline-secondary {
 			background-color: inherit;
 			color: $text-dropdown-button-color;
-			box-shadow: 0 2px 3px -1px var(--beige-gray);
+			box-shadow: 0 2px 3px -1px $beige-gray;
 			& [class^="cil-"] {
-				color: $text-dropdown-color;
+				color: $text-dropdown-button-color !important;
 			}
 			&:hover {
 				background-color: $hover-bg;
 				filter: brightness(90%);
-				& span {
+				& [class^="cil-"] {
 					color: $text-dropdown-button-color;
 				}
 			}
 			&:active {
-				background-color: var(--btn-secondary-bg-color);
-				color: var(--btn-txt);
+				background-color: $btn-secondary-bg-color;
+				color: $btn-txt;
 				& [class^="cil-"] {
 					color: $btn-txt;
 				}
@@ -173,8 +175,21 @@ $toggle-text-color: var(--toggle-text-color);
 			color: $text-dropdown-button-color;
 		}
 	}
+
+	& .input-group-prepend {
+		.dropdown-toggle.btn-outline-secondary {
+			border: 1px solid $border-color;
+			&:active {
+				background-color: $btn-secondary-bg-color !important;
+				& [class^="cil-"] {
+					color: $btn-txt !important;
+				}
+			}
+		}
+	}
 }
 
+// Primary outline style
 .btn-outline-primary.dropdown-toggle {
 	color: $primary-outline-text;
 	& [class^="cil-"] {
@@ -187,5 +202,16 @@ $toggle-text-color: var(--toggle-text-color);
 	color: $primary-outline-text;
 	& [class^="cil-"] {
 		color: $primary-outline-text;
+	}
+}
+
+
+html[data-theme="dark"] {
+	.input-group {
+		& .input-group-text, & .input-group-prepend {
+			.dropdown-toggle.btn-secondary, .dropdown-toggle.btn-outline-secondary{
+				box-shadow: 0 2px 3px -1px rgba(142, 142, 142, 0.2);
+			}
+		}
 	}
 }
