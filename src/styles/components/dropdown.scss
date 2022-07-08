@@ -5,10 +5,11 @@
 	--box-shadow-card-color: rgba(206, 211, 243, 0.5);
 	--text-dropdown-color: var(--text-color);
 	--text-dropdown-button: var(--text-color);
-	--text-dropdown-button-color: var(--off-white);
-	--hover-color: var(--dark-black);
+	--text-dropdown-button-color: var(--dark-black);
 	--primary-outline-text: var(--dark-blue);
 	--primary-outline-bg: var(--light-violet);
+	--test-bg: var(--white);
+	--test-text: var(--dark-black);
 }
 
 :root[data-theme="dark"] {
@@ -16,18 +17,19 @@
 	--box-shadow-card-color: #030931;
 	--text-dropdown-color: var(--btn-txt);
 	--text-dropdown-button-color: var(--light-dream-blue);
-	--hover-color: var(--white-night);
 	--primary-outline-text: var(--night-blue);
 	--primary-outline-bg: var(--storm-blue);
+	--test-bg: var(--dream-blue);
+	--test-text: var(--light-black);
 }
 
 $dropdown-toggle-bg: var(--bg);
 $box-shadow-card-color: var(--box-shadow-card-color);
 $text-dropdown-color: var(--text-dropdown-color);
 $text-dropdown-button-color: var(--text-dropdown-button-color);
-$hover-color: var(--hover-color);
 $primary-outline-text: var(--primary-outline-text);
 $primary-outline-bg: var(--primary-outline-bg);
+$test-bg: var(--test-bg);
 
 .dropdown, .dropdown .btn {
 	transition: none;
@@ -39,11 +41,9 @@ $primary-outline-bg: var(--primary-outline-bg);
 .dropdown-toggle {
 	padding: 8px;
 	color: $text-dropdown-button-color;
-	//color: $toggle-text-color;
 	justify-content: center;
 	& span {
 		color: $text-dropdown-button-color;
-		//color: $toggle-text-color;
 	}
 	&:hover {
 		& span {
@@ -56,12 +56,13 @@ $primary-outline-bg: var(--primary-outline-bg);
 	padding: 0;
 	border-radius: 0;
 	background-color: $dropdown-toggle-bg;
-	color: $text-dropdown-button-color;
+	color: $btn-txt;
 	box-shadow: 0 1px 20px -4px $box-shadow-card-color;
 	& .dropdown-header {
 		font-weight: bold;
 		border-bottom: 1px solid $border-color;
 		padding: 1rem 1.5rem;
+		color: $text-dropdown-color;
 	}
 	& .dropdown-item {
 		padding: 0.5rem 1.5rem;
@@ -69,20 +70,18 @@ $primary-outline-bg: var(--primary-outline-bg);
 			color: $text-dropdown-color;
 		}
 		&:hover {
-			color: $text-dropdown-button-color;
+			background-color: $dropdown-toggle-bg;
+			filter: brightness(90%);
 		}
 	}
 	& .dropdown-item span {
-		color: $text-dropdown-color;
-	}
-
-	& .dropdown-header {
 		color: $text-dropdown-color;
 	}
 }
 
 .show > .btn-secondary.dropdown-toggle {
 	background-color: inherit;
+	//background-color: $dropdown-toggle-bg;
 	color: $text-dropdown-button-color;
 	&:focus, &:active {
 		border: none;
@@ -114,9 +113,8 @@ $primary-outline-bg: var(--primary-outline-bg);
 			color: $text-dropdown-button-color;
 		}
 		&:hover {
-			color: $hover-color;
 			& span {
-				color: $hover-color;
+				color: $text-dropdown-button-color;
 			}
 		}
 		&:active {
@@ -133,16 +131,17 @@ $primary-outline-bg: var(--primary-outline-bg);
 			background-color: inherit;
 			color: $text-dropdown-button-color;
 			& [class^="cil-"] {
-				color: $text-dropdown-button-color;
+				color: $text-dropdown-color;
 			}
 			&:hover {
-				color: $hover-color;
+				background-color: $test-bg;
+				filter: brightness(90%);
 				& span {
-					color: $hover-color;
+					color: $text-dropdown-button-color;
 				}
 			}
 			&:active {
-				color: $btn-txt;
+				color: $text-dropdown-button-color;
 				& [class^="cil-"] {
 					color: $btn-txt;
 				}
@@ -155,7 +154,7 @@ $primary-outline-bg: var(--primary-outline-bg);
 			color: var(--btn-txt);
 		}
 		.show > .dropdown-toggle:hover {
-			color: $btn-txt;
+			background-color: var(--btn-secondary-bg-color);
 		}
 	}
 }
