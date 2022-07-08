@@ -162,10 +162,15 @@ $primary-outline-bg: var(--primary-outline-bg);
 
 .btn-outline-primary.dropdown-toggle {
 	color: $primary-outline-text;
-
+	& [class^="cil-"] {
+		color: $primary-outline-text;
+	}
 }
 
 .show > .btn-outline-primary.dropdown-toggle {
 	background-color: $primary-outline-bg;
 	color: $primary-outline-text;
+	& [class^="cil-"] {
+		color: $primary-outline-text;
+	}
 }
