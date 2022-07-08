@@ -8,8 +8,9 @@
 	--text-dropdown-button-color: var(--dark-black);
 	--primary-outline-text: var(--dark-blue);
 	--primary-outline-bg: var(--light-violet);
-	--test-bg: var(--white);
-	--test-text: var(--dark-black);
+	--hover-bg: var(--white);
+	--disabled-dropdown-item: #adb5bd;
+	--toggle-text-color: var(--off-white);
 }
 
 :root[data-theme="dark"] {
@@ -19,8 +20,9 @@
 	--text-dropdown-button-color: var(--light-dream-blue);
 	--primary-outline-text: var(--night-blue);
 	--primary-outline-bg: var(--storm-blue);
-	--test-bg: var(--dream-blue);
-	--test-text: var(--light-black);
+	--hover-bg: var(--dream-blue);
+	--disabled-dropdown-item: var(--feather-gray);
+	--toggle-text-color: var(--night-blue);
 }
 
 $dropdown-toggle-bg: var(--bg);
@@ -29,7 +31,9 @@ $text-dropdown-color: var(--text-dropdown-color);
 $text-dropdown-button-color: var(--text-dropdown-button-color);
 $primary-outline-text: var(--primary-outline-text);
 $primary-outline-bg: var(--primary-outline-bg);
-$test-bg: var(--test-bg);
+$hover-bg: var(--hover-bg);
+$disabled-dropdown-item: var(--disabled-dropdown-item);
+$toggle-text-color: var(--toggle-text-color);
 
 .dropdown, .dropdown .btn {
 	transition: none;
@@ -40,10 +44,10 @@ $test-bg: var(--test-bg);
 
 .dropdown-toggle {
 	padding: 8px;
-	color: $text-dropdown-button-color;
+	color: $toggle-text-color;
 	justify-content: center;
 	& span {
-		color: $text-dropdown-button-color;
+		color: $toggle-text-color;
 	}
 	&:hover {
 		& span {
@@ -125,6 +129,17 @@ $test-bg: var(--test-bg);
 	}
 }
 
+.dropdown-menu.show {
+	.dropdown-item {
+		&:disabled {
+			color: $disabled-dropdown-item;
+		}
+	}
+	.dropdown-item.disabled{
+		color: $disabled-dropdown-item;
+	}
+}
+
 .input-group {
 	& .input-group-text {
 		.dropdown-toggle.btn-secondary {
@@ -134,7 +149,7 @@ $test-bg: var(--test-bg);
 				color: $text-dropdown-color;
 			}
 			&:hover {
-				background-color: $test-bg;
+				background-color: $hover-bg;
 				filter: brightness(90%);
 				& span {
 					color: $text-dropdown-button-color;
@@ -147,6 +162,7 @@ $test-bg: var(--test-bg);
 				}
 			}
 		}
+
 		.show > .dropdown-toggle, .dropdown-toggle, .dropdown-toggle:active {
 			border: 1px solid $border-color;
 			border-right: none;
