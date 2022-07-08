@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Pagination, PaginationItem, PaginationLink, Dropdown, DropdownMenu, DropdownItem, DropdownToggle, ButtonDropdown } from 'reactstrap';
+import { Pagination, PaginationItem, PaginationLink, Dropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
 
 export default function ({ currentPage, setPage, lastPage, style }) {
 	const slots = Math.min(5, lastPage);
@@ -39,7 +39,7 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 	}, [lastPage])
 
 	return (
-		<div className="data-table-pagination">	
+		<div className="data-table-pagination" style={style}>	
 			<Dropdown 
 				isOpen={open}
 				toggle={() => setOpen(prev => !prev)} 
@@ -58,13 +58,11 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 				</DropdownMenu>
 			</Dropdown>
 
-{/* TODO: add translations */}
-
 			<div className="mr-2">
 				{pages.length > 1 ? t('Pages', {pages: pages.length}) : t('Page', {pages: pages.length})}
 			</div>
 
-			<Pagination style={style}>
+			<Pagination>
 				<PaginationItem disabled={currentPage <= 1}>
 					<PaginationLink
 						previous
