@@ -149,7 +149,7 @@ const ConfigImport = (props) => {
 							{t("ASABConfig|Import")}
 						</Button>
 						<Button
-							color="secondary"
+							color="primary"
 							outline
 							onClick={() => props.setChosenPanel("editor")}
 						>
