@@ -156,14 +156,17 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 				}
 			}
 		}
-		&>.data-table-pagination>.dropdown {
-			&>button{
-				min-width: 50px;
-				font-size: 14px;
-			}
-			&>.dropdown-menu.show{
-				min-width: 50px;
-				font-size: 14px;
+		&>.data-table-pagination {
+			margin-left: auto;
+			&>.dropdown {
+				&>button{
+					min-width: 50px;
+					font-size: 14px;
+				}
+				&>.dropdown-menu.show{
+					min-width: 50px;
+					font-size: 14px;
+				}
 			}
 		}
 	}
