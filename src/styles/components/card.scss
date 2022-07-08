@@ -145,7 +145,6 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 		}
 		.dropdown {
 			.dropdown-toggle {
-				padding: 12px 24px;
 				border-radius: 0 0 7px 0;
 			}
 		}
@@ -155,6 +154,16 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 					padding: 8px;
 					border-radius: 0;
 				}
+			}
+		}
+		&>.data-table-pagination>.dropdown {
+			&>button{
+				min-width: 50px;
+				font-size: 14px;
+			}
+			&>.dropdown-menu.show{
+				min-width: 50px;
+				font-size: 14px;
 			}
 		}
 	}
