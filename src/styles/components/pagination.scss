@@ -57,6 +57,11 @@ $active-link-bg-color: var(--active-link-bg-color);
     }
 }
 
+.pagination-dropdown .dropdown-menu.show {
+    max-height: 200px;
+    overflow: scroll;
+}
+
 .data-table-card-footer {
     font-size: 14px;
     font-weight: normal;
