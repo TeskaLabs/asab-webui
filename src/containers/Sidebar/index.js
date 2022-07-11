@@ -9,6 +9,7 @@ import SidebarBottomItem from './SidebarBottomItem';
 
 const Sidebar = (props) => {
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
+	const isSmallSidebarOpen = useSelector(state => state.sidebar.isSmallSidebarOpen);
 	// Get dynamically hiddden sidebar items from store
 	let sidebarHiddenItems = props.sidebarHiddenItems;
 
@@ -49,12 +50,12 @@ const Sidebar = (props) => {
 
 	return (
 		<>
-			<div className={`app-sidebar${isSidebarCollapsed ? " collapsed" : ""}`}>
+			<div className={`app-sidebar${isSidebarCollapsed ? " collapsed" : ""}${isSmallSidebarOpen ? " open" : " closed"}`}>
 				<div style={{ display: "inline-block" }}>
 					<NavbarBrand {...props} isSidebarMinimized />
 				</div>
 				<div className="sidebar-nav">
-					
+
 					<Nav  vertical>
 						{memoizedItemsList.map((item, idx) => (
 							<SidebarItem
@@ -76,7 +77,8 @@ function mapStateToProps(state) {
 	return {
 		unauthorizedNavItem: state.auth?.unauthorizedNavItem,
 		unauthorizedNavChildren: state.auth?.unauthorizedNavChildren,
-		sidebarHiddenItems: state.sidebar.sidebarHiddenItems
+		sidebarHiddenItems: state.sidebar.sidebarHiddenItems,
+		isSmallSidebarOpen: state.sidebar.isSmallSidebarOpen,
 	};
 }
 
