@@ -71,42 +71,44 @@ export function Header(props) {
 			</div>
 			
 			{/* smallscreen menu  */}
+			<div className={`header-props-sm`}>
 			{ headerProperties && 
-			<div className={`header-props-sm`} >
-			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
-				(
-					<Nav navbar>
+				<>
+				{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ?
+					(
+						<Nav navbar>
+							<ThemeButton />
+							<HelpButton />
+							{HeaderService.Items.map((item, idx) => (
+								<NavItem key={idx}>
+									<item.component key={item} {...item.componentProps} app={props.app}/>
+								</NavItem>
+							))}
+						</Nav>
+					)
+				:
+					<Nav className="header-props-sm" navbar>
 						<ThemeButton />
 						<HelpButton />
 						{HeaderService.Items.map((item, idx) => (
-							<NavItem key={idx}>
-								<item.component key={item} {...item.componentProps} app={props.app}/>
-							</NavItem>
-						))}
-					</Nav>
-				)
-			:
-				<Nav className="header-props-sm" navbar>
-					<ThemeButton />
-					<HelpButton />
-					{HeaderService.Items.map((item, idx) => (
-						window.innerWidth < 1024 && item.componentProps.children !== undefined && item.componentProps.children === "LanguageDropdown" ?
-							<NavItem key={idx}>
-								<item.component key={item} {...item.componentProps} app={props.app}/>
-							</NavItem>
-						:
-							window.innerWidth >= 1024 ?
+							window.innerWidth < 1024 && item.componentProps.children !== undefined && item.componentProps.children === "LanguageDropdown" ?
 								<NavItem key={idx}>
 									<item.component key={item} {...item.componentProps} app={props.app}/>
 								</NavItem>
 							:
-								null
-					))}
-				</Nav>
+								window.innerWidth >= 1024 ?
+									<NavItem key={idx}>
+										<item.component key={item} {...item.componentProps} app={props.app}/>
+									</NavItem>
+								:
+									null
+						))}
+					</Nav>
 
+				}
+				</>
 			}
 			</div>
-			}
 		</header>
 	);
 }
