@@ -36,16 +36,12 @@ $sidebar-item-font-size: 14px;
 		}
 	}
 
-	.closed {
-		color: #fff;
-		display: flex;
-		flex: 0 0 160px;
-		height: calc(100vh - 55px);
-		order: -1;
-		padding: 0;
-		position: fixed;
-		transition: margin-left .25s ease-out,width .2s ease-out;
-		z-index: 1019;
+	&.closed {
+		flex: 0 0 166px;
+	}
+
+	&.closed.collapsed {
+		flex: 0 0 100px;
 	}
 
 	.sidebar-nav {
@@ -236,10 +232,13 @@ $sidebar-item-font-size: 14px;
 		width: 166px;
 	}
 	.app-sidebar.closed {
-		margin-left: -166px !important;
+		margin-left: -166px;
+	}
+	.app-sidebar.closed.collapsed {
+		margin-left: -100px;
 	}
 	.app-sidebar.open {
-		margin-left: 0 !important;
+		margin-left: 0;
 	}
 }
 
