@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Pagination, PaginationItem, PaginationLink, Dropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
 
 export default function ({ currentPage, setPage, lastPage, style }) {
-	const slots = Math.min(5, lastPage);
+	const slots = lastPage;
 
 	let start = currentPage - Math.floor(slots / 2);
 	let end = currentPage + Math.floor(slots / 2);
@@ -44,6 +44,7 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 				isOpen={open}
 				toggle={() => setOpen(prev => !prev)} 
 				direction="down"
+				className="pagination-dropdown"
 			>
 				<DropdownToggle caret>
 					{currentPage}
