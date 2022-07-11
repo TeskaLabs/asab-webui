@@ -1,8 +1,9 @@
-import { SET_HIDDEN_ITEMS_SIDEBAR, COLLAPSE_SIDEBAR } from "../../actions";
+import { SET_HIDDEN_ITEMS_SIDEBAR, COLLAPSE_SIDEBAR, SET_SMALL_SIDEBAR } from "../../actions";
 
 const initialState = {
 	sidebarHiddenItems: undefined,
-	isSidebarCollapsed: false
+	isSidebarCollapsed: false,
+	isSmallSidebarOpen: false,
 }
 
 export default (state = initialState, action) => {
@@ -17,6 +18,12 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				isSidebarCollapsed: action.isSidebarCollapsed
+			}
+		}
+		case SET_SMALL_SIDEBAR: {
+			return {
+				...state,
+				isSmallSidebarOpen: !state.isSmallSidebarOpen
 			}
 		}
 		default: {
