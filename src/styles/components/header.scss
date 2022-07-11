@@ -70,7 +70,7 @@ $nav-bar-link: var(--nav-bar-link);
 
 // header-props
 
-.header-props-toggler, .header-props-sm { 
+.header-props-toggler, .header-props-sm {
 	visibility: hidden;
 	display: none;
 }
@@ -81,15 +81,15 @@ $nav-bar-link: var(--nav-bar-link);
 	}
 
 	.application-header.header-props-open {
-		flex-direction: column;
 		height: 103px;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-evenly;
 		transition: height 300ms ease;
 	}
-		
+
 	.header-props-toggler{
+		height: 65px;
 		color: $toggle-text-color;
 		visibility: visible;
 		display: inline-flex;
@@ -97,12 +97,27 @@ $nav-bar-link: var(--nav-bar-link);
 		align-self: center;
 		font-size: 1.5rem;
 		margin-left: auto !important;
-		transform: rotate(0deg);
-		transition: transform 0.25s ease;
-		  &.header-props-open{
-			transform: rotate(180deg);
-			transition: transform 0.25s ease;
-		  }
+		& [class^="cil-"] {
+			position: fixed;
+			top: 19px;
+			right: 32px;
+			transform: rotate(0deg);
+			transition: transform .25s ease;
+		}
+		&.header-props-open {
+			& [class^="cil-"] {
+				transform: rotate(180deg);
+				transition: transform 0.25s ease;
+			}
+		}
+	}
+
+	.header-props-sm {
+		opacity: 0;
+	}
+	.header-props-open .header-props-sm {
+		opacity: 1;
+		transition: opacity .5s ease;
 	}
 	.header-props {
 		display: none !important;
