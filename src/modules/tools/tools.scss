@@ -1,0 +1,32 @@
+@import "~asab-webui/styles/constants/index.scss";
+
+:root[data-theme="light"] {
+  --bg: var(--white);
+  --bg-hover: var(--btn-secondary-outline-hover-bg-color);
+}
+
+:root[data-theme="dark"] {
+  --bg: var(--wandering-violet);
+  --bg-hover: var(--white-night);
+}
+
+$tools-bg: var(--bg);
+$hover-bg: var(--bg-hover);
+
+.tools-btn {
+  background-color: $tools-bg;
+  box-shadow: 0 2px 4px rgba(33, 36, 41, 0.05);
+  display: block;
+  border-radius: 15px;
+  width: 130px;
+  height: 130px;
+  padding: 0;
+
+  &:hover, &:active {
+   	background-color: $hover-bg !important;
+  }
+
+  & h6 {
+	color: var(--dark-black);
+  }
+}
