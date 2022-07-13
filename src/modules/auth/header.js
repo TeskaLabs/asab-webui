@@ -46,7 +46,7 @@ function HeaderComponent(props) {
 	}
 
 	return (
-		<UncontrolledDropdown direction="down" className="pr-3">
+		<UncontrolledDropdown direction="down" className="pr-4">
 			<DropdownToggle title={props.sub} nav caret>
 				{(props.picture)
 					? <img src={props.picture} className="img-avatar" alt={props.username} style={{ fontSize: "1.1rem"}}/>

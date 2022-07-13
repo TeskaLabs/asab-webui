@@ -34,7 +34,7 @@ function LanguageDropdown(props) {
 	}
 
 	return (
-		<UncontrolledDropdown direction="down" className="pr-3">
+		<UncontrolledDropdown direction="down" className="pr-4">
 			<DropdownToggle nav caret>
 				<LanguageFlag language={i18n.language}/>
 			</DropdownToggle>
