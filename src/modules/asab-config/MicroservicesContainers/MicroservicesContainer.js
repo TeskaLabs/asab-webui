@@ -78,7 +78,7 @@ export default (props) => {
 				setLimit={setLimit}
 				limitValues={[20, 50, 100]}
 				title={{
-					text: t('MicroservicesContainer|Microservices')
+					text: t('MicroservicesContainer|Microservices'), icon: "cil-list"
 				}}
 				customRowStyle={customRowStyle}
 			/>

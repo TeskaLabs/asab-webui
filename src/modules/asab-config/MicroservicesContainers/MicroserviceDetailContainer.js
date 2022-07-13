@@ -51,7 +51,7 @@ const MicroserviceDetailContainer = (props) => {
 			<Row className="justify-content-md-center">
 				<Col md={8}>
 					<Card>
-						<CardHeader>
+						<CardHeader className="border-bottom">
 							<div className="card-header-title">
 								{svc?.appclass || t("MicroserviceDetailContainer|Service")}
 							</div>
@@ -69,31 +69,31 @@ const MicroserviceDetailContainer = (props) => {
 											<code>{ svc_name?.toString() ?? 'N/A'}</code>
 										</Col>
 									</Row>
-									<Row className="mt-3">
+									<Row className="mt-1">
 										<Col md={3}>{t("MicroserviceDetailContainer|Host")}</Col>
 										<Col>
 											<code>{svc?.hostname?.toString() ?? 'N/A'}</code>
 										</Col>
 									</Row>
-									<Row className="mt-3">
+									<Row className="mt-1">
 										<Col md={3}>{t("MicroserviceDetailContainer|Server")}</Col>
 										<Col>
 											<code>{svc?.servername?.toString() ?? 'N/A'}</code>
 										</Col>
 									</Row>
-									<Row className="mt-3">
+									<Row className="mt-1">
 										<Col md={3}>{t("MicroserviceDetailContainer|Launch time")}</Col>
 										<Col>
 											{svc?.launchtime ? <DateTime value={svc?.launchtime} /> : 'N/A'}
 										</Col>
 									</Row>
-									<Row className="mt-3">
+									<Row className="mt-1">
 										<Col md={3}>{t("MicroserviceDetailContainer|Created at")}</Col>
 										<Col>
 											{svc?.created_at ? <DateTime value={svc?.created_at} /> : 'N/A'}
 										</Col>
 									</Row>
-									<Row className="mt-3">
+									<Row className="mt-1">
 										<Col md={3}>{t("MicroserviceDetailContainer|Version")}</Col>
 										<Col>{svc?.version ?? 'N/A'}</Col>
 									</Row>
@@ -108,7 +108,7 @@ const MicroserviceDetailContainer = (props) => {
 				<Row className="justify-content-md-center mt-2">
 					<Col md={8}>
 						<Card>
-							<CardHeader>
+							<CardHeader className="border-bottom">
 								<div className="card-header-title">
 									{t("MicroserviceDetailContainer|Detail")}
 								</div>
