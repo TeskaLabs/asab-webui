@@ -1,14 +1,14 @@
 {
 	"AccessControlScreen": {
-		"Access control": "Uživatelská oprávnění",
-		"See your details": "Zde jsou zobrazena Vaše uživatelská oprávnění",
+		"Access control": "Přístupová oprávnění",
+		"See your details": "Zde jsou zobrazena Vaše přístupová oprávnění",
 		"Current tenant": "Aktuální tenant",
 		"Resources": "Zdroje",
 		"Previous screen": "Zpět na předchozí okno"
 	},
 	"AuthHeaderDropdown": {
 		"My account": "Můj účet",
-		"Access control": "Uživatelská oprávnění",
+		"Access control": "Přístupová oprávnění",
 		"Manage": "Správa účtu",
 		"Change a password": "Změna hesla",
 		"Logout": "Odhlásit"
