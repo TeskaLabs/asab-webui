@@ -1,7 +1,7 @@
 {
 	"AccessControlScreen": {
 		"Access control": "Přístupová oprávnění",
-		"See your details": "Zde jsou zobrazena Vaše uživatelská oprávnění",
+		"See your details": "Zde jsou zobrazena Vaše přístupová oprávnění",
 		"Current tenant": "Aktuální tenant",
 		"Resources": "Zdroje",
 		"Previous screen": "Zpět na předchozí okno"
