@@ -173,7 +173,7 @@ const TableRow = ({
 			return rowClassName.jsonTheme;
 		}
 		else if (theme !== "light") {
-			return "brewer";
+			return "chalk";
 		} 
 		else {
 			return "rjv-default";
