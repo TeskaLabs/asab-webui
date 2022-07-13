@@ -97,7 +97,7 @@ function Tool(props) {
 					<Col className="text-center pt-5 pb-5 pl-5 pr-5">
 						<Row className="justify-content-center">
 							<a href={configObject.url} target="_blank" style={{textDecoration: "none"}} rel="noopener noreferrer">
-								<Button className="tools-btn" title={configObject.url} color="secondary" outline>
+								<Button className="tools-btn" title={configObject.url}>
 									<img
 										src={configObject.image}
 										style={{ width: 72 + "px", height: 72 + "px", padding: 5 }}
