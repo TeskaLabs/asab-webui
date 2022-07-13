@@ -261,7 +261,6 @@ function CreateConfigCard(props) {
 						type="submit"
 						disabled={isSubmitting}
 					>
-						<i className="pr-1">+</i>
 						{t('ASABConfig|Create')}
 					</Button>
 				</CardFooter>
