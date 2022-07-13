@@ -561,7 +561,7 @@ function ConfigEditor(props) {
 							<TabPane tabId="advanced">
 								<div>
 									<ReactJson
-										theme={theme === "light" ? "rjv-default" : "brewer"}
+										theme={theme === 'dark' ? "chalk" : "rjv-default"}
 										src={jsonValues}
 										onEdit={ e => { setJsonValues(e.updated_src)} }
 										enableClipboard={false}

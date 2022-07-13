@@ -173,7 +173,7 @@ const TableRow = ({
 			return rowClassName.jsonTheme;
 		}
 		else if (theme !== "light") {
-			return "brewer";
+			return "chalk";
 		} 
 		else {
 			return "rjv-default";
@@ -239,9 +239,9 @@ const TableRow = ({
 						className="data-table-adv-td"
 					>
 						<ReactJson
+							theme={theme === 'dark' ? "chalk" : "rjv-default"}
 							src={obj}
 							name={false}
-							theme={theme === "light" ? "rjv-default" : "brewer"}
 						/>
 					</td>
 				</tr>
