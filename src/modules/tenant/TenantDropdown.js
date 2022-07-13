@@ -19,7 +19,7 @@ class TenantDropdown extends Component {
 
 	render() {
 		return (
-			<UncontrolledDropdown direction="down" className="pr-3">
+			<UncontrolledDropdown direction="down" className="pr-4">
 				<DropdownToggle nav caret>
 					<i className="cil-apps pr-2" style={{ fontSize: "1.1rem"}}></i>
 					<TenantLabel tenant={this.current}/>
