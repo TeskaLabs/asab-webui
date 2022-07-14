@@ -43,7 +43,7 @@ export default (props) => {
 
 	const getMicroservicesList = async () => {
 		try {
-			const response = await LMIORemoteControlAPI.get('/microservices', { params: { p: page, l: limit }});
+			const response = await LMIORemoteControlAPI.get('/microservices', { params: { p: page, i: limit }});
 
 			if (response.data.result !== "OK") throw new Error(response);
 
