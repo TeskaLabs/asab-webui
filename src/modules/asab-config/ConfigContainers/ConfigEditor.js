@@ -500,7 +500,7 @@ function ConfigEditor(props) {
 	return (
 			<Card className="card-editor-layout">
 				<Form onSubmit={handleSubmit(onSubmit)}>
-					<CardHeader>
+					<CardHeader className="border-bottom">
 						<div className="card-header-title">
 							<span className="cil-settings pr-2" />
 							{configName ? configType.toString() + ' / ' + configName.toString() : ""}
