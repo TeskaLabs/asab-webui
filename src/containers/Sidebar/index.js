@@ -1,13 +1,14 @@
 import React, { useMemo } from 'react';
 import { connect, useSelector } from 'react-redux';
 
-import { Nav } from 'reactstrap';
+import {Modal, Nav} from 'reactstrap';
 import SidebarItem from './SidebarItem';
 import NavbarBrand from './NavbarBrand';
 import SidebarBottomItem from './SidebarBottomItem';
 
 
 const Sidebar = (props) => {
+	const [modal, setModal] = React.useState(false);
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
 	// Get dynamically hiddden sidebar items from store
 	let sidebarHiddenItems = props.sidebarHiddenItems;
@@ -47,27 +48,34 @@ const Sidebar = (props) => {
 		return itemsList;
 	}, [navConfig])
 
+	const toggle = () => setModal(!modal);
+
 	return (
 		<>
-			<div className={`app-sidebar${isSidebarCollapsed ? " collapsed" : ""}`}>
-				<div style={{ display: "inline-block" }}>
-					<NavbarBrand {...props} isSidebarMinimized />
-				</div>
-				<div className="sidebar-nav">
-					
-					<Nav  vertical>
-						{memoizedItemsList.map((item, idx) => (
-							<SidebarItem
-								key={idx}
-								item={item}
-								unauthorizedNavChildren={unauthorizedNavChildren}
-								uncollapseAll={memoizedItemsList.length <= 2}
-							/>
-						))}
-					</Nav>
-					<SidebarBottomItem item={aboutItem} />
-				</div>
+			<div onClick={toggle}>
+				<i className="cil-menu"></i>
 			</div>
+			<Modal isOpen={modal} toggle={toggle} className="left">
+				<div className={`app-sidebar${isSidebarCollapsed ? " collapsed" : ""}`}>
+					<div style={{ display: "inline-block" }}>
+						<NavbarBrand {...props} isSidebarMinimized />
+					</div>
+					<div className="sidebar-nav">
+
+						<Nav  vertical>
+							{memoizedItemsList.map((item, idx) => (
+								<SidebarItem
+									key={idx}
+									item={item}
+									unauthorizedNavChildren={unauthorizedNavChildren}
+									uncollapseAll={memoizedItemsList.length <= 2}
+								/>
+							))}
+						</Nav>
+						<SidebarBottomItem item={aboutItem} />
+					</div>
+				</div>
+			</Modal>
 		</>
 	)
 }

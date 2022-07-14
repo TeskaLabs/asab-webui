@@ -49,12 +49,12 @@ $sidebar-item-font-size: 14px;
 			.nav-link {
 				padding: 0.25rem;
 			}
-			
+
 			.sidebar-item-button.active {
 				background-color: $highlighted-bg-color;
-				.sidebar-item-icon, .sidebar-item-name {	
+				.sidebar-item-icon, .sidebar-item-name {
 					color: $reversed-text-color;
-					
+
 				}
 			}
 			.sidebar-item-button.active:hover {
@@ -77,7 +77,7 @@ $sidebar-item-font-size: 14px;
 					font-weight: $highlighted-font-weight;
 					font-size: $sidebar-item-font-size;
 				}
-	
+
 				.sidebar-item-name {
 					width: 75%;
 					overflow: hidden;
@@ -125,7 +125,7 @@ $sidebar-item-font-size: 14px;
 		padding: 0;
 		margin: 0.25rem 0 0 0.25rem;
 	}
-	
+
 	.sidebar-bottom {
 		height: $sidebar-item-height;
 		margin-bottom: 1rem;
@@ -192,6 +192,53 @@ $sidebar-item-font-size: 14px;
 					}
 				}
 			}
+		}
+	}
+}
+
+.modal {
+	.modal-dialog.left, {
+		position: fixed;
+		margin: auto;
+		width: 200px;
+		height: 100%;
+		-webkit-transform: translate3d(0%, 0, 0);
+		-ms-transform: translate3d(0%, 0, 0);
+		-o-transform: translate3d(0%, 0, 0);
+		transform: translate3d(0%, 0, 0);
+	}
+
+	.modal-dialog.left {
+		.modal-content {
+			height: 100%;
+			overflow-y: auto;
+		}
+	}
+
+	.modal-content {
+		display: block;
+		overflow: hidden;
+	}
+
+	.modal-dialog.left {
+		.modal-body {
+			padding: 15px 15px 80px;
+		}
+	}
+
+	/*Left*/
+	&.fade {
+		.modal-dialog.left {
+			left: -200px;
+			-webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+			-moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+			-o-transition: opacity 0.3s linear, left 0.3s ease-out;
+			transition: opacity 0.3s linear, left 0.3s ease-out;
+		}
+	}
+	&.fade.show {
+		.modal-dialog.left {
+			left: 0;
 		}
 	}
 }
