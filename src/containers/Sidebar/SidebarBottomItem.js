@@ -53,15 +53,15 @@ const SidebarBottomItem = ({ item, sidebarLogo }) => {
 							>
 								{isSidebarCollapsed ? 
 									<img
-										src={sidebarLogo.minimized}
-										alt={sidebarLogo.title}
+										src={sidebarLogo?.minimized}
+										alt={sidebarLogo?.title}
 										width="30"
 										height="30"
 									/>
 									:
 									<img
-										src={sidebarLogo.full}
-										alt={sidebarLogo.title}
+										src={sidebarLogo?.full}
+										alt={sidebarLogo?.title}
 										width="85"
 										height="30"
 									/>
