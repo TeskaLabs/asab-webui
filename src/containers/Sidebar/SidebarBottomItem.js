@@ -14,7 +14,7 @@ import Icon from './SidebarIcon';
 
 import { SET_SMALL_SIDEBAR } from '../../actions';
 
-const SidebarBottomItem = ({ item }) => {
+const SidebarBottomItem = ({ item, sidebarLogo }) => {
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
 
 	const location = useLocation();
@@ -51,11 +51,21 @@ const SidebarBottomItem = ({ item }) => {
 								title={t(`Sidebar|${item.name}`)}
 								className={`sidebar-item-button${location.pathname === item.url ? " active " : " "}btn left`}
 							>
-								<Icon icon={item.icon} />
-								<div className="sidebar-item-name ml-2">{t(`Sidebar|${item.name}`)}</div>
-								{item.children && item.children.length > 0 && (
-									<Icon icon={isOpen ? "cil-arrow-circle-bottom" : "cil-arrow-circle-left"} />
-								)}
+								{isSidebarCollapsed ? 
+									<img
+										src={sidebarLogo.minimized}
+										alt={sidebarLogo.title}
+										width="30"
+										height="30"
+									/>
+									:
+									<img
+										src={sidebarLogo.full}
+										alt={sidebarLogo.title}
+										width="85"
+										height="30"
+									/>
+								}
 							</button>
 						)}
 						<button
