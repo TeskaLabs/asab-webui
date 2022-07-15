@@ -1,3 +1,13 @@
+:root[data-theme="light"] {
+	--toggle-text-color: #828eb0;
+
+}
+
+:root[data-theme="dark"] {
+	--toggle-text-color: #39487a;
+}
+
+$toggle-text-color: var(--toggle-text-color);
 $sidebar-width: 200px;
 $collapsed-sidebar-width: calc(50px + 1rem);
 $sidebar-bg: var(--bg-color-dark);
@@ -211,7 +221,6 @@ $sidebar-item-font-size: 14px;
 	.modal-dialog.left {
 		.modal-content {
 			height: 100%;
-			overflow-y: auto;
 		}
 	}
 
@@ -239,6 +248,24 @@ $sidebar-item-font-size: 14px;
 	&.fade.show {
 		.modal-dialog.left {
 			left: 0;
+		}
+	}
+}
+
+@media screen and (max-width: 800px) {
+	.mobile-sidebar-burger {
+		color: $toggle-text-color;
+		visibility: visible;
+		font-size: 1.5rem;
+		margin-left: auto !important;
+		cursor: pointer;
+		position: relative;
+
+		& [class^="cil-"] {
+			position: absolute;
+			top: 20px;
+			left: 32px;
+			z-index: 100;
 		}
 	}
 }
