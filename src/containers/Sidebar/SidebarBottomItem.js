@@ -14,7 +14,7 @@ import Icon from './SidebarIcon';
 
 import { SET_SMALL_SIDEBAR } from '../../actions';
 
-const SidebarBottomItem = ({ item }) => {
+const SidebarBottomItem = ({ item, sidebarLogo }) => {
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
 
 	const location = useLocation();
@@ -41,21 +41,52 @@ const SidebarBottomItem = ({ item }) => {
 		});
 	}
 
+	const AboutButton = () => {
+		return (
+			<>
+				<Icon icon={item.icon} />
+				<div className="sidebar-item-name ml-2">{t(`Sidebar|${item.name}`)}</div>
+			</>
+		)
+	}
+
 	return (
 		<div className="sidebar-bottom">
 			<Nav vertical>
 				<NavItem className="sidebar-item" >
-					<NavLink onClick={onNavLink}>
+					<NavLink className="p-0" onClick={onNavLink}>
 						{item && (
 							<button
 								title={t(`Sidebar|${item.name}`)}
 								className={`sidebar-item-button${location.pathname === item.url ? " active " : " "}btn left`}
 							>
-								<Icon icon={item.icon} />
-								<div className="sidebar-item-name ml-2">{t(`Sidebar|${item.name}`)}</div>
-								{item.children && item.children.length > 0 && (
-									<Icon icon={isOpen ? "cil-arrow-circle-bottom" : "cil-arrow-circle-left"} />
-								)}
+								{sidebarLogo ? 
+									isSidebarCollapsed ?
+										sidebarLogo.minimized ?
+											<img
+												src={sidebarLogo.minimized}
+												alt={t(`Sidebar|${item.name}`)}
+												width="30"
+												height="30"
+												className="m-auto"
+											/>
+										:
+											<AboutButton />
+									:
+										sidebarLogo.full ?
+											<img
+												src={sidebarLogo.full}
+												alt={t(`Sidebar|${item.name}`)}
+												width="90"
+												height="30"
+												className="m-auto"
+											/>
+										:
+											<AboutButton />
+								:
+									<AboutButton />
+								}
+								
 							</button>
 						)}
 						<button

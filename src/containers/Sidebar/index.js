@@ -65,7 +65,7 @@ const Sidebar = (props) => {
 							/>
 						))}
 					</Nav>
-					<SidebarBottomItem item={aboutItem} />
+					<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} />
 				</div>
 			</div>
 		</>
@@ -76,7 +76,8 @@ function mapStateToProps(state) {
 	return {
 		unauthorizedNavItem: state.auth?.unauthorizedNavItem,
 		unauthorizedNavChildren: state.auth?.unauthorizedNavChildren,
-		sidebarHiddenItems: state.sidebar.sidebarHiddenItems
+		sidebarHiddenItems: state.sidebar?.sidebarHiddenItems,
+		sidebarLogo: state.config?.sidebarLogo
 	};
 }
 
