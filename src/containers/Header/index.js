@@ -16,6 +16,7 @@ export function Header(props) {
 	const href = props.brand_image.href ?? "/";
 
 	const [headerProperties, setHeaderProperties] = useState(false);
+	const { width } = useWindowDimensions();
 
 	function useWindowDimensions() {
 		const [windowDimensions, setWindowDimensions] = useState(
@@ -34,8 +35,6 @@ export function Header(props) {
 		return windowDimensions;
 	}
 
-	const { width } = useWindowDimensions();
-
 	function getWindowDimensions() {
 		const { innerWidth: width} = window;
 		return {width};
@@ -45,7 +44,7 @@ export function Header(props) {
 		<header className={`application-header ${headerProperties ? 'header-props-open' : ""}`}>
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar == 'undefined') ?
 				<>
-					{width < 768 &&
+					{width < 800 &&
 						<div className="mobile-logo-position">
 							<Link to={href}>
 								<img
