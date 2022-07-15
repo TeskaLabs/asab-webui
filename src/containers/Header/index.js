@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from 'react';
+import React, { useState, Suspense, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import {
@@ -17,10 +17,46 @@ export function Header(props) {
 
 	const [headerProperties, setHeaderProperties] = useState(false);
 
+	function useWindowDimensions() {
+		const [windowDimensions, setWindowDimensions] = useState(
+			getWindowDimensions()
+		);
+
+		useEffect(() => {
+			function handleResize() {
+				setWindowDimensions(getWindowDimensions());
+			}
+
+			window.addEventListener("resize", handleResize);
+			return () => window.removeEventListener("resize", handleResize);
+		}, []);
+
+		return windowDimensions;
+	}
+
+	const { width } = useWindowDimensions();
+
+	function getWindowDimensions() {
+		const { innerWidth: width} = window;
+		return {width};
+	}
+
 	return (
 		<header className={`application-header ${headerProperties ? 'header-props-open' : ""}`}>
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar == 'undefined') ?
 				<>
+					{width < 768 &&
+						<div className="mobile-logo-position">
+							<Link to={href}>
+								<img
+									src={props.brand_image.full}
+									alt={props.title}
+									width="150"
+									height="50"
+								/>
+							</Link>
+						</div>
+					}
 					<Breadcrumbs app={props.app}/>
 					<Nav className="ml-auto header-props" navbar>
 						<ThemeButton />
