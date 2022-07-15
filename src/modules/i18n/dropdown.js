@@ -34,17 +34,18 @@ function LanguageDropdown(props) {
 	}
 
 	return (
-		<UncontrolledDropdown direction="down" className="pr-3">
+		<UncontrolledDropdown direction="down" className="pr-4">
 			<DropdownToggle nav caret>
 				<LanguageFlag language={i18n.language}/>
 			</DropdownToggle>
 			<DropdownMenu right>
-				<DropdownItem header>Language</DropdownItem>
+				<DropdownItem header>{t('i18n|Language')}</DropdownItem>
 
 				{i18n.options.supportedLngs.map((language, i) => {
 					if (language != 'cimode') return (
 						<DropdownItem key={language} title={language} onClick={() => {changeLanguage(language)}}>
 							<LanguageFlag language={language}/>
+							{' '}
 							{t('i18n|language|'+language)}
 						</DropdownItem>
 					);
@@ -67,5 +68,5 @@ let LanguageToFlag = {
 
 function LanguageFlag(props) {
 	let lcls = LanguageToFlag[props.language]
-	return (<i className={lcls +' pr-2'} style={{height: '1em'}}></i>)
+	return (<i className={lcls +' pr-2'} style={{height: '1em', width: '1.6em'}}></i>)
 }

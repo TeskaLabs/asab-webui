@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import {
-	Container,
-	Col, Row,
+	Container, Col, Row,
 	Card, CardBody
 } from "reactstrap";
 
@@ -156,9 +155,9 @@ function ConfigContainer(props) {
 
 	// Render function
 	return (
-		<Container fluid className="animated fadeIn flex mt-0 pr-0 pl-0 pt-0 config-container">
-			<Row className="config-row">
-				<Col sm="3" className="pr-0 bcg-column">
+		<Container fluid className="config-container animated fadeIn">
+			<Row className="ml-0 h-100">
+				<Col xs="3" sm="3" className="h-100">
 					<TreeViewComponent
 						serviceURL={serviceURL}
 						openNodes={openNodes}
@@ -174,7 +173,7 @@ function ConfigContainer(props) {
 						getTree={getTree}
 					/>
 				</Col>
-				<Col md={{ size: 6, offset: 1 }}>
+				<Col xs="8" sm="8" className="h-100">
 					{chosenPanel != 'import' ?
 						configType != '$' && configName != '$' ?
 							configName != '!manage' && createConfig == false ?
@@ -183,14 +182,14 @@ function ConfigContainer(props) {
 									configType={configType}
 									configName={configName}
 								/>
-								:
+							:
 								<ConfigList
 									app={props.app}
 									configType={configType}
 									createConfig={createConfig}
 									setCreateConfig={setCreateConfig}
 								/>
-							:
+						:
 							<Card>
 								<CardBody className="text-center">
 									<img
@@ -198,11 +197,11 @@ function ConfigContainer(props) {
 										alt={homeScreenAlt}
 										style={{maxWidth: "38%"}}
 									/>
-									<h3>{t('ASABConfig|Nothing has been selected')}</h3>
-									<h5>{t('ASABConfig|Please select the configuration from tree menu on the left side of the screen')}</h5>
+									<h4>{t('ASABConfig|Nothing has been selected')}</h4>
+									<h6>{t('ASABConfig|Please select the configuration from tree menu on the left side of the screen')}</h6>
 								</CardBody>
 							</Card>
-						:
+					:
 						<ConfigImport
 							setChosenPanel={setChosenPanel}
 							app={props.app}

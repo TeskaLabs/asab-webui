@@ -53,12 +53,14 @@ function ConfigList(props) {
 				generate: (obj) => (
 					<div className="d-flex justify-content-end">
 						<ButtonWithAuthz
-							title={t('ASABConfig|Remove') + ` ${obj.name}`}
-							color="danger"
 							size="sm"
-							onClick={(e) => {removeConfigForm(obj.name), e.preventDefault()}}
+							color="danger"
+							className="m-0"
+							outline
+							title={t('ASABConfig|Remove') + ` ${obj.name}`}
 							resource={resourceManageConfig}
 							resources={resources}
+							onClick={(e) => {removeConfigForm(obj.name), e.preventDefault()}}
 						>
 							<i className="cil-trash"></i>
 						</ButtonWithAuthz>
@@ -118,9 +120,7 @@ function ConfigList(props) {
 			onClick={(e) => {props.setCreateConfig(true), e.preventDefault()}}
 			resource={resourceManageConfig}
 			resources={resources}
-			size="sm"
 		>
-			<i className="pr-1">+</i>
 			{t("ASABConfig|Create")}
 		</ButtonWithAuthz>
 	);
@@ -150,11 +150,13 @@ function ConfigList(props) {
 			props.app.addAlert("warning", t('ASABConfig|Something went wrong, failed to remove configuration'));
 		}
 	}
+	
+	if (props.createConfig) {
+		return <CreateConfigCard app={props.app} configType={configType} setCreateConfig={props.setCreateConfig} />
+	}
 
-	return(
-		props.createConfig ?
-			<CreateConfigCard app={props.app} configType={configType} setCreateConfig={props.setCreateConfig} />
-		:
+	return (
+		<div className="config-list-dt">
 			<DataTable
 				customCardBodyComponent={<div className="pb-3">{`${description}`}</div>}
 				title={{ text: t("ASABConfig|Type") + ` ${configType}`, icon: "cil-settings" }}
@@ -163,6 +165,7 @@ function ConfigList(props) {
 				limit={99999}
 				customComponent={createConfigComponent}
 			/>
+		</div>
 	)
 }
 
@@ -227,9 +230,11 @@ function CreateConfigCard(props) {
 	return(
 		<Form onSubmit={handleSubmit(onSubmit)}>
 			<Card className="w-75 offset-md-2">
-				<CardHeader>
-					<span className="cil-settings pr-2" />
-					{t("ASABConfig|Type") + ` ${props.configType.toString()} / ` + t('ASABConfig|New configuration')}
+				<CardHeader className="border-bottom">
+					<div className="card-header-title">
+						<span className="cil-settings pr-2" />
+						{t("ASABConfig|Type") + ` ${props.configType.toString()} / ` + t('ASABConfig|New configuration')}
+					</div>
 				</CardHeader>
 				<CardBody>
 					<FormGroup tag="fieldset" disabled={isSubmitting}>
@@ -256,7 +261,6 @@ function CreateConfigCard(props) {
 						type="submit"
 						disabled={isSubmitting}
 					>
-						<i className="pr-1">+</i>
 						{t('ASABConfig|Create')}
 					</Button>
 				</CardFooter>

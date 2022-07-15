@@ -1,0 +1,29 @@
+html[data-theme="light"] {
+	--error-handler-text-color: var(--white);
+}
+
+html[data-theme="dark"] {
+	--error-handler-text-color: var(--white-night);
+}
+
+$error-handler-text-color: var(--error-handler-text-color);
+
+.error-handler-container {
+	padding: 0.5rem;
+	margin-top: 1rem;
+	min-height: 500px;
+	background-color: $error-handler-stack-bg;
+	h3 {
+		color: $text-color;
+	}
+}
+
+.error-handler-title, .error-handler-stack {
+	font-family: monospace;
+	color: $error-handler-text-color;
+}
+
+.error-handler-stack {
+	margin-bottom: 0.1rem;
+	margin-left: 1rem;
+}

@@ -1,15 +1,14 @@
 {
 	"AccessControlScreen": {
-		"Access control": "Uživatelská oprávnění",
-		"See your details": "Zde jsou zobrazena Vaše uživatelská oprávnění",
+		"Access control": "Přístupová oprávnění",
+		"See your details": "Zde jsou zobrazena Vaše přístupová oprávnění",
 		"Current tenant": "Aktuální tenant",
-		"Roles": "Role",
 		"Resources": "Zdroje",
 		"Previous screen": "Zpět na předchozí okno"
 	},
 	"AuthHeaderDropdown": {
 		"My account": "Můj účet",
-		"Access control": "Uživatelská oprávnění",
+		"Access control": "Přístupová oprávnění",
 		"Manage": "Správa účtu",
 		"Change a password": "Změna hesla",
 		"Logout": "Odhlásit"
@@ -132,6 +131,9 @@
 		"Version": "Verze",
 		"Attention": "Pozor"
 	},
-
-	"You do not have access rights to perform this action": "Váš přístup je omezen, nemáte dostatečná oprávnění"
+	"Showing item(s)": "{{ from }} - {{ to }} z {{ total }} položek",
+	"You do not have access rights to perform this action": "Váš přístup je omezen, nemáte dostatečná oprávnění",
+	"Items per page": "Položek na stránku",
+	"Page": "z {{pages}} stránky",
+	"Pages": "z {{pages}} stránek"
 }

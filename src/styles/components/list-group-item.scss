@@ -1,0 +1,9 @@
+@import "../constants/index.scss";
+
+.list-group {
+  .list-group-item {
+    background-color: inherit;
+    border: 1px solid $border-color;
+    border-width: 0 0 1px;
+  }
+}

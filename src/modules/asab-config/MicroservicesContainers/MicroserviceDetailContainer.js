@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -12,12 +13,13 @@ import ReactJSON from 'react-json-view';
 import AttentionCard from './AttentionCard';
 
 const MicroserviceDetailContainer = (props) => {
+	const theme = useSelector(state => state.theme);
 	const [svc, setSvc] = useState(null);
 	const [error, setError] = useState(null);
 	const { t } = useTranslation();
 	const { svc_name } = useParams();
 
-	const ASABConfigAPI = props.app.axiosCreate('asab_config');
+	const LMIORemoteControlAPI = props.app.axiosCreate('lmio_remote_control');
 
 	useEffect(() => {
 		getMicroservice();
@@ -25,7 +27,7 @@ const MicroserviceDetailContainer = (props) => {
 
 	const getMicroservice = async () => {
 		try {
-			const response = await ASABConfigAPI.get(`microservices/${svc_name}`);
+			const response = await LMIORemoteControlAPI.get(`microservice/${svc_name}`);
 
 			if (response.data.result !== "OK") throw new Error(response);
 
@@ -49,7 +51,11 @@ const MicroserviceDetailContainer = (props) => {
 			<Row className="justify-content-md-center">
 				<Col md={8}>
 					<Card>
-						<CardHeader>{svc?.appclass || t("MicroserviceDetailContainer|Service")}</CardHeader>
+						<CardHeader className="border-bottom">
+							<div className="card-header-title">
+								{svc?.appclass || t("MicroserviceDetailContainer|Service")}
+							</div>
+						</CardHeader>
 						<CardBody>
 							{error ? (
 									<div className="text-center">
@@ -63,31 +69,31 @@ const MicroserviceDetailContainer = (props) => {
 											<code>{ svc_name?.toString() ?? 'N/A'}</code>
 										</Col>
 									</Row>
-									<Row className="mt-3">
+									<Row className="mt-1">
 										<Col md={3}>{t("MicroserviceDetailContainer|Host")}</Col>
 										<Col>
 											<code>{svc?.hostname?.toString() ?? 'N/A'}</code>
 										</Col>
 									</Row>
-									<Row className="mt-3">
+									<Row className="mt-1">
 										<Col md={3}>{t("MicroserviceDetailContainer|Server")}</Col>
 										<Col>
 											<code>{svc?.servername?.toString() ?? 'N/A'}</code>
 										</Col>
 									</Row>
-									<Row className="mt-3">
+									<Row className="mt-1">
 										<Col md={3}>{t("MicroserviceDetailContainer|Launch time")}</Col>
 										<Col>
 											{svc?.launchtime ? <DateTime value={svc?.launchtime} /> : 'N/A'}
 										</Col>
 									</Row>
-									<Row className="mt-3">
+									<Row className="mt-1">
 										<Col md={3}>{t("MicroserviceDetailContainer|Created at")}</Col>
 										<Col>
 											{svc?.created_at ? <DateTime value={svc?.created_at} /> : 'N/A'}
 										</Col>
 									</Row>
-									<Row className="mt-3">
+									<Row className="mt-1">
 										<Col md={3}>{t("MicroserviceDetailContainer|Version")}</Col>
 										<Col>{svc?.version ?? 'N/A'}</Col>
 									</Row>
@@ -99,10 +105,14 @@ const MicroserviceDetailContainer = (props) => {
 			</Row>
 
 			{svc && (
-				<Row className="justify-content-md-center">
+				<Row className="justify-content-md-center mt-2">
 					<Col md={8}>
 						<Card>
-							<CardHeader>{t("MicroserviceDetailContainer|Detail")}</CardHeader>
+							<CardHeader className="border-bottom">
+								<div className="card-header-title">
+									{t("MicroserviceDetailContainer|Detail")}
+								</div>
+							</CardHeader>
 							<CardBody>
 								<Row className="m-auto" >
 									<Col>
@@ -110,6 +120,7 @@ const MicroserviceDetailContainer = (props) => {
 											src={svc}
 											name={false}
 											enableClipboard={false}
+											theme={theme === 'dark' ? "chalk" : "rjv-default"}
 										/>
 									</Col>
 								</Row>

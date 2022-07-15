@@ -1,0 +1,110 @@
+@import '../../styles/index.scss';
+
+// STYLES FOR Table.js
+
+table th, .table th {
+    border: none;
+    height: 48px;
+    vertical-align: middle;
+    color: $text-secondary-color;
+}
+
+.data-table-card-body {
+    padding-top: 0.5rem !important;
+    & .table {
+        margin-bottom: 0;
+    }
+    & .table td, th {
+        border-top: 1px solid $border-color;
+    }
+}
+
+//DataTable's card footer items position
+.data-table-card .card-footer .row {
+    align-items: center;
+}
+
+.data-table-tr th:first-child {
+    padding-left: 1rem;
+}
+
+thead .data-table-tr th {
+    border-top: none;
+}
+
+.data-table-tbody {
+
+    background-color: $bg-color-dark;
+    & td, th {
+        font-weight: 400;
+        vertical-align: middle;
+    }
+
+    & a {
+        color: $primary;
+    }
+
+    & .data-table-tr {
+        height: 48px;
+        & .data-table-th {
+            padding: auto;
+        }
+    }
+}
+
+table ~ .react-json-view {
+    border: 1px solid blue;
+    background-color: $bg-color-dark
+}
+
+// STYLES FOR index.js
+
+.data-table {
+    &-input-group-text {
+        padding: 0;
+        background-color: $bg-color;
+        box-shadow: none;
+        border-radius: 2px;
+    }
+    &-search {
+        font-size: 14px;
+        & .form-control {
+            border-left: none;
+            box-shadow: none;
+        }
+    }
+    &-button:last-child {
+        border-radius: 0 8px 0 0;
+    }
+    &-limit {
+        display: flex;
+        align-items: center;
+        // margin: auto 1.5rem;
+        border-right: 1px solid $border-color;
+        &-dropdown {
+            display: flex;
+            justify-content: center;
+            color: $text-color !important;
+            font-weight: 400;
+            margin:  auto;
+            & button {
+                display: flex;
+                justify-content: center;
+                background-color: $bg-color;
+                color: $text-color;
+                font-weight: 400;
+            }
+        }
+    }
+    &-count {
+        justify-self: flex-start;
+    }
+
+    &-card-footer-left {
+        display: inherit;
+        align-items: center;
+        & > div:first-child {
+            margin: auto 1.5rem;
+        }
+    }
+}

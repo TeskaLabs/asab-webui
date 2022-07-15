@@ -1,12 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import { Pagination, PaginationItem, PaginationLink, Dropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
 
 export default function ({ currentPage, setPage, lastPage, style }) {
-	const slots = Math.min(5, lastPage);
+	const slots = lastPage;
 
 	let start = currentPage - Math.floor(slots / 2);
 	let end = currentPage + Math.floor(slots / 2);
+
+	const [open, setOpen] = useState(false);
+
+	const { t, i18n } = useTranslation();
 
 	if (start < 1) {
 		start = 1;
@@ -23,6 +28,10 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 		pages.push(i);
 	}
 
+	if (pages.length === 0) {
+		pages.push(1)
+	}
+
 	useEffect(() => {
 		if (currentPage > lastPage && lastPage != 0) {
 			setPage(lastPage);
@@ -30,50 +39,49 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 	}, [lastPage])
 
 	return (
-		<Pagination style={style}>
-			<PaginationItem disabled={currentPage == 1}>
-				<PaginationLink
-					onClick={() => setPage(1)}
-					>
-					<i className="cil-media-step-backward" />
-				</PaginationLink>
-			</PaginationItem>
+		<div className="data-table-pagination" style={style}>	
+			<Dropdown 
+				isOpen={open}
+				toggle={() => setOpen(prev => !prev)} 
+				direction="down"
+				className="pagination-dropdown"
+			>
+				<DropdownToggle caret>
+					{currentPage}
+				</DropdownToggle>
+				<DropdownMenu>
+					{pages.map((page, idx) =>
+						<DropdownItem key={idx} onClick={() => setPage(page)}>
+							{page}
+						</DropdownItem>
+					)} 
 
-			<PaginationItem disabled={currentPage <= 1}>
-				<PaginationLink
-					previous
-					onClick={() => setPage(Math.max(1, currentPage - 1))}
-					>
-					<i className="cil-media-skip-backward" />
-				</PaginationLink>
-			</PaginationItem>
+				</DropdownMenu>
+			</Dropdown>
 
-			{pages.map((page, idx) =>
-				<PaginationItem key={idx} active={(page) == currentPage}>
+			<div className="mr-2">
+				{pages.length > 1 ? t('Pages', {pages: pages.length}) : t('Page', {pages: pages.length})}
+			</div>
+
+			<Pagination>
+				<PaginationItem disabled={currentPage <= 1}>
 					<PaginationLink
-						onClick={() => setPage(page)}
-					>
-						{page}
+						previous
+						onClick={() => setPage(Math.max(1, currentPage - 1))}
+						>
+						<i className="cil-media-skip-backward" />
 					</PaginationLink>
 				</PaginationItem>
-			)}
 
-			<PaginationItem disabled={currentPage >= lastPage}>
-				<PaginationLink
-					next
-					onClick={() => setPage(currentPage + 1)}
-					>
-					<i className="cil-media-skip-forward" />
-				</PaginationLink>
-			</PaginationItem>
-
-			<PaginationItem disabled={currentPage >= lastPage}>
-				<PaginationLink
-					onClick={() => setPage(lastPage)}
-				>
-					<i className="cil-media-step-forward" />
-				</PaginationLink>
-			</PaginationItem>
-		</Pagination>
+				<PaginationItem disabled={currentPage >= lastPage}>
+					<PaginationLink
+						next
+						onClick={() => setPage(currentPage + 1)}
+						>
+						<i className="cil-media-skip-forward" />
+					</PaginationLink>
+				</PaginationItem>
+			</Pagination>
+		</div>
 	);
 }

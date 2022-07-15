@@ -10,10 +10,9 @@ let ConfigDefaults = {
 		full: "media/logo/header-full.svg",
 		minimized: "media/logo/header-minimized.svg",
 	},
-	footer_image: {
-		src: "media/logo/footer.svg",
-		alt: "Created by TeskaLabs",
-		href: "https://teskalabs.com/",
+	sidebarLogo: {
+		full: "media/logo/sidebarlogo-full.svg",
+		minimized: "media/logo/sidebarlogo-minimized.svg"
 	},
 	default_help_url: "https://github.com/TeskaLabs/asab-webui",
 	i18n: {

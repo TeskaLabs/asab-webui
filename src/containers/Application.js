@@ -1,5 +1,4 @@
 import React, { Component, Suspense, useEffect } from 'react';
-import * as router from 'react-router-dom';
 import { withRouter } from "react-router";
 import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
@@ -9,12 +8,9 @@ import { Helmet } from "react-helmet";
 
 import { Fade } from 'reactstrap';
 
-import Main from './Main';
 import Header from './Header';
-import Footer from './Footer';
 import Sidebar from './Sidebar';
 import SplashScreen from './SplashScreen';
-import Breadcrumbs from './Breadcrumbs';
 import ErrorHandler from './ErrorHandler';
 import Alerts from './Alerts';
 import { Spinner } from '../components/Spinner';
@@ -28,6 +24,7 @@ import ConfigService from '../config/ConfigService';
 import HeaderService from '../services/HeaderService';
 import FooterService from '../services/FooterService';
 import SidebarService from './Sidebar/service';
+import ThemeService from '../theme/ThemeService';
 
 import TenantSelectionCard from '../modules/tenant/selector/TenantSelectionCard';
 
@@ -93,6 +90,7 @@ class Application extends Component {
 		this.HeaderService = new HeaderService(this, "HeaderService");
 		this.FooterService = new FooterService(this, "FooterService");
 		this.SidebarService = new SidebarService(this, "SidebarService");
+		this.ThemeService = new ThemeService(this, "ThemeService");
 
 		this.ReduxService.addReducer("alerts", alertsReducer);
 		this.ReduxService.addReducer("advmode", advancedModeReducer);
@@ -168,6 +166,7 @@ class Application extends Component {
 
 			that.removeSplashScreenRequestor(that);
 		});
+
 	}
 
 
@@ -506,9 +505,8 @@ class Application extends Component {
 						</Helmet>
 						: null
 					}
-					<Header app={this} />
 					<ErrorHandler isParentError={true}>
-						<div className="app-body">
+						<div className='d-flex w-100'>
 							{
 								(this.props.hasSidebar || typeof this.props.hasSidebar === 'undefined') &&
 								<Sidebar
@@ -518,37 +516,38 @@ class Application extends Component {
 									sidebarItemsOrder={this.props.sidebarItemsOrder}
 								/>
 							}
-							<Main hasSidebar={this.props.hasSidebar}>
-								<Suspense
-									fallback={<div style={{ marginTop: "1rem" }}><Spinner /></div>}
-								>
-									<Switch>
-										{this.Router.Routes.map((route, idx) => {
-											return route.component ? (
-												<Route
-													key={idx}
-													path={`${route.path}`}
-													exact={route.exact}
-													name={route.name}
-													render={props => (
-														<>
-															{!this.props.disableAppBreadcrumbs && !route.disableContainerBreadcrumbs ?
-																<Breadcrumbs routes={this.Router.Routes} match={props.match} />
-																: null}
-															<ErrorHandler>
-																<route.component app={this} {...props} {...route.props} />
-															</ErrorHandler>
-														</>
-													)}
-												/>
-											) : (null);
-										})}
-										{this.DefaultPath != undefined ? <Redirect from="/" to={this.DefaultPath} /> : null}
-									</Switch>
-								</Suspense>
-							</Main>
+							<div
+								className={`app-body ${this.props.hasSidebar || this.props.hasSidebar === undefined ? "" : "without-sidebar"}`}
+							>
+								<Header app={this} />
+								<main className="main">
+									<Suspense
+										fallback={<div style={{ marginTop: "1rem" }}><Spinner /></div>}
+									>
+										<Switch>
+											{this.Router.Routes.map((route, idx) => {
+												return route.component ? (
+													<Route
+														key={idx}
+														path={`${route.path}`}
+														exact={route.exact}
+														name={route.name}
+														render={props => (
+															<>
+																<ErrorHandler>
+																	<route.component app={this} {...props} {...route.props} />
+																</ErrorHandler>
+															</>
+														)}
+													/>
+												) : (null);
+											})}
+											{this.DefaultPath != undefined ? <Redirect from="/" to={this.DefaultPath} /> : null}
+										</Switch>
+									</Suspense>
+								</main>
+							</div>
 						</div>
-						<Footer app={this} />
 					</ErrorHandler>
 				</div>
 			</Provider>
@@ -614,9 +613,8 @@ const advModeInitialState = {
 	enabled: false,
 }
 
-function advancedModeReducer(state = advModeInitialState, action) {
+const advancedModeReducer = (state = advModeInitialState, action) => {
 	switch (action.type) {
-
 		case SET_ADVANCED_MODE: {
 			return Object.assign({}, state, {
 				enabled: action.enabled

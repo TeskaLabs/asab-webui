@@ -1,22 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { saveAs } from 'file-saver';
 
 import { 
-	Card, Row, Col,
+	Card, Row, Col, ButtonGroup,
 	CardFooter, CardHeader, CardBody,
-	Button, Dropdown, DropdownToggle,
-	DropdownMenu, DropdownItem, Container
+	Button, Container
 } from 'reactstrap';
 
 import Table from './Table';
 import Pagination from '../Pagination';
 import LimitDropdown from './LimitDropdown';
-import { DownloadButton, CreateButton } from './Buttons';
+import { DownloadButton, CreateButton, CustomButton } from './Buttons';
 import Search from './Search';
 import Sort from './Sort';
 // import CustomDropdownButton from './CustomDropdownButton'; DON'T REMOVE YET. IT MAY BE USEFUL ON REFACTORING DATATABLE
+
+import './table.scss';
 
 import { CellContentLoader } from '../ContentLoader';
 import { ButtonWithAuthz } from '../../modules/auth/components/ButtonWithAuthz';
@@ -35,8 +34,9 @@ export function DataTable ({
 	contentLoader = true, category
 	}) {
 	const [filterValue, setFilterValue] = useState('');
-
+	const [isLimitOpen, setLimitDropdown] = useState(false);
 	const timeoutRef = useRef(null);
+	const [countDigit, setCountDigit] = useState(1)
 	
 	const { t } = useTranslation();
 
@@ -53,64 +53,44 @@ export function DataTable ({
 	}, [filterValue]);
 
 	return (
-		<Row>
+		<Row className="h-100">
 			<Col>
-				<Card className="data-table-card">
-					<CardHeader className="data-table-card-header">
-						{title.icon && typeof title.icon === 'string' ? 
-							<i className={title.icon}></i> : title.icon
-						}
-						{title.text}
-						<div className="float-right ml-3 data-table-create-button">{customComponent}</div>
-						{customButton && 
-							<div className="float-right ml-3 data-table-create-button">
-								<Button
-									tag="span"
-									size="sm"
-									{...customButton?.props}
-								>
-									{customButton.icon && 
-										<span className="pr-1">
-											{typeof customButton.icon === 'string' ? 
-												<i className={customButton.icon}></i> : customButton.icon
-											}
-										</span>
-									}
-									{customButton?.text}
-								</Button>
-							</div>
-						}
-						{buttonWithAuthz && <ButtonWithAuthz {...buttonWithAuthz} className="float-right ml-3 data-table-button-with-authz"/>}
-						{createButton &&
-							<CreateButton 
-								createButton={createButton}
-							/>
-						}
-						{onDownload &&
-							<div className="float-right ml-3 data-table-download-button">
-								<DownloadButton
-									onDownload={onDownload}
-									headers={headers}
-									title={title}
-								/>
-							</div>
-						}
-						{sort && 
-							<div className="float-right ml-3 data-table-sort">
-								<Sort 
-									sort={sort} 
-								/>
-							</div>
-						}
-						{search && 
-							<div className="float-right ml-3 data-table-search">
-								<Search 
-									search={search}
-									filterValue={filterValue}
-									setFilterValue={setFilterValue}
-								/>
-							</div>
-						}
+				<Card className="h-100 data-table-card">
+					<CardHeader className="data-table-card-header border-bottom">
+						<div className="data-table-title card-header-title">
+							{title.icon && typeof title.icon === 'string' ? 
+								<i className={`${title.icon} mr-2`}></i> : title.icon
+							}
+							{title.text}
+						</div>				
+
+						<ButtonGroup>
+							{search && 
+									<Search 
+										search={search}
+										filterValue={filterValue}
+										setFilterValue={setFilterValue}
+									/>
+							}
+							
+							{sort && <Sort sort={sort} />}
+
+							<div className="data-table-create-button data-table-button">{customComponent}</div>
+
+							{customButton && <CustomButton customButton={CustomButton} />}
+
+							{buttonWithAuthz && <ButtonWithAuthz {...buttonWithAuthz} className="data-table-button-with-authz data-table-button"/>}
+							
+							{createButton && <CreateButton createButton={createButton} />}
+
+							{onDownload &&
+									<DownloadButton
+										onDownload={onDownload}
+										headers={headers}
+										title={title}
+									/>
+							}
+						</ButtonGroup>
 					</CardHeader>
 
 					<CardBody className="data-table-card-body">
@@ -132,44 +112,39 @@ export function DataTable ({
 
 					</CardBody>
 
-					<CardFooter className="data-table-card-footer">
-						<Row>
-							<Col sm="4">
-								{count ? (
-									<div>
-										{t(translationRoute ? 
-											`${translationRoute}|Showing item(s)` 
-											: "Showing item(s)",
-											{ length: data.length, count: count }
-										)}
-									</div>
-									) : null
-								}
-							</Col>
+					<CardFooter className="data-table-card-footer  border-top">
 
-							<Col>
-								{setPage && data.length > 0 &&
-									<Pagination 
-										currentPage={currentPage}
-										setPage={setPage}
-										lastPage={Math.ceil(count/limit)}
-										style={{marginBottom: "0", justifyContent: "center"}}
-									/>
-								}
-							</Col>
+						<div className="data-table-card-footer-left">
+							{setLimit &&
+								<LimitDropdown 
+									translationRoute={translationRoute}
+									limit={limit}
+									setLimit={setLimit}
+									setPage={setPage}
+									limitValues={limitValues}
+								/>
+							}
 
-							<Col>
-								{setLimit &&
-									<LimitDropdown 
-										translationRoute={translationRoute}
-										limit={limit}
-										setLimit={setLimit}
-										setPage={setPage}
-										limitValues={limitValues}
-									/>
-								}
-							</Col>
-						</Row>
+							{count ? (
+								<div className="data-table-count">
+									{t(translationRoute ? 
+										`${translationRoute}|Showing item(s)` 
+										: "Showing item(s)",
+										{ from: (currentPage - 1) * limit + 1, to: count > currentPage * limit ? currentPage * limit : count, total: count }
+									)}
+								</div>
+								) : null
+							}
+						</div>
+
+						{setPage && data.length > 0 &&
+							<Pagination 
+								currentPage={currentPage}
+								setPage={setPage}
+								lastPage={Math.ceil(count/limit)}
+							/>
+						}
+
 					</CardFooter>
 				</Card>
 			</Col>

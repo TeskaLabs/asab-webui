@@ -14,7 +14,6 @@ Example:
 		"Access control": "Access control",
 		"See your details": "You can see your access permissions here",
 		"Tenant": "Tenant",
-		"Roles": "Roles",
 		"Resources": "Resources"
 	}
 }

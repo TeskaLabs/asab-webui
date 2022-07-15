@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
-	Nav, NavItem, NavLink, Collapse
+	NavItem, NavLink, Collapse, Nav
 } from 'reactstrap';
 
 import Icon from './SidebarIcon';
@@ -53,35 +53,34 @@ const SidebarItem = ({
 	}
 
 	return (
-		<NavItem className={`${item.children ? "sidebar-dropdown" : "sidebar-item"} ${isOpen ? "sidebar-dropdown-open": ""}`}  title={t(`Sidebar|${item.name}`)}>
-			<NavLink
-				className={`${location.pathname === item.url ? "active" : ""}`}
-				onClick={onNavLink}
-			>
-				<Icon icon={item.icon} />
-				<span className="sidebar-item-text">{t(`Sidebar|${item.name}`)}</span>
-				{item.children &&
-					<span className={`sidebar-chevron${isOpen ? "-open" : ""}`}>
-						<Icon icon="cil-chevron-left" />
-					</span>
-				}
-			</NavLink>
+		<>
+			<NavItem className="sidebar-item"  title={t(`Sidebar|${item.name}`)}>
+				<NavLink onClick={onNavLink}>
+					<button className={`sidebar-item-button${location.pathname === item.url ? " active " : " "}btn`}>
+						<Icon icon={item.icon} />
+						<div className="sidebar-item-name ml-2">{t(`Sidebar|${item.name}`)}</div>
+						{item.children && item.children.length > 0 && (
+							<Icon icon={isOpen ? "cil-arrow-circle-bottom" : "cil-arrow-circle-left"} />
+						)}
+					</button>
+				</NavLink>
 
-			{item.children &&
-				(
-					<Collapse isOpen={isOpen}>
-						<Nav className="nav-children">
-							{item.children.map((child, idx) => (
-								unauthorizedNavChildren == undefined || unauthorizedNavChildren.length == 0 ?
-									<SidebarItem key={idx} item={child} />
-								:
-									unauthorizedNavChildren.indexOf(child.name) == -1 && <SidebarItem key={idx} item={child} />
-							))}
-						</Nav>
-					</Collapse>
-				)
-			}
-		</NavItem>
+				{item.children &&
+					(
+						<Collapse isOpen={isOpen}>
+							<Nav className="nav-children">
+								{item.children.map((child, idx) => (
+									unauthorizedNavChildren == undefined || unauthorizedNavChildren.length == 0 ?
+										<SidebarItem key={idx} item={child} />
+									:
+										unauthorizedNavChildren.indexOf(child.name) == -1 && <SidebarItem key={idx} item={child} />
+								))}
+							</Nav>
+						</Collapse>
+					)
+				}
+			</NavItem>
+		</>
 	)
 }
 

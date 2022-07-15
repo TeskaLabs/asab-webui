@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, Suspense } from 'react';
 import { connect } from 'react-redux';
 
 import {
@@ -7,32 +7,23 @@ import {
 } from 'reactstrap';
 
 import HelpButton from './HelpButton';
-import SidebarToggler from './SidebarToggler';
-import NavbarBrand from './NavbarBrand';
+import ThemeButton from '../../theme/ThemeButton';
+import Breadcrumbs from './BreadcrumbsRouter';
+import {Link} from "react-router-dom";
 
 export function Header(props) {
 	const HeaderService = props.app.locateService("HeaderService");
+	const href = props.brand_image.href ?? "/";
 
 	const [headerProperties, setHeaderProperties] = useState(false);
 
 	return (
-		<header className={headerProperties ? 'header-props-open' : undefined }>
-			<div className="application-header">
-			<NavbarBrand {...props}/>
-			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
-				<SidebarToggler store={props.app.Store}/>
-			: HeaderService.Items.length > 0 ?
-				props.app.Navigation.getItems().items.length > 0 && props.app.Navigation.getItems().items.length !== undefined ?
-					<SidebarToggler store={props.app.store}/>
-				:
-					null
-			:
-				null
-			}
-
-			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
-				(
+		<header className={`application-header ${headerProperties ? 'header-props-open' : ""}`}>
+			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar == 'undefined') ?
+				<>
+					<Breadcrumbs app={props.app}/>
 					<Nav className="ml-auto header-props" navbar>
+						<ThemeButton />
 						<HelpButton />
 						{HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>
@@ -40,50 +31,21 @@ export function Header(props) {
 							</NavItem>
 						))}
 					</Nav>
-				)
+				</>
 			:
-				<Nav className="ml-auto header-props" navbar>
-					<HelpButton />
-					{HeaderService.Items.map((item, idx) => (
-						window.innerWidth < 1024 && item.componentProps.children !== undefined && item.componentProps.children === "LanguageDropdown" ?
-							<NavItem key={idx}>
-								<item.component key={item} {...item.componentProps} app={props.app}/>
-							</NavItem>
-						:
-							window.innerWidth >= 1024 ?
-								<NavItem key={idx}>
-									<item.component key={item} {...item.componentProps} app={props.app}/>
-								</NavItem>
-							:
-								null
-					))}
-				</Nav>
-
-			}
-
-{/* toggler */}
-				<div className={`header-props-toggler mt-1 mr-3 p-0 ${headerProperties && 'header-props-open' }`} onClick={() => setHeaderProperties(!headerProperties)}>
-					<i className="cil-chevron-bottom"></i>
+				<>
+				<div >
+					<Link to={href}>
+						<img
+							src={props.brand_image.full}
+							alt={props.title}
+							width="150"
+							height="50"
+						/>
+					</Link>
 				</div>
-
-			</div>
-{/* smallscreen menu  */}
-
-			{ headerProperties && 
-			<div className={`application-header header-props-sm mt-5`} >
-			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ? 
-				(
-					<Nav navbar>
-						<HelpButton />
-						{HeaderService.Items.map((item, idx) => (
-							<NavItem key={idx}>
-								<item.component key={item} {...item.componentProps} app={props.app}/>
-							</NavItem>
-						))}
-					</Nav>
-				)
-			:
-				<Nav className="header-props-sm" navbar>
+				<Nav className="ml-auto header-props" navbar>
+					<ThemeButton />
 					<HelpButton />
 					{HeaderService.Items.map((item, idx) => (
 						window.innerWidth < 1024 && item.componentProps.children !== undefined && item.componentProps.children === "LanguageDropdown" ?
@@ -99,10 +61,54 @@ export function Header(props) {
 								null
 					))}
 				</Nav>
+				</>
 
 			}
+
+			{/* toggler */}
+			<div className={`header-props-toggler mr-3 p-0 ${headerProperties ? 'header-props-open' : '' }`} onClick={() => setHeaderProperties(!headerProperties)}>
+				<i className="cil-chevron-bottom"></i>
 			</div>
+			
+			{/* smallscreen menu  */}
+			<div className={`header-props-sm`}>
+			{ headerProperties && 
+				<>
+				{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') ?
+					(
+						<Nav navbar>
+							<ThemeButton />
+							<HelpButton />
+							{HeaderService.Items.map((item, idx) => (
+								<NavItem key={idx}>
+									<item.component key={item} {...item.componentProps} app={props.app}/>
+								</NavItem>
+							))}
+						</Nav>
+					)
+				:
+					<Nav className="header-props-sm" navbar>
+						<ThemeButton />
+						<HelpButton />
+						{HeaderService.Items.map((item, idx) => (
+							window.innerWidth < 1024 && item.componentProps.children !== undefined && item.componentProps.children === "LanguageDropdown" ?
+								<NavItem key={idx}>
+									<item.component key={item} {...item.componentProps} app={props.app}/>
+								</NavItem>
+							:
+								window.innerWidth >= 1024 ?
+									<NavItem key={idx}>
+										<item.component key={item} {...item.componentProps} app={props.app}/>
+									</NavItem>
+								:
+									null
+						))}
+					</Nav>
+
+				}
+				</>
 			}
+			</div>
 		</header>
 	);
 }

@@ -15,7 +15,7 @@ export default (props) => {
 
 	const { t } = useTranslation();
 
-	const ASABConfigAPI = props.app.axiosCreate('asab_config');
+	const LMIORemoteControlAPI = props.app.axiosCreate('lmio_remote_control');
 
 	const headers = [
 		{ 
@@ -43,7 +43,7 @@ export default (props) => {
 
 	const getMicroservicesList = async () => {
 		try {
-			const response = await ASABConfigAPI.get('/microservices', { params: { p: page, l: limit }});
+			const response = await LMIORemoteControlAPI.get('/microservices', { params: { p: page, i: limit }});
 
 			if (response.data.result !== "OK") throw new Error(response);
 
@@ -78,7 +78,7 @@ export default (props) => {
 				setLimit={setLimit}
 				limitValues={[20, 50, 100]}
 				title={{
-					text: t('MicroservicesContainer|Microservices')
+					text: t('MicroservicesContainer|Microservices'), icon: "cil-list"
 				}}
 				customRowStyle={customRowStyle}
 			/>

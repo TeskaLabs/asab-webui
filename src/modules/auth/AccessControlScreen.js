@@ -8,6 +8,8 @@ import {
 	Button
 } from 'reactstrap';
 
+import "./styles.scss";
+
 /*
 
 	Language localizations for AccessControlScreen can be added to the translation.json files of
@@ -20,7 +22,6 @@ import {
 			"Access control": "Access control",
 			"See your details": "You can see your access permissions here",
 			"Tenant": "Tenant",
-			"Roles": "Roles",
 			"Resources": "Resources"
 		}
 	}
@@ -30,7 +31,7 @@ import {
 function AccessControlScreen(props) {
 
 	return (
-		<Container>
+		<Container className='access-control-container'>
 			<Row className="justify-content-center">
 				<Col md="6">
 					<ConnectedAccessControlCard app={props.app} />
@@ -55,11 +56,15 @@ function AccessControlCard(props) {
 
 	return(
 		<Card className="shadow animated fadeIn">
-			<CardHeader className="text-center">
-				<CardTitle tag="h1">{t('AccessControlScreen|Access control')}</CardTitle>
-				<CardSubtitle tag="p" className="lead">
-					{t('AccessControlScreen|See your details')}
-				</CardSubtitle>
+			<CardHeader className="text-center border-bottom card-header-login">
+				<div className="card-header-title">
+					<CardTitle className="text-primary mb-0">
+						{t('AccessControlScreen|Access control')}
+					</CardTitle>
+					<CardSubtitle tag="p">
+						{t('AccessControlScreen|See your details')}
+					</CardSubtitle>
+				</div>
 			</CardHeader>
 
 			<CardBody>
@@ -69,7 +74,7 @@ function AccessControlCard(props) {
 							<React.Fragment>
 								<Row>
 									<Col>
-										<h5>{t('AccessControlScreen|Tenant')}</h5>
+										{t('AccessControlScreen|Tenant')}
 									</Col>
 									<Col>
 										<p style={{marginBottom: "5px"}}>{currentTenant}</p>
@@ -80,21 +85,14 @@ function AccessControlCard(props) {
 						}
 						<Row>
 							<Col>
-								<h5>{t('AccessControlScreen|Roles')}</h5>
-							</Col>
-							<ItemToRender userinfo={userinfo} item='roles' />
-						</Row>
-						<hr/>
-						<Row>
-							<Col>
-								<h5>{t('AccessControlScreen|Resources')}</h5>
+								{t('AccessControlScreen|Resources')}
 							</Col>
 							<ItemToRender userinfo={userinfo} item='resources' />
 						</Row>
 					</>
 					) : (
 					<div className="text-center">
-						<h5>{t("AccessControlScreen|The user information is invalid, you session is likely expired.")}</h5>
+						{t("AccessControlScreen|The user information is invalid, you session is likely expired.")}
 					</div>
 				)}
 			</CardBody>

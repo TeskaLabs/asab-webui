@@ -1,0 +1,54 @@
+@import "./theme-light.scss";
+@import "./theme-dark.scss";
+
+$primary: var(--primary);
+$secondary: var(--dark-gray);
+$success: var(--green);
+$danger: var(--red);
+$warning: var(--yellow);
+$info: var(--blue);
+$light: var(--gray);
+$dark: var(--black);
+$white-night: var(--white-night);
+$white: var(--white);
+
+$night-blue: var(--night-blue);
+$light-violet: var(--light-violet);
+$light-gray: var(--light-gray);
+$gray: var(--gray);
+$dark-gray: var(--dark-gray);
+$beige-gray: var(--beige-gray);
+$off-white: var(--off-white);
+$light-green: var(--light-green);
+$dark-green: var(--dark-green);
+$pink: var(--pink);
+$dark-pink: var(--dark--pink);
+
+$bg-color: var(--bg-color);
+$bg-color-dark: var(--bg-color-dark);
+$bg-color-darker: var(--bg-color-darker);
+$highlighted-bg-color: var(--highlighted-bg-color);
+$border-color: var(--border-color);
+
+$text-color: var(--text-color);
+$text-secondary-color: var(--text-secondary-color);
+$reversed-text-color: var(--reversed-text-color);
+$highlighted-text-color: var(--highlighted-text-color);
+$link-color: var(--link-color);
+$text-code-highlight: var(--text-code-highlight);
+
+$highlighted-font-weight: 500;
+
+// Header
+$header-height: 65px;
+
+//TODO: move all colors below to appropriate files
+$header-bg: var(--bg-color-dark);
+$body-bg: var(--bg-color-dark);
+$sidebar-bg: var(--bg-color-dark);
+$breadcrumb-bg: var(--bg-color-dark);
+
+// Error Handler
+$error-handler-stack-bg: var(--dark-black);
+
+$sidebar-width: 200px;

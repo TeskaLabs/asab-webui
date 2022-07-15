@@ -1,0 +1,25 @@
+@import "./colors.scss";
+
+:root[data-theme="dark"] {
+	--primary: var(--violet);
+	--secondary: var(--dark-gray);
+	--success: var(--green);
+	--danger: var(--red);
+	--warning: var(--yellow);
+	--info: var(--blue);
+	--light: var(--gray);
+	--dark: var(--black);
+
+	--bg-color: var(--light-black);
+	--bg-color-dark: var(--black);
+	--bg-color-darker: var(--darker-gray);
+	--border-color: var(--lightest-black);
+
+	--text-color: var(--white-night);
+	--text-secondary-color: var(--light-blue);
+	--reversed-text-color: var(--dark-black);
+	--highlighted-text-color: var(--violet);
+	--highlighted-bg-color: var(--violet);
+	--link-color: var(--night-blue);
+	--text-code-highlight: var(--pink);
+}

@@ -3,7 +3,6 @@
 		"Access details": "Access control",
 		"See your details": "You can see your access permissions here",
 		"Current tenant": "Current tenant",
-		"Roles": "Roles",
 		"Resources": "Resources",
 		"Previous screen": "Back to previous screen"
 	},
@@ -132,6 +131,9 @@
 		"Version": "Version",
 		"Attention": "Attention"
 	},
-
-	"You do not have access rights to perform this action": "You do not have access rights to perform this action"
+	"Showing item(s)": "{{ from }} - {{ to }} of {{ total }} item(s)",
+	"You do not have access rights to perform this action": "You do not have access rights to perform this action",
+	"Items per page": "Items per page",
+	"Page": "of {{pages}} page",
+	"Pages": "of {{pages}} pages"
 }

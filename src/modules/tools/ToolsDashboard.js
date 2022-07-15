@@ -6,6 +6,8 @@ import {
 
 import { validateConfiguration } from 'asab-webui';
 
+import "./tools.scss"
+
 /*
 	For informations about Tools module, refer to asab-webui/doc/tools.md
 */
@@ -94,8 +96,8 @@ function Tool(props) {
 				<React.Fragment key={configObject.name}>
 					<Col className="text-center pt-5 pb-5 pl-5 pr-5">
 						<Row className="justify-content-center">
-							<a href={configObject.url} target="_blank" rel="noopener noreferrer">
-								<Button title={configObject.url} color="light" style={{ boxShadow: "0px 2px 4px rgba(33, 36, 41, 0.05)", borderRadius: 15, width: 130, height: 130, padding: 0 }} >
+							<a href={configObject.url} target="_blank" style={{textDecoration: "none"}} rel="noopener noreferrer">
+								<Button className="tools-btn" title={configObject.url}>
 									<img
 										src={configObject.image}
 										style={{ width: 72 + "px", height: 72 + "px", padding: 5 }}

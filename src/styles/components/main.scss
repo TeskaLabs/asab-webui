@@ -1,0 +1,31 @@
+// might be removed after refactoring
+.main {
+	height: calc(100vh - $header-height - 10px);
+	margin-right: 1rem;
+	.container, .container-fluid {
+		margin-top: 0;
+		padding: 0;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.main, .main-with-sidebar, .main-with-sidebar-minimized {
+		margin-left: 0px !important;
+	}
+
+	// remove stop propagation container later
+	.stop-propagation-container {
+		height: calc(100% + 50px);
+		width: 100%;
+		position: absolute;
+		top: 55px;
+		background-color: rgba(0,0,0,0.5);
+		overflow-y: hidden;
+		z-index: 999;
+	}
+}
+
+// Add a vertical space for a standard screen layout
+main > .container-fluid, main > .container {
+	margin-top: 1rem; // basically mt-3
+}

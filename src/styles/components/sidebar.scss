@@ -1,0 +1,197 @@
+$sidebar-width: 200px;
+$collapsed-sidebar-width: calc(50px + 1rem);
+$sidebar-bg: var(--bg-color-dark);
+$sidebar-item-width: 150px;
+$collapsed-sidebar-item-width: 50px;
+$sidebar-item-height: 50px;
+$sidebar-item-radius: 12px;
+$sidebar-item-font-size: 14px;
+
+.app-sidebar {
+	margin-left: 0;
+	width: $sidebar-width;
+	transition: margin-left 0.25s ease-out, width .2s ease-out;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	padding: 0;
+	color: #fff;
+	background-color: $sidebar-bg;
+	flex: 0 0 100px;
+	order: -1;
+
+	.btn:hover {
+		filter: none;
+	}
+
+	.sidebar-nav {
+		position: relative;
+		padding-left: .5rem;
+		flex: 1;
+		overflow: hidden;
+		touch-action: auto;
+		overflow-anchor: none;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+
+		.nav {
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			flex-wrap: nowrap;
+			padding: 0;
+			margin: 0 auto;
+			overflow-y: auto;
+
+			.nav-link {
+				padding: 0.25rem;
+			}
+			
+			.sidebar-item-button.active {
+				background-color: $highlighted-bg-color;
+				.sidebar-item-icon, .sidebar-item-name {	
+					color: $reversed-text-color;
+					
+				}
+			}
+			.sidebar-item-button.active:hover {
+				background-color: $highlighted-bg-color;
+				border: 2px solid $highlighted-bg-color;
+			}
+			.sidebar-item-button {
+				display: flex;
+				align-items: center;
+				padding: 0.5rem;
+				height: $sidebar-item-height;
+				width: $sidebar-item-width;
+				border-radius: $sidebar-item-radius;
+				border: 2px solid transparent;
+				color: $highlighted-text-color !important;
+				background-color: transparent;
+				border-color: transparent;
+				font-weight: $highlighted-font-weight;
+				.sidebar-item-icon {
+					font-weight: $highlighted-font-weight;
+					font-size: $sidebar-item-font-size;
+				}
+	
+				.sidebar-item-name {
+					width: 75%;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					text-align: left;
+					font-size: $sidebar-item-font-size;
+				}
+				.sidebar-item-icon, .sidebar-item-name {
+					color: inherit;
+				}
+			}
+			.sidebar-item-button:hover {
+				cursor: pointer;
+				background-color: $bg-color;
+				border: 2px solid $border-color;
+			}
+			.sidebar-item-button:focus {
+				outline: none;
+				box-shadow: none;
+			}
+		}
+
+		.nav-children {
+			width: $sidebar-item-width;
+			border-radius: $sidebar-item-radius;
+			background-color: $bg-color;
+			.nav-link {
+				height: $sidebar-item-height;
+				padding: 0;
+			}
+			.sidebar-item-button:hover {
+				cursor: pointer;
+				background-color: $bg-color;
+			}
+		}
+	}
+
+	.sidebar-brand-image, .sidebar-brand-image {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		height: 55px;
+		width: 100%;
+		padding: 0;
+		margin: 0.25rem 0 0 0.25rem;
+	}
+	
+	.sidebar-bottom {
+		height: $sidebar-item-height;
+		margin-bottom: 1rem;
+		.nav-link {
+			width: $sidebar-item-width;
+			display: flex;
+			justify-content: center;
+			button {
+				&.left {
+					width: 75%;
+					border-radius: $sidebar-item-radius 0 0 $sidebar-item-radius;
+				}
+				&.right {
+					width: 25%;
+					border-radius: 0 $sidebar-item-radius $sidebar-item-radius 0;
+				}
+			}
+		}
+	}
+
+	&.collapsed {
+		width: $collapsed-sidebar-width;
+		.nav-item {
+			width: $collapsed-sidebar-width;
+			.nav-link {
+				justify-content: center;
+				width: $collapsed-sidebar-item-width;
+
+				.sidebar-item-name {
+					display: none;
+				}
+				.sidebar-item-icon {
+					width: 100%;
+				}
+				.sidebar-item-button {
+					width: $collapsed-sidebar-item-width;
+
+				}
+			}
+
+			.nav-children {
+				width: $collapsed-sidebar-item-width;
+				margin-left: 5px;
+				.sidebar-item {
+					width: $collapsed-sidebar-item-width;
+				}
+			}
+		}
+		.sidebar-bottom {
+			height: auto;
+			.nav-link {
+				width: $collapsed-sidebar-item-width;
+				display: block !important;
+				button {
+					&.left {
+						border-radius: $sidebar-item-radius;
+					}
+					&.right {
+						border-radius: $sidebar-item-radius;
+						i {
+							margin: auto!important;
+							transform: rotate(180deg);
+						}
+					}
+				}
+			}
+		}
+	}
+}

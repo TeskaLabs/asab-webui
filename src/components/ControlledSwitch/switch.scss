@@ -1,9 +1,10 @@
 // Switch styles
+@import "~asab-webui/styles/constants/index.scss";
 
 .switch-container, .switch-container-disabled {
 	width: 40px;
 	height: 20px;
-	border: 1px solid #6c757d;
+	border: 1px solid $secondary;
 	display: inline-block;
 	border-radius: 50px;
 	margin-bottom: -2.5px;
@@ -57,35 +58,26 @@
 	}
 
 	.on {
-		background-color: #20a8d8;
+		background-color: $primary;
 		.circle {
-			border: 2px solid #20a8d8;
+			border: 2px solid $primary;
 		}
 	}
 	.off {
-		background-color: #c8ced3;
+		background-color: $secondary;
 		.circle {
-			border: 2px solid #c8ced3;
+			border: 2px solid $secondary;
 		}
 	}
 }
 
 .switch-container-disabled {
 	.off, .on {
-		background-color: #c8ced3;
+		background-color: $secondary;
 	}
 	.circle {
 		background-color: #73818f;
-		border: 2px solid #c8ced3;
+		border: 2px solid $secondary;
 	}
 }
 
-.switch-container-disabled {
-	.off, .on {
-		background-color: #c8ced3;
-	}
-	.circle {
-		background-color: rgb(114, 114, 114);
-		border: 2px solid rgb(143, 143, 143);
-	}
-}

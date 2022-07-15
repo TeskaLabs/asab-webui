@@ -1,0 +1,365 @@
+:root[data-theme="light"] {
+	--btn-secondary-bg-color: var(--off-white);
+	--btn-primary-bg-color: var(--dark-blue);
+	--btn-primary-outline-bg-color: var(--light-violet);
+	--btn-txt: var(--white);
+
+	--btn-secondary-outline-hover-bg-color: #75757526;
+	--btn-success-outline-hover-bg-color: #e1ffe9;
+	--btn-danger-outline-hover-bg-color: #ffdadc;
+	--btn-warning-outline-hover-bg-color: #ffefc5;
+	--btn-info-outline-hover-bg-color: #bdeeff;
+	--btn-light-outline-hover-bg-color: #f8f8f84a;
+	--btn-dark-outline-hover-bg-color: #828eb0;
+
+
+}	
+:root[data-theme="dark"] {
+	--btn-secondary-bg-color: var(--light-blue);
+	--btn-primary-bg-color: var(--night-blue);
+	--btn-primary-outline-bg-color: var(--storm-blue);
+	--btn-txt: var(--light-black);
+
+	--btn-secondary-outline-hover-bg-color: #7b717136;
+	--btn-success-outline-hover-bg-color: #284b30;
+	--btn-danger-outline-hover-bg-color: #602124;
+	--btn-warning-outline-hover-bg-color: #56471d;
+	--btn-info-outline-hover-bg-color: #004d67;
+	--btn-light-outline-hover-bg-color: #cccccc;
+	--btn-dark-outline-hover-bg-color: #39487a;
+
+}
+
+$btn-secondary-bg-color: var(--btn-secondary-bg-color);
+$btn-primary-bg-color: var(--btn-primary-bg-color);
+$btn-primary-outline-bg-color: var(--btn-primary-outline-bg-color);
+$btn-txt: var(--btn-txt);
+
+//btn outline :onhover BG colors variables
+$btn-secondary-outline-hover-bg-color: var(--btn-secondary-outline-hover-bg-color);
+$btn-success-outline-hover-bg-color: var(--btn-success-outline-hover-bg-color);
+$btn-danger-outline-hover-bg-color: var(--btn-danger-outline-hover-bg-color);
+$btn-warning-outline-hover-bg-color: var(--btn-warning-outline-hover-bg-color);
+$btn-info-outline-hover-bg-color: var(--btn-info-outline-hover-bg-color);
+$btn-light-outline-hover-bg-color: var(--btn-light-outline-hover-bg-color);
+$btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
+
+
+.btn, .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info {
+	color: $btn-txt;
+	&:hover {
+		filter: brightness(95%);
+		transition: background-color 0.15s ease-in-out;
+	}
+	&:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+		color:$btn-txt;
+		border: none;
+		box-shadow: none;
+	}
+	&:focus {
+		box-shadow: none;
+	}
+}
+
+.btn-outline, .btn-outline-primary, .btn-outline-secondary, .btn-outline-success, .btn-outline-danger, .btn-outline-warning, .btn-outline-info {
+	&:hover, &:active, &:not(:disabled):not(.disabled):active {
+		color: $btn-txt;
+		filter: none;
+		box-shadow: none;
+		// & [class^="cil-"] {
+		// 	color: $btn-txt !important;
+		// }
+	}
+	&:focus {
+		box-shadow: none;
+	}
+}
+
+//  TODO: ADD STYLE FOR BUTTON WITHIN .INPUT-GROUP
+
+.btn {
+	background-color: $btn-primary-bg-color;
+	font-weight: $highlighted-font-weight;
+	border-radius: 0;
+	padding: 0.75em 1.5em;
+	border: 0;
+	min-height: 50px;
+	display: flex;
+	align-items: center;
+	transition: none;
+
+	// &:hover {
+	// 	transition: background-color 0.15s ease-in-out;
+	// }
+
+//PRIMARY
+	&-primary {
+		background-color: $btn-primary-bg-color;
+		&:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+			background-color: $btn-primary-bg-color;
+		}
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
+	}
+	&-outline-primary {
+		background-color: $bg-color;
+		color: $btn-primary-bg-color;
+		&:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+			background-color: $btn-primary-outline-bg-color;
+			color: $btn-primary-bg-color;
+			& [class^="cil-"] {
+				color: $btn-primary-bg-color !important;
+			}
+		}
+		& [class^="cil-"] {
+			color: $btn-primary-bg-color !important;
+		}
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
+	}
+
+//SECONDARY
+	&-secondary {
+		background-color: $btn-secondary-bg-color;
+		&:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+			background-color: $btn-secondary-bg-color;
+		}
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
+	}
+	&-outline-secondary {
+		background-color: $bg-color;
+		color: $btn-secondary-bg-color;
+		&:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+			background-color: $btn-secondary-outline-hover-bg-color;
+			color: $btn-secondary-bg-color;
+			& [class^="cil-"] {
+				color: $btn-secondary-bg-color !important;
+			}
+		}
+		& [class^="cil-"] {
+			color: $btn-secondary-bg-color !important;
+		}
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
+	}
+
+//SUCCESS
+    &-success {
+        background-color: $success;
+        &:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+            background-color: $success;
+        }
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
+    }
+    &-outline-success {
+        background-color: $bg-color;
+        color: $success;
+        &:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+			background-color: $btn-success-outline-hover-bg-color;
+			color: $success;
+		}
+		& [class^="cil-"] {
+			color: $success !important;
+		}
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
+    }
+
+//DANGER
+    &-danger {
+		background-color: $danger;
+        &:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+            background-color: $danger;
+        }
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
+    }
+    &-outline-danger {
+        background-color: $bg-color;
+        color: $danger;
+        &:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+			background-color: $btn-danger-outline-hover-bg-color;
+			color: $danger;
+		}
+		& [class^="cil-"] {
+			color: $danger !important;
+		}
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
+    }
+
+//WARNING
+    &-warning {
+        background-color: $warning;
+        &:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+            background-color: $warning;
+        }
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
+    }
+    &-outline-warning {
+        background-color: $bg-color;
+        color: $warning;
+        &:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+			background-color: $btn-warning-outline-hover-bg-color;
+			color: $warning;
+		}
+		& [class^="cil-"] {
+			color: $warning !important;
+        }
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
+    }
+
+//INFO
+    &-info {
+        background-color: $info;
+        &:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+            background-color: $info;
+        }
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
+    }
+    &-outline-info {
+        background-color: $bg-color;
+        color: $info;
+        &:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+			background-color: $btn-info-outline-hover-bg-color;
+			color: $info;
+		}
+		& [class^="cil-"] {
+			color: $info !important;
+        }
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
+    }
+
+//LIGHT
+    &-light {
+		background-color: $light;
+		&:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+            background-color: $light;
+		}
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
+	}
+    &-outline-light {
+        background-color: $bg-color;
+        color: $light;
+        &:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+			background-color: $btn-light-outline-hover-bg-color;
+			color: $light;
+		}
+		& [class^="cil-"] {
+			color: $light !important;
+        }
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
+    }
+
+//DARK
+	&-dark {
+		background-color: $dark;
+		&:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+			background-color: $dark;
+		}
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
+	}
+	&-outline-dark {
+		background-color: $bg-color;
+		color: $dark;
+		&:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
+			background-color: $btn-dark-outline-hover-bg-color;
+			color: $dark;
+		}
+		& [class^="cil-"] {
+			color: $btn-secondary-bg-color !important;
+		}
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
+	}
+
+//LINK - does't have outline variant
+	&-link {
+		background-color: transparent;
+		font-weight: 400;
+    	color: $primary;
+		text-decoration: none;
+		&:hover, &.disabled, &:disabled {
+			color: $night-blue;
+		}
+		&.disabled, &:disabled {
+			filter: opacity(60%);
+		}
+	}
+
+// SMALL 
+	&-sm {
+		padding: 0.25rem 0.875rem;
+		border: 0;
+		min-height: 35px;
+		font-size: 0.75rem;
+	}
+
+// LARGE 
+	&-lg {
+		border: 0;
+		min-height: 60px;
+		font-size: 1.1rem;
+		line-height: 1.5;
+		padding: 0.5rem 1rem;
+	}
+
+// BLOCK 
+	&-block {
+		display: block;
+		width: 100%;
+	}
+
+
+}
+
+// ICONS INSIDE BUTTONS
+.card .btn [class^="cil-"], .card .btn [class*=" cil-"] {
+	color: $btn-txt;
+}
+
+.btn-group {
+	&>.btn {
+		flex: none;
+	}
+	&>.btn:not(:first-child) {
+		margin-left: 0;
+	}
+	&>a:last-child>.btn {
+		border-radius: 0 8px 0 0;
+	}
+}
+
+.btn-group-sm .btn{
+	min-height: 38px;
+}
+
+.btn-edit-mode .btn-outline-danger:not(:disabled):not(.disabled):active:focus {
+	box-shadow: none;
+}
+

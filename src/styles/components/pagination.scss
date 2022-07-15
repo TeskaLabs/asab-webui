@@ -1,0 +1,90 @@
+:root[data-theme="light"] {
+    --link-hover-txt-color: var(--dark-violet);
+	--active-link-txt-color: var(--dark-violet);
+	--active-link-bg-color: var(--light-violet);
+}
+
+:root[data-theme="dark"] {
+    --link-hover-txt-color: var(--wandering-violet);
+    --active-link-txt-color: var(--wandering-violet);
+	--active-link-bg-color: var(--storm-blue);
+}
+ 
+$link-hover-txt-color: var(--link-hover-txt-color);
+$active-link-txt-color: var(--active-link-txt-color);
+$active-link-bg-color: var(--active-link-bg-color);
+
+.pagination {
+    background-color: $bg-color;
+    display: flex;
+    border-radius: 0 0 7px 0;
+    margin-bottom: 0;
+    & .page-item {
+        & .page-link {
+            background-color: $bg-color;
+            color: $primary;
+            height: 50px;
+            width: 50px;
+            border-radius: 0;
+            border: none;
+            border-left: 1px solid var(--border-color);
+            &:hover {
+                color: $link-hover-txt-color;
+            }
+            & > span {
+
+                color: $primary;
+                &:hover {
+                    color: $link-hover-txt-color;
+                }
+            }
+        }
+        &.active > .page-link{
+            background-color: $active-link-bg-color;
+            color: $active-link-txt-color;
+
+        }
+        &.disabled .page-link {
+            border-radius: 0;
+            border: none;
+            border-left: 1px solid var(--border-color);
+
+            filter: grayscale(60%);
+        }
+        &:last-child, &:last-child .page-link{
+            border-radius: 0 0 8px 0;
+        }
+    }
+}
+
+.pagination-dropdown .dropdown-menu.show {
+    max-height: 200px;
+    overflow: scroll;
+}
+
+.data-table-card-footer {
+    font-size: 14px;
+    font-weight: normal;
+    & .show > .btn-secondary.dropdown-toggle {
+        background-color: $bg-color;
+        color: $text-color;
+        font-size: 14px;
+        font-weight: normal;
+    }
+
+    & .pagination, .dropdown-toggle, .dropdown-menu.show, .dropdown-item {
+        background-color: $bg-color;
+        color: $text-color;
+        font-size: 14px;
+        font-weight: normal;
+        margin-bottom: 0;
+        min-width: 50px;
+    }
+}
+
+.data-table-pagination {
+    display: flex;
+    align-items: center;
+    border-left: 1px solid $border-color;
+    border-radius: 0 0 7px 0;
+}

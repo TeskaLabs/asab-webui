@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import ReactJson from 'react-json-view';
@@ -7,7 +7,7 @@ import { Table } from 'reactstrap';
 
 import { DateTime } from '../DateTime';
 
-import { ActionButton } from './Buttons';
+import { ActionButton } from './Buttons';
 
 const TableCell = ({
 	obj, header, idx,
@@ -16,13 +16,12 @@ const TableCell = ({
 	if (!obj) return <td className="pl-3" style={{ whiteSpace: "nowrap" }}>-</td>
 
 	let cell, icon, customStyle;
-
 	const textLinkStyle = {
 		whiteSpace: "nowrap",
 		marginBottom: 0
 	}
 
-	if (header.customStyle) {
+	if (header?.customStyle) {
 		customStyle = header.customStyle;
 	}
 
@@ -133,7 +132,8 @@ const Headers = ({ headers, advmode, sublists }) => (
 			)}
 		</colgroup>
 
-		<thead className="thead-light data-table-thead">
+		{/* <thead className={`thead-${theme === "theme-dark" || !theme ? "light" : "dark"} data-table-thead`}> */}
+		<thead className="data-table-thead">
 			<tr className="data-table-tr">
 				{advmode && <th className="pl-3 data-table-adv-header-th">{" "}</th>}
 				{sublists && <th className="pl-3 data-table-sub-header-th">{" "}</th>}
@@ -149,6 +149,7 @@ const TableRow = ({
 }) => {
 	const [isAdvUnwrapped, setAdvUnwrapped] = useState(false);
 	const [isSubUnwrapped, setSubUwrapped] = useState(true);
+	const theme = useSelector(state => state?.theme);
 
 	const getStyle = (obj) => {
 		if (rowStyle?.condition && rowStyle?.condition(obj)) {
@@ -170,6 +171,9 @@ const TableRow = ({
 		}
 		else if (rowClassName?.jsonTheme && rowClassName?.condition(obj)) {
 			return rowClassName.jsonTheme;
+		}
+		else if (theme !== "light") {
+			return "chalk";
 		} 
 		else {
 			return "rjv-default";
@@ -178,7 +182,7 @@ const TableRow = ({
 
 	const style = useMemo(() => getStyle(obj), [obj]);
 	const className = useMemo(() => getClassName(obj), [obj]);
-	const jsonTheme = useMemo(() => getJsonTheme(obj), [obj]);
+	const jsonTheme = useMemo(() => getJsonTheme(obj, theme), [obj, theme]);
 
 	return (
 		<>
@@ -230,11 +234,12 @@ const TableRow = ({
 			
 			{advmode && isAdvUnwrapped && (
 				<tr className="data-table-adv-tr" style={{ backgroundColor: "rgba(0, 0, 0, 0.025)"}}>
-					<td 
-						colSpan={headers.length+1}
+					<td
+						colSpan={category?.sublistKey ? headers.length+2 : headers.length+1}
 						className="data-table-adv-td"
 					>
 						<ReactJson
+							theme={theme === 'dark' ? "chalk" : "rjv-default"}
 							src={obj}
 							name={false}
 						/>
@@ -260,6 +265,9 @@ const ASABTable = ({
 	</Table>
 );
 
-const mapStateToProps = (state) => ({ advmode: state.advmode.enabled });
+const mapStateToProps = (state) => ({ 
+	advmode: state.advmode.enabled,
+	theme: state.theme
+});
 
 export default connect(mapStateToProps)(ASABTable);

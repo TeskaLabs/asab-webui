@@ -31,16 +31,18 @@ function UserInterfaceCard() {
 	const buildDate = __BUILD_DATE__;
 
 	return (
-		<Card className="shadow animated fadeIn">
-			<CardHeader className="text-center">
-				<h1>{t('UserInterfaceCard|User interface')}</h1>
+		<Card className="shadow animated fadeIn mt-2">
+			<CardHeader className='border-bottom'>
+				<div className="card-header-title text-primary">
+					{t('UserInterfaceCard|User interface')}
+				</div>
 			</CardHeader>
 			<CardBody>
 				{ version &&
 					<React.Fragment>
 						<Row>
 							<Col>
-								<h5>{t('UserInterfaceCard|Version')}</h5>
+								{t('UserInterfaceCard|Version')}
 							</Col>
 							<Col>
 								{version}
@@ -51,7 +53,7 @@ function UserInterfaceCard() {
 				}
 				<Row>
 					<Col>
-						<h5>{t('UserInterfaceCard|Build date')}</h5>
+						{t('UserInterfaceCard|Build date')}
 					</Col>
 					<Col>
 						<DateTime value={buildDate} format="YYYY-MM-DD"/>
