@@ -1,5 +1,5 @@
-import React, { useMemo, useState , useEffect} from 'react';
-import {connect, useSelector} from 'react-redux';
+import React, { useMemo, useEffect, useState } from 'react';
+import { connect, useSelector } from 'react-redux';
 
 import {Modal, Nav} from 'reactstrap';
 import SidebarItem from './SidebarItem';
@@ -73,17 +73,15 @@ const Sidebar = (props) => {
 
 	const toggle = () => setModal(!modal);
 
-
-
 	return (
-		width < 800 ?
+		width < 768 ?
 		<>
 			<div className="mobile-sidebar-burger" onClick={toggle}>
 				<i className="cil-menu"></i>
 			</div>
 			<Modal isOpen={modal} toggle={toggle} className="left">
 				<div className={`app-sidebar${isSidebarCollapsed ? " collapsed" : ""}`}>
-					{width > 800 &&
+					{width > 768 &&
 						<div style={{display: "inline-block"}}>
 							<NavbarBrand {...props} isSidebarMinimized/>
 						</div>
@@ -100,7 +98,7 @@ const Sidebar = (props) => {
 								/>
 							))}
 						</Nav>
-						<SidebarBottomItem item={aboutItem} />
+						<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} />
 					</div>
 				</div>
 			</Modal>
@@ -124,7 +122,7 @@ const Sidebar = (props) => {
 						/>
 					))}
 				</Nav>
-				<SidebarBottomItem item={aboutItem} />
+				<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} />
 			</div>
 		</div>
 	)
@@ -134,7 +132,8 @@ function mapStateToProps(state) {
 	return {
 		unauthorizedNavItem: state.auth?.unauthorizedNavItem,
 		unauthorizedNavChildren: state.auth?.unauthorizedNavChildren,
-		sidebarHiddenItems: state.sidebar.sidebarHiddenItems
+		sidebarHiddenItems: state.sidebar?.sidebarHiddenItems,
+		sidebarLogo: state.config?.sidebarLogo
 	};
 }
 

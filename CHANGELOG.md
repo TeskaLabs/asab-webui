@@ -122,6 +122,8 @@
 
 - Implement Switches with Authz (INDIGO Sprint 220527, [!283](https://github.com/TeskaLabs/asab-webui/pull/283))
 
+- New design implementation (INDIGO Sprint 210712, [!286](https://github.com/TeskaLabs/asab-webui/pull/286))
+
 
 ### Refactoring
 
