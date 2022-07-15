@@ -76,8 +76,8 @@ function mapStateToProps(state) {
 	return {
 		unauthorizedNavItem: state.auth?.unauthorizedNavItem,
 		unauthorizedNavChildren: state.auth?.unauthorizedNavChildren,
-		sidebarHiddenItems: state.sidebar.sidebarHiddenItems,
-		sidebarLogo: state.config.sidebarLogo
+		sidebarHiddenItems: state.sidebar?.sidebarHiddenItems,
+		sidebarLogo: state.config?.sidebarLogo
 	};
 }
 

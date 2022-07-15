@@ -51,21 +51,31 @@ const SidebarBottomItem = ({ item, sidebarLogo }) => {
 								title={t(`Sidebar|${item.name}`)}
 								className={`sidebar-item-button${location.pathname === item.url ? " active " : " "}btn left`}
 							>
-								{isSidebarCollapsed ? 
-									<img
-										src={sidebarLogo?.minimized}
-										alt={sidebarLogo?.title}
-										width="30"
-										height="30"
-									/>
+								{sidebarLogo ? 
+									isSidebarCollapsed ? 
+										<img
+											src={sidebarLogo?.minimized}
+											alt={t(`About`)}
+											width="30"
+											height="30"
+										/>
 									:
-									<img
-										src={sidebarLogo?.full}
-										alt={sidebarLogo?.title}
-										width="85"
-										height="30"
-									/>
+										<img
+											src={sidebarLogo?.full}
+											alt={t(`About`)}
+											width="85"
+											height="30"
+										/>
+								:
+									<>
+										<Icon icon={item.icon} />
+										<div className="sidebar-item-name ml-2"> {t(`Sidebar|About`)}</div>
+										{item.children && item.children.length > 0 && (
+											<Icon icon={isOpen ? "cil-arrow-circle-bottom" : "cil-arrow-circle-left"} />
+										)}
+									</>
 								}
+								
 							</button>
 						)}
 						<button
