@@ -77,7 +77,7 @@ const SidebarBottomItem = ({ item, sidebarLogo }) => {
 											<img
 												src={sidebarLogo.full}
 												alt={t(`Sidebar|${item.name}`)}
-												width="85"
+												width="90"
 												height="30"
 												className="m-auto"
 											/>
