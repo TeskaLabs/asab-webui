@@ -41,6 +41,15 @@ const SidebarBottomItem = ({ item, sidebarLogo }) => {
 		});
 	}
 
+	const AboutButton = () => {
+		return (
+			<>
+				<Icon icon={item.icon} />
+				<div className="sidebar-item-name ml-2">{t(`Sidebar|${item.name}`)}</div>
+			</>
+		)
+	}
+
 	return (
 		<div className="sidebar-bottom">
 			<Nav vertical>
@@ -52,30 +61,30 @@ const SidebarBottomItem = ({ item, sidebarLogo }) => {
 								className={`sidebar-item-button${location.pathname === item.url ? " active " : " "}btn left`}
 							>
 								{sidebarLogo ? 
-									isSidebarCollapsed ? 
-										<img
-											src={sidebarLogo?.minimized}
-											alt={t(`About`)}
-											width="30"
-											height="30"
-											className="m-auto"
-										/>
+									isSidebarCollapsed ?
+										sidebarLogo.minimized ?
+											<img
+												src={sidebarLogo.minimized}
+												alt={t(`Sidebar|${item.name}`)}
+												width="30"
+												height="30"
+												className="m-auto"
+											/>
+										:
+											<AboutButton />
 									:
-										<img
-											src={sidebarLogo?.full}
-											alt={t(`About`)}
-											width="85"
-											height="30"
-											className="m-auto"
-										/>
+										sidebarLogo.full ?
+											<img
+												src={sidebarLogo.full}
+												alt={t(`Sidebar|${item.name}`)}
+												width="85"
+												height="30"
+												className="m-auto"
+											/>
+										:
+											<AboutButton />
 								:
-									<>
-										<Icon icon={item.icon} />
-										<div className="sidebar-item-name ml-2"> {t(`Sidebar|About`)}</div>
-										{item.children && item.children.length > 0 && (
-											<Icon icon={isOpen ? "cil-arrow-circle-bottom" : "cil-arrow-circle-left"} />
-										)}
-									</>
+									<AboutButton />
 								}
 								
 							</button>
