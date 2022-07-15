@@ -45,7 +45,7 @@ const SidebarBottomItem = ({ item, sidebarLogo }) => {
 		<div className="sidebar-bottom">
 			<Nav vertical>
 				<NavItem className="sidebar-item" >
-					<NavLink onClick={onNavLink}>
+					<NavLink className="p-0" onClick={onNavLink}>
 						{item && (
 							<button
 								title={t(`Sidebar|${item.name}`)}
@@ -58,6 +58,7 @@ const SidebarBottomItem = ({ item, sidebarLogo }) => {
 											alt={t(`About`)}
 											width="30"
 											height="30"
+											className="m-auto"
 										/>
 									:
 										<img
@@ -65,6 +66,7 @@ const SidebarBottomItem = ({ item, sidebarLogo }) => {
 											alt={t(`About`)}
 											width="85"
 											height="30"
+											className="m-auto"
 										/>
 								:
 									<>
