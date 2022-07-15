@@ -10,6 +10,7 @@ import SidebarBottomItem from './SidebarBottomItem';
 const Sidebar = (props) => {
 	const [modal, setModal] = useState(false);
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
+	const { width } = useWindowDimensions();
 	// Get dynamically hiddden sidebar items from store
 	let sidebarHiddenItems = props.sidebarHiddenItems;
 
@@ -65,8 +66,6 @@ const Sidebar = (props) => {
 		return windowDimensions;
 	}
 
-	const { width } = useWindowDimensions();
-
 	function getWindowDimensions() {
 		const { innerWidth: width} = window;
 		return {width};
@@ -77,14 +76,14 @@ const Sidebar = (props) => {
 
 
 	return (
-		width < 768 ?
+		width < 800 ?
 		<>
 			<div className="mobile-sidebar-burger" onClick={toggle}>
 				<i className="cil-menu"></i>
 			</div>
 			<Modal isOpen={modal} toggle={toggle} className="left">
 				<div className={`app-sidebar${isSidebarCollapsed ? " collapsed" : ""}`}>
-					{width > 768 &&
+					{width > 800 &&
 						<div style={{display: "inline-block"}}>
 							<NavbarBrand {...props} isSidebarMinimized/>
 						</div>
