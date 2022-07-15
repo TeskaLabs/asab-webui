@@ -138,6 +138,16 @@ code {
 	margin-left: 0;
 }
 
+@media screen and (max-width: 800px) {
+	.header-sidebar-wrapper {
+		overflow-x: hidden;
+		.app-body {
+			overflow-x: visible;
+		}
+	}
+
+}
+
 /* Import styles */
 
 // Import default bootstrap styles
