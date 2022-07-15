@@ -49,7 +49,7 @@ const SidebarBottomItem = ({ item }) => {
 						{item && (
 							<button
 								title={t(`Sidebar|${item.name}`)}
-								className={`sidebar-item-button${location.pathname === item.url ? " active " : " "}btn left`}
+								className={`sidebar-item-button${location.pathname === item.url ? " active " : " "}btn left mobile-full-btn`}
 							>
 								<Icon icon={item.icon} />
 								<div className="sidebar-item-name ml-2">{t(`Sidebar|${item.name}`)}</div>
@@ -60,7 +60,7 @@ const SidebarBottomItem = ({ item }) => {
 						)}
 						<button
 							title={t(`Sidebar|Collapse`)}
-							className={`sidebar-item-button btn${item ? " right" : ""}`}
+							className={`sidebar-item-button btn mobile-collapsed${item ? " right" : ""}`}
 							onClick={onCollapse}
 						>
 							<i className='cil-chevron-left ml-auto'></i>

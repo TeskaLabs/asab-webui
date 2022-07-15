@@ -268,4 +268,34 @@ $sidebar-item-font-size: 14px;
 			z-index: 100;
 		}
 	}
+
+	.app-sidebar {
+		.sidebar-item-button {
+			&.mobile-collapsed {
+				display: none;
+			}
+		}
+	}
+	.app-sidebar {
+		.sidebar-nav {
+			.nav {
+				.sidebar-item-button {
+					&.mobile-collapsed {
+						display: none;
+					}
+
+				}
+			}
+			.sidebar-bottom {
+				.nav {
+					.sidebar-item-button {
+						&.mobile-full-btn {
+							width: 150px;
+							border-radius: 12px;
+						}
+					}
+				}
+			}
+		}
+	}
 }
