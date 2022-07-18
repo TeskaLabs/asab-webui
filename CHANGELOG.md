@@ -279,6 +279,7 @@
 
 - Add download/upload and search functionality in Configuration  (INDIGO Sprint 220610, [!278](https://github.com/TeskaLabs/asab-webui/pull/278))
 
+- Enriches card.scss stylesheet of card-mt-1 &  card-mt-2 classes (INDIGO Sprint print 22O712, [!329](https://github.com/TeskaLabs/asab-webui/pull/329))
 
 ### Bugfixes
 
