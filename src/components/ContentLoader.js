@@ -1,5 +1,6 @@
 import React from 'react';
 import ContentLoader from "react-content-loader";
+import {useSelector} from "react-redux";
 
 export function ChartLoader({
 	title = '', backgroundColor = "#f3f3f3", 
@@ -8,6 +9,7 @@ export function ChartLoader({
 	) {
 
 	let rectangleQty = new Array(100).fill(1);
+	const theme = useSelector(state => state.theme);
 
 	return (
 		<ContentLoader 
@@ -17,7 +19,7 @@ export function ChartLoader({
 			height={height}
 			viewBox={`0 0 ${width} ${height}`}
 			backgroundColor={backgroundColor}
-			foregroundColor={foregroundColor}
+			foregroundColor={theme ? theme === "dark" ? '#788dcb' : '#fff' : foregroundColor}
 			{...props}
 		>
 		{rectangleQty.map((el, i) =>  {
@@ -42,6 +44,8 @@ export function CellContentLoader({
 	rows = 1, cols = 3, title = "", 
 	backgroundColor = "#E4E5E6", foregroundColor = "#ffffff", speed = 2, 
 	header = false, size = "lg" }, props) {
+
+	const theme = useSelector(state => state.theme);
 
 	let rectangles = [],
 		width = size === 'lg' ? 900 : 400,
@@ -137,7 +141,7 @@ export function CellContentLoader({
 			speed={speed}
 			viewBox={viewBox}
 			backgroundColor={backgroundColor}
-			foregroundColor={foregroundColor}
+			foregroundColor={theme ? theme === "dark" ? '#788dcb' : '#fff' : foregroundColor}
 			{...props}
 		>
 		{header &&

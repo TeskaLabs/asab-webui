@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import {useSelector} from "react-redux";
 
 import { 
 	Card, Row, Col, ButtonGroup,
@@ -38,7 +37,6 @@ export function DataTable ({
 	const [isLimitOpen, setLimitDropdown] = useState(false);
 	const timeoutRef = useRef(null);
 	const [countDigit, setCountDigit] = useState(1)
-	const theme = useSelector(state => state.theme);
 	
 	const { t } = useTranslation();
 
