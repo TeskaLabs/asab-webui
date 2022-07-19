@@ -279,6 +279,8 @@
 
 - Add download/upload and search functionality in Configuration  (INDIGO Sprint 220610, [!278](https://github.com/TeskaLabs/asab-webui/pull/278))
 
+- Fix color for Content Loader in DataTable, it works in light and dark mode  (INDIGO Sprint 220610, [!328](https://github.com/TeskaLabs/asab-webui/pull/328)
+
 
 ### Bugfixes
 
