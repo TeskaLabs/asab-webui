@@ -10,7 +10,8 @@ import SidebarBottomItem from './SidebarBottomItem';
 const Sidebar = (props) => {
 	const [modal, setModal] = useState(false);
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
-	const { width } = useWindowDimensions();
+	const [windowDimensions, setWindowDimensions] = useState({width: window.innerWidth,});
+
 	// Get dynamically hiddden sidebar items from store
 	let sidebarHiddenItems = props.sidebarHiddenItems;
 
@@ -49,39 +50,26 @@ const Sidebar = (props) => {
 		return itemsList;
 	}, [navConfig])
 
-	function useWindowDimensions() {
-		const [windowDimensions, setWindowDimensions] = useState(
-			getWindowDimensions()
-		);
+	useEffect(() => {
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
+	}, [windowDimensions])
 
-		useEffect(() => {
-			function handleResize() {
-				setWindowDimensions(getWindowDimensions());
-			}
-
-			window.addEventListener("resize", handleResize);
-			return () => window.removeEventListener("resize", handleResize);
-		}, []);
-
-		return windowDimensions;
-	}
-
-	function getWindowDimensions() {
-		const { innerWidth: width} = window;
-		return {width};
+	function handleResize () {
+		setWindowDimensions({width: window.innerWidth});
 	}
 
 	const toggle = () => setModal(!modal);
 
 	return (
-		width < 768 ?
+		windowDimensions.width < 768 ?
 		<>
 			<div className="mobile-sidebar-burger" onClick={toggle}>
 				<i className="cil-menu"></i>
 			</div>
 			<Modal isOpen={modal} toggle={toggle} className="left">
 				<div className={`app-sidebar${isSidebarCollapsed ? " collapsed" : ""}`}>
-					{width > 768 &&
+					{windowDimensions.width > 768 &&
 						<div style={{display: "inline-block"}}>
 							<NavbarBrand {...props} isSidebarMinimized/>
 						</div>
@@ -105,7 +93,7 @@ const Sidebar = (props) => {
 		</>
 		:
 		<div className={`app-sidebar${isSidebarCollapsed ? " collapsed" : ""}`}>
-			{width > 768 &&
+			{windowDimensions.width > 768 &&
 				<div style={{display: "inline-block"}}>
 					<NavbarBrand {...props} isSidebarMinimized/>
 				</div>
