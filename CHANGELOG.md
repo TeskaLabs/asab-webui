@@ -283,6 +283,8 @@
 
 - Implement search, filter and sort by to Microservices component (INDIGO Sprint 220712, [!330](https://github.com/TeskaLabs/asab-webui/pull/330)
 
+- Refactor Sidebar for mobile screen (INDIGO Sprint 220712, [!327](https://github.com/TeskaLabs/asab-webui/pull/327)
+
 
 ### Bugfixes
 
