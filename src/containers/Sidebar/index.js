@@ -10,12 +10,18 @@ import SidebarBottomItem from './SidebarBottomItem';
 const Sidebar = (props) => {
 	const [modal, setModal] = useState(false);
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
-	const [windowDimensions, setWindowDimensions] = useState({width: window.innerWidth,});
+	const [windowDimensions, setWindowDimensions] = useState({width: window.innerWidth});
 
 	// Get dynamically hiddden sidebar items from store
 	let sidebarHiddenItems = props.sidebarHiddenItems;
 
 	let sidebarItems = props.navigation.getItems().items;
+
+	useEffect(() => {
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
+	}, [windowDimensions]);
+
 	// Filter out sidebar items which has been marked as hidden in ASAB Config module
 	if (sidebarHiddenItems) {
 		let updatedSidebar = sidebarItems;
@@ -49,11 +55,6 @@ const Sidebar = (props) => {
 
 		return itemsList;
 	}, [navConfig])
-
-	useEffect(() => {
-		window.addEventListener('resize', handleResize);
-		return () => window.removeEventListener('resize', handleResize);
-	}, [windowDimensions])
 
 	function handleResize () {
 		setWindowDimensions({width: window.innerWidth});
