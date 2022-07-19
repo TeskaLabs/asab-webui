@@ -11,6 +11,7 @@ export default (props) => {
 	const [list, setList] = useState([]);
 	const [page, setPage] = useState(1);
 	const [count, setCount] = useState(0);
+	const [filter, setFilter] = useState("");
 	const [limit, setLimit] = useState(20);
 
 	const { t } = useTranslation();
@@ -18,7 +19,7 @@ export default (props) => {
 	const LMIORemoteControlAPI = props.app.axiosCreate('lmio_remote_control');
 
 	const headers = [
-		{ 
+		{
 			name: " ",
 			customComponent: {
 				generate: (obj) => {
@@ -37,13 +38,18 @@ export default (props) => {
 		{ name: t('MicroservicesContainer|Version'), key: 'version'}
 	];
 
+	// Filter the value
+	const onSearch = (value) => {
+		setFilter(value);
+	};
+
 	useEffect(() => {
 		getMicroservicesList();
-	}, [page, limit]);
+	}, [page, filter ,limit]);
 
 	const getMicroservicesList = async () => {
 		try {
-			const response = await LMIORemoteControlAPI.get('/microservices', { params: { p: page, i: limit }});
+			const response = await LMIORemoteControlAPI.get('/microservices', { params: { p: page, i: limit, f: filter }});
 
 			if (response.data.result !== "OK") throw new Error(response);
 
@@ -77,6 +83,8 @@ export default (props) => {
 				limit={limit}
 				setLimit={setLimit}
 				limitValues={[20, 50, 100]}
+				search={{ icon: 'cil-magnifying-glass', placeholder: t("CredentialsListContainer|Search") }}
+				onSearch={onSearch}
 				title={{
 					text: t('MicroservicesContainer|Microservices'), icon: "cil-list"
 				}}
