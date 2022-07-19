@@ -103,7 +103,7 @@ export function DataTable ({
 							rowClassName={customRowClassName}
 						/>}
 
-						{isLoading && contentLoader && <CellContentLoader cols={headers.length} rows={limit ?? 5} foregroundColor={theme === "dark" ? '#788dcb' : '#fff'} /> }
+						{isLoading && contentLoader && <CellContentLoader cols={headers.length} rows={limit ?? 5} /> }
 
 						{count === 0 && !isLoading && (
 							noItemsComponent ? <NoItemsLayout>{noItemsComponent}</NoItemsLayout> :
