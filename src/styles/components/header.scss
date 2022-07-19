@@ -1,10 +1,8 @@
 :root[data-theme="light"] {
-	--toggle-text-color: #828eb0;
 	--nav-bar-link: var(--primary);
 }
 
 :root[data-theme="dark"] {
-	--toggle-text-color: #39487a;
 	--nav-bar-link: var(--white-night);
 }
 

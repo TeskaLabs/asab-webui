@@ -1,12 +1,3 @@
-:root[data-theme="light"] {
-	--toggle-text-color: #828eb0;
-
-}
-
-:root[data-theme="dark"] {
-	--toggle-text-color: #39487a;
-}
-
 $toggle-text-color: var(--toggle-text-color);
 $sidebar-width: 200px;
 $collapsed-sidebar-width: calc(50px + 1rem);
