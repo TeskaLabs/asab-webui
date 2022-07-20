@@ -32,6 +32,7 @@ module.exports = {
 	build: function(config) {
 		// version and build date of the app
 		const version = common.getVersion();
+		const repository = common.getRepository();
 		const buildDate = new Date();
 		// paths
 		console.log(config);
@@ -44,7 +45,8 @@ module.exports = {
 				"__CONFIG__": config["app"],
 				"__DEV_CONFIG__": config["devConfig"],
 				"__VERSION__": version,
-				"__BUILD_DATE__": buildDate
+				"__BUILD_DATE__": buildDate,
+				"__REPOSITORY__": repository
 			}))
 		);
 
