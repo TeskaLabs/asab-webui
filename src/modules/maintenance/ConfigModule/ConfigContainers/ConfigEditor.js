@@ -79,7 +79,7 @@ function ConfigEditor(props) {
 		setSelectPatternSections([]);
 
 		let prevValues = getValues();
-		Object.keys(prevValues).length > 0 && Object.keys(prevValues).map((key, idx) => {
+		(prevValues && Object.keys(prevValues).length > 0) && Object.keys(prevValues).map((key, idx) => {
 			resetField(key);
 		})
 
