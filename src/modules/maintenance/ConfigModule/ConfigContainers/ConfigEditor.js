@@ -27,7 +27,7 @@ import {types} from './actions/actions';
 import { Spinner, ButtonWithAuthz } from 'asab-webui';
 
 function ConfigEditor(props) {
-	const { register, handleSubmit, setValue, getValues, formState: { errors, isSubmitting }, reset } = useForm();
+	const { register, handleSubmit, setValue, getValues, formState: { errors, isSubmitting }, reset, resetField } = useForm();
 	const { t, i18n } = useTranslation();
 	const ASABConfigAPI = props.app.axiosCreate('asab_config');
 	let history = useHistory();
@@ -77,6 +77,12 @@ function ConfigEditor(props) {
 		setConfigNotExist(false);
 		// Set selected pattern sections to empty
 		setSelectPatternSections([]);
+
+		let prevValues = getValues();
+		console.log(prevValues, "pv")
+		Object.keys(prevValues).length > 0 && Object.keys(prevValues).map((key, idx) => {
+			resetField(key);
+		})
 
 		try {
 			let response = await ASABConfigAPI.get(`/type/${configType}`);
