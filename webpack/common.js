@@ -96,11 +96,23 @@ exports.convertKeysForHtml = function(obj){
 
 exports.getVersion = function(){
 	try {
-		const { stdout } = execSync("git describe --abbrev=7 --tags --dirty=+dirty --always", { encoding: 'utf8' }).toString();
+		const stdout = execSync("git describe --abbrev=0 --tags --dirty=+dirty --always", { encoding: 'utf8' }).toString();
 		return stdout;
 	} catch (e) {
 		console.log("Error when getting version from git. This error doesn't affect build process but you won't be able to see current git version of the repository");
 		console.error(e);
 		return "local";
+	}
+}
+
+exports.getRepository = function(){
+	try {
+		const url = execSync("git config --get remote.origin.url", { encoding: 'utf8' }).toString();
+		const suburl = url.substring(url.lastIndexOf("/") + 1, url.lastIndexOf(".git"));
+		return suburl;
+	} catch (e) {
+		console.log("Error when getting repository from git. This error doesn't affect build process but you won't be able to see repository name");
+		console.error(e);
+		return undefined;
 	}
 }

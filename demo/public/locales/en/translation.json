@@ -131,6 +131,12 @@
 		"Version": "Version",
 		"Attention": "Attention"
 	},
+	"UserInterfaceCard": {
+		"User interface": "User interface",
+		"Build date": "Build date",
+		"Version": "Version",
+		"Repository": "Repository"
+	},
 	"Showing item(s)": "{{ from }} - {{ to }} of {{ total }} item(s)",
 	"You do not have access rights to perform this action": "You do not have access rights to perform this action",
 	"Items per page": "Items per page",
