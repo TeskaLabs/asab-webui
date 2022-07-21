@@ -9,7 +9,6 @@ yarn add react-simple-tree-menu
 yarn add react-hook-form
 ```
 
-
 In `config` file, define ASAB Config as a service:
 
 ```
@@ -39,7 +38,7 @@ const modules = [];
 
 ...
 
-import ASABConfigModule from 'asab-webui/modules/asab-config';
+import ASABConfigModule from 'asab-webui/modules/maintenance/ConfigModule';
 modules.push(ASABConfigModule);
 
 ...
@@ -50,6 +49,9 @@ ReactDOM.render((
 	</HashRouter>
 ), document.getElementById('app'));
 ```
+
+The module will be displayed as a subitem of `Maintenance` in the sidebar navigation.
+
 
 ## Authorization (resources)
 
