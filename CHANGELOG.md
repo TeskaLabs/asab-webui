@@ -283,6 +283,8 @@
 
 - Implement search, filter and sort by to Microservices component (INDIGO Sprint 220712, [!330](https://github.com/TeskaLabs/asab-webui/pull/330)
 
+- Fixed Version display and added repository name to UserInternterfaceCard (INDIGO Sprint 220712, [!332](https://github.com/TeskaLabs/asab-webui/pull/332)
+
 
 ### Bugfixes
 
