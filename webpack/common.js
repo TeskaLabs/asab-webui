@@ -109,7 +109,7 @@ exports.getRepository = function(){
 	try {
 		const url = execSync("git config --get remote.origin.url", { encoding: 'utf8' }).toString();
 		const suburl = url.substring(url.lastIndexOf("/") + 1, url.lastIndexOf(".git"));
-		return undefined;
+		return suburl;
 	} catch (e) {
 		console.log("Error when getting repository from git. This error doesn't affect build process but you won't be able to see repository name");
 		console.error(e);
