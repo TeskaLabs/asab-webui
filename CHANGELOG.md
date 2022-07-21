@@ -283,6 +283,8 @@
 
 - Implement search, filter and sort by to Microservices component (INDIGO Sprint 220712, [!330](https://github.com/TeskaLabs/asab-webui/pull/330)
 
+- Refactor ASABConfig and ASABMicroservices module that they can be imported separately and those modules will appear only under the Maintenance sidebar navigation item as a subitems (INDIGO Sprint 220712, [!331](https://github.com/TeskaLabs/asab-webui/pull/331)
+
 - Fixed Version display and added repository name to UserInternterfaceCard (INDIGO Sprint 220712, [!332](https://github.com/TeskaLabs/asab-webui/pull/332)
 
 
