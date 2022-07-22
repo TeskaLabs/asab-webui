@@ -361,3 +361,5 @@
 - Fix pagination' diappearance issue upon last item removal in DataTable (INDIGO Sprint 220429, [!274](https://github.com/TeskaLabs/asab-webui/pull/274))
 
 - Fix pagination's position after decomposing of DataTable, vertical allignment in DataTable's card footer and disappearance of pagination when no data is preset (INDIGO Sprint 220527, [!285](https://github.com/TeskaLabs/asab-webui/pull/285))
+
+- Fix overwriting values in input in Configuration due to useForm (INDIGO Sprint 220712, [!333](https://github.com/TeskaLabs/asab-webui/pull/333))
