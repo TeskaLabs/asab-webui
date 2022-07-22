@@ -2,6 +2,12 @@
 
 ## Release Candidate
 
+## Refactoring
+
+- Add a commit abbreviation to Version in UserInterfaceCard (INDIGO Sprint 220722, [!334](https://github.com/TeskaLabs/asab-webui/pull/334))
+
+## v22.29
+
 ### Features
 
 - Add Spinner component (INDIGO Sprint 210406, [!95](https://github.com/TeskaLabs/asab-webui/pull/95))
