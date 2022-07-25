@@ -287,6 +287,8 @@
 
 - Fixed Version display and added repository name to UserInternterfaceCard (INDIGO Sprint 220712, [!332](https://github.com/TeskaLabs/asab-webui/pull/332)
 
+- Add monospace styling to treemenu toggle icons (INDIGO Sprint 220722, [!335](https://github.com/TeskaLabs/asab-webui/pull/335)
+
 
 ### Bugfixes
 
