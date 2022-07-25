@@ -1,4 +1,4 @@
-@import '../../styles/index.scss';
+@import "~asab-webui/styles/index.scss";
 
 // STYLES FOR Table.js
 
@@ -54,7 +54,7 @@ thead .data-table-tr th {
 
 table ~ .react-json-view {
     border: 1px solid blue;
-    background-color: $bg-color-dark
+    background-color: $bg-color-dark;
 }
 
 // STYLES FOR index.js
@@ -73,7 +73,7 @@ table ~ .react-json-view {
             box-shadow: none;
         }
     }
-    &-button:last-child {
+    &-button:last-child {
         border-radius: 0 8px 0 0;
     }
     &-limit {
