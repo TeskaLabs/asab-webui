@@ -35,6 +35,6 @@ const TreeMenuItem = ({
 	)
 };
 
-const ToggleIcon = ({ on }) => <span style={{ marginRight: 8 }}><code className="menu-toggle-icon">{on ? '-' : '+'}</code></span>;
+const ToggleIcon = ({ on }) => <span className="menu-span"><code className="menu-toggle-icon">{on ? '-' : '+'}</code></span>;
 
 export default TreeMenuItem;
