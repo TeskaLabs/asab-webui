@@ -11,6 +11,13 @@ export default class KnowledgeBaseModule extends Module {
 		super(app, "KnowledgeBaseModule");
 
 		app.Router.addRoute({
+			path: '/knowledge',
+			exact: false,
+			name: 'Knowledge Base',
+			component: KnowledgeBaseContainer
+		});
+
+		app.Router.addRoute({
 			path: '/knowledge/:document',
 			exact: false,
 			name: 'Knowledge Base',
@@ -19,7 +26,7 @@ export default class KnowledgeBaseModule extends Module {
 
 		app.Navigation.addItem({
 			name: 'Knowledge Base',
-			url: '/knowledge/welcome',
+			url: '/knowledge',
 			icon: 'cil-lightbulb'
 		});
 	}
