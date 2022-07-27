@@ -93,7 +93,7 @@ headers: [
 		{ 
 			name: 'Name',
 			key: 'username',
-			customHeaderStyle: { minWidth: '100px' };
+			customHeaderStyle: { minWidth: '100px' },
 			customCellStyle: { textOverflow: "ellipsis", 
 							overflow: "hidden", 
 							whiteSpace: "nowrap", 
