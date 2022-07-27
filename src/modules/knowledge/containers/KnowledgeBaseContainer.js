@@ -4,16 +4,17 @@ import { useTranslation } from 'react-i18next';
 import { TreeMenu } from 'asab-webui';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
+import { useSelector } from 'react-redux';
 
 import {
 	Container, Row, Col
 } from 'reactstrap';
 
 
-const KnowledgeBaseContainer = ({ app }) => {
+const KnowledgeBaseContainer = (props) => {
 	return (
 		<KnowledgeBase
-			app={app}
+			props={props}
 			apiPath="content"
 			entryPath="/knowledge/index.json"
 		/>
@@ -23,7 +24,7 @@ const KnowledgeBaseContainer = ({ app }) => {
 export default KnowledgeBaseContainer;
 
 
-export const KnowledgeBase = ({ app, apiPath, entryPath }) => {
+export const KnowledgeBase = ({ props, apiPath, entryPath }) => {
 	const { t } = useTranslation();
 	const history = useHistory();
 	const location = history.location;
@@ -35,7 +36,9 @@ export const KnowledgeBase = ({ app, apiPath, entryPath }) => {
 	const [treeData, setTreeData] = useState([]);
 	const [index, setIndex] = useState([]);
 
-	const ContentAPI = app.axiosCreate(apiPath);
+	const theme = useSelector(state => state.theme);
+
+	const ContentAPI = props.app.axiosCreate(apiPath);
 
 	useEffect(() => {
 		setReadmeDiv(document.querySelector(".readme"));
@@ -83,7 +86,7 @@ export const KnowledgeBase = ({ app, apiPath, entryPath }) => {
 				setTreeData(tree);
 		} catch(e) {
 			console.error(e);
-			app.addAlert("warning", t("KnowledgeBaseContainer|Something went wrong, failed to fetch Knowledge base folder content"));
+			props.app.addAlert("warning", t("KnowledgeBaseContainer|Something went wrong, failed to fetch Knowledge base folder content"));
 		}
 	}
 
@@ -107,9 +110,9 @@ export const KnowledgeBase = ({ app, apiPath, entryPath }) => {
 			const response = await ContentAPI.get(path);
 			setText(response.data);
 		} catch(e) {
-			console.error("Failed to fetch readme: ", e);
-			app.addAlert("warning", t("KnowledgeBaseContainer|Something went wrong, Failed to get the article"));
-			setText(t("KnowledgeBaseContainer|Content is not loaded"));
+			console.error("Failed to fetch article: ", e);
+			props.app.addAlert("warning", t("KnowledgeBaseContainer|Something went wrong, failed to get the article"));
+			setText(t("KnowledgeBaseContainer|There is no article of that name and path"));
 		}
 		// scroll to the beginning of div
 		readmeDiv?.scrollTo({ top: 0 })
@@ -127,7 +130,7 @@ export const KnowledgeBase = ({ app, apiPath, entryPath }) => {
 					/>
 				</Col>
 				<Col xs="9" sm="9">
-					<ReactMarkdown className="readme" rehypePlugins={[rehypeRaw]}>{text}</ReactMarkdown>
+					<ReactMarkdown className={`readme${theme == "dark" ? " readme-dark" : ""}`} rehypePlugins={[rehypeRaw]}>{text}</ReactMarkdown>
 				</Col>
 			</Row>
 		</Container>

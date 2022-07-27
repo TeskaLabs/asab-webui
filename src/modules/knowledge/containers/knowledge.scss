@@ -71,7 +71,7 @@
 		width: 97%; /* TODO CHECK THE WIDTH*/
 		padding: 0.5rem 1.5rem 1.5rem;
 		/*TODO CHANGE BACKGROUDN COLOR FOR DARK MODE*/
-		background-color: #fff;
+		background-color: $bg-color;
 		overflow: auto;
 		height: 100%;
 		border-radius: 8px;
@@ -118,6 +118,10 @@
 	    background-color: #f8f8f8;
 	    padding: 1rem 0.5rem 0.5rem 1rem;
 	    text-indent: -0.5rem;
+	}
+
+	.readme-dark pre {
+		background-color: $highlighted-bg-color !important;
 	}
 
 	.readme img {
