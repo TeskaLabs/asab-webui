@@ -68,9 +68,8 @@
 	.readme {
 		position: absolute;
 		height: 100% !important;
-		width: 97%; /* TODO CHECK THE WIDTH*/
+		width: 100%;
 		padding: 0.5rem 1.5rem 1.5rem;
-		/*TODO CHANGE BACKGROUDN COLOR FOR DARK MODE*/
 		background-color: $bg-color;
 		overflow: auto;
 		height: 100%;
