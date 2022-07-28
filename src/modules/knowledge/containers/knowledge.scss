@@ -1,0 +1,67 @@
+@import "~asab-webui/styles/constants/index.scss";
+
+.knowledge-container {
+	height: 100%;
+
+	.readme {
+		position: absolute;
+		height: 100% !important;
+		width: 100%;
+		padding: 0.5rem 1.5rem 1.5rem;
+		background-color: $bg-color;
+		overflow: auto;
+		height: 100%;
+		border-radius: 8px;
+	}
+
+	.readme p {
+		margin-bottom: 0.8rem;
+	}
+
+	.readme li > p {
+		margin-bottom: 0;
+	}
+
+	.readme h1,
+	.readme h2,
+	.readme h3 {
+		margin-bottom: 0.8rem;
+		margin-top: 1.5rem;
+	}
+
+	.readme h1 + h2 {
+		margin-top: 0;
+	}
+
+	.readme h1 {
+		font-size: 1.8rem;
+	}
+
+	.readme h2 {
+		font-size: 1.5rem;
+	}
+
+	.readme h3 {
+		font-size: 1.3rem;
+	}
+
+	.readme pre {
+	    overflow-x: auto;
+	    white-space: pre-wrap;
+	    white-space: -moz-pre-wrap;
+	    white-space: -pre-wrap;
+	    white-space: -o-pre-wrap;
+	    word-wrap: break-word;
+	    background-color: #f8f8f8;
+	    padding: 1rem 0.5rem 0.5rem 1rem;
+	    text-indent: -0.5rem;
+	}
+
+	.readme-dark pre {
+		background-color: $highlighted-bg-color !important;
+	}
+
+	.readme img {
+		max-width: 100%;
+	}
+}

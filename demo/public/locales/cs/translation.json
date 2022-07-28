@@ -131,6 +131,12 @@
 		"Version": "Verze",
 		"Attention": "Pozor"
 	},
+	"UserInterfaceCard": {
+		"User interface": "Uživatelské rozhraní",
+		"Build date": "Datum sestavení",
+		"Version": "Verze",
+		"Repository": "Repozitář"
+	},
 	"Showing item(s)": "{{ from }} - {{ to }} z {{ total }} položek",
 	"You do not have access rights to perform this action": "Váš přístup je omezen, nemáte dostatečná oprávnění",
 	"Items per page": "Položek na stránku",

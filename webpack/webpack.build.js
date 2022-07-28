@@ -35,6 +35,7 @@ module.exports = {
 		// version and build date of the app
 		const version = common.getVersion();
 		const buildDate = new Date();
+		const repository = common.getRepository();
 		// paths
 		const entry_path = path.resolve(config["dirs"]["src"], 'index.js');
 		const html_template_path = path.resolve(config["dirs"]["public"], 'index.html');
@@ -46,7 +47,8 @@ module.exports = {
 				"__CONFIG__": config["app"],
 				"__DEV_CONFIG__": {},
 				"__VERSION__": version,
-				"__BUILD_DATE__": buildDate
+				"__BUILD_DATE__": buildDate,
+				"__REPOSITORY__": repository
 			})
 		);
 

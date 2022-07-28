@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './treemenu.scss';
+
 const TreeMenuItem = ({
 	level = 0, hasNodes, isOpen,
 	label, searchTerm, openNodes,
@@ -33,6 +35,6 @@ const TreeMenuItem = ({
 	)
 };
 
-const ToggleIcon = ({ on }) => <span style={{ marginRight: 8 }}>{on ? '-' : '+'}</span>;
+const ToggleIcon = ({ on }) => <span className="menu-span"><code className="menu-toggle-icon">{on ? '-' : '+'}</code></span>;
 
 export default TreeMenuItem;
