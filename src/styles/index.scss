@@ -143,6 +143,10 @@ code {
 		overflow-x: hidden;
 		.app-body {
 			overflow-x: visible;
+			margin-left: 0;
+			.main {
+				margin-left: 1rem !important;
+			}
 		}
 	}
 }
