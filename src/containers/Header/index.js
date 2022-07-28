@@ -56,7 +56,7 @@ export function Header(props) {
 				</>
 			:
 				<>
-				<div >
+				<div className="mobile-logo-position">
 					<Link to={href}>
 						<img
 							src={props.brand_image.full}
