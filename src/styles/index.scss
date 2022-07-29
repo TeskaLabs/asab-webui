@@ -150,6 +150,13 @@ code {
 		}
 	}
 }
+@media screen and (max-width: 768px) {
+	.header-sidebar-wrapper {
+		.padding-small-screens {
+			padding-top: 3rem!important;
+		}
+	}
+}
 
 /* Import styles */
 
