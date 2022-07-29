@@ -1,18 +1,27 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import { connect, useSelector } from 'react-redux';
 
-import { Nav } from 'reactstrap';
+import {Modal, Nav} from 'reactstrap';
 import SidebarItem from './SidebarItem';
 import NavbarBrand from './NavbarBrand';
 import SidebarBottomItem from './SidebarBottomItem';
 
 
 const Sidebar = (props) => {
+	const [modal, setModal] = useState(false);
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
+	const [windowDimensions, setWindowDimensions] = useState({width: window.innerWidth});
+
 	// Get dynamically hiddden sidebar items from store
 	let sidebarHiddenItems = props.sidebarHiddenItems;
 
 	let sidebarItems = props.navigation.getItems().items;
+
+	useEffect(() => {
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
+	}, [windowDimensions]);
+
 	// Filter out sidebar items which has been marked as hidden in ASAB Config module
 	if (sidebarHiddenItems) {
 		let updatedSidebar = sidebarItems;
@@ -47,28 +56,64 @@ const Sidebar = (props) => {
 		return itemsList;
 	}, [navConfig])
 
+	function handleResize () {
+		setWindowDimensions({width: window.innerWidth});
+	}
+
+	const toggle = () => setModal(!modal);
+
 	return (
+		windowDimensions.width < 768 ?
 		<>
-			<div className={`app-sidebar${isSidebarCollapsed ? " collapsed" : ""}`}>
-				<div style={{ display: "inline-block" }}>
-					<NavbarBrand {...props} isSidebarMinimized />
-				</div>
-				<div className="sidebar-nav">
-					
-					<Nav  vertical>
-						{memoizedItemsList.map((item, idx) => (
-							<SidebarItem
-								key={idx}
-								item={item}
-								unauthorizedNavChildren={unauthorizedNavChildren}
-								uncollapseAll={memoizedItemsList.length <= 2}
-							/>
-						))}
-					</Nav>
-					<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} />
-				</div>
+			<div className="mobile-sidebar-burger" onClick={toggle}>
+				<i className="cil-menu"></i>
 			</div>
+			<Modal isOpen={modal} toggle={toggle} className="left">
+				<div className={`app-sidebar${isSidebarCollapsed ? " collapsed" : ""}`}>
+					{windowDimensions.width > 768 &&
+						<div style={{display: "inline-block"}}>
+							<NavbarBrand {...props} isSidebarMinimized/>
+						</div>
+					}
+					<div className="sidebar-nav">
+
+						<Nav  vertical>
+							{memoizedItemsList.map((item, idx) => (
+								<SidebarItem
+									key={idx}
+									item={item}
+									unauthorizedNavChildren={unauthorizedNavChildren}
+									uncollapseAll={memoizedItemsList.length <= 2}
+								/>
+							))}
+						</Nav>
+						<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} />
+					</div>
+				</div>
+			</Modal>
 		</>
+		:
+		<div className={`app-sidebar${isSidebarCollapsed ? " collapsed" : ""}`}>
+			{windowDimensions.width > 768 &&
+				<div style={{display: "inline-block"}}>
+					<NavbarBrand {...props} isSidebarMinimized/>
+				</div>
+			}
+			<div className="sidebar-nav">
+
+				<Nav  vertical>
+					{memoizedItemsList.map((item, idx) => (
+						<SidebarItem
+							key={idx}
+							item={item}
+							unauthorizedNavChildren={unauthorizedNavChildren}
+							uncollapseAll={memoizedItemsList.length <= 2}
+						/>
+					))}
+				</Nav>
+				<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} />
+			</div>
+		</div>
 	)
 }
 
