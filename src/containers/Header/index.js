@@ -31,7 +31,7 @@ export function Header(props) {
 		<header className={`application-header ${headerProperties ? 'header-props-open' : ""}`}>
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar == 'undefined') ?
 				<>
-					{windowDimensions.width < 800 &&
+					{windowDimensions.width < 768 &&
 						<div className="mobile-logo-position">
 							<Link to={href}>
 								<img
