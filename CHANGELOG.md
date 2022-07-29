@@ -295,6 +295,8 @@
 
 - Modularize Knowledge base component (INDIGO Sprint 220722, [!336](https://github.com/TeskaLabs/asab-webui/pull/336)
 
+- Add form group style for messages and errors in input validation (INDIGO Sprint 220722, [!338](https://github.com/TeskaLabs/asab-webui/pull/338)
+
 
 ### Bugfixes
 
