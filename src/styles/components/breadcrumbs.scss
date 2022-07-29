@@ -25,6 +25,34 @@
 
 @media screen and (max-width: 1024px) {
 	.breadcrumbs {
-		display: none;
+		h4 {
+			font-size: 20px;
+		}
+	}
+}
+
+@media screen and (max-width: 800px) {
+	.breadcrumbs {
+		position: absolute;
+		top: 21px;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.breadcrumbs {
+		display: inline-block;
+		text-align: left;
+		position: absolute;
+		bottom: -38px;
+		top: auto;
+
+		h4 {
+			display: inline-block;
+			text-align: left;
+		}
+
+		nav {
+			display: inline-block;
+		}
 	}
 }
