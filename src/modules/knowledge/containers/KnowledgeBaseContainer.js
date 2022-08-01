@@ -1,23 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import TreeMenu, { ItemComponent } from 'react-simple-tree-menu';
+import { TreeMenu } from 'asab-webui';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
+import { useSelector } from 'react-redux';
 
 import {
-	Container, Row, Col, Card
+	Container, Row, Col
 } from 'reactstrap';
 
-import './style.css';
 
-export const KnowledgeBase = ({ app, apiPath, entryPath }) => {
+const KnowledgeBaseContainer = (props) => {
+	return (
+		<KnowledgeBase
+			props={props}
+			apiPath="content"
+			entryPath="/knowledge/index.json"
+		/>
+	);
+}
+
+export default KnowledgeBaseContainer;
+
+
+export const KnowledgeBase = ({ props, apiPath, entryPath }) => {
 	const { t } = useTranslation();
 	const history = useHistory();
 	const location = history.location;
-
-	// for React-simple-tree-menu
-	const [activeNode, setActiveNode] = useState(null);
 
 	const [text, setText] = useState('');
 
@@ -26,7 +36,9 @@ export const KnowledgeBase = ({ app, apiPath, entryPath }) => {
 	const [treeData, setTreeData] = useState([]);
 	const [index, setIndex] = useState([]);
 
-	const ContentAPI = app.axiosCreate(apiPath);
+	const theme = useSelector(state => state.theme);
+
+	const ContentAPI = props.app.axiosCreate(apiPath);
 
 	useEffect(() => {
 		setReadmeDiv(document.querySelector(".readme"));
@@ -40,11 +52,8 @@ export const KnowledgeBase = ({ app, apiPath, entryPath }) => {
 			const r = findNode();
 			// if not right path, redirect to the first readme
 			if (r === undefined) {
-				// set activeNode to null, otherwise it stays the same after redirecting
-				setActiveNode(null);
 				history.push(getPath(index[0].path));
 			} else {
-				setActiveNode(r.title);
 				getText(r.path);
 			}
 		}
@@ -55,7 +64,6 @@ export const KnowledgeBase = ({ app, apiPath, entryPath }) => {
 		const r = findNode()
 		if (r) {
 			getText(r.path);
-			setActiveNode(r.title);
 		}
 	}, [location])
 
@@ -78,7 +86,7 @@ export const KnowledgeBase = ({ app, apiPath, entryPath }) => {
 				setTreeData(tree);
 		} catch(e) {
 			console.error(e);
-			app.addAlert("warning", t("KnowledgeBaseContainer|Something went wrong, failed to fetch Knowledge base folder content"));
+			props.app.addAlert("warning", t("KnowledgeBase|Something went wrong, failed to fetch Knowledge base folder content"));
 		}
 	}
 
@@ -102,46 +110,27 @@ export const KnowledgeBase = ({ app, apiPath, entryPath }) => {
 			const response = await ContentAPI.get(path);
 			setText(response.data);
 		} catch(e) {
-			console.error("Failed to fetch readme: ", e);
-			app.addAlert("warning", t("KnowledgeBaseContainer|Something went wrong, Failed to get the article"));
-			setText(t("KnowledgeBaseContainer|Content is not loaded"));
+			console.error("Failed to fetch article: ", e);
+			props.app.addAlert("warning", t("KnowledgeBase|Something went wrong, failed to get the article"));
+			setText(t("KnowledgeBase|There is no article of that name and path"));
 		}
 		// scroll to the beginning of div
 		readmeDiv?.scrollTo({ top: 0 })
 	};
 
 	return (
-		<Container fluid className="mt-0 pl-0 pt-0 container-fluid-knowledge">
-			<Row>
-				<Col md={3} className="pr-0 pl-0">
-					<Card className="knowledge-sidebar">
-						{/* div for the case there is many readmes and scroll is needed */}
-						<div className="knowledge-sidebar-inner">
-							<h6>{t("KnowledgeBaseContainer|Content")}</h6>
-							{activeNode &&
-								<TreeMenu
-									data={treeData}
-									onClickItem={({ key, label, ...props }) => onClick(key)}
-									activeKey={activeNode}
-									hasSearch={false}
-								>
-									{({ items }) => (
-										<ul>
-											{items.map(({key, ...props})=> (
-												<ItemComponent
-													key={key}
-													{...props}
-												/>
-											))}
-										</ul>
-									)}
-								</TreeMenu>
-							}
-						</div>
-					</Card>
+		<Container fluid className="h-100 knowledge-container">
+			<Row className="ml-0 mr-3 h-100">
+				<Col xs="3" sm="3" className="h-100">
+					<TreeMenu
+						data={treeData}
+						onClickItem={({ key, label, ...props }) => onClick(key)}
+						hasSearch={false}
+						hasNodes={false}
+					/>
 				</Col>
-				<Col md={9} className="col-9-react-md">
-					<ReactMarkdown className="readme" rehypePlugins={[rehypeRaw]}>{text}</ReactMarkdown>
+				<Col xs="9" sm="9">
+					<ReactMarkdown className={`readme${theme == "dark" ? " readme-dark" : ""}`} rehypePlugins={[rehypeRaw]}>{text}</ReactMarkdown>
 				</Col>
 			</Row>
 		</Container>

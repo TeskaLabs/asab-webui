@@ -283,7 +283,17 @@
 
 - Implement search, filter and sort by to Microservices component (INDIGO Sprint 220712, [!330](https://github.com/TeskaLabs/asab-webui/pull/330)
 
+- Refactor Sidebar for mobile screen (INDIGO Sprint 220722, [!327](https://github.com/TeskaLabs/asab-webui/pull/327)
+
 - Refactor ASABConfig and ASABMicroservices module that they can be imported separately and those modules will appear only under the Maintenance sidebar navigation item as a subitems (INDIGO Sprint 220712, [!331](https://github.com/TeskaLabs/asab-webui/pull/331)
+
+- Fixed Version display and added repository name to UserInternterfaceCard (INDIGO Sprint 220712, [!332](https://github.com/TeskaLabs/asab-webui/pull/332)
+
+- Add a commit abbreviation to Version in UserInterfaceCard (INDIGO Sprint 220722, [!334](https://github.com/TeskaLabs/asab-webui/pull/334))
+
+- Add monospace styling to treemenu toggle icons (INDIGO Sprint 220722, [!335](https://github.com/TeskaLabs/asab-webui/pull/335)
+
+- Modularize Knowledge base component (INDIGO Sprint 220722, [!336](https://github.com/TeskaLabs/asab-webui/pull/336)
 
 
 ### Bugfixes
@@ -359,3 +369,5 @@
 - Fix pagination' diappearance issue upon last item removal in DataTable (INDIGO Sprint 220429, [!274](https://github.com/TeskaLabs/asab-webui/pull/274))
 
 - Fix pagination's position after decomposing of DataTable, vertical allignment in DataTable's card footer and disappearance of pagination when no data is preset (INDIGO Sprint 220527, [!285](https://github.com/TeskaLabs/asab-webui/pull/285))
+
+- Fix overwriting values in input in Configuration due to useForm (INDIGO Sprint 220712, [!333](https://github.com/TeskaLabs/asab-webui/pull/333))

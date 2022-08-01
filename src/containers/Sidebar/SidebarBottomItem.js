@@ -16,6 +16,7 @@ import { SET_SMALL_SIDEBAR } from '../../actions';
 
 const SidebarBottomItem = ({ item, sidebarLogo }) => {
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
+	const isSmallSidebarOpen = useSelector(state => state.sidebar.isSmallSidebarOpen);
 
 	const location = useLocation();
 	const history = useHistory();
@@ -58,7 +59,7 @@ const SidebarBottomItem = ({ item, sidebarLogo }) => {
 						{item && (
 							<button
 								title={t(`Sidebar|${item.name}`)}
-								className={`sidebar-item-button${location.pathname === item.url ? " active " : " "}btn left`}
+								className={`sidebar-item-button${location.pathname === item.url ? " active " : " "}btn left mobile-full-btn`}
 							>
 								{sidebarLogo ? 
 									isSidebarCollapsed ?
@@ -91,7 +92,7 @@ const SidebarBottomItem = ({ item, sidebarLogo }) => {
 						)}
 						<button
 							title={t(`Sidebar|Collapse`)}
-							className={`sidebar-item-button btn${item ? " right" : ""}`}
+							className={`sidebar-item-button btn mobile-collapsed${item ? " right" : ""}`}
 							onClick={onCollapse}
 						>
 							<i className='cil-chevron-left ml-auto'></i>

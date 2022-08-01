@@ -29,6 +29,7 @@ function UserInterfaceCard() {
 
 	const version = __VERSION__;
 	const buildDate = __BUILD_DATE__;
+	const repository = __REPOSITORY__;
 
 	return (
 		<Card className="shadow animated fadeIn mt-2">
@@ -46,6 +47,19 @@ function UserInterfaceCard() {
 							</Col>
 							<Col>
 								{version}
+							</Col>
+						</Row>
+						<hr/>
+					</React.Fragment>
+				}
+				{ repository &&
+					<React.Fragment>
+						<Row>
+							<Col>
+								{t('UserInterfaceCard|Repository')}
+							</Col>
+							<Col>
+								{repository}
 							</Col>
 						</Row>
 						<hr/>
