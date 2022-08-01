@@ -64,7 +64,6 @@ $sidebar-item-font-size: 14px;
 				border: 2px solid $highlighted-bg-color;
 			}
 			.sidebar-item-button {
-				// outline: solid black;
 				display: flex;
 				align-items: center;
 				padding: 0.5rem;
@@ -80,7 +79,6 @@ $sidebar-item-font-size: 14px;
 					font-weight: $highlighted-font-weight;
 					font-size: $sidebar-item-font-size;
 				}
-
 				.sidebar-item-name {
 					width: 75%;
 					overflow: hidden;
@@ -93,13 +91,11 @@ $sidebar-item-font-size: 14px;
 					color: inherit;
 				}
 			}
-
 			.nav-item {
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 			}
-
 			.sidebar-item-button:hover {
 				cursor: pointer;
 				background-color: $bg-color;
@@ -110,7 +106,6 @@ $sidebar-item-font-size: 14px;
 				box-shadow: none;
 			}
 		}
-
 		.nav-children {
 			width: $sidebar-item-width;
 			border-radius: $sidebar-item-radius;
@@ -175,18 +170,14 @@ $sidebar-item-font-size: 14px;
 				}
 				.sidebar-item-button {
 					width: $collapsed-sidebar-item-width;
-
 				}
 			}
-
 			.show .nav-children {
 				margin: 0;
-
 				.nav-link {
 					padding: 0;
 				}
 			}
-
 			.nav-children {
 				width: $collapsed-sidebar-item-width;
 				margin-left: 5px;
@@ -197,18 +188,12 @@ $sidebar-item-font-size: 14px;
 			.collapsing {
 				padding: 0;
 				margin: 0;
-				// display: flex;
-				// flex-direction: column;
-				// justify-content: space-between;
 				margin-left: -5px;
-				
 				.nav-item .nav-link .sidebar-item-button {
-					// background-color: red!important;
 					margin-top: -4px;
 					padding: 0;
 					display: flex;
 					align-items: center;
-		
 				}
 			}
 		}
@@ -235,7 +220,7 @@ $sidebar-item-font-size: 14px;
 }
 
 .modal {
-	.modal-dialog.left, {
+	.modal-dialog.left {
 		position: fixed;
 		margin: auto;
 		width: 200px;
@@ -244,23 +229,17 @@ $sidebar-item-font-size: 14px;
 		-ms-transform: translate3d(0%, 0, 0);
 		-o-transform: translate3d(0%, 0, 0);
 		transform: translate3d(0%, 0, 0);
-	}
-
-	.modal-dialog.left {
 		.modal-content {
 			height: 100%;
+		}
+		.modal-body {
+			padding: 15px 15px 80px;
 		}
 	}
 
 	.modal-content {
 		display: block;
 		overflow: hidden;
-	}
-
-	.modal-dialog.left {
-		.modal-body {
-			padding: 15px 15px 80px;
-		}
 	}
 
 	/*Left*/
