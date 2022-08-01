@@ -26,7 +26,7 @@ $sidebar-item-font-size: 14px;
 
 	.sidebar-nav {
 		position: relative;
-		padding-left: .5rem;
+		margin: 0 0.5rem;
 		flex: 1;
 		overflow: hidden;
 		touch-action: auto;
@@ -40,6 +40,7 @@ $sidebar-item-font-size: 14px;
 		.nav {
 			display: flex;
 			align-items: center;
+			justify-content: center;
 			flex-direction: column;
 			flex-wrap: nowrap;
 			padding: 0;
@@ -62,6 +63,7 @@ $sidebar-item-font-size: 14px;
 				border: 2px solid $highlighted-bg-color;
 			}
 			.sidebar-item-button {
+				// outline: solid black;
 				display: flex;
 				align-items: center;
 				padding: 0.5rem;
@@ -90,6 +92,13 @@ $sidebar-item-font-size: 14px;
 					color: inherit;
 				}
 			}
+
+			.nav-item {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
 			.sidebar-item-button:hover {
 				cursor: pointer;
 				background-color: $bg-color;
@@ -123,7 +132,7 @@ $sidebar-item-font-size: 14px;
 		height: 55px;
 		width: 100%;
 		padding: 0;
-		margin: 0.25rem 0 0 0.25rem;
+		margin-top: 0.25rem;
 	}
 	
 	.sidebar-bottom {
@@ -150,10 +159,13 @@ $sidebar-item-font-size: 14px;
 		width: $collapsed-sidebar-width;
 		.nav-item {
 			width: $collapsed-sidebar-width;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
 			.nav-link {
 				justify-content: center;
 				width: $collapsed-sidebar-item-width;
-
+				padding: 0.25rem 0;
 				.sidebar-item-name {
 					display: none;
 				}
@@ -166,11 +178,36 @@ $sidebar-item-font-size: 14px;
 				}
 			}
 
+			.show .nav-children {
+				margin: 0;
+
+				.nav-link {
+					padding: 0;
+				}
+			}
+
 			.nav-children {
 				width: $collapsed-sidebar-item-width;
 				margin-left: 5px;
 				.sidebar-item {
 					width: $collapsed-sidebar-item-width;
+				}
+			}
+			.collapsing {
+				padding: 0;
+				margin: 0;
+				// display: flex;
+				// flex-direction: column;
+				// justify-content: space-between;
+				margin-left: -5px;
+				
+				.nav-item .nav-link .sidebar-item-button {
+					// background-color: red!important;
+					margin-top: -4px;
+					padding: 0;
+					display: flex;
+					align-items: center;
+		
 				}
 			}
 		}
