@@ -127,7 +127,7 @@ const Headers = ({ headers, advmode, sublists }) => (
 			{headers.map((_, idx) =>
 				<col
 					className={`data-table-col${idx}`}
-					style={{ width: (idx === headers.length - 1) ? "auto" : "5em", ..._.customHeaderStyle }}
+					style={{ width: (idx === headers.length - 1) ? "auto" : "8em", ..._.customHeaderStyle }}
 					key={idx}
 				/>
 			)}
