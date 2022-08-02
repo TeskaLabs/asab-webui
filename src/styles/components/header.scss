@@ -1,10 +1,8 @@
 :root[data-theme="light"] {
-	--toggle-text-color: #828eb0;
 	--nav-bar-link: var(--primary);
 }
 
 :root[data-theme="dark"] {
-	--toggle-text-color: #39487a;
 	--nav-bar-link: var(--white-night);
 }
 
@@ -79,6 +77,13 @@ $nav-bar-link: var(--nav-bar-link);
 	.application-header {
 		position: relative;
 		transition: height 300ms ease-out;
+
+		.mobile-logo-position {
+			position: absolute;
+			top: 8px;
+			margin-left: -16px;
+			width: 100%;
+		}
 	}
 
 	.application-header.header-props-open {
