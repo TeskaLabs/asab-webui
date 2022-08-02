@@ -31,7 +31,7 @@ const NavbarBrand = ({ title, brand_image, isSidebarCollapsed }) => {
 				<img
 					src={isSidebarCollapsed ? brand_image.minimized : brand_image.full}
 					alt={title}
-					width="150"
+					width={isSidebarCollapsed ? "50" : "150"}
 					height="50"
 					className="minimized-image"
 				/>

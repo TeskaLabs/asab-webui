@@ -62,12 +62,10 @@
 		"react-i18next": "^11.8.12",
 		"react-hook-form": "^7.0.0",
 		"react-json-view": "^1.21.1",
-		"react-markdown": "^7.0.1",
 		"react-redux": "^7.2.0",
 		"react-router-dom": "^5.1.2",
 		"react-simple-tree-menu": "^1.1.18",
 		"reactstrap": "^8.9.0",
-		"redux": "^4.0.5",
-		"rehype-raw": "^6.1.0"
+		"redux": "^4.0.5"
 	}
 }
