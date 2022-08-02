@@ -279,21 +279,23 @@
 
 - Add download/upload and search functionality in Configuration  (INDIGO Sprint 220610, [!278](https://github.com/TeskaLabs/asab-webui/pull/278))
 
-- Fix color for Content Loader in DataTable, it works in light and dark mode  (INDIGO Sprint 220712, [!328](https://github.com/TeskaLabs/asab-webui/pull/328)
+- Fix color for Content Loader in DataTable, it works in light and dark mode  (INDIGO Sprint 220712, [!328](https://github.com/TeskaLabs/asab-webui/pull/328))
 
-- Implement search, filter and sort by to Microservices component (INDIGO Sprint 220712, [!330](https://github.com/TeskaLabs/asab-webui/pull/330)
+- Implement search, filter and sort by to Microservices component (INDIGO Sprint 220712, [!330](https://github.com/TeskaLabs/asab-webui/pull/330))
 
-- Refactor Sidebar for mobile screen (INDIGO Sprint 220722, [!327](https://github.com/TeskaLabs/asab-webui/pull/327)
+- Refactor Sidebar for mobile screen (INDIGO Sprint 220722, [!327](https://github.com/TeskaLabs/asab-webui/pull/327))
 
-- Refactor ASABConfig and ASABMicroservices module that they can be imported separately and those modules will appear only under the Maintenance sidebar navigation item as a subitems (INDIGO Sprint 220712, [!331](https://github.com/TeskaLabs/asab-webui/pull/331)
+- Refactor ASABConfig and ASABMicroservices module that they can be imported separately and those modules will appear only under the Maintenance sidebar navigation item as a subitems (INDIGO Sprint 220712, [!331](https://github.com/TeskaLabs/asab-webui/pull/331))
 
-- Fixed Version display and added repository name to UserInternterfaceCard (INDIGO Sprint 220712, [!332](https://github.com/TeskaLabs/asab-webui/pull/332)
+- Fixed Version display and added repository name to UserInternterfaceCard (INDIGO Sprint 220712, [!332](https://github.com/TeskaLabs/asab-webui/pull/332))
 
 - Add a commit abbreviation to Version in UserInterfaceCard (INDIGO Sprint 220722, [!334](https://github.com/TeskaLabs/asab-webui/pull/334))
 
-- Add monospace styling to treemenu toggle icons (INDIGO Sprint 220722, [!335](https://github.com/TeskaLabs/asab-webui/pull/335)
+- Add monospace styling to treemenu toggle icons (INDIGO Sprint 220722, [!335](https://github.com/TeskaLabs/asab-webui/pull/335))
 
-- Modularize Knowledge base component (INDIGO Sprint 220722, [!336](https://github.com/TeskaLabs/asab-webui/pull/336)
+- Modularize Knowledge base component (INDIGO Sprint 220722, [!336](https://github.com/TeskaLabs/asab-webui/pull/336))
+
+- Logo and menu in sidebar allignment. Sidebar's submenu items position fix. (INDIGO Sprint 220722, [!340](https://github.com/TeskaLabs/asab-webui/pull/340))
 
 
 ### Bugfixes
