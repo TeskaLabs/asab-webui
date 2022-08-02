@@ -43,7 +43,7 @@ export function Header(props) {
 							</Link>
 						</div>
 					}
-					<Breadcrumbs app={props.app}/>
+					{windowDimensions.width > 768 &&<Breadcrumbs app={props.app}/>}
 					<Nav className="ml-auto header-props" navbar>
 						<ThemeButton />
 						<HelpButton />
@@ -131,6 +131,7 @@ export function Header(props) {
 				</>
 			}
 			</div>
+			{windowDimensions.width < 768 &&<Breadcrumbs app={props.app}/>}
 		</header>
 	);
 }
