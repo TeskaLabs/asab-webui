@@ -41,8 +41,7 @@
 
 @media screen and (max-width: 800px) {
 	.breadcrumbs {
-		position: absolute;
-		top: 21px;
+		margin: auto 0 0;
 	}
 }
 
@@ -50,9 +49,9 @@
 	.breadcrumbs {
 		display: inline-block;
 		text-align: left;
-		position: absolute;
-		bottom: -38px;
-		top: auto;
+		//position: absolute;
+		//bottom: -38px;
+		//top: auto;
 
 		h4 {
 			display: inline-block;
