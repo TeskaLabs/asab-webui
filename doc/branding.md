@@ -72,6 +72,7 @@ With the configuration set as above, the title will be: `TeskaLabs | Page Title`
 
 Every image HAS TO be provided in SVG (vectorized).
 Use of pixel formats (PNG, JPG, ...) is strongly discouraged.
+While creating the branding images, use full width/height of the canvas (ratio 3:1 on full and 1:1 on minimized version). No padding is required for optimal viewing experience.
 
 ### Branding images
 
