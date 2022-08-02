@@ -76,7 +76,9 @@ $nav-bar-link: var(--nav-bar-link);
 @media (max-width: 800px) {
 	.application-header {
 		position: relative;
+		height: 100px;
 		transition: height 300ms ease-out;
+		flex-direction: column;
 
 		.mobile-logo-position {
 			position: absolute;
@@ -87,15 +89,14 @@ $nav-bar-link: var(--nav-bar-link);
 	}
 
 	.application-header.header-props-open {
-		height: 103px;
+		height: 120px;
 		display: flex;
-		flex-direction: column;
 		justify-content: space-evenly;
 		transition: height 300ms ease;
 	}
 
 	.header-props-toggler{
-		height: 65px;
+		height: 40px;
 		color: $toggle-text-color;
 		visibility: visible;
 		display: inline-flex;
@@ -118,12 +119,9 @@ $nav-bar-link: var(--nav-bar-link);
 		}
 	}
 
-	.header-props-sm {
-		opacity: 0;
-	}
 	.header-props-open .header-props-sm {
 		opacity: 1;
-		transition: opacity .5s ease;
+		transition: opacity .5s ease, height 0.5s ease;
 	}
 	.header-props {
 		display: none !important;
@@ -132,6 +130,8 @@ $nav-bar-link: var(--nav-bar-link);
 			display: flex;
 			justify-content: right;
 			margin-left: auto !important;
+			height: 40px;
+			opacity: 0;
 		}
 	}
 	.header-props-open + .app-body {
@@ -149,8 +149,23 @@ $nav-bar-link: var(--nav-bar-link);
 	}
 }
 
+
 @media (max-width: 600px) {
 	.header-props-sm {
 		justify-content: center;
+	}
+}
+
+@media (max-width: 500px) {
+	.application-header {
+		height: 110px;
+
+		&.header-props-open {
+			height: 150px;
+		}
+
+		.header-props-sm {
+			height: 60px;
+		}
 	}
 }
