@@ -297,6 +297,7 @@
 
 - Logo and menu in sidebar allignment. Sidebar's submenu items position fix. (INDIGO Sprint 220722, [!340](https://github.com/TeskaLabs/asab-webui/pull/340))
 
+- Branding docs update. (INDIGO Sprint 220722, [!341](https://github.com/TeskaLabs/asab-webui/pull/341))
 
 ### Bugfixes
 
