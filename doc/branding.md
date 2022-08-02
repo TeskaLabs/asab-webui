@@ -75,12 +75,26 @@ Use of pixel formats (PNG, JPG, ...) is strongly discouraged.
 
 ### Branding images
 
-Top-left location.
+format: SVG
+full:
+	rendered ratio: 3:1
+	rendered size: 150x50 px
+minimized:
+	rendered ratio: 1:1
+	rendered size: 50x50 px
+
+Branding is located in `top-left` corner on large screens. `Fullsize` branding image is used when sidebar is uncollapsed and is substituted by `mimnimized` version upon collapsing. On smaller screens (<768px), branding in sidebar disappeares and only fullsized branding image appears in the `top-center` position of the page.
+
+Logo should be suitable for use in both light & dark mode. 
 
 Two sizes:
 
  * 120x30 (full)
  * 30x30 (minimized)
 
+
+SidebarLogo
+90x30 px (full)
+30x30 px (minimized)
 
 Note: A full image is also used on the splash screen, 30% of the width of the screen.
