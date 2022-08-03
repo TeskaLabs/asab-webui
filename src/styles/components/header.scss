@@ -15,7 +15,7 @@ $nav-bar-link: var(--nav-bar-link);
 	flex: 0 0 55px;
 	flex-direction: row;
 	height: $header-height;
-	padding: 0.5rem 1rem;
+	padding: 0.5rem 1rem 0.5rem 0;
 	background-color: $header-bg;
 
 	.navbar-nav {
@@ -73,8 +73,9 @@ $nav-bar-link: var(--nav-bar-link);
 	display: none;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
 	.application-header {
+		padding: 0.5rem 1rem;
 		position: relative;
 		height: 100px;
 		transition: height 300ms ease-out;
