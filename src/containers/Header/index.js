@@ -131,7 +131,7 @@ export function Header(props) {
 				</>
 			}
 			</div>
-			{windowDimensions.width < 769 &&<Breadcrumbs app={props.app}/>}
+			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') && (windowDimensions.width < 769 && <Breadcrumbs app={props.app}/>)}
 		</header>
 	);
 }
