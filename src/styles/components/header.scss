@@ -41,6 +41,12 @@ $nav-bar-link: var(--nav-bar-link);
 	}
 }
 
+.without-sidebar .application-header {
+		padding: 0.5rem 1rem;
+		height: $header-height;
+	}
+
+
 @media screen and (max-width: 991.99px) {
 	.application-header {
 		text-align: center;
@@ -167,6 +173,15 @@ $nav-bar-link: var(--nav-bar-link);
 
 		.header-props-sm {
 			height: 60px;
+		}
+	}
+	.without-sidebar .application-header {
+		&.header-props-open {
+			height: 110px;
+		}
+
+		.header-props-sm {
+			height: auto;
 		}
 	}
 }
