@@ -63,14 +63,14 @@ const Sidebar = (props) => {
 	const toggle = () => setModal(!modal);
 
 	return (
-		windowDimensions.width < 769 ?
+		windowDimensions.width <= 768 ?
 		<>
 			<div className="mobile-sidebar-burger" onClick={toggle}>
 				<i className="cil-menu"></i>
 			</div>
 			<Modal isOpen={modal} toggle={toggle} className="left">
 				<div className="app-sidebar">
-					{windowDimensions.width > 769 &&
+					{windowDimensions.width >= 768 &&
 						<div style={{display: "inline-block"}}>
 							<NavbarBrand {...props}/>
 						</div>
