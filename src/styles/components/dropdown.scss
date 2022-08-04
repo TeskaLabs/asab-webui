@@ -82,8 +82,10 @@ $disabled-dropdown-item: var(--disabled-dropdown-item);
 			filter: brightness(90%);
 		}
 	}
-	& .dropdown-item span {
-		color: $text-dropdown-color;
+	& .dropdown-item {
+		span, a, [class^="cil-"] {
+			color: $text-dropdown-color;
+		}
 	}
 }
 
