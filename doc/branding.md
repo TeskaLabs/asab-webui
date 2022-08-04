@@ -72,30 +72,30 @@ With the configuration set as above, the title will be: `TeskaLabs | Page Title`
 
 Every image HAS TO be provided in SVG (vectorized).
 Use of pixel formats (PNG, JPG, ...) is strongly discouraged.
-While creating the branding images, use full width/height of the canvas (ratio 3:1 on full and 1:1 on minimized version). No padding is required for optimal viewing experience.
+While creating the branding images, use full width/height of the canvas (ratio 3:1 on full and 1:1 on minimized version). <em>No padding is required for optimal viewing experience.</em>
 
 ### Branding images
 
-format: SVG
+format: **SVG**
 full:
-	rendered ratio: 3:1
-	rendered size: 150x50 px
-minimized:
-	rendered ratio: 1:1
-	rendered size: 50x50 px
+ * rendered ratio: `3:1`
+ * rendered size: `150x50 px`
 
-Branding is located in `top-left` corner on large screens. `Fullsize` branding image is used when sidebar is uncollapsed and is substituted by `mimnimized` version upon collapsing. On smaller screens (<768px), branding in sidebar disappeares and only fullsized branding image appears in the `top-center` position of the page.
+minimized:
+ * rendered ratio: `1:1`
+ * rendered size: `50x50 px`
+
+**Branding** is located in `top-left` corner on large screens. `Fullsize` branding image is used when sidebar is uncollapsed and is substituted by `mimnimized` version upon collapsing. On smaller screens (<768px), branding in sidebar disappeares and only fullsized branding image appears in the `top-center` position of the page.
 
 Logo should be suitable for use in both light & dark mode. 
 
-Two sizes:
 
- * 120x30 (full)
- * 30x30 (minimized)
+**SidebarLogo** is always located at the `bottom` of sidebar. Minimized version appeares upon the sidebar's collapsion.
 
+full:
+ * rendered size: `90x30 px`
 
-SidebarLogo
-90x30 px (full)
-30x30 px (minimized)
+minimized:
+ * rendered size: `30x30 px`
 
 Note: A full image is also used on the splash screen, 30% of the width of the screen.
