@@ -299,6 +299,8 @@
 
 - Logo and menu in sidebar allignment. Sidebar's submenu items position fix. (INDIGO Sprint 220722, [!340](https://github.com/TeskaLabs/asab-webui/pull/340))
 
+- Add form group style for messages and errors in input validation (INDIGO Sprint 220722, [!338](https://github.com/TeskaLabs/asab-webui/pull/338)
+
 
 ### Bugfixes
 

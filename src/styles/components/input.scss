@@ -77,6 +77,18 @@ $disabled-input-background-color: var(--disabled-input-background-color);
     }
 }
 
+.form-group {
+    .form-text {
+        color: $text-secondary-color !important;
+    }
+    .form-control.is-invalid {
+        border-color: $danger;
+    }
+    .invalid-feedback {
+        color: $danger;
+    }
+}
+
 html[data-theme="dark"] {
     .form-control{
         box-shadow: 0 2px 3px -1px rgba(142, 142, 142, 0.2);
