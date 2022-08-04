@@ -295,6 +295,8 @@
 
 - Modularize Knowledge base component (INDIGO Sprint 220722, [!336](https://github.com/TeskaLabs/asab-webui/pull/336)
 
+- Implement Breadcrumbs for small screen (INDIGO Sprint 220722, [!339](https://github.com/TeskaLabs/asab-webui/pull/339)
+
 
 ### Bugfixes
 
