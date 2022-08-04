@@ -66,7 +66,7 @@ const SidebarBottomItem = ({ item, sidebarLogo, screenWidth }) => {
 						{item && (
 							<button
 								title={t(`Sidebar|${item.name}`)}
-								className={`sidebar-item-button${location.pathname === item.url ? " active " : " "}btn left mobile-full-btn`}
+								className={`sidebar-item-button${location.pathname === item.url ? " active " : " "}btn left ${!isSidebarCollapsed && "mobile-full-btn"}`}
 							>
 								{sidebarLogo ? 
 									isSidebarCollapsed ?
