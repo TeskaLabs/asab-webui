@@ -16,6 +16,7 @@ At the moment works ONLY with `apiPath='seacat_auth'`
 `credentials_ids` (required, array of strings) - credential ids to be converted
 `apiPath` - default (and only working so far) `'seacat_auth'`
 `cleanupTime` - in milisecondes, default set to 24 hours `{1000 * 60 * 60 * 24}`
+`...props` - pass props on the `<Link>` such as a `title, id, className, etc`
 
 ## Example:
 
