@@ -293,6 +293,8 @@
 
 - Add monospace styling to treemenu toggle icons (INDIGO Sprint 220722, [!335](https://github.com/TeskaLabs/asab-webui/pull/335))
 
+- DataTable update - adding customHeaderStyle property to headers (INDIGO Sprint 220722, [!337](https://github.com/TeskaLabs/asab-webui/pull/337))
+
 - Modularize Knowledge base component (INDIGO Sprint 220722, [!336](https://github.com/TeskaLabs/asab-webui/pull/336))
 
 - Logo and menu in sidebar allignment. Sidebar's submenu items position fix. (INDIGO Sprint 220722, [!340](https://github.com/TeskaLabs/asab-webui/pull/340))

@@ -15,14 +15,15 @@ const TableCell = ({
 }) => {
 	if (!obj) return <td className="pl-3" style={{ whiteSpace: "nowrap" }}>-</td>
 
-	let cell, icon, customStyle;
+	let cell, icon, customCellStyle;
 	const textLinkStyle = {
 		whiteSpace: "nowrap",
 		marginBottom: 0
 	}
 
-	if (header?.customStyle) {
-		customStyle = header.customStyle;
+	if (header?.customCellStyle) {
+		customCellStyle = header.customCellStyle;
+		textLinkStyle = {...textLinkStyle, ...customCellStyle}
 	}
 
 	if (header?.icon) {
@@ -108,11 +109,11 @@ const TableCell = ({
 	}
 
 	return idx === 0 && !isSublist ? (
-			<th className="data-table-th" scope="row" style={{...customStyle}}>
+			<th className="data-table-th" scope="row" style={{...customCellStyle}}>
 				{cell}
 			</th>
 		) : (
-			<td className="pl-3 data-table-td" style={{ whiteSpace: "nowrap", ...customStyle }}>
+			<td className="pl-3 data-table-td" style={{ whiteSpace: "nowrap", ...customCellStyle }}>
 				{cell}
 			</td>
 		);
@@ -126,7 +127,7 @@ const Headers = ({ headers, advmode, sublists }) => (
 			{headers.map((_, idx) =>
 				<col
 					className={`data-table-col${idx}`}
-					style={{ width: (idx === headers.length - 1) ? "auto" : "1px" }}
+					style={{ width: (idx === headers.length - 1) ? "auto" : "8em", ..._.customHeaderStyle }}
 					key={idx}
 				/>
 			)}

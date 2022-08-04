@@ -93,7 +93,8 @@ headers: [
 		{ 
 			name: 'Name',
 			key: 'username',
-			customStyle: { textOverflow: "ellipsis", 
+			customHeaderStyle: { minWidth: '100px' },
+			customCellStyle: { textOverflow: "ellipsis", 
 							overflow: "hidden", 
 							whiteSpace: "nowrap", 
 							maxWidth: "15ch"
@@ -101,7 +102,11 @@ headers: [
 		},
 ```
 
-Prop `headers` is basically an array containing objects with obligatory properties `name` and `key` and optional properties `link`, `datetime`, `json`, `actionButton`, `customRowStyle`, `customRowClassName`, `customStyle` and `customComponent`. Order of headers in a table is the same as it is in prop `headers`.
+Prop `headers` is basically an array containing objects with obligatory properties `name` and `key` and optional properties `link`, `datetime`, `json`, `actionButton`, `customRowStyle`, `customRowClassName`, `customCellStyle`, `customHeaderStyle` and `customComponent`. Order of headers in a table is the same as it is in prop `headers`.
+
+`header`'s property `customCellStyle` allows to add custom styling to all data cells in column assigned below partucilar header(but not the header itself and column's width - for that see `customHeaderStyle`).
+
+`header`'s property `customHeaderStyle` adds custom styling only to the particular header cell. it is also used to change default column size (default is `width: 5em`).
 
 Property `name` is a string that will be rendered as a header cell in headers row of the table. Property `key` is a key name for getting data from `data` prop, it must be the same as it is in objects in `data` prop.
 
@@ -700,7 +705,8 @@ props: {
 		key: string
 	},
 	datetime?: boolean | { format: string },
-	customStyle?: object
+	customCellStyle?: object
+	customHeaderStyle?: object
   }>,
   count: number, // count of all items
   currentPage: number, // current page of the table
