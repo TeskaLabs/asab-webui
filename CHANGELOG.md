@@ -301,6 +301,8 @@
 
 - Add form group style for messages and errors in input validation (INDIGO Sprint 220722, [!338](https://github.com/TeskaLabs/asab-webui/pull/338)
 
+- Refactor Credentials component. Implement option to add className, title, id for Link element. Update dropdown styles for more opportunities in DropdownItem  (INDIGO Sprint 220722, [!342](https://github.com/TeskaLabs/asab-webui/pull/342)
+
 
 ### Bugfixes
 
