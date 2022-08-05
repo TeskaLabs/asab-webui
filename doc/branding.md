@@ -77,6 +77,8 @@ While creating the branding images, use full width/height of the canvas (ratio 3
 ### Branding images
 
 format: **SVG**
+
+
 full:
  * rendered ratio: `3:1`
  * rendered size: `150x50 px`
@@ -84,6 +86,7 @@ full:
 minimized:
  * rendered ratio: `1:1`
  * rendered size: `50x50 px`
+
 
 **Branding** is located in `top-left` corner on large screens. `Fullsize` branding image is used when sidebar is uncollapsed and is substituted by `mimnimized` version upon collapsing. On smaller screens (<768px), branding in sidebar disappeares and only fullsized branding image appears in the `top-center` position of the page.
 
