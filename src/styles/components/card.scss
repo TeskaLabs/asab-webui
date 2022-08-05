@@ -36,7 +36,7 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 			font-size: 1rem;
 			line-height: 50px;
 			margin: auto 1.25rem;
-			height:  50px;
+			min-height:  50px;
 			[class^="cil-"], [class*=" cil-"] {
 				color: $primary;
 				font-weight: 700;
