@@ -293,11 +293,18 @@
 
 - Add monospace styling to treemenu toggle icons (INDIGO Sprint 220722, [!335](https://github.com/TeskaLabs/asab-webui/pull/335))
 
+- DataTable update - adding customHeaderStyle property to headers (INDIGO Sprint 220722, [!337](https://github.com/TeskaLabs/asab-webui/pull/337))
+
 - Modularize Knowledge base component (INDIGO Sprint 220722, [!336](https://github.com/TeskaLabs/asab-webui/pull/336))
 
 - Logo and menu in sidebar allignment. Sidebar's submenu items position fix. (INDIGO Sprint 220722, [!340](https://github.com/TeskaLabs/asab-webui/pull/340))
 
 - Branding docs update. (INDIGO Sprint 220722, [!341](https://github.com/TeskaLabs/asab-webui/pull/341))
+
+- Add form group style for messages and errors in input validation (INDIGO Sprint 220722, [!338](https://github.com/TeskaLabs/asab-webui/pull/338))
+
+- Refactor Credentials component. Implement option to add className, title, id for Link element. Update dropdown styles for more opportunities in DropdownItem  (INDIGO Sprint 220722, [!342](https://github.com/TeskaLabs/asab-webui/pull/342))
+
 
 ### Bugfixes
 

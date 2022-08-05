@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 // description and examples in `asab-webui/doc/credentials.md`
 
-export function Credentials(props) {
+export function Credentials({ ...props }) {
 
 	const { t } = useTranslation();
 
@@ -61,7 +61,7 @@ export function Credentials(props) {
 					return (
 						<div title={credentialObj.id}>
 							<i className="cil-user pr-1"></i>
-							<Link to={{ pathname: `/auth/credentials/${credentialObj.id}` }}>
+							<Link {...props} to={{ pathname: `/auth/credentials/${credentialObj.id}` }}>
 								{credentialObj.username}
 							</Link>
 						</div>
@@ -72,7 +72,7 @@ export function Credentials(props) {
 					return (
 						<div>
 							<i className="cil-user pr-1"></i>
-							<Link to={{ pathname: `/auth/credentials/${credentials_id}` }}>
+							<Link {...props} to={{ pathname: `/auth/credentials/${credentials_id}` }}>
 								{credentials_id}
 							</Link>
 						</div>
