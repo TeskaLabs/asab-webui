@@ -42,7 +42,7 @@ const SidebarBottomItem = ({ item, sidebarLogo, screenWidth }) => {
 		});
 	}
 
-	if (screenWidth && screenWidth < 800) {
+	if (screenWidth && screenWidth <= 768) {
 		dispatch({
 			type: COLLAPSE_SIDEBAR,
 			isSidebarCollapsed: false
