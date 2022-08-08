@@ -264,6 +264,28 @@ $sidebar-item-font-size: 14px;
 	}
 }
 
+@media screen and (max-width: 768px) {
+	.app-sidebar {
+		.sidebar-item-button {
+			&.mobile-collapsed {
+				display: none;
+			}
+		}
+	}
+	.app-sidebar {
+		.sidebar-nav {
+			.nav {
+				.sidebar-item-button {
+					&.mobile-collapsed {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+}
+
+
 @media screen and (max-width: 800px) {
 	.mobile-sidebar-burger {
 		color: $toggle-text-color;
@@ -282,22 +304,7 @@ $sidebar-item-font-size: 14px;
 	}
 
 	.app-sidebar {
-		.sidebar-item-button {
-			&.mobile-collapsed {
-				display: none;
-			}
-		}
-	}
-	.app-sidebar {
 		.sidebar-nav {
-			.nav {
-				.sidebar-item-button {
-					&.mobile-collapsed {
-						display: none;
-					}
-
-				}
-			}
 			.sidebar-bottom {
 				.nav {
 					.sidebar-item-button {

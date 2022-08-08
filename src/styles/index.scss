@@ -126,7 +126,7 @@ code {
 
 	text-align: center;
 	white-space: nowrap;
-	
+
 	transition: width 0.6s ease;
 }
 
@@ -136,9 +136,12 @@ code {
 
 .without-sidebar {
 	margin-left: 0;
+	.main.padding-small-screens {
+		margin-right: 0;
+	}
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 768px) {
 	.header-sidebar-wrapper {
 		overflow-x: hidden;
 		.app-body {
@@ -146,6 +149,16 @@ code {
 			margin-left: 0;
 			.main {
 				margin-left: 1rem !important;
+			}
+		}
+	}
+}
+@media screen and (max-width: 768px) {
+	.header-sidebar-wrapper {
+		.app-body.without-sidebar {
+			.main.padding-small-screens {
+				padding-top: 0 !important;
+				margin: 0 1rem;
 			}
 		}
 	}

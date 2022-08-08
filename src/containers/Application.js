@@ -520,7 +520,7 @@ class Application extends Component {
 								className={`app-body ${this.props.hasSidebar || this.props.hasSidebar === undefined ? "" : "without-sidebar"}`}
 							>
 								<Header app={this} />
-								<main className="main">
+								<main className="main padding-small-screens">
 									<Suspense
 										fallback={<div style={{ marginTop: "1rem" }}><Spinner /></div>}
 									>
