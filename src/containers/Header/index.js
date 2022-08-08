@@ -31,7 +31,7 @@ export function Header(props) {
 		<header className={`application-header ${headerProperties ? 'header-props-open' : ""}`}>
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar == 'undefined') ?
 				<>
-					{windowDimensions.width < 800 &&
+					{windowDimensions.width <= 768 &&
 						<div className="mobile-logo-position">
 							<Link to={href}>
 								<img
@@ -43,7 +43,7 @@ export function Header(props) {
 							</Link>
 						</div>
 					}
-					<Breadcrumbs app={props.app}/>
+					{windowDimensions.width > 768 && <Breadcrumbs app={props.app}/>}
 					<Nav className="ml-auto header-props" navbar>
 						<ThemeButton />
 						<HelpButton />
@@ -131,6 +131,7 @@ export function Header(props) {
 				</>
 			}
 			</div>
+			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') && (windowDimensions.width <= 768 && <Breadcrumbs app={props.app}/>)}
 		</header>
 	);
 }

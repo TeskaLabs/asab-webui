@@ -305,6 +305,8 @@
 
 - Refactor Credentials component. Implement option to add className, title, id for Link element. Update dropdown styles for more opportunities in DropdownItem  (INDIGO Sprint 220722, [!342](https://github.com/TeskaLabs/asab-webui/pull/342))
 
+- Implement Breadcrumbs for small screen (INDIGO Sprint 220722, [!339](https://github.com/TeskaLabs/asab-webui/pull/339)
+
 
 ### Bugfixes
 
