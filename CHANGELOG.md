@@ -383,3 +383,5 @@
 - Fix pagination's position after decomposing of DataTable, vertical allignment in DataTable's card footer and disappearance of pagination when no data is preset (INDIGO Sprint 220527, [!285](https://github.com/TeskaLabs/asab-webui/pull/285))
 
 - Fix overwriting values in input in Configuration due to useForm (INDIGO Sprint 220712, [!333](https://github.com/TeskaLabs/asab-webui/pull/333))
+
+- Removing bug causing limitation to scroll in the sidebar if it's items contain more than 100vh (INDIGO Sprint 220805, [!343](https://github.com/TeskaLabs/asab-webui/pull/343))
