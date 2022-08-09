@@ -47,6 +47,7 @@ export default AccessControlScreen;
 function AccessControlCard(props) {
 	const { t, i18n } = useTranslation();
 	const userinfo = props.userinfo;
+	const resources = props.resources;
 	const App = props.app;
 	let currentTenant;
 	// Check Tenant service availability
@@ -87,7 +88,7 @@ function AccessControlCard(props) {
 							<Col>
 								{t('AccessControlScreen|Resources')}
 							</Col>
-							<ItemToRender userinfo={userinfo} item='resources' />
+							<ItemToRender userinfo={userinfo} resources={resources} item='resources' currentTenant={currentTenant} />
 						</Row>
 					</>
 					) : (
@@ -106,11 +107,16 @@ function ItemToRender(props) {
 	return(
 		<Col>
 			{props.userinfo[item] ?
-				props.userinfo[item].map(itm => {
-					return(<p style={{marginBottom: "5px"}} key={itm}>{itm}</p>)
-				})
+				item == "resources" ?
+					props.resources.map(itm => {
+						return(<p style={{marginBottom: "5px"}} key={itm}>{itm}</p>)
+					})
 				:
-				null
+					props.userinfo[item].map(itm => {
+						return(<p style={{marginBottom: "5px"}} key={itm}>{itm}</p>)
+					})
+				:
+					null
 			}
 		</Col>
 		)
@@ -119,7 +125,8 @@ function ItemToRender(props) {
 
 function mapStateToProps(state) {
 	return {
-		userinfo: state.auth.userinfo
+		userinfo: state.auth.userinfo,
+		resources: state.auth.resources
 	}
 }
 
