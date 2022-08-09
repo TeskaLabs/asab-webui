@@ -95,8 +95,9 @@ export default class AuthModule extends Module {
 				if (this.App.Navigation.Items.length > 0) {
 					await this.validateNavigation();
 				}
-
-				this._notifyOnExpiredSession(this);
+				if (this.UserInfo != null) {
+					this._notifyOnExpiredSession(this);
+				}
 			}
 
 			if ((this.UserInfo == null) && (this.MustAuthenticate)) {
@@ -246,8 +247,7 @@ export default class AuthModule extends Module {
 		if (!isUserInfoUpdated && oldUserInfo) {
 			oldUserInfo = null;
 			that.App.addAlert("danger", "ASABAuthModule|Your session has expired", 3600 * 1000, true);
-		}
-		else {
+		} else if (that.UserInfo != null) {
 			let exp = that.UserInfo.exp * 1000; // Expiration timestamp
 			const difference = exp - Date.now(); // Difference between current time and expiration date in milliseconds
 
