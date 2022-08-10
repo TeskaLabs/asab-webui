@@ -54,7 +54,7 @@ export function Header(props) {
 						))}
 					</Nav>
 				</>
-			:
+				:
 				<>
 				<div className="mobile-logo-position">
 					<Link to={href}>
@@ -91,6 +91,12 @@ export function Header(props) {
 			<div className={`header-props-toggler mr-3 p-0 ${headerProperties ? 'header-props-open' : '' }`} onClick={() => setHeaderProperties(!headerProperties)}>
 				<i className="cil-chevron-bottom"></i>
 			</div>
+			<div className="header-props-language">
+				{HeaderService.Items.map((item, idx) => (
+					item.component.name === "LanguageDropdown" &&
+					<item.component key={item} {...item.componentProps} app={props.app}/>
+				))}
+			</div>
 			
 			{/* smallscreen menu  */}
 			<div className={`header-props-sm`}>
@@ -102,9 +108,12 @@ export function Header(props) {
 							<ThemeButton />
 							<HelpButton />
 							{HeaderService.Items.map((item, idx) => (
-								<NavItem key={idx}>
-									<item.component key={item} {...item.componentProps} app={props.app}/>
-								</NavItem>
+								item.component.name !== "LanguageDropdown" ?
+									<NavItem key={idx}>
+										<item.component key={item} {...item.componentProps} app={props.app}/>
+									</NavItem>
+									:
+									null
 							))}
 						</Nav>
 					)
