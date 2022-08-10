@@ -151,6 +151,7 @@ class Application extends Component {
 		modules_init().then(async function () {
 			that.Store.replaceReducer(combineReducers(that.ReduxService.Reducers));
 			that.Config.dispatch(that.Store);
+			let promises = [];
 
 			// Initialize all services
 			for (var i in that.Services) {
@@ -162,10 +163,10 @@ class Application extends Component {
 				await promise;
 
 				that.Config.dispatch(that.Store);
+				promises.push(promise);
 			}
-
-			that.removeSplashScreenRequestor(that);
-		});
+			Promise.all(promises).then(that.removeSplashScreenRequestor(that)).catch((e) => console.error("Services not initialized properly"));
+		}).catch((e) => console.error("Modules not initialized properly"));
 
 	}
 
