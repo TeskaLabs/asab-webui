@@ -165,8 +165,8 @@ class Application extends Component {
 				that.Config.dispatch(that.Store);
 				promises.push(promise);
 			}
-			Promise.all(promises).then(that.removeSplashScreenRequestor(that)).catch((e) => console.error("Services not initialized properly"));
-		}).catch((e) => console.error("Modules not initialized properly"));
+			Promise.all(promises).then(that.removeSplashScreenRequestor(that)).catch((e) => console.error("Services not initialized properly:", e));
+		}).catch((e) => console.error("Modules not initialized properly:", e));
 
 	}
 
