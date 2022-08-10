@@ -93,7 +93,7 @@ export function Header(props) {
 			</div>
 			<div className="header-props-language">
 				{HeaderService.Items.map((item, idx) => (
-					item.component.name === "LanguageDropdown" &&
+					item.componentProps?.children === "LanguageDropdown" &&
 					<item.component key={item} {...item.componentProps} app={props.app}/>
 				))}
 			</div>
@@ -108,7 +108,7 @@ export function Header(props) {
 							<ThemeButton />
 							<HelpButton />
 							{HeaderService.Items.map((item, idx) => (
-								item.component.name !== "LanguageDropdown" ?
+								item.componentProps?.children !== "LanguageDropdown" ?
 									<NavItem key={idx}>
 										<item.component key={item} {...item.componentProps} app={props.app}/>
 									</NavItem>
@@ -117,16 +117,19 @@ export function Header(props) {
 							))}
 						</Nav>
 					)
-				:
+					:
 					<Nav className="header-props-sm" navbar>
 						<ThemeButton />
 						<HelpButton />
 						{HeaderService.Items.map((item, idx) => (
 							window.innerWidth < 1024 && item.componentProps.children !== undefined && item.componentProps.children === "LanguageDropdown" ?
-								<NavItem key={idx}>
-									<item.component key={item} {...item.componentProps} app={props.app}/>
-								</NavItem>
-							:
+								item.componentProps?.children !== "LanguageDropdown" ?
+									<NavItem key={idx}>
+										<item.component key={item} {...item.componentProps} app={props.app}/>
+									</NavItem>
+									:
+									null
+								:
 								window.innerWidth >= 1024 ?
 									<NavItem key={idx}>
 										<item.component key={item} {...item.componentProps} app={props.app}/>
