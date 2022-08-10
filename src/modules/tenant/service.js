@@ -33,12 +33,14 @@ export default class TenantService extends Service {
 
 		// If tenant has not been provided in access URL, pick a first tenant from a list
 		if (tenant_id == null && tenants_list && tenants_list.length > 0) {
-			tenant_id = tenants_list[0];
+			let tenant = tenants_list[0];
+			console.log(tenant, 'tenant in tenant service, first condition');
+			// tenant_id = tenants_list[0];
 			// ... and refresh (reload) the whole web app
-			window.location.replace(`${window.location.pathname}?tenant=${tenant_id}${window.location.hash}`);
+			window.location.replace(`${window.location.pathname}?tenant=${tenant}${window.location.hash}`);
 			return;
 		}
-
+		console.log(!tenants_list || tenants_list.length == 0, tenants_list, tenants_list.length, 'second condition, tenants_list, tenants_list.length in tenant service')
 		// In case if the tenant list from userinfo is undefined or empty remove tenant parameter from URL
 		if (!tenants_list || tenants_list.length == 0) {
 			window.location.replace(window.location.pathname + window.location.hash);
