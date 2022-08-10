@@ -27,13 +27,19 @@ export default class TenantService extends Service {
 	*/
 	set_tenants(tenants_list) {
 		// Extract a current tenant from URL params
-		var tenant_id = this._extract_tenant_from_url();
+		var tenant_id = this.get_current_tenant();
 		console.log(tenant_id, 'tenant_id in tenant service.js');
 		console.log(tenants_list, 'tenants_list in tenant service.js');
 
 		// If tenant has not been provided in access URL, pick a first tenant from a list
 		if (tenant_id == null && tenants_list && tenants_list.length > 0) {
 			let tenant = tenants_list[0].toString();
+			// TODO: POC tenant handling for safari with dispatching
+			this.App.Store.dispatch({
+				type: types.TENANTS_CHANGED,
+				tenants_list,
+				current: tenant
+			});
 			console.log(tenant, 'tenant in tenant service, first condition');
 			console.log(window.location.pathname + '?tenant=' + tenant + window.location.hash, 'replaced url in tenant service first condition')
 			// tenant_id = tenants_list[0];
