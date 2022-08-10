@@ -35,9 +35,10 @@ export default class TenantService extends Service {
 		if (tenant_id == null && tenants_list && tenants_list.length > 0) {
 			let tenant = tenants_list[0];
 			console.log(tenant, 'tenant in tenant service, first condition');
+			console.log(window.location.pathname + '?tenant=' + tenant.toString + window.location.hash, 'replaced url in tenant service first condition')
 			// tenant_id = tenants_list[0];
 			// ... and refresh (reload) the whole web app
-			window.location.replace(`${window.location.pathname}?tenant=${tenant}${window.location.hash}`);
+			window.location.replace(window.location.pathname + '?tenant=' + tenant.toString() + window.location.hash);
 			return;
 		}
 		console.log(!tenants_list || tenants_list.length == 0, tenants_list, tenants_list.length, 'second condition, tenants_list, tenants_list.length in tenant service')
