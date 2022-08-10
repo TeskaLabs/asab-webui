@@ -36,7 +36,7 @@ export default class TenantService extends Service {
 			this.App.Store.dispatch({
 				type: types.TENANTS_CHANGED,
 				tenants_list,
-				current: tenant
+				current: tenant_id
 			});
 			// ... and refresh (reload) the whole web app
 			window.location.replace(`${window.location.pathname}?tenant=${tenant_id}${window.location.hash}`);
