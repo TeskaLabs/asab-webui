@@ -28,6 +28,8 @@ export default class TenantService extends Service {
 	set_tenants(tenants_list) {
 		// Extract a current tenant from URL params
 		var tenant_id = this._extract_tenant_from_url();
+		console.log(tenant_id, 'tenant_id in tenant service.js');
+		console.log(tenants_list, 'tenants_list in tenant service.js');
 
 		// If tenant has not been provided in access URL, pick a first tenant from a list
 		if (tenant_id == null && tenants_list && tenants_list.length > 0) {
@@ -47,6 +49,7 @@ export default class TenantService extends Service {
 		let current_tenant;
 		if (tenants_list) {
 			let filtered_tenant = tenants_list.filter((item) => { return item == tenant_id });
+			console.log(filtered_tenant, 'filtered_tenant in tenant service.js');
 			if (filtered_tenant.length < 1) {
 				// Display Invalid tenant alert message only when authorization is disabled
 				if (this.App.Config.get("authorization") === "disabled") {
@@ -55,8 +58,9 @@ export default class TenantService extends Service {
 			}
 			current_tenant = filtered_tenant[0];
 		} else {
-			current_tenant = undefined;
+			current_tenant = null;
 		}
+		console.log(current_tenant, 'current_tenant in tenant service.js');
 		// Dispatch tenants obtained from userinfo
 		this.App.Store.dispatch({
 			type: types.TENANTS_CHANGED,
