@@ -172,11 +172,11 @@ class Application extends Component {
 
 			Promise.all(promises).then(() => {
 				if(window.localStorage) {
-					if(!localStorage.getItem('firstLoad')) {
-						localStorage['firstLoad'] = true;
+					if(!window.localStorage.getItem('firstLoad')) {
+						window.localStorage['firstLoad'] = true;
 						window.location.reload();
 					} else {
-						localStorage.removeItem('firstLoad');
+						window.localStorage.removeItem('firstLoad');
 						that.removeSplashScreenRequestor(that);
 					}
 				}
