@@ -128,7 +128,6 @@ class Application extends Component {
 		var that = this;
 
 		async function modules_init() {
-			let promises = [];
 			// Instantiate statically imported modules
 			for (var i in props.modules) {
 				const module = new props.modules[i](that);
@@ -146,14 +145,10 @@ class Application extends Component {
 				// It unifies synchronous and asynchronous `initialize()` calls
 				let promise = Promise.resolve(ret);
 				await promise;
-				promises.push(promise);
 			}
-
-			Promise.all(promises).then().catch((e) => console.error("Modules not initialized properly:", e));
 		}
 
 		modules_init().then(async function () {
-			let promises = [];
 			that.Store.replaceReducer(combineReducers(that.ReduxService.Reducers));
 			that.Config.dispatch(that.Store);
 
@@ -167,10 +162,10 @@ class Application extends Component {
 				await promise;
 
 				that.Config.dispatch(that.Store);
-				promises.push(promise);
 			}
 
-			Promise.all(promises).then(() => {
+			// that.removeSplashScreenRequestor(that);
+			if (document.readyState == "complete" || document.readyState == "interactive") {
 				if(window.localStorage) {
 					if(!window.localStorage.getItem('firstLoad')) {
 						window.localStorage['firstLoad'] = true;
@@ -180,8 +175,7 @@ class Application extends Component {
 						that.removeSplashScreenRequestor(that);
 					}
 				}
-				}
-			).catch((e) => console.error("Services not initialized properly:", e));
+			}
 		}).catch((e) => console.error("Modules and services not initialized properly:", e));
 
 	}
