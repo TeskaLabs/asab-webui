@@ -8,8 +8,7 @@ export default class I18nService extends Service {
 
 	constructor(app, name="I18nService") {
 		super(app, name);
-		// TODO: commented for testing purposes
-		// this.App.addSplashScreenRequestor(this);
+		this.App.addSplashScreenRequestor(this);
 
 		// TODO: reinitialize i18n when dynamic configuration is made available
 		var config = app.Config.get('i18n');
@@ -52,8 +51,7 @@ export default class I18nService extends Service {
 			.use(initReactI18next)
 			.use(LanguageDetector)
 			.init(config, (err, t) => {
-				// TODO: commented for testing purposes
-				// this.App.removeSplashScreenRequestor(this);
+				this.App.removeSplashScreenRequestor(this);
 				if (err) {
 					//TODO: only in case of final error, show: app.addAlert("warning", "Failed to load localizations.");
 					console.log('Failed to load localizations:', err);
