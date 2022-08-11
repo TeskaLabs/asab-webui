@@ -149,9 +149,9 @@ class Application extends Component {
 		}
 
 		modules_init().then(async function () {
+			let promises = [];
 			that.Store.replaceReducer(combineReducers(that.ReduxService.Reducers));
 			that.Config.dispatch(that.Store);
-			let promises = [];
 
 			// Initialize all services
 			for (var i in that.Services) {
@@ -165,7 +165,19 @@ class Application extends Component {
 				that.Config.dispatch(that.Store);
 				promises.push(promise);
 			}
-			Promise.all(promises).then(that.removeSplashScreenRequestor(that)).catch((e) => console.error("Services not initialized properly:", e));
+
+			Promise.all(promises).then(() => {
+				if(window.localStorage) {
+					if(!localStorage.getItem('firstLoad')) {
+						localStorage['firstLoad'] = true;
+						window.location.reload();
+					} else {
+						localStorage.removeItem('firstLoad');
+						that.removeSplashScreenRequestor(that);
+					}
+				}
+				}
+			).catch((e) => console.error("Services not initialized properly:", e));
 		}).catch((e) => console.error("Modules not initialized properly:", e));
 
 	}
