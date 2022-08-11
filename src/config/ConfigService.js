@@ -46,7 +46,8 @@ export default class ConfigService extends Service {
 
 		// Check on undefined configuration
 		if (dynamic_config_url !== undefined) {
-			this.App.addSplashScreenRequestor(this);
+			// TODO: commented for testing purposes
+			// this.App.addSplashScreenRequestor(this);
 			let axios = Axios.create({ baseURL: window.location.protocol + '//' + window.location.host });
 			axios.get(dynamic_config_url).then(response => {
 				// Check on status and content-type
@@ -63,7 +64,8 @@ export default class ConfigService extends Service {
 					console.log(error);
 					this.App.addAlert("danger", "ASABConfigService|Error when downloading a config file. The path might be corrupted", 5, true);
 				})
-				.then(() => this.App.removeSplashScreenRequestor(this));
+				// TODO: commented for testing purposes
+				// .then(() => this.App.removeSplashScreenRequestor(this));
 		}
 	}
 

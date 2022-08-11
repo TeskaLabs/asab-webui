@@ -17,7 +17,8 @@ export default class AuthModule extends Module {
 		this.RedirectURL = window.location.href;
 		this.MustAuthenticate = true; // Setting this to false means, that we can operate without authenticated user
 		app.ReduxService.addReducer("auth", reducer);
-		this.App.addSplashScreenRequestor(this);
+		// TODO: commented for testing purposes
+		// this.App.addSplashScreenRequestor(this);
 		this.Authorization = this.App.Config.get("authorization"); // Get authorization settings from configuration
 
 		// Access control screen
@@ -82,6 +83,9 @@ export default class AuthModule extends Module {
 					let tenantAuthorized = this.validateTenant();
 					let logoutTimeout = this.App.Config.get("authorizationLogoutTimeout") ? this.App.Config.get("authorizationLogoutTimeout") : 60000;
 					if (!tenantAuthorized) {
+						// TODO: splashscreen added for testing purposes
+						this.App.addSplashScreenRequestor(this);
+						//
 						this.App.addAlert("danger", "ASABAuthModule|You are not authorized to use this application", logoutTimeout, true);
 						// Logout after some time
 						setTimeout(() => {
@@ -107,7 +111,8 @@ export default class AuthModule extends Module {
 				return;
 			}
 		}
-		this.App.removeSplashScreenRequestor(this);
+		// TODO: commented for testing purposes
+		// this.App.removeSplashScreenRequestor(this);
 	}
 
 
