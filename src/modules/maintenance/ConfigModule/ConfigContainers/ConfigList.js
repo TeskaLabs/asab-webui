@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
 import { useHistory, Link } from "react-router-dom";
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import {
 	Button,
@@ -24,7 +24,7 @@ function ConfigList(props) {
 	const [ description, setDescription ] = useState("");
 
 	const resourceManageConfig = "config:admin";
-	const resources = props.userinfo?.resources ? props.userinfo.resources : [];
+	const resources = useSelector(state => state.auth?.resources);
 
 	const configType = props.configType;
 
@@ -169,13 +169,7 @@ function ConfigList(props) {
 	)
 }
 
-function mapStateToProps(state) {
-	return {
-		userinfo: state.auth.userinfo
-	}
-}
-
-export default connect(mapStateToProps)(ConfigList);
+export default ConfigList;
 
 
 function CreateConfigCard(props) {
