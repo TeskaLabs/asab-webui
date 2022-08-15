@@ -54,7 +54,7 @@ export function Header(props) {
 						))}
 					</Nav>
 				</>
-			:
+				:
 				<>
 				<div className="mobile-logo-position">
 					<Link to={href}>
@@ -91,6 +91,14 @@ export function Header(props) {
 			<div className={`header-props-toggler mr-3 p-0 ${headerProperties ? 'header-props-open' : '' }`} onClick={() => setHeaderProperties(!headerProperties)}>
 				<i className="cil-chevron-bottom"></i>
 			</div>
+			<div className="header-props-language">
+				{HeaderService.Items.map((item, idx) => (
+					window.innerWidth > 500 ?
+						item.componentProps?.children === "LanguageDropdown" && <item.component key={item} {...item.componentProps} app={props.app}/>
+						:
+						null
+				))}
+			</div>
 			
 			{/* smallscreen menu  */}
 			<div className={`header-props-sm`}>
@@ -102,28 +110,44 @@ export function Header(props) {
 							<ThemeButton />
 							<HelpButton />
 							{HeaderService.Items.map((item, idx) => (
-								<NavItem key={idx}>
-									<item.component key={item} {...item.componentProps} app={props.app}/>
-								</NavItem>
+								window.innerWidth > 500 ?
+									item.componentProps?.children !== "LanguageDropdown" ?
+										<NavItem key={idx}>
+											<item.component key={item} {...item.componentProps} app={props.app}/>
+										</NavItem>
+										:
+										null
+									:
+									<NavItem key={idx}>
+										<item.component key={item} {...item.componentProps} app={props.app}/>
+									</NavItem>
 							))}
 						</Nav>
 					)
-				:
+					:
 					<Nav className="header-props-sm" navbar>
 						<ThemeButton />
 						<HelpButton />
 						{HeaderService.Items.map((item, idx) => (
 							window.innerWidth < 1024 && item.componentProps.children !== undefined && item.componentProps.children === "LanguageDropdown" ?
-								<NavItem key={idx}>
-									<item.component key={item} {...item.componentProps} app={props.app}/>
-								</NavItem>
+								window.innerWidth > 500 ?
+									item.componentProps?.children !== "LanguageDropdown" ?
+										<NavItem key={idx}>
+											<item.component key={item} {...item.componentProps} app={props.app}/>
+										</NavItem>
+									:
+										null
+								:
+									<NavItem key={idx}>
+										<item.component key={item} {...item.componentProps} app={props.app}/>
+									</NavItem>
 							:
 								window.innerWidth >= 1024 ?
 									<NavItem key={idx}>
 										<item.component key={item} {...item.componentProps} app={props.app}/>
 									</NavItem>
 								:
-									null
+										null
 						))}
 					</Nav>
 
