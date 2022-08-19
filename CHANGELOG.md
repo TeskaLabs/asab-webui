@@ -309,6 +309,8 @@
 
 - Move language icon beside toggle icon (INDIGO Sprint 220805, [!346](https://github.com/TeskaLabs/asab-webui/pull/346)
 
+- Removal of footer's legacy. (Became obsolete with new design) (INDIGO Sprint 220805, [!347](https://github.com/TeskaLabs/asab-webui/pull/347)
+
 
 ### Bugfixes
 
