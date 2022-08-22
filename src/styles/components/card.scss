@@ -29,6 +29,9 @@ $box-shadow-card-color: var(--box-shadow-card-color);
     	min-height: 50px;
 		flex-wrap: wrap;
 		box-sizing:content-box;
+		& h3 {
+			margin: auto 1.25rem;
+		}
 		.card-header-title {
 			color: $text-secondary-color;
 			font-style: normal;
