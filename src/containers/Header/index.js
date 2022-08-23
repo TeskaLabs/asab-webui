@@ -54,7 +54,7 @@ export function Header(props) {
 						))}
 					</Nav>
 				</>
-				:
+			:
 				<>
 					<div className="mobile-logo-position">
 						<Link to={href}>
@@ -84,7 +84,6 @@ export function Header(props) {
 						))}
 					</Nav>
 				</>
-
 			}
 
 			{/* toggler has sidebar */}
@@ -104,7 +103,6 @@ export function Header(props) {
 				</>
 			}
 
-
 			{/* smallscreen menu has sidebar */}
 			<div className={`header-props-sm`}>
 				{ headerProperties &&
@@ -120,9 +118,9 @@ export function Header(props) {
 												<NavItem key={idx}>
 													<item.component key={item} {...item.componentProps} app={props.app}/>
 												</NavItem>
-												:
-												null
 											:
+												null
+										:
 											<NavItem key={idx}>
 												<item.component key={item} {...item.componentProps} app={props.app}/>
 											</NavItem>
