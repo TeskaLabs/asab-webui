@@ -309,6 +309,8 @@
 
 - Move language icon beside toggle icon (INDIGO Sprint 220805, [!346](https://github.com/TeskaLabs/asab-webui/pull/346)
 
+- Update styling Error screen (INDIGO Sprint 220819, [!348](https://github.com/TeskaLabs/asab-webui/pull/348)
+
 
 ### Bugfixes
 
