@@ -22,7 +22,6 @@ import headerHelpButtonReducer from './Header/reducer';
 import ReduxService from '../services/ReduxService';
 import ConfigService from '../config/ConfigService';
 import HeaderService from '../services/HeaderService';
-import FooterService from '../services/FooterService';
 import SidebarService from './Sidebar/service';
 import ThemeService from '../theme/ThemeService';
 
@@ -88,7 +87,6 @@ class Application extends Component {
 		this.AxiosInterceptors = new Set();
 
 		this.HeaderService = new HeaderService(this, "HeaderService");
-		this.FooterService = new FooterService(this, "FooterService");
 		this.SidebarService = new SidebarService(this, "SidebarService");
 		this.ThemeService = new ThemeService(this, "ThemeService");
 
