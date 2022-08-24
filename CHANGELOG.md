@@ -313,6 +313,8 @@
 
 - Removal of footer's legacy. (Became obsolete with new design) (INDIGO Sprint 220805, [!347](https://github.com/TeskaLabs/asab-webui/pull/347)
 
+- Update styling Error screen (INDIGO Sprint 220819, [!348](https://github.com/TeskaLabs/asab-webui/pull/348)
+
 
 ### Bugfixes
 
