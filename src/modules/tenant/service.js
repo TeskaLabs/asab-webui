@@ -25,21 +25,23 @@ export default class TenantService extends Service {
 		set_tenants(tenants_list) method is used for tenants obtained from userinfo
 		It is used within auth module of ASAB WebUI to dispatch the tenants to the application store
 	*/
-	set_tenants(tenants_list) {
+	async set_tenants(tenants_list) {
 		// Extract a current tenant from URL params
 		var tenant_id = this._extract_tenant_from_url();
 
 		// If tenant has not been provided in access URL, pick a first tenant from a list
-		if (tenant_id == null && tenants_list && tenants_list.length > 0) {
+		if ((tenant_id == null) && (tenants_list) && (tenants_list.length > 0)) {
 			tenant_id = tenants_list[0];
 			// ... and refresh (reload) the whole web app
 			window.location.replace(`${window.location.pathname}?tenant=${tenant_id}${window.location.hash}`);
+			await new Promise(r => setTimeout(r, 3600 * 1000)); // Basically wait forever, this the app is going to be reloaded
 			return;
 		}
 
 		// In case if the tenant list from userinfo is undefined or empty remove tenant parameter from URL
-		if (!tenants_list || tenants_list.length == 0) {
+		if ((!tenants_list) || (tenants_list.length == 0)) {
 			window.location.replace(window.location.pathname + window.location.hash);
+			await new Promise(r => setTimeout(r, 3600 * 1000)); // Basically wait forever, this the app is going to be reloaded
 			return;
 		}
 
