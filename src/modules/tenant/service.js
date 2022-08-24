@@ -1,5 +1,6 @@
 import Service from '../../abc/Service';
 import { types } from './actions';
+import { locationReplace } from 'asab-webui';
 
 export default class TenantService extends Service {
 
@@ -7,7 +8,7 @@ export default class TenantService extends Service {
 		super(app, name);
 	}
 
-	initialize() {
+	async initialize() {
 
 		// If the tenant list is in the configuration, use it
 		// This is useful when tenants are present but auth not
@@ -17,7 +18,7 @@ export default class TenantService extends Service {
 			for (var i = 0; tenants[i] != undefined; i++) {
 				tenants_list.push(tenants[i]);
 			}
-			this.set_tenants(tenants_list);
+			await this.set_tenants(tenants_list);
 		}
 	}
 
@@ -33,15 +34,13 @@ export default class TenantService extends Service {
 		if ((tenant_id == null) && (tenants_list) && (tenants_list.length > 0)) {
 			tenant_id = tenants_list[0];
 			// ... and refresh (reload) the whole web app
-			window.location.replace(`${window.location.pathname}?tenant=${tenant_id}${window.location.hash}`);
-			await new Promise(r => setTimeout(r, 3600 * 1000)); // Basically wait forever, this the app is going to be reloaded
+			await locationReplace(`${window.location.pathname}?tenant=${tenant_id}${window.location.hash}`);
 			return;
 		}
 
 		// In case if the tenant list from userinfo is undefined or empty remove tenant parameter from URL
 		if ((!tenants_list) || (tenants_list.length == 0)) {
-			window.location.replace(window.location.pathname + window.location.hash);
-			await new Promise(r => setTimeout(r, 3600 * 1000)); // Basically wait forever, this the app is going to be reloaded
+			await locationReplace(window.location.pathname + window.location.hash);
 			return;
 		}
 
