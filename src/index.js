@@ -19,5 +19,6 @@ export { default as timeToString } from './components/DateTime/timeToString';
 export { default as useDateFNSLocale } from './components/DateTime/useDateFNSLocale';
 export { validateConfiguration } from './config/validateConfiguration';
 export { default as TreeMenu } from './components/TreeMenu';
+export { locationReplace } from './components/locationReplace';
 
 import "./styles/index.scss";
