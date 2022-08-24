@@ -307,6 +307,8 @@
 
 - Implement Breadcrumbs for small screen (INDIGO Sprint 220722, [!339](https://github.com/TeskaLabs/asab-webui/pull/339)
 
+- Move language icon beside toggle icon (INDIGO Sprint 220805, [!346](https://github.com/TeskaLabs/asab-webui/pull/346)
+
 
 ### Bugfixes
 

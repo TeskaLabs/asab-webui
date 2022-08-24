@@ -74,7 +74,7 @@ $nav-bar-link: var(--nav-bar-link);
 
 // header-props
 
-.header-props-toggler, .header-props-sm {
+.header-props-language, .header-props-toggler, .header-props-sm {
 	visibility: hidden;
 	display: none;
 }
@@ -100,6 +100,16 @@ $nav-bar-link: var(--nav-bar-link);
 		display: flex;
 		justify-content: space-evenly;
 		transition: height 300ms ease;
+	}
+
+	.header-props-language {
+		visibility: visible;
+		display: inline-flex;
+		& .dropdown {
+			position: absolute;
+			right: 60px;
+			top: 16px;
+		}
 	}
 
 	.header-props-toggler{
