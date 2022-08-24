@@ -16,7 +16,6 @@ It is designed primarily for web-based user interfaces for ASAB microservices bu
 
  - Admin UI template
  - Header
- - Footer
  - Sidebar
  - Alerts
  - Network activity indicator
