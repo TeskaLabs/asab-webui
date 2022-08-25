@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { locationReplace } from 'asab-webui';
 
 import {
 	Card, CardHeader, CardFooter, CardBody, CardTitle, CardSubtitle,
@@ -15,9 +16,9 @@ function TenantSelectionCard(props) {
 	let resources = props.userinfo?.resources;
 	let superuser = resources ? resources.indexOf('authz:superuser') !== -1 : false;
 
-	const selectTenant = (tn) => {
+	const selectTenant = async (tn) => {
 		if (tn.value !== "99999") {
-			window.location.replace(`${window.location.pathname}?tenant=${tn.value}${window.location.hash}`);
+			await locationReplace(`${window.location.pathname}?tenant=${tn.value}${window.location.hash}`);
 			return;
 		}
 	}

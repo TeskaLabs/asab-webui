@@ -1,5 +1,6 @@
 import Service from '../../abc/Service';
 import { types } from './actions';
+import { locationReplace } from 'asab-webui';
 
 export default class TenantService extends Service {
 
@@ -7,7 +8,7 @@ export default class TenantService extends Service {
 		super(app, name);
 	}
 
-	initialize() {
+	async initialize() {
 
 		// If the tenant list is in the configuration, use it
 		// This is useful when tenants are present but auth not
@@ -17,7 +18,7 @@ export default class TenantService extends Service {
 			for (var i = 0; tenants[i] != undefined; i++) {
 				tenants_list.push(tenants[i]);
 			}
-			this.set_tenants(tenants_list);
+			await this.set_tenants(tenants_list);
 		}
 	}
 
@@ -25,21 +26,21 @@ export default class TenantService extends Service {
 		set_tenants(tenants_list) method is used for tenants obtained from userinfo
 		It is used within auth module of ASAB WebUI to dispatch the tenants to the application store
 	*/
-	set_tenants(tenants_list) {
+	async set_tenants(tenants_list) {
 		// Extract a current tenant from URL params
 		var tenant_id = this._extract_tenant_from_url();
 
 		// If tenant has not been provided in access URL, pick a first tenant from a list
-		if (tenant_id == null && tenants_list && tenants_list.length > 0) {
+		if ((tenant_id == null) && (tenants_list) && (tenants_list.length > 0)) {
 			tenant_id = tenants_list[0];
 			// ... and refresh (reload) the whole web app
-			window.location.replace(`${window.location.pathname}?tenant=${tenant_id}${window.location.hash}`);
+			await locationReplace(`${window.location.pathname}?tenant=${tenant_id}${window.location.hash}`);
 			return;
 		}
 
 		// In case if the tenant list from userinfo is undefined or empty remove tenant parameter from URL
-		if (!tenants_list || tenants_list.length == 0) {
-			window.location.replace(window.location.pathname + window.location.hash);
+		if ((!tenants_list) || (tenants_list.length == 0)) {
+			await locationReplace(window.location.pathname + window.location.hash);
 			return;
 		}
 
