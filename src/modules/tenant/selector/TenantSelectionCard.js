@@ -17,6 +17,7 @@ function TenantSelectionCard(props) {
 	let superuser = resources ? resources.indexOf('authz:superuser') !== -1 : false;
 
 	const selectTenant = async (tn) => {
+		console.log('inside select tenant wooohooooo')
 		if (tn.value !== "99999") {
 			await locationReplace(`${window.location.pathname}?tenant=${tn.value}${window.location.hash}`);
 			return;
@@ -51,7 +52,7 @@ function TenantSelectionCard(props) {
 							type="select"
 							name="selectTenant"
 							id="selectTenant"
-							onClick={(e) => {selectTenant(e.target)}}
+							onChange={(e)  => selectTenant(e.target)}
 							defaultValue={props.current}
 						>
 							<option key="def" value="99999">{t("TenantSelectionCard|Select tenant")}</option>
