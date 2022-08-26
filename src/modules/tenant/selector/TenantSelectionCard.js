@@ -51,7 +51,7 @@ function TenantSelectionCard(props) {
 							type="select"
 							name="selectTenant"
 							id="selectTenant"
-							onClick={(e) => {selectTenant(e.target)}}
+							onChange={(e) => {selectTenant(e.target)}}
 							defaultValue={props.current}
 						>
 							<option key="def" value="99999">{t("TenantSelectionCard|Select tenant")}</option>
