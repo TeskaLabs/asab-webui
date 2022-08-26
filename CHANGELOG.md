@@ -395,3 +395,5 @@
 - Removing bug causing limitation to scroll in the sidebar if it's items contain more than 100vh (INDIGO Sprint 220805, [!343](https://github.com/TeskaLabs/asab-webui/pull/343))
 
 - Fix Safari issues with loading of the application (INDIGO Sprint 220819, [!350](https://github.com/TeskaLabs/asab-webui/pull/350))
+
+- Fix Safari issue - TenantSelectionCard action triggered upon change of tenant (INDIGO Sprint 220819, [!352](https://github.com/TeskaLabs/asab-webui/pull/352))
