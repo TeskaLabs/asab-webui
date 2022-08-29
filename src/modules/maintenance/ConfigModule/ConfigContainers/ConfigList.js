@@ -138,7 +138,7 @@ function ConfigList(props) {
 		try {
 			let response = await ASABConfigAPI.delete(`/config/${configType}/${configName}`);
 			if (response.data.result != "OK"){
-				throw new Error(t('ASABConfig|Something went wrong, failed remove configuration'));
+				throw new Error(t('ASABConfig|Something went wrong, failed to remove configuration'));
 			}
 			props.app.Store.dispatch({
 				type: types.CONFIG_REMOVED,
