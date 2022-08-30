@@ -315,6 +315,8 @@
 
 - Update styling Error screen (INDIGO Sprint 220819, [!348](https://github.com/TeskaLabs/asab-webui/pull/348)
 
+- Corrected grammatical errors in translations (INDIGO Sprint 220819, [!353](https://github.com/TeskaLabs/asab-webui/pull/353)
+
 
 ### Bugfixes
 
