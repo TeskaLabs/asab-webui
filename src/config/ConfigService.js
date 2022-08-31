@@ -80,6 +80,18 @@ export default class ConfigService extends Service {
 		// 	}
 		// }
 		// this.App.addSplashScreenRequestor(this);
+
+
+		/*
+			Example of nginx setup
+
+			location /<location> {
+				root /<path>/<to>/<build>;
+				index index.html;
+				add_header x-config "/<path>/<to>/<external>/<config>.json";
+			}
+
+		*/
 		const dynamic_url = async () => {
 			const getCfgPath = await fetch(document.location).then(res => {
 				let xConfigPath = res.headers.get('x-config');
