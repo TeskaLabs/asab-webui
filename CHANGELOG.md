@@ -317,6 +317,8 @@
 
 - Corrected grammatical errors in translations (INDIGO Sprint 220819, [!353](https://github.com/TeskaLabs/asab-webui/pull/353)
 
+- Input's padding adjustment inside droprdowns header (INDIGO 220819, [!354](https://github.com/TeskaLabs/asab-webui/pull/354))
+
 
 ### Bugfixes
 
