@@ -39,16 +39,74 @@ export default class ConfigService extends Service {
 	}
 
 
-	initialize() {
-		// dynamic_config_url is taken from content atribute of meta element
-		// <meta name="x-config" content="https..." />
-		const dynamic_config_url = document.getElementsByName('x-config')[0]?.content;
+	async initialize() {
+		// // dynamic_config_url is taken from content atribute of meta element
+		// // <meta name="x-config" content="https..." />
+		// const dynamic_config_url = document.getElementsByName('x-config')[0]?.content;
+		// console.log(dynamic_config_url, "DYNAMIC CONFIG URL")
+		// console.log(document.getElementsByName('x-config'), "DOC BY ELEMENTS NAME")
 
+		// const request = new XMLHttpRequest();
+		// request.open("GET", document.location, true);
+		// request.send();
+		// request.onreadystatechange = () => {
+		// 	console.log(request.readyState, "READY STATE")
+		// 	if (request.readyState === XMLHttpRequest.DONE) {
+		// 		// Get the raw header string
+		// 		const headers = request.getAllResponseHeaders();
+		// 		console.log(headers, "HEADERS")
+		// 		if ((headers) && (typeof headers == 'string') && (headers.indexOf("x-config") != -1)) {
+		// 			// Convert the header string into an array
+		// 			// of individual headers
+		// 			const arr = headers.trim().split(/[\r\n]+/);
+		// 			console.log(arr, "ARRAY")
+		// 			// Create a map of header names to values
+		// 			const headerMap = {};
+		// 			arr.forEach((line) => {
+		// 				const parts = line.split(': ');
+		// 				const header = parts.shift();
+		// 				const value = parts.join(': ');
+		// 				headerMap[header] = value;
+		// 			});
+		// 			const xConfigPath = headerMap["x-config"];
+		// 			if (this.App.Store != null) {
+		// 				this.Config.dispatch(this.App.Store, xConfigPath);
+		// 				// this.App.Store.dispatch({ type: SET_DYNAMIC_CONFIG_PATH, dynamic_config_path: xConfigPath });
+		// 				console.log('DISPATCHED')
+		// 			}
+		// 			console.log(headerMap, headerMap["x-config"], "TAK ZKOUSIM")
+		// 		}
+		// 		console.log("NEPROSLO NEVADI")
+		// 	}
+		// }
+		// this.App.addSplashScreenRequestor(this);
+		const dynamic_url = async () => {
+			const getCfgPath = await fetch(document.location).then(res => {
+				let xConfigPath = res.headers.get('x-config');
+				// if (this.App.Store != null) {
+				// 	// this.Config.dispatch(this.App.Store, xConfigPath);
+				// 	this.App.Store.dispatch({ type: SET_DYNAMIC_CONFIG_PATH, dynamic_config_path: xConfigPath });
+				// 	console.log(xConfigPath, 'DISPATCHED')
+				// }
+				// alert(res.headers.get('x-config'))
+				return xConfigPath;
+			}).catch((e) => {
+				console.log(e, "ERRORR")
+				return undefined;
+			})
+			return getCfgPath;
+		}
+		// .then(() => this.App.removeSplashScreenRequestor(this));
+		const dynamic_config_url = await dynamic_url();
+		console.log(dynamic_config_url, "DYNAMIC CONFIG URL")
 		// Check on undefined configuration
 		if (dynamic_config_url !== undefined) {
 			this.App.addSplashScreenRequestor(this);
 			let axios = Axios.create({ baseURL: window.location.protocol + '//' + window.location.host });
+			console.log(window.location.protocol + '//' + window.location.host, "ADRESA??")
 			axios.get(dynamic_config_url).then(response => {
+				console.log(response, "RESPONSE")
+				console.log(response.data, "RESPONSE DATA")
 				// Check on status and content-type
 				if ((response.status === 200) && (response.headers["content-type"] !== undefined && response.headers["content-type"].includes("application/json"))) {
 					this.Config._dynamic_config = response.data;
