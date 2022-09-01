@@ -88,8 +88,28 @@ export default class ConfigService extends Service {
 			location /<location> {
 				root /<path>/<to>/<build>;
 				index index.html;
-				add_header x-config "/<path>/<to>/<external>/<config>.json";
+				add_header x-config "/<path>/<to>/<external_folder>/<config>.json"; #header to dynamic config
 			}
+
+			# location to dynamic config
+			location /<location>/<path>/<to>/<external_folder> {
+				alias /<path>/<to>/<external_folder>;
+				try_files $uri /<config>.json;
+				index <config>.json;
+				autoindex on;
+				autoindex_exact_size off;
+				autoindex_format json;
+			}
+
+
+			Example of config setup
+
+			{
+				"brand_image": {
+					"full": "<path>/<to>/<external_folder>/logo-full.svg"
+				}
+			}
+
 
 		*/
 		const dynamic_url = async () => {
@@ -103,22 +123,18 @@ export default class ConfigService extends Service {
 				// alert(res.headers.get('x-config'))
 				return xConfigPath;
 			}).catch((e) => {
-				console.log(e, "ERRORR")
+				console.error(e);
 				return undefined;
 			})
 			return getCfgPath;
 		}
 		// .then(() => this.App.removeSplashScreenRequestor(this));
 		const dynamic_config_url = await dynamic_url();
-		console.log(dynamic_config_url, "DYNAMIC CONFIG URL")
 		// Check on undefined configuration
 		if (dynamic_config_url !== undefined) {
 			this.App.addSplashScreenRequestor(this);
 			let axios = Axios.create({ baseURL: window.location.protocol + '//' + window.location.host });
-			console.log(window.location.protocol + '//' + window.location.host, "ADRESA??")
 			axios.get(dynamic_config_url).then(response => {
-				console.log(response, "RESPONSE")
-				console.log(response.data, "RESPONSE DATA")
 				// Check on status and content-type
 				if ((response.status === 200) && (response.headers["content-type"] !== undefined && response.headers["content-type"].includes("application/json"))) {
 					this.Config._dynamic_config = response.data;
