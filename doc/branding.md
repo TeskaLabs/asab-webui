@@ -107,7 +107,7 @@ location /<location>/<path>/<to>/<custom_branding> {
 
 ```
 
-Example of application's `index.html` setup (for **devs** only)
+Example of application's `index.html` setup (for **devs** only) - this is being replaced by nginx
 
 ```
 <!DOCTYPE html>
