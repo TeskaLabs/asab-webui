@@ -29,7 +29,7 @@ The dynamic configuration is injected with the use of `ngx_http_sub_module`, sin
 More about `ngx_http_sub_module`: http://nginx.org/en/docs/http/ngx_http_sub_module.html
 
 
-There are 3 options of dynamic branding - header logo, title and custom CSS styles.
+There are 3 options for dynamic branding - header logo, title and custom CSS styles.
 
 ### Header logo
 
@@ -55,7 +55,7 @@ sub_filter '<meta name="header-logo-minimized">' '<meta name="header-logo-minimi
 
 ### Title
 
-Example of replacing application title
+Example of replacing application title, configuration has to follow `<meta name="title">` replacement rules with the particular `name`.
 
 ```
 sub_filter '<meta name="title">' '<meta name="title" content="Custom app title">';
@@ -63,7 +63,7 @@ sub_filter '<meta name="title">' '<meta name="title" content="Custom app title">
 
 ### Custom CSS styles
 
-Example of importing custom CSS styles
+Example of importing custom CSS styles, configuration has to follow `<meta name="custom-css-file">` replacement rules with the particular `name`.
 
 ```
 sub_filter '<meta name="custom-css-file">' '<meta name="custom-css-file" content="/<location>/<path>/<to>/<custom_branding>/<custom-file>.css">';
