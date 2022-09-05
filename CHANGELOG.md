@@ -124,6 +124,8 @@
 
 - New design implementation (INDIGO Sprint 210712, [!286](https://github.com/TeskaLabs/asab-webui/pull/286))
 
+- Implement a dynamic height-dependent display of table item when the web page first loads (INDIGO Sprint 220902, [!356](https://github.com/TeskaLabs/asab-webui/pull/356))
+
 
 ### Refactoring
 
