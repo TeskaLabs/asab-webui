@@ -33,7 +33,7 @@ There are 3 options for dynamic branding - header logo, title and custom CSS sty
 
 ### Header logo
 
-To replace default header logo, the nginx `sub_filter` configuration has to follow `<meta name="header-logo-full">` and `<meta name="header-logo-minimized">` replacement rules with the particular `name`.
+To replace default header logo, the nginx `sub_filter` configuration has to follow `<meta name="header-logo-full">` and `<meta name="header-logo-minimized">` replacement rules with the particular `name`. The replacement must have a `content` prop, otherwise the content of the replacement will not be propagated. `content` has to include a string with path to the logo.
 
 Size of the branding images can be found [here](#branding-images)
 
@@ -55,7 +55,7 @@ sub_filter '<meta name="header-logo-minimized">' '<meta name="header-logo-minimi
 
 ### Title
 
-Example of replacing application title, configuration has to follow `<meta name="title">` replacement rules with the particular `name`.
+Example of replacing application title, configuration has to follow `<meta name="title">` replacement rules with the particular `name`. The replacement must have a `content` prop, otherwise the content of the replacement will not be propagated. `content` has to include a string with the application title.
 
 ```
 sub_filter '<meta name="title">' '<meta name="title" content="Custom app title">';
@@ -63,13 +63,15 @@ sub_filter '<meta name="title">' '<meta name="title" content="Custom app title">
 
 ### Custom CSS styles
 
-Example of importing custom CSS styles, configuration has to follow `<meta name="custom-css-file">` replacement rules with the particular `name`.
+Example of importing custom CSS styles, configuration has to follow `<meta name="custom-css-file">` replacement rules with the particular `name`. The replacement must have a `content` prop, otherwise the content of the replacement will not be propagated. `content` has to include a string with path to the CSS file.
 
 ```
 sub_filter '<meta name="custom-css-file">' '<meta name="custom-css-file" content="/<location>/<path>/<to>/<custom_branding>/<custom-file>.css">';
 ```
 
 ### Define the nginx path to dynamic branding content
+
+To allow the location of the dynamic (custom) branding content, it has to be defined in the nginx setup.
 
 ```
 # Path to location (directory) with the custom content
