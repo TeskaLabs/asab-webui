@@ -3,30 +3,6 @@ import Axios from 'axios';
 import ConfigReducer from './ConfigReducer';
 import { CHANGE_CONFIG, SET_DEV_CONFIG } from '../actions';
 
-/*
-Example of use:
-
-```
-module.exports = {
-	app: {
-		CONFIG_PATH: '/config.json',
-	},
-}
-```
-
-
-Example of `config.json` content:
-
-```
-{
-	"KIBANA_URL": "http://1.1.1.1:5601/app/kibana",
-	"APP_SETTINGS": {
-		"onetwothree":123
-	}
-}
-```
-*/
-
 export default class ConfigService extends Service {
 
 
@@ -47,21 +23,30 @@ export default class ConfigService extends Service {
 
 		let dynamicConfig = {};
 		let brandImage = {};
+		// Add custom header full logo
 		if (headerLogoFull != undefined) {
 			brandImage["full"] = headerLogoFull;
 			dynamicConfig["brand_image"] = brandImage;
 		}
+		// Add custom header minimized logo
 		if (headerLogoMini != undefined) {
 			brandImage["minimized"] = headerLogoMini;
 			dynamicConfig["brand_image"] = brandImage;
 		}
-		if (customCSS != undefined) {
-			// TODO
-		}
+		// Add custom title
 		if (title != undefined) {
 			dynamicConfig["title"] = title;
 		}
-
+		// Add custom CSS
+		if (customCSS != undefined) {
+			const link = document.createElement('link');
+			link.setAttribute('rel', 'stylesheet');
+			link.setAttribute('href', customCSS);
+			console.log(link, 'LINK')
+			// Append to the `head` element
+			document.head.appendChild(link);
+		}
+		// Dispatch customs to config store
 		if (Object.keys(dynamicConfig).length > 0) {
 			this.Config._dynamic_config = dynamicConfig;
 			if (this.App.Store !== undefined) {
@@ -80,6 +65,11 @@ export default class ConfigService extends Service {
 				sub_filter '<meta name="title">' '<meta name="title" content="Custom app title">';
 				sub_filter '<meta name="custom-css-file">' '<meta name="custom-css-file" content="/<location>/<path>/<to>/<custom-file>.css">';
 				sub_filter_once on;
+			}
+
+			# Path to location (directory) with the custom content
+			location /<location>/<path>/<to> {
+				alias /<path>/<to>;
 			}
 
 
