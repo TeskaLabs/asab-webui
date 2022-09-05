@@ -3,6 +3,7 @@ import Axios from 'axios';
 import ConfigReducer from './ConfigReducer';
 import { CHANGE_CONFIG, SET_DEV_CONFIG } from '../actions';
 
+
 export default class ConfigService extends Service {
 
 
@@ -18,8 +19,8 @@ export default class ConfigService extends Service {
 	initialize() {
 		const headerLogoFull = document.getElementsByName('header-logo-full')[0]?.content;
 		const headerLogoMini = document.getElementsByName('header-logo-minimized')[0]?.content;
-		const customCSS = document.getElementsByName('custom-css-file')[0]?.content;
 		const title = document.getElementsByName('title')[0]?.content;
+		const customCSS = document.getElementsByName('custom-css-file')[0]?.content;
 
 		let dynamicConfig = {};
 		let brandImage = {};
@@ -42,7 +43,6 @@ export default class ConfigService extends Service {
 			const link = document.createElement('link');
 			link.setAttribute('rel', 'stylesheet');
 			link.setAttribute('href', customCSS);
-			console.log(link, 'LINK')
 			// Append to the `head` element
 			document.head.appendChild(link);
 		}
@@ -51,156 +51,11 @@ export default class ConfigService extends Service {
 			this.Config._dynamic_config = dynamicConfig;
 			if (this.App.Store !== undefined) {
 				this.Config.dispatch(this.App.Store);
+			} else {
+				console.warn('Dynamic configuration has no been dispatched to application store');
 			}
 		}
-
-		/*
-			Example of nginx setup
-
-			location /<location> {
-				root /<path>/<to>/<build>;
-				index index.html;
-				sub_filter '<meta name="header-logo-full">' '<head><meta name="header-logo-full" content="/<location>/<path>/<to>/<logo-full>.svg">';
-				sub_filter '<meta name="header-logo-minimized">' '<meta name="header-logo-minimized" content="/<location>/<path>/<to>/<logo-minimized>.svg">';
-				sub_filter '<meta name="title">' '<meta name="title" content="Custom app title">';
-				sub_filter '<meta name="custom-css-file">' '<meta name="custom-css-file" content="/<location>/<path>/<to>/<custom-file>.css">';
-				sub_filter_once on;
-			}
-
-			# Path to location (directory) with the custom content
-			location /<location>/<path>/<to> {
-				alias /<path>/<to>;
-			}
-
-
-			Example of index.html setup
-
-			<head>
-
-			....
-
-			<!-- Dynamic config start -->
-			<meta name="header-logo-full">
-			<meta name="header-logo-minimized">
-			<meta name="custom-css-file">
-			<meta name="title">
-			<!-- Dynamic config end -->
-
-			...
-
-			</head>
-
-		*/
-
 	}
-
-	// async initialize() {
-	// 	// // dynamic_config_url is taken from content atribute of meta element
-	// 	// // <meta name="x-config" content="https..." />
-	// 	// const dynamic_config_url = document.getElementsByName('x-config')[0]?.content;
-	// 	// console.log(dynamic_config_url, "DYNAMIC CONFIG URL")
-	// 	// console.log(document.getElementsByName('x-config'), "DOC BY ELEMENTS NAME")
-
-	// 	// const request = new XMLHttpRequest();
-	// 	// request.open("GET", document.location, true);
-	// 	// request.send();
-	// 	// request.onreadystatechange = () => {
-	// 	// 	console.log(request.readyState, "READY STATE")
-	// 	// 	if (request.readyState === XMLHttpRequest.DONE) {
-	// 	// 		// Get the raw header string
-	// 	// 		const headers = request.getAllResponseHeaders();
-	// 	// 		console.log(headers, "HEADERS")
-	// 	// 		if ((headers) && (typeof headers == 'string') && (headers.indexOf("x-config") != -1)) {
-	// 	// 			// Convert the header string into an array
-	// 	// 			// of individual headers
-	// 	// 			const arr = headers.trim().split(/[\r\n]+/);
-	// 	// 			console.log(arr, "ARRAY")
-	// 	// 			// Create a map of header names to values
-	// 	// 			const headerMap = {};
-	// 	// 			arr.forEach((line) => {
-	// 	// 				const parts = line.split(': ');
-	// 	// 				const header = parts.shift();
-	// 	// 				const value = parts.join(': ');
-	// 	// 				headerMap[header] = value;
-	// 	// 			});
-	// 	// 			const xConfigPath = headerMap["x-config"];
-	// 	// 			if (this.App.Store != null) {
-	// 	// 				this.Config.dispatch(this.App.Store, xConfigPath);
-	// 	// 				// this.App.Store.dispatch({ type: SET_DYNAMIC_CONFIG_PATH, dynamic_config_path: xConfigPath });
-	// 	// 				console.log('DISPATCHED')
-	// 	// 			}
-	// 	// 			console.log(headerMap, headerMap["x-config"], "TAK ZKOUSIM")
-	// 	// 		}
-	// 	// 		console.log("NEPROSLO NEVADI")
-	// 	// 	}
-	// 	// }
-	// 	// this.App.addSplashScreenRequestor(this);
-
-
-
-	// 		Example of nginx setup
-
-	// 		location /<location> {
-	// 			root /<path>/<to>/<build>;
-	// 			index index.html;
-	// 			add_header x-config "/<path>/<to>/<external_folder>/<config>.json"; #header to dynamic config
-	// 		}
-
-	// 		# location to dynamic config
-	// 		location /<location>/<path>/<to>/<external_folder> {
-	// 			alias /<path>/<to>/<external_folder>;
-	// 			try_files $uri /<config>.json;
-	// 			index <config>.json;
-	// 			autoindex on;
-	// 			autoindex_exact_size off;
-	// 			autoindex_format json;
-	// 		}
-
-
-	// 		Example of config setup
-
-	// 		{
-	// 			"brand_image": {
-	// 				"full": "<path>/<to>/<external_folder>/logo-full.svg"
-	// 			}
-	// 		}
-
-
-		
-	// 	const dynamic_url = async () => {
-	// 		const getCfgPath = await fetch(document.location).then(res => {
-	// 			let xConfigPath = res.headers.get('x-config');
-	// 			return xConfigPath;
-	// 		}).catch((e) => {
-	// 			console.error(e);
-	// 			return undefined;
-	// 		})
-	// 		return getCfgPath;
-	// 	}
-	// 	// .then(() => this.App.removeSplashScreenRequestor(this));
-	// 	const dynamic_config_url = await dynamic_url();
-	// 	// Check on undefined configuration
-	// 	if (dynamic_config_url !== undefined) {
-	// 		this.App.addSplashScreenRequestor(this);
-	// 		let axios = Axios.create({ baseURL: window.location.protocol + '//' + window.location.host });
-	// 		axios.get(dynamic_config_url).then(response => {
-	// 			// Check on status and content-type
-	// 			if ((response.status === 200) && (response.headers["content-type"] !== undefined && response.headers["content-type"].includes("application/json"))) {
-	// 				this.Config._dynamic_config = response.data;
-	// 				if (this.App.Store !== undefined) {
-	// 					this.Config.dispatch(this.App.Store);
-	// 				}
-	// 			} else {
-	// 				this.App.addAlert("danger", "ASABConfigService|Incorrect/invalid config file downloaded", 5, true);
-	// 			}
-	// 		})
-	// 			.catch(error => {
-	// 				console.log(error);
-	// 				this.App.addAlert("danger", "ASABConfigService|Error when downloading a config file. The path might be corrupted", 5, true);
-	// 			})
-	// 			.then(() => this.App.removeSplashScreenRequestor(this));
-	// 	}
-	// }
 
 
 	addDefaults(defaults, override) {
@@ -218,7 +73,6 @@ export default class ConfigService extends Service {
 				this.Config._defaults[key] = defaults[key];
 			}
 		}
-
 
 		this.Config.dispatch(this.App.Store);
 	}
