@@ -41,7 +41,7 @@ export function DataTable ({
 	const { t } = useTranslation();
 
 	useEffect(() => {
-		if (heightRef !== 0) {
+		if (heightRef && heightRef !== 0) {
 			let tableRowCount = Math.floor((heightRef - 200)/48);
 			setLimit(round5(tableRowCount));
 		}
