@@ -105,7 +105,7 @@ location /<location>/<path>/<to>/<custom_branding> {
 
 ```
 
-Example of application's index.html setup (for devs only)
+Example of application's `index.html` setup (for **devs** only)
 
 ```
 <!DOCTYPE html>
