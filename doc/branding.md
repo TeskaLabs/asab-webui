@@ -1,6 +1,6 @@
 # Branding in ASAB WebUI
 
-## Configuration
+## Static branding
 
 Example:
 
@@ -20,45 +20,119 @@ let ConfigDefaults = {
 
 ```
 
-## Dynamic branding configuration
+## Dynamic branding
 
-The branding can be configured using a dynamic configuration (aka site config).
-This means that the actual logos are loaded from the site configuration after the app is started.
-For that reason, it is recommended to use empty SVG logos as pre-configured default.
-The empty logos are provided in the ASAB WebUI Demo app.
+The branding can be configured using a dynamic configuration.
 
-Example:
+The dynamic configuration is injected with the use of `ngx_http_sub_module`, since it replace the pre-defined content of `index.html` (in our case).
 
-```
-let ConfigDefaults = {
-	site_title: "TeskaLabs",
-	title: "Page Title",
-	brand_image: {
-		full: "media/logo/empty-header-full.svg",
-		minimized: "media/logo/empty-header-minimized.svg"
-	}
-};
+More about `ngx_http_sub_module`: http://nginx.org/en/docs/http/ngx_http_sub_module.html
 
-```
 
-Dynamic branding configuration can be set as it is in the example below:
+There are 3 options of dynamic branding - header logo, title and custom CSS styles.
+
+### Header logo
+
+To replace default header logo, the nginx `sub_filter` configuration has to follow `<meta name="header-logo-full">` and `<meta name="header-logo-minimized">` replacement rules with the particular `name`.
+
+Size of the branding images can be found [here](#branding-images)
+
+#### Full
+
+Example of importing full size logo (when sidebar of the application is not collapsed)
 
 ```
-{
-	"site_title": "TeskaLabs",
-	"title": "Page Title",
-	"brand_image":{
-		"full": "path/to/header-full.svg",
-		"minimized": "path/to/header-minimized.svg"
-	},
-	sidebarLogo: {
-		full: "media/logo/sidebarlogo-full.svg",
-		minimized: "media/logo/sidebarlogo-minimized.svg"
-	}
+sub_filter '<meta name="header-logo-full">' '<head><meta name="header-logo-full" content="/<location>/<path>/<to>/<custom_branding>/<logo-full>.svg">';
+```
+
+#### Minimized
+
+Example of importing minimized size logo (when sidebar of the application is collapsed)
+
+```
+sub_filter '<meta name="header-logo-minimized">' '<meta name="header-logo-minimized" content="/<location>/<path>/<to>/<custom_branding>/<logo-minimized>.svg">';
+```
+
+### Title
+
+Example of replacing application title
+
+```
+sub_filter '<meta name="title">' '<meta name="title" content="Custom app title">';
+```
+
+### Custom CSS styles
+
+Example of importing custom CSS styles
+
+```
+sub_filter '<meta name="custom-css-file">' '<meta name="custom-css-file" content="/<location>/<path>/<to>/<custom_branding>/<custom-file>.css">';
+```
+
+### Define the nginx path to dynamic branding content
+
+```
+# Path to location (directory) with the custom content
+location /<location>/<path>/<to>/<custom_branding> {
+	alias /<path>/<to>/<custom_branding>;
 }
 ```
-If no images are provided from any configuration, application takes images `header-full.svg`, `header-minimized.svg` and 
-`sidebarlogo-full.svg`, `sidebarlogo-minimized.svg` from application's folder `media/logo`.
+
+### Full example
+
+Full example of nginx configuration with custom branding
+
+```
+
+...
+
+location /<location> {
+	root /<path>/<to>/<build>;
+	index index.html;
+	sub_filter '<meta name="header-logo-full">' '<head><meta name="header-logo-full" content="/<location>/<path>/<to>/<custom_branding>/<logo-full>.svg">';
+	sub_filter '<meta name="header-logo-minimized">' '<meta name="header-logo-minimized" content="/<location>/<path>/<to>/<custom_branding>/<logo-minimized>.svg">';
+	sub_filter '<meta name="title">' '<meta name="title" content="Custom app title">';
+	sub_filter '<meta name="custom-css-file">' '<meta name="custom-css-file" content="/<location>/<path>/<to>/<custom_branding>/<custom-file>.css">';
+	sub_filter_once on;
+}
+
+# Path to location (directory) with the custom content
+location /<location>/<path>/<to>/<custom_branding> {
+	alias /<path>/<to>/<custom_branding>;
+}
+
+...
+
+```
+
+Example of application's index.html setup (for devs only)
+
+```
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		...
+
+		<!-- Dynamic config start -->
+		<meta name="header-logo-full">
+		<meta name="header-logo-minimized">
+		<meta name="title">
+		<meta name="custom-css-file">
+		<!-- Dynamic config end -->
+
+		...
+
+	</head>
+	</head>
+	<body>
+
+		...
+
+	</body>
+</html>
+```
+
 
 ## Setting page title
 The page title (top of browser and on tab) is set as `site_title | title` if both are available.
