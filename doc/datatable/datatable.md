@@ -290,7 +290,7 @@ Example of fetched data:
 
 # Optional
 
-`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `customButton`, `customComponent`, `search`, `onSearch`, `isLoading`, `noItemsComponent`, `customCardBodyComponent`, `sublistsKey` and `onDownload`.
+`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `customButton`, `customComponent`, `search`, `onSearch`, `isLoading`, `noItemsComponent`, `customCardBodyComponent`, `sublistsKey`, `onDownload`, `heightRef` and `setHeightRef`.
 
 Example of `DataTable` with all props:
 
@@ -313,6 +313,7 @@ Example of `DataTable` with all props:
 	onDownload={onDownload}
 	isLoading={isLoading}
 	noItemsComponent={noItemsComponent}
+	heightRef={heightRef}
 />
 ```
 
@@ -689,6 +690,37 @@ Property `onDownload` of `customComponent` is needed if you want to use custom c
 		generate: (row, header) => <SomeFancyComponent>{header.name} | {row.some_key}</SomeFancyComponent>,
 		onDownload: (row, header) => `${header.name} | ${row.some_key}`;
 	}
+}
+```
+
+Property `heightRef` and `setHeightRef` is needed if you want the item of elements in the table to adjust to the height of the web page when it first loads.
+NOTE: `heightRef` should be used in conjunction with the `limit` and `setLimit`.
+You will need to `useEffect`. This is where you will count the height of the container when you first load it. You will also need to `useRef`. You will need to place it on the wrapper tag. Be sure to style this tag to 100% height.
+The number of items displayed per page will be a multiple of 5.
+
+```js
+import React, { useState, useEffect, useRef } from 'react';
+
+...
+
+function (props) {
+	...
+	const [heightRef, setHeightRef] = useState(0);
+	const ref = useRef(null);
+	...
+	useEffect(() => {
+		setHeightRef(ref.current.clientHeight);
+	}, []);
+	...
+	return (
+		<div className="h-100" ref={ref}>
+			<DataTable
+				...
+				heightRef={heightRef}
+				...
+			>
+		</div>
+	);
 }
 ```
 
