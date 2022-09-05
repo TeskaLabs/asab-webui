@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { 
+import {
 	Card, Row, Col, ButtonGroup,
 	CardFooter, CardHeader, CardBody,
 	Button, Container
@@ -30,15 +30,22 @@ export function DataTable ({
 	customButton, customComponent,
 	customRowStyle, customRowClassName,
 	customCardBodyComponent,
-	limitValues = [10, 15, 25, 50],
-	contentLoader = true, category
-	}) {
+	limitValues = [5, 10, 15, 20, 50],
+	contentLoader = true, category, heightRef
+   }) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isLimitOpen, setLimitDropdown] = useState(false);
 	const timeoutRef = useRef(null);
 	const [countDigit, setCountDigit] = useState(1)
 	
 	const { t } = useTranslation();
+
+	useEffect(() => {
+		if (heightRef !== 0) {
+			let tableRowCount = Math.floor((heightRef - 200)/48);
+			setLimit(round5(tableRowCount));
+		}
+	}, [heightRef]);
 
 	useEffect(() => {
 		if (timeoutRef.current !== null) {
@@ -51,6 +58,14 @@ export function DataTable ({
 		if (onSearch) onSearch(filterValue);
 		}, 500);
 	}, [filterValue]);
+
+	// rounding page number divisible by 5
+	function round5(x) {
+		return (x % 5) >= 2.5 ?
+			parseInt(x / 5) * 5 + 5
+		:
+			parseInt(x / 5) * 5;
+	}
 
 	return (
 		<Row className="h-100">
