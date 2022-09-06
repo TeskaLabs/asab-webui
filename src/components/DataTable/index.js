@@ -31,7 +31,7 @@ export function DataTable ({
 	customRowStyle, customRowClassName,
 	customCardBodyComponent,
 	limitValues = [5, 10, 15, 20, 50],
-	contentLoader = true, category, heightRef
+	contentLoader = true, category, height
    }) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isLimitOpen, setLimitDropdown] = useState(false);
@@ -41,11 +41,16 @@ export function DataTable ({
 	const { t } = useTranslation();
 
 	useEffect(() => {
-		if ((heightRef && setLimit) && heightRef !== 0) {
-			let tableRowCount = Math.floor((heightRef - 200)/48);
-			setLimit(round5(tableRowCount));
+		if ((height && setLimit) && height !== 0) {
+			// 250 - is the height of the header and footer plus the paddings in the table.
+			// 48 -  is the height of one row in the table.
+			let tableRowCount = Math.floor((height - 250)/48);
+			setLimit(round(tableRowCount));
+		} else if (height == undefined) {
+			setLimit(10);
+			console.log(height, "condition height")
 		}
-	}, [heightRef]);
+	}, [height]);
 
 	useEffect(() => {
 		if (timeoutRef.current !== null) {
@@ -60,7 +65,7 @@ export function DataTable ({
 	}, [filterValue]);
 
 	// rounding page number divisible by 5
-	function round5(x) {
+	function round(x) {
 		return (x % 5) >= 2.5 ?
 			parseInt(x / 5) * 5 + 5
 		:
