@@ -48,7 +48,6 @@ export function DataTable ({
 			setLimit(round(tableRowCount));
 		} else if (height == undefined) {
 			setLimit(10);
-			console.log(height, "condition height")
 		}
 	}, [height]);
 
