@@ -42,7 +42,7 @@ Size of the branding images can be found [here](#branding-images)
 Example of importing full size logo (when sidebar of the application is not collapsed)
 
 ```
-sub_filter '<meta name="header-logo-full">' '<head><meta name="header-logo-full" content="/<location>/<path>/<to>/<custom_branding>/<logo-full>.svg">';
+sub_filter '<meta name="header-logo-full">' '<meta name="header-logo-full" content="/<location>/<path>/<to>/<custom_branding>/<logo-full>.svg">';
 ```
 
 #### Minimized
@@ -91,7 +91,7 @@ Full example of nginx configuration with custom branding
 location /<location> {
 	root /<path>/<to>/<build>;
 	index index.html;
-	sub_filter '<meta name="header-logo-full">' '<head><meta name="header-logo-full" content="/<location>/<path>/<to>/<custom_branding>/<logo-full>.svg">';
+	sub_filter '<meta name="header-logo-full">' '<meta name="header-logo-full" content="/<location>/<path>/<to>/<custom_branding>/<logo-full>.svg">';
 	sub_filter '<meta name="header-logo-minimized">' '<meta name="header-logo-minimized" content="/<location>/<path>/<to>/<custom_branding>/<logo-minimized>.svg">';
 	sub_filter '<meta name="title">' '<meta name="title" content="Custom app title">';
 	sub_filter '<meta name="custom-css-file">' '<meta name="custom-css-file" content="/<location>/<path>/<to>/<custom_branding>/<custom-file>.css">';
