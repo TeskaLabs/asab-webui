@@ -315,6 +315,8 @@
 
 - Update styling Error screen (INDIGO Sprint 220819, [!348](https://github.com/TeskaLabs/asab-webui/pull/348)
 
+- Refactor dynamic branding (INDIGO Sprint 220902, [!355](https://github.com/TeskaLabs/asab-webui/pull/355)
+
 
 ### Bugfixes
 
