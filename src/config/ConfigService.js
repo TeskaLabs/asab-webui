@@ -17,6 +17,7 @@ export default class ConfigService extends Service {
 
 
 	initialize() {
+		// Initialization of dynamic configuration
 		const headerLogoFull = document.getElementsByName('header-logo-full')[0]?.content;
 		const headerLogoMini = document.getElementsByName('header-logo-minimized')[0]?.content;
 		const title = document.getElementsByName('title')[0]?.content;
@@ -52,7 +53,7 @@ export default class ConfigService extends Service {
 			if (this.App.Store !== undefined) {
 				this.Config.dispatch(this.App.Store);
 			} else {
-				console.warn('Dynamic configuration has no been dispatched to application store');
+				console.warn('Dynamic configuration has not been dispatched to application store');
 			}
 		}
 	}
