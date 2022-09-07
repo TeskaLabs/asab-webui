@@ -89,6 +89,11 @@ $disabled-dropdown-item: var(--disabled-dropdown-item);
 	}
 }
 
+.dropup.show .dropdown-menu.show .dropdown-header input {
+	margin: -0.5rem -0.75rem !important;
+    width: auto;
+}
+
 .dropdown-menu.show {
 	.dropdown-item {
 		&:disabled {

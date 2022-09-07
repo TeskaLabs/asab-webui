@@ -315,6 +315,10 @@
 
 - Update styling Error screen (INDIGO Sprint 220819, [!348](https://github.com/TeskaLabs/asab-webui/pull/348)
 
+- Corrected grammatical errors in translations (INDIGO Sprint 220819, [!353](https://github.com/TeskaLabs/asab-webui/pull/353)
+
+- Input's padding adjustment inside droprdowns header (INDIGO 220819, [!354](https://github.com/TeskaLabs/asab-webui/pull/354))
+
 - Refactor dynamic branding (INDIGO Sprint 220902, [!355](https://github.com/TeskaLabs/asab-webui/pull/355)
 
 

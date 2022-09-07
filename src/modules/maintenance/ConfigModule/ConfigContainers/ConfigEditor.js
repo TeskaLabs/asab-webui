@@ -281,7 +281,7 @@ function ConfigEditor(props) {
 			if (response.data.result != "OK"){
 				throw new Error(t('ASABConfig|Something went wrong, failed to update data'));
 			}
-			props.app.addAlert("success", t('ASABConfig|Data updated successfuly'));
+			props.app.addAlert("success", t('ASABConfig|Data updated successfully'));
 			initialLoad(); // Load the new data after saving
 		}
 		catch(e) {
@@ -371,7 +371,7 @@ function ConfigEditor(props) {
 			if (response.data.result != "OK"){
 				throw new Error(t('ASABConfig|Something went wrong, failed to update data'));
 			}
-			props.app.addAlert("success", t('ASABConfig|Data updated successfuly'));
+			props.app.addAlert("success", t('ASABConfig|Data updated successfully'));
 			initialLoad(); // Load the new data after saving
 		}
 		catch(e) {
