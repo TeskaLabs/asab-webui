@@ -319,6 +319,8 @@
 
 - Input's padding adjustment inside droprdowns header (INDIGO 220819, [!354](https://github.com/TeskaLabs/asab-webui/pull/354))
 
+- Refactor dynamic branding (INDIGO Sprint 220902, [!355](https://github.com/TeskaLabs/asab-webui/pull/355)
+
 
 ### Bugfixes
 
