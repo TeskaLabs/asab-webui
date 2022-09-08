@@ -26,27 +26,28 @@ export default class ConfigService extends Service {
 		let dynamicConfig = {};
 		let brandImage = {};
 		// Add custom header full logo
-		if (headerLogoFull != undefined) {
+		if ((headerLogoFull != undefined) && (headerLogoFull != "")) {
 			brandImage["full"] = headerLogoFull;
 			dynamicConfig["brand_image"] = brandImage;
 		}
 		// Add custom header minimized logo
-		if (headerLogoMini != undefined) {
+		if ((headerLogoMini != undefined) && (headerLogoMini != "")) {
 			brandImage["minimized"] = headerLogoMini;
 			dynamicConfig["brand_image"] = brandImage;
 		}
 		// Add custom title
-		if (title != undefined) {
+		if ((title != undefined) && (title != "")) {
 			dynamicConfig["title"] = title;
 		}
 		// Add custom CSS
-		if (customCSS != undefined) {
+		if ((customCSS != undefined) && (customCSS != "")) {
 			const link = document.createElement('link');
 			link.setAttribute('rel', 'stylesheet');
 			link.setAttribute('href', customCSS);
 			// Append to the `head` element
 			document.head.appendChild(link);
 		}
+
 		// Dispatch customs to config store
 		if (Object.keys(dynamicConfig).length > 0) {
 			this.Config._dynamic_config = dynamicConfig;
