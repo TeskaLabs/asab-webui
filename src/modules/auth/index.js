@@ -240,7 +240,7 @@ export default class AuthModule extends Module {
 		}
 		let valid = tenants ? tenants.indexOf(currentTenant) !== -1 : false;
 		// If user is superuser, then tenant access is granted
-		if (resources && resources.indexOf('authz:superuser') !== -1) {
+		if ((resources) && (resources.indexOf('authz:superuser') !== -1)) {
 			valid = true;
 		}
 		return valid;
