@@ -72,7 +72,6 @@ function TenantSelectionCard(props) {
 
 function mapStateToProps(state) {
 	return {
-		userinfo: state.auth?.userinfo,
 		resources: state.auth?.resources,
 		tenants: state.tenant?.tenants,
 		current: state.tenant?.current
