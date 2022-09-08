@@ -307,6 +307,20 @@
 
 - Implement Breadcrumbs for small screen (INDIGO Sprint 220722, [!339](https://github.com/TeskaLabs/asab-webui/pull/339)
 
+- Move language icon beside toggle icon (INDIGO Sprint 220805, [!346](https://github.com/TeskaLabs/asab-webui/pull/346)
+
+- Do not show the toggle button in Login screen (INDIGO Sprint 220819, [!349](https://github.com/TeskaLabs/asab-webui/pull/349)
+
+- Removal of footer's legacy. (Became obsolete with new design) (INDIGO Sprint 220805, [!347](https://github.com/TeskaLabs/asab-webui/pull/347)
+
+- Update styling Error screen (INDIGO Sprint 220819, [!348](https://github.com/TeskaLabs/asab-webui/pull/348)
+
+- Corrected grammatical errors in translations (INDIGO Sprint 220819, [!353](https://github.com/TeskaLabs/asab-webui/pull/353)
+
+- Input's padding adjustment inside droprdowns header (INDIGO 220819, [!354](https://github.com/TeskaLabs/asab-webui/pull/354))
+
+- Refactor dynamic branding (INDIGO Sprint 220902, [!355](https://github.com/TeskaLabs/asab-webui/pull/355)
+
 
 ### Bugfixes
 
@@ -385,3 +399,7 @@
 - Fix overwriting values in input in Configuration due to useForm (INDIGO Sprint 220712, [!333](https://github.com/TeskaLabs/asab-webui/pull/333))
 
 - Removing bug causing limitation to scroll in the sidebar if it's items contain more than 100vh (INDIGO Sprint 220805, [!343](https://github.com/TeskaLabs/asab-webui/pull/343))
+
+- Fix Safari issues with loading of the application (INDIGO Sprint 220819, [!350](https://github.com/TeskaLabs/asab-webui/pull/350))
+
+- Fix Safari issue - TenantSelectionCard action triggered upon change of tenant (INDIGO Sprint 220819, [!352](https://github.com/TeskaLabs/asab-webui/pull/352))

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { locationReplace } from 'asab-webui';
 
 import {
 	Card, CardHeader, CardFooter, CardBody, CardTitle, CardSubtitle,
@@ -14,9 +15,9 @@ function TenantSelectionCard(props) {
 	const SeaCatAuthAPI = props.app.axiosCreate('seacat_auth');
 	let superuser = props.resources ? props.resources.indexOf('authz:superuser') !== -1 : false;
 
-	const selectTenant = (tn) => {
+	const selectTenant = async (tn) => {
 		if (tn.value !== "99999") {
-			window.location.replace(`${window.location.pathname}?tenant=${tn.value}${window.location.hash}`);
+			await locationReplace(`${window.location.pathname}?tenant=${tn.value}${window.location.hash}`);
 			return;
 		}
 	}
@@ -49,7 +50,7 @@ function TenantSelectionCard(props) {
 							type="select"
 							name="selectTenant"
 							id="selectTenant"
-							onClick={(e) => {selectTenant(e.target)}}
+							onChange={(e) => {selectTenant(e.target)}}
 							defaultValue={props.current}
 						>
 							<option key="def" value="99999">{t("TenantSelectionCard|Select tenant")}</option>

@@ -21,6 +21,7 @@ export default (props) => {
 	const headers = [
 		{
 			name: " ",
+			customHeaderStyle: { width: '2.5rem' },
 			customComponent: {
 				generate: (obj) => {
 					if (obj["attention_required"] && Object.keys(obj["attention_required"]).length > 0) {

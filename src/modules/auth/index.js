@@ -5,6 +5,7 @@ import reducer from './reducer';
 import { types } from './actions'
 import { SeaCatAuthApi, GoogleOAuth2Api } from './api';
 import AccessControlScreen from './AccessControlScreen';
+import { locationReplace } from 'asab-webui';
 
 export default class AuthModule extends Module {
 
@@ -34,7 +35,7 @@ export default class AuthModule extends Module {
 		headerService.addComponent(HeaderComponent, { AuthModule: this });
 		if (this.App.DevConfig.get('MOCK_USERINFO')) {
 			/* This section is only for DEV purposes! */
-			this.simulateUserinfo(this.App.DevConfig.get('MOCK_USERINFO'))
+			await this.simulateUserinfo(this.App.DevConfig.get('MOCK_USERINFO'))
 			/* End of DEV section */
 		} else {
 			// Check the query string for 'code'
@@ -55,9 +56,8 @@ export default class AuthModule extends Module {
 					reloadUrl = window.location.pathname + '?' + qs.toString() + window.location.hash;
 				}
 
-				// Reload the app
-				window.location.replace(reloadUrl);
-				await new Promise(r => setTimeout(r, 3600 * 1000)); // Basically wait forever, this the app is going to be reloaded
+				// Reload the app with `code` removed
+				await locationReplace(reloadUrl);
 			}
 
 			// Do we have an oauth token (we are authorized to use the app)
@@ -69,7 +69,7 @@ export default class AuthModule extends Module {
 					sessionStorage.removeItem('SeaCatOAuth2Token');
 					let force_login_prompt = true;
 
-					this.Api.login(this.RedirectURL, force_login_prompt);
+					await this.Api.login(this.RedirectURL, force_login_prompt);
 					return;
 				}
 
@@ -95,14 +95,15 @@ export default class AuthModule extends Module {
 				if (this.App.Navigation.Items.length > 0) {
 					await this.validateNavigation();
 				}
-
-				this._notifyOnExpiredSession(this);
+				if (this.UserInfo != null) {
+					this._notifyOnExpiredSession(this);
+				}
 			}
 
 			if ((this.UserInfo == null) && (this.MustAuthenticate)) {
 				// TODO: force_login_prompt = true to break authentication failure loop
 				let force_login_prompt = false;
-				this.Api.login(this.RedirectURL, force_login_prompt);
+				await this.Api.login(this.RedirectURL, force_login_prompt);
 				return;
 			}
 		}
@@ -119,7 +120,7 @@ export default class AuthModule extends Module {
 	}
 
 
-	simulateUserinfo(mock_userinfo) {
+	async simulateUserinfo(mock_userinfo) {
 		/*
 			This method takes parameters from devConfig settings
 
@@ -160,7 +161,7 @@ export default class AuthModule extends Module {
 		/** Check for TenantService and pass tenants list obtained from userinfo */
 		let tenants_list = mockParams.tenants;
 		if (this.App.Services.TenantService) {
-			this.App.Services.TenantService.set_tenants(tenants_list);
+			await this.App.Services.TenantService.set_tenants(tenants_list);
 		}
 	}
 
@@ -306,7 +307,7 @@ export default class AuthModule extends Module {
 		/** Check for TenantService and pass tenants list obtained from userinfo */
 		let tenants_list = this.UserInfo.tenants;
 		if (this.App.Services.TenantService) {
-			this.App.Services.TenantService.set_tenants(tenants_list);
+			await this.App.Services.TenantService.set_tenants(tenants_list);
 		}
 
 		return true;

@@ -3,29 +3,6 @@ import Axios from 'axios';
 import ConfigReducer from './ConfigReducer';
 import { CHANGE_CONFIG, SET_DEV_CONFIG } from '../actions';
 
-/*
-Example of use:
-
-```
-module.exports = {
-	app: {
-		CONFIG_PATH: '/config.json',
-	},
-}
-```
-
-
-Example of `config.json` content:
-
-```
-{
-	"KIBANA_URL": "http://1.1.1.1:5601/app/kibana",
-	"APP_SETTINGS": {
-		"onetwothree":123
-	}
-}
-```
-*/
 
 export default class ConfigService extends Service {
 
@@ -40,30 +17,44 @@ export default class ConfigService extends Service {
 
 
 	initialize() {
-		// dynamic_config_url is taken from content atribute of meta element
-		// <meta name="x-config" content="https..." />
-		const dynamic_config_url = document.getElementsByName('x-config')[0]?.content;
+		// Initialization of dynamic configuration
+		const headerLogoFull = document.getElementsByName('header-logo-full')[0]?.content;
+		const headerLogoMini = document.getElementsByName('header-logo-minimized')[0]?.content;
+		const title = document.getElementsByName('title')[0]?.content;
+		const customCSS = document.getElementsByName('custom-css-file')[0]?.content;
 
-		// Check on undefined configuration
-		if (dynamic_config_url !== undefined) {
-			this.App.addSplashScreenRequestor(this);
-			let axios = Axios.create({ baseURL: window.location.protocol + '//' + window.location.host });
-			axios.get(dynamic_config_url).then(response => {
-				// Check on status and content-type
-				if ((response.status === 200) && (response.headers["content-type"] !== undefined && response.headers["content-type"].includes("application/json"))) {
-					this.Config._dynamic_config = response.data;
-					if (this.App.Store !== undefined) {
-						this.Config.dispatch(this.App.Store);
-					}
-				} else {
-					this.App.addAlert("danger", "ASABConfigService|Incorrect/invalid config file downloaded", 5, true);
-				}
-			})
-				.catch(error => {
-					console.log(error);
-					this.App.addAlert("danger", "ASABConfigService|Error when downloading a config file. The path might be corrupted", 5, true);
-				})
-				.then(() => this.App.removeSplashScreenRequestor(this));
+		let dynamicConfig = {};
+		let brandImage = {};
+		// Add custom header full logo
+		if (headerLogoFull != undefined) {
+			brandImage["full"] = headerLogoFull;
+			dynamicConfig["brand_image"] = brandImage;
+		}
+		// Add custom header minimized logo
+		if (headerLogoMini != undefined) {
+			brandImage["minimized"] = headerLogoMini;
+			dynamicConfig["brand_image"] = brandImage;
+		}
+		// Add custom title
+		if (title != undefined) {
+			dynamicConfig["title"] = title;
+		}
+		// Add custom CSS
+		if (customCSS != undefined) {
+			const link = document.createElement('link');
+			link.setAttribute('rel', 'stylesheet');
+			link.setAttribute('href', customCSS);
+			// Append to the `head` element
+			document.head.appendChild(link);
+		}
+		// Dispatch customs to config store
+		if (Object.keys(dynamicConfig).length > 0) {
+			this.Config._dynamic_config = dynamicConfig;
+			if (this.App.Store !== undefined) {
+				this.Config.dispatch(this.App.Store);
+			} else {
+				console.warn('Dynamic configuration has not been dispatched to application store');
+			}
 		}
 	}
 
@@ -83,7 +74,6 @@ export default class ConfigService extends Service {
 				this.Config._defaults[key] = defaults[key];
 			}
 		}
-
 
 		this.Config.dispatch(this.App.Store);
 	}

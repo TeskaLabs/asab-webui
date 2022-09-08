@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { locationReplace } from 'asab-webui';
 
 export class SeaCatAuthApi {
 
@@ -30,7 +31,7 @@ export class SeaCatAuthApi {
 	}
 
 	// This method will cause a navigation from the app to the OAuth2 login screen
-	login(redirect_uri, force_login_prompt) {
+	async login(redirect_uri, force_login_prompt) {
 		const params = new URLSearchParams({
 			response_type: "code",
 			scope: this.Scope,
@@ -42,7 +43,7 @@ export class SeaCatAuthApi {
 		}
 
 		let oidcURL = this.App.getServiceURL('openidconnect');
-		window.location.replace(oidcURL + "/authorize?" + params.toString());
+		await locationReplace(oidcURL + "/authorize?" + params.toString());
 	}
 
 	logout(access_token) {
@@ -107,14 +108,14 @@ export class GoogleOAuth2Api {
 	}
 
 	// This method will cause a navigation from the app to the OAuth2 login screen
-	login(redirect_uri) {
+	async login(redirect_uri) {
 		const params = new URLSearchParams({
 			response_type: "code",
 			scope: this.Scope,
 			client_id: this.ClientId,
 			redirect_uri: redirect_uri
 		});
-		window.location.replace("https://accounts.google.com/o/oauth2/auth" + "?" + params.toString());
+		await locationReplace("https://accounts.google.com/o/oauth2/auth" + "?" + params.toString());
 	}
 
 
