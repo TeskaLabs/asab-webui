@@ -30,7 +30,7 @@ export function DataTable ({
 	customButton, customComponent,
 	customRowStyle, customRowClassName,
 	customCardBodyComponent,
-	limitValues = [5, 10, 15, 20, 50],
+	limitValues = [5, 10, 15, 20, 25, 30, 50],
 	contentLoader = true, category, height
    }) {
 	const [filterValue, setFilterValue] = useState('');
@@ -41,19 +41,26 @@ export function DataTable ({
 	const { t } = useTranslation();
 
 	useEffect(() => {
-		if ((height && setLimit) && height !== 0) {
+		if ((height && setLimit) && (height !== 0)) {
 			// 250 - is the height of the header and footer plus the paddings in the table.
 			// 48 -  is the height of one row in the table.
 			let tableRowCount = Math.floor((height - 250)/48);
+			let exactNumRows = (height - 250)/48;
+			// if ((count !== 0) && (exactNumRows > count)) {
+			// 	setLimit(count);
+			//
+			// } else {
+			// 	setLimit(round(tableRowCount));
+			// }
 			setLimit(round(tableRowCount));
-		} else if (height == undefined) {
+		} else if ((height == undefined) && setLimit) {
 			setLimit(10);
 		}
 	}, [height]);
 
 	useEffect(() => {
 		if (timeoutRef.current !== null) {
-		clearTimeout(timeoutRef.current);
+			clearTimeout(timeoutRef.current);
 		}
 
 		timeoutRef.current = setTimeout(() => {
@@ -65,10 +72,12 @@ export function DataTable ({
 
 	// rounding page number divisible by 5
 	function round(x) {
-		return (x % 5) >= 2.5 ?
-			parseInt(x / 5) * 5 + 5
-		:
-			parseInt(x / 5) * 5;
+		const rowCount = Math.floor(x / 5) * 5;
+		if (rowCount <= 0) {
+			return 5;
+		} else {
+			return rowCount;
+		}
 	}
 
 	return (
@@ -111,7 +120,6 @@ export function DataTable ({
 							}
 						</ButtonGroup>
 					</CardHeader>
-
 					<CardBody className="data-table-card-body">
 						{customCardBodyComponent}
 						{!isLoading && <Table
@@ -132,7 +140,6 @@ export function DataTable ({
 					</CardBody>
 
 					<CardFooter className="data-table-card-footer  border-top">
-
 						<div className="data-table-card-footer-left">
 							{setLimit &&
 								<LimitDropdown 
