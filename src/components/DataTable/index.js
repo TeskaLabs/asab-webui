@@ -45,13 +45,6 @@ export function DataTable ({
 			// 250 - is the height of the header and footer plus the paddings in the table.
 			// 48 -  is the height of one row in the table.
 			let tableRowCount = Math.floor((height - 250)/48);
-			let exactNumRows = (height - 250)/48;
-			// if ((count !== 0) && (exactNumRows > count)) {
-			// 	setLimit(count);
-			//
-			// } else {
-			// 	setLimit(round(tableRowCount));
-			// }
 			setLimit(round(tableRowCount));
 		} else if ((height == undefined) && setLimit) {
 			setLimit(10);
@@ -72,7 +65,7 @@ export function DataTable ({
 
 	// rounding page number divisible by 5
 	function round(x) {
-		const rowCount = Math.floor(x / 5) * 5;
+		const rowCount = Math.round(x / 5) * 5;
 		if (rowCount <= 0) {
 			return 5;
 		} else {
@@ -83,7 +76,7 @@ export function DataTable ({
 	return (
 		<Row className="h-100">
 			<Col>
-				<Card className="h-100 data-table-card">
+				<Card className="h-auto data-table-card">
 					<CardHeader className="data-table-card-header border-bottom">
 						<div className="data-table-title card-header-title">
 							{title.icon && typeof title.icon === 'string' ? 
@@ -170,7 +163,6 @@ export function DataTable ({
 								lastPage={Math.ceil(count/limit)}
 							/>
 						}
-
 					</CardFooter>
 				</Card>
 			</Col>
