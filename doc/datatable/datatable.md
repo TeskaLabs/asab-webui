@@ -705,6 +705,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 function (props) {
 	...
+	const [limit, setLimit] = useState(10);
 	const [height, setHeight] = useState(0);
 	const ref = useRef(null);
 	...
@@ -716,6 +717,8 @@ function (props) {
 		<div className="h-100" ref={ref}>
 			<DataTable
 				...
+				limit={limit}
+				setLimit={setLimit}
 				height={height}
 				...
 			>
