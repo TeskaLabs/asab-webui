@@ -45,7 +45,7 @@ export function DataTable ({
 			// 250 - is the height of the header and footer plus the paddings in the table.
 			// 48 -  is the height of one row in the table.
 			let tableRowCount = Math.floor((height - 250)/48);
-			setLimit(round(tableRowCount));
+			setLimit(roundedNumRows(tableRowCount));
 		} else if ((height == undefined) && setLimit) {
 			setLimit(10);
 		}
@@ -64,13 +64,18 @@ export function DataTable ({
 	}, [filterValue]);
 
 	// rounding page number divisible by 5
-	function round(x) {
-		const rowCount = Math.round(x / 5) * 5;
-		if (rowCount <= 0) {
-			return 5;
+	function roundedNumRows(x) {
+		if (Number.isInteger(x)) {
+			const rowCount = Math.round(x / 5) * 5;
+			if (rowCount <= 0) {
+				return 5;
+			} else {
+				return rowCount;
+			}
 		} else {
-			return rowCount;
+			return limit;
 		}
+
 	}
 
 	return (
