@@ -36,7 +36,7 @@ export function DataTable ({
 	const [filterValue, setFilterValue] = useState('');
 	const [isLimitOpen, setLimitDropdown] = useState(false);
 	const timeoutRef = useRef(null);
-	const [countDigit, setCountDigit] = useState(1)
+	const [countDigit, setCountDigit] = useState(1);
 	
 	const { t } = useTranslation();
 
@@ -46,7 +46,7 @@ export function DataTable ({
 			// 48 -  is the height of one row in the table.
 			let tableRowCount = Math.floor((height - 250)/48);
 			setLimit(roundedNumRows(tableRowCount));
-		} else if ((height == undefined) && setLimit) {
+		} else if (setLimit && (height == undefined)) {
 			setLimit(10);
 		}
 	}, [height]);
