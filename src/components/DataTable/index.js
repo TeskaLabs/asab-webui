@@ -41,7 +41,7 @@ export function DataTable ({
 	const { t } = useTranslation();
 
 	useEffect(() => {
-		if ((height && setLimit) && (height !== 0)) {
+		if (setLimit && height && (height !== 0)) {
 			// 250 - is the height of the header and footer plus the paddings in the table.
 			// 48 -  is the height of one row in the table.
 			let tableRowCount = Math.floor((height - 250)/48);
@@ -65,7 +65,7 @@ export function DataTable ({
 
 	// rounding page number divisible by 5
 	function roundedNumRows(x) {
-		if (Number.isInteger(x)) {
+		if (isNaN(x) == false) {
 			const rowCount = Math.round(x / 5) * 5;
 			if (rowCount <= 0) {
 				return 5;
@@ -73,7 +73,7 @@ export function DataTable ({
 				return rowCount;
 			}
 		} else {
-			return limit;
+			return 10;
 		}
 
 	}
