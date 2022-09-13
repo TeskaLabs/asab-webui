@@ -708,34 +708,35 @@ import React, { useState, useEffect, useRef } from 'react';
 ...
 
 function (props) {
-	...
-	const [limit, setLimit] = useState(undefined);
+...
+	const [limit, setLimit] = useState(0);
 	const [height, setHeight] = useState(0);
 	const ref = useRef(null);
-	
-	const fetchData = () => {...}
-	
-	useEffect(() => {
-		if (limit != undefined) {
-			fetchData();
-		}
-	}, [limit]);
-	
+
 	useEffect(() => {
 		setHeight(ref.current.clientHeight);
 	}, []);
-	...
+
+	useEffect(() => {
+		if (limit > 0) {
+			fetchData();
+		}
+	}, [limit]);
+
+	const fetchData = () => {...}
+
 	return (
 		<div className="h-100" ref={ref}>
 			<DataTable
-				...
-				limit={limit}
-				setLimit={setLimit}
-				height={height}
-				...
+			...
+			limit={limit}
+			setLimit={setLimit}
+			height={height}
+			...
 			>
 		</div>
 	);
+..
 }
 ```
 
