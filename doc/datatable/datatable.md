@@ -695,9 +695,13 @@ Property `onDownload` of `customComponent` is needed if you want to use custom c
 
 Property `height` is needed if you want the item of elements in the table to adjust to the height of the web page when it first loads.
 NOTE: `height` should be used in conjunction with the `limit` and `setLimit`.
-You will need to `useEffect`. This is where you will count the height of the container when you first load it. You will also need to `useRef`. You will need to place it on the wrapper tag. Be sure to style this tag to 100% height.
+> You will need two `useEffect`:
+> 
+> - The first will calculate the height of the container when it is first loaded. 
+> - The second you need to have the number of rows displayed dynamically, you need to add a condition (`limit !== undefined`), where you call the function that gets the data for the table.
+> 
+You also need to add `useRef`. You will need to place it on the wrapper tag. Be sure to style this tag to 100% height.
 The number of items displayed per page will be a multiple of 5.
-
 ```js
 import React, { useState, useEffect, useRef } from 'react';
 
@@ -705,10 +709,18 @@ import React, { useState, useEffect, useRef } from 'react';
 
 function (props) {
 	...
-	const [limit, setLimit] = useState(10);
+	const [limit, setLimit] = useState(undefined);
 	const [height, setHeight] = useState(0);
 	const ref = useRef(null);
-	...
+	
+	const fetchData = () => {...}
+	
+	useEffect(() => {
+		if (limit != undefined) {
+			fetchData();
+		}
+	}, [limit]);
+	
 	useEffect(() => {
 		setHeight(ref.current.clientHeight);
 	}, []);
