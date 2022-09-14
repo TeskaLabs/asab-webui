@@ -321,6 +321,8 @@
 
 - Refactor dynamic branding (INDIGO Sprint 220902, [!355](https://github.com/TeskaLabs/asab-webui/pull/355)
 
+- Replace class form-text (INDIGO Sprint 220902, [!358](https://github.com/TeskaLabs/asab-webui/pull/358)
+
 
 ### Bugfixes
 
