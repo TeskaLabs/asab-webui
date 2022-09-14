@@ -705,10 +705,10 @@ The number of items displayed per page will be a multiple of 5.
 ```js
 import React, { useState, useEffect, useRef } from 'react';
 
-...
+	...
 
 function (props) {
-...
+	...
 	const [limit, setLimit] = useState(0);
 	const [height, setHeight] = useState(0);
 	const ref = useRef(null);
@@ -736,7 +736,7 @@ function (props) {
 			>
 		</div>
 	);
-..
+	..
 }
 ```
 
