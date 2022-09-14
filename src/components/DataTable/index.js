@@ -68,12 +68,12 @@ export function DataTable ({
 		if (isNaN(x) == false) {
 			const rowCount = Math.round(x / 5) * 5;
 			if (rowCount <= 0) {
-				return 5;
+				return 5; // It is a lowest limit value
 			} else {
 				return rowCount;
 			}
 		} else {
-			return 10;
+			return 10; // It is a default limit value
 		}
 
 	}
