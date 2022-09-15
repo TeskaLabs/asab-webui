@@ -124,6 +124,8 @@
 
 - New design implementation (INDIGO Sprint 210712, [!286](https://github.com/TeskaLabs/asab-webui/pull/286))
 
+- Implement a dynamic height-dependent display of table item when the web page first loads (INDIGO Sprint 220902, [!356](https://github.com/TeskaLabs/asab-webui/pull/356))
+
 
 ### Refactoring
 
@@ -405,3 +407,5 @@
 - Fix Safari issues with loading of the application (INDIGO Sprint 220819, [!350](https://github.com/TeskaLabs/asab-webui/pull/350))
 
 - Fix Safari issue - TenantSelectionCard action triggered upon change of tenant (INDIGO Sprint 220819, [!352](https://github.com/TeskaLabs/asab-webui/pull/352))
+
+- Button styles update. Underline removal for link button, text color update when active, updated box shadow to inset when clicked (INDIGO Sprint 220902, [!357](https://github.com/TeskaLabs/asab-webui/pull/357))

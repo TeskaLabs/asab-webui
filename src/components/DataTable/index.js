@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { 
+import {
 	Card, Row, Col, ButtonGroup,
 	CardFooter, CardHeader, CardBody,
 	Button, Container
@@ -30,19 +30,30 @@ export function DataTable ({
 	customButton, customComponent,
 	customRowStyle, customRowClassName,
 	customCardBodyComponent,
-	limitValues = [10, 15, 25, 50],
-	contentLoader = true, category
-	}) {
+	limitValues = [5, 10, 15, 20, 25, 30, 50],
+	contentLoader = true, category, height
+   }) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isLimitOpen, setLimitDropdown] = useState(false);
 	const timeoutRef = useRef(null);
-	const [countDigit, setCountDigit] = useState(1)
+	const [countDigit, setCountDigit] = useState(1);
 	
 	const { t } = useTranslation();
 
 	useEffect(() => {
+		if (setLimit && height && (height !== 0)) {
+			// 250 - is the height of the header and footer plus the paddings in the table.
+			// 48 -  is the height of one row in the table.
+			let tableRowCount = Math.floor((height - 250)/48);
+			setLimit(roundedNumRows(tableRowCount));
+		} else if (setLimit && (height == undefined)) {
+			setLimit(10);
+		}
+	}, [height]);
+
+	useEffect(() => {
 		if (timeoutRef.current !== null) {
-		clearTimeout(timeoutRef.current);
+			clearTimeout(timeoutRef.current);
 		}
 
 		timeoutRef.current = setTimeout(() => {
@@ -52,10 +63,25 @@ export function DataTable ({
 		}, 500);
 	}, [filterValue]);
 
+	// rounding page number divisible by 5
+	function roundedNumRows(x) {
+		if (isNaN(x) == false) {
+			const rowCount = Math.round(x / 5) * 5;
+			if (rowCount <= 0) {
+				return 5; // It is a lowest limit value
+			} else {
+				return rowCount;
+			}
+		} else {
+			return 10; // It is a default limit value
+		}
+
+	}
+
 	return (
 		<Row className="h-100">
 			<Col>
-				<Card className="h-100 data-table-card">
+				<Card className="h-auto data-table-card">
 					<CardHeader className="data-table-card-header border-bottom">
 						<div className="data-table-title card-header-title">
 							{title.icon && typeof title.icon === 'string' ? 
@@ -92,7 +118,6 @@ export function DataTable ({
 							}
 						</ButtonGroup>
 					</CardHeader>
-
 					<CardBody className="data-table-card-body">
 						{customCardBodyComponent}
 						{!isLoading && <Table
@@ -113,7 +138,6 @@ export function DataTable ({
 					</CardBody>
 
 					<CardFooter className="data-table-card-footer  border-top">
-
 						<div className="data-table-card-footer-left">
 							{setLimit &&
 								<LimitDropdown 
@@ -144,7 +168,6 @@ export function DataTable ({
 								lastPage={Math.ceil(count/limit)}
 							/>
 						}
-
 					</CardFooter>
 				</Card>
 			</Col>
