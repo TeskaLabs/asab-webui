@@ -323,6 +323,8 @@
 
 - Refactor dynamic branding (INDIGO Sprint 220902, [!355](https://github.com/TeskaLabs/asab-webui/pull/355)
 
+- Add special loaded class for correct styling body background-color and background-image when the page is loaded (INDIGO Sprint 220916, [!359](https://github.com/TeskaLabs/asab-webui/pull/359)
+
 
 ### Bugfixes
 
