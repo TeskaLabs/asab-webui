@@ -409,3 +409,5 @@
 - Fix Safari issue - TenantSelectionCard action triggered upon change of tenant (INDIGO Sprint 220819, [!352](https://github.com/TeskaLabs/asab-webui/pull/352))
 
 - Button styles update. Underline removal for link button, text color update when active, updated box shadow to inset when clicked (INDIGO Sprint 220902, [!357](https://github.com/TeskaLabs/asab-webui/pull/357))
+
+- Fix button link color when state active or focus (INDIGO Sprint 220916, [!360](https://github.com/TeskaLabs/asab-webui/pull/360))
