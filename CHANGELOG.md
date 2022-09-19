@@ -325,6 +325,8 @@
 
 - Refactor UserInfo calls based on changes in SeaCat Auth service (INDIGO Sprint 220902, [!344](https://github.com/TeskaLabs/asab-webui/pull/344)
 
+- Replace class form-text (INDIGO Sprint 220902, [!358](https://github.com/TeskaLabs/asab-webui/pull/358)
+
 
 ### Bugfixes
 
