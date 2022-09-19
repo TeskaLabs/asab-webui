@@ -77,10 +77,11 @@ $disabled-input-background-color: var(--disabled-input-background-color);
     }
 }
 
+.form-text {
+    color: $text-secondary-color !important;
+}
+
 .form-group {
-    .form-text {
-        color: $text-secondary-color !important;
-    }
     .form-control.is-invalid {
         border-color: $danger;
     }
