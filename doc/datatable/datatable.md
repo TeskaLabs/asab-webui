@@ -277,7 +277,7 @@ function (props) {
 }
 ```
 
-Prop `count` is ussualy obtained from API endpoint with fetched data.
+Prop `count` is usually obtained from API endpoint with fetched data.
 
 Example of fetched data:
 
@@ -458,7 +458,7 @@ Example of `customComponent`:
 
 ```
 
-Props `search` and `onSearch` is used to render input search box in `DataTable`. First prop `search` is either a boolean or an object containing optional property `placeholder` for placeholder of search input box and optional property `icon` which can either be a React Component (e.g. from package `@material-ui/icons`) or a string which is className and will be rendered as `<i className={icon}></i>`.Prop `search` may be obtained from configurtion.
+Props `search` and `onSearch` is used to render input search box in `DataTable`. First prop `search` is either a boolean or an object containing optional property `placeholder` for placeholder of search input box and optional property `icon` which can either be a React Component (e.g. from package `@material-ui/icons`) or a string which is className and will be rendered as `<i className={icon}></i>`.Prop `search` may be obtained from configuration.
 Second prop `onSearch` is a function which executes after 500ms after last change in search input box has been made, it can be used with axios to filter data (example below).
 
 Example of handling and using search and onSearch:
