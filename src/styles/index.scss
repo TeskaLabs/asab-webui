@@ -23,11 +23,12 @@ html {
 		font-weight: 400;
 
 		color: $text-color;
-		background-color: #f3f4fa;
+		background-color: $gray;
 
 		&.loaded {
 			background-color: $body-bg;
 			background-image: none;
+			height: auto;
 		}
 
 		p, span, h1, h2, h3, h4, h5, h6, div {
