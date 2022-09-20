@@ -380,16 +380,17 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 		font-weight: 400;
     	color: $primary;
 		text-decoration: none;
-		&:hover, &.disabled, &:disabled {
+		&.disabled, &:disabled {
 			color: $night-blue;
+			filter: opacity(60%);
 		}
 		&:active, &:not(:disabled):not(.disabled):active, &:focus {
 			color: $primary;
 			text-decoration: none;
 		}
-
-		&.disabled, &:disabled {
-			filter: opacity(60%);
+		&:hover {
+			text-decoration: underline !important;
+			color: $night-blue;
 		}
 	}
 
