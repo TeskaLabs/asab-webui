@@ -698,9 +698,9 @@ NOTE: `height` should be used in conjunction with the `limit` and `setLimit`.
 > You will need two `useEffect`:
 > 
 > - The first will calculate the height of the container when it is first loaded. 
-> - The second you need to have the number of rows displayed dynamically, you need to add a condition (`limit !== undefined`), where you call the function that gets the data for the table.
+> - The second you need to have the number of rows displayed dynamically, you need to add a condition (`limit > 0`), where you call the function that gets the data for the table. It will be in the same `useEffect` in which you called the function before.
 > 
-You also need to add `useRef`. You will need to place it on the wrapper tag. Be sure to style this tag to 100% height.
+You also need to add `useRef`. You will need to place it on the wrapper tag. It can only be `<div>`.Be sure to style this tag to 100% height.
 The number of items displayed per page will be a multiple of 5.
 ```js
 import React, { useState, useEffect, useRef } from 'react';
@@ -721,7 +721,7 @@ function (props) {
 		if (limit > 0) {
 			fetchData();
 		}
-	}, [limit]);
+	}, [...,limit]);
 
 	const fetchData = () => {...}
 
