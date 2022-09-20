@@ -325,6 +325,8 @@
 
 - Replace class form-text (INDIGO Sprint 220902, [!358](https://github.com/TeskaLabs/asab-webui/pull/358)
 
+- Fix markdown and word mistakes in DataTable docs (INDIGO Sprint 220916, [!360](https://github.com/TeskaLabs/asab-webui/pull/360)
+
 
 ### Bugfixes
 
