@@ -38,6 +38,12 @@ $active-link-bg-color: var(--active-link-bg-color);
                     color: $link-hover-txt-color;
                 }
             }
+            &:focus {
+                box-shadow: none;
+            }
+            &:active{
+                box-shadow: inset 0 0 0 .2rem rgba(0,123,255,.25);
+            }
         }
         &.active > .page-link{
             background-color: $active-link-bg-color;
