@@ -74,6 +74,9 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 			.btn:last-child {
 				border-radius: 0 8px 0 0;
 			}
+			.data-table-button .dropdown .dropdown-header {
+				padding: 0.5rem 0.75rem;
+			}
 		}
 		.input-group{
 			padding: 9.5px 8px;
