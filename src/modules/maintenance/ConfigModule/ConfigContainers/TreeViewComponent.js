@@ -22,7 +22,7 @@ export function TreeViewComponent(props) {
 	const [isDropdownMenuOpen, setDropdownMenu] = useState(false);
 
 	// Obtain resources from state (if available)
-	const resources = useSelector(state => state.auth?.userinfo?.resources);
+	const resources = useSelector(state => state.auth?.resources);
 	const resource = "config:admin";
 
 	useEffect(() => {
