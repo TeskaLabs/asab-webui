@@ -2,6 +2,12 @@
 
 ## Release Candidate
 
+## v22.38
+
+### Breaking changes
+
+- From release `v22.38`, only same (`v22.38`) or newer release tags of SeaCat Auth service is compatible with ASAB WebUI due to changes in `userinfo` response
+
 ### Features
 
 - Add Spinner component (INDIGO Sprint 210406, [!95](https://github.com/TeskaLabs/asab-webui/pull/95))
