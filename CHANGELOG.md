@@ -2,6 +2,16 @@
 
 ## Release Candidate
 
+### Refactoring
+
+- Fix markdown and word mistakes in DataTable docs (INDIGO Sprint 220916, [!361](https://github.com/TeskaLabs/asab-webui/pull/361)
+
+## v22.38
+
+### Breaking changes
+
+- From release `v22.38`, only same (`v22.38`) or newer release tags of SeaCat Auth service is compatible with ASAB WebUI due to changes in `userinfo` response
+
 ### Features
 
 - Add Spinner component (INDIGO Sprint 210406, [!95](https://github.com/TeskaLabs/asab-webui/pull/95))
@@ -323,9 +333,9 @@
 
 - Refactor dynamic branding (INDIGO Sprint 220902, [!355](https://github.com/TeskaLabs/asab-webui/pull/355)
 
-- Replace class form-text (INDIGO Sprint 220916, [!358](https://github.com/TeskaLabs/asab-webui/pull/358)
+- Refactor UserInfo calls based on changes in SeaCat Auth service (INDIGO Sprint 220902, [!344](https://github.com/TeskaLabs/asab-webui/pull/344)
 
-- Fix markdown and word mistakes in DataTable docs (INDIGO Sprint 220916, [!361](https://github.com/TeskaLabs/asab-webui/pull/361)
+- Replace class form-text (INDIGO Sprint 220916, [!358](https://github.com/TeskaLabs/asab-webui/pull/358)
 
 
 ### Bugfixes
@@ -411,3 +421,5 @@
 - Fix Safari issue - TenantSelectionCard action triggered upon change of tenant (INDIGO Sprint 220819, [!352](https://github.com/TeskaLabs/asab-webui/pull/352))
 
 - Button styles update. Underline removal for link button, text color update when active, updated box shadow to inset when clicked (INDIGO Sprint 220902, [!357](https://github.com/TeskaLabs/asab-webui/pull/357))
+
+- Fix button link color when state active or focus (INDIGO Sprint 220916, [!360](https://github.com/TeskaLabs/asab-webui/pull/360))

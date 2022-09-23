@@ -13,8 +13,7 @@ import "./select.scss";
 function TenantSelectionCard(props) {
 	const { t } = useTranslation();
 	const SeaCatAuthAPI = props.app.axiosCreate('seacat_auth');
-	let resources = props.userinfo?.resources;
-	let superuser = resources ? resources.indexOf('authz:superuser') !== -1 : false;
+	let superuser = props.resources ? props.resources.indexOf('authz:superuser') !== -1 : false;
 
 	const selectTenant = async (tn) => {
 		if (tn.value !== "99999") {
@@ -73,7 +72,7 @@ function TenantSelectionCard(props) {
 
 function mapStateToProps(state) {
 	return {
-		userinfo: state.auth?.userinfo,
+		resources: state.auth?.resources,
 		tenants: state.tenant?.tenants,
 		current: state.tenant?.current
 	}
