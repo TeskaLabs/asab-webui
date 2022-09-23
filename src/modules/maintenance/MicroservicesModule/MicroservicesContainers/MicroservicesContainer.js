@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import ReactJson from 'react-json-view';
 
 import { Container } from 'reactstrap';
 
@@ -8,11 +9,13 @@ import { DataTable } from 'asab-webui';
 import "./microservices.scss";
 
 export default (props) => {
-	const [list, setList] = useState([]);
-	const [page, setPage] = useState(1);
-	const [count, setCount] = useState(0);
-	const [filter, setFilter] = useState("");
-	const [limit, setLimit] = useState(20);
+	// const [list, setList] = useState([]);
+	// const [page, setPage] = useState(1);
+	// const [count, setCount] = useState(0);
+	// const [filter, setFilter] = useState("");
+	// const [limit, setLimit] = useState(20);
+
+	const [data, setData] = useState({});
 
 	const { t } = useTranslation();
 
@@ -21,7 +24,6 @@ export default (props) => {
 	// const LMIORemoteControlAPI = props.app.axiosCreate('lmio_remote_control');
 	const serviceName = 'lmio_remote_control';
 	let WSUrl = props.app.getWebSocketURL(serviceName, wsSubPath);
-	console.log(WSUrl, "WS URL")
 	let WSClient = null;
 
 	const isMounted = useRef(null);
@@ -31,10 +33,9 @@ export default (props) => {
 		isMounted.current = true;
 
 		if (WSUrl != undefined) {
-			console.log('RECONNECT JEDE?')
 			reconnect();
 		}
-		console.log(WSClient, "WS CLIENT")
+
 		return () => {
 			if (WSClient != null) {
 				try {
@@ -62,11 +63,21 @@ export default (props) => {
 
 		WSClient = props.app.createWebSocket(serviceName, wsSubPath);
 
-		console.log(WSClient, "WS CLIENT V RECONNECT 2")
+		// TODO: remove onopen
+		WSClient.onopen = () => {
+			console.log('ws connection open');
+		}
 
 		WSClient.onmessage = (message) => {
+			if (IsJsonString(message.data) == true) {
+				setData(JSON.parse(message.data));
+			} else {
+				const err = {};
+				err["parsingError"] = true;
+				setData(err);
+			}
 			// DO something
-			console.log(message, "MESSAGE")
+			console.log(JSON.parse(message.data), "MESSAGE")
 		};
 
 		WSClient.onerror = (error) => {
@@ -135,22 +146,22 @@ export default (props) => {
 
 	return (
 		<Container className="svcs-container" fluid>
-			<DataTable 
-				headers={headers}
-				data={list}
-				currentPage={page}
-				setPage={setPage}
-				count={count}
-				limit={limit}
-				setLimit={setLimit}
-				limitValues={[20, 50, 100]}
-				search={{ icon: 'cil-magnifying-glass', placeholder: t("CredentialsListContainer|Search") }}
-				// onSearch={onSearch}
-				title={{
-					text: t('MicroservicesContainer|Microservices'), icon: "cil-list"
-				}}
-				// customRowStyle={customRowStyle}
+			<ReactJson
+				src={data}
+				name={false}
+				collapsed={false}
+				// theme={theme === 'dark' ? "chalk" : "rjv-default"}
 			/>
 		</Container>
 	)
+}
+
+// Check if string is valid JSON
+function IsJsonString(str) {
+	try {
+		JSON.parse(str);
+	} catch (e) {
+		return false;
+	}
+	return true;
 }
