@@ -4,7 +4,7 @@
 
 ### Bugfixes
 
-- Fix login without tenants and roles. Correct show TenantSelectionCard (INDIGO Sprint 220916, [!364](https://github.com/TeskaLabs/asab-webui/pull/364))
+- Fix login without tenants and resources. Correct show TenantSelectionCard (INDIGO Sprint 220916, [!364](https://github.com/TeskaLabs/asab-webui/pull/364))
 
 ## v22.38
 
