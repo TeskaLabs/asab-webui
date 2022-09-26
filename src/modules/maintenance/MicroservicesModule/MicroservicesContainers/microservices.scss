@@ -1,9 +1,10 @@
+@import "~asab-webui/styles/constants/index.scss";
+
 .svcs-container {
-		td:nth-child(3n) {
-		font-family: monospace;
-	}
+	height: 100%;
+
 }
 
-.spinner {
-	padding-top: 10rem;
+.microservices-body {
+	overflow: auto;
 }
