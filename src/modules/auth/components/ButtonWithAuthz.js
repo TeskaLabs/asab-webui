@@ -28,10 +28,11 @@ import { authz } from './authz';
 	Example:
 
 	import { ButtonWithAuthz } from 'asab-webui';
+	import { useSelector } from 'react-redux';
 
 	...
 
-	const resources = props.userinfo.resources
+	const resources = useSelector(state => state.auth?.resources);
 
 	...
 

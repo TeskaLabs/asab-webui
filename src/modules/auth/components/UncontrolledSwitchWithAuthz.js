@@ -32,7 +32,7 @@ import { authz } from './authz';
 
 	...
 
-	const resources = useSelector(state => state.auth?.userinfo?.resources);
+	const resources = useSelector(state => state.auth?.resources);
 
 	...
 

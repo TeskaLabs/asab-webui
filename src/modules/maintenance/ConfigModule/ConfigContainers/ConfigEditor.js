@@ -51,7 +51,7 @@ function ConfigEditor(props) {
 	const [ activeTab, setActiveTab ] = useState('basic');
 
 	const resourceManageConfig = "config:admin";
-	const resources = useSelector(state => state.auth?.userinfo?.resources);
+	const resources = useSelector(state => state.auth?.resources);
 	const theme = useSelector(state => state?.theme);
 
 	// Pattern props dropdown

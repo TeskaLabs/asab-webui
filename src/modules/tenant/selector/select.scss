@@ -1,9 +1,12 @@
+@import "~asab-webui/styles/constants/index.scss";
+
 .tenant-selection-card {
 	width: fit-content;
 	margin: 0 auto;
 	float: none;
 	margin-top: 5%;
 	margin-bottom: -15% !important;
+	background-color: $bg-color;
 }
 
 .tenant-selection-wrapper {
