@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactJson from 'react-json-view';
 import { useSelector } from 'react-redux';
 
-import { Container, Card, CardBody } from 'reactstrap';
+import { Container, Card, CardBody, CardHeader } from 'reactstrap';
 
 import { DataTable, Spinner } from 'asab-webui';
 
@@ -14,7 +14,9 @@ export default (props) => {
 	// const [filter, setFilter] = useState("");
 	// const [limit, setLimit] = useState(20);
 
-	const [data, setData] = useState({});
+	const [fullFrameData, setFullFrameData] = useState({});
+	const [fFData, setFFData] = useState(false);
+	const [deltaFrameData, setDeltaFrameData] = useState({});
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 
@@ -55,8 +57,40 @@ export default (props) => {
 		}
 	}, []);
 
+	// Use memo for data rendering (due to expensive caluclations)
+	const data = useMemo(() => {
+		if (fFData == true) {
+			// Render full frame data
+			setFFData(false);
+			return fullFrameData;
+		} else {
+			// Render delta frame data
+			if(deltaFrameData && Object.keys(deltaFrameData)) {
+				// If key in full frame, update data, otherwise append deltaframe to fullframe object without mutating the original object
+				if (fullFrameData[Object.keys(deltaFrameData)[0]]) {
+					// New additions / updates to values of object
+					const additions = Object.values(deltaFrameData) ? Object.values(deltaFrameData)[0] : {};
+					// Append new values / updates to values of object
+					let updateValues = {...fullFrameData[Object.keys(deltaFrameData)[0]], ...additions}
+					// Create a new key-value pair from deltaFrame key and new/updated values
+					let newObj = {};
+					newObj[Object.keys(deltaFrameData)[0]] = updateValues;
+					// Append new object to fullFrame data object without mutation of original one
+					let renderAll = {...fullFrameData, ...newObj};
+					// Return object
+					return renderAll;
+				} else {
+					// Append deltaFrame object to fullFrame object and return it
+					let renderAll = {...fullFrameData, ...deltaFrameData};
+					return renderAll;
+				}
+			}
+			// Fallback if deltaFrameData will not meet the condition requirements
+			return fullFrameData;
+		}
+	}, [fullFrameData, deltaFrameData])
+
 	const reconnect = () => {
-		console.log(WSClient, 'WS CLIENT V RECONNECT')
 		if (WSClient != null) {
 			try {
 				WSClient.close();
@@ -71,22 +105,29 @@ export default (props) => {
 
 		// TODO: remove onopen
 		WSClient.onopen = () => {
-			// setLoading(false);
 			console.log('ws connection open');
 		}
 
 		WSClient.onmessage = (message) => {
 			setLoading(false);
 			if (IsJsonString(message.data) == true) {
-				setData(JSON.parse(message.data));
+				let retrievedData = JSON.parse(message.data);
+				if (retrievedData && Object.keys(retrievedData)) {
+					if (Object.keys(retrievedData).length > 1) {
+						// Set full frame data
+						setFullFrameData(retrievedData);
+						setFFData(true);
+					} else {
+						// Set delta frame data
+						setDeltaFrameData(retrievedData);
+					}
+				}
 			} else {
 				const err = {};
 				err["parsingError"] = true;
 				setData(err);
 			}
 			setError(false);
-			// DO something
-			console.log(JSON.parse(message.data), "MESSAGE")
 		};
 
 		WSClient.onerror = (error) => {
@@ -99,20 +140,20 @@ export default (props) => {
 	}
 
 	// const headers = [
-	// 	{
-	// 		name: " ",
-	// 		customHeaderStyle: { width: '2.5rem' },
-	// 		customComponent: {
-	// 			generate: (obj) => {
-	// 				if (obj["attention_required"] && Object.keys(obj["attention_required"]).length > 0) {
-	// 					return (
-	// 						<i className="cil-warning"></i>
-	// 					)
-	// 				}
-	// 			}
-	// 		}
-	// 	},
-	// 	{ name: t('MicroservicesContainer|ID'), key: 'id', link: { key: "id", pathname: "/microservices/svcs/" } },
+	// 	// {
+	// 	// 	name: " ",
+	// 	// 	customHeaderStyle: { width: '2.5rem' },
+	// 	// 	customComponent: {
+	// 	// 		generate: (obj) => {
+	// 	// 			if (obj["attention_required"] && Object.keys(obj["attention_required"]).length > 0) {
+	// 	// 				return (
+	// 	// 					<i className="cil-warning"></i>
+	// 	// 				)
+	// 	// 			}
+	// 	// 		}
+	// 	// 	}
+	// 	// },
+	// 	{ name: t('MicroservicesContainer|ID'), key: 'id' },
 	// 	{ name: t('MicroservicesContainer|Host'), key: 'hostname' },
 	// 	{ name: t('MicroservicesContainer|Launch time'), key: 'launchtime', datetime: true },
 	// 	{ name: t('MicroservicesContainer|Created at'), key: 'created_at', datetime: true },
@@ -152,42 +193,67 @@ export default (props) => {
 	// 		return false;
 	// 	}
 	// }
-
+	// console.log(data, "DATA")
 	return (
 		<Container className="svcs-container" fluid>
-			{loading == true ? <div className="spinner"><Spinner /></div> :
+			{loading == true ?
+				<Card className="h-100">
+					<CardHeader className="border-bottom">
+						<div className="card-header-title">
+							{t("MicroservicesContainer|Services")}
+						</div>
+					</CardHeader>
+					<CardBody>
+						<Spinner />
+					</CardBody>
+				</Card>
+				:
 				error == true ?
-				<div style={{paddingTop: "100px", display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
-					<Card  style={{backgroundColor: "transparent", border: "none"}}>
-						<CardBody className="text-center">
-							<img
-								src={emptyContentImg}
-								alt={emptyContentAlt}
-								style={{maxWidth: "38%"}}
-							/>
-							<h3>{t("MicroservicesContainer|Can't establish websocket connection, data can't be loaded")}</h3>
-						</CardBody>
-					</Card>
-				</div>
-				:
-				(data["parsingError"] == true) ?
-				<div>
-					<div>{t("MicroservicesContainer|Can't display data due to parsing error")}</div>
-				</div>
-				:
-				<Card>
-				<CardBody>
-				{data && Object.keys(data).map((key, idx) => {
-					<div key={key}>
-						{key}: <ReactJson
-							src={data.key}
-							name={false}
-							collapsed={true}
-							theme={theme === "dark" ? "chalk" : "rjv-default"}
+				<Card className="h-100" style={{backgroundColor: "transparent", border: "none"}}>
+					<CardHeader className="border-bottom">
+						<div className="card-header-title">
+							{t("MicroservicesContainer|Services")}
+						</div>
+					</CardHeader>
+					<CardBody style={{display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
+						<div>
+						<img
+							src={emptyContentImg}
+							alt={emptyContentAlt}
+							style={{maxWidth: "38%"}}
 						/>
-					</div>
-				})}
-				</CardBody>
+						<h3>{t("MicroservicesContainer|Can't establish websocket connection, data can't be loaded")}</h3>
+						</div>
+					</CardBody>
+				</Card>
+				:
+				<Card className="h-100">
+					<CardHeader className="border-bottom">
+						<div className="card-header-title">
+							{t("MicroservicesContainer|Services")}
+						</div>
+					</CardHeader>
+					<CardBody className="h-100 microservices-body">
+						{(data["parsingError"] == true) ?
+							<div>
+								<div>{t("MicroservicesContainer|Can't display data due to parsing error")}</div>
+							</div>
+						:
+							data && Object.keys(data).map((key, idx) => {
+								return(<div key={key}>
+									{key}: <ReactJson
+										src={data[key]}
+										name={false}
+										collapsed={true}
+										displayArrayKey={false}
+										displayDataTypes={false}
+										enableClipboard={false}
+										theme={theme === "dark" ? "chalk" : "rjv-default"}
+									/>
+								</div>)
+							})
+						}
+					</CardBody>
 				</Card>
 			}
 		</Container>
