@@ -337,6 +337,8 @@
 
 - Replace class form-text (INDIGO Sprint 220916, [!358](https://github.com/TeskaLabs/asab-webui/pull/358)
 
+- Refactor overflow style in pagination dropdown (INDIGO Sprint 220916, [!365](https://github.com/TeskaLabs/asab-webui/pull/365)
+
 
 ### Bugfixes
 
