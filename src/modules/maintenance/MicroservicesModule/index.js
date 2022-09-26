@@ -3,6 +3,8 @@ import Module from 'asab-webui/abc/Module';
 import MicroservicesContainer from "./MicroservicesContainers/MicroservicesContainer";
 import MicroserviceDetailContainer from "./MicroservicesContainers/MicroserviceDetailContainer";
 
+import "./MicroservicesContainers/microservices.scss";
+
 export default class MicroservicesModule extends Module {
 	constructor(app, name) {
 		super(app, "ASABMicroservicesModule");

@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactJson from 'react-json-view';
+import { useSelector } from 'react-redux';
 
-import { Container } from 'reactstrap';
+import { Container, Card, CardBody } from 'reactstrap';
 
 import { DataTable, Spinner } from 'asab-webui';
-
-import "./microservices.scss";
 
 export default (props) => {
 	// const [list, setList] = useState([]);
@@ -17,6 +16,12 @@ export default (props) => {
 
 	const [data, setData] = useState({});
 	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(false);
+
+	const emptyContentImg = props.app.Config.get('brand_image').full;
+	const emptyContentAlt = props.app.Config.get('title');
+
+	const theme = useSelector(state => state.theme);
 
 	const { t } = useTranslation();
 
@@ -79,14 +84,14 @@ export default (props) => {
 				err["parsingError"] = true;
 				setData(err);
 			}
+			setError(false);
 			// DO something
 			console.log(JSON.parse(message.data), "MESSAGE")
 		};
 
 		WSClient.onerror = (error) => {
-			// DO something
 			setLoading(false);
-			console.warn(error, "ERROR Z WEBSOCKETU")
+			setError(true);
 			setTimeout(() => {
 				reconnect();
 			}, 3000, this);
@@ -151,12 +156,39 @@ export default (props) => {
 	return (
 		<Container className="svcs-container" fluid>
 			{loading == true ? <div className="spinner"><Spinner /></div> :
-				<ReactJson
-					src={data}
-					name={false}
-					collapsed={false}
-					// theme={theme === 'dark' ? "chalk" : "rjv-default"}
-				/>
+				error == true ?
+				<div style={{paddingTop: "100px", display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
+					<Card  style={{backgroundColor: "transparent", border: "none"}}>
+						<CardBody className="text-center">
+							<img
+								src={emptyContentImg}
+								alt={emptyContentAlt}
+								style={{maxWidth: "38%"}}
+							/>
+							<h3>{t("MicroservicesContainer|Can't establish websocket connection, data can't be loaded")}</h3>
+						</CardBody>
+					</Card>
+				</div>
+				:
+				(data["parsingError"] == true) ?
+				<div>
+					<div>{t("MicroservicesContainer|Can't display data due to parsing error")}</div>
+				</div>
+				:
+				<Card>
+				<CardBody>
+				{data && Object.keys(data).map((key, idx) => {
+					<div key={key}>
+						{key}: <ReactJson
+							src={data.key}
+							name={false}
+							collapsed={true}
+							theme={theme === "dark" ? "chalk" : "rjv-default"}
+						/>
+					</div>
+				})}
+				</CardBody>
+				</Card>
 			}
 		</Container>
 	)
