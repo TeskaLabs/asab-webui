@@ -4,7 +4,7 @@ import ReactJson from 'react-json-view';
 
 import { Container } from 'reactstrap';
 
-import { DataTable } from 'asab-webui';
+import { DataTable, Spinner } from 'asab-webui';
 
 import "./microservices.scss";
 
@@ -16,6 +16,7 @@ export default (props) => {
 	// const [limit, setLimit] = useState(20);
 
 	const [data, setData] = useState({});
+	const [loading, setLoading] = useState(true);
 
 	const { t } = useTranslation();
 
@@ -65,10 +66,12 @@ export default (props) => {
 
 		// TODO: remove onopen
 		WSClient.onopen = () => {
+			// setLoading(false);
 			console.log('ws connection open');
 		}
 
 		WSClient.onmessage = (message) => {
+			setLoading(false);
 			if (IsJsonString(message.data) == true) {
 				setData(JSON.parse(message.data));
 			} else {
@@ -82,6 +85,7 @@ export default (props) => {
 
 		WSClient.onerror = (error) => {
 			// DO something
+			setLoading(false);
 			console.warn(error, "ERROR Z WEBSOCKETU")
 			setTimeout(() => {
 				reconnect();
@@ -89,26 +93,26 @@ export default (props) => {
 		};
 	}
 
-	const headers = [
-		{
-			name: " ",
-			customHeaderStyle: { width: '2.5rem' },
-			customComponent: {
-				generate: (obj) => {
-					if (obj["attention_required"] && Object.keys(obj["attention_required"]).length > 0) {
-						return (
-							<i className="cil-warning"></i>
-						)
-					}
-				}
-			}
-		},
-		{ name: t('MicroservicesContainer|ID'), key: 'id', link: { key: "id", pathname: "/microservices/svcs/" } },
-		{ name: t('MicroservicesContainer|Host'), key: 'hostname' },
-		{ name: t('MicroservicesContainer|Launch time'), key: 'launchtime', datetime: true },
-		{ name: t('MicroservicesContainer|Created at'), key: 'created_at', datetime: true },
-		{ name: t('MicroservicesContainer|Version'), key: 'version'}
-	];
+	// const headers = [
+	// 	{
+	// 		name: " ",
+	// 		customHeaderStyle: { width: '2.5rem' },
+	// 		customComponent: {
+	// 			generate: (obj) => {
+	// 				if (obj["attention_required"] && Object.keys(obj["attention_required"]).length > 0) {
+	// 					return (
+	// 						<i className="cil-warning"></i>
+	// 					)
+	// 				}
+	// 			}
+	// 		}
+	// 	},
+	// 	{ name: t('MicroservicesContainer|ID'), key: 'id', link: { key: "id", pathname: "/microservices/svcs/" } },
+	// 	{ name: t('MicroservicesContainer|Host'), key: 'hostname' },
+	// 	{ name: t('MicroservicesContainer|Launch time'), key: 'launchtime', datetime: true },
+	// 	{ name: t('MicroservicesContainer|Created at'), key: 'created_at', datetime: true },
+	// 	{ name: t('MicroservicesContainer|Version'), key: 'version'}
+	// ];
 
 	// // Filter the value
 	// const onSearch = (value) => {
@@ -146,12 +150,14 @@ export default (props) => {
 
 	return (
 		<Container className="svcs-container" fluid>
-			<ReactJson
-				src={data}
-				name={false}
-				collapsed={false}
-				// theme={theme === 'dark' ? "chalk" : "rjv-default"}
-			/>
+			{loading == true ? <div className="spinner"><Spinner /></div> :
+				<ReactJson
+					src={data}
+					name={false}
+					collapsed={false}
+					// theme={theme === 'dark' ? "chalk" : "rjv-default"}
+				/>
+			}
 		</Container>
 	)
 }
