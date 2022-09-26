@@ -2,6 +2,10 @@
 
 ## Release Candidate
 
+### Refactoring
+
+- Fix markdown and word mistakes in DataTable docs (INDIGO Sprint 220916, [!361](https://github.com/TeskaLabs/asab-webui/pull/361)
+
 ## v22.38
 
 ### Breaking changes
@@ -331,7 +335,7 @@
 
 - Refactor UserInfo calls based on changes in SeaCat Auth service (INDIGO Sprint 220902, [!344](https://github.com/TeskaLabs/asab-webui/pull/344)
 
-- Replace class form-text (INDIGO Sprint 220902, [!358](https://github.com/TeskaLabs/asab-webui/pull/358)
+- Replace class form-text (INDIGO Sprint 220916, [!358](https://github.com/TeskaLabs/asab-webui/pull/358)
 
 
 ### Bugfixes
