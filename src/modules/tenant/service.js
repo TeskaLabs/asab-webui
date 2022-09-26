@@ -40,7 +40,6 @@ export default class TenantService extends Service {
 
 		// In case if the tenant list from userinfo is undefined or empty remove tenant parameter from URL
 		if ((!tenants_list) || (tenants_list.length == 0)) {
-			console.log(tenants_list, "tenants_list")
 			tenants_list = []
 			this.App.Store.dispatch({
 				type: types.TENANTS_CHANGED,
