@@ -8,3 +8,38 @@
 .microservices-body {
 	overflow: auto;
 }
+
+.spinner {
+	padding-top: 5rem;
+}
+
+.status-circle {
+	width: 0.8rem;
+	height: 0.8rem;
+	background: $secondary;
+	border-radius: 50%
+}
+
+.status-modelled {
+	background: $info;
+}
+
+.status-running {
+	background: $light-green;
+}
+
+.status-paused {
+	background: $warning;
+}
+
+.status-oomkilled {
+	background: $danger;
+}
+
+.status-undefined {
+	background: $white-night;
+}
+
+.status-restarting {
+	background:  $primary;
+}

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import ReactJson from 'react-json-view';
 import { useSelector } from 'react-redux';
 
-import { Container, Card, CardBody, CardHeader } from 'reactstrap';
+import { Container, Card, CardBody, CardHeader, Row } from 'reactstrap';
 
 import { DataTable, Spinner } from 'asab-webui';
 
@@ -139,6 +139,50 @@ export default (props) => {
 		};
 	}
 
+
+	// Generate status
+	/*
+		Cannot use generateStatus func export from utils, cause it causes
+		"Rendered more hooks than during the previous render." error
+	*/
+	const generateStatus = (status) => {
+
+		if (status === undefined) {
+			return (<div className="status-circle status-undefined" title={t("ExportContainer|Not defined")} />);
+		}
+		if (typeof status === "string") {
+			return statusTranslations(status);
+		}
+		if (typeof status === "object") {
+			return statusTranslations(status.name);
+		}
+		return status;
+	}
+
+	// Translate well known statuses
+	const statusTranslations = (status) => {
+
+		if (status.toLowerCase() === "running") {
+			return (<div className="status-circle status-running" title={t("MicroservicesContainer|Running")} />);
+		};
+		if (status.toLowerCase() === "paused") {
+			return (<div className="status-circle status-paused" title={t("MicroservicesContainer|Paused")} />);
+		};
+		if (status.toLowerCase() === "restarting") {
+			return (<div className="status-circle status-restartng" title={t("MicroservicesContainer|Restarting")} />);
+		};
+		if (status.toLowerCase() === "oomkilled") {
+			return (<div className="status-circle status-oomkilled" title={t("MicroservicesContainer|OOMKilled")} />);
+		};
+		if (status.toLowerCase() === "dead") {
+			return (<div className="status-circle" title={t("MicroservicesContainer|Dead")} />);
+		};
+		if (status.toLowerCase() === "modelled") {
+			return (<div className="status-circle status-modelled" title={t("MicroservicesContainer|Modelled")} />);
+		};
+		return (<div className="status-circle status-undefined" title={status} />);
+	}
+
 	// const headers = [
 	// 	// {
 	// 	// 	name: " ",
@@ -204,7 +248,7 @@ export default (props) => {
 						</div>
 					</CardHeader>
 					<CardBody>
-						<Spinner />
+						<div className="spinner"><Spinner /></div>
 					</CardBody>
 				</Card>
 				:
@@ -241,7 +285,8 @@ export default (props) => {
 						:
 							data && Object.keys(data).map((key, idx) => {
 								return(<div key={key}>
-									{key}: <ReactJson
+									<Row className="pl-3 pr-3"><span className="pr-1 pt-1">{generateStatus(data[key]?.state)}</span><h6>{key}</h6></Row>
+									<ReactJson
 										src={data[key]}
 										name={false}
 										collapsed={true}
