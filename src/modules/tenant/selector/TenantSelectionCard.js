@@ -12,7 +12,6 @@ import "./select.scss";
 
 function TenantSelectionCard(props) {
 	const { t } = useTranslation();
-	const SeaCatAuthAPI = props.app.axiosCreate('seacat_auth');
 	let superuser = props.resources ? props.resources.indexOf('authz:superuser') !== -1 : false;
 
 	const selectTenant = async (tn) => {
@@ -22,16 +21,13 @@ function TenantSelectionCard(props) {
 		}
 	}
 
-	const logout = async () => {
-		let response;
-		try {
-			response = await SeaCatAuthAPI.put('/public/logout');
+	const logout = () => {
+		let AuthModule = props.app.Modules.filter(obj => obj.Name === "AuthModule");
+		if ((AuthModule != undefined) && (AuthModule.length > 0)) {
+			AuthModule[0].logout();
+		} else {
+			props.app.addAlert("danger", t("TenantSelectionCard|Silly as it sounds, redirection back to login failed"));
 		}
-		catch (err) {
-			console.error("Failed to fetch userinfo", err);
-			props.app.addAlert("danger", t("TenantSelectionCard|Silly as it sounds, the logout failed"));
-		}
-		window.location.reload();
 	}
 
 	return (
@@ -61,7 +57,7 @@ function TenantSelectionCard(props) {
 					</CardBody>
 					<CardFooter>
 						<Button color="primary" onClick={() => {logout()}}>
-							{t("TenantSelectionCard|Logout")}
+							{t("TenantSelectionCard|Back to login")}
 						</Button>
 					</CardFooter>
 				</Card>

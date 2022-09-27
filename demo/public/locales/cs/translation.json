@@ -137,6 +137,12 @@
 		"Version": "Verze",
 		"Repository": "Repozitář"
 	},
+	"TenantSelectionCard": {
+		"Select valid tenant to enter the application": "Vyberte platný tenant pro vstup do aplikace",
+		"Silly as it sounds, redirection back to login failed": "Nestává se to často, ale přesměrování zpět na přihlášení selhalo",
+		"Select tenant": "Vyberte tenanta",
+		"Back to login": "Zpět na přihlášení"
+	},
 	"Showing item(s)": "{{ from }} - {{ to }} z {{ total }} položek",
 	"You do not have access rights to perform this action": "Váš přístup je omezen, nemáte dostatečná oprávnění",
 	"Items per page": "Položek na stránku",
