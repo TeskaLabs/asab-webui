@@ -26,7 +26,7 @@ function TenantSelectionCard(props) {
 		if ((AuthModule != undefined) && (AuthModule.length > 0)) {
 			AuthModule[0].logout();
 		} else {
-			props.app.addAlert("danger", t("TenantSelectionCard|Silly as it sounds, can't redirect you back to login"));
+			props.app.addAlert("danger", t("TenantSelectionCard|Silly as it sounds, redirection back to login failed"));
 		}
 	}
 
