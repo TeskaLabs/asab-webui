@@ -5,7 +5,7 @@
 
 }
 
-.microservices-body {
+.instances-body {
 	overflow: auto;
 }
 
@@ -20,26 +20,14 @@
 	border-radius: 50%
 }
 
-.status-modelled {
-	background: $info;
-}
-
 .status-running {
 	background: $light-green;
 }
 
-.status-paused {
+.status-starting {
 	background: $warning;
 }
 
-.status-oomkilled {
+.status-stopped {
 	background: $danger;
-}
-
-.status-undefined {
-	background: $white-night;
-}
-
-.status-restarting {
-	background:  $primary;
 }

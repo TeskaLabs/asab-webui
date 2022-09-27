@@ -1,14 +1,10 @@
-# ASAB Microservices
+# ASAB Instances
 
-ASAB WebUI Microservices is a page with a list of available microservices. It contains information about their hosts and launch time. By clicking on the particular microservice you will be able to watch the content of that microservice.
-
-## Attention required — yellow flag
-
-In case some microservice contains mistakes, a yellow flag will appear near the title.
+ASAB WebUI Instances is a page with a list of available instances. It use a websocket connection, so the data are propagated realtime.
 
 ## Setup
 
-In `config` file, define ASAB Microservices as a service:
+In `config` file, define ASAB Instances as a service:
 
 ```
 module.exports = {
@@ -20,10 +16,10 @@ module.exports = {
 	webpackDevServer: {
 		port: 3000,
 		proxy: {
-			'/api/lmio_correlator_builder': {
+			'/api/lmio_remote_control': {
 				target: 'http://localhost:8086',
-				pathRewrite: {'^/api/lmio_correlator_builder' : ''},
-				ws: true
+				ws: true,
+				pathRewrite: {'^/api/lmio_remote_control' : ''}
 			},
 		}
 	}
@@ -37,8 +33,8 @@ const modules = [];
 
 ...
 
-import ASABMicroservicesModule from 'asab-webui/modules/maintenance/MicroservicesModule';
-modules.push(ASABMicroservicesModule);
+import ASABInstancesModule from 'asab-webui/modules/maintenance/InstancesModule';
+modules.push(ASABInstancesModule);
 
 ...
 

@@ -7,7 +7,7 @@ import { Container, Card, CardBody, CardHeader, Row } from 'reactstrap';
 
 import { DataTable, Spinner } from 'asab-webui';
 
-export default (props) => {
+export default function InstancesContainer(props) {
 	// const [list, setList] = useState([]);
 	// const [page, setPage] = useState(1);
 	// const [count, setCount] = useState(0);
@@ -148,7 +148,7 @@ export default (props) => {
 	const generateStatus = (status) => {
 
 		if (status === undefined) {
-			return (<div className="status-circle status-undefined" title={t("ExportContainer|Not defined")} />);
+			return (<div className="status-circle" title={t("ExportContainer|Not defined")} />);
 		}
 		if (typeof status === "string") {
 			return statusTranslations(status);
@@ -163,24 +163,18 @@ export default (props) => {
 	const statusTranslations = (status) => {
 
 		if (status.toLowerCase() === "running") {
-			return (<div className="status-circle status-running" title={t("MicroservicesContainer|Running")} />);
+			return (<div className="status-circle status-running" title={t("InstancesContainer|Running")} />);
 		};
-		if (status.toLowerCase() === "paused") {
-			return (<div className="status-circle status-paused" title={t("MicroservicesContainer|Paused")} />);
+		if (status.toLowerCase() === "starting") {
+			return (<div className="status-circle status-starting" title={t("InstancesContainer|Starting")} />);
 		};
-		if (status.toLowerCase() === "restarting") {
-			return (<div className="status-circle status-restartng" title={t("MicroservicesContainer|Restarting")} />);
+		if (status.toLowerCase() === "stopped") {
+			return (<div className="status-circle status-stopped" title={t("InstancesContainer|Stopped")} />);
 		};
-		if (status.toLowerCase() === "oomkilled") {
-			return (<div className="status-circle status-oomkilled" title={t("MicroservicesContainer|OOMKilled")} />);
+		if (status.toLowerCase() === "unknown") {
+			return (<div className="status-circle" title={t("InstancesContainer|Unknown")} />);
 		};
-		if (status.toLowerCase() === "dead") {
-			return (<div className="status-circle" title={t("MicroservicesContainer|Dead")} />);
-		};
-		if (status.toLowerCase() === "modelled") {
-			return (<div className="status-circle status-modelled" title={t("MicroservicesContainer|Modelled")} />);
-		};
-		return (<div className="status-circle status-undefined" title={status} />);
+		return (<div className="status-circle" title={status} />);
 	}
 
 	// const headers = [
@@ -244,7 +238,7 @@ export default (props) => {
 				<Card className="h-100">
 					<CardHeader className="border-bottom">
 						<div className="card-header-title">
-							{t("MicroservicesContainer|Services")}
+							{t("InstancesContainer|Instances")}
 						</div>
 					</CardHeader>
 					<CardBody>
@@ -256,7 +250,7 @@ export default (props) => {
 				<Card className="h-100" style={{backgroundColor: "transparent", border: "none"}}>
 					<CardHeader className="border-bottom">
 						<div className="card-header-title">
-							{t("MicroservicesContainer|Services")}
+							{t("InstancesContainer|Instances")}
 						</div>
 					</CardHeader>
 					<CardBody style={{display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
@@ -266,7 +260,7 @@ export default (props) => {
 							alt={emptyContentAlt}
 							style={{maxWidth: "38%"}}
 						/>
-						<h3>{t("MicroservicesContainer|Can't establish websocket connection, data can't be loaded")}</h3>
+						<h3>{t("InstancesContainer|Can't establish websocket connection, data can't be loaded")}</h3>
 						</div>
 					</CardBody>
 				</Card>
@@ -274,13 +268,13 @@ export default (props) => {
 				<Card className="h-100">
 					<CardHeader className="border-bottom">
 						<div className="card-header-title">
-							{t("MicroservicesContainer|Services")}
+							{t("InstancesContainer|Services")}
 						</div>
 					</CardHeader>
-					<CardBody className="h-100 microservices-body">
+					<CardBody className="h-100 instances-body">
 						{(data["parsingError"] == true) ?
 							<div>
-								<div>{t("MicroservicesContainer|Can't display data due to parsing error")}</div>
+								<div>{t("InstancesContainer|Can't display data due to parsing error")}</div>
 							</div>
 						:
 							data && Object.keys(data).map((key, idx) => {

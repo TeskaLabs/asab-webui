@@ -1,27 +1,19 @@
 import React, { Component } from 'react';
 import Module from 'asab-webui/abc/Module';
-import MicroservicesContainer from "./MicroservicesContainers/MicroservicesContainer";
-import MicroserviceDetailContainer from "./MicroservicesContainers/MicroserviceDetailContainer";
+import InstancesContainer from "./InstancesContainers/InstancesContainer";
 
-import "./MicroservicesContainers/microservices.scss";
+import "./InstancesContainers/instances.scss";
 
-export default class MicroservicesModule extends Module {
+export default class InstancesModule extends Module {
 	constructor(app, name) {
-		super(app, "ASABMicroservicesModule");
+		super(app, "ASABInstancesModule");
 
 		app.Router.addRoute({
-			path: "/microservices/svcs",
+			path: "/instances",
 			exact: true,
-			name: "Microservices",
-			component: MicroservicesContainer,
+			name: "Instances",
+			component: InstancesContainer,
 		});
-
-		app.Router.addRoute({
-			path: "/microservices/svcs/:svc_name",
-			exact: true,
-			name: "Microservice",
-			component: MicroserviceDetailContainer,
-		})
 
 		// Check presence of Maintenance item in sidebar
 		let items = app.Navigation.getItems()?.items;
@@ -30,8 +22,8 @@ export default class MicroservicesModule extends Module {
 			// If Maintenance present, then append Microservices as a Maintenance subitem
 			if (itm?.name == "Maintenance") {
 				itm.children.push({
-					name: "Microservices",
-					url: "/microservices/svcs",
+					name: "Instances",
+					url: "/instances",
 					icon: "cil-list"
 				});
 				isMaintenancePresent = true;
@@ -45,8 +37,8 @@ export default class MicroservicesModule extends Module {
 				icon: "cil-apps-settings",
 				children: [
 					{
-						name: "Microservices",
-						url: "/microservices/svcs",
+						name: "Instances",
+						url: "/instances",
 						icon: "cil-list"
 					}
 				]
