@@ -8,6 +8,10 @@
 
 - Refactor logout in TenantSelection card (INDIGO Sprint 220916, [!366](https://github.com/TeskaLabs/asab-webui/pull/366)
 
+### Bugfixes
+
+- Add styles which turn off spinner (INDIGO Sprint 210430, [!367](https://github.com/TeskaLabs/asab-webui/pull/367))
+
 ## v22.38
 
 ### Breaking changes
