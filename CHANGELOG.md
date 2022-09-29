@@ -10,7 +10,7 @@
 
 ### Bugfixes
 
-- Add styles which turn off spinner (INDIGO Sprint 210430, [!367](https://github.com/TeskaLabs/asab-webui/pull/367))
+- Add styles which turn off spinner (INDIGO Sprint 220916, [!367](https://github.com/TeskaLabs/asab-webui/pull/367))
 
 ## v22.38
 
