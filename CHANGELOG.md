@@ -6,6 +6,8 @@
 
 - Fix markdown and word mistakes in DataTable docs (INDIGO Sprint 220916, [!361](https://github.com/TeskaLabs/asab-webui/pull/361)
 
+- Refactor logout in TenantSelection card (INDIGO Sprint 220916, [!366](https://github.com/TeskaLabs/asab-webui/pull/366)
+
 ### Bugfixes
 
 - Fix login without tenants and resources. Correct show TenantSelectionCard (INDIGO Sprint 220916, [!364](https://github.com/TeskaLabs/asab-webui/pull/364))
