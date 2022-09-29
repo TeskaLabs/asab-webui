@@ -6,6 +6,8 @@
 
 - Fix markdown and word mistakes in DataTable docs (INDIGO Sprint 220916, [!361](https://github.com/TeskaLabs/asab-webui/pull/361)
 
+- Refactor logout in TenantSelection card (INDIGO Sprint 220916, [!366](https://github.com/TeskaLabs/asab-webui/pull/366)
+
 ## v22.38
 
 ### Breaking changes
@@ -336,6 +338,8 @@
 - Refactor UserInfo calls based on changes in SeaCat Auth service (INDIGO Sprint 220902, [!344](https://github.com/TeskaLabs/asab-webui/pull/344)
 
 - Replace class form-text (INDIGO Sprint 220916, [!358](https://github.com/TeskaLabs/asab-webui/pull/358)
+
+- Add special loaded class for correct styling body background-color and background-image when the page is loaded (INDIGO Sprint 220916, [!359](https://github.com/TeskaLabs/asab-webui/pull/359)
 
 - Refactor overflow style in pagination dropdown (INDIGO Sprint 220916, [!365](https://github.com/TeskaLabs/asab-webui/pull/365)
 
