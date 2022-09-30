@@ -8,17 +8,13 @@ import { Container, Card, CardBody, CardHeader, Row } from 'reactstrap';
 import { DataTable, Spinner } from 'asab-webui';
 
 export default function InstancesContainer(props) {
-	// const [list, setList] = useState([]);
-	// const [page, setPage] = useState(1);
-	// const [count, setCount] = useState(0);
-	// const [filter, setFilter] = useState("");
-	// const [limit, setLimit] = useState(20);
 
 	const [fullFrameData, setFullFrameData] = useState({});
 	const [fFData, setFFData] = useState(false);
 	const [deltaFrameData, setDeltaFrameData] = useState({});
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
+	const [renderData, setRenderData] = useState(false);
 
 	const emptyContentImg = props.app.Config.get('brand_image').full;
 	const emptyContentAlt = props.app.Config.get('title');
@@ -59,6 +55,8 @@ export default function InstancesContainer(props) {
 
 	// Use memo for data rendering (due to expensive caluclations)
 	const data = useMemo(() => {
+		// Set render data back to false
+		setRenderData(false);
 		if (fFData == true) {
 			// Render full frame data
 			setFFData(false);
@@ -67,28 +65,32 @@ export default function InstancesContainer(props) {
 			// Render delta frame data
 			if(deltaFrameData && Object.keys(deltaFrameData)) {
 				// If key in full frame, update data, otherwise append deltaframe to fullframe object without mutating the original object
-				if (fullFrameData[Object.keys(deltaFrameData)[0]]) {
-					// New additions / updates to values of object
-					const additions = Object.values(deltaFrameData) ? Object.values(deltaFrameData)[0] : {};
-					// Append new values / updates to values of object
-					let updateValues = {...fullFrameData[Object.keys(deltaFrameData)[0]], ...additions}
-					// Create a new key-value pair from deltaFrame key and new/updated values
-					let newObj = {};
-					newObj[Object.keys(deltaFrameData)[0]] = updateValues;
-					// Append new object to fullFrame data object without mutation of original one
-					let renderAll = {...fullFrameData, ...newObj};
-					// Return object
-					return renderAll;
-				} else {
-					// Append deltaFrame object to fullFrame object and return it
-					let renderAll = {...fullFrameData, ...deltaFrameData};
-					return renderAll;
-				}
+				let renderAll = {...fullFrameData, ...{}};
+				Object.keys(deltaFrameData).map((dfd, idx) => {
+					if (fullFrameData[dfd]) {
+						// New additions / updates to values of object
+						const additions = deltaFrameData[dfd] ? deltaFrameData[dfd] : {};
+						// Append new values / updates to values of object
+						let updateValues = {...renderAll[dfd], ...additions}
+						// Create a new key-value pair from deltaFrame key and new/updated values
+						let newObj = {};
+						newObj[dfd] = updateValues;
+						// Append new object to fullFrame data object without mutation of original one
+						renderAll = {...renderAll, ...newObj};
+					} else {
+						let newObj = {};
+						newObj[dfd] = deltaFrameData[dfd];
+						// Append deltaFrame object to fullFrame object and return it
+						renderAll = {...renderAll, ...newObj};
+					}
+				})
+				setFullFrameData(renderAll);
+				return renderAll;
 			}
 			// Fallback if deltaFrameData will not meet the condition requirements
 			return fullFrameData;
 		}
-	}, [fullFrameData, deltaFrameData])
+	}, [renderData == true]) // If renderData == true, then trigger computation of data rendering
 
 	const reconnect = () => {
 		if (WSClient != null) {
@@ -121,6 +123,8 @@ export default function InstancesContainer(props) {
 						// Set delta frame data
 						setDeltaFrameData(retrievedData);
 					}
+					// Set render data to trigger memo computation
+					setRenderData(true);
 				}
 			} else {
 				const err = {};
@@ -142,12 +146,11 @@ export default function InstancesContainer(props) {
 
 	// Generate status
 	/*
-		Cannot use generateStatus func export from utils, cause it causes
+		Cannot use generateStatus func from separate container, cause it causes
 		"Rendered more hooks than during the previous render." error
 	*/
 	const generateStatus = (status) => {
-
-		if (status === undefined) {
+		if (status == undefined) {
 			return (<div className="status-circle" title={t("ExportContainer|Not defined")} />);
 		}
 		if (typeof status === "string") {
@@ -177,61 +180,7 @@ export default function InstancesContainer(props) {
 		return (<div className="status-circle" title={status} />);
 	}
 
-	// const headers = [
-	// 	// {
-	// 	// 	name: " ",
-	// 	// 	customHeaderStyle: { width: '2.5rem' },
-	// 	// 	customComponent: {
-	// 	// 		generate: (obj) => {
-	// 	// 			if (obj["attention_required"] && Object.keys(obj["attention_required"]).length > 0) {
-	// 	// 				return (
-	// 	// 					<i className="cil-warning"></i>
-	// 	// 				)
-	// 	// 			}
-	// 	// 		}
-	// 	// 	}
-	// 	// },
-	// 	{ name: t('MicroservicesContainer|ID'), key: 'id' },
-	// 	{ name: t('MicroservicesContainer|Host'), key: 'hostname' },
-	// 	{ name: t('MicroservicesContainer|Launch time'), key: 'launchtime', datetime: true },
-	// 	{ name: t('MicroservicesContainer|Created at'), key: 'created_at', datetime: true },
-	// 	{ name: t('MicroservicesContainer|Version'), key: 'version'}
-	// ];
 
-	// // Filter the value
-	// const onSearch = (value) => {
-	// 	setFilter(value);
-	// };
-
-	// useEffect(() => {
-	// 	getMicroservicesList();
-	// }, [page, filter ,limit]);
-
-	// const getMicroservicesList = async () => {
-	// 	try {
-	// 		const response = await LMIORemoteControlAPI.get('/microservices', { params: { p: page, i: limit, f: filter }});
-
-	// 		if (response.data.result !== "OK") throw new Error(response);
-
-	// 		setList(response.data.data);
-	// 		setCount(response.data.count);
-	// 	} catch (e) {
-	// 		console.error(e);
-	// 		props.app.addAlert("warning", t('MicroservicesContainer|Failed to fetch data'));
-	// 	}
-	// }
-
-	// const customRowStyle = {
-	// 	style: {
-	// 		backgroundColor: "#fff3cd",
-	// 		color: "#856404"
-	// 	},
-	// 	condition: (obj) => {
-	// 		if (obj["attention_required"] && Object.keys(obj["attention_required"]).length > 0) return true;
-	// 		return false;
-	// 	}
-	// }
-	// console.log(data, "DATA")
 	return (
 		<Container className="svcs-container" fluid>
 			{loading == true ?
@@ -279,7 +228,7 @@ export default function InstancesContainer(props) {
 						:
 							data && Object.keys(data).map((key, idx) => {
 								return(<div key={key}>
-									<Row className="pl-3 pr-3"><span className="pr-1 pt-1">{generateStatus(data[key]?.state)}</span><h6>{key}</h6></Row>
+									<Row className="pl-3 pr-3"><span className="pr-1 pt-1">{generateStatus(data[key]?.state ? data[key].state : undefined)}</span><h6>{key}</h6></Row>
 									<ReactJson
 										src={data[key]}
 										name={false}
