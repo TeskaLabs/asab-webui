@@ -12,6 +12,7 @@
 
 - Fix login without tenants and resources. Correct show TenantSelectionCard (INDIGO Sprint 220916, [!364](https://github.com/TeskaLabs/asab-webui/pull/364))
 
+- Add styles which turn off spinner (INDIGO Sprint 220916, [!367](https://github.com/TeskaLabs/asab-webui/pull/367))
 
 ## v22.38
 
@@ -345,6 +346,8 @@
 - Replace class form-text (INDIGO Sprint 220916, [!358](https://github.com/TeskaLabs/asab-webui/pull/358)
 
 - Add special loaded class for correct styling body background-color and background-image when the page is loaded (INDIGO Sprint 220916, [!359](https://github.com/TeskaLabs/asab-webui/pull/359)
+
+- Refactor overflow style in pagination dropdown (INDIGO Sprint 220916, [!365](https://github.com/TeskaLabs/asab-webui/pull/365)
 
 
 ### Bugfixes
