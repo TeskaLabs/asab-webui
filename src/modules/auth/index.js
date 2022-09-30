@@ -155,6 +155,7 @@ export default class AuthModule extends Module {
 
 		if (this.App.Store != null) {
 			this.App.Store.dispatch({ type: types.AUTH_USERINFO, payload: mockParams });
+			this.App.Store.dispatch({ type: types.AUTH_RESOURCES, resources: mockParams["resources"] });
 		}
 
 		/** Check for TenantService and pass tenants list obtained from userinfo */
@@ -188,7 +189,11 @@ export default class AuthModule extends Module {
 		let unauthorizedNavChildren = [];
 		let resources = [];
 		if (this.UserInfo !== null) {
-			resources = this.UserInfo.resources ? this.UserInfo.resources : [];
+			let currentTenant = this.App.Services.TenantService.get_current_tenant();
+			resources = this.UserInfo.resources ? this.UserInfo.resources[currentTenant] : [];
+			if (this.App.Store != null) {
+				this.App.Store.dispatch({ type: types.AUTH_RESOURCES, resources: resources });
+			}
 		}
 		// Add item name from Navigation based on Access resource to the list of unauthorized items
 		await Promise.all(getItems.items.map(async (itm, idx) => {
@@ -230,12 +235,12 @@ export default class AuthModule extends Module {
 		let tenants = [];
 		let currentTenant = this.App.Services.TenantService.get_current_tenant();
 		if (this.UserInfo !== null) {
-			resources = this.UserInfo.resources ? this.UserInfo.resources : [];
+			resources = this.UserInfo.resources ? this.UserInfo.resources[currentTenant] : [];
 			tenants = this.UserInfo.tenants ? this.UserInfo.tenants : [];
 		}
 		let valid = tenants ? tenants.indexOf(currentTenant) !== -1 : false;
 		// If user is superuser, then tenant access is granted
-		if (resources.indexOf('authz:superuser') !== -1) {
+		if ((resources) && (resources.indexOf('authz:superuser') !== -1)) {
 			valid = true;
 		}
 		return valid;
