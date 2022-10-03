@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next';
 import ReactJson from 'react-json-view';
 import { useSelector } from 'react-redux';
 
-import { Container, Card, CardBody, CardHeader, Row } from 'reactstrap';
+import { Container, Card, CardBody, CardHeader, Table } from 'reactstrap';
 
-import { DataTable, Spinner } from 'asab-webui';
+import { CellContentLoader } from 'asab-webui';
 
 export default function InstancesContainer(props) {
 
@@ -13,24 +13,24 @@ export default function InstancesContainer(props) {
 	const [wsData, setWSData] = useState({});
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
-
-	const emptyContentImg = props.app.Config.get('brand_image').full;
-	const emptyContentAlt = props.app.Config.get('title');
+	const [errorMsg, setErrorMsg] = useState("");
 
 	const theme = useSelector(state => state.theme);
 
 	const { t } = useTranslation();
 
-
-	let wsSubPath = '/ws';
+	// TODO: implement axios calls for post and put requests when ready on BE
 	// const LMIORemoteControlAPI = props.app.axiosCreate('lmio_remote_control');
+
+	// Set up websocket connection
+	let wsSubPath = '/ws';
 	const serviceName = 'lmio_remote_control';
 	let WSUrl = props.app.getWebSocketURL(serviceName, wsSubPath);
 	let WSClient = null;
 
 	const isMounted = useRef(null);
 
-
+	// Connect to ws on page initialization, close ws connection on page leave
 	useEffect(() => {
 		isMounted.current = true;
 
@@ -83,6 +83,7 @@ export default function InstancesContainer(props) {
 		return fullFrameData;
 	}, [wsData]) // If websocket data change, then trigger computation of data rendering
 
+	// Reconnect ws method
 	const reconnect = () => {
 		if (WSClient != null) {
 			try {
@@ -109,16 +110,16 @@ export default function InstancesContainer(props) {
 					// Set websocket data
 					setWSData(retrievedData);
 				}
+				setError(false);
 			} else {
-				const err = {};
-				err["parsingError"] = true;
-				setData(err);
+				setErrorMsg(t("InstancesContainer|Can't display data due to parsing error"));
+				setError(true);
 			}
-			setError(false);
 		};
 
 		WSClient.onerror = (error) => {
 			setLoading(false);
+			setErrorMsg(t("InstancesContainer|Can't establish websocket connection, data can't be loaded"));
 			setError(true);
 			setTimeout(() => {
 				reconnect();
@@ -166,67 +167,114 @@ export default function InstancesContainer(props) {
 
 	return (
 		<Container className="svcs-container" fluid>
-			{loading == true ?
-				<Card className="h-100">
-					<CardHeader className="border-bottom">
-						<div className="card-header-title">
-							{t("InstancesContainer|Instances")}
-						</div>
-					</CardHeader>
-					<CardBody>
-						<div className="spinner"><Spinner /></div>
-					</CardBody>
-				</Card>
-				:
-				error == true ?
-				<Card className="h-100" style={{backgroundColor: "transparent", border: "none"}}>
-					<CardHeader className="border-bottom">
-						<div className="card-header-title">
-							{t("InstancesContainer|Instances")}
-						</div>
-					</CardHeader>
-					<CardBody style={{display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
-						<div>
-						<img
-							src={emptyContentImg}
-							alt={emptyContentAlt}
-							style={{maxWidth: "38%"}}
-						/>
-						<h3>{t("InstancesContainer|Can't establish websocket connection, data can't be loaded")}</h3>
-						</div>
-					</CardBody>
-				</Card>
-				:
-				<Card className="h-100">
-					<CardHeader className="border-bottom">
-						<div className="card-header-title">
-							{t("InstancesContainer|Services")}
-						</div>
-					</CardHeader>
-					<CardBody className="h-100 instances-body">
-						{(data["parsingError"] == true) ?
-							<div>
-								<div>{t("InstancesContainer|Can't display data due to parsing error")}</div>
-							</div>
-						:
-							data && Object.keys(data).map((key, idx) => {
-								return(<div key={key}>
-									<Row className="pl-3 pr-3"><span className="pr-1 pt-1">{generateStatus(data[key]?.state ? data[key].state : undefined)}</span><h6>{key}</h6></Row>
-									<ReactJson
-										src={data[key]}
-										name={false}
-										collapsed={true}
-										displayArrayKey={false}
-										displayDataTypes={false}
-										enableClipboard={false}
-										theme={theme === "dark" ? "chalk" : "rjv-default"}
-									/>
-								</div>)
-							})
-						}
-					</CardBody>
-				</Card>
-			}
+			<Card className="h-100">
+				<CardHeader className="border-bottom">
+					<div className="card-header-title">
+						{t("InstancesContainer|Instances")}
+					</div>
+				</CardHeader>
+				<CardBody className="h-100 instances-body">
+					{(loading == true) ?
+						<CellContentLoader cols={6} rows={6} title={t('InstancesContainer|Loading')}/>
+					:
+						<Table responsive borderless hover>
+							<colgroup>
+								<col span="1" />
+								<col span="1" />
+								<col span="1" />
+								<col span="1" />
+								<col span="1" />
+								<col span="1" />
+								<col span="1" style={{width: "25.5em"}} />
+								<col span="1" style={{width: "25.5em"}} />
+							</colgroup>
+							<thead>
+								<tr>
+									<th>
+									</th>
+									<th>
+										{t("InstancesContainer|Name")}
+									</th>
+									<th>
+										{t("InstancesContainer|Service")}
+									</th>
+									<th>
+										{t("InstancesContainer|Node")}
+									</th>
+									<th>
+										{t("InstancesContainer|Instance")}
+									</th>
+									<th>
+										{t("InstancesContainer|Type")}
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+							{(error == true) ?
+								<tr>
+									<td className="td-style" colSpan="8">{errorMsg}</td>
+								</tr>
+								:
+								data && Object.keys(data).map((key, idx) => {
+									return(
+										<tr key={key}>
+											<td>
+												{generateStatus(data[key]?.state ? data[key].state : undefined)}
+											</td>
+											<td>
+												{data[key]?.name}
+											</td>
+											<td>
+												{data[key]?.service}
+											</td>
+											<td>
+												{data[key]?.node}
+											</td>
+											<td>
+												{data[key]?.instance_id ? data[key].instance_id : key}
+											</td>
+											<td>
+												{data[key]?.type}
+											</td>
+											<td>
+												{data[key]?.docker_data ?
+													<ReactJson
+														src={data[key]?.docker_data}
+														name={false}
+														collapsed={true}
+														displayArrayKey={false}
+														displayDataTypes={false}
+														enableClipboard={false}
+														theme={theme === "dark" ? "chalk" : "rjv-default"}
+													/>
+												:
+													null
+												}
+											</td>
+											<td>
+												{data[key]?.advertised_data ?
+													<ReactJson
+														src={data[key]?.advertised_data}
+														name={false}
+														collapsed={true}
+														displayArrayKey={false}
+														displayDataTypes={false}
+														enableClipboard={false}
+														theme={theme === "dark" ? "chalk" : "rjv-default"}
+													/>
+												:
+													null
+												}
+											</td>
+										</tr>
+									)
+								}
+							)}
+							</tbody>
+						</Table>
+					}
+				</CardBody>
+			</Card>
 		</Container>
 	)
 }

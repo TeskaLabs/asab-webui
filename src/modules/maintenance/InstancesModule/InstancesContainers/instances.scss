@@ -1,19 +1,24 @@
 @import "~asab-webui/styles/constants/index.scss";
 
+/* container styles */
+
 .svcs-container {
 	height: 100%;
 
 }
 
+/* card body styles */
+
 .instances-body {
 	overflow: auto;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
 }
 
-.spinner {
-	padding-top: 5rem;
-}
+/* status indicator styles */
 
 .status-circle {
+	margin-top: 0.25rem;
 	width: 0.8rem;
 	height: 0.8rem;
 	background: $secondary;
@@ -30,4 +35,11 @@
 
 .status-stopped {
 	background: $danger;
+}
+
+/* table styles */
+
+.td-style {
+	text-align: center;
+	background: $bg-color;
 }
