@@ -2,6 +2,22 @@
 
 ## Release Candidate
 
+### Refactoring
+
+- Fix markdown and word mistakes in DataTable docs (INDIGO Sprint 220916, [!361](https://github.com/TeskaLabs/asab-webui/pull/361)
+
+- Refactor logout in TenantSelection card (INDIGO Sprint 220916, [!366](https://github.com/TeskaLabs/asab-webui/pull/366)
+
+### Bugfixes
+
+- Add styles which turn off spinner (INDIGO Sprint 220916, [!367](https://github.com/TeskaLabs/asab-webui/pull/367))
+
+## v22.38
+
+### Breaking changes
+
+- From release `v22.38`, only same (`v22.38`) or newer release tags of SeaCat Auth service is compatible with ASAB WebUI due to changes in `userinfo` response
+
 ### Features
 
 - Add Spinner component (INDIGO Sprint 210406, [!95](https://github.com/TeskaLabs/asab-webui/pull/95))
@@ -323,7 +339,13 @@
 
 - Refactor dynamic branding (INDIGO Sprint 220902, [!355](https://github.com/TeskaLabs/asab-webui/pull/355)
 
-- Replace class form-text (INDIGO Sprint 220902, [!358](https://github.com/TeskaLabs/asab-webui/pull/358)
+- Refactor UserInfo calls based on changes in SeaCat Auth service (INDIGO Sprint 220902, [!344](https://github.com/TeskaLabs/asab-webui/pull/344)
+
+- Replace class form-text (INDIGO Sprint 220916, [!358](https://github.com/TeskaLabs/asab-webui/pull/358)
+
+- Add special loaded class for correct styling body background-color and background-image when the page is loaded (INDIGO Sprint 220916, [!359](https://github.com/TeskaLabs/asab-webui/pull/359)
+
+- Refactor overflow style in pagination dropdown (INDIGO Sprint 220916, [!365](https://github.com/TeskaLabs/asab-webui/pull/365)
 
 
 ### Bugfixes
@@ -409,3 +431,5 @@
 - Fix Safari issue - TenantSelectionCard action triggered upon change of tenant (INDIGO Sprint 220819, [!352](https://github.com/TeskaLabs/asab-webui/pull/352))
 
 - Button styles update. Underline removal for link button, text color update when active, updated box shadow to inset when clicked (INDIGO Sprint 220902, [!357](https://github.com/TeskaLabs/asab-webui/pull/357))
+
+- Fix button link color when state active or focus (INDIGO Sprint 220916, [!360](https://github.com/TeskaLabs/asab-webui/pull/360))

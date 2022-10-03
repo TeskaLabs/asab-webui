@@ -91,19 +91,20 @@ class Config {
 
 
 	get(key) {
-		let value;
-
 		// First check the remote config
-		value = this._dynamic_config[key];
-		if (value !== undefined) return value;
+		if (this._dynamic_config[key] != undefined) {
+			return this._dynamic_config[key];
+		};
 
 		// Then check the local config
-		value = __CONFIG__[key];
-		if (value !== undefined) return value;
+		if (__CONFIG__[key] != undefined) {
+			return __CONFIG__[key];
+		};
 
 		// And finally, check defaults
-		value = this._defaults[key];
-		if (value !== undefined) return value;
+		if (this._defaults[key] != undefined) {
+			return this._defaults[key];
+		};
 
 		return undefined;
 	}

@@ -23,7 +23,18 @@ html {
 		font-weight: 400;
 
 		color: $text-color;
-		background-color: $body-bg;
+		background-color: $gray;
+
+		&.loaded {
+			background-color: $body-bg;
+			background-image: none;
+			height: auto;
+		}
+
+		&.spinner-off {
+			background-image: none;
+			height: auto;
+		}
 
 		p, span, h1, h2, h3, h4, h5, h6, div {
 			color: $text-color;

@@ -131,6 +131,12 @@
 		"Version": "Version",
 		"Attention": "Attention"
 	},
+	"TenantSelectionCard": {
+		"Select valid tenant to enter the application": "Select valid tenant to enter the application",
+		"Silly as it sounds, redirection back to login failed": "Silly as it sounds, redirection back to login failed",
+		"Select tenant": "Select tenant",
+		"Back to login": "Back to login"
+	},
 	"UserInterfaceCard": {
 		"User interface": "User interface",
 		"Build date": "Build date",

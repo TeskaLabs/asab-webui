@@ -84,7 +84,7 @@ Example of obtaining configuration in Container:
 	...
 ```
 
-Prop `title` is an object that has obligatory property `text` which is string and it will be rendered as table title. Also `title` has optional property `icon` for rendering icon alongside the table title and which can be either React Component (e.g. from package `@material-ui/icons`) or it can also be a string which is classname for icon element and will be rendered as <i className={icon}></i>
+Prop `title` is an object that has obligatory property `text` which is string and it will be rendered as table title. Also `title` has optional property `icon` for rendering icon alongside the table title and which can be either React Component (e.g. from package `@material-ui/icons`) or it can also be a string which is classname for icon element and will be rendered as `<i className={icon}></i>`
 
 Example:
 
@@ -277,7 +277,7 @@ function (props) {
 }
 ```
 
-Prop `count` is ussualy obtained from API endpoint with fetched data.
+Prop `count` is usually obtained from API endpoint with fetched data.
 
 Example of fetched data:
 
@@ -343,7 +343,7 @@ function (props) {
 
 Prop `createButton` is used for rendering button with a link for redirecting to create page. It is an object with obligatory properties `text` and `pathname` which are text inside the button and pathname for redirecting respectively.
 `createButton` also accepts optional property `icon` for rendering icon on the right side of the text inside the button.
-Property `icon` can either be a React Component (e.g. from package `@material-ui/icons`) or a string which is className and will be rendered as <i className={icon}></icon>
+Property `icon` can either be a React Component (e.g. from package `@material-ui/icons`) or a string which is className and will be rendered as `<i className={icon}></i>`
 
 Example:
 
@@ -458,7 +458,7 @@ Example of `customComponent`:
 
 ```
 
-Props `search` and `onSearch` is used to render input search box in `DataTable`. First prop `search` is either a boolean or an object containing optional property `placeholder` for placeholder of search input box and optional property `icon` which can either be a React Component (e.g. from package `@material-ui/icons`) or a string which is className and will be rendered as <i className={icon}></icon>.Prop `search` may be obtained from configurtion.
+Props `search` and `onSearch` is used to render input search box in `DataTable`. First prop `search` is either a boolean or an object containing optional property `placeholder` for placeholder of search input box and optional property `icon` which can either be a React Component (e.g. from package `@material-ui/icons`) or a string which is className and will be rendered as `<i className={icon}></i>`.Prop `search` may be obtained from configuration.
 Second prop `onSearch` is a function which executes after 500ms after last change in search input box has been made, it can be used with axios to filter data (example below).
 
 Example of handling and using search and onSearch:
@@ -698,9 +698,9 @@ NOTE: `height` should be used in conjunction with the `limit` and `setLimit`.
 > You will need two `useEffect`:
 > 
 > - The first will calculate the height of the container when it is first loaded. 
-> - The second you need to have the number of rows displayed dynamically, you need to add a condition (`limit !== undefined`), where you call the function that gets the data for the table.
+> - The second you need to have the number of rows displayed dynamically, you need to add a condition (`limit > 0`), where you call the function that gets the data for the table. It will be in the same `useEffect` in which you called the function before.
 > 
-You also need to add `useRef`. You will need to place it on the wrapper tag. Be sure to style this tag to 100% height.
+You also need to add `useRef`. You will need to place it on the wrapper tag. It can only be `<div>`.Be sure to style this tag to 100% height.
 The number of items displayed per page will be a multiple of 5.
 ```js
 import React, { useState, useEffect, useRef } from 'react';
@@ -721,7 +721,7 @@ function (props) {
 		if (limit > 0) {
 			fetchData();
 		}
-	}, [limit]);
+	}, [...,limit]);
 
 	const fetchData = () => {...}
 
