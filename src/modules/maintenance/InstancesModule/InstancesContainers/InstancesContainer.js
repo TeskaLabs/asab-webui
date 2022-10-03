@@ -10,11 +10,9 @@ import { DataTable, Spinner } from 'asab-webui';
 export default function InstancesContainer(props) {
 
 	const [fullFrameData, setFullFrameData] = useState({});
-	const [fFData, setFFData] = useState(false);
-	const [deltaFrameData, setDeltaFrameData] = useState({});
+	const [wsData, setWSData] = useState({});
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
-	const [renderData, setRenderData] = useState(false);
 
 	const emptyContentImg = props.app.Config.get('brand_image').full;
 	const emptyContentAlt = props.app.Config.get('title');
@@ -55,42 +53,35 @@ export default function InstancesContainer(props) {
 
 	// Use memo for data rendering (due to expensive caluclations)
 	const data = useMemo(() => {
-		// Set render data back to false
-		setRenderData(false);
-		if (fFData == true) {
-			// Render full frame data
-			setFFData(false);
-			return fullFrameData;
-		} else {
-			// Render delta frame data
-			if(deltaFrameData && Object.keys(deltaFrameData)) {
-				// If key in full frame, update data, otherwise append deltaframe to fullframe object without mutating the original object
-				let renderAll = {...fullFrameData, ...{}};
-				Object.keys(deltaFrameData).map((dfd, idx) => {
-					if (fullFrameData[dfd]) {
-						// New additions / updates to values of object
-						const additions = deltaFrameData[dfd] ? deltaFrameData[dfd] : {};
-						// Append new values / updates to values of object
-						let updateValues = {...renderAll[dfd], ...additions}
-						// Create a new key-value pair from deltaFrame key and new/updated values
-						let newObj = {};
-						newObj[dfd] = updateValues;
-						// Append new object to fullFrame data object without mutation of original one
-						renderAll = {...renderAll, ...newObj};
-					} else {
-						let newObj = {};
-						newObj[dfd] = deltaFrameData[dfd];
-						// Append deltaFrame object to fullFrame object and return it
-						renderAll = {...renderAll, ...newObj};
-					}
-				})
-				setFullFrameData(renderAll);
-				return renderAll;
-			}
-			// Fallback if deltaFrameData will not meet the condition requirements
-			return fullFrameData;
+		// Render ws data
+		if(wsData && Object.keys(wsData)) {
+			// If key in full frame, update data, otherwise append wsData to fullframe object without mutating the original object
+			let renderAll = {...fullFrameData, ...{}};
+			Object.keys(wsData).map((dfd, idx) => {
+				if (fullFrameData[dfd]) {
+					// New additions / updates to values of object
+					const additions = wsData[dfd] ? wsData[dfd] : {};
+					// Append new values / updates to values of object
+					let updateValues = {...renderAll[dfd], ...additions}
+					// Create a new key-value pair from deltaFrame key and new/updated values
+					let newObj = {};
+					newObj[dfd] = updateValues;
+					// Append new object to fullFrame data object without mutation of original one
+					renderAll = {...renderAll, ...newObj};
+				} else {
+					let newObj = {};
+					newObj[dfd] = wsData[dfd];
+					// Append wsData object to fullFrame object and return it
+					renderAll = {...renderAll, ...newObj};
+				}
+			})
+			// Set fullFrame
+			setFullFrameData(renderAll);
+			return renderAll;
 		}
-	}, [renderData == true]) // If renderData == true, then trigger computation of data rendering
+		// Fallback if wsData will not meet the condition requirements
+		return fullFrameData;
+	}, [wsData]) // If websocket data change, then trigger computation of data rendering
 
 	const reconnect = () => {
 		if (WSClient != null) {
@@ -115,16 +106,8 @@ export default function InstancesContainer(props) {
 			if (IsJsonString(message.data) == true) {
 				let retrievedData = JSON.parse(message.data);
 				if (retrievedData && Object.keys(retrievedData)) {
-					if (Object.keys(retrievedData).length > 1) {
-						// Set full frame data
-						setFullFrameData(retrievedData);
-						setFFData(true);
-					} else {
-						// Set delta frame data
-						setDeltaFrameData(retrievedData);
-					}
-					// Set render data to trigger memo computation
-					setRenderData(true);
+					// Set websocket data
+					setWSData(retrievedData);
 				}
 			} else {
 				const err = {};
