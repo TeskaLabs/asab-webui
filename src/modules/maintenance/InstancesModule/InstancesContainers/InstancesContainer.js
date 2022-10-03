@@ -159,7 +159,7 @@ export default function InstancesContainer(props) {
 						{t("InstancesContainer|Instances")}
 					</div>
 					<Search
-						search={{ icon: 'cil-magnifying-glass', placeholder: t("InstancesContainer|Search status") }}
+						search={{ icon: 'cil-magnifying-glass', placeholder: t("InstancesContainer|Filter state") }}
 						filterValue={filter}
 						setFilterValue={setFilter}
 					/>
