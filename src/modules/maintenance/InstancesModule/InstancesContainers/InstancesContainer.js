@@ -3,7 +3,9 @@ import { useTranslation } from 'react-i18next';
 import ReactJson from 'react-json-view';
 import { useSelector } from 'react-redux';
 
-import { Container, Card, CardBody, CardHeader, Table } from 'reactstrap';
+import { Container, Card, CardBody, CardHeader, Table,
+	InputGroup, InputGroupText, Input, InputGroupAddon
+} from 'reactstrap';
 
 import { CellContentLoader } from 'asab-webui';
 
@@ -14,6 +16,8 @@ export default function InstancesContainer(props) {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 	const [errorMsg, setErrorMsg] = useState("");
+
+	const [filter, setFilter] = useState("");
 
 	const theme = useSelector(state => state.theme);
 
@@ -51,6 +55,7 @@ export default function InstancesContainer(props) {
 		}
 	}, []);
 
+
 	// Use memo for data rendering (due to expensive caluclations)
 	const data = useMemo(() => {
 		// Render ws data
@@ -82,6 +87,24 @@ export default function InstancesContainer(props) {
 		// Fallback if wsData will not meet the condition requirements
 		return fullFrameData;
 	}, [wsData]) // If websocket data change, then trigger computation of data rendering
+
+
+	// Filter state among data
+	const filteredData = useMemo (() => {
+		if ((filter != undefined) && (filter.length > 0)) {
+			const fltr = filter.toLowerCase();
+			let filteredObj = {};
+			Object.keys(fullFrameData).map((key, idx) => {
+				if (fullFrameData[key].state) {
+					if (fullFrameData[key].state.indexOf(fltr) != -1) {
+						filteredObj[key] = fullFrameData[key];
+					}
+				}
+			})
+			return filteredObj;
+		}
+		return undefined;
+	}, [filter, fullFrameData])
 
 	// Reconnect ws method
 	const reconnect = () => {
@@ -128,6 +151,83 @@ export default function InstancesContainer(props) {
 	}
 
 
+	return (
+		<Container className="svcs-container" fluid>
+			<Card className="h-100">
+				<CardHeader className="border-bottom">
+					<div className="card-header-title">
+						{t("InstancesContainer|Instances")}
+					</div>
+					<Search
+						search={{ icon: 'cil-magnifying-glass', placeholder: t("InstancesContainer|Search status") }}
+						filterValue={filter}
+						setFilterValue={setFilter}
+					/>
+				</CardHeader>
+				<CardBody className="h-100 instances-body">
+					{(loading == true) ?
+						<CellContentLoader cols={6} rows={6} title={t('InstancesContainer|Loading')}/>
+					:
+						<Table responsive borderless hover>
+							<colgroup>
+								<col span="1" style={{width: "0.5em"}} />
+								<col span="1" />
+								<col span="1" />
+								<col span="1" />
+								<col span="1" />
+								<col span="1" />
+								<col span="1" style={{width: "25.5em"}} />
+								<col span="1" style={{width: "25.5em"}} />
+							</colgroup>
+							<thead>
+								<tr>
+									<th>
+									</th>
+									<th>
+										{t("InstancesContainer|Service")}
+									</th>
+									<th>
+										{t("InstancesContainer|Node")}
+									</th>
+									<th>
+										{t("InstancesContainer|Name")}
+									</th>
+									<th>
+										{t("InstancesContainer|Type")}
+									</th>
+									<th>
+										{t("InstancesContainer|Version")}
+									</th>
+									<th>
+										{t("InstancesContainer|Docker data")}
+									</th>
+									<th>
+										{t("InstancesContainer|Advertised data")}
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+							{(error == true) ?
+								<tr>
+									<td className="td-style" colSpan="8">{errorMsg}</td>
+								</tr>
+								:
+								<DataRow data={filteredData != undefined ? filteredData : data} />
+							}
+							</tbody>
+						</Table>
+					}
+				</CardBody>
+			</Card>
+		</Container>
+	)
+}
+
+// Method to render table row with data
+const DataRow = ({data}) => {
+	const { t } = useTranslation();
+	const theme = useSelector(state => state.theme);
+
 	// Generate status
 	/*
 		Cannot use generateStatus func from separate container, cause it causes
@@ -135,7 +235,7 @@ export default function InstancesContainer(props) {
 	*/
 	const generateStatus = (status) => {
 		if (status == undefined) {
-			return (<div className="status-circle" title={t("ExportContainer|Not defined")} />);
+			return (<div className="status-circle" title={t("InstancesContainer|Not defined")} />);
 		}
 		if (typeof status === "string") {
 			return statusTranslations(status);
@@ -164,119 +264,84 @@ export default function InstancesContainer(props) {
 		return (<div className="status-circle" title={status} />);
 	}
 
+	return(
+		data && Object.keys(data).map((key, idx) => (
+			<tr key={key}>
+				<td>
+					{generateStatus(data[key]?.state ? data[key].state : undefined)}
+				</td>
+				<td>
+					{data[key]?.service}
+				</td>
+				<td>
+					{data[key]?.node}
+				</td>
+				<td>
+					{data[key]?.name}
+				</td>
+				<td>
+					{data[key]?.type}
+				</td>
+				<td>
+					{data[key]?.version}
+				</td>
+				<td>
+					{data[key]?.docker_data ?
+						<ReactJson
+							src={data[key]?.docker_data}
+							name={false}
+							collapsed={data[key]?.state && data[key]?.state == "stopped" ? false : true}
+							displayArrayKey={false}
+							displayDataTypes={false}
+							enableClipboard={false}
+							theme={theme === "dark" ? "chalk" : "rjv-default"}
+						/>
+					:
+						null
+					}
+				</td>
+				<td>
+					{data[key]?.advertised_data ?
+						<ReactJson
+							src={data[key]?.advertised_data}
+							name={false}
+							collapsed={data[key]?.state && data[key]?.state == "stopped" ? false : true}
+							displayArrayKey={false}
+							displayDataTypes={false}
+							enableClipboard={false}
+							theme={theme === "dark" ? "chalk" : "rjv-default"}
+						/>
+					:
+						null
+					}
+				</td>
+			</tr>
+		))
+	)
+}
+
+
+// Search method
+const Search = ({ search, filterValue, setFilterValue }) => {
 
 	return (
-		<Container className="svcs-container" fluid>
-			<Card className="h-100">
-				<CardHeader className="border-bottom">
-					<div className="card-header-title">
-						{t("InstancesContainer|Instances")}
-					</div>
-				</CardHeader>
-				<CardBody className="h-100 instances-body">
-					{(loading == true) ?
-						<CellContentLoader cols={6} rows={6} title={t('InstancesContainer|Loading')}/>
-					:
-						<Table responsive borderless hover>
-							<colgroup>
-								<col span="1" />
-								<col span="1" />
-								<col span="1" />
-								<col span="1" />
-								<col span="1" />
-								<col span="1" />
-								<col span="1" style={{width: "25.5em"}} />
-								<col span="1" style={{width: "25.5em"}} />
-							</colgroup>
-							<thead>
-								<tr>
-									<th>
-									</th>
-									<th>
-										{t("InstancesContainer|Name")}
-									</th>
-									<th>
-										{t("InstancesContainer|Service")}
-									</th>
-									<th>
-										{t("InstancesContainer|Node")}
-									</th>
-									<th>
-										{t("InstancesContainer|Instance")}
-									</th>
-									<th>
-										{t("InstancesContainer|Type")}
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-							{(error == true) ?
-								<tr>
-									<td className="td-style" colSpan="8">{errorMsg}</td>
-								</tr>
-								:
-								data && Object.keys(data).map((key, idx) => {
-									return(
-										<tr key={key}>
-											<td>
-												{generateStatus(data[key]?.state ? data[key].state : undefined)}
-											</td>
-											<td>
-												{data[key]?.name}
-											</td>
-											<td>
-												{data[key]?.service}
-											</td>
-											<td>
-												{data[key]?.node}
-											</td>
-											<td>
-												{data[key]?.instance_id ? data[key].instance_id : key}
-											</td>
-											<td>
-												{data[key]?.type}
-											</td>
-											<td>
-												{data[key]?.docker_data ?
-													<ReactJson
-														src={data[key]?.docker_data}
-														name={false}
-														collapsed={true}
-														displayArrayKey={false}
-														displayDataTypes={false}
-														enableClipboard={false}
-														theme={theme === "dark" ? "chalk" : "rjv-default"}
-													/>
-												:
-													null
-												}
-											</td>
-											<td>
-												{data[key]?.advertised_data ?
-													<ReactJson
-														src={data[key]?.advertised_data}
-														name={false}
-														collapsed={true}
-														displayArrayKey={false}
-														displayDataTypes={false}
-														enableClipboard={false}
-														theme={theme === "dark" ? "chalk" : "rjv-default"}
-													/>
-												:
-													null
-												}
-											</td>
-										</tr>
-									)
-								}
-							)}
-							</tbody>
-						</Table>
-					}
-				</CardBody>
-			</Card>
-		</Container>
-	)
+		<div className="float-right ml-3 data-table-search">
+			<InputGroup>
+				{search.icon &&
+					<InputGroupAddon addonType="prepend">
+					<InputGroupText><i className={search.icon}></i></InputGroupText>
+					</InputGroupAddon>
+				}
+				<Input
+					value={filterValue}
+					onChange={e => setFilterValue(e.target.value)}
+					placeholder={search.placeholder}
+					type="text"
+					bsSize="sm"
+				/>
+			</InputGroup>
+		</div>
+	);
 }
 
 // Check if string is valid JSON
