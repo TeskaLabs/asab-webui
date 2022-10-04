@@ -1,12 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {connect, useSelector} from 'react-redux';
-import ReactJson from "react-json-view";
 
 import {
 	Container, Row, Col,
 	Card, CardHeader, CardTitle, CardSubtitle, CardBody
 } from 'reactstrap';
+
+import ReactJson from "react-json-view";
 
 import "./styles.scss";
 
