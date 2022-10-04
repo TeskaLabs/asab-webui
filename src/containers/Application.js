@@ -474,6 +474,7 @@ class Application extends Component {
 		// Render the splash screen if needed
 		if (this.state.SplashscreenRequestors > 0) return (
 			<Provider store={this.Store}>
+				{document.body.classList.add('spinner-off')}
 				<div className="app">
 					<Suspense fallback={<></>}>
 						<Alerts app={this} />
