@@ -59,79 +59,70 @@ function AccessControlCard(props) {
 	const theme = useSelector(state => state.theme);
 
 	return (
-		<Container>
-			<Row>
-				<Col>
-					<Card className="shadow animated fadeIn">
-						<CardHeader className="text-center border-bottom card-header-login">
-							<div className="card-header-title">
-								<CardTitle className="text-primary mb-0">
-									{t('AccessControlScreen|Access control')}
-								</CardTitle>
-								<CardSubtitle tag="p">
-									{t('AccessControlScreen|See your details')}
-								</CardSubtitle>
-							</div>
-						</CardHeader>
+		<>
+			<Card className="shadow animated fadeIn">
+				<CardHeader className="text-center border-bottom card-header-login">
+					<div className="card-header-title">
+						<CardTitle className="text-primary mb-0">
+							{t('AccessControlScreen|Access control')}
+						</CardTitle>
+						<CardSubtitle tag="p">
+							{t('AccessControlScreen|See your details')}
+						</CardSubtitle>
+					</div>
+				</CardHeader>
 
-						<CardBody>
-							{ userinfo ? (
-								<>
-									{App.Services.TenantService &&
-										<React.Fragment>
-											<Row>
-												<Col>
-													{t('AccessControlScreen|Tenant')}
-												</Col>
-												<Col>
-													<p style={{marginBottom: "5px"}}>{currentTenant}</p>
-												</Col>
-											</Row>
-											<hr/>
-										</React.Fragment>
-									}
+				<CardBody>
+					{ userinfo ? (
+						<>
+							{App.Services.TenantService &&
+								<React.Fragment>
 									<Row>
 										<Col>
-											{t('AccessControlScreen|Resources')}
+											{t('AccessControlScreen|Tenant')}
 										</Col>
-										<ItemToRender userinfo={userinfo} resources={resources} item='resources' currentTenant={currentTenant} />
+										<Col>
+											<p style={{marginBottom: "5px"}}>{currentTenant}</p>
+										</Col>
 									</Row>
-								</>
-							) : (
-								<div className="text-center">
-									{t("AccessControlScreen|The user information is invalid, you session is likely expired.")}
-								</div>
-							)}
-						</CardBody>
-					</Card>
-				</Col>
-			</Row>
-
-			<Row className="justify-content-md-center mt-4">
-				{advmode &&
-					<Col>
-						<Card>
-							<CardHeader className="border-bottom">
-								<div className="card-header-title">
-									<i className="cil-code pr-2"></i>
-									JSON
-								</div>
-							</CardHeader>
-							{userinfo &&
-								<CardBody>
-									<ReactJson
-										theme={theme === 'dark' ? "chalk" : "rjv-default"}
-										src={userinfo}
-										name={false}
-										collapsed={false}
-									/>
-								</CardBody>
+									<hr/>
+								</React.Fragment>
 							}
-						</Card>
-					</Col>
-				}
-			</Row>
-		</Container>
+							<Row>
+								<Col>
+									{t('AccessControlScreen|Resources')}
+								</Col>
+								<ItemToRender userinfo={userinfo} resources={resources} item='resources' currentTenant={currentTenant} />
+							</Row>
+						</>
+					) : (
+						<div className="text-center">
+							{t("AccessControlScreen|The user information is invalid, you session is likely expired.")}
+						</div>
+					)}
+				</CardBody>
+			</Card>
+			{advmode &&
+				<Card className="mt-4">
+					<CardHeader className="border-bottom">
+						<div className="card-header-title">
+							<i className="cil-code pr-2"></i>
+							JSON
+						</div>
+					</CardHeader>
+					{userinfo &&
+						<CardBody>
+							<ReactJson
+								theme={theme === 'dark' ? "chalk" : "rjv-default"}
+								src={userinfo}
+								name={false}
+								collapsed={false}
+							/>
+						</CardBody>
+					}
+				</Card>
+			}
+		</>
 	)
 }
 
