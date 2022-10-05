@@ -8,6 +8,8 @@
 
 - Refactor logout in TenantSelection card (INDIGO Sprint 220916, [!366](https://github.com/TeskaLabs/asab-webui/pull/366)
 
+- Refactor SplashScreen styles, change Spinner to SplashScreen (INDIGO Sprint 220930, [!369](https://github.com/TeskaLabs/asab-webui/pull/369)
+
 ### Bugfixes
 
 - Add styles which turn off spinner (INDIGO Sprint 220916, [!367](https://github.com/TeskaLabs/asab-webui/pull/367))
