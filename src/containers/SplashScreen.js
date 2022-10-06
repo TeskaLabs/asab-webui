@@ -7,17 +7,16 @@ function SplashScreen(props) {
 		<div className="text-center animated fadeIn w-100">
 			{props.brand_image != null ?
 			<img
+				className="splash-screen-img"
 				src={props.brand_image.full}
 				alt={props.title}
-				style={{width: "38%", position: "absolute", bottom: '60%', left: '50%', transform: 'translate(-50%, 0)'}}
 			/>
 			:
-			<h1 style={{position: "absolute", bottom: '60%', left: '50%', transform: 'translate(-50%, 0)'}}>Loading ...</h1>
+			<h1 className="splash-screen-title">Loading ...</h1>
 			}
-			<div className="progress" style={{width: "38%", margin: "20px auto 0 auto", position: "absolute", top: '40%', left: '50%', transform: 'translate(-50%, -41%)'}}>
+			<div className="progress splash-screen-progress">
 				<div
-					style={{width: "100%"}}
-					className="progress-bar progress-bar-animated progress-bar-striped" >
+					className="progress-bar progress-bar-animated progress-bar-striped w-100" >
 				</div>
 			</div>
 		</div>
