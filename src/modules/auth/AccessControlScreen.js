@@ -102,24 +102,28 @@ function AccessControlCard(props) {
 					)}
 				</CardBody>
 			</Card>
-			{advmode &&
-				<Card className="mt-4">
+			{ advmode &&
+				<Card className="shadow animated fadeIn mt-4">
 					<CardHeader className="border-bottom">
 						<div className="card-header-title">
 							<i className="cil-code pr-2"></i>
 							JSON
 						</div>
 					</CardHeader>
-					{userinfo &&
-						<CardBody>
+					<CardBody>
+						{ userinfo ?
 							<ReactJson
 								theme={theme === 'dark' ? "chalk" : "rjv-default"}
 								src={userinfo}
 								name={false}
 								collapsed={false}
 							/>
-						</CardBody>
-					}
+						:
+							<div className="text-center">
+								{t("AccessControlScreen|The user information is invalid, you session is likely expired.")}
+							</div>
+						}
+					</CardBody>
 				</Card>
 			}
 		</>
