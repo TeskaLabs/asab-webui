@@ -4,17 +4,19 @@ import { connect } from 'react-redux';
 function SplashScreen(props) {
 	
 	return (
-		<div className="text-center animated fadeIn w-100" style={{margin: "20% auto 0"}}>
+		<div className="text-center animated fadeIn w-100">
 			{props.brand_image != null ?
 			<img
+				className="splash-screen-img"
 				src={props.brand_image.full}
 				alt={props.title}
-				style={{maxWidth: "38%"}}
-			/> : <h1>Loading ...</h1>}
-			<div className="progress mt-3" style={{maxWidth: "38%", margin: "20px auto 0 auto"}}>
+			/>
+			:
+			<h1 className="splash-screen-title">Loading ...</h1>
+			}
+			<div className="progress splash-screen-progress">
 				<div
-					style={{width: "100%"}}
-					className="progress-bar progress-bar-animated progress-bar-striped" >
+					className="progress-bar progress-bar-animated progress-bar-striped w-100" >
 				</div>
 			</div>
 		</div>
