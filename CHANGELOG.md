@@ -10,6 +10,8 @@
 
 - Refactor SplashScreen styles, change Spinner to SplashScreen (INDIGO Sprint 220930, [!369](https://github.com/TeskaLabs/asab-webui/pull/369)
 
+- Add advanced mode to AccessControlScreen (INDIGO Sprint 220930, [!368](https://github.com/TeskaLabs/asab-webui/pull/368)
+
 ### Bugfixes
 
 - Add styles which turn off spinner (INDIGO Sprint 220916, [!367](https://github.com/TeskaLabs/asab-webui/pull/367))
