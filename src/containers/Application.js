@@ -13,7 +13,6 @@ import Sidebar from './Sidebar';
 import SplashScreen from './SplashScreen';
 import ErrorHandler from './ErrorHandler';
 import Alerts from './Alerts';
-import { Spinner } from '../components/Spinner';
 
 import alertsReducer from './Alerts/reducer';
 import sidebarReducer from './Sidebar/reducer';
@@ -521,7 +520,7 @@ class Application extends Component {
 								<Header app={this} />
 								<main className="main padding-small-screens">
 									<Suspense
-										fallback={<div style={{ marginTop: "1rem" }}><Spinner /></div>}
+										fallback={<SplashScreen />}
 									>
 										<Switch>
 											{this.Router.Routes.map((route, idx) => {
