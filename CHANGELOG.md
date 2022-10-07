@@ -8,6 +8,10 @@
 
 - Refactor logout in TenantSelection card (INDIGO Sprint 220916, [!366](https://github.com/TeskaLabs/asab-webui/pull/366)
 
+- Refactor SplashScreen styles, change Spinner to SplashScreen (INDIGO Sprint 220930, [!369](https://github.com/TeskaLabs/asab-webui/pull/369)
+
+- Add advanced mode to AccessControlScreen (INDIGO Sprint 220930, [!368](https://github.com/TeskaLabs/asab-webui/pull/368)
+
 - Resize input's padding in dropdown header and moves pagination's buttons box shadow inside of the button. (INDIGO Sprint 220930, [!362](https://github.com/TeskaLabs/asab-webui/pull/362)
 
 ### Bugfixes
