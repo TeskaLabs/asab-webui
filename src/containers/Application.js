@@ -25,9 +25,9 @@ import SidebarService from './Sidebar/service';
 import ThemeService from '../theme/ThemeService';
 
 import TenantSelectionCard from '../modules/tenant/selector/TenantSelectionCard';
+import LogoutCard from "../modules/auth/LogoutCard";
 
 import { ADD_ALERT, SET_ADVANCED_MODE, CHANGE_HELP_URL } from '../actions';
-import LogoutCard from "../modules/auth/LogoutCard";
 
 
 class Application extends Component {
