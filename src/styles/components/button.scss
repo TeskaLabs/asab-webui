@@ -3,7 +3,7 @@
 	--btn-primary-bg-color: var(--dark-blue);
 	--btn-primary-outline-bg-color: var(--light-violet);
 	--btn-txt: var(--white);
-
+// non-outline buttons look good in light mode as is now
 	--btn-primary-shadow-color: #6e89f7;
 	--btn-secondary-shadow-color: #525252;
 	--btn-success-shadow-color: #3f9957;
@@ -20,7 +20,7 @@
 	--btn-outline-warning-shadow-color: rgba(255, 193, 7, 0.5);
 	--btn-outline-info-shadow-color: #31b6e380;
 	--btn-outline-light-shadow-color: #f3f4fac0;
-	--btn-outline-dark-shadow-color: #0e142672;
+	--btn-outline-dark-shadow-color: #0e142680;
 	
 	--btn-secondary-outline-hover-bg-color: #75757526;
 	--btn-success-outline-hover-bg-color: #e1ffe9;
@@ -47,6 +47,7 @@
 	--btn-light-shadow-color: #cecfd6;
 	--btn-dark-shadow-color: #6e6f75;
 
+	// outline works well for dark mode as is now
 	--btn-outline-primary-shadow-color: #6e89f778;
 	--btn-outline-secondary-shadow-color: rgb(108 117 125 / 50%);
 	--btn-outline-success-shadow-color: #48b06480;
@@ -217,7 +218,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 			filter: opacity(60%);
 		}
 		&:not(:disabled):not(.disabled):active:focus {
-			box-shadow: inset 0 0 0 .2rem $btn-outline-secondary-shadow-color;
+			box-shadow: inset 0 0 0 .2rem $btn-secondary-bg-color;
 		}
 		&:focus {
 			color: $btn-secondary-bg-color;
@@ -251,7 +252,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 			filter: opacity(60%);
 		}
 		&:not(:disabled):not(.disabled):active:focus {
-			box-shadow: inset 0 0 0 .2rem $btn-outline-success-shadow-color;
+			box-shadow: inset 0 0 0 .2rem $success;
 		}
 		&:focus {
 			color: $success;
@@ -285,7 +286,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 			filter: opacity(60%);
 		}
 		&:not(:disabled):not(.disabled):active:focus {
-			box-shadow: inset 0 0 0 .2rem $btn-outline-danger-shadow-color;
+			box-shadow: inset 0 0 0 .2rem $danger;
 		}
 		&:focus {
 			color: $danger;
@@ -319,7 +320,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 			filter: opacity(60%);
 		}
 		&:not(:disabled):not(.disabled):active:focus {
-			box-shadow: inset 0 0 0 .2rem $btn-outline-warning-shadow-color;
+			box-shadow: inset 0 0 0 .2rem $warning;
 		}
 		&:focus {
 			color: $warning;
@@ -353,7 +354,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 			filter: opacity(60%);
 		}
 		&:not(:disabled):not(.disabled):active:focus {
-			box-shadow: inset 0 0 0 .2rem $btn-outline-info-shadow-color;
+			box-shadow: inset 0 0 0 .2rem $info;
 		}
 		&:focus {
 			color: $info;
@@ -387,7 +388,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 			filter: opacity(60%);
 		}
 		&:not(:disabled):not(.disabled):active:focus {
-			box-shadow: inset 0 0 0 .2rem $btn-outline-light-shadow-color;
+			box-shadow: inset 0 0 0 .2rem $light;
 		}
 		&:focus {
 			color: $light;
@@ -421,7 +422,8 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 			filter: opacity(60%);
 		}
 		&:not(:disabled):not(.disabled):active:focus {
-			box-shadow: inset 0 0 0 .2rem $btn-outline-dark-shadow-color;
+			box-shadow: inset 0 0 0 .2rem $dark;
+			// box-shadow: inset 0 0 0 .2rem $btn-outline-dark-shadow-color;
 		}
 		&:focus {
 			color: $dark;
