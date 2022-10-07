@@ -27,6 +27,7 @@ import ThemeService from '../theme/ThemeService';
 import TenantSelectionCard from '../modules/tenant/selector/TenantSelectionCard';
 
 import { ADD_ALERT, SET_ADVANCED_MODE, CHANGE_HELP_URL } from '../actions';
+import LogoutCard from "../modules/auth/LogoutCard";
 
 
 class Application extends Component {
@@ -478,6 +479,7 @@ class Application extends Component {
 					<Suspense fallback={<></>}>
 						<Alerts app={this} />
 						<TenantSelectionCard app={this} />
+						<LogoutCard app={this}/>
 					</Suspense>
 					<SplashScreen app={this} />
 					{this.Config.get('title') != null && this.Config.get('title') != undefined ?
