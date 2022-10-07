@@ -1,13 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 function LogoutCard(props) {
 	const { t } = useTranslation();
-	let superuser = props.resources ? props.resources.indexOf('authz:superuser') !== -1 : false;
+	const tenants = useSelector(state => state.tenant?.tenants);
+	const resources = useSelector(state => state.auth?.resources);
+	let superuser = resources ? resources.indexOf('authz:superuser') !== -1 : false;
+
+	let AuthModule = props.app.Modules.filter(obj => obj.Name === "AuthModule");
 
 	const logout = () => {
-		let AuthModule = props.app.Modules.filter(obj => obj.Name === "AuthModule");
 		if ((AuthModule != undefined) && (AuthModule.length > 0)) {
 			AuthModule[0].logout();
 		} else {
@@ -16,11 +19,9 @@ function LogoutCard(props) {
 	}
 
 	return (
-		(props.app.Modules.filter(obj => obj.Name === "AuthModule").length > 0) &&
+		props.app.Services.TenantService && ((AuthModule != undefined) && (AuthModule.length > 0)) && (tenants === undefined) &&
 		(superuser === false) ?
 			<div className="logout-wrapper">
-				{console.log(superuser, "superuser")}
-				{console.log(props.tenants, "props.tenants")}
 				<div className="card logout-card">
 					<div className="logout-card-header">
 						<div className="logout-card-header-title">
@@ -38,12 +39,4 @@ function LogoutCard(props) {
 	);
 }
 
-function mapStateToProps(state) {
-	return {
-		resources: state.auth?.resources,
-		tenants: state.tenant?.tenants,
-		current: state.tenant?.current
-	}
-}
-
-export default connect(mapStateToProps)(LogoutCard);
+export default LogoutCard;
