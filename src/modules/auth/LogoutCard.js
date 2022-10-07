@@ -29,7 +29,7 @@ function LogoutCard(props) {
 						</div>
 					</div>
 					<div className="logout-card-footer">
-						<button className="logout-btn logout-btn-primary" color="primary" onClick={() => {logout()}}>
+						<button className="logout-btn logout-btn-primary btn-block" color="primary" onClick={() => {logout()}}>
 							{t("LogoutCard|Back to login")}
 						</button>
 					</div>
