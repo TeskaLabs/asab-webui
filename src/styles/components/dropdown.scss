@@ -107,7 +107,7 @@ $disabled-dropdown-item: var(--disabled-dropdown-item);
 
 .show > .btn-secondary.dropdown-toggle {
 	background-color: inherit;
-	color: $text-dropdown-button-color;
+	color: $text-color;
 	&:focus, &:active {
 		border: none;
 		box-shadow: none;

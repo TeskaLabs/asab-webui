@@ -67,6 +67,10 @@
 	.pagination-dropdown .dropdown-menu.show {
 		max-height: 200px;
 		overflow: auto;
+
+		& .dropdown-toggle {
+			color: $text-color ;
+		}
 	}
 
 	.data-table-card-footer {
@@ -94,4 +98,8 @@
 		align-items: center;
 		border-left: 1px solid $border-color;
 		border-radius: 0 0 7px 0;
+		
+		& .dropdown-toggle {
+			color: $text-color ;
+		}
 	}
