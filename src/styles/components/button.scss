@@ -14,10 +14,10 @@
 	--btn-dark-shadow-color: #6e6f75;
 
 	--btn-outline-primary-shadow-color: #6e89f778;
-	--btn-outline-secondary-shadow-color: rgb(108 117 125 / 50%);
+	--btn-outline-secondary-shadow-color: #6c757d7e;
 	--btn-outline-success-shadow-color: #48b06480;
 	--btn-outline-danger-shadow-color: #fa4d568b;
-	--btn-outline-warning-shadow-color: rgba(255, 193, 7, 0.5);
+	--btn-outline-warning-shadow-color: #ffc10780;
 	--btn-outline-info-shadow-color: #31b6e380;
 	--btn-outline-light-shadow-color: #f3f4fac0;
 	--btn-outline-dark-shadow-color: #0e142680;
@@ -47,12 +47,11 @@
 	--btn-light-shadow-color: #cecfd6;
 	--btn-dark-shadow-color: #6e6f75;
 
-	// outline works well for dark mode as is now
 	--btn-outline-primary-shadow-color: #6e89f778;
-	--btn-outline-secondary-shadow-color: rgb(108 117 125 / 50%);
+	--btn-outline-secondary-shadow-color: #6c757d7f;
 	--btn-outline-success-shadow-color: #48b06480;
 	--btn-outline-danger-shadow-color: #fa4d568b;
-	--btn-outline-warning-shadow-color: rgba(255, 193, 7, 0.5);
+	--btn-outline-warning-shadow-color: #ffc10773;
 	--btn-outline-info-shadow-color: #31b6e380;
 	--btn-outline-light-shadow-color: #f3f4fac0;
 	--btn-outline-dark-shadow-color: #0e142672;
@@ -82,15 +81,8 @@ $btn-light-shadow-color: var(--btn-light-shadow-color);
 $btn-dark-shadow-color: var(--btn-dark-shadow-color);
 
 $btn-outline-primary-shadow-color: var(--btn-primary-shadow-color);
-$btn-outline-secondary-shadow-color: var(--btn-secondary-shadow-color);
-$btn-outline-success-shadow-color: var(--btn-success-shadow-color);
-$btn-outline-danger-shadow-color: var(--btn-danger-shadow-color);
-$btn-outline-warning-shadow-color: var(--btn-warning-shadow-color);
-$btn-outline-info-shadow-color: var(--btn-info-shadow-color);
-$btn-outline-light-shadow-color: var(--btn-light-shadow-color);
 $btn-outline-dark-shadow-color: var(--btn-dark-shadow-color);
 
-//btn outline :onhover BG colors variables
 $btn-secondary-outline-hover-bg-color: var(--btn-secondary-outline-hover-bg-color);
 $btn-success-outline-hover-bg-color: var(--btn-success-outline-hover-bg-color);
 $btn-danger-outline-hover-bg-color: var(--btn-danger-outline-hover-bg-color);
