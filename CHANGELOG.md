@@ -12,6 +12,8 @@
 
 - Add advanced mode to AccessControlScreen (INDIGO Sprint 220930, [!368](https://github.com/TeskaLabs/asab-webui/pull/368)
 
+- Resize input's padding in dropdown header and moves pagination's buttons box shadow inside of the button. (INDIGO Sprint 220930, [!362](https://github.com/TeskaLabs/asab-webui/pull/362)
+
 ### Bugfixes
 
 - Add styles which turn off spinner (INDIGO Sprint 220916, [!367](https://github.com/TeskaLabs/asab-webui/pull/367))
