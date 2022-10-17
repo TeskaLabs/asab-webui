@@ -14,6 +14,8 @@
 
 - Resize input's padding in dropdown header and moves pagination's buttons box shadow inside of the button. (INDIGO Sprint 220930, [!362](https://github.com/TeskaLabs/asab-webui/pull/362)
 
+- Add condition to the DataTable if data is not undefined (INDIGO Sprint 221014, [!371](https://github.com/TeskaLabs/asab-webui/pull/371)
+
 ### Bugfixes
 
 - Add styles which turn off spinner (INDIGO Sprint 220916, [!367](https://github.com/TeskaLabs/asab-webui/pull/367))
