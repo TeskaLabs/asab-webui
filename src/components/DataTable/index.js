@@ -121,7 +121,7 @@ export function DataTable ({
 					<CardBody className="data-table-card-body">
 						{customCardBodyComponent}
 						{!isLoading && <Table
-							data={data.length > limit ? data.slice(0, limit) : data}
+							data={data && (data.length > limit) ? data.slice(0, limit) : data}
 							headers={headers}
 							category={category}
 							rowStyle={customRowStyle}
@@ -161,7 +161,7 @@ export function DataTable ({
 							}
 						</div>
 
-						{setPage && data.length > 0 &&
+						{setPage && data && (data.length > 0) &&
 							<Pagination 
 								currentPage={currentPage}
 								setPage={setPage}

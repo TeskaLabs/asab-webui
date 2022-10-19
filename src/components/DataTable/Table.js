@@ -259,7 +259,7 @@ const ASABTable = ({
 	<Table size="sm" hover responsive>
 		<Headers sublists={!!category} headers={headers} advmode={advmode} className="data-table-header"/>
 		<tbody className="data-table-tbody">
-			{data.map((obj, idx) => (
+			{data && data.map((obj, idx) => (
 				<TableRow {...{ obj, advmode, headers, rowStyle, rowClassName, category }} key={idx} />
 			))}
 		</tbody>
