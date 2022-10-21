@@ -2,6 +2,8 @@
 
 ## Release Candidate
 
+## v22.42
+
 ### Refactoring
 
 - Fix markdown and word mistakes in DataTable docs (INDIGO Sprint 220916, [!361](https://github.com/TeskaLabs/asab-webui/pull/361)
