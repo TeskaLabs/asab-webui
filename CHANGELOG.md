@@ -2,15 +2,21 @@
 
 ## Release Candidate
 
+## v22.42
+
 ### Refactoring
 
-- Fix markdown and word mistakes in DataTable docs (INDIGO Sprint 220916, [!361](https://github.com/TeskaLabs/asab-webui/pull/361)
+- Fix markdown and word mistakes in DataTable docs (INDIGO Sprint 220916, [!361](https://github.com/TeskaLabs/asab-webui/pull/361))
 
-- Refactor logout in TenantSelection card (INDIGO Sprint 220916, [!366](https://github.com/TeskaLabs/asab-webui/pull/366)
+- Refactor logout in TenantSelection card (INDIGO Sprint 220916, [!366](https://github.com/TeskaLabs/asab-webui/pull/366))
 
-- Refactor SplashScreen styles, change Spinner to SplashScreen (INDIGO Sprint 220930, [!369](https://github.com/TeskaLabs/asab-webui/pull/369)
+- Refactor SplashScreen styles, change Spinner to SplashScreen (INDIGO Sprint 220930, [!369](https://github.com/TeskaLabs/asab-webui/pull/369))
 
-- Add advanced mode to AccessControlScreen (INDIGO Sprint 220930, [!368](https://github.com/TeskaLabs/asab-webui/pull/368)
+- Add advanced mode to AccessControlScreen (INDIGO Sprint 220930, [!368](https://github.com/TeskaLabs/asab-webui/pull/368))
+
+- Resize input's padding in dropdown header and moves pagination's buttons box shadow inside of the button. (INDIGO Sprint 220930, [!362](https://github.com/TeskaLabs/asab-webui/pull/362))
+
+- Add condition to the DataTable if data is not undefined (INDIGO Sprint 221014, [!371](https://github.com/TeskaLabs/asab-webui/pull/371))
 
 ### Bugfixes
 
