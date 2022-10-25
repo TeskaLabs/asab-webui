@@ -43,3 +43,17 @@
 	text-align: center;
 	background: $bg-color;
 }
+
+.collapsed-data {
+	background-color: $bg-color;
+}
+
+.caret-status-div {
+	display: inline-flex !important;
+	.caret-icon {
+		padding-right: 0.75rem;
+		padding-top: 0.15rem;
+		color: $primary;
+		cursor: pointer;
+	}
+}

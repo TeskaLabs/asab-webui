@@ -170,14 +170,12 @@ export default function InstancesContainer(props) {
 					:
 						<Table responsive borderless hover>
 							<colgroup>
-								<col span="1" style={{width: "0.5em"}} />
+								<col span="1" style={{width: "0.5em"}}/>
 								<col span="1" />
 								<col span="1" />
 								<col span="1" />
 								<col span="1" />
 								<col span="1" />
-								<col span="1" style={{width: "25.5em"}} />
-								<col span="1" style={{width: "25.5em"}} />
 							</colgroup>
 							<thead>
 								<tr>
@@ -197,12 +195,6 @@ export default function InstancesContainer(props) {
 									</th>
 									<th>
 										{t("InstancesContainer|Version")}
-									</th>
-									<th>
-										{t("InstancesContainer|Docker data")}
-									</th>
-									<th>
-										{t("InstancesContainer|Advertised data")}
 									</th>
 								</tr>
 							</thead>
@@ -226,7 +218,6 @@ export default function InstancesContainer(props) {
 // Method to render table row with data
 const DataRow = ({data}) => {
 	const { t } = useTranslation();
-	const theme = useSelector(state => state.theme);
 
 	// Generate status
 	/*
@@ -265,59 +256,95 @@ const DataRow = ({data}) => {
 	}
 
 	return(
-		data && Object.keys(data).map((key, idx) => (
-			<tr key={key}>
-				<td>
-					{generateStatus(data[key]?.state ? data[key].state : undefined)}
-				</td>
-				<td>
-					{data[key]?.service}
-				</td>
-				<td>
-					{data[key]?.node}
-				</td>
-				<td>
-					{data[key]?.name}
-				</td>
-				<td>
-					{data[key]?.type}
-				</td>
-				<td>
-					{data[key]?.advertised_data?.version ? data[key]?.advertised_data?.version : data[key]?.version ? data[key]?.version : "N/A"}
-				</td>
-				<td>
-					{data[key]?.docker_data ?
-						<ReactJson
-							src={data[key]?.docker_data}
-							name={false}
-							collapsed={data[key]?.state && data[key]?.state == "stopped" ? false : true}
-							displayArrayKey={false}
-							displayDataTypes={false}
-							enableClipboard={false}
-							theme={theme === "dark" ? "chalk" : "rjv-default"}
-						/>
-					:
-						null
-					}
-				</td>
-				<td>
-					{data[key]?.advertised_data ?
-						<ReactJson
-							src={data[key]?.advertised_data}
-							name={false}
-							collapsed={data[key]?.state && data[key]?.state == "stopped" ? false : true}
-							displayArrayKey={false}
-							displayDataTypes={false}
-							enableClipboard={false}
-							theme={theme === "dark" ? "chalk" : "rjv-default"}
-						/>
-					:
-						null
-					}
-				</td>
-			</tr>
+		data && Object.keys(data).map((objKey) => (
+			<RowContent
+				key={objKey}
+				objKey={objKey}
+				data={data}
+				generateStatus={generateStatus}
+			/>
 		))
 	)
+}
+
+const RowContent = ({objKey, data, generateStatus}) => {
+	const { t } = useTranslation();
+	const theme = useSelector(state => state.theme);
+	const [collapseData, setCollapseData] = useState(data[objKey]?.state && data[objKey]?.state == "stopped" ? false : true);
+
+	return(
+		<>
+			<tr key={objKey}>
+				<td>
+					<div className="caret-status-div">
+					{collapseData ?
+						<span title={t("InstancesContainer|Un-collapse")} className="caret-icon cil-arrow-circle-right" onClick={() => {setCollapseData(false)}}></span>
+						:
+						<span title={t("InstancesContainer|Collapse")} className="caret-icon cil-arrow-circle-bottom" onClick={() => {setCollapseData(true)}}></span>
+					}
+					{generateStatus(data[objKey]?.state ? data[objKey].state : undefined)}
+					</div>
+				</td>
+				<td>
+					{data[objKey]?.service}
+				</td>
+				<td>
+					{data[objKey]?.node}
+				</td>
+				<td>
+					{data[objKey]?.name}
+				</td>
+				<td>
+					{data[objKey]?.type}
+				</td>
+				<td>
+					{data[objKey]?.advertised_data?.version ? data[objKey]?.advertised_data?.version : data[objKey]?.version ? data[objKey]?.version : "N/A"}
+				</td>
+			</tr>
+			{!collapseData &&
+				<tr key={`open-${objKey}`} className="collapsed-data">
+					<td colSpan={6}>
+						{data[objKey]?.detail ?
+							<>
+								<span>
+									{t("InstancesContainer|Detail")}
+								</span>
+								<ReactJson
+									src={data[objKey]?.detail}
+									name={false}
+									collapsed={data[objKey]?.state && data[objKey]?.state == "stopped" ? false : true}
+									displayArrayKey={false}
+									displayDataTypes={false}
+									enableClipboard={false}
+									theme={theme === "dark" ? "chalk" : "rjv-default"}
+								/>
+							</>
+						:
+							null
+						}
+						{data[objKey]?.advertised_data ?
+							<>
+								<span>
+									{t("InstancesContainer|Advertised data")}
+								</span>
+								<ReactJson
+									src={data[objKey]?.advertised_data}
+									name={false}
+									collapsed={data[objKey]?.state && data[objKey]?.state == "stopped" ? false : true}
+									displayArrayKey={false}
+									displayDataTypes={false}
+									enableClipboard={false}
+									theme={theme === "dark" ? "chalk" : "rjv-default"}
+								/>
+							</>
+						:
+							null
+						}
+					</td>
+				</tr>
+			}
+		</>
+		)
 }
 
 
