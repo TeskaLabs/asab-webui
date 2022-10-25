@@ -130,7 +130,7 @@ export default class AuthModule extends Module {
 					MOCK_USERINFO: {
 						"email": "test",
 						"phone_number": "test",
-						"preferred_username": "test",
+						"username": "test",
 						"resources": ["test:testy:read"],
 						"roles": ["default/Gringo"],
 						"sub": "tst:123456789",
@@ -191,6 +191,20 @@ export default class AuthModule extends Module {
 		if (this.UserInfo !== null) {
 			let currentTenant = this.App.Services.TenantService.get_current_tenant();
 			resources = this.UserInfo.resources ? this.UserInfo.resources[currentTenant] : [];
+			/*
+				TODO: When switching between tenants,
+				we need to force authorization to obtain
+				correct data (resources) for particular
+				tenant (this is unavailable until auth token is updated)
+
+				NOTE: It causes infinite redirection when login to unauthorized tenant
+			*/
+			if (resources == undefined) {
+				let force_login_prompt = false;
+				await this.Api.login(this.RedirectURL, force_login_prompt);
+				return;
+			}
+			// ----END OF TODO----
 			if (this.App.Store != null) {
 				this.App.Store.dispatch({ type: types.AUTH_RESOURCES, resources: resources });
 			}
