@@ -21,7 +21,7 @@ export class SeaCatAuthApi {
 		this.App = app;
 
 		const scope = this.App.Config.get('seacat.auth.scope');
-		this.Scope = scope ? scope : "openid tenant:*";
+		this.Scope = scope ? scope : "openid tenant:* userinfo:*";
 		
 		this.ClientId = "asab-webui-auth";
 		this.ClientSecret = "TODO";
