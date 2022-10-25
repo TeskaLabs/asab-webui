@@ -283,7 +283,7 @@ const DataRow = ({data}) => {
 					{data[key]?.type}
 				</td>
 				<td>
-					{data[key]?.version}
+					{data[key]?.advertised_data?.version ? data[key]?.advertised_data?.version : data[key]?.version ? data[key]?.version : "N/A"}
 				</td>
 				<td>
 					{data[key]?.docker_data ?
