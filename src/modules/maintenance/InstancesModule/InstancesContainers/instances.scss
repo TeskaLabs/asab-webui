@@ -106,3 +106,7 @@
 .action-button:hover {
 	border-right: 1px solid $secondary;
 }
+
+.action-button:disabled {
+	border-right: 1px solid $secondary;
+}

@@ -276,6 +276,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 	const { t } = useTranslation();
 	const theme = useSelector(state => state.theme);
 	const [collapseData, setCollapseData] = useState(true);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	useEffect(() => {
 		if (data[objKey]?.state && ((data[objKey]?.state == "stopped") || (data[objKey]?.state == "starting"))) {
@@ -300,6 +301,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 			console.error(e);
 			props.app.addAlert("warning", t("InstancesContainer|Instance action has not been triggered"));
 		}
+		setIsSubmitting(false);
 	}
 
 	return(
@@ -339,8 +341,9 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								className="action-button"
 								color="primary"
 								icon="cil-media-play"
-								onClick={() => {setAction("start", data[objKey]?.instance_id)}}
+								onClick={() => {setAction("start", data[objKey]?.instance_id), setIsSubmitting(true)}}
 								outline
+								disabled={isSubmitting == true}
 							/>
 							<ActionButton
 								label={t("InstancesContainer|Stop")}
@@ -348,25 +351,28 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								className="action-button"
 								color="danger"
 								outline
-								onClick={() => {setAction("stop", data[objKey]?.instance_id)}}
+								onClick={() => {setAction("stop", data[objKey]?.instance_id), setIsSubmitting(true)}}
 								icon="cil-ban"
+								disabled={isSubmitting == true}
 							/>
 							<ActionButton
 								label={t("InstancesContainer|Restart")}
 								id={`restart-${objKey}`}
 								className="action-button"
 								color="secondary"
-								onClick={() => {setAction("restart", data[objKey]?.instance_id)}}
+								onClick={() => {setAction("restart", data[objKey]?.instance_id), setIsSubmitting(true)}}
 								icon="cil-reload"
 								outline
+								disabled={isSubmitting == true}
 							/>
 							<ActionButton
 								label={t("InstancesContainer|Up")}
 								id={`up-${objKey}`}
 								color="success"
-								onClick={() => {setAction("up", data[objKey]?.instance_id)}}
+								onClick={() => {setAction("up", data[objKey]?.instance_id), setIsSubmitting(true)}}
 								icon="cil-arrow-thick-from-bottom"
 								outline
+								disabled={isSubmitting == true}
 							/>
 						</ButtonGroup>
 					</div>
