@@ -44,7 +44,13 @@
 	background: $bg-color;
 }
 
+/* collapsed table styles */
+
 .collapsed-data {
+	background-color: $bg-color;
+}
+
+.collapsed-data:hover {
 	background-color: $bg-color;
 }
 
@@ -56,4 +62,39 @@
 		color: $primary;
 		cursor: pointer;
 	}
+}
+
+.collapsed-table-row {
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
+	td {
+		padding-top: 0.25em !important;
+		padding-bottom: 0.25em !important;
+		height: fit-content !important;
+	}
+	th {
+		padding-top: 0.25em !important;
+		padding-bottom: 0.25em !important;
+		padding-left: 0em !important;
+		height: fit-content !important;
+	}
+}
+
+.collapsed-heading {
+	color: var(--text-secondary-color) !important;
+	text-align: inherit !important;
+	font-weight: bold !important;
+}
+
+.collapsed-code-value {
+	font-size: 100%;
+	color: var(--text-color);
+}
+
+.collapsed-console {
+	display: inline-flex;
+}
+
+.collapsed-span {
+	padding-right: 0.5em;
 }

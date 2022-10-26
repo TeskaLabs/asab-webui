@@ -168,7 +168,7 @@ export default function InstancesContainer(props) {
 					{(loading == true) ?
 						<CellContentLoader cols={6} rows={6} title={t('InstancesContainer|Loading')}/>
 					:
-						<Table responsive borderless hover>
+						<Table responsive borderless>
 							<colgroup>
 								<col span="1" style={{width: "0.5em"}}/>
 								<col span="1" />
@@ -304,39 +304,58 @@ const RowContent = ({objKey, data, generateStatus}) => {
 			{!collapseData &&
 				<tr key={`open-${objKey}`} className="collapsed-data">
 					<td colSpan={6}>
-						{data[objKey]?.detail ?
-							<>
-								<span>
-									{t("InstancesContainer|Detail")}
+						{data[objKey]?.error ?
+							<div className="collapsed-heading">
+								{t("InstancesContainer|Error")}: <code className="collapsed-code-value">{data[objKey]?.error?.toString()}</code>
+							</div>
+						:
+							null
+						}
+						{data[objKey]?.exception ?
+							<div className="collapsed-heading">
+								{t("InstancesContainer|Exception")}: <code className="collapsed-code-value">{data[objKey]?.exception?.toString()}</code>
+							</div>
+						:
+							null
+						}
+						{data[objKey]?.returncode?.toString() ?
+							<div className="collapsed-heading">
+								{t("InstancesContainer|Return code")}: <code className="collapsed-code-value">{data[objKey]?.returncode?.toString()}</code>
+							</div>
+						:
+							null
+						}
+						{data[objKey]?.console ?
+							<div className="collapsed-console">
+								<span className="collapsed-heading collapsed-span">
+									{t("InstancesContainer|Console")}:
 								</span>
 								<ReactJson
-									src={data[objKey]?.detail}
+									src={data[objKey]?.console}
 									name={false}
-									collapsed={data[objKey]?.state && data[objKey]?.state == "stopped" ? false : true}
+									collapsed={true}
 									displayArrayKey={false}
 									displayDataTypes={false}
 									enableClipboard={false}
 									theme={theme === "dark" ? "chalk" : "rjv-default"}
 								/>
-							</>
+							</div>
+						:
+							null
+						}
+						{data[objKey]?.detail ?
+							<CollapsedTable
+								obj={data[objKey]?.detail}
+								title={t("InstancesContainer|Detail")}
+							/>
 						:
 							null
 						}
 						{data[objKey]?.advertised_data ?
-							<>
-								<span>
-									{t("InstancesContainer|Advertised data")}
-								</span>
-								<ReactJson
-									src={data[objKey]?.advertised_data}
-									name={false}
-									collapsed={data[objKey]?.state && data[objKey]?.state == "stopped" ? false : true}
-									displayArrayKey={false}
-									displayDataTypes={false}
-									enableClipboard={false}
-									theme={theme === "dark" ? "chalk" : "rjv-default"}
-								/>
-							</>
+							<CollapsedTable
+								obj={data[objKey]?.advertised_data}
+								title={t("InstancesContainer|Advertised data")}
+							/>
 						:
 							null
 						}
@@ -344,7 +363,58 @@ const RowContent = ({objKey, data, generateStatus}) => {
 				</tr>
 			}
 		</>
-		)
+	)
+}
+
+const CollapsedTable = ({obj, title}) => {
+	const theme = useSelector(state => state.theme);
+
+	return(
+		<Table responsive borderless>
+			<thead>
+				<tr className="collapsed-table-row">
+					<th>{title}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{Object.keys(obj).length != 0 && Object.entries(obj).map((itms, idx) => {
+					return(
+						<tr
+							className="collapsed-table-row"
+							key={idx}
+						>
+							<td
+								style={{whiteSpace: "nowrap"}}
+							>
+								<code
+									style={{fontSize: "100%"}}
+									className={itms[0] && itms[0].toString().includes(".") == false ? "code-main-field" : "code-sub-field"}
+								>
+									{itms[0] && itms[0].toString()}
+								</code>
+							</td>
+							<td>
+								{itms[1] ?
+									(typeof itms[1] == "object") && (Object.keys(itms[1]).length > 0) ?
+										<ReactJson
+											src={itms[1]}
+											name={false}
+											collapsed={true}
+											displayDataTypes={false}
+											displayArrayKey={false}
+											enableClipboard={false}
+											theme={theme === 'dark' ? "chalk" : "rjv-default"}
+										/>
+									:
+										<code className="collapsed-code-value">{itms[1] && itms[1].toString()}</code>
+								: "-"}
+							</td>
+						</tr>
+					)
+				})}
+			</tbody>
+		</Table>
+	)
 }
 
 
