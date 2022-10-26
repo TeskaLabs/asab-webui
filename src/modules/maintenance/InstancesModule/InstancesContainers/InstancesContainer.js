@@ -304,6 +304,13 @@ const RowContent = ({objKey, data, generateStatus}) => {
 			{!collapseData &&
 				<tr key={`open-${objKey}`} className="collapsed-data">
 					<td colSpan={6}>
+						{data[objKey]?.returncode?.toString() ?
+							<div className="collapsed-heading">
+								{t("InstancesContainer|Return code")}: <code className="collapsed-code-value">{data[objKey]?.returncode?.toString()}</code>
+							</div>
+						:
+							null
+						}
 						{data[objKey]?.error ?
 							<div className="collapsed-heading">
 								{t("InstancesContainer|Error")}: <code className="collapsed-code-value">{data[objKey]?.error?.toString()}</code>
@@ -312,15 +319,19 @@ const RowContent = ({objKey, data, generateStatus}) => {
 							null
 						}
 						{data[objKey]?.exception ?
-							<div className="collapsed-heading">
-								{t("InstancesContainer|Exception")}: <code className="collapsed-code-value">{data[objKey]?.exception?.toString()}</code>
-							</div>
-						:
-							null
-						}
-						{data[objKey]?.returncode?.toString() ?
-							<div className="collapsed-heading">
-								{t("InstancesContainer|Return code")}: <code className="collapsed-code-value">{data[objKey]?.returncode?.toString()}</code>
+							<div className="collapsed-console">
+								<span className="collapsed-heading collapsed-span">
+									{t("InstancesContainer|Exception")}:
+								</span>
+								<ReactJson
+									src={data[objKey]?.exception}
+									name={false}
+									collapsed={true}
+									displayArrayKey={false}
+									displayDataTypes={false}
+									enableClipboard={false}
+									theme={theme === "dark" ? "chalk" : "rjv-default"}
+								/>
 							</div>
 						:
 							null
