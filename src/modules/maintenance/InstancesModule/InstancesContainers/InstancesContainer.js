@@ -334,7 +334,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 					<div className="d-flex justify-content-end">
 						<ButtonGroup>
 							<ActionButton
-								label={t("ExportContainer|Start")}
+								label={t("InstancesContainer|Start")}
 								id={`start-${objKey}`}
 								className="action-button"
 								color="primary"
@@ -343,7 +343,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								outline
 							/>
 							<ActionButton
-								label={t("ExportContainer|Stop")}
+								label={t("InstancesContainer|Stop")}
 								id={`stop-${objKey}`}
 								className="action-button"
 								color="danger"
@@ -352,7 +352,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								icon="cil-ban"
 							/>
 							<ActionButton
-								label={t("ExportContainer|Restart")}
+								label={t("InstancesContainer|Restart")}
 								id={`restart-${objKey}`}
 								className="action-button"
 								color="secondary"
@@ -361,7 +361,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								outline
 							/>
 							<ActionButton
-								label={t("ExportContainer|Up")}
+								label={t("InstancesContainer|Up")}
 								id={`up-${objKey}`}
 								color="success"
 								onClick={() => {setAction("up", data[objKey]?.instance_id)}}
