@@ -4,10 +4,13 @@ import ReactJson from 'react-json-view';
 import { useSelector } from 'react-redux';
 
 import { Container, Card, CardBody, CardHeader, Table,
-	InputGroup, InputGroupText, Input, InputGroupAddon
+	InputGroup, InputGroupText, Input, InputGroupAddon,
+	ButtonGroup, Button
 } from 'reactstrap';
 
 import { CellContentLoader } from 'asab-webui';
+
+import ActionButton from "./components/ActionButton";
 
 export default function InstancesContainer(props) {
 
@@ -22,9 +25,6 @@ export default function InstancesContainer(props) {
 	const theme = useSelector(state => state.theme);
 
 	const { t } = useTranslation();
-
-	// TODO: implement axios calls for post and put requests when ready on BE
-	// const LMIORemoteControlAPI = props.app.axiosCreate('lmio_remote_control');
 
 	// Set up websocket connection
 	let wsSubPath = '/ws';
@@ -176,6 +176,7 @@ export default function InstancesContainer(props) {
 								<col span="1" />
 								<col span="1" />
 								<col span="1" />
+								<col span="1" />
 							</colgroup>
 							<thead>
 								<tr>
@@ -196,15 +197,17 @@ export default function InstancesContainer(props) {
 									<th>
 										{t("InstancesContainer|Version")}
 									</th>
+									<th>
+									</th>
 								</tr>
 							</thead>
 							<tbody>
 							{(error == true) ?
 								<tr>
-									<td className="td-style" colSpan="8">{errorMsg}</td>
+									<td className="td-style" colSpan="7">{errorMsg}</td>
 								</tr>
 								:
-								<DataRow data={filteredData != undefined ? filteredData : data} />
+								<DataRow data={filteredData != undefined ? filteredData : data} props={props} />
 							}
 							</tbody>
 						</Table>
@@ -216,7 +219,7 @@ export default function InstancesContainer(props) {
 }
 
 // Method to render table row with data
-const DataRow = ({data}) => {
+const DataRow = ({data, props}) => {
 	const { t } = useTranslation();
 
 	// Generate status
@@ -262,15 +265,42 @@ const DataRow = ({data}) => {
 				objKey={objKey}
 				data={data}
 				generateStatus={generateStatus}
+				props={props}
 			/>
 		))
 	)
 }
 
-const RowContent = ({objKey, data, generateStatus}) => {
+// Content of the row in table
+const RowContent = ({props, objKey, data, generateStatus}) => {
 	const { t } = useTranslation();
 	const theme = useSelector(state => state.theme);
-	const [collapseData, setCollapseData] = useState(data[objKey]?.state && data[objKey]?.state == "stopped" ? false : true);
+	const [collapseData, setCollapseData] = useState(true);
+
+	useEffect(() => {
+		if (data[objKey]?.state && ((data[objKey]?.state == "stopped") || (data[objKey]?.state == "starting"))) {
+			setCollapseData(false);
+		} else {
+			setCollapseData(true);
+		}
+	},[data[objKey]?.state])
+
+	// Action to start, stop, restart and up the container
+	const setAction = async(action, id) => {
+		let body = {};
+		body["command"] = action;
+		const LMIORemoteControlAPI = props.app.axiosCreate('lmio_remote_control');
+		try {
+			let response = await LMIORemoteControlAPI.post(`/instance/${id}`, body);
+			if (response.data.result != "OK") {
+				throw new Error(`Something went wrong, failed to ${action} container`);
+			}
+			props.app.addAlert("success", t("InstancesContainer|Instance action triggered successfully"));
+		} catch(e) {
+			console.error(e);
+			props.app.addAlert("warning", t("InstancesContainer|Instance action has not been triggered"));
+		}
+	}
 
 	return(
 		<>
@@ -300,10 +330,51 @@ const RowContent = ({objKey, data, generateStatus}) => {
 				<td>
 					{data[objKey]?.advertised_data?.version ? data[objKey]?.advertised_data?.version : data[objKey]?.version ? data[objKey]?.version : "N/A"}
 				</td>
+				<td>
+					<div className="d-flex justify-content-end">
+						<ButtonGroup>
+							<ActionButton
+								label={t("ExportContainer|Start")}
+								id={`start-${objKey}`}
+								className="action-button"
+								color="primary"
+								icon="cil-media-play"
+								onClick={() => {setAction("start", data[objKey]?.instance_id)}}
+								outline
+							/>
+							<ActionButton
+								label={t("ExportContainer|Stop")}
+								id={`stop-${objKey}`}
+								className="action-button"
+								color="danger"
+								outline
+								onClick={() => {setAction("stop", data[objKey]?.instance_id)}}
+								icon="cil-ban"
+							/>
+							<ActionButton
+								label={t("ExportContainer|Restart")}
+								id={`restart-${objKey}`}
+								className="action-button"
+								color="secondary"
+								onClick={() => {setAction("restart", data[objKey]?.instance_id)}}
+								icon="cil-reload"
+								outline
+							/>
+							<ActionButton
+								label={t("ExportContainer|Up")}
+								id={`up-${objKey}`}
+								color="success"
+								onClick={() => {setAction("up", data[objKey]?.instance_id)}}
+								icon="cil-arrow-thick-from-bottom"
+								outline
+							/>
+						</ButtonGroup>
+					</div>
+				</td>
 			</tr>
 			{!collapseData &&
 				<tr key={`open-${objKey}`} className="collapsed-data">
-					<td colSpan={6}>
+					<td colSpan={7}>
 						{data[objKey]?.returncode?.toString() ?
 							<div className="collapsed-heading">
 								{t("InstancesContainer|Return code")}: <code className="collapsed-code-value">{data[objKey]?.returncode?.toString()}</code>
@@ -377,6 +448,7 @@ const RowContent = ({objKey, data, generateStatus}) => {
 	)
 }
 
+// Method to display collapsed table
 const CollapsedTable = ({obj, title}) => {
 	const theme = useSelector(state => state.theme);
 
