@@ -58,31 +58,39 @@ export default function InstancesContainer(props) {
 
 	// Use memo for data rendering (due to expensive caluclations)
 	const data = useMemo(() => {
+		let webSocketData = wsData.data;
 		// Render ws data
-		if(wsData && Object.keys(wsData)) {
-			// If key in full frame, update data, otherwise append wsData to fullframe object without mutating the original object
-			let renderAll = {...fullFrameData, ...{}};
-			Object.keys(wsData).map((dfd, idx) => {
-				if (fullFrameData[dfd]) {
-					// New additions / updates to values of object
-					const additions = wsData[dfd] ? wsData[dfd] : {};
-					// Append new values / updates to values of object
-					let updateValues = {...renderAll[dfd], ...additions}
-					// Create a new key-value pair from deltaFrame key and new/updated values
-					let newObj = {};
-					newObj[dfd] = updateValues;
-					// Append new object to fullFrame data object without mutation of original one
-					renderAll = {...renderAll, ...newObj};
-				} else {
-					let newObj = {};
-					newObj[dfd] = wsData[dfd];
-					// Append wsData object to fullFrame object and return it
-					renderAll = {...renderAll, ...newObj};
-				}
-			})
-			// Set fullFrame
-			setFullFrameData(renderAll);
-			return renderAll;
+		if(webSocketData && Object.keys(webSocketData)) {
+			// Check for delta frame
+			if (wsData?.frame_type === "df") {
+				// If key in full frame, update data, otherwise append wsData to fullframe object without mutating the original object
+				let renderAll = {...fullFrameData, ...{}};
+				Object.keys(webSocketData).map((dfd, idx) => {
+					if (fullFrameData[dfd]) {
+						// New additions / updates to values of object
+						const additions = webSocketData[dfd] ? webSocketData[dfd] : {};
+						// Append new values / updates to values of object
+						let updateValues = {...renderAll[dfd], ...additions}
+						// Create a new key-value pair from deltaFrame key and new/updated values
+						let newObj = {};
+						newObj[dfd] = updateValues;
+						// Append new object to fullFrame data object without mutation of original one
+						renderAll = {...renderAll, ...newObj};
+					} else {
+						let newObj = {};
+						newObj[dfd] = webSocketData[dfd];
+						// Append wsData object to fullFrame object and return it
+						renderAll = {...renderAll, ...newObj};
+					}
+				})
+				// Set fullFrame with update data from delta frame
+				setFullFrameData(renderAll);
+				return renderAll;
+			} else {
+				// Set full frame with full frame data
+				setFullFrameData(webSocketData);
+				return webSocketData;
+			}
 		}
 		// Fallback if wsData will not meet the condition requirements
 		return fullFrameData;
@@ -186,7 +194,7 @@ export default function InstancesContainer(props) {
 										{t("InstancesContainer|Service")}
 									</th>
 									<th>
-										{t("InstancesContainer|Node")}
+										{t("InstancesContainer|Node ID")}
 									</th>
 									<th>
 										{t("InstancesContainer|Name")}
@@ -293,13 +301,17 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 		const LMIORemoteControlAPI = props.app.axiosCreate('lmio_remote_control');
 		try {
 			let response = await LMIORemoteControlAPI.post(`/instance/${id}`, body);
-			if (response.data.result != "OK") {
+			if (response.data.result != "Accepted") {
 				throw new Error(`Something went wrong, failed to ${action} container`);
 			}
-			props.app.addAlert("success", t("InstancesContainer|Instance action triggered successfully"));
+			props.app.addAlert("success", t("InstancesContainer|Instance action accepted successfully"));
 		} catch(e) {
 			console.error(e);
-			props.app.addAlert("warning", t("InstancesContainer|Instance action has not been triggered"));
+			if (e?.response?.data?.message) {
+				props.app.addAlert("warning", `${e?.response?.data?.message}`);
+			} else {
+				props.app.addAlert("warning", t("InstancesContainer|Instance action has been rejected"));
+			}
 		}
 		setIsSubmitting(false);
 	}
@@ -321,7 +333,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 					{data[objKey]?.service}
 				</td>
 				<td>
-					{data[objKey]?.node}
+					{data[objKey]?.node_id}
 				</td>
 				<td>
 					{data[objKey]?.name}
