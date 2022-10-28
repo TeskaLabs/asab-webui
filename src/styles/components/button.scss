@@ -476,6 +476,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 .btn-group {
 	&>.btn {
 		flex: none;
+		z-index: 0 !important;
 	}
 	&>.btn:not(:first-child) {
 		margin-left: 0;
@@ -494,5 +495,11 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 
 .btn-edit-mode .btn-outline-danger:not(:disabled):not(.disabled):active:focus {
 	box-shadow: none;
+}
+
+@media screen and (max-width: 800px) {
+	.btn-group {
+		margin-left: 0;
+	}
 }
 
