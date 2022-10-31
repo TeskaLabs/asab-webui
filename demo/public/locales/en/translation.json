@@ -108,10 +108,10 @@
 		"Only tar.gz files are allowed": "Only tar.gz files are allowed",
 		"Choose file": "Choose file"
 	},
-	"InstancesContainer": {
+	"ServicesContainer": {
 		"Can't display data due to parsing error": "Can't display data due to parsing error",
 		"Can't establish websocket connection, data can't be loaded": "Can't establish websocket connection, data can't be loaded",
-		"Instances": "Instances",
+		"Services": "Services",
 		"Filter state": "Filter state",
 		"Loading": "Loading",
 		"Service": "Service",
@@ -124,8 +124,8 @@
 		"Starting": "Starting",
 		"Stopped": "Stopped",
 		"Unknown": "Unknown",
-		"Instance action accepted successfully": "Instance action accepted successfully",
-		"Instance action has been rejected": "Instance action has been rejected",
+		"Service action accepted successfully": "Service action accepted successfully",
+		"Service action has been rejected": "Service action has been rejected",
 		"Un-collapse": "Un-collapse",
 		"Collapse": "Collapse",
 		"Start": "Start",

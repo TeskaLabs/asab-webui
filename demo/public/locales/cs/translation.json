@@ -108,10 +108,10 @@
 		"Only tar.gz files are allowed": "Povoleny jsou pouze soubory tar.gz",
 		"Choose file": "Vyberte soubor"
 	},
-	"InstancesContainer": {
+	"ServicesContainer": {
 		"Can't display data due to parsing error": "Nelze zobrazit data kvůli chybě v parsování",
 		"Can't establish websocket connection, data can't be loaded": "Nepodařilo se navázat websocket spojení, data nelze načíst",
-		"Instances": "Instance",
+		"Services": "Služby",
 		"Filter state": "Filtrovat stav",
 		"Loading": "Načítání",
 		"Service": "Služba",
@@ -124,8 +124,8 @@
 		"Starting": "Spouští se",
 		"Stopped": "Zastaveno",
 		"Unknown": "Neznámo",
-		"Instance action accepted successfully": "Akce instance byla spuštěna",
-		"Instance action has been rejected": "Akce instance nebyla spuštěna",
+		"Service action accepted successfully": "Akce služby byla spuštěna",
+		"Service action has been rejected": "Akce služby nebyla spuštěna",
 		"Un-collapse": "Rozbalit",
 		"Collapse": "Sbalit",
 		"Start": "Spustit",

@@ -12,7 +12,7 @@ import { CellContentLoader } from 'asab-webui';
 
 import ActionButton from "./components/ActionButton";
 
-export default function InstancesContainer(props) {
+export default function ServicesContainer(props) {
 
 	const [fullFrameData, setFullFrameData] = useState({});
 	const [wsData, setWSData] = useState({});
@@ -143,14 +143,14 @@ export default function InstancesContainer(props) {
 				}
 				setError(false);
 			} else {
-				setErrorMsg(t("InstancesContainer|Can't display data due to parsing error"));
+				setErrorMsg(t("ServicesContainer|Can't display data due to parsing error"));
 				setError(true);
 			}
 		};
 
 		WSClient.onerror = (error) => {
 			setLoading(false);
-			setErrorMsg(t("InstancesContainer|Can't establish websocket connection, data can't be loaded"));
+			setErrorMsg(t("ServicesContainer|Can't establish websocket connection, data can't be loaded"));
 			setError(true);
 			setTimeout(() => {
 				reconnect();
@@ -164,17 +164,17 @@ export default function InstancesContainer(props) {
 			<Card className="h-100">
 				<CardHeader className="border-bottom">
 					<div className="card-header-title">
-						{t("InstancesContainer|Instances")}
+						{t("ServicesContainer|Services")}
 					</div>
 					<Search
-						search={{ icon: 'cil-magnifying-glass', placeholder: t("InstancesContainer|Filter state") }}
+						search={{ icon: 'cil-magnifying-glass', placeholder: t("ServicesContainer|Filter state") }}
 						filterValue={filter}
 						setFilterValue={setFilter}
 					/>
 				</CardHeader>
-				<CardBody className="h-100 instances-body">
+				<CardBody className="h-100 services-body">
 					{(loading == true) ?
-						<CellContentLoader cols={6} rows={6} title={t('InstancesContainer|Loading')}/>
+						<CellContentLoader cols={6} rows={6} title={t('ServicesContainer|Loading')}/>
 					:
 						<Table responsive borderless>
 							<colgroup>
@@ -191,19 +191,19 @@ export default function InstancesContainer(props) {
 									<th>
 									</th>
 									<th>
-										{t("InstancesContainer|Service")}
+										{t("ServicesContainer|Service")}
 									</th>
 									<th>
-										{t("InstancesContainer|Node ID")}
+										{t("ServicesContainer|Node ID")}
 									</th>
 									<th>
-										{t("InstancesContainer|Name")}
+										{t("ServicesContainer|Name")}
 									</th>
 									<th>
-										{t("InstancesContainer|Type")}
+										{t("ServicesContainer|Type")}
 									</th>
 									<th>
-										{t("InstancesContainer|Version")}
+										{t("ServicesContainer|Version")}
 									</th>
 									<th>
 									</th>
@@ -237,7 +237,7 @@ const DataRow = ({data, props}) => {
 	*/
 	const generateStatus = (status) => {
 		if (status == undefined) {
-			return (<div className="status-circle" title={t("InstancesContainer|Not defined")} />);
+			return (<div className="status-circle" title={t("ServicesContainer|Not defined")} />);
 		}
 		if (typeof status === "string") {
 			return statusTranslations(status);
@@ -252,16 +252,16 @@ const DataRow = ({data, props}) => {
 	const statusTranslations = (status) => {
 
 		if (status.toLowerCase() === "running") {
-			return (<div className="status-circle status-running" title={t("InstancesContainer|Running")} />);
+			return (<div className="status-circle status-running" title={t("ServicesContainer|Running")} />);
 		};
 		if (status.toLowerCase() === "starting") {
-			return (<div className="status-circle status-starting" title={t("InstancesContainer|Starting")} />);
+			return (<div className="status-circle status-starting" title={t("ServicesContainer|Starting")} />);
 		};
 		if (status.toLowerCase() === "stopped") {
-			return (<div className="status-circle status-stopped" title={t("InstancesContainer|Stopped")} />);
+			return (<div className="status-circle status-stopped" title={t("ServicesContainer|Stopped")} />);
 		};
 		if (status.toLowerCase() === "unknown") {
-			return (<div className="status-circle" title={t("InstancesContainer|Unknown")} />);
+			return (<div className="status-circle" title={t("ServicesContainer|Unknown")} />);
 		};
 		return (<div className="status-circle" title={status} />);
 	}
@@ -304,13 +304,13 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 			if (response.data.result != "Accepted") {
 				throw new Error(`Something went wrong, failed to ${action} container`);
 			}
-			props.app.addAlert("success", t("InstancesContainer|Instance action accepted successfully"));
+			props.app.addAlert("success", t("ServicesContainer|Service action accepted successfully"));
 		} catch(e) {
 			console.error(e);
 			if (e?.response?.data?.message) {
 				props.app.addAlert("warning", `${e?.response?.data?.message}`);
 			} else {
-				props.app.addAlert("warning", t("InstancesContainer|Instance action has been rejected"));
+				props.app.addAlert("warning", t("ServicesContainer|Service action has been rejected"));
 			}
 		}
 		setIsSubmitting(false);
@@ -322,9 +322,9 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 				<td>
 					<div className="caret-status-div">
 					{collapseData ?
-						<span title={t("InstancesContainer|Un-collapse")} className="caret-icon cil-arrow-circle-right" onClick={() => {setCollapseData(false)}}></span>
+						<span title={t("ServicesContainer|Un-collapse")} className="caret-icon cil-arrow-circle-right" onClick={() => {setCollapseData(false)}}></span>
 						:
-						<span title={t("InstancesContainer|Collapse")} className="caret-icon cil-arrow-circle-bottom" onClick={() => {setCollapseData(true)}}></span>
+						<span title={t("ServicesContainer|Collapse")} className="caret-icon cil-arrow-circle-bottom" onClick={() => {setCollapseData(true)}}></span>
 					}
 					{generateStatus(data[objKey]?.state ? data[objKey].state : undefined)}
 					</div>
@@ -348,7 +348,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 					<div className="d-flex justify-content-end">
 						<ButtonGroup>
 							<ActionButton
-								label={t("InstancesContainer|Start")}
+								label={t("ServicesContainer|Start")}
 								id={`start-${objKey}`}
 								className="action-button"
 								color="primary"
@@ -358,7 +358,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								disabled={isSubmitting == true}
 							/>
 							<ActionButton
-								label={t("InstancesContainer|Stop")}
+								label={t("ServicesContainer|Stop")}
 								id={`stop-${objKey}`}
 								className="action-button"
 								color="danger"
@@ -368,7 +368,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								disabled={isSubmitting == true}
 							/>
 							<ActionButton
-								label={t("InstancesContainer|Restart")}
+								label={t("ServicesContainer|Restart")}
 								id={`restart-${objKey}`}
 								className="action-button"
 								color="secondary"
@@ -378,7 +378,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								disabled={isSubmitting == true}
 							/>
 							<ActionButton
-								label={t("InstancesContainer|Up")}
+								label={t("ServicesContainer|Up")}
 								id={`up-${objKey}`}
 								color="success"
 								onClick={() => {setAction("up", data[objKey]?.instance_id), setIsSubmitting(true)}}
@@ -395,14 +395,14 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 					<td colSpan={7}>
 						{data[objKey]?.returncode?.toString() ?
 							<div className="collapsed-heading">
-								{t("InstancesContainer|Return code")}: <code className="collapsed-code-value">{data[objKey]?.returncode?.toString()}</code>
+								{t("ServicesContainer|Return code")}: <code className="collapsed-code-value">{data[objKey]?.returncode?.toString()}</code>
 							</div>
 						:
 							null
 						}
 						{data[objKey]?.error ?
 							<div className="collapsed-heading">
-								{t("InstancesContainer|Error")}: <code className="collapsed-code-value">{data[objKey]?.error?.toString()}</code>
+								{t("ServicesContainer|Error")}: <code className="collapsed-code-value">{data[objKey]?.error?.toString()}</code>
 							</div>
 						:
 							null
@@ -410,7 +410,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 						{data[objKey]?.exception ?
 							<div className="collapsed-console">
 								<span className="collapsed-heading collapsed-span">
-									{t("InstancesContainer|Exception")}:
+									{t("ServicesContainer|Exception")}:
 								</span>
 								<ReactJson
 									src={data[objKey]?.exception}
@@ -428,7 +428,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 						{data[objKey]?.console ?
 							<div className="collapsed-console">
 								<span className="collapsed-heading collapsed-span">
-									{t("InstancesContainer|Console")}:
+									{t("ServicesContainer|Console")}:
 								</span>
 								<ReactJson
 									src={data[objKey]?.console}
@@ -446,7 +446,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 						{data[objKey]?.detail ?
 							<CollapsedTable
 								obj={data[objKey]?.detail}
-								title={t("InstancesContainer|Detail")}
+								title={t("ServicesContainer|Detail")}
 							/>
 						:
 							null
@@ -454,7 +454,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 						{data[objKey]?.advertised_data ?
 							<CollapsedTable
 								obj={data[objKey]?.advertised_data}
-								title={t("InstancesContainer|Advertised data")}
+								title={t("ServicesContainer|Advertised data")}
 							/>
 						:
 							null
