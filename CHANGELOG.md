@@ -2,6 +2,10 @@
 
 ## Release Candidate
 
+### Bugfixes
+
+- Fix z-index for CardHeader button (INDIGO Sprint 221931, [!373](https://github.com/TeskaLabs/asab-webui/pull/373))
+
 ## v22.42
 
 ### Refactoring
