@@ -21,7 +21,7 @@
 	--btn-outline-info-shadow-color: #31b6e380;
 	--btn-outline-light-shadow-color: #f3f4fac0;
 	--btn-outline-dark-shadow-color: #0e142680;
-	
+
 	--btn-secondary-outline-hover-bg-color: #75757526;
 	--btn-success-outline-hover-bg-color: #e1ffe9;
 	--btn-danger-outline-hover-bg-color: #ffdadc;
@@ -31,7 +31,7 @@
 	--btn-dark-outline-hover-bg-color: #828eb0;
 
 
-}	
+}
 :root[data-theme="dark"] {
 	--btn-secondary-bg-color: var(--light-blue);
 	--btn-primary-bg-color: var(--night-blue);
@@ -496,10 +496,3 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 .btn-edit-mode .btn-outline-danger:not(:disabled):not(.disabled):active:focus {
 	box-shadow: none;
 }
-
-@media screen and (max-width: 800px) {
-	.btn-group {
-		margin-left: 0;
-	}
-}
-

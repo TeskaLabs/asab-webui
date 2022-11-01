@@ -186,28 +186,3 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 .border-top {
 	border-top: 1px solid $border-color !important;
 }
-
-@media screen and (max-width: 800px) {
-	.card {
-		.card-header {
-			flex-direction: row;
-			min-height: auto;
-			.card-header-title {
-				margin: 0 1.25rem;
-			}
-		}
-	}
-}
-
-@media screen and (max-width: 530px) {
-	.card {
-		.card-header {
-			.btn {
-				border: 0;
-				font-size: .75rem;
-				min-height: 35px;
-				padding: 0.25rem 0.875rem;
-			}
-		}
-	}
-}
