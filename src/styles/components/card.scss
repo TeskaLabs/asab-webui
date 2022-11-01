@@ -29,6 +29,7 @@ $box-shadow-card-color: var(--box-shadow-card-color);
     	min-height: 50px;
 		flex-wrap: wrap;
 		box-sizing:content-box;
+		overflow: hidden;
 		& h3 {
 			margin: auto 1.25rem;
 		}
