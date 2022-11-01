@@ -476,6 +476,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 .btn-group {
 	&>.btn {
 		flex: none;
+		z-index: 0 !important;
 	}
 	&>.btn:not(:first-child) {
 		margin-left: 0;
