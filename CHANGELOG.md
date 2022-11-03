@@ -4,6 +4,8 @@
 
 ### Bugfixes
 
+- Change const variable customCellStyle to let variable in DataTable (INDIGO Sprint 221031, [!374](https://github.com/TeskaLabs/asab-webui/pull/374))
+
 - Fix z-index for CardHeader button (INDIGO Sprint 221931, [!373](https://github.com/TeskaLabs/asab-webui/pull/373))
 
 ## v22.42
