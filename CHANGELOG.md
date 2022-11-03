@@ -2,6 +2,10 @@
 
 ## Release Candidate
 
+### Bugfixes
+
+- Change const variable customCellStyle to let variable in DataTable (INDIGO Sprint 221031, [!374](https://github.com/TeskaLabs/asab-webui/pull/374))
+
 ## v22.42
 
 ### Refactoring
