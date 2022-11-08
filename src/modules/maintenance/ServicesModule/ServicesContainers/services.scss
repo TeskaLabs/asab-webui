@@ -17,7 +17,7 @@
 
 /* status indicator styles */
 
-.status-circle {
+.service-status-circle {
 	margin-top: 0.25rem;
 	width: 0.8rem;
 	height: 0.8rem;
@@ -25,15 +25,15 @@
 	border-radius: 50%
 }
 
-.status-running {
+.service-status-running {
 	background: $light-green;
 }
 
-.status-starting {
+.service-status-starting {
 	background: $warning;
 }
 
-.status-stopped {
+.service-status-stopped {
 	background: $danger;
 }
 

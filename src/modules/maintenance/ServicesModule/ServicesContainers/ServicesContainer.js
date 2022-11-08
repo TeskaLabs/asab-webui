@@ -237,7 +237,7 @@ const DataRow = ({data, props}) => {
 	*/
 	const generateStatus = (status) => {
 		if (status == undefined) {
-			return (<div className="status-circle" title={t("ServicesContainer|Not defined")} />);
+			return (<div className="service-status-circle" title={t("ServicesContainer|Not defined")} />);
 		}
 		if (typeof status === "string") {
 			return statusTranslations(status);
@@ -252,18 +252,18 @@ const DataRow = ({data, props}) => {
 	const statusTranslations = (status) => {
 
 		if (status.toLowerCase() === "running") {
-			return (<div className="status-circle status-running" title={t("ServicesContainer|Running")} />);
+			return (<div className="service-status-circle service-status-running" title={t("ServicesContainer|Running")} />);
 		};
 		if (status.toLowerCase() === "starting") {
-			return (<div className="status-circle status-starting" title={t("ServicesContainer|Starting")} />);
+			return (<div className="service-status-circle service-status-starting" title={t("ServicesContainer|Starting")} />);
 		};
 		if (status.toLowerCase() === "stopped") {
-			return (<div className="status-circle status-stopped" title={t("ServicesContainer|Stopped")} />);
+			return (<div className="service-status-circle service-status-stopped" title={t("ServicesContainer|Stopped")} />);
 		};
 		if (status.toLowerCase() === "unknown") {
-			return (<div className="status-circle" title={t("ServicesContainer|Unknown")} />);
+			return (<div className="service-status-circle" title={t("ServicesContainer|Unknown")} />);
 		};
-		return (<div className="status-circle" title={status} />);
+		return (<div className="service-status-circle" title={status} />);
 	}
 
 	return(
