@@ -6,6 +6,11 @@
 
 - Refactor Microservices container to Services and implement websocket connection (INDIGO Sprint 221014, [!363](https://github.com/TeskaLabs/asab-webui/pull/363))
 
+### Bugfixes
+
+- Change const variable customCellStyle to let variable in DataTable (INDIGO Sprint 221031, [!374](https://github.com/TeskaLabs/asab-webui/pull/374))
+
+
 ## v22.42
 
 ### Refactoring

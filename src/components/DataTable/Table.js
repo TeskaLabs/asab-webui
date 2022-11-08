@@ -16,7 +16,7 @@ const TableCell = ({
 	if (!obj) return <td className="pl-3" style={{ whiteSpace: "nowrap" }}>-</td>
 
 	let cell, icon, customCellStyle;
-	const textLinkStyle = {
+	let textLinkStyle = {
 		whiteSpace: "nowrap",
 		marginBottom: 0
 	}
