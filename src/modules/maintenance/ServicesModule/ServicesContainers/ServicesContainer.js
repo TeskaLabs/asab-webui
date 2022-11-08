@@ -349,7 +349,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 						<ButtonGroup>
 							<ActionButton
 								label={t("ServicesContainer|Start")}
-								id={`start-${objKey}`}
+								id={`start-${objKey.replace(/[^\w\s]/gi, '-')}`}
 								className="action-button"
 								color="primary"
 								icon="cil-media-play"
@@ -359,7 +359,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 							/>
 							<ActionButton
 								label={t("ServicesContainer|Stop")}
-								id={`stop-${objKey}`}
+								id={`stop-${objKey.replace(/[^\w\s]/gi, '-')}`}
 								className="action-button"
 								color="danger"
 								outline
@@ -369,7 +369,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 							/>
 							<ActionButton
 								label={t("ServicesContainer|Restart")}
-								id={`restart-${objKey}`}
+								id={`restart-${objKey.replace(/[^\w\s]/gi, '-')}`}
 								className="action-button"
 								color="secondary"
 								onClick={() => {setAction("restart", data[objKey]?.instance_id), setIsSubmitting(true)}}
@@ -379,7 +379,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 							/>
 							<ActionButton
 								label={t("ServicesContainer|Up")}
-								id={`up-${objKey}`}
+								id={`up-${objKey.replace(/[^\w\s]/gi, '-')}`}
 								color="success"
 								onClick={() => {setAction("up", data[objKey]?.instance_id), setIsSubmitting(true)}}
 								icon="cil-arrow-thick-from-bottom"
