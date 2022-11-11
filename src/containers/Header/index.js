@@ -1,5 +1,5 @@
-import React, { useState, Suspense, useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, Suspense, useEffect, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 import {
 	Nav,
@@ -13,15 +13,37 @@ import {Link} from "react-router-dom";
 
 export function Header(props) {
 	const HeaderService = props.app.locateService("HeaderService");
-	const href = props.brand_image.href ?? "/";
+	const href = props.brandImage?.href ?? "/";
 
 	const [headerProperties, setHeaderProperties] = useState(false);
 	const [windowDimensions, setWindowDimensions] = useState({width: window.innerWidth,});
+
+	const theme = useSelector(state => state.theme);
+	const title = useSelector(state => state.config.title);
+	const config = useSelector(state => state.config);
+	const brandImageLight = useSelector(state => state.config.brandImage?.light);
+	const brandImageDark = useSelector(state => state.config.brandImage?.dark);
+	const brandImageDefault = useSelector(state => state.config.defaultBrandImage);
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
 		return () => window.removeEventListener('resize', handleResize);
 	}, [windowDimensions])
+
+	const brandImage = useMemo(() => {
+		console.log('theme ', theme)
+		console.log('config: ', config)
+		console.log('brandImageDark ', brandImageDark)
+		console.log('brandImageDefault ', brandImageDefault)
+		console.log('brandImageLight ', brandImageLight)
+		if ((theme === "dark") && brandImageDark) {
+			return brandImageDark;
+		} else if ((theme === "light") && brandImageLight) {
+			return brandImageLight;
+		} else {
+			return brandImageDefault;
+		}
+	},[theme])
 
 	function handleResize () {
 		setWindowDimensions({width: window.innerWidth});
@@ -35,8 +57,8 @@ export function Header(props) {
 						<div className="mobile-logo-position">
 							<Link to={href}>
 								<img
-									src={props.brand_image.full}
-									alt={props.title}
+									src={brandImage.full}
+									alt={title}
 									width="150"
 									height="50"
 								/>
@@ -59,8 +81,8 @@ export function Header(props) {
 					<div className="mobile-logo-position">
 						<Link to={href}>
 							<img
-								src={props.brand_image.full}
-								alt={props.title}
+								src={brandImage.full}
+								alt={title}
 								width="150"
 								height="50"
 							/>
@@ -152,15 +174,4 @@ export function Header(props) {
 	);
 }
 
-
-function mapStateToProps(state) {
-	const headerImage = state.config.brand_image?.full ?
-		state.config.brand_image : state.config.default_brand_image;
-
-	return {
-		brand_image: headerImage,
-		title: state.config.title,
-	}
-}
-
-export default connect(mapStateToProps)(Header);
+export default Header;

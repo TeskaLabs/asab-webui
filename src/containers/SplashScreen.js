@@ -5,10 +5,10 @@ function SplashScreen(props) {
 	
 	return (
 		<div className="text-center animated fadeIn w-100">
-			{props.brand_image != null ?
+			{props.brandImage != null ?
 			<img
 				className="splash-screen-img"
-				src={props.brand_image.full}
+				src={props.brandImage.full}
 				alt={props.title}
 			/>
 			:
@@ -25,7 +25,7 @@ function SplashScreen(props) {
 
 function mapStateToProps(state) {
 	return {
-		brand_image: state.config.brand_image?.full ? state.config.brand_image : state.config.default_brand_image,
+		brandImage: state.config.brandImage?.light?.full ? state.config.brandImage.light : state.config.defaultBrandImage,
 		title: state.config.title,
 	}
 }

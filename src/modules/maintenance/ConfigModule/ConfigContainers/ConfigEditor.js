@@ -42,7 +42,7 @@ function ConfigEditor(props) {
 	const [ patternPropsSchema, setPatternPropsSchema ] = useState({});
 
 	// Retrieve the asab config url from config file
-	const homeScreenImg = props.app.Config.get('brand_image').full;
+	const homeScreenImg = props.app.Config.get('brandImage').full;
 	const homeScreenAlt = props.app.Config.get('title');
 	const configType = props.configType;
 	const configName = props.configName;

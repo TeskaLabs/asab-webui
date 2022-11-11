@@ -18,9 +18,9 @@ export default class HeaderService extends Service {
 
 	initialize() {
 		this.App.ConfigService.addDefaults({
-			'default_brand_image': {
-				full: "media/logo/header-full.svg",
-				minimized: "media/logo/header-minimized.svg",
+			'defaultBrandImage': {
+				full: "media/logo/header-logo-full-light.svg",
+				minimized: "media/logo/header-logo-minimized-light.svg",
 				href: undefined,
 			}
 		}, true)

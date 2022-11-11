@@ -6,6 +6,7 @@ import {
 } from "reactstrap";
 
 import { connect } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 import { useTranslation } from 'react-i18next';
 
@@ -23,7 +24,7 @@ function ConfigContainer(props) {
 	const configType = props.match.params.configType;
 	const configName = props.match.params.configName;
 
-	const homeScreenImg = props.app.Config.get('brand_image').full;
+	const homeScreenImg = props.app.Config.get('brandImage').full;
 	const homeScreenAlt = props.app.Config.get('title');
 
 	const [ treeData, setTreeData ] = useState({}); // Set complete data for TreeViewComponent
@@ -32,6 +33,8 @@ function ConfigContainer(props) {
 	const [ typeList, setTypeList ] = useState([]); // Set data name of type for group configuration
 	const [ treeList, setTreeList ] = useState({}); // Set cleaned data for trigger UseEffect for updating TreeViewComponent, and for render the tree
 	const [ openNodes, setOpenNodes ] = useState([]); // Set open nodes in the TreeMenu
+
+	// const config_created = useSelector(state => state.asab_config.configCreated)
 
 
 	// To get the full overview on schemas and configs it is needed to update the tree list and data state

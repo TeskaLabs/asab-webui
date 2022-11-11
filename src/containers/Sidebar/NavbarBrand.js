@@ -1,10 +1,27 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, {useMemo} from 'react';
+import { useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 
-const NavbarBrand = ({ title, brand_image, isSidebarCollapsed }) => {
-	const href = brand_image.href ?? "/";
+const NavbarBrand = ( props ) => {
+	const theme = useSelector(state => state.theme);
+	const title = useSelector(state => state.config.title);
+	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
+	const brandImageLight = useSelector(state => state.config.brandImage?.light);
+	const brandImageDark = useSelector(state => state.config.brandImage?.dark);
+	const brandImageDefault = useSelector(state => state.config.defaultBrandImage);
+
+	const brandImage = useMemo(() => {
+		if ((theme === "dark") && brandImageDark) {
+			return brandImageDark;
+		} else if ((theme === "light") && brandImageLight) {
+			return brandImageLight;
+		} else {
+			return brandImageDefault;
+		}
+	},[theme])
+
+	const href = brandImage?.href ?? "/";
 
 	if (href.includes("http")) {
 		return (
@@ -15,7 +32,7 @@ const NavbarBrand = ({ title, brand_image, isSidebarCollapsed }) => {
 					rel="noopener noreferrer"
 				>
 					<img
-						src={isSidebarCollapsed ? brand_image.minimized : brand_image.full}
+						src={isSidebarCollapsed ? brandImage.minimized : brandImage.full}
 						alt={title}
 						width="50"
 						height="50"
@@ -29,7 +46,7 @@ const NavbarBrand = ({ title, brand_image, isSidebarCollapsed }) => {
 		<div className={`sidebar-brand-image`}>
 			<Link to={href}>
 				<img
-					src={isSidebarCollapsed ? brand_image.minimized : brand_image.full}
+					src={isSidebarCollapsed ? brandImage.minimized : brandImage.full}
 					alt={title}
 					width={isSidebarCollapsed ? "50" : "150"}
 					height="50"
@@ -40,15 +57,4 @@ const NavbarBrand = ({ title, brand_image, isSidebarCollapsed }) => {
 	)
 };
 
-const mapStateToProps = state => {
-	const headerImage = state.config.brand_image?.full ?
-		state.config.brand_image : state.config.default_brand_image;
-
-	return {
-		brand_image: headerImage,
-		title: state.config.title,
-		isSidebarCollapsed: state.sidebar.isSidebarCollapsed
-	}
-}
-
-export default connect(mapStateToProps)(NavbarBrand);
+export default NavbarBrand;

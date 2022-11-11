@@ -18,22 +18,34 @@ export default class ConfigService extends Service {
 
 	initialize() {
 		// Initialization of dynamic configuration
-		const headerLogoFull = document.getElementsByName('header-logo-full')[0]?.content;
-		const headerLogoMini = document.getElementsByName('header-logo-minimized')[0]?.content;
+		const headerLogoFullLight = document.getElementsByName('header-logo-full-light')[0]?.content;
+		const headerLogoMiniLight = document.getElementsByName('header-logo-minimized-light')[0]?.content;
+		const headerLogoFullDark = document.getElementsByName('header-logo-full-dark')[0]?.content;
+		const headerLogoMiniDark = document.getElementsByName('header-logo-minimized-dark')[0]?.content;
 		const title = document.getElementsByName('title')[0]?.content;
 		const customCSS = document.getElementsByName('custom-css-file')[0]?.content;
 
 		let dynamicConfig = {};
 		let brandImage = {};
-		// Add custom header full logo
-		if ((headerLogoFull != undefined) && (headerLogoFull != "")) {
-			brandImage["full"] = headerLogoFull;
-			dynamicConfig["brand_image"] = brandImage;
+		// Add custom header full light logo
+		if ((headerLogoFullLight != undefined) && (headerLogoFullLight != "")) {
+			brandImage["full"] = headerLogoFullLight;
+			dynamicConfig["brandImage"]["light"] = brandImage;
 		}
-		// Add custom header minimized logo
-		if ((headerLogoMini != undefined) && (headerLogoMini != "")) {
-			brandImage["minimized"] = headerLogoMini;
-			dynamicConfig["brand_image"] = brandImage;
+		// Add custom header minimized light logo
+		if ((headerLogoMiniLight != undefined) && (headerLogoMiniLight != "")) {
+			brandImage["minimized"] = headerLogoMiniLight;
+			dynamicConfig["brandImage"]["light"] = brandImage;
+		}
+		// Add custom header full dark logo
+		if ((headerLogoFullDark != undefined) && (headerLogoFullDark != "")) {
+			brandImage["full"] = headerLogoFullDark;
+			dynamicConfig["brandImage"]["dark"] = brandImage;
+		}
+		// Add custom header minimized dark logo
+		if ((headerLogoMiniDark != undefined) && (headerLogoMiniDark != "")) {
+			brandImage["minimized"] = headerLogoMiniDark;
+			dynamicConfig["brandImage"]["dark"] = brandImage;
 		}
 		// Add custom title
 		if ((title != undefined) && (title != "")) {

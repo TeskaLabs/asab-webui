@@ -6,10 +6,16 @@ import { HashRouter } from 'react-router-dom';
 // Configuration
 let ConfigDefaults = {
 	title: "ASAB App",
-	brand_image: {
-		full: "media/logo/header-full.svg",
-		minimized: "media/logo/header-minimized.svg",
-	},
+	brandImage: {
+		light: {
+			full: "media/logo/header-full.svg",
+			minimized: "media/logo/header-minimized.svg"
+		},
+		dark: {
+			full: "media/logo/header-full.svg",
+			minimized: "media/logo/header-minimized.svg"
+		}
+    },
 	sidebarLogo: {
 		full: "media/logo/sidebarlogo-full.svg",
 		minimized: "media/logo/sidebarlogo-minimized.svg"
