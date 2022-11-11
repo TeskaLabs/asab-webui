@@ -8,9 +8,15 @@ Example:
 let ConfigDefaults = {
 	site_title: "TeskaLabs",
 	title: "Page Title",
-	brand_image: {
-		full: "media/logo/header-full.svg",
-		minimized: "media/logo/header-minimized.svg",
+	brandImage: {
+		light: {
+			full: "path/to/external-header-full-light.svg",
+			minimized: "path/to/external-header-minimized-light.svg"
+		},
+		dark: {
+			full: "path/to/external-header-full-dark.svg",
+			minimized: "path/to/external-header-minimized-dark.svg"
+		},
 	},
 	sidebarLogo: {
 		full: "media/logo/sidebarlogo-full.svg",
