@@ -1,0 +1,100 @@
+@import "~asab-webui/styles/constants/index.scss";
+
+/* container styles */
+
+.svcs-container {
+	height: 100%;
+
+}
+
+/* card body styles */
+
+.services-body {
+	overflow: auto;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+/* status indicator styles */
+
+.service-status-circle {
+	margin-top: 0.25rem;
+	width: 0.8rem;
+	height: 0.8rem;
+	background: $secondary;
+	border-radius: 50%
+}
+
+.service-status-running {
+	background: $light-green;
+}
+
+.service-status-starting {
+	background: $warning;
+}
+
+.service-status-stopped {
+	background: $danger;
+}
+
+/* table styles */
+
+.td-style {
+	text-align: center;
+	background: $bg-color;
+}
+
+/* collapsed table styles */
+
+.collapsed-data {
+	background-color: $bg-color;
+}
+
+.collapsed-data:hover {
+	background-color: $bg-color;
+}
+
+.caret-status-div {
+	display: inline-flex !important;
+	.caret-icon {
+		padding-right: 0.75rem;
+		padding-top: 0.15rem;
+		color: $primary;
+		cursor: pointer;
+	}
+}
+
+.collapsed-table-row {
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
+	td {
+		padding-top: 0.25em !important;
+		padding-bottom: 0.25em !important;
+		height: fit-content !important;
+	}
+	th {
+		padding-top: 0.25em !important;
+		padding-bottom: 0.25em !important;
+		padding-left: 0em !important;
+		height: fit-content !important;
+	}
+}
+
+.collapsed-heading {
+	color: var(--text-secondary-color) !important;
+	text-align: inherit !important;
+	font-weight: bold !important;
+}
+
+.collapsed-code-value {
+	font-size: 100%;
+	color: var(--text-color);
+}
+
+.collapsed-console {
+	display: inline-flex;
+}
+
+.collapsed-span {
+	padding-right: 0.5em;
+}
