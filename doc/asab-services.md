@@ -1,10 +1,10 @@
-# ASAB Instances
+# ASAB Services
 
-ASAB WebUI Instances is a page with a list of available instances. It use a websocket connection, so the data are propagated realtime.
+ASAB WebUI Services is a page with a list of available instances. It use a websocket connection, so the data are propagated realtime.
 
 ## Setup
 
-In `config` file, define ASAB Instances as a service:
+In `config` file, define ASAB Services as a service:
 
 ```
 module.exports = {
@@ -26,15 +26,15 @@ module.exports = {
 }
 ```
 
-In the top-level `index.js` of your ASAB UI application, load the ASAB microservices module
+In the top-level `index.js` of your ASAB UI application, load the ASAB services module
 
 ```
 const modules = [];
 
 ...
 
-import ASABInstancesModule from 'asab-webui/modules/maintenance/InstancesModule';
-modules.push(ASABInstancesModule);
+import ASABServicesModule from 'asab-webui/modules/maintenance/ServicesModule';
+modules.push(ASABServicesModule);
 
 ...
 
