@@ -117,6 +117,7 @@
 		"Service": "Service",
 		"Node ID": "Node ID",
 		"Name": "Name",
+		"Type": "Type",
 		"Version": "Version",
 		"Not defined": "Not defined",
 		"Running": "Running",

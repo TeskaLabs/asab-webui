@@ -184,7 +184,6 @@ export default function ServicesContainer(props) {
 								<col span="1" />
 								<col span="1" />
 								<col span="1" />
-								<col span="1" />
 							</colgroup>
 							<thead>
 								<tr>
@@ -387,6 +386,13 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 			{!collapseData &&
 				<tr key={`open-${objKey}`} className="collapsed-data">
 					<td colSpan={7}>
+						{data[objKey]?.type ?
+							<div className="collapsed-heading">
+								{t("ServicesContainer|Type")}: <code className="collapsed-code-value">{data[objKey]?.type?.toString()}</code>
+							</div>
+						:
+							null
+						}
 						{data[objKey]?.returncode?.toString() ?
 							<div className="collapsed-heading">
 								{t("ServicesContainer|Return code")}: <code className="collapsed-code-value">{data[objKey]?.returncode?.toString()}</code>
