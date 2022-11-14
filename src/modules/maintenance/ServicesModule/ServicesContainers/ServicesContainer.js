@@ -200,9 +200,6 @@ export default function ServicesContainer(props) {
 										{t("ServicesContainer|Name")}
 									</th>
 									<th>
-										{t("ServicesContainer|Type")}
-									</th>
-									<th>
 										{t("ServicesContainer|Version")}
 									</th>
 									<th>
@@ -333,13 +330,10 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 					{data[objKey]?.service}
 				</td>
 				<td>
-					{data[objKey]?.node_id}
+					<code className="collapsed-code-value">{data[objKey]?.node_id?.toString()}</code>
 				</td>
 				<td>
-					{data[objKey]?.name}
-				</td>
-				<td>
-					{data[objKey]?.type}
+					<code className="collapsed-code-value">{data[objKey]?.name?.toString()}</code>
 				</td>
 				<td>
 					{data[objKey]?.advertised_data?.version ? data[objKey]?.advertised_data?.version : data[objKey]?.version ? data[objKey]?.version : "N/A"}
@@ -354,7 +348,6 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								color="primary"
 								icon="cil-media-play"
 								onClick={() => {setAction("start", data[objKey]?.instance_id), setIsSubmitting(true)}}
-								outline
 								disabled={isSubmitting == true}
 							/>
 							<ActionButton
@@ -362,9 +355,8 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								id={`stop-${objKey.replace(/[^\w\s]/gi, '-')}`}
 								className="action-button"
 								color="danger"
-								outline
 								onClick={() => {setAction("stop", data[objKey]?.instance_id), setIsSubmitting(true)}}
-								icon="cil-ban"
+								icon="cil-media-stop"
 								disabled={isSubmitting == true}
 							/>
 							<ActionButton
@@ -372,18 +364,17 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								id={`restart-${objKey.replace(/[^\w\s]/gi, '-')}`}
 								className="action-button"
 								color="secondary"
+								outline
 								onClick={() => {setAction("restart", data[objKey]?.instance_id), setIsSubmitting(true)}}
 								icon="cil-reload"
-								outline
 								disabled={isSubmitting == true}
 							/>
 							<ActionButton
 								label={t("ServicesContainer|Up")}
 								id={`up-${objKey.replace(/[^\w\s]/gi, '-')}`}
-								color="success"
+								color="secondary"
 								onClick={() => {setAction("up", data[objKey]?.instance_id), setIsSubmitting(true)}}
-								icon="cil-arrow-thick-from-bottom"
-								outline
+								icon="cil-media-eject"
 								disabled={isSubmitting == true}
 							/>
 						</ButtonGroup>
