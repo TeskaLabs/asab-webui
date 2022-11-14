@@ -4,7 +4,7 @@
 
 ### Features
 
-- Refactor Microservices container to Services and implement websocket connection (INDIGO Sprint 221014, [!363](https://github.com/TeskaLabs/asab-webui/pull/363))
+- Refactor Microservices container to Services and implement websocket connection (INDIGO Sprint 221111, [!363](https://github.com/TeskaLabs/asab-webui/pull/363))
 
 ### Bugfixes
 
