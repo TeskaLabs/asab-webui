@@ -345,7 +345,8 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								label={t("ServicesContainer|Start")}
 								id={`start-${objKey.replace(/[^\w\s]/gi, '-')}`}
 								className="action-button"
-								color="primary"
+								color="secondary"
+								outline
 								icon="cil-media-play"
 								onClick={() => {setAction("start", data[objKey]?.instance_id), setIsSubmitting(true)}}
 								disabled={isSubmitting == true}
@@ -354,7 +355,8 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								label={t("ServicesContainer|Stop")}
 								id={`stop-${objKey.replace(/[^\w\s]/gi, '-')}`}
 								className="action-button"
-								color="danger"
+								color="secondary"
+								outline
 								onClick={() => {setAction("stop", data[objKey]?.instance_id), setIsSubmitting(true)}}
 								icon="cil-media-stop"
 								disabled={isSubmitting == true}
@@ -373,6 +375,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								label={t("ServicesContainer|Up")}
 								id={`up-${objKey.replace(/[^\w\s]/gi, '-')}`}
 								color="secondary"
+								outline
 								onClick={() => {setAction("up", data[objKey]?.instance_id), setIsSubmitting(true)}}
 								icon="cil-media-eject"
 								disabled={isSubmitting == true}
