@@ -2,6 +2,8 @@
 
 ## Release Candidate
 
+## v22.46
+
 ### Features
 
 - Refactor Microservices container to Services and implement websocket connection (INDIGO Sprint 221111, [!363](https://github.com/TeskaLabs/asab-webui/pull/363))
