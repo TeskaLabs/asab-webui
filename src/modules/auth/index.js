@@ -41,6 +41,34 @@ export default class AuthModule extends Module {
 			// Check the query string for 'code'
 			var qs = new URLSearchParams(window.location.search);
 			const authorization_code = qs.get('code');
+
+			/*
+				TODO: Resolution of error exception in URL params to
+				avoid infinite redirection. However this solution does not
+				handle the cases when we want to offer user the tenant selection
+				card (this will just take first user's tenant and proceed with login - with
+				exception of case when use has no tenant - then user is redirected back to login)
+			*/
+
+			// Checking error type in params of RedirectURL
+			var redirectUriQs = new URLSearchParams(this.RedirectURL);
+			const errorType = redirectUriQs.get('error');
+			if (errorType != undefined) {
+				// TODO: handle redirection
+				if (errorType.includes("unauthorized_tenant")) {
+					await locationReplace(window.location.pathname);
+				}
+
+				// TODO: handle user without tenant
+				if (errorType.includes("user_has_no_tenant")) {
+					// Redirection to login screen
+					let force_login_prompt = true;
+					await this.Api.login(this.RedirectURL, force_login_prompt);
+					return;
+				}
+			}
+			// ----END OF TODO----
+
 			if (authorization_code !== null) {
 				await this._updateToken(authorization_code);
 				// Remove 'code' from a query string
