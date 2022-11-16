@@ -1,6 +1,6 @@
 import { format, parseISO } from 'date-fns';
 
-const timeToString = (value, locale = undefined) => {
+const timeToString = (value, length = "short", locale = undefined) => {
 
 	if ((value === null) || (value === undefined)) {
 		return ' ';
@@ -10,9 +10,13 @@ const timeToString = (value, locale = undefined) => {
 		return 'Invalid Date';
 	}
 
-	const date = isNaN(value) ? format(parseISO(value), 'PPp', { locale }) :
-					value > 9999999999 ? format(value, 'PPp', { locale }) :
-					format(value * 1000, 'PPp', { locale });
+	const date = isNaN(value) ?
+		format(parseISO(value), (length === "short") ? 'PPp' : (length === "medium") ? 'PPpp' : 'PPp', { locale })
+	:
+		value > 9999999999 ?
+			format(value, (length === "short") ? 'PPp' : (length === "medium") ? 'PPpp' : 'PPp', { locale })
+		:
+			format(value * 1000, (length === "short") ? 'PPp' : (length === "medium") ? 'PPpp' : 'PPp', { locale });
 	return date;
 }
 
