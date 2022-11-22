@@ -158,7 +158,7 @@ function ConfigList(props) {
 	return (
 		<div className="config-list-dt">
 			<DataTable
-				customCardBodyComponent={<div className="pb-3">{`${description}`}</div>}
+				customCardBodyComponent={<div>{`${description}`}</div>}
 				title={{ text: t("ASABConfig|Type") + ` ${configType}`, icon: "cil-settings" }}
 				headers={headers}
 				data={configList}
