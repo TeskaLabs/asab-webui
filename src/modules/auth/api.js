@@ -33,8 +33,7 @@ export class SeaCatAuthApi {
 	// This method will cause a navigation from the app to the OAuth2 login screen
 	async login(redirect_uri, force_login_prompt) {
 		/*
-			TODO: is handling login scope like this OK?
-			Adding tenant directly (if available).
+			Adding tenant directly to scope (if available).
 		*/
 		let currentTenant = null;
 		if (this.App.Services.TenantService) {
@@ -43,7 +42,7 @@ export class SeaCatAuthApi {
 		let scopeArray = this.Scope.split(" ");
 		let tenantValue = scopeArray.find(str => str.includes("tenant"));
 		let loginScope = (currentTenant != null) && (tenantValue != undefined) ? this.Scope.replace(`${tenantValue}`, `tenant:${currentTenant}`) : this.Scope;
-		// ----END OF TODO----
+
 		const params = new URLSearchParams({
 			response_type: "code",
 			scope: loginScope,
