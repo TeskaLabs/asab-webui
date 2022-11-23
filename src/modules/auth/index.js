@@ -42,32 +42,13 @@ export default class AuthModule extends Module {
 			var qs = new URLSearchParams(window.location.search);
 			const authorization_code = qs.get('code');
 
-			/*
-				TODO: Resolution of error exception in URL params to
-				avoid infinite redirection. However this solution does not
-				handle the cases when we want to offer user the tenant selection
-				card (this will just take first user's tenant and proceed with login - with
-				exception of case when use has no tenant - then user is redirected back to login)
-			*/
-
 			// Checking error type in params of RedirectURL
 			var redirectUriQs = new URLSearchParams(this.RedirectURL);
 			const errorType = redirectUriQs.get('error');
-			if (errorType != undefined) {
-				// TODO: handle redirection
-				if (errorType.includes("unauthorized_tenant")) {
-					await locationReplace(window.location.pathname);
-				}
-
-				// TODO: handle user without tenant
-				if (errorType.includes("user_has_no_tenant")) {
-					// Redirection to login screen
-					let force_login_prompt = true;
-					await this.Api.login(this.RedirectURL, force_login_prompt);
-					return;
-				}
+			if ((errorType != undefined) && errorType.includes("access_denied")) {
+				// If access has been denied, user will stay in splashscreen with Access denied card
+				return;
 			}
-			// ----END OF TODO----
 
 			if (authorization_code !== null) {
 				await this._updateToken(authorization_code);
@@ -96,7 +77,6 @@ export default class AuthModule extends Module {
 					// User info not found - go to login
 					sessionStorage.removeItem('SeaCatOAuth2Token');
 					let force_login_prompt = true;
-
 					await this.Api.login(this.RedirectURL, force_login_prompt);
 					return;
 				}
@@ -108,13 +88,10 @@ export default class AuthModule extends Module {
 				if (this.App.Config.get("authorization") !== "disabled" && this.App.Services.TenantService) {
 					// Tenant access validation
 					let tenantAuthorized = this.validateTenant();
-					let logoutTimeout = this.App.Config.get("authorizationLogoutTimeout") ? this.App.Config.get("authorizationLogoutTimeout") : 60000;
 					if (!tenantAuthorized) {
-						this.App.addAlert("danger", "ASABAuthModule|You are not authorized to use this application", logoutTimeout, true);
-						// Logout after some time
-						setTimeout(() => {
-							this.logout();
-						}, logoutTimeout);
+						// If tenant not authorized, redirect to Access denied card
+						let force_login_prompt = false;
+						await this.Api.login(this.RedirectURL, force_login_prompt);
 						return;
 					}
 				}
@@ -220,19 +197,17 @@ export default class AuthModule extends Module {
 			let currentTenant = this.App.Services.TenantService.get_current_tenant();
 			resources = this.UserInfo.resources ? this.UserInfo.resources[currentTenant] : [];
 			/*
-				TODO: When switching between tenants,
+				When switching between tenants,
 				we need to force authorization to obtain
 				correct data (resources) for particular
 				tenant (this is unavailable until auth token is updated)
-
-				NOTE: It causes infinite redirection when login to unauthorized tenant
 			*/
 			if (resources == undefined) {
 				let force_login_prompt = false;
 				await this.Api.login(this.RedirectURL, force_login_prompt);
 				return;
 			}
-			// ----END OF TODO----
+
 			if (this.App.Store != null) {
 				this.App.Store.dispatch({ type: types.AUTH_RESOURCES, resources: resources });
 			}
