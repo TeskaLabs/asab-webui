@@ -96,8 +96,8 @@ export default class AuthModule extends Module {
 					}
 				}
 
-				// Validate resources of items and children in navigation
-				if (this.App.Navigation.Items.length > 0) {
+				// Validate resources of items and children in navigation (resource validation depends on tenant)
+				if ((this.App.Navigation.Items.length > 0) && this.App.Services.TenantService) {
 					await this.validateNavigation();
 				}
 				if (this.UserInfo != null) {
