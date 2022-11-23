@@ -8,7 +8,7 @@
 	},
 	"AccessDeniedCard": {
 		"Access denied": "Access denied",
-		"In case of difficulties, please contact application administrator to grant you appropriate access rights for tenant": "In case of difficulties, please contact your application administrator to grant you appropriate access rights for tenant",
+		"In case of difficulties, please contact application administrator for assigning appropriate access rights for tenant": "In case of difficulties, please contact application administrator for assigning appropriate access rights for tenant",
 		"Silly as it sounds, redirection back to login failed": "Silly as it sounds, redirection back to login failed",
 		"Continue here": "Continue here"
 	},
