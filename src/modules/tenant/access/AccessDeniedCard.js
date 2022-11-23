@@ -58,7 +58,7 @@ function AccessDeniedCard(props) {
 					</CardHeader>
 					<CardBody>
 						<p>
-							{t("AccessDeniedCard|In case of difficulties, please contact application administrator for assigning appropriate access rights for tenant")}
+							{t("AccessDeniedCard|In case of difficulties, please contact application administrator for assigning appropriate access rights for tenant")}:
 						</p>
 						<p className="text-center tenant-text">
 							{deniedTenant}
