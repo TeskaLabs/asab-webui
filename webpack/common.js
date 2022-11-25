@@ -73,11 +73,13 @@ exports.getRules = function(config) {
 		},
 		{
 			test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)(\?.*)?$/,
+			type: 'asset/resource',
 			use: [{
 					loader: 'file-loader',
 					options: {
 						name: '[name].[contenthash].[ext]',
 						publicPath: '../',
+						// outputPath funugje pro vlajky, core ui icons
 						outputPath: 'assets/',
 					}
 			}]

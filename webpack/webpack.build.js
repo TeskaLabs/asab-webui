@@ -72,6 +72,7 @@ module.exports = {
 			// Extracts file styles.css
 			new MiniCssExtractPlugin({ filename: 'assets/css/[name].[contenthash].css',
 										chunkFilename: 'assets/css/[id].[contenthash].css' }),
+			// new MiniCssExtractPlugin({ filename: 'assets/css/[name].css' }),
 			new OptimizeCssAssetsPlugin(),
 			// Remove moment locales from bundle except those which are defined as second parameter
 			new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, defaultLocales),
