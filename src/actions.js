@@ -11,3 +11,4 @@ export const SET_DEV_CONFIG = "asab/setDevConfig";
 
 export const SET_HIDDEN_ITEMS_SIDEBAR = "asab/setHiddenItemsSidebar";
 export const COLLAPSE_SIDEBAR = "asab/collapseSidebar";
+export const SET_SMALL_SIDEBAR = "asab/setSmallSidebar";
