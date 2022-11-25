@@ -69,7 +69,7 @@ function AccessDeniedCard(props) {
 							color="primary"
 							onClick={() => {continueToLogin()}}
 						>
-							{t("AccessDeniedCard|Continue")}
+							{t("AccessDeniedCard|Leave")}
 						</Button>
 					</CardBody>
 				</Card>

@@ -10,7 +10,7 @@
 		"Access denied": "Přístup zamítnut",
 		"In case of difficulties, please contact application administrator for assigning appropriate access rights for tenant": "V případě potíží kontaktujte prosím administrátora aplikace se žádostí o přidělení přístupu pro tenant",
 		"Silly as it sounds, redirection back to login failed": "Nestává se to často, ale přesměrování zpět na přihlášení selhalo",
-		"Continue": "Pokračujte zde"
+		"Leave": "Odejít"
 	},
 	"AuthHeaderDropdown": {
 		"My account": "Můj účet",
