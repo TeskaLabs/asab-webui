@@ -59,9 +59,10 @@ function AccessDeniedCard(props) {
 						<p>
 							{t("AccessDeniedCard|In case of difficulties, please contact application administrator for assigning appropriate access rights.")}
 						</p>
+						{deniedTenant &&
 						<p className="text-center tenant-text">
 							<span>Tenant: </span>{deniedTenant}
-						</p>
+						</p>}
 						<Button
 							className="justify-content-center"
 							block
