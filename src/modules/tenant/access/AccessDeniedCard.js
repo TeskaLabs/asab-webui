@@ -48,7 +48,7 @@ function AccessDeniedCard(props) {
 		(accessDenied == true) ?
 			<div className="access-denied-wrapper">
 				<Card className="access-denied-card">
-					<CardHeader className="border-bottom">
+					<CardHeader className="text-center border-bottom card-header-login">
 						<div className="card-header-title">
 							<CardTitle className="text-primary mb-0" tag="h2">
 								{t("AccessDeniedCard|Access denied")}
@@ -56,8 +56,8 @@ function AccessDeniedCard(props) {
 						</div>
 					</CardHeader>
 					<CardBody>
-						<p>
-							{t("AccessDeniedCard|In case of difficulties, please contact application administrator for assigning appropriate access rights.")}
+						<p className="text-center">
+							{t("AccessDeniedCard|Please contact application administrator for assigning appropriate access rights.")}
 						</p>
 						{deniedTenant &&
 						<p className="text-center tenant-text">
