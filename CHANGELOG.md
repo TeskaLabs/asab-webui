@@ -2,6 +2,10 @@
 
 ## Release Candidate
 
+### Features
+
+- Implement tenant sessions, implement access denied handling, implement access denied card, remove tenant selector card (INDIGO Sprint 221125, [!370](https://github.com/TeskaLabs/asab-webui/pull/370))
+
 ## v22.46
 
 ### Features
