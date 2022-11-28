@@ -8,7 +8,7 @@
 	},
 	"AccessDeniedCard": {
 		"Access denied": "Přístup zamítnut",
-		"In case of difficulties, please contact application administrator for assigning appropriate access rights for tenant": "V případě potíží kontaktujte prosím administrátora aplikace se žádostí o přidělení přístupu pro tenant",
+		"In case of difficulties, please contact application administrator for assigning appropriate access rights.": "V případě potíží kontaktujte prosím administrátora aplikace se žádostí o přidělení přístupu.",
 		"Silly as it sounds, redirection back to login failed": "Nestává se to často, ale přesměrování zpět na přihlášení selhalo",
 		"Leave": "Odejít"
 	},
