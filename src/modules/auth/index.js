@@ -42,9 +42,8 @@ export default class AuthModule extends Module {
 			var qs = new URLSearchParams(window.location.search);
 			const authorization_code = qs.get('code');
 
-			// Checking error type in params of RedirectURL
-			var redirectUriQs = new URLSearchParams(this.RedirectURL);
-			const errorType = redirectUriQs.get('error');
+			// Checking error type in params
+			const errorType = qs.get('error');
 			if ((errorType != undefined) && errorType.includes("access_denied")) {
 				// If access has been denied, user will stay in splashscreen with Access denied card
 				return;

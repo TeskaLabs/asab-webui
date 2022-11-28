@@ -16,10 +16,9 @@ function AccessDeniedCard(props) {
 	const [ deniedTenant, setDeniedTenant ] = useState("");
 
 	useEffect(() => {
-		var redirectUriQs = new URLSearchParams(window.location.hash);
-		const errorType = redirectUriQs.get('error');
+		var qs = new URLSearchParams(window.location.search);
+		const errorType = qs.get('error');
 		if ((errorType != undefined) && errorType.includes("access_denied")) {
-			var qs = new URLSearchParams(window.location.search);
 			const tenantParameter = qs.get('tenant');
 			setAccessDenied(true);
 			setDeniedTenant(tenantParameter);
