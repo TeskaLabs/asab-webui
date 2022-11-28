@@ -2,6 +2,10 @@
 
 ## Release Candidate
 
+### Bugfixes
+
+- Fix styles for so long title in CardHeader (INDIGO Sprint 221125, [!377](https://github.com/TeskaLabs/asab-webui/pull/377))
+
 ## v22.46
 
 ### Features
