@@ -6,6 +6,11 @@
 
 - Refactor Configuration module scroll styling (INDIGO Sprint 221111, [!378](https://github.com/TeskaLabs/asab-webui/pull/378))
 
+### Bugfixes
+
+- Fix styles for so long title in CardHeader (INDIGO Sprint 221125, [!377](https://github.com/TeskaLabs/asab-webui/pull/377))
+
+
 ## v22.46
 
 ### Features
