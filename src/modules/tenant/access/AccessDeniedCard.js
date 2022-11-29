@@ -47,7 +47,7 @@ function AccessDeniedCard(props) {
 		props.app.Modules.filter(obj => obj.Name === "AuthModule").length > 0 &&
 		(accessDenied == true) ?
 			<div className="access-denied-wrapper">
-				<Card className="access-denied-card">
+				<Card className="access-denied-card shadow">
 					<CardHeader className="text-center border-bottom card-header-login">
 						<div className="card-header-title">
 							<CardTitle className="text-primary mb-0" tag="h2">
