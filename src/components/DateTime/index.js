@@ -23,7 +23,7 @@ export function DateTime(props) {
 		);
 	}
 
-	const date = timeToString(props.value, props.length, locale);
+	const date = timeToString(props.value, props.formatProp, locale);
 
 	const dateFromNow = isNaN(props.value) ? formatDistanceToNow(parseISO(props.value), { locale: locale }) :
 		props.value > 9999999999 ? formatDistanceToNow(props.value, { locale: locale }) :
