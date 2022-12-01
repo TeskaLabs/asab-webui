@@ -2,6 +2,12 @@
 
 ## Release Candidate
 
+## v22.48
+
+### Breaking changes
+
+- Access to tenants must be requested in authorization scope. This is related to tenant session implementation in ASAB WebUI [here](https://github.com/TeskaLabs/asab-webui/pull/370) (PLUM Sprint 221118, [!92](https://github.com/TeskaLabs/seacat-auth/pull/92))
+
 ### Features
 
 - Implement tenant sessions, implement access denied handling, implement access denied card, remove tenant selector card (INDIGO Sprint 221125, [!370](https://github.com/TeskaLabs/asab-webui/pull/370))
