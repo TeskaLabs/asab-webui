@@ -40,25 +40,14 @@ exports.getRules = function(config) {
 			exclude: '/node_modules/' // we can exclude node_modules b/c they're already complied
 		},
 		{
-			test: /\.(css)$/,
+			test: /\.(s[ac]|c)ss$/i,
 			use: [
-				MiniCssExtractPlugin.loader,
+				// {loader: MiniCssExtractPlugin.loader,
+				// 	options: {publicPath: ''},
+				// },
+				MiniCssExtractPlugin.loader, //extracs CSS into files
 				{
-					loader: 'css-loader',
-					options: { sourceMap: true }
-				},
-				{
-					loader: 'postcss-loader',
-					options: { sourceMap: true }
-				},
-			]
-		},
-		{
-			test: /\.(scss|sass)$/,
-			use: [
-				MiniCssExtractPlugin.loader,
-				{
-					loader: 'css-loader',
+					loader: 'css-loader',  // Second, turn css into commonjs
 					options: { sourceMap: true }
 				},
 				{
@@ -66,7 +55,7 @@ exports.getRules = function(config) {
 					options: { sourceMap: true }
 				},
 				{
-					loader: 'sass-loader',
+					loader: 'sass-loader', // First, turn sass into css
 					options: { sourceMap: true }
 				}
 			],
@@ -74,15 +63,9 @@ exports.getRules = function(config) {
 		{
 			test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)(\?.*)?$/,
 			type: 'asset/resource',
-			use: [{
-					loader: 'file-loader',
-					options: {
-						name: '[name].[contenthash].[ext]',
-						publicPath: '../',
-						// outputPath funugje pro vlajky, core ui icons
-						outputPath: 'assets/',
-					}
-			}]
+			generator: {
+				filename: 'assets/svg/[name][contenthash:8][ext]'
+			}
 		},
 	]
 }
