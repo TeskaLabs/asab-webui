@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const common = require("./common");
 
 // initial extended configuration
@@ -54,7 +54,12 @@ module.exports = {
 
 		const defaultPlugins = [
 			new HtmlWebpackPlugin({
-				template: html_template_path
+				template: html_template_path,
+				minify: {
+					removeAttributeQuotes: true,
+					collapseWhitespace: true,
+					removeComments: true
+				}
 			}),
 			new InterpolateHtmlPlugin(
 				common.convertKeysForHtml(config["app"])
@@ -70,10 +75,9 @@ module.exports = {
 				}
 			}),
 			// Extracts file styles.css
-			new MiniCssExtractPlugin({ filename: 'assets/css/[name].[contenthash].css',
-										chunkFilename: 'assets/css/[id].[contenthash].css' }),
+			new MiniCssExtractPlugin({ filename: '[name].[contenthash:8].css'}),
 			// new MiniCssExtractPlugin({ filename: 'assets/css/[name].css' }),
-			new OptimizeCssAssetsPlugin(),
+			// new MiniCssExtractPlugin(),
 			// Remove moment locales from bundle except those which are defined as second parameter
 			new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, defaultLocales),
 		];
@@ -95,9 +99,11 @@ module.exports = {
 				chunkFilename: 'assets/js/[name].[contenthash].chunk.js',
 				path: path.resolve(config["dirs"]["dist"]),
 				publicPath: '',
+				// assetModuleFilename: "images/[hash][ext][query]",
 				...extendedConfig.extraOutputs
 			},
 			resolve: config["webpack"]["resolve"],
+			// devtool: 'source-map',
 			module: {
 				rules: [
 					...common.getRules(config),
@@ -137,6 +143,7 @@ module.exports = {
 				minimize: true,
 				minimizer: [
 					// Minimizes output javascript
+					`...`,
 					new TerserPlugin({
 						terserOptions: {
 							parse: {
@@ -157,10 +164,16 @@ module.exports = {
 								ascii_only: true
 							}
 						}
-					})
+					}),
+					new CssMinimizerPlugin(),
 				],
 				...extendedConfig.extraOptimization
 			},
+			// performance: {
+			// 	// hints: false,
+			// 	maxEntrypointSize: 512000,
+			// 	maxAssetSize: 512000
+			// },
 			...filteredExtendedConfig
 		};
 	}

@@ -61,7 +61,7 @@ module.exports = {
 				// "apiUrl" -> "__API_URL__"
 			),
 			// Extracts file styles.css
-			new MiniCssExtractPlugin({ filename: 'assets/css/styles.css' }),
+			new MiniCssExtractPlugin({ filename: 'assets/css/[name].[contentHash].css' }),
 			
 			// Remove moment locales from bundle except those which are defined as second parameter
 			new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, defaultLocales),
@@ -79,6 +79,7 @@ module.exports = {
 				...extendedConfig.extraEntries
 			},
 			mode: 'development',
+			devtool: 'inline-source-map',
 			watch: true,
 			output: {
 				filename: 'assets/js/[name].bundle.js',
