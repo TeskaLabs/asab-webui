@@ -28,23 +28,6 @@ module.exports = {
 }
 ```
 
-### Set logout timeout
-
-When user is not authorized by tenant, timeout period is set before logouting the user. During that period, SplashScreen is displayed to the user. Default value is 60000 aka 60s.
-
-Example of setting/modifying the logout timeout period:
-
-```
-module.exports = {
-	app: {
-		...
-		authorizationLogoutTimeout: 120000,
-		...
-	},
-}
-```
-
-
 ## Sidebar item/child authorization with resource
 
 This is an optional **softcheck** on user's resource and their ability to display particular item in the Sidebar navigation.

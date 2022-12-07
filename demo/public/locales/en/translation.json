@@ -6,6 +6,12 @@
 		"Resources": "Resources",
 		"Previous screen": "Back to previous screen"
 	},
+	"AccessDeniedCard": {
+		"Access denied": "Access denied",
+		"Please contact application administrator for assigning appropriate access rights.": "Please contact application administrator for assigning appropriate access rights.",
+		"Silly as it sounds, redirection back to login failed": "Silly as it sounds, redirection back to login failed",
+		"Leave": "Leave"
+	},
 	"AuthHeaderDropdown": {
 		"My account": "My account",
 		"Access control": "Access control",
@@ -138,12 +144,6 @@
 		"Console": "Console",
 		"Detail": "Detail",
 		"Advertised data": "Advertised data"
-	},
-	"TenantSelectionCard": {
-		"Select valid tenant to enter the application": "Select valid tenant to enter the application",
-		"Silly as it sounds, redirection back to login failed": "Silly as it sounds, redirection back to login failed",
-		"Select tenant": "Select tenant",
-		"Back to login": "Back to login"
 	},
 	"UserInterfaceCard": {
 		"User interface": "User interface",

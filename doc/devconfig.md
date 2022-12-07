@@ -27,7 +27,7 @@ Developers can define as many properties they want to simulate e.g. features/ite
 
 To successfuly simulate the `userinfo`, some properties should be set:
 
-* `preffered_username` - username
+* `username` - username
 * `tenants` - list of tenants
 * `roles` - list of roles
 * `resources` - list of resources
@@ -54,7 +54,7 @@ module.exports = {
 		MOCK_USERINFO: {
 			"email": "test@test.te",
 			"phone_number": "0123456789",
-			"preferred_username": "Test",
+			"username": "Test",
 			"resources": ["test:testy:read"],
 			"roles": ["default/Gringo"],
 			"sub": "tst:123456789",

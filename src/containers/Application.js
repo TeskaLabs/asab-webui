@@ -24,7 +24,7 @@ import HeaderService from '../services/HeaderService';
 import SidebarService from './Sidebar/service';
 import ThemeService from '../theme/ThemeService';
 
-import TenantSelectionCard from '../modules/tenant/selector/TenantSelectionCard';
+import AccessDeniedCard from '../modules/tenant/access/AccessDeniedCard';
 
 import { ADD_ALERT, SET_ADVANCED_MODE, CHANGE_HELP_URL } from '../actions';
 
@@ -477,7 +477,7 @@ class Application extends Component {
 				<div className="app">
 					<Suspense fallback={<></>}>
 						<Alerts app={this} />
-						<TenantSelectionCard app={this} />
+						<AccessDeniedCard app={this} />
 					</Suspense>
 					<SplashScreen app={this} />
 					{this.Config.get('title') != null && this.Config.get('title') != undefined ?
