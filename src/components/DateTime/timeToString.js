@@ -18,7 +18,7 @@ const timeToString = (value, dateTimeFormat = "medium", locale = undefined) => {
 		} else if (dateTimeFormat === "long") {
 			date = format(parseISO(value), 'PPpp', { locale });
 		} else if (dateTimeFormat === "iso") {
-			date = value;
+			date = formatISO(parseISO(value));
 		}
 	} else {
 		if (value > 9999999999) {
