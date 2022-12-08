@@ -82,7 +82,7 @@ const TableCell = ({
 		<DateTime
 			className="data-table-datetime"
 			value={obj[header.key]}
-			dateTimeFormat={header?.datetime?.datetimeFormat ? header?.datetime?.datetimeFormat : "medium"}
+			dateTimeFormat={header?.datetime?.dateTimeFormat ? header?.datetime?.dateTimeFormat : "medium"}
 		/>
 	) : "-";
 
