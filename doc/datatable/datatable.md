@@ -149,10 +149,16 @@ If `pathname` is "/user/", `key` is "_id" and data for that cell is
 	...
  } then href would be /user/1
 
-Optional property `datetime` is boolean and it tells `DataTable` if cells below current header is date. If `datetime` is true then it returns <DateTime> component with default format 'lll'. 
-If you want to change date format, then you should provide `datetime` as object with property `format`.
+Optional property `datetime` is boolean or object, and it tells `DataTable` if cells below current header is date. If `datetime` is true then it returns <DateTime> component with default format 'PPp'.
+If you want to change date format, then you should provide `datetime` as object with property `datetime: {datetimeFormat: "iso"}`.
 
-Optional property `json` is needed if data has nested objects inside itself. It is boolean and it returns `react-json-view` components into cells below the header.
+There are 3 options for changing the time format in the table:
+
+> - `datetime: true` It displays the time in format 'PPp' -> `Nov 22, 2022, 1:13:00 PM`.
+> - `{datetimeFormat: "long"}` It displays the time in format 'PPpp' with seconds -> `Nov 22, 2022, 1:13:00 PM`
+> - `{datetimeFormat: "iso"}` It displays the time in ISO format with milliseconds -> `2022-11-03T13:13:00+01:00`
+
+Optional property `json` is needed if data has nested objects inside itself. It is boolean, and it returns `react-json-view` components into cells below the header.
 
 Optional property `actionButton` is needed to put an ellipsis with actions dropdown for some list of actions into the row of the datatable. This property is an object with two children — `title`, which is a string and will be placed as a dropdown header, and `actions`, which is a list of objects (actions). Those objects in the `actions` list have two required properties: a string `name` and a function `onClick` and one optional property `icon`. Property `name` will be placed as a dropdown item, clicking on it calls the `onClick` function, which accepts two arguments — `row` and `header`. `row` is the appropriate row object and `header` is a header where you defined an `actionButton`. A property `icon` is a string with the Core UI icon.
 Also `actionButton` has an alignment to the right, so the header with action buttons should be the last one in the headers list.

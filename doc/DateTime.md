@@ -1,6 +1,6 @@
 # ASAB WebUI DateTime component
 
-Diplays a date & time in a local timezone.
+Displays a date & time in a local timezone.
 It also displays the relative time in the hover/title.
 
 ## Example code
@@ -28,10 +28,11 @@ The default format is `lll` -> `Aug 22, 2020 1:13 PM`
 
 
 ### Optional prop
-The prop `lenght` specify length of the time.
+The prop `dateTimeFormat` specify length of the time.
+(Optional. The default format is -> `dateTimeFormat="madium`)
 
-> - If you do not add `length`, the default value will be `length="short`. The time will have this format: `Nov 22, 2022, 1:13:00 PM`.
-> - `length="medium` is to add seconds to the time. The time will have this format: `Nov 22, 2022, 1:13:00 PM`.
+> - `dateTimeFormat="long` is to add seconds to the time. The time will have this format: `Nov 22, 2022, 1:13:00 PM`.
+> - `dateTimeFormat="iso` is to add milliseconds to the time. The time will have this format: `2022-11-03T13:13:00+01:00`. 
 
 
 # ASAB WebUI timeToString method
