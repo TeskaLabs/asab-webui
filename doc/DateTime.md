@@ -9,7 +9,7 @@ It also displays the relative time in the hover/title.
 import { DateTime } from 'asab-webui';
 ...
 
-<DateTime value="2020-08-22T00:00:00+00:00" length="medium"/>
+<DateTime value="2020-08-22T00:00:00+00:00" dateTimeFormat="long"/>
 
 ```
 
