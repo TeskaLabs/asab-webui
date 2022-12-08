@@ -34,8 +34,8 @@ module.exports = {
 	build: function(config) {
 		// version and build date of the app
 		const version = common.getVersion();
-		const buildDate = new Date();
 		const repository = common.getRepository();
+		const buildDate = new Date();
 		// paths
 		const entry_path = path.resolve(config["dirs"]["src"], 'index.js');
 		const html_template_path = path.resolve(config["dirs"]["public"], 'index.html');
@@ -95,15 +95,14 @@ module.exports = {
 			},
 			mode: 'production',
 			output: {
-				filename: 'assets/js/[name].[contenthash].bundle.js',
-				chunkFilename: 'assets/js/[name].[contenthash].chunk.js',
+				filename: 'assets/js/[name].[contenthash:8].bundle.js',
+				chunkFilename: 'assets/js/[name].[contenthash:8].chunk.js',
 				path: path.resolve(config["dirs"]["dist"]),
 				publicPath: '',
 				// assetModuleFilename: "images/[hash][ext][query]",
 				...extendedConfig.extraOutputs
 			},
 			resolve: config["webpack"]["resolve"],
-			// devtool: 'source-map',
 			module: {
 				rules: [
 					...common.getRules(config),
@@ -118,7 +117,7 @@ module.exports = {
 			],
 			optimization: {
 				splitChunks: {
-					chunks: "all",
+					chunks: 'all',
 					cacheGroups: {
 						vendor: {
 							name: 'vendors',
@@ -141,8 +140,8 @@ module.exports = {
 					}
 				},
 				minimize: true,
-				minimizer: [
-					// Minimizes output javascript
+				minimizer: [ // Minimizes output javascript
+					// `...` applies webpack's default minimizers which would otherwise be overwritten by our config
 					`...`,
 					new TerserPlugin({
 						terserOptions: {
@@ -169,11 +168,6 @@ module.exports = {
 				],
 				...extendedConfig.extraOptimization
 			},
-			// performance: {
-			// 	// hints: false,
-			// 	maxEntrypointSize: 512000,
-			// 	maxAssetSize: 512000
-			// },
 			...filteredExtendedConfig
 		};
 	}
