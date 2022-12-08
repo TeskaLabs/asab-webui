@@ -29,10 +29,10 @@ The default format is `lll` -> `Aug 22, 2020 1:13 PM`
 
 ### Optional prop
 The prop `dateTimeFormat` specify length of the time.
-(Optional. The default format is `dateTimeFormat="medium` -> `Nov 22, 2022, 1:13 PM`)
+(Optional. The default format is `dateTimeFormat="medium"` -> `Nov 22, 2022, 1:13 PM`)
 
-> - `dateTimeFormat="long` is to add seconds to the time -> `Nov 22, 2022, 1:13:00 PM`.
-> - `dateTimeFormat="iso` is to add milliseconds to the time -> `2022-11-03T13:13:00+01:00`. 
+> - `dateTimeFormat="long"` is to add seconds to the time -> `Nov 22, 2022, 1:13:00 PM`.
+> - `dateTimeFormat="iso"` is to add milliseconds to the time -> `2022-11-03T13:13:00+01:00`. 
 
 
 # ASAB WebUI timeToString method
