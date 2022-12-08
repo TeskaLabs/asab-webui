@@ -12,7 +12,7 @@ const timeToString = (value, dateTimeFormat = "medium", locale = undefined) => {
 
 	let date;
 
-	if (isNaN(value)) {
+	if (isNaN(value) == true) {
 		if (dateTimeFormat === "medium") {
 			date = format(parseISO(value), 'PPp', { locale });
 		} else if (dateTimeFormat === "long") {
