@@ -154,7 +154,7 @@ If you want to change date format, then you should provide `datetime` as object 
 
 There are 3 options for changing the time format in the table:
 
-> - `datetime: true` It displays the time in format 'PPp' -> `Nov 22, 2022, 1:13:00 PM`.
+> - `datetime: true` It displays the time in format 'PPp' -> `Nov 22, 2022, 1:13 PM`.
 > - `{datetimeFormat: "long"}` It displays the time in format 'PPpp' with seconds -> `Nov 22, 2022, 1:13:00 PM`
 > - `{datetimeFormat: "iso"}` It displays the time in ISO format with milliseconds -> `2022-11-03T13:13:00+01:00`
 
