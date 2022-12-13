@@ -19,7 +19,7 @@ const TreeMenuItem = ({
 			className={`tree-menu-item${selected}${disabled}`}
 			style={{ paddingLeft: `${paddingLeft}rem` }}
 		>
-			{hasNodes && (
+			{(type == "folder") && (
 				<div
 					style={{ display: 'inline-block' }}
 					onClick={e => {
