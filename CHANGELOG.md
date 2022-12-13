@@ -2,6 +2,10 @@
 
 ## Release Candidate
 
+### Refactoring
+
+- In TreeMenu component, display all closed folder nodes (even empty) with plus mark (`+`) to visually separate it from file nodes (INDIGO Sprint 221209, [!380](https://github.com/TeskaLabs/asab-webui/pull/380))
+
 ## v22.48
 
 ### Breaking changes
