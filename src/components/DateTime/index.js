@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import { format, formatDistanceToNow, parseISO } from 'date-fns';
+import React from 'react';
+import { formatDistanceToNow, parseISO } from 'date-fns';
 
 import useDateFNSLocale from './useDateFNSLocale';
 import timeToString from './timeToString';
@@ -22,8 +21,8 @@ export function DateTime(props) {
 			</span>
 		);
 	}
-	
-	const date = timeToString(props.value, locale);
+
+	const date = timeToString(props.value, props.dateTimeFormat, locale);
 
 	const dateFromNow = isNaN(props.value) ? formatDistanceToNow(parseISO(props.value), { locale: locale }) :
 		props.value > 9999999999 ? formatDistanceToNow(props.value, { locale: locale }) :
