@@ -44,6 +44,8 @@
 		"Fill out configuration name": "Vyplňte název konfigurace",
 		"Create": "Vytvořit",
 		"New": "Nová",
+		"Schema title": "Název schema",
+		"Schema description": "Popis schema",
 		"Something went wrong! Unable to get configurations": "Něco je špatně! Nepodařilo se získat konfiguraci pro {{config}}",
 		"Unable to get configurations. Try to reload the page": "Nepodařilo se získat konfiguraci pro {{config}}. Zkuste obnovit stránku",
 		"Create configuration": "Vytvořit konfiguraci",
@@ -54,7 +56,24 @@
 		"Add new section": "Přidat novou sekci",
 		"Add": "Přidat",
 		"Type": "Typ",
-		"Do you want to remove this section?": "Opravdu chcete odstranit tuto sekci?"
+		"Do you want to remove this section?": "Opravdu chcete odstranit tuto sekci?",
+		"Actions": "Akce",
+		"Export": "Exportovat",
+		"Import": "Importovat",
+		"Back": "Zpět",
+		"Only tar.gz files are allowed": "Povoleny jsou pouze soubory tar.gz",
+		"Search": "Hledat",
+		"Override": "Přepsat",
+		"Merge": "Spojit",
+		"Import configuration": "Importovat konfiguraci",
+		"Choose file": "Vyberte soubor",
+		"No file chosen": "Nebyl vybrán žádný soubor",
+		"Failed to import configuration": "Nepodařilo se importovat konfiguraci",
+		"Configuration has been successfully imported": "Konfigurace byla úspěšně importována"
+	},
+	"ASABConfigModule": {
+		"Actions": "Akce",
+		"Search": "Hledat"
 	},
 	"ASABConfigService": {
 		"Incorrect/invalid config file downloaded": "Došlo ke stažení neplatné konfigurace",
