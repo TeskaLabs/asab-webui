@@ -1,5 +1,6 @@
 const { execSync } = require("child_process");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require('path');
 
 ///
 var exports = module.exports = {}
@@ -28,38 +29,69 @@ exports.getRules = function(config) {
 					{
 						useBuiltIns: "entry",
 						targets: {
-						esmodules: true,
+							esmodules: true,
 						},
 						corejs: {
 							version: "3",
 							proposals: true
 						}
-				 	}
+					}
 				],['@babel/react']], plugins: ["transform-object-rest-spread"] }
 			}],
 			exclude: '/node_modules/' // we can exclude node_modules b/c they're already complied
 		},
+
 		{
-			test: /\.(s[ac]|c)ss$/i,
+			test: /\.(css)$/,
 			use: [
-				// {loader: MiniCssExtractPlugin.loader,
-				// 	options: {publicPath: ''},
-				// },
-				MiniCssExtractPlugin.loader, //extracs CSS into files
+				MiniCssExtractPlugin.loader,
 				{
-					loader: 'css-loader',  // Second, turn css into commonjs
-					options: { sourceMap: true }
+					loader: 'css-loader',
+					// options: { sourceMap: true }
 				},
 				{
 					loader: 'postcss-loader',
-					options: { sourceMap: true }
+					// options: { sourceMap: true }
+				},
+			]
+		},
+		{
+			test: /\.(scss|sass)$/,
+			use: [
+				MiniCssExtractPlugin.loader,
+				{
+					loader: 'css-loader',
+					// options: { sourceMap: true }
 				},
 				{
-					loader: 'sass-loader', // First, turn sass into css
-					options: { sourceMap: true }
+					loader: 'postcss-loader',
+					// options: { sourceMap: true }
+				},
+				{
+					loader: 'sass-loader',
+					// options: { sourceMap: true }
 				}
 			],
 		},
+		// {
+		// 	test: /\.(s[ac]|c)ss$/i,
+		// 	use: [
+		// 		MiniCssExtractPlugin.loader, //extracs CSS into files
+		// 		'css-loader', 'postcss-loader', 'sass-loader'
+		// 		// {
+		// 		// 	loader: 'css-loader',  // Second, turn css into commonjs
+		// 		// 	options: { sourceMap: true }
+		// 		// },
+		// 		// {
+		// 		// 	loader: 'postcss-loader',
+		// 		// 	options: { sourceMap: true }
+		// 		// },
+		// 		// {
+		// 		// 	loader: 'sass-loader', // First, turn sass into css
+		// 		// 	options: { sourceMap: true }
+		// 		// }
+		// 	],
+		// },
 		{
 			test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)(\?.*)?$/,
 			type: 'asset/resource',
