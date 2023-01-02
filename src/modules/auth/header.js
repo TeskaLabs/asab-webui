@@ -99,8 +99,10 @@ const mapStateToProps = state => {
 		else if (userinfo.username) {
 			username = userinfo.username;
 		}
-		else if (userinfo.username) {
-			username = userinfo.username;
+		else if (userinfo.preferred_username) {
+			// TODO: Remove preferred_username by the end of 2023
+			console.warn("preferred_username is deprecated");
+			username = userinfo.preferred_username;
 		}
 		else {
 			username = userinfo.id;	
