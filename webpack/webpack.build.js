@@ -85,7 +85,7 @@ module.exports = {
 		const filteredExtendedConfig = {...extendedConfig};
 		listOfRenamedProps.forEach(prop => delete filteredExtendedConfig[prop]);
 
-		const newModule =  {...extendedConfig.extraModule};
+		const newModule = {...extendedConfig.extraModule};
 		delete newModule.extraRules;
 
 		return {
