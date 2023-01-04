@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Link } from 'react-router-dom';
@@ -9,9 +9,10 @@ const Breadcrumbs = ({
 	routes, match, app, disableContainerBreadcrumbs
 }) => {
 	const { t } = useTranslation();
-	const crumbs = routes.filter(({ path }) => {
-			if ((path.split("/").length - 1) === (match.path.split("/").length - 1)) { // Checking if the number of slash ('/') is the same
-				if (match.path.includes(path) && (path.match(/[^\/]+$/)[0] === match.path.match(/[^\/]+$/)[0])) { // I take the string after the last slash ('/') and check if they match each other
+	const crumbs = useMemo(() => {
+		return routes.filter(({ path }) => {
+			if ((path.split("/").length === match.path.split("/").length) && match.path.includes(path)) { // Checking if the number of slash ('/') is the same and if it is included in the match.path
+				if ((path.match(/[^\/]+$/)[0] === match.path.match(/[^\/]+$/)[0])) { //  Take the string after the last slash ('/') and check if they match each other
 					return path;
 				}
 			} else {
@@ -26,6 +27,7 @@ const Breadcrumbs = ({
 			...rest
 		})).
 		filter(crumb => crumb.name);
+	},[routes]);
 
 	if (crumbs.length == 0) return null;
 
@@ -33,7 +35,6 @@ const Breadcrumbs = ({
 	// TODO: Add disabling breadcrumbs
 	return (
 		<div className="breadcrumbs p-auto">
-			{console.log(crumbs, "crumbs")}
 			<h4 className="mr-2">{t(`Breadcrumbs|${crumbs[crumbs.length-1].name}`)} {crumbs.length > 1 ? "|" : ""}</h4>
 			<Breadcrumb>
 				{crumbs.map((crumb, idx) => {
