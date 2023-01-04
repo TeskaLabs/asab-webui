@@ -44,6 +44,8 @@
 		"Fill out configuration name": "Fill out configuration name",
 		"Create": "Create",
 		"New": "New",
+		"Schema title": "Schema title",
+		"Schema description": "Schema description",
 		"Something went wrong! Unable to get configurations": "Something went wrong! Unable to get configurations for {{config}}",
 		"Unable to get configurations. Try to reload the page": "Unable to get configurations for {{config}}. Try to reload the page",
 		"Create configuration": "Create configuration",
@@ -54,7 +56,22 @@
 		"Add new section": "Add new section",
 		"Add": "Add",
 		"Type": "Type",
-		"Do you want to remove this section?": "Do you want to remove this section?"
+		"Do you want to remove this section?": "Do you want to remove this section?",
+		"Actions": "Actions",
+		"Export": "Export",
+		"Import": "Import",
+		"Back": "Back",
+		"Only tar.gz files are allowed": "Only tar.gz files are allowed",
+		"Search": "Search",
+		"Override": "Override",
+		"Merge": "Merge",
+		"Import configuration": "Import configuration",
+		"Failed to import library": "Failed to import library",
+		"Configuration has been successfully imported": "Configuration has been successfully imported"
+	},
+	"ASABConfigModule": {
+		"Actions": "Actions",
+		"Search": "Search"
 	},
 	"ASABConfigService": {
 		"Incorrect/invalid config file downloaded": "Incorrect/invalid config file downloaded",

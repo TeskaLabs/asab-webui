@@ -99,9 +99,6 @@ const mapStateToProps = state => {
 		else if (userinfo.username) {
 			username = userinfo.username;
 		}
-		else if (userinfo.preferred_username) {
-			username = userinfo.preferred_username;
-		}
 		else {
 			username = userinfo.id;	
 		}

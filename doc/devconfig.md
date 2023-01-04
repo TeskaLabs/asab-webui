@@ -53,7 +53,7 @@ module.exports = {
 	devConfig: {
 		MOCK_USERINFO: {
 			"email": "test@test.te",
-			"phone_number": "0123456789",
+			"phone": "0123456789",
 			"username": "Test",
 			"resources": ["test:testy:read"],
 			"roles": ["default/Gringo"],

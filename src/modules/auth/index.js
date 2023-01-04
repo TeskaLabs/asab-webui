@@ -133,7 +133,7 @@ export default class AuthModule extends Module {
 				devConfig: {
 					MOCK_USERINFO: {
 						"email": "test",
-						"phone_number": "test",
+						"phone": "test",
 						"username": "test",
 						"resources": ["test:testy:read"],
 						"roles": ["default/Gringo"],
