@@ -10,6 +10,8 @@
 
 - In TreeMenu component, display all closed folder nodes (even empty) with plus mark (`+`) to visually separate it from file nodes (INDIGO Sprint 221209, [!380](https://github.com/TeskaLabs/asab-webui/pull/380))
 
+- Change toggle icons in TreeMenu component (INDIGO Sprint 221209, [!383](https://github.com/TeskaLabs/asab-webui/pull/383))
+
 ## v22.48
 
 ### Breaking changes
