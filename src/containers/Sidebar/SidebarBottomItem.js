@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useLocation, useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,6 +17,7 @@ import { SET_SMALL_SIDEBAR } from '../../actions';
 const SidebarBottomItem = ({ item, sidebarLogo, screenWidth }) => {
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
 	const isSmallSidebarOpen = useSelector(state => state.sidebar.isSmallSidebarOpen);
+	const theme = useSelector(state => state.theme);
 
 	const location = useLocation();
 	const history = useHistory();
@@ -58,6 +59,17 @@ const SidebarBottomItem = ({ item, sidebarLogo, screenWidth }) => {
 		)
 	}
 
+	// Setting dark/light sidebar image based on theme
+	const homeScreenImg = useMemo(() => {
+		if ((theme === "dark") && sidebarLogo.dark) {
+			return sidebarLogo.dark;
+		} else if ((theme === "light") && sidebarLogo.light) {
+			return sidebarLogo.light;
+		} else {
+			return null;
+		}
+	},[theme])
+
 	return (
 		<div className="sidebar-bottom">
 			<Nav vertical>
@@ -68,11 +80,11 @@ const SidebarBottomItem = ({ item, sidebarLogo, screenWidth }) => {
 								title={t(`Sidebar|${item.name}`)}
 								className={`sidebar-item-button${location.pathname === item.url ? " active " : " "}btn left ${!isSidebarCollapsed && "mobile-full-btn"}`}
 							>
-								{sidebarLogo ? 
+								{homeScreenImg ?
 									isSidebarCollapsed ?
-										sidebarLogo.minimized ?
+										homeScreenImg.minimized ?
 											<img
-												src={sidebarLogo.minimized}
+												src={homeScreenImg.minimized}
 												alt={t(`Sidebar|${item.name}`)}
 												width="30"
 												height="30"
@@ -81,9 +93,9 @@ const SidebarBottomItem = ({ item, sidebarLogo, screenWidth }) => {
 										:
 											<AboutButton />
 									:
-										sidebarLogo.full ?
+										homeScreenImg.full ?
 											<img
-												src={sidebarLogo.full}
+												src={homeScreenImg.full}
 												alt={t(`Sidebar|${item.name}`)}
 												width="90"
 												height="30"
