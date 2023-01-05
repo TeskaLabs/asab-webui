@@ -17,6 +17,7 @@ import { SET_SMALL_SIDEBAR } from '../../actions';
 const SidebarBottomItem = ({ item, sidebarLogo, screenWidth }) => {
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
 	const isSmallSidebarOpen = useSelector(state => state.sidebar.isSmallSidebarOpen);
+	const brandImageDefault = useSelector(state => state.config.defaultBrandImage);
 	const theme = useSelector(state => state.theme);
 
 	const location = useLocation();
@@ -66,7 +67,7 @@ const SidebarBottomItem = ({ item, sidebarLogo, screenWidth }) => {
 		} else if ((theme === "light") && sidebarLogo.light) {
 			return sidebarLogo.light;
 		} else {
-			return null;
+			return brandImageDefault;
 		}
 	},[theme])
 
