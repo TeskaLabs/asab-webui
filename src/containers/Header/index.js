@@ -31,11 +31,6 @@ export function Header(props) {
 	}, [windowDimensions])
 
 	const brandImage = useMemo(() => {
-		console.log('theme ', theme)
-		console.log('config: ', config)
-		console.log('brandImageDark ', brandImageDark)
-		console.log('brandImageDefault ', brandImageDefault)
-		console.log('brandImageLight ', brandImageLight)
 		if ((theme === "dark") && brandImageDark) {
 			return brandImageDark;
 		} else if ((theme === "light") && brandImageLight) {
