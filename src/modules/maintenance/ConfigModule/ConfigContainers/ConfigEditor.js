@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import ReactJson from 'react-json-view';
 import classnames from 'classnames';
@@ -42,7 +42,9 @@ function ConfigEditor(props) {
 	const [ patternPropsSchema, setPatternPropsSchema ] = useState({});
 
 	// Retrieve the asab config url from config file
-	const homeScreenImg = props.app.Config.get('brandImage').full;
+	const brandImageDefault = useSelector(state => state.config.defaultBrandImage);
+	const brandImageLight = useSelector(state => state.config.brandImage?.light);
+	const brandImageDark = useSelector(state => state.config.brandImage?.dark);
 	const homeScreenAlt = props.app.Config.get('title');
 	const configType = props.configType;
 	const configName = props.configName;
@@ -69,6 +71,17 @@ function ConfigEditor(props) {
 			setValues();
 		}
 	}, [formStruct])
+
+	// Obtains correctly themed homeScreenImg
+	const homeScreenImg = useMemo(() => {
+		if ((theme === "dark") && brandImageDark) {
+			return brandImageDark;
+		} else if ((theme === "light") && brandImageLight) {
+			return brandImageLight;
+		} else {
+			return brandImageDefault;
+		}
+	},[theme])
 
 	// Load data and set up the data for form struct
 	const initialLoad = async () => {
@@ -493,7 +506,7 @@ function ConfigEditor(props) {
 	if (configNotExist) {
 		return (
 			<ConfigMessageCard
-				homeScreenImg={homeScreenImg}
+				homeScreenImg={homeScreenImg.full}
 				homeScreenAlt={homeScreenAlt}
 				purposeTitle={t("ASABConfig|Config file does not exist")}
 				purposeSubtitle={t("ASABConfig|We are sorry, but the file cannot be found")}
@@ -758,6 +771,8 @@ function ConfigAdHocSection(props) {
 
 // This component returns a pre-defined messages
 function ConfigMessageCard(props) {
+	console.log(props.homeScreenImg)
+	console.log(props)
 	return(
 		<Card>
 			<CardBody className="text-center">
