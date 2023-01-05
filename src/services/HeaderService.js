@@ -3,11 +3,11 @@ import Service from '../abc/Service';
 export default class HeaderService extends Service {
 
 	/*
-	Header service expects `header-full.svg` and `header-minimized.svg` SVG images
+	Header service expects `header-logo-full-light.svg` and `header-logo-minimized-light.svg` SVG images
 	in `/public/media/logo/` directory:
 
-	 * `header-full.svg` dimensions: 120 x 30 pixels
-	 * `header-minimized.svg` dimensions: 30 x 30 pixels
+	 * `header-logo-full-light.svg` dimensions: 120 x 30 pixels
+	 * `header-logo-minimized-light.svg` dimensions: 30 x 30 pixels
 	*/
 
 	constructor(app, serviceName="HeaderService"){
