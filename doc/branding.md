@@ -19,8 +19,14 @@ let ConfigDefaults = {
 		},
 	},
 	sidebarLogo: {
-		full: "media/logo/sidebarlogo-full.svg",
-		minimized: "media/logo/sidebarlogo-minimized.svg"
+		light: {
+			full: "media/logo/sidebar-full-light.svg",
+			minimized: "media/logo/sidebar-minimized-light.svg"
+		},
+		dark: {
+			full: "media/logo/sidebar-full-dark.svg",
+			minimized: "media/logo/sidebar-minimized-dark.svg"
+		},
 	}
 };
 
@@ -175,7 +181,7 @@ minimized:
 Logo should be suitable for use in both light & dark mode. 
 
 
-**SidebarLogo** is always located at the `bottom` of sidebar. Minimized version appeares upon the sidebar's collapsion.
+**SidebarLogo** is always located at the `bottom` of sidebar. Minimized version appeares upon the sidebar's collapsion. It is advised to define two color variations of a sidebar logo. One for Light and the other for dark theme.
 
 full:
  * rendered size: `90x30 px`
