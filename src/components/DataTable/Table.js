@@ -16,7 +16,7 @@ const TableCell = ({
 	if (!obj) return <td className="pl-3" style={{ whiteSpace: "nowrap" }}>-</td>
 
 	let cell, icon, customCellStyle;
-	const textLinkStyle = {
+	let textLinkStyle = {
 		whiteSpace: "nowrap",
 		marginBottom: 0
 	}
@@ -82,7 +82,7 @@ const TableCell = ({
 		<DateTime
 			className="data-table-datetime"
 			value={obj[header.key]}
-			format={header.datetime.format}
+			dateTimeFormat={header?.datetime?.dateTimeFormat ? header?.datetime?.dateTimeFormat : "medium"}
 		/>
 	) : "-";
 

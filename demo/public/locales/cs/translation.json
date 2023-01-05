@@ -6,6 +6,12 @@
 		"Resources": "Zdroje",
 		"Previous screen": "Zpět na předchozí okno"
 	},
+	"AccessDeniedCard": {
+		"Access denied": "Přístup zamítnut",
+		"Please contact application administrator for assigning appropriate access rights.": "Kontaktujte prosím administrátora aplikace se žádostí o přidělení přístupu.",
+		"Silly as it sounds, redirection back to login failed": "Nestává se to často, ale přesměrování zpět na přihlášení selhalo",
+		"Leave": "Odejít"
+	},
 	"AuthHeaderDropdown": {
 		"My account": "Můj účet",
 		"Access control": "Přístupová oprávnění",
@@ -38,6 +44,8 @@
 		"Fill out configuration name": "Vyplňte název konfigurace",
 		"Create": "Vytvořit",
 		"New": "Nová",
+		"Schema title": "Název schema",
+		"Schema description": "Popis schema",
 		"Something went wrong! Unable to get configurations": "Něco je špatně! Nepodařilo se získat konfiguraci pro {{config}}",
 		"Unable to get configurations. Try to reload the page": "Nepodařilo se získat konfiguraci pro {{config}}. Zkuste obnovit stránku",
 		"Create configuration": "Vytvořit konfiguraci",
@@ -48,7 +56,24 @@
 		"Add new section": "Přidat novou sekci",
 		"Add": "Přidat",
 		"Type": "Typ",
-		"Do you want to remove this section?": "Opravdu chcete odstranit tuto sekci?"
+		"Do you want to remove this section?": "Opravdu chcete odstranit tuto sekci?",
+		"Actions": "Akce",
+		"Export": "Exportovat",
+		"Import": "Importovat",
+		"Back": "Zpět",
+		"Only tar.gz files are allowed": "Povoleny jsou pouze soubory tar.gz",
+		"Search": "Hledat",
+		"Override": "Přepsat",
+		"Merge": "Spojit",
+		"Import configuration": "Importovat konfiguraci",
+		"Choose file": "Vyberte soubor",
+		"No file chosen": "Nebyl vybrán žádný soubor",
+		"Failed to import configuration": "Nepodařilo se importovat konfiguraci",
+		"Configuration has been successfully imported": "Konfigurace byla úspěšně importována"
+	},
+	"ASABConfigModule": {
+		"Actions": "Akce",
+		"Search": "Hledat"
 	},
 	"ASABConfigService": {
 		"Incorrect/invalid config file downloaded": "Došlo ke stažení neplatné konfigurace",
@@ -108,40 +133,42 @@
 		"Only tar.gz files are allowed": "Povoleny jsou pouze soubory tar.gz",
 		"Choose file": "Vyberte soubor"
 	},
-	"MicroservicesContainer": {
-		"ID": "ID",
-		"Launch time": "Čas spuštění",
-		"Host": "Host",
-		"Created at": "Vytvořeno v",
+	"ServicesContainer": {
+		"Can't display data due to parsing error": "Nelze zobrazit data kvůli chybě v parsování",
+		"Can't establish websocket connection, data can't be loaded": "Nepodařilo se navázat websocket spojení, data nelze načíst",
+		"Services": "Služby",
+		"Filter state": "Filtrovat stav",
+		"Loading": "Načítání",
+		"Service": "Služba",
+		"Node ID": "Node ID",
+		"Name": "Název",
+		"Type": "Typ",
 		"Version": "Verze",
-		"Microservices": "Mikroslužby",
-		"Failed to fetch data": "Nezdařilo se získat data"
-	},
-	"MicroserviceDetailContainer" : {
-		"This microservice doesn't exist": "Tato mikroslužba neexistuje",
-		"Failed to get the microservice": "Nezdařilo se získat mikroslužbu",
-		"Something went wrong and this microservice wasn't found": "Něco se pokazilo a tato mikroslužba nebyla nalezena",
-		"Service": "Servica",
+		"Not defined": "Neurčeno",
+		"Running": "Běží",
+		"Starting": "Spouští se",
+		"Stopped": "Zastaveno",
+		"Unknown": "Neznámo",
+		"Service action accepted successfully": "Akce služby byla spuštěna",
+		"Service action has been rejected": "Akce služby nebyla spuštěna",
+		"Un-collapse": "Rozbalit",
+		"Collapse": "Sbalit",
+		"Start": "Spustit",
+		"Stop": "Zastavit",
+		"Restart": "Restartovat",
+		"Up": "Nahodit",
+		"Return code": "Return code",
+		"Error": "Error",
+		"Exception": "Exception",
+		"Console": "Console",
 		"Detail": "Detail",
-		"ID": "ID",
-		"Host": "Host",
-		"Server": "Server",
-		"Launch time": "Čas spuštění",
-		"Created at": "Vytvořeno v",
-		"Version": "Verze",
-		"Attention": "Pozor"
+		"Advertised data": "Advertised data"
 	},
 	"UserInterfaceCard": {
 		"User interface": "Uživatelské rozhraní",
 		"Build date": "Datum sestavení",
 		"Version": "Verze",
 		"Repository": "Repozitář"
-	},
-	"TenantSelectionCard": {
-		"Select valid tenant to enter the application": "Vyberte platný tenant pro vstup do aplikace",
-		"Silly as it sounds, redirection back to login failed": "Nestává se to často, ale přesměrování zpět na přihlášení selhalo",
-		"Select tenant": "Vyberte tenanta",
-		"Back to login": "Zpět na přihlášení"
 	},
 	"Showing item(s)": "{{ from }} - {{ to }} z {{ total }} položek",
 	"You do not have access rights to perform this action": "Váš přístup je omezen, nemáte dostatečná oprávnění",

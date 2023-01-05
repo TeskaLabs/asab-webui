@@ -21,7 +21,7 @@ export class SeaCatAuthApi {
 		this.App = app;
 
 		const scope = this.App.Config.get('seacat.auth.scope');
-		this.Scope = scope ? scope : "openid";
+		this.Scope = scope ? scope : "openid tenant userinfo:*";
 		
 		this.ClientId = "asab-webui-auth";
 		this.ClientSecret = "TODO";
@@ -32,9 +32,20 @@ export class SeaCatAuthApi {
 
 	// This method will cause a navigation from the app to the OAuth2 login screen
 	async login(redirect_uri, force_login_prompt) {
+		/*
+			Adding tenant directly to scope (if available).
+		*/
+		let currentTenant = null;
+		if (this.App.Services.TenantService) {
+			currentTenant = this.App.Services.TenantService.get_current_tenant();
+		}
+		let scopeArray = this.Scope.split(" ");
+		let tenantValue = scopeArray.find(str => str.includes("tenant"));
+		let loginScope = (currentTenant != null) && (tenantValue != undefined) ? this.Scope.replace(`${tenantValue}`, `tenant:${currentTenant}`) : this.Scope;
+
 		const params = new URLSearchParams({
 			response_type: "code",
-			scope: this.Scope,
+			scope: loginScope,
 			client_id: this.ClientId,
 			redirect_uri: redirect_uri
 		});

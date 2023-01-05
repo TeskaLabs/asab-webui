@@ -41,6 +41,14 @@ export default class AuthModule extends Module {
 			// Check the query string for 'code'
 			var qs = new URLSearchParams(window.location.search);
 			const authorization_code = qs.get('code');
+
+			// Checking error type in params
+			const errorType = qs.get('error');
+			if ((errorType != undefined) && errorType.includes("access_denied")) {
+				// If access has been denied, user will stay in splashscreen with Access denied card
+				return;
+			}
+
 			if (authorization_code !== null) {
 				await this._updateToken(authorization_code);
 				// Remove 'code' from a query string
@@ -68,7 +76,6 @@ export default class AuthModule extends Module {
 					// User info not found - go to login
 					sessionStorage.removeItem('SeaCatOAuth2Token');
 					let force_login_prompt = true;
-
 					await this.Api.login(this.RedirectURL, force_login_prompt);
 					return;
 				}
@@ -80,19 +87,16 @@ export default class AuthModule extends Module {
 				if (this.App.Config.get("authorization") !== "disabled" && this.App.Services.TenantService) {
 					// Tenant access validation
 					let tenantAuthorized = this.validateTenant();
-					let logoutTimeout = this.App.Config.get("authorizationLogoutTimeout") ? this.App.Config.get("authorizationLogoutTimeout") : 60000;
 					if (!tenantAuthorized) {
-						this.App.addAlert("danger", "ASABAuthModule|You are not authorized to use this application", logoutTimeout, true);
-						// Logout after some time
-						setTimeout(() => {
-							this.logout();
-						}, logoutTimeout);
+						// If tenant not authorized, redirect to Access denied card
+						let force_login_prompt = false;
+						await this.Api.login(this.RedirectURL, force_login_prompt);
 						return;
 					}
 				}
 
-				// Validate resources of items and children in navigation
-				if (this.App.Navigation.Items.length > 0) {
+				// Validate resources of items and children in navigation (resource validation depends on tenant)
+				if ((this.App.Navigation.Items.length > 0) && this.App.Services.TenantService) {
 					await this.validateNavigation();
 				}
 				if (this.UserInfo != null) {
@@ -129,8 +133,8 @@ export default class AuthModule extends Module {
 				devConfig: {
 					MOCK_USERINFO: {
 						"email": "test",
-						"phone_number": "test",
-						"preferred_username": "test",
+						"phone": "test",
+						"username": "test",
 						"resources": ["test:testy:read"],
 						"roles": ["default/Gringo"],
 						"sub": "tst:123456789",
@@ -191,6 +195,18 @@ export default class AuthModule extends Module {
 		if (this.UserInfo !== null) {
 			let currentTenant = this.App.Services.TenantService.get_current_tenant();
 			resources = this.UserInfo.resources ? this.UserInfo.resources[currentTenant] : [];
+			/*
+				When switching between tenants,
+				we need to force authorization to obtain
+				correct data (resources) for particular
+				tenant (this is unavailable until auth token is updated)
+			*/
+			if (resources == undefined) {
+				let force_login_prompt = false;
+				await this.Api.login(this.RedirectURL, force_login_prompt);
+				return;
+			}
+
 			if (this.App.Store != null) {
 				this.App.Store.dispatch({ type: types.AUTH_RESOURCES, resources: resources });
 			}

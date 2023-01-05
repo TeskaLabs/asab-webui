@@ -6,6 +6,12 @@
 		"Resources": "Resources",
 		"Previous screen": "Back to previous screen"
 	},
+	"AccessDeniedCard": {
+		"Access denied": "Access denied",
+		"Please contact application administrator for assigning appropriate access rights.": "Please contact application administrator for assigning appropriate access rights.",
+		"Silly as it sounds, redirection back to login failed": "Silly as it sounds, redirection back to login failed",
+		"Leave": "Leave"
+	},
 	"AuthHeaderDropdown": {
 		"My account": "My account",
 		"Access control": "Access control",
@@ -38,6 +44,8 @@
 		"Fill out configuration name": "Fill out configuration name",
 		"Create": "Create",
 		"New": "New",
+		"Schema title": "Schema title",
+		"Schema description": "Schema description",
 		"Something went wrong! Unable to get configurations": "Something went wrong! Unable to get configurations for {{config}}",
 		"Unable to get configurations. Try to reload the page": "Unable to get configurations for {{config}}. Try to reload the page",
 		"Create configuration": "Create configuration",
@@ -48,7 +56,22 @@
 		"Add new section": "Add new section",
 		"Add": "Add",
 		"Type": "Type",
-		"Do you want to remove this section?": "Do you want to remove this section?"
+		"Do you want to remove this section?": "Do you want to remove this section?",
+		"Actions": "Actions",
+		"Export": "Export",
+		"Import": "Import",
+		"Back": "Back",
+		"Only tar.gz files are allowed": "Only tar.gz files are allowed",
+		"Search": "Search",
+		"Override": "Override",
+		"Merge": "Merge",
+		"Import configuration": "Import configuration",
+		"Failed to import library": "Failed to import library",
+		"Configuration has been successfully imported": "Configuration has been successfully imported"
+	},
+	"ASABConfigModule": {
+		"Actions": "Actions",
+		"Search": "Search"
 	},
 	"ASABConfigService": {
 		"Incorrect/invalid config file downloaded": "Incorrect/invalid config file downloaded",
@@ -108,34 +131,36 @@
 		"Only tar.gz files are allowed": "Only tar.gz files are allowed",
 		"Choose file": "Choose file"
 	},
-	"MicroservicesContainer": {
-		"ID": "ID",
-		"Launch time": "Launch time",
-		"Host": "Host",
-		"Created at": "Created at",
-		"Version": "Version",
-		"Microservices": "Microservices",
-		"Failed to fetch data": "Failed to fetch data"
-	},
-	"MicroserviceDetailContainer" : {
-		"This microservice doesn't exist": "This microservice doesn't exist",
-		"Failed to get the microservice": "Failed to get the microservice",
-		"Something went wrong and this microservice wasn't found": "Something went wrong and this microservice wasn't found",
+	"ServicesContainer": {
+		"Can't display data due to parsing error": "Can't display data due to parsing error",
+		"Can't establish websocket connection, data can't be loaded": "Can't establish websocket connection, data can't be loaded",
+		"Services": "Services",
+		"Filter state": "Filter state",
+		"Loading": "Loading",
 		"Service": "Service",
-		"Detail": "Detail",
-		"ID": "ID",
-		"Host": "Host",
-		"Server": "Server",
-		"Launch time": "Launch time",
-		"Created at": "Created at",
+		"Node ID": "Node ID",
+		"Name": "Name",
+		"Type": "Type",
 		"Version": "Version",
-		"Attention": "Attention"
-	},
-	"TenantSelectionCard": {
-		"Select valid tenant to enter the application": "Select valid tenant to enter the application",
-		"Silly as it sounds, redirection back to login failed": "Silly as it sounds, redirection back to login failed",
-		"Select tenant": "Select tenant",
-		"Back to login": "Back to login"
+		"Not defined": "Not defined",
+		"Running": "Running",
+		"Starting": "Starting",
+		"Stopped": "Stopped",
+		"Unknown": "Unknown",
+		"Service action accepted successfully": "Service action accepted successfully",
+		"Service action has been rejected": "Service action has been rejected",
+		"Un-collapse": "Un-collapse",
+		"Collapse": "Collapse",
+		"Start": "Start",
+		"Stop": "Stop",
+		"Restart": "Restart",
+		"Up": "Up",
+		"Return code": "Return code",
+		"Error": "Error",
+		"Exception": "Exception",
+		"Console": "Console",
+		"Detail": "Detail",
+		"Advertised data": "Advertised data"
 	},
 	"UserInterfaceCard": {
 		"User interface": "User interface",

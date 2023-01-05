@@ -1,0 +1,32 @@
+@import "~asab-webui/styles/constants/index.scss";
+
+.access-denied-card {
+	max-width: 650px;
+	margin: 0 auto;
+	float: none;
+	margin-top: 1% !important;
+	margin-bottom: -15% !important;
+	background-color: $bg-color;
+	z-index: 999;
+	.card-body {
+		p {
+			margin-bottom: 8px;
+		}
+	};
+	.card-header-login {
+		min-height: inherit !important;
+	}
+}
+
+.access-denied-wrapper {
+	display: inline-block;
+	position: absolute;
+	width: 100%;
+}
+
+.tenant-text {
+	font-weight: 600;
+	span {
+		font-weight: initial;
+	}
+}

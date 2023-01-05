@@ -2,6 +2,45 @@
 
 ## Release Candidate
 
+### Features
+
+- Implement a new option `dateTimeFormat` to change the time format for DateTime component (INDIGO Sprint 221209, [!376](https://github.com/TeskaLabs/asab-webui/pull/376))
+
+### Refactoring
+
+- In TreeMenu component, display all closed folder nodes (even empty) with plus mark (`+`) to visually separate it from file nodes (INDIGO Sprint 221209, [!380](https://github.com/TeskaLabs/asab-webui/pull/380))
+
+- Replace `phone_number` with `phone` and `preferred_username` with `username`. Add locales for Configuration (INDIGO Sprint 221209, [!381](https://github.com/TeskaLabs/asab-webui/pull/381))
+
+## v22.48
+
+### Breaking changes
+
+- Access to tenants must be requested in authorization scope. This is related to tenant session implementation in ASAB WebUI [here](https://github.com/TeskaLabs/asab-webui/pull/370) (PLUM Sprint 221118, [!92](https://github.com/TeskaLabs/seacat-auth/pull/92))
+
+### Features
+
+- Implement tenant sessions, implement access denied handling, implement access denied card, remove tenant selector card (INDIGO Sprint 221125, [!370](https://github.com/TeskaLabs/asab-webui/pull/370))
+
+### Refactoring
+
+- Refactor Configuration module scroll styling (INDIGO Sprint 221111, [!378](https://github.com/TeskaLabs/asab-webui/pull/378))
+
+### Bugfixes
+
+- Fix styles for so long title in CardHeader (INDIGO Sprint 221125, [!377](https://github.com/TeskaLabs/asab-webui/pull/377))
+
+## v22.46
+
+### Features
+
+- Refactor Microservices container to Services and implement websocket connection (INDIGO Sprint 221111, [!363](https://github.com/TeskaLabs/asab-webui/pull/363))
+
+### Bugfixes
+
+- Change const variable customCellStyle to let variable in DataTable (INDIGO Sprint 221031, [!374](https://github.com/TeskaLabs/asab-webui/pull/374))
+
+
 ## v22.42
 
 ### Refactoring

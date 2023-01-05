@@ -1,6 +1,6 @@
-import { format, parseISO } from 'date-fns';
+import { format, parseISO, formatISO } from 'date-fns';
 
-const timeToString = (value, locale = undefined) => {
+const timeToString = (value, dateTimeFormat = "medium", locale = undefined) => {
 
 	if ((value === null) || (value === undefined)) {
 		return ' ';
@@ -10,9 +10,36 @@ const timeToString = (value, locale = undefined) => {
 		return 'Invalid Date';
 	}
 
-	const date = isNaN(value) ? format(parseISO(value), 'PPp', { locale }) :
-					value > 9999999999 ? format(value, 'PPp', { locale }) :
-					format(value * 1000, 'PPp', { locale });
+	let date;
+
+	if (isNaN(value) == true) {
+		if (dateTimeFormat === "medium") {
+			date = format(parseISO(value), 'PPp', { locale });
+		} else if (dateTimeFormat === "long") {
+			date = format(parseISO(value), 'PPpp', { locale });
+		} else if (dateTimeFormat === "iso") {
+			date = formatISO(parseISO(value));
+		}
+	} else {
+		if (value > 9999999999) {
+			if (dateTimeFormat === "medium") {
+				date = format(value, 'PPp', { locale });
+			} else if (dateTimeFormat === "long") {
+				date = format(value, 'PPpp', { locale });
+			} else if (dateTimeFormat === "iso") {
+				date = formatISO(value);
+			}
+		} else {
+			if (dateTimeFormat === "medium") {
+				date = format(value * 1000, 'PPp', { locale });
+			} else if (dateTimeFormat === "long") {
+				date = format(value * 1000, 'PPpp', { locale });
+			} else if (dateTimeFormat === "iso") {
+				date = formatISO(value * 1000);
+			}
+		}
+	}
+
 	return date;
 }
 
