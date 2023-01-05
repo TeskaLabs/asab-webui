@@ -12,6 +12,9 @@
 
 - Change toggle icons in TreeMenu component (INDIGO Sprint 221209, [!383](https://github.com/TeskaLabs/asab-webui/pull/383))
 
+- Replace `phone_number` with `phone` and `preferred_username` with `username`. Add locales for Configuration (INDIGO Sprint 221209, [!381](https://github.com/TeskaLabs/asab-webui/pull/381))
+
+
 ## v22.48
 
 ### Breaking changes
