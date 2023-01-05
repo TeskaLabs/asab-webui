@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import { useSelector } from "react-redux";
 
 import {
 	Container, Col, Row,
@@ -24,7 +25,12 @@ function ConfigContainer(props) {
 	const configType = props.match.params.configType;
 	const configName = props.match.params.configName;
 
-	const homeScreenImg = props.app.Config.get('brandImage').full;
+	const config = useSelector(state => state.config);
+	console.log('config', config)
+	const brandImageDefault = useSelector(state => state.config.defaultBrandImage);
+	const brandImageLight = useSelector(state => state.config.brandImage?.light);
+	const brandImageDark = useSelector(state => state.config.brandImage?.dark);
+	const theme = useSelector(state => state?.theme);
 	const homeScreenAlt = props.app.Config.get('title');
 
 	const [ treeData, setTreeData ] = useState({}); // Set complete data for TreeViewComponent
@@ -52,6 +58,16 @@ function ConfigContainer(props) {
 		getChart();
 	}, [treeList]);
 
+	// Obtains correctly themed homeScreenImg
+	const homeScreenImg = useMemo(() => {
+		if ((theme === "dark") && brandImageDark) {
+			return brandImageDark;
+		} else if ((theme === "light") && brandImageLight) {
+			return brandImageLight;
+		} else {
+			return brandImageDefault;
+		}
+	},[theme])
 
 	// Obtain list of types
 	// TODO: add Error Card screen when no types are fetched
@@ -196,7 +212,7 @@ function ConfigContainer(props) {
 							<Card>
 								<CardBody className="text-center">
 									<img
-										src={homeScreenImg}
+										src={homeScreenImg.full}
 										alt={homeScreenAlt}
 										style={{maxWidth: "38%"}}
 									/>
