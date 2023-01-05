@@ -11,8 +11,10 @@ const Breadcrumbs = ({
 	const { t } = useTranslation();
 	const crumbs = useMemo(() => {
 		return routes.filter(({ path }) => {
-			if ((path.split("/").length === match.path.split("/").length) && match.path.includes(path)) { // Checking if the number of slash ('/') is the same and if it is included in the match.path
-				if ((path.match(/[^\/]+$/)[0] === match.path.match(/[^\/]+$/)[0])) { //  Take the string after the last slash ('/') and check if they match each other
+			// Checking if the number of slash ('/') is the same and if it is included in the match.path
+			if ((path.split("/").length === match.path.split("/").length) && match.path.includes(path)) {
+				// Take the string after the last slash ('/') and check if they match each other
+				if ((path.match(/[^\/]+$/)[0] === match.path.match(/[^\/]+$/)[0])) {
 					return path;
 				}
 			} else {
