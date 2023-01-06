@@ -1,7 +1,11 @@
-.menu-toggle-icon {
-	color: inherit;
-}
+@import "~asab-webui/styles/constants/index.scss";
 
 .menu-span {
 	margin-right: 8px;
+	.menu-toggle-icon {
+		color: $primary;
+	}
+	.selected {
+		color: $reversed-text-color !important;
+	}
 }
