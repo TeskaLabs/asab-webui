@@ -45,7 +45,7 @@ There are 3 options for dynamic branding - header logo, title and custom CSS sty
 
 ### Header logo
 
-To replace default header logo, the nginx `sub_filter` configuration has to follow `<meta name="header-logo-full">` and `<meta name="header-logo-minimized">` replacement rules with the particular `name`. The replacement must have a `content` prop, otherwise the content of the replacement will not be propagated. `content` has to include a string with path to the logo.
+To replace default header logo, the nginx `sub_filter` configuration has to follow `<meta name="header-logo-full-light">`, `<meta name="header-logo-minimized-light">` and `<meta name="header-logo-full-dark">` and `<meta name="header-logo-minimized-dark">` replacement rules with the particular `name`. The replacement must have a `content` prop, otherwise the content of the replacement will not be propagated. `content` has to include a string with path to the logo.
 
 Size of the branding images can be found [here](#branding-images)
 
@@ -54,7 +54,7 @@ Size of the branding images can be found [here](#branding-images)
 Example of importing full size logo (when sidebar of the application is not collapsed)
 
 ```
-sub_filter '<meta name="header-logo-full">' '<meta name="header-logo-full" content="/<location>/<path>/<to>/<custom_branding>/<logo-full>.svg">';
+sub_filter '<meta name="header-logo-full">' '<meta name="header-logo-full-light" content="/<location>/<path>/<to>/<custom_branding>/<logo-full>.svg">';
 ```
 
 #### Minimized
@@ -62,7 +62,7 @@ sub_filter '<meta name="header-logo-full">' '<meta name="header-logo-full" conte
 Example of importing minimized size logo (when sidebar of the application is collapsed)
 
 ```
-sub_filter '<meta name="header-logo-minimized">' '<meta name="header-logo-minimized" content="/<location>/<path>/<to>/<custom_branding>/<logo-minimized>.svg">';
+sub_filter '<meta name="header-logo-minimized">' '<meta name="header-logo-minimized-light" content="/<location>/<path>/<to>/<custom_branding>/<logo-minimized>.svg">';
 ```
 
 ### Title
