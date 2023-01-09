@@ -10,7 +10,13 @@
 
 - In TreeMenu component, display all closed folder nodes (even empty) with plus mark (`+`) to visually separate it from file nodes (INDIGO Sprint 221209, [!380](https://github.com/TeskaLabs/asab-webui/pull/380))
 
+- Change toggle icons in TreeMenu component (INDIGO Sprint 221209, [!383](https://github.com/TeskaLabs/asab-webui/pull/383))
+
 - Replace `phone_number` with `phone` and `preferred_username` with `username`. Add locales for Configuration (INDIGO Sprint 221209, [!381](https://github.com/TeskaLabs/asab-webui/pull/381))
+
+### Bugfix
+
+- Bug fix for incorrect display of breadcrumbs if parts of the string were almost the same (INDIGO Sprint 221209, [!382](https://github.com/TeskaLabs/asab-webui/pull/382))
 
 ## v22.48
 
