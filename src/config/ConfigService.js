@@ -26,26 +26,36 @@ export default class ConfigService extends Service {
 		const customCSS = document.getElementsByName('custom-css-file')[0]?.content;
 
 		let dynamicConfig = {};
-		let brandImage = {};
+
 		// Add custom header full light logo
 		if ((headerLogoFullLight != undefined) && (headerLogoFullLight != "")) {
-			brandImage["full"] = headerLogoFullLight;
-			dynamicConfig["brandImage"]["light"] = brandImage;
+			dynamicConfig.brandImage = {light: {full: headerLogoFullLight}};
 		}
 		// Add custom header minimized light logo
 		if ((headerLogoMiniLight != undefined) && (headerLogoMiniLight != "")) {
-			brandImage["minimized"] = headerLogoMiniLight;
-			dynamicConfig["brandImage"]["light"] = brandImage;
+			if (dynamicConfig?.brandImage?.light !== undefined) {
+				dynamicConfig.brandImage.light.minimized = headerLogoMiniLight;
+			} else {
+				dynamicConfig.brandImage = {light: {minimized: headerLogoMiniLight}}
+			}
 		}
 		// Add custom header full dark logo
 		if ((headerLogoFullDark != undefined) && (headerLogoFullDark != "")) {
-			brandImage["full"] = headerLogoFullDark;
-			dynamicConfig["brandImage"]["dark"] = brandImage;
+			if (dynamicConfig?.brandImage !== undefined) {
+				dynamicConfig.brandImage.dark = {full: headerLogoFullDark};
+			} else {
+				dynamicConfig.brandImage = {dark: {full: headerLogoFullDark}}
+			}
 		}
 		// Add custom header minimized dark logo
 		if ((headerLogoMiniDark != undefined) && (headerLogoMiniDark != "")) {
-			brandImage["minimized"] = headerLogoMiniDark;
-			dynamicConfig["brandImage"]["dark"] = brandImage;
+			if (dynamicConfig?.brandImage?.dark !== undefined) {
+				dynamicConfig.brandImage.dark.minimized = headerLogoMiniDark;
+			} else if ((dynamicConfig?.brandImage?.light !== undefined)) {
+				dynamicConfig.brandImage.dark = {minimized: headerLogoMiniDark}
+			} else {
+				dynamicConfig.brandImage = {dark: {minimized: headerLogoMiniDark}}
+			}
 		}
 		// Add custom title
 		if ((title != undefined) && (title != "")) {
