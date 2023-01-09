@@ -771,8 +771,6 @@ function ConfigAdHocSection(props) {
 
 // This component returns a pre-defined messages
 function ConfigMessageCard(props) {
-	console.log(props.homeScreenImg)
-	console.log(props)
 	return(
 		<Card>
 			<CardBody className="text-center">
