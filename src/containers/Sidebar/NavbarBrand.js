@@ -1,5 +1,6 @@
-import React, {useMemo} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import { useSelector } from 'react-redux';
+// import { useBrandImage } from '../../hooks/useBrandImage'
 
 import { Link } from 'react-router-dom';
 
@@ -11,10 +12,38 @@ const NavbarBrand = ( props ) => {
 	const brandImageDark = useSelector(state => state.config.brandImage?.dark);
 	const brandImageDefault = useSelector(state => state.config.defaultBrandImage);
 
+	console.log('usebrandImage', useBrandImage(theme))
+	console.log('brandImageLight', brandImageLight)
+
 	const brandImage = useMemo(() => {
+		// useBrandImage(theme)
 		if ((theme === "dark") && brandImageDark) {
-			return brandImageDark;
+			if (brandImageDark.minimized == undefined) {
+				return {
+					full: brandImageDark.full,
+					minimized: brandImageDefault.minimized
+				}
+			}
+			if (brandImageDark.full == undefined) {
+				return {
+					full: brandImageDefault.full,
+					minimized: brandImageDark.minimized
+				};
+			}
+			return brandImageDark
 		} else if ((theme === "light") && brandImageLight) {
+			if (brandImageLight.minimized == undefined) {
+				return {
+					full: brandImageLight.full,
+					minimized: brandImageDefault.minimized
+				}
+			}
+			if (brandImageLight.full == undefined) {
+				return {
+					full: brandImageDefault.full,
+					minimized: brandImageLight.minimized
+				};
+			}
 			return brandImageLight;
 		} else {
 			return brandImageDefault;
@@ -44,6 +73,7 @@ const NavbarBrand = ( props ) => {
 	}
 	return (
 		<div className={`sidebar-brand-image`}>
+		{console.log('brandImage ln 74', brandImage)}
 			<Link to={href}>
 				<img
 					src={isSidebarCollapsed ? brandImage.minimized : brandImage.full}
