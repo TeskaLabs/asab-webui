@@ -49,20 +49,22 @@ To replace default header logo, the nginx `sub_filter` configuration has to foll
 
 Size of the branding images can be found [here](#branding-images)
 
-#### Full
+#### Light
 
-Example of importing full size logo (when sidebar of the application is not collapsed)
-
-```
-sub_filter '<meta name="header-logo-full">' '<meta name="header-logo-full-light" content="/<location>/<path>/<to>/<custom_branding>/<logo-full>.svg">';
-```
-
-#### Minimized
-
-Example of importing minimized size logo (when sidebar of the application is collapsed)
+Example of importing light logo variation (when is visible in the light themed version of the application)
 
 ```
-sub_filter '<meta name="header-logo-minimized">' '<meta name="header-logo-minimized-light" content="/<location>/<path>/<to>/<custom_branding>/<logo-minimized>.svg">';
+sub_filter '<meta name="header-logo-full-light">' '<meta name="header-logo-full-light" content="/<location>/<path>/<to>/<custom_branding>/<logo-full-light>.svg">';
+sub_filter '<meta name="header-logo-minimized-light">' '<meta name="header-logo-minimized-light" content="/<location>/<path>/<to>/<custom_branding>/<logo-minimized-light>.svg">';
+```
+
+#### Dark
+
+Example of importing dark variations of a logo (when is visible in the dark themed version of the application)
+
+```
+sub_filter '<meta name="header-logo-full-dark">' '<meta name="header-logo-full-dark" content="/<location>/<path>/<to>/<custom_branding>/<logo-full-dark>.svg">';
+sub_filter '<meta name="header-logo-minimized-dark">' '<meta name="header-logo-minimized-dark" content="/<location>/<path>/<to>/<custom_branding>/<logo-minimized-dark>.svg">';
 ```
 
 ### Title
@@ -103,8 +105,10 @@ Full example of nginx configuration with custom branding
 location /<location> {
 	root /<path>/<to>/<build>;
 	index index.html;
-	sub_filter '<meta name="header-logo-full">' '<meta name="header-logo-full" content="/<location>/<path>/<to>/<custom_branding>/<logo-full>.svg">';
-	sub_filter '<meta name="header-logo-minimized">' '<meta name="header-logo-minimized" content="/<location>/<path>/<to>/<custom_branding>/<logo-minimized>.svg">';
+	sub_filter '<meta name="header-logo-full-light">' '<meta name="header-logo-full-light" content="/<location>/<path>/<to>/<custom_branding>/<logo-full-light>.svg">';
+	sub_filter '<meta name="header-logo-minimized-light">' '<meta name="header-logo-minimized-light" content="/<location>/<path>/<to>/<custom_branding>/<logo-minimized-light>.svg">';
+	sub_filter '<meta name="header-logo-full-dark">' '<meta name="header-logo-full-dark" content="/<location>/<path>/<to>/<custom_branding>/<logo-full-dark>.svg">';
+	sub_filter '<meta name="header-logo-minimized-dark">' '<meta name="header-logo-minimized-dark" content="/<location>/<path>/<to>/<custom_branding>/<logo-minimized-dark>.svg">';
 	sub_filter '<meta name="title">' '<meta name="title" content="Custom app title">';
 	sub_filter '<meta name="custom-css-file">' '<meta name="custom-css-file" content="/<location>/<path>/<to>/<custom_branding>/<custom-file>.css">';
 	sub_filter_once on;
@@ -129,8 +133,10 @@ Example of application's `index.html` setup (for **devs** only) - this is being 
 		...
 
 		<!-- Dynamic config start -->
-		<meta name="header-logo-full">
-		<meta name="header-logo-minimized">
+		<meta name="header-logo-full-light">
+		<meta name="header-logo-minimized-light">
+		<meta name="header-logo-full-dark">
+		<meta name="header-logo-minimized-dark">
 		<meta name="title">
 		<meta name="custom-css-file">
 		<!-- Dynamic config end -->
