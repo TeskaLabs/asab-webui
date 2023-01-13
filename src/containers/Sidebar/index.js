@@ -10,12 +10,22 @@ import SidebarBottomItem from './SidebarBottomItem';
 const Sidebar = (props) => {
 	const [modal, setModal] = useState(false);
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
+	const theme = useSelector(state => state.theme);
 	const [windowDimensions, setWindowDimensions] = useState({width: window.innerWidth});
 
 	// Get dynamically hiddden sidebar items from store
 	let sidebarHiddenItems = props.sidebarHiddenItems;
 
 	let sidebarItems = props.navigation.getItems().items;
+
+	const BrandingService = props.app.Services.BrandingService;
+	const Config = props.app.ConfigService.Config;
+
+	let sidebarBottomBranding;
+	if (Config !== undefined && theme) {
+		sidebarBottomBranding = BrandingService.getLogo(Config, theme, 'sidebarLogo');
+	}
+	console.log('sidebarBottomBranding', sidebarBottomBranding)
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
@@ -87,7 +97,7 @@ const Sidebar = (props) => {
 								/>
 							))}
 						</Nav>
-						<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} screenWidth={windowDimensions.width}/>
+						<SidebarBottomItem item={aboutItem} sidebarLogo={sidebarBottomBranding} screenWidth={windowDimensions.width}/>
 					</div>
 				</div>
 			</Modal>
@@ -111,7 +121,7 @@ const Sidebar = (props) => {
 						/>
 					))}
 				</Nav>
-				<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} />
+				<SidebarBottomItem item={aboutItem} sidebarLogo={sidebarBottomBranding} />
 			</div>
 		</div>
 	)
