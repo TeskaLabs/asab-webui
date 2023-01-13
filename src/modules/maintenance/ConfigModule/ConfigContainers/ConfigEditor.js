@@ -42,9 +42,6 @@ function ConfigEditor(props) {
 	const [ patternPropsSchema, setPatternPropsSchema ] = useState({});
 
 	// Retrieve the asab config url from config file
-	const brandImageDefault = useSelector(state => state.config.defaultBrandImage);
-	const brandImageLight = useSelector(state => state.config.brandImage?.light);
-	const brandImageDark = useSelector(state => state.config.brandImage?.dark);
 	const homeScreenAlt = props.app.Config.get('title');
 	const configType = props.configType;
 	const configName = props.configName;
@@ -60,6 +57,15 @@ function ConfigEditor(props) {
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const toggleDropDown = () => setDropdownOpen(!dropdownOpen);
 
+	// Branding
+	const BrandingService = props.app.Services.BrandingService;
+	const Config = props.app.ConfigService.Config;
+
+	let homeScreenImg;
+	if (Config !== undefined && theme) {
+		homeScreenImg = BrandingService.getLogo(Config, theme);
+	}
+
 	// The container will be re-rendered on configType or configName change
 	useEffect(() => {
 		initialLoad();
@@ -71,17 +77,6 @@ function ConfigEditor(props) {
 			setValues();
 		}
 	}, [formStruct])
-
-	// Obtains correctly themed homeScreenImg
-	const homeScreenImg = useMemo(() => {
-		if ((theme === "dark") && brandImageDark) {
-			return brandImageDark;
-		} else if ((theme === "light") && brandImageLight) {
-			return brandImageLight;
-		} else {
-			return brandImageDefault;
-		}
-	},[theme])
 
 	// Load data and set up the data for form struct
 	const initialLoad = async () => {
