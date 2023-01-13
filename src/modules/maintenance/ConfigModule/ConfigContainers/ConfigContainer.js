@@ -1,13 +1,10 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, connect } from "react-redux";
 
 import {
 	Container, Col, Row,
 	Card, CardBody
 } from "reactstrap";
-
-import { connect } from 'react-redux';
-import { useSelector } from 'react-redux';
 
 import { useTranslation } from 'react-i18next';
 
