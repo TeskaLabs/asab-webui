@@ -7,7 +7,7 @@ import {
 } from "reactstrap";
 
 import { connect } from 'react-redux';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { useTranslation } from 'react-i18next';
 
@@ -26,12 +26,11 @@ function ConfigContainer(props) {
 	const configName = props.match.params.configName;
 
 	const config = useSelector(state => state.config);
-	console.log('config', config)
-	const brandImageDefault = useSelector(state => state.config.defaultBrandImage);
-	const brandImageLight = useSelector(state => state.config.brandImage?.light);
-	const brandImageDark = useSelector(state => state.config.brandImage?.dark);
 	const theme = useSelector(state => state?.theme);
 	const homeScreenAlt = props.app.Config.get('title');
+	const BrandingService = props.app.Services.BrandingService;
+	const Config = props.app.ConfigService.Config;
+
 
 	const [ treeData, setTreeData ] = useState({}); // Set complete data for TreeViewComponent
 	const [ createConfig, setCreateConfig ] = useState(false); // Use for condition to render components
@@ -39,8 +38,12 @@ function ConfigContainer(props) {
 	const [ typeList, setTypeList ] = useState([]); // Set data name of type for group configuration
 	const [ treeList, setTreeList ] = useState({}); // Set cleaned data for trigger UseEffect for updating TreeViewComponent, and for render the tree
 	const [ openNodes, setOpenNodes ] = useState([]); // Set open nodes in the TreeMenu
-
 	// const config_created = useSelector(state => state.asab_config.configCreated)
+
+	let homeScreenImg;
+	if (Config !== undefined && theme) {
+		homeScreenImg = BrandingService.getLogo(Config, theme);
+	}
 
 
 	// To get the full overview on schemas and configs it is needed to update the tree list and data state
@@ -57,17 +60,6 @@ function ConfigContainer(props) {
 	useEffect(() => {
 		getChart();
 	}, [treeList]);
-
-	// Obtains correctly themed homeScreenImg
-	const homeScreenImg = useMemo(() => {
-		if ((theme === "dark") && brandImageDark) {
-			return brandImageDark;
-		} else if ((theme === "light") && brandImageLight) {
-			return brandImageLight;
-		} else {
-			return brandImageDefault;
-		}
-	},[theme])
 
 	// Obtain list of types
 	// TODO: add Error Card screen when no types are fetched
