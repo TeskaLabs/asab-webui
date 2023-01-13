@@ -13,6 +13,7 @@ import {Link} from "react-router-dom";
 
 export function Header(props) {
 	const HeaderService = props.app.locateService("HeaderService");
+	console.log('props.branImage', props)
 	const href = props.brandImage?.href ?? "/";
 
 	const [headerProperties, setHeaderProperties] = useState(false);
@@ -20,25 +21,19 @@ export function Header(props) {
 
 	const theme = useSelector(state => state.theme);
 	const title = useSelector(state => state.config.title);
-	const config = useSelector(state => state.config);
-	const brandImageLight = useSelector(state => state.config.brandImage?.light);
-	const brandImageDark = useSelector(state => state.config.brandImage?.dark);
-	const brandImageDefault = useSelector(state => state.config.defaultBrandImage);
+
+	const BrandingService = props.app.Services.BrandingService;
+	const Config = props.app.ConfigService.Config;
+
+	let brandImage;
+	if (Config !== undefined && theme) {
+		brandImage = BrandingService.getLogo(Config, theme);
+	}
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
 		return () => window.removeEventListener('resize', handleResize);
 	}, [windowDimensions])
-
-	const brandImage = useMemo(() => {
-		if ((theme === "dark") && brandImageDark) {
-			return brandImageDark;
-		} else if ((theme === "light") && brandImageLight) {
-			return brandImageLight;
-		} else {
-			return brandImageDefault;
-		}
-	},[theme])
 
 	function handleResize () {
 		setWindowDimensions({width: window.innerWidth});
