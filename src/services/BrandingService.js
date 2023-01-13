@@ -15,11 +15,18 @@ export default class BrandingService extends Service {
 		// this.Items = [];
 	}
 
-	getLogo(config, theme) {
+	getLogo(config, theme, type="brandImage") {
+
+		if ((type === 'sidebarLogo') && theme && config._defaults?.sidebarLogo && config._defaults?.sidebarLogo[theme]) {
+			return config._defaults.sidebarLogo[theme];
+		} else if ((type === 'sidebarLogo') && theme && config._defaults?.sidebarLogo && !config._defaults?.sidebarLogo[theme]) {
+			return config._defaults.defaultBrandImage
+		}
+
 		if (theme && config._dynamic_config?.brandImage) {
+			// missing href
 			return config._dynamic_config.brandImage[theme]
 		}
-		if (theme && config._defaults)
 
 		if (theme && config._defaults?.brandImage && config._defaults?.brandImage[theme]) {
 			if (config._defaults?.brandImage[theme]?.minimized == undefined) {
@@ -36,8 +43,10 @@ export default class BrandingService extends Service {
 					href: config._defaults.brandImage?.href
 				};
 			}
+			// missing href
 			return config._defaults.brandImage[theme]
 		} else {
+			// missing href
 			return config._defaults.defaultBrandImage;
 		}
 	}
