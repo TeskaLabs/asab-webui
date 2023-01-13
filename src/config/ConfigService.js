@@ -93,7 +93,7 @@ export default class ConfigService extends Service {
 			document.head.appendChild(link);
 		}
 
-		console.log('dynamicConfig: ', dynamicConfig)
+		// console.log('dynamicConfig: ', dynamicConfig)
 
 		// Dispatch customs to config store
 		if (Object.keys(dynamicConfig).length > 0) {
