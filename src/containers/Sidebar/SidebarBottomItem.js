@@ -9,7 +9,6 @@ import {
 
 import { COLLAPSE_SIDEBAR } from "../../actions";
 
-
 import Icon from './SidebarIcon';
 
 import { SET_SMALL_SIDEBAR } from '../../actions';
@@ -17,14 +16,12 @@ import { SET_SMALL_SIDEBAR } from '../../actions';
 const SidebarBottomItem = ({ item, sidebarLogo, screenWidth }) => {
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
 	const isSmallSidebarOpen = useSelector(state => state.sidebar.isSmallSidebarOpen);
-	const brandImageDefault = useSelector(state => state.config.defaultBrandImage);
-	const theme = useSelector(state => state.theme);
 
 	const location = useLocation();
 	const history = useHistory();
 	const { t } = useTranslation();
 	const dispatch = useDispatch();
-	
+
 	const onNavLink = () => {
 		// Preserve from history pushing when item.url doesn't exist
 		// or when current location pathname is the same as item.url
@@ -60,17 +57,6 @@ const SidebarBottomItem = ({ item, sidebarLogo, screenWidth }) => {
 		)
 	}
 
-	// Setting dark/light sidebar image based on theme
-	const homeScreenImg = useMemo(() => {
-		if ((theme === "dark") && sidebarLogo.dark) {
-			return sidebarLogo.dark;
-		} else if ((theme === "light") && sidebarLogo.light) {
-			return sidebarLogo.light;
-		} else {
-			return brandImageDefault;
-		}
-	},[theme])
-
 	return (
 		<div className="sidebar-bottom">
 			<Nav vertical>
@@ -81,11 +67,11 @@ const SidebarBottomItem = ({ item, sidebarLogo, screenWidth }) => {
 								title={t(`Sidebar|${item.name}`)}
 								className={`sidebar-item-button${location.pathname === item.url ? " active " : " "}btn left ${!isSidebarCollapsed && "mobile-full-btn"}`}
 							>
-								{homeScreenImg ?
+								{sidebarLogo ?
 									isSidebarCollapsed ?
-										homeScreenImg.minimized ?
+										sidebarLogo.minimized ?
 											<img
-												src={homeScreenImg.minimized}
+												src={sidebarLogo.minimized}
 												alt={t(`Sidebar|${item.name}`)}
 												width="30"
 												height="30"
@@ -94,9 +80,9 @@ const SidebarBottomItem = ({ item, sidebarLogo, screenWidth }) => {
 										:
 											<AboutButton />
 									:
-										homeScreenImg.full ?
+										sidebarLogo.full ?
 											<img
-												src={homeScreenImg.full}
+												src={sidebarLogo.full}
 												alt={t(`Sidebar|${item.name}`)}
 												width="90"
 												height="30"
