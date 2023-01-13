@@ -8,47 +8,14 @@ const NavbarBrand = ( props ) => {
 	const theme = useSelector(state => state.theme);
 	const title = useSelector(state => state.config.title);
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
-	const brandImageLight = useSelector(state => state.config.brandImage?.light);
-	const brandImageDark = useSelector(state => state.config.brandImage?.dark);
-	const brandImageDefault = useSelector(state => state.config.defaultBrandImage);
 
-	console.log('usebrandImage', useBrandImage(theme))
-	console.log('brandImageLight', brandImageLight)
+	const BrandingService = props.app.Services.BrandingService;
+	const Config = props.app.ConfigService.Config;
 
-	const brandImage = useMemo(() => {
-		// useBrandImage(theme)
-		if ((theme === "dark") && brandImageDark) {
-			if (brandImageDark.minimized == undefined) {
-				return {
-					full: brandImageDark.full,
-					minimized: brandImageDefault.minimized
-				}
-			}
-			if (brandImageDark.full == undefined) {
-				return {
-					full: brandImageDefault.full,
-					minimized: brandImageDark.minimized
-				};
-			}
-			return brandImageDark
-		} else if ((theme === "light") && brandImageLight) {
-			if (brandImageLight.minimized == undefined) {
-				return {
-					full: brandImageLight.full,
-					minimized: brandImageDefault.minimized
-				}
-			}
-			if (brandImageLight.full == undefined) {
-				return {
-					full: brandImageDefault.full,
-					minimized: brandImageLight.minimized
-				};
-			}
-			return brandImageLight;
-		} else {
-			return brandImageDefault;
-		}
-	},[theme])
+	let brandImage;
+	if (Config !== undefined && theme) {
+		brandImage = BrandingService.getLogo(Config, theme);
+	}
 
 	const href = brandImage?.href ?? "/";
 
@@ -73,7 +40,6 @@ const NavbarBrand = ( props ) => {
 	}
 	return (
 		<div className={`sidebar-brand-image`}>
-		{console.log('brandImage ln 74', brandImage)}
 			<Link to={href}>
 				<img
 					src={isSidebarCollapsed ? brandImage.minimized : brandImage.full}
