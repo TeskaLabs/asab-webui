@@ -25,7 +25,6 @@ const Sidebar = (props) => {
 	if (Config !== undefined && theme) {
 		sidebarBottomBranding = BrandingService.getLogo(Config, theme, 'sidebarLogo');
 	}
-	console.log('sidebarBottomBranding', sidebarBottomBranding)
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
