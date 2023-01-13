@@ -1,6 +1,5 @@
 import React, {useEffect, useMemo} from 'react';
 import { useSelector } from 'react-redux';
-// import { useBrandImage } from '../../hooks/useBrandImage'
 
 import { Link } from 'react-router-dom';
 
