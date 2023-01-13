@@ -13,8 +13,6 @@ import {Link} from "react-router-dom";
 
 export function Header(props) {
 	const HeaderService = props.app.locateService("HeaderService");
-	console.log('props.branImage', props)
-	const href = props.brandImage?.href ?? "/";
 
 	const [headerProperties, setHeaderProperties] = useState(false);
 	const [windowDimensions, setWindowDimensions] = useState({width: window.innerWidth,});
@@ -29,6 +27,7 @@ export function Header(props) {
 	if (Config !== undefined && theme) {
 		brandImage = BrandingService.getLogo(Config, theme);
 	}
+	const href = brandImage?.href ?? "/";
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
