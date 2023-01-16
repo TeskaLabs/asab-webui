@@ -31,7 +31,7 @@ export function DataTable ({
 	customRowStyle, customRowClassName,
 	customCardBodyComponent,
 	limitValues = [5, 10, 15, 20, 25, 30, 50],
-	contentLoader = true, category, height
+	contentLoader = true, category, height, disabledAdvMode = true
    }) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isLimitOpen, setLimitDropdown] = useState(false);
@@ -120,13 +120,16 @@ export function DataTable ({
 					</CardHeader>
 					<CardBody className="data-table-card-body">
 						{customCardBodyComponent}
-						{!isLoading && <Table
-							data={data && (data.length > limit) ? data.slice(0, limit) : data}
-							headers={headers}
-							category={category}
-							rowStyle={customRowStyle}
-							rowClassName={customRowClassName}
-						/>}
+						{!isLoading &&
+							<Table
+								data={data && (data.length > limit) ? data.slice(0, limit) : data}
+								headers={headers}
+								category={category}
+								rowStyle={customRowStyle}
+								rowClassName={customRowClassName}
+								disabledAdvMode={disabledAdvMode}
+							/>
+						}
 
 						{isLoading && contentLoader && <CellContentLoader cols={headers.length} rows={limit ?? 5} /> }
 
@@ -134,7 +137,6 @@ export function DataTable ({
 							noItemsComponent ? <NoItemsLayout>{noItemsComponent}</NoItemsLayout> :
 							<NoItemsLayout>{t(translationRoute ? `${translationRoute}|No items` : "No items")}</NoItemsLayout>
 						)}
-
 					</CardBody>
 
 					<CardFooter className="data-table-card-footer  border-top">
