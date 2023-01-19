@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import {
 	Card, Row, Col, ButtonGroup,
@@ -31,12 +32,14 @@ export function DataTable ({
 	customRowStyle, customRowClassName,
 	customCardBodyComponent,
 	limitValues = [5, 10, 15, 20, 25, 30, 50],
-	contentLoader = true, category, height, disabledAdvMode = true
+	contentLoader = true, category, height, disabledAdvMode
    }) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isLimitOpen, setLimitDropdown] = useState(false);
 	const timeoutRef = useRef(null);
 	const [countDigit, setCountDigit] = useState(1);
+
+	const advMode = useSelector(state => state.advmode.enabled);
 	
 	const { t } = useTranslation();
 
@@ -63,6 +66,13 @@ export function DataTable ({
 		}, 500);
 	}, [filterValue]);
 
+	const advModeState = useMemo(() => {
+		if (disabledAdvMode == true) {
+			return false;
+		}
+		return advMode;
+	},[advMode])
+
 	// rounding page number divisible by 5
 	function roundedNumRows(x) {
 		if (isNaN(x) == false) {
@@ -75,7 +85,6 @@ export function DataTable ({
 		} else {
 			return 10; // It is a default limit value
 		}
-
 	}
 
 	return (
@@ -127,7 +136,7 @@ export function DataTable ({
 								category={category}
 								rowStyle={customRowStyle}
 								rowClassName={customRowClassName}
-								disabledAdvMode={disabledAdvMode}
+								advMode={advModeState}
 							/>
 						}
 
