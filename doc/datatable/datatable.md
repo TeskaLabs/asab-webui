@@ -296,7 +296,7 @@ Example of fetched data:
 
 # Optional
 
-`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `customButton`, `customComponent`, `search`, `onSearch`, `isLoading`, `noItemsComponent`, `customCardBodyComponent`, `sublistsKey`, `onDownload`, `height`, `disabledAdvMode`.
+`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `customButton`, `customComponent`, `search`, `onSearch`, `isLoading`, `noItemsComponent`, `customCardBodyComponent`, `sublistsKey`, `onDownload`, `height`, `disableAdvMode`.
 
 Example of `DataTable` with all props:
 
@@ -320,7 +320,7 @@ Example of `DataTable` with all props:
 	isLoading={isLoading}
 	noItemsComponent={noItemsComponent}
 	height={height}
-	disabledAdvMode
+	disableAdvMode
 />
 ```
 
@@ -748,9 +748,9 @@ function (props) {
 ```
 
 
-Property `disabledAdvMode`is necessary to disable the advanced mode in the DataTable.
+Property `disableAdvMode`is necessary to disable the advanced mode in the DataTable.
 
-Example of using `disabledAdvMode`:
+Example of using `disableAdvMode`:
 ```js
 ...
 import { DataTable } from 'asab-webui';
@@ -759,7 +759,7 @@ import { DataTable } from 'asab-webui';
 	return (
 		<DataTable
 		...
-			disabledAdvMode
+			disableAdvMode
 		/>
 	);
 
@@ -805,7 +805,7 @@ props: {
   },
   onSearch?: function, // function that is called in 500ms after changes has been made in search input box
   isLoading?: boolean, // indicator for DataTable for showing spinner,
-  disabledAdvMode?: boolean, // prop to turn off the advanced mode,
+  disableAdvMode?: boolean, // prop to turn off the advanced mode,
   noItemsComponent?: string | React.component // custom component for displaying message when there are no items
 }
 

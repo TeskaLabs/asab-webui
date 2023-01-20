@@ -32,7 +32,7 @@ export function DataTable ({
 	customRowStyle, customRowClassName,
 	customCardBodyComponent,
 	limitValues = [5, 10, 15, 20, 25, 30, 50],
-	contentLoader = true, category, height, disabledAdvMode
+	contentLoader = true, category, height, disableAdvMode
    }) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isLimitOpen, setLimitDropdown] = useState(false);
@@ -67,7 +67,7 @@ export function DataTable ({
 	}, [filterValue]);
 
 	const advModeState = useMemo(() => {
-		if (disabledAdvMode == true) {
+		if (disableAdvMode == true) {
 			return false;
 		}
 		return advMode;
@@ -136,7 +136,7 @@ export function DataTable ({
 								category={category}
 								rowStyle={customRowStyle}
 								rowClassName={customRowClassName}
-								advMode={advModeState}
+								advmode={advModeState}
 							/>
 						}
 
