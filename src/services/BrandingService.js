@@ -25,6 +25,18 @@ export default class BrandingService extends Service {
 
 		if (theme && config._dynamic_config?.brandImage) {
 			// missing href
+			if (config._dynamic_config.brandImage[theme].full == undefined) {
+				return {
+					full: config._dynamic_config.brandImage[theme].minimized,
+					minimized: config._dynamic_config.brandImage[theme].minimized
+				}
+			}
+			if (config._dynamic_config.brandImage[theme].minimized == undefined) {
+				return {
+					full: config._dynamic_config.brandImage[theme].full,
+					minimized: config._dynamic_config.brandImage[theme].full
+				}
+			}
 			return config._dynamic_config.brandImage[theme]
 		}
 
