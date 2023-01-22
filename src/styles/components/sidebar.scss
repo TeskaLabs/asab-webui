@@ -54,8 +54,8 @@ $sidebar-item-font-size: 14px;
 			.sidebar-item-button.active {
 				&.logo-item {
 					background-color: inherit;
-					outline-offset: -4px;
-					outline: 4px solid var(--highlighted-bg-color);
+					// outline-offset: -4px;
+					border-color: 4px solid var(--highlighted-bg-color);
 					&:hover {
 						background-color: inherit;
 					}
@@ -281,6 +281,9 @@ $sidebar-item-font-size: 14px;
 					&.mobile-collapsed {
 						display: none;
 					}
+					&.mobile-full-btn {
+						border-radius: 12px;
+					}
 				}
 			}
 		}
@@ -312,7 +315,6 @@ $sidebar-item-font-size: 14px;
 					.sidebar-item-button {
 						&.mobile-full-btn {
 							width: 150px;
-							border-radius: 12px;
 						}
 					}
 				}
