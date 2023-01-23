@@ -296,7 +296,7 @@ Example of fetched data:
 
 # Optional
 
-`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `customButton`, `customComponent`, `search`, `onSearch`, `isLoading`, `noItemsComponent`, `customCardBodyComponent`, `sublistsKey`, `onDownload` and `height`.
+`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `customButton`, `customComponent`, `search`, `onSearch`, `isLoading`, `noItemsComponent`, `customCardBodyComponent`, `sublistsKey`, `onDownload`, `height`, `disableAdvMode`.
 
 Example of `DataTable` with all props:
 
@@ -320,6 +320,7 @@ Example of `DataTable` with all props:
 	isLoading={isLoading}
 	noItemsComponent={noItemsComponent}
 	height={height}
+	disableAdvMode={true}
 />
 ```
 
@@ -746,6 +747,24 @@ function (props) {
 }
 ```
 
+
+Property `disableAdvMode`is necessary to disable the advanced mode in the DataTable.
+
+Example of using `disableAdvMode`:
+```js
+...
+import { DataTable } from 'asab-webui';
+
+...
+	return (
+		<DataTable
+		...
+			disableAdvMode={true}
+		/>
+	);
+
+```
+
 # DataTable props
 
 ```js
@@ -772,6 +791,7 @@ props: {
   }, 
   limit?: number, // limit of items per page. Default is 10
   setLimit?: function, // function for setting limit
+  height?: number, // table height
   createButton?: {
     text: string, // text inside button
     pathname: string, // URL for redirecting to create page
@@ -785,6 +805,7 @@ props: {
   },
   onSearch?: function, // function that is called in 500ms after changes has been made in search input box
   isLoading?: boolean, // indicator for DataTable for showing spinner,
+  disableAdvMode?: boolean, // prop to turn off the advanced mode,
   noItemsComponent?: string | React.component // custom component for displaying message when there are no items
 }
 
