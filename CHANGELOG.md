@@ -6,7 +6,7 @@
 
 - Implement a new option `dateTimeFormat` to change the time format for DateTime component (INDIGO Sprint 221209, [!376](https://github.com/TeskaLabs/asab-webui/pull/376))
 
-- Implement a new option `disabledAdvMode` to disable advanced mode in DataTable (INDIGO Sprint 230106, [!384](https://github.com/TeskaLabs/asab-webui/pull/384))
+- Implement a new option `disabledAdvMode` to disable advanced mode in DataTable (INDIGO Sprint 230120, [!384](https://github.com/TeskaLabs/asab-webui/pull/384))
 
 ### Refactoring
 
