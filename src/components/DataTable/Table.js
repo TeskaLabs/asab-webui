@@ -145,8 +145,8 @@ const Headers = ({ headers, advmode, sublists }) => (
 );
 
 const TableRow = ({
-	obj, headers,
-	rowStyle, rowClassName, category, advmode
+	obj, advmode, headers,
+	rowStyle, rowClassName, category
 }) => {
 	const [isAdvUnwrapped, setAdvUnwrapped] = useState(false);
 	const [isSubUnwrapped, setSubUwrapped] = useState(true);
@@ -252,15 +252,15 @@ const TableRow = ({
 	)
 }
 
-const ASABTable = ({ 
-	data, headers,
-	rowStyle, rowClassName, category, advmode
+const ASABTable = ({
+	data, headers, advmode,
+	rowStyle, rowClassName, category
 }) => (
 	<Table size="sm" hover responsive>
 		<Headers sublists={!!category} headers={headers} advmode={advmode} className="data-table-header"/>
 		<tbody className="data-table-tbody">
 			{data && data.map((obj, idx) => (
-				<TableRow {...{ obj, headers, rowStyle, rowClassName, category, advmode }} key={idx} />
+				<TableRow {...{ obj, advmode, headers, rowStyle, rowClassName, category }} key={idx} />
 			))}
 		</tbody>
 	</Table>

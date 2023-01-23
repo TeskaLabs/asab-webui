@@ -320,7 +320,7 @@ Example of `DataTable` with all props:
 	isLoading={isLoading}
 	noItemsComponent={noItemsComponent}
 	height={height}
-	disableAdvMode
+	disableAdvMode={true}
 />
 ```
 
@@ -759,7 +759,7 @@ import { DataTable } from 'asab-webui';
 	return (
 		<DataTable
 		...
-			disableAdvMode
+			disableAdvMode={true}
 		/>
 	);
 
