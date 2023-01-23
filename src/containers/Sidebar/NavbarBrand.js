@@ -16,7 +16,7 @@ const NavbarBrand = ( props ) => {
 		brandImage = BrandingService.getLogo(Config, theme);
 	}
 
-	const href = brandImage?.href ?? "/";
+	const href = Config?._defaults?.brandImage?.href ?? "/";
 
 	if (href.includes("http")) {
 		return (
@@ -27,9 +27,9 @@ const NavbarBrand = ( props ) => {
 					rel="noopener noreferrer"
 				>
 					<img
-						src={isSidebarCollapsed ? brandImage.minimized : brandImage.full}
+						src={isSidebarCollapsed ? brandImage?.minimized : brandImage?.full}
 						alt={title}
-						width="50"
+						width={isSidebarCollapsed ? "50" : "150"}
 						height="50"
 						className="minimized-image"
 					/>
@@ -41,7 +41,7 @@ const NavbarBrand = ( props ) => {
 		<div className={`sidebar-brand-image`}>
 			<Link to={href}>
 				<img
-					src={isSidebarCollapsed ? brandImage.minimized : brandImage.full}
+					src={isSidebarCollapsed ? brandImage?.minimized : brandImage?.full}
 					alt={title}
 					width={isSidebarCollapsed ? "50" : "150"}
 					height="50"

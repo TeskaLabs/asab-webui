@@ -27,7 +27,7 @@ export function Header(props) {
 	if (Config !== undefined && theme) {
 		brandImage = BrandingService.getLogo(Config, theme);
 	}
-	const href = brandImage?.href ?? "/";
+	const href = Config?._defaults?.brandImage?.href ?? "/";
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
