@@ -15,7 +15,6 @@ export default class BrandingService extends Service {
 	}
 
 	getLogo(config, theme, type="brandImage") {
-		console.log('config: ', config)
 
 		if ((type === 'sidebarLogo') && theme && config._defaults?.sidebarLogo && config._defaults?.sidebarLogo[theme]) {
 			return config._defaults.sidebarLogo[theme];
@@ -24,7 +23,6 @@ export default class BrandingService extends Service {
 		}
 
 		if (theme && config._dynamic_config?.brandImage) {
-			// missing href
 			if (config._dynamic_config.brandImage[theme].full == undefined) {
 				return {
 					full: config._dynamic_config.brandImage[theme].minimized,
@@ -55,10 +53,8 @@ export default class BrandingService extends Service {
 					href: config._defaults.brandImage?.href
 				};
 			}
-			// missing href
 			return config._defaults.brandImage[theme]
 		} else {
-			// missing href
 			return config._defaults.defaultBrandImage;
 		}
 	}
