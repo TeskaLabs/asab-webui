@@ -54,7 +54,6 @@ $sidebar-item-font-size: 14px;
 			.sidebar-item-button.active {
 				&.logo-item {
 					background-color: inherit;
-					// outline-offset: -4px;
 					border-color: 4px solid var(--highlighted-bg-color);
 					&:hover {
 						background-color: inherit;
