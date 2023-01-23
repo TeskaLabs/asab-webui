@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useLocation, useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
