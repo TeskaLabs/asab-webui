@@ -12,10 +12,10 @@ export default class BrandingService extends Service {
 
 	constructor(app, serviceName="BrandingService"){
 		super(app, serviceName)
-		// this.Items = [];
 	}
 
 	getLogo(config, theme, type="brandImage") {
+		console.log('config: ', config)
 
 		if ((type === 'sidebarLogo') && theme && config._defaults?.sidebarLogo && config._defaults?.sidebarLogo[theme]) {
 			return config._defaults.sidebarLogo[theme];
