@@ -6,7 +6,7 @@ const WebpackDevServer = require('webpack-dev-server');
 
 // Parse arguments
 var parser = common.getArgumentParser();
-var args = parser.parseArgs();
+var args = parser.parse_args();
 
 // Load config
 var config = common.loadConfig(args)
