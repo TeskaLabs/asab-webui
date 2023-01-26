@@ -18,8 +18,8 @@ export default class ConfigService extends Service {
 
 	initialize() {
 		// Initialization of dynamic configuration
-		const headerLogoFullLight = document.getElementsByName('header-logo-full-light')[0]?.content;
-		const headerLogoMiniLight = document.getElementsByName('header-logo-minimized-light')[0]?.content;
+		const headerLogoFullLight = document.getElementsByName('header-logo-full')[0]?.content;
+		const headerLogoMiniLight = document.getElementsByName('header-logo-minimized')[0]?.content;
 		const headerLogoFullDark = document.getElementsByName('header-logo-full-dark')[0]?.content;
 		const headerLogoMiniDark = document.getElementsByName('header-logo-minimized-dark')[0]?.content;
 		const title = document.getElementsByName('title')[0]?.content;
