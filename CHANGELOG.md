@@ -20,6 +20,8 @@
 
 - Bug fix for incorrect display of breadcrumbs if parts of the string were almost the same (INDIGO Sprint 221209, [!382](https://github.com/TeskaLabs/asab-webui/pull/382))
 
+- Bug fix in the styles for the button in CardHeader (INDIGO Sprint 230120, [!386](https://github.com/TeskaLabs/asab-webui/pull/386))
+
 ## v22.48
 
 ### Breaking changes
