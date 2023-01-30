@@ -18,8 +18,8 @@ export default class ConfigService extends Service {
 
 	initialize() {
 		// Initialization of dynamic configuration
-		const headerLogoFullLight = document.getElementsByName('header-logo-full')[0]?.content;
-		const headerLogoMiniLight = document.getElementsByName('header-logo-minimized')[0]?.content;
+		const headerLogoFull = document.getElementsByName('header-logo-full')[0]?.content;
+		const headerLogoMini = document.getElementsByName('header-logo-minimized')[0]?.content;
 		const headerLogoFullDark = document.getElementsByName('header-logo-full-dark')[0]?.content;
 		const headerLogoMiniDark = document.getElementsByName('header-logo-minimized-dark')[0]?.content;
 		const title = document.getElementsByName('title')[0]?.content;
@@ -28,33 +28,33 @@ export default class ConfigService extends Service {
 		let dynamicConfig = {};
 
 		// Add custom header full light logo
-		if ((headerLogoFullLight != undefined) && (headerLogoFullLight != "")) {
-			dynamicConfig.brandImage = {light: {full: headerLogoFullLight}};
+		if ((headerLogoFull != undefined) && (headerLogoFull != "")) {
+			dynamicConfig["brandImage"] = {"light": {"full": headerLogoFull}};
 		}
 		// Add custom header minimized light logo
-		if ((headerLogoMiniLight != undefined) && (headerLogoMiniLight != "")) {
+		if ((headerLogoMini != undefined) && (headerLogoMini != "")) {
 			if (dynamicConfig?.brandImage?.light !== undefined) {
-				dynamicConfig.brandImage.light.minimized = headerLogoMiniLight;
+				dynamicConfig["brandImage"]["light"]["minimized"] = headerLogoMini;
 			} else {
-				dynamicConfig.brandImage = {light: {minimized: headerLogoMiniLight}}
+				dynamicConfig["brandImage"] = {"light": {"minimized": headerLogoMini}}
 			}
 		}
 		// Add custom header full dark logo
 		if ((headerLogoFullDark != undefined) && (headerLogoFullDark != "")) {
 			if (dynamicConfig?.brandImage !== undefined) {
-				dynamicConfig.brandImage.dark = {full: headerLogoFullDark};
+				dynamicConfig["brandImage"]["dark"] = {"full": headerLogoFullDark};
 			} else {
-				dynamicConfig.brandImage = {dark: {full: headerLogoFullDark}}
+				dynamicConfig["brandImage"] = {"dark": {"full": headerLogoFullDark}}
 			}
 		}
 		// Add custom header minimized dark logo
 		if ((headerLogoMiniDark != undefined) && (headerLogoMiniDark != "")) {
 			if (dynamicConfig?.brandImage?.dark !== undefined) {
-				dynamicConfig.brandImage.dark.minimized = headerLogoMiniDark;
+				dynamicConfig["brandImage"]["dark"]["minimized"] = headerLogoMiniDark;
 			} else if ((dynamicConfig?.brandImage?.light !== undefined)) {
-				dynamicConfig.brandImage.dark = {minimized: headerLogoMiniDark}
+				dynamicConfig["brandImage"]["dark"] = {"minimized": headerLogoMiniDark}
 			} else {
-				dynamicConfig.brandImage = {dark: {minimized: headerLogoMiniDark}}
+				dynamicConfig["brandImage"] = {"dark": {"minimized": headerLogoMiniDark}}
 			}
 		}
 
