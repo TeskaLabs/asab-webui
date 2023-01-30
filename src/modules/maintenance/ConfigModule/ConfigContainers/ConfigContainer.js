@@ -28,14 +28,13 @@ function ConfigContainer(props) {
 	const BrandingService = props.app.Services.BrandingService;
 	const Config = props.app.ConfigService.Config;
 
-
 	const [ treeData, setTreeData ] = useState({}); // Set complete data for TreeViewComponent
 	const [ createConfig, setCreateConfig ] = useState(false); // Use for condition to render components
 	const [ chosenPanel, setChosenPanel ] = useState("configurator"); // Sets the condition for showing the ConfigImport component
 	const [ typeList, setTypeList ] = useState([]); // Set data name of type for group configuration
 	const [ treeList, setTreeList ] = useState({}); // Set cleaned data for trigger UseEffect for updating TreeViewComponent, and for render the tree
 	const [ openNodes, setOpenNodes ] = useState([]); // Set open nodes in the TreeMenu
-	// const config_created = useSelector(state => state.asab_config.configCreated)
+	const config_created = useSelector(state => state.asab_config.configCreated)
 
 	let homeScreenImg;
 	if (Config !== undefined && theme) {
