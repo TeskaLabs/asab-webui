@@ -12,7 +12,6 @@ export default class BrandingService extends Service {
 
 	constructor(app, serviceName="BrandingService"){
 		super(app, serviceName)
-		// this.Items = [];
 	}
 
 	getLogo(config, theme, type="brandImage") {
@@ -24,7 +23,18 @@ export default class BrandingService extends Service {
 		}
 
 		if (theme && config._dynamic_config?.brandImage) {
-			// missing href
+			if (config._dynamic_config.brandImage[theme].full == undefined) {
+				return {
+					full: config._dynamic_config.brandImage[theme].minimized,
+					minimized: config._dynamic_config.brandImage[theme].minimized
+				}
+			}
+			if (config._dynamic_config.brandImage[theme].minimized == undefined) {
+				return {
+					full: config._dynamic_config.brandImage[theme].full,
+					minimized: config._dynamic_config.brandImage[theme].full
+				}
+			}
 			return config._dynamic_config.brandImage[theme]
 		}
 
@@ -43,10 +53,8 @@ export default class BrandingService extends Service {
 					href: config._defaults.brandImage?.href
 				};
 			}
-			// missing href
 			return config._defaults.brandImage[theme]
 		} else {
-			// missing href
 			return config._defaults.defaultBrandImage;
 		}
 	}

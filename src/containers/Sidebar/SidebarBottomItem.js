@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useLocation, useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
@@ -65,7 +65,7 @@ const SidebarBottomItem = ({ item, sidebarLogo, screenWidth }) => {
 						{item && (
 							<button
 								title={t(`Sidebar|${item.name}`)}
-								className={`sidebar-item-button${location.pathname === item.url ? " active " : " "}btn left ${!isSidebarCollapsed && "mobile-full-btn"}`}
+								className={`sidebar-item-button${location.pathname === item.url ? " active " : " "}btn left ${!isSidebarCollapsed && "mobile-full-btn"} logo-item`}
 							>
 								{sidebarLogo ?
 									isSidebarCollapsed ?

@@ -52,6 +52,13 @@ $sidebar-item-font-size: 14px;
 			}
 
 			.sidebar-item-button.active {
+				&.logo-item {
+					background-color: inherit;
+					border-color: 4px solid var(--highlighted-bg-color);
+					&:hover {
+						background-color: inherit;
+					}
+				}
 				background-color: $highlighted-bg-color;
 				.sidebar-item-icon, .sidebar-item-name {
 					color: $reversed-text-color;
@@ -273,6 +280,9 @@ $sidebar-item-font-size: 14px;
 					&.mobile-collapsed {
 						display: none;
 					}
+					&.mobile-full-btn {
+						border-radius: 12px;
+					}
 				}
 			}
 		}
@@ -304,7 +314,6 @@ $sidebar-item-font-size: 14px;
 					.sidebar-item-button {
 						&.mobile-full-btn {
 							width: 150px;
-							border-radius: 12px;
 						}
 					}
 				}

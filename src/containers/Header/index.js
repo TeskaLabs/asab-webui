@@ -1,4 +1,4 @@
-import React, { useState, Suspense, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import {
@@ -27,7 +27,7 @@ export function Header(props) {
 	if (Config !== undefined && theme) {
 		brandImage = BrandingService.getLogo(Config, theme);
 	}
-	const href = brandImage?.href ?? "/";
+	const href = Config?._defaults?.brandImage?.href ?? "/";
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
@@ -46,7 +46,7 @@ export function Header(props) {
 						<div className="mobile-logo-position">
 							<Link to={href}>
 								<img
-									src={brandImage.full}
+									src={brandImage?.full}
 									alt={title}
 									width="150"
 									height="50"
@@ -70,7 +70,7 @@ export function Header(props) {
 					<div className="mobile-logo-position">
 						<Link to={href}>
 							<img
-								src={brandImage.full}
+								src={brandImage?.full}
 								alt={title}
 								width="150"
 								height="50"
