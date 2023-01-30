@@ -10,8 +10,8 @@ let ConfigDefaults = {
 	title: "Page Title",
 	brandImage: {
 		light: {
-			full: "path/to/external-header-full-light.svg",
-			minimized: "path/to/external-header-minimized-light.svg"
+			full: "path/to/external-header-fullt.svg",
+			minimized: "path/to/external-header-minimizedt.svg"
 		},
 		dark: {
 			full: "path/to/external-header-full-dark.svg",
@@ -20,8 +20,8 @@ let ConfigDefaults = {
 	},
 	sidebarLogo: {
 		light: {
-			full: "media/logo/sidebar-full-light.svg",
-			minimized: "media/logo/sidebar-minimized-light.svg"
+			full: "media/logo/sidebar-full.svg",
+			minimized: "media/logo/sidebar-minimized.svg"
 		},
 		dark: {
 			full: "media/logo/sidebar-full-dark.svg",
