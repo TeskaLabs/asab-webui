@@ -5,91 +5,18 @@ import { Pagination, PaginationItem, PaginationLink, Dropdown, DropdownMenu, Dro
 
 export default function ({ currentPage, setPage, lastPage, style }) {
 	const slots = lastPage;
-	// console.log(currentPage, setPage, lastPage, style, "AHAHHAHA")
 	// let start = currentPage - Math.floor(slots / 2);
 	// let end = currentPage + Math.floor(slots / 2);
 
 	// console.log(start, end, "START END")
 
 	const [open, setOpen] = useState(false);
-	// const [toggleValue, setToggleValue] = useState(undefined);
 	const [middlePart, setMiddlePart] = useState([]);
 	const [arrayStartEnd, setArrayStartEnd] = useState([1, lastPage])
 
 	const { t, i18n } = useTranslation();
 
-	// if (start < 1) {
-	// 	start = 1;
-	// 	end = Math.min(slots, lastPage);
-	// }
-
-	// else if (end > lastPage) {
-	// 	start = Math.max(lastPage - slots + 1, 1);
-	// 	end = lastPage;
-	// }
-
-	// let pages = [];
-	// for (let i = start; i <= end; i++) {
-	// 	pages.push(i);
-	// }
-
-	// if (pages.length === 0) {
-	// 	pages.push(1)
-	// }
-
-	// const pages = useMemo(() => {
-	// 	let p = []; // Pages array
-	// 	// if (displayAnother != undefined) {
-	// 	// 	if (displayAnother == "more") {
-	// 	// 		console.log(pagesArray, "PAGES")
-	// 	// 		pagesArray && pagesArray.map(itm => {
-	// 	// 			if ((itm == 1) || (itm == "less")) {
-	// 	// 				p.push(itm);
-	// 	// 			}
-	// 	// 			if (((itm != "less") && (itm != "more")) && ((itm + 1) != lastPage)) {
-	// 	// 				p.push(itm + 1);
-	// 	// 			}
-	// 	// 			if ((itm == "less") || (itm == "more")) {
-	// 	// 				p.push(itm);
-	// 	// 			}
-	// 	// 			if (((itm != "less") && (itm != "more")) && (itm + 1 == lastPage)) {
-	// 	// 				return p.push(itm + 1);
-	// 	// 			}
-	// 	// 		})
-	// 	// 		return p;
-	// 	// 		// return
-	// 	// 	}
-	// 	// 	// return
-	// 	// }
-	// 	let start = currentPage - Math.floor(slots / 2);
-	// 	let end = currentPage + Math.floor(slots / 2);
-	// 	if (start < 1) {
-	// 		start = 1;
-	// 		end = Math.min(slots, lastPage);
-	// 	} else if (end > lastPage) {
-	// 		start = Math.max(lastPage - slots + 1, 1);
-	// 		end = lastPage;
-	// 	}
-	// 	// p.push(start);
-	// 	// if (end != start) {
-	// 	// 	p.push(end);
-	// 	// }
-	// 	for (let i = start + 1; i < end; i++) {
-	// 		// p.push(i);
-	// 		p.splice(i - 1 , 0, i)
-	// 		if ((i == 5) && (end > 5)) {
-	// 			p.splice(i, 0, "more");
-	// 			// p.push(end);
-	// 			return p;
-	// 		}
-	// 	}
-	// 	if (p.length === 0) {
-	// 		p.push(1)
-	// 	}
-	// 	return p;
-	// }, [slots, displayAnother])
-
-
+	// console.log(currentPage, lastPage, "CUR LAST")
 	useEffect(() => {
 		setArrayStartEnd([1, lastPage]);
 		pagesMiddle();
@@ -104,13 +31,11 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 	const pages = useMemo(() => {
 		if (middlePart.length > 0) {
 			let p = [...arrayStartEnd];
-			console.log(p, "STARTEND")
 			p.splice(1, 0, ...middlePart);
-			console.log(p, "PPP V AGES")
 			if ((p[1]) > 2) {
 				p.splice(1, 0, "less");
 			}
-			if ((p[p.length - 2]) < lastPage) {
+			if ((p[p.length - 2] + 1) < lastPage) {
 				p.splice(p.length - 1, 0, "more");
 			}
 			return p;
@@ -118,31 +43,22 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 		if (arrayStartEnd[0] == arrayStartEnd[1]) {
 			return [arrayStartEnd[0]];
 		}
+		if (lastPage == 0) {
+			return [1];
+		}
 		return arrayStartEnd;
 	}, [middlePart])
 
-	// useEffect(() => {
-	// 	console.log(pages, 'PAGESSSSS')
-	// 	let p = arrayStartEnd.splice(1, 0, pages)
-	// 	arrayStartEnd.splice(1, 0, ...pages)
-	// 	console.log(arrayStartEnd, "PAPAPAPAPPAPAPAPA")
-	// 	setPagesArray(arrayStartEnd);
-	// }, [pages])
-
-	// console.log
-
-	// console.log(pages, "PAGES")
 
 	const pagesMiddle = (action) => {
 		let p = []; // Pages array
 		let start = currentPage - Math.floor(slots / 2);
 		let end = currentPage + Math.floor(slots / 2);
 
-		console.log(start, end, " S END")
 		if ((action == "less") || (action == "more")) {
 			if (action == "less") {
-				start = middlePart[0] - 4;
-				end = middlePart[middlePart.length - 1] - 4;
+				start = middlePart[0] - 1;
+				end = middlePart[middlePart.length - 1] - 1;
 				if (start < 1) {
 					start = 1 - Math.floor(slots / 2);
 				}
@@ -150,8 +66,8 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 					end = 1 + Math.floor(slots / 2);
 				}
 			} else if (action == "more") {
-				start = middlePart[0] + 4;
-				end = middlePart[middlePart.length - 1] + 4;
+				start = middlePart[0] + 1;
+				end = middlePart[middlePart.length - 1] + 1;
 				if (end > lastPage) {
 					end = lastPage - 1;
 				}
@@ -159,7 +75,6 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 					start = middlePart[0];
 				}
 			}
-			console.log(start, end, "S ENDDDD")
 			for (let i = start; i <= end; i++) {
 				p.splice(i, 0, i);
 			}
@@ -172,57 +87,66 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 				start = Math.max(lastPage - slots + 1, 1);
 				end = lastPage;
 			}
-			console.log(start, end, "S END POTE")
+			// console.log(start, end, 'TAK CO TADY')
 			for (let i = start + 1; i < end; i++) {
 				p.splice(i - 1 , 0, i)
-				console.log(p, 'PPPPP')
 				if ((i == 5) && (end > 5)) {
-					setMiddlePart(p)
+					setMiddlePart(p);
 					return;
 				}
 			}
+			// TODO: Manage cases when user clicks on last and first item and would like to skip all the other pages
+			// console.log(action, 'ACTION')
+			// if (action == lastPage) {
+			// 	let e = end - 4;
+			// 	if (e < 1) {
+			// 		e = start + 1;
+			// 	}
+			// 	console.log(e, "AAAAAAAAAAAAAA")
+			// 	for (let i = e; i < end; i++) {
+			// 		p.splice(i - 1 , 0, i)
+			// 		if ((i == 5) && (end > 5)) {
+			// 			setMiddlePart(p);
+			// 			return;
+			// 		}
+			// 	}
+			// } else {
+			// 	console.log("TADU", start, end)
+			// 	for (let i = start + 1; i < end; i++) {
+			// 		p.splice(i - 1 , 0, i)
+			// 		if ((i == 5) && (end > 5)) {
+			// 			setMiddlePart(p);
+			// 			return;
+			// 		}
+			// 	}
+			// }
 		}
-		console.log(p, "PPPPPPPPPPP")
-		// if (p.length === 0) {
-		// 	p.push(1)
-		// }
-
 		setMiddlePart(p);
 	}
 
 	const pageDropdownClick = (p) => {
 		if (p == "more") {
-			console.log(p)
-			// setToggleValue(p);
 			pagesMiddle(p);
-			// TODO: call more pages and display
+			setOpen(false);
 		} else if (p == "less") {
-			console.log(p)
-			// setToggleValue(p);
 			pagesMiddle(p);
-			// TODO: call less pages and display
+			setOpen(false);
 		} else {
-			// setOpen(false);
-			// setToggleValue(undefined);
+			// TODO: Manage cases when user clicks on last and first item and would like to skip all the other pages
+			// if ((p == lastPage) || (p == 1)) {
+			// 	pagesMiddle(p);
+			// }
 			setPage(p);
-			// dropDownToggle();
+			setOpen(true);
 		}
 	}
 
-	// const dropDownToggle = () => {
-	// 	if ((toggleValue == "more") || (toggleValue == "less")) {
-	// 		setOpen(true);
-	// 	} else {
-	// 		setOpen(prev => !prev)
-	// 	}
-	// };
-	// console.log(toggleValue, open, "OPENNNN")
+
 	return (
 		<div className="data-table-pagination" style={style}>	
 			<Dropdown 
 				isOpen={open}
 				toggle={() => setOpen(prev => !prev)}
-				// toggle={() => dropDownToggle()}
 				direction="down"
 				className="pagination-dropdown"
 			>
@@ -233,7 +157,7 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 					{pages && pages.map((page, idx) =>
 						<DropdownItem
 							key={idx}
-							title={(page == "more") ? t('More') : (page == "less") ? t('Less') : page}
+							// title={(page == "more") ? t('More') : (page == "less") ? t('Less') : page}
 							onClick={() => pageDropdownClick(page)}
 						>
 							{((page == "more") || (page == "less")) ? "..." : page}
@@ -244,7 +168,7 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 			</Dropdown>
 
 			<div className="mr-2">
-				{pages && (pages.length > 1) ? t('Pages', {pages: lastPage}) : t('Page', {pages: lastPage})}
+				{pages && (pages.length > 1) ? t('Pages', {pages: (lastPage == 0) ? 1 : lastPage}) : t('Page', {pages: (lastPage == 0) ? 1 : lastPage})}
 			</div>
 
 			<Pagination>
