@@ -2,6 +2,8 @@
 
 ## Release Candidate
 
+## v23.5
+
 ### Features
 
 - Implement a new option `dateTimeFormat` to change the time format for DateTime component (INDIGO Sprint 221209, [!376](https://github.com/TeskaLabs/asab-webui/pull/376))
