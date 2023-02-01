@@ -120,10 +120,7 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 
 	// Action triggered on value click in page dropdown
 	const pageDropdownClick = (p) => {
-		if (p == "more") {
-			pagesMiddle(p);
-			setOpen(false);
-		} else if (p == "less") {
+		if ((p == "more") || (p == "less")) {
 			pagesMiddle(p);
 			setOpen(false);
 		} else {
