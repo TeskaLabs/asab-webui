@@ -5,11 +5,6 @@ import { Pagination, PaginationItem, PaginationLink, Dropdown, DropdownMenu, Dro
 
 export default function ({ currentPage, setPage, lastPage, style }) {
 	const slots = lastPage;
-	// let start = currentPage - Math.floor(slots / 2);
-	// let end = currentPage + Math.floor(slots / 2);
-
-	// console.log(start, end, "START END")
-
 	const [open, setOpen] = useState(false);
 	const [middlePart, setMiddlePart] = useState([]);
 	const [arrayStartEnd, setArrayStartEnd] = useState([1, lastPage])
@@ -95,15 +90,6 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 				start = Math.max(lastPage - slots + 1, 1);
 				end = lastPage;
 			}
-			// // console.log(start, end, 'TAK CO TADY')
-			// for (let i = start + 1; i < end; i++) {
-			// 	p.splice(i - 1 , 0, i)
-			// 	if ((i == 5) && (end > 5)) {
-			// 		setMiddlePart(p);
-			// 		return;
-			// 	}
-			// }
-			// TODO: Manage cases when user clicks on last and first item and would like to skip all the other pages
 
 			if (action == lastPage) {
 				/*
@@ -169,7 +155,6 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 					{pages && pages.map((page, idx) =>
 						<DropdownItem
 							key={idx}
-							// title={(page == "more") ? t('More') : (page == "less") ? t('Less') : page}
 							onClick={() => pageDropdownClick(page)}
 						>
 							{((page == "more") || (page == "less")) ? "..." : page}
