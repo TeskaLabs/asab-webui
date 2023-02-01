@@ -20,6 +20,8 @@
 
 - Bug fix for incorrect display of breadcrumbs if parts of the string were almost the same (INDIGO Sprint 221209, [!382](https://github.com/TeskaLabs/asab-webui/pull/382))
 
+- Fix pagination component which was causing app performance problems when the count of the pages was more than thousand. It used to generate all the items within pagination dropdown. The fix is that it displays only particular amount of pages with options to display more or less of the pages. (INDIGO Sprint 230120, [!387](https://github.com/TeskaLabs/asab-webui/pull/387))
+
 ## v22.48
 
 ### Breaking changes
