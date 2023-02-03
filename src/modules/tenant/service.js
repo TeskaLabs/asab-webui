@@ -67,7 +67,27 @@ export default class TenantService extends Service {
 
 	}
 
-	// get_current_tenant() method is used for obtaining current tenant
+	/*
+		getTenantData() method is used for returning the tenant data
+		It requires SeaCat Auth service
+	*/
+	async getTenantData() {
+		let tenantData = {};
+		let currentTenant = this.getCurrentTenant();
+		if (currentTenant) {
+			const SeaCatAuthAPI = this.App.axiosCreate('seacat_auth');
+			try {
+				let response = await SeaCatAuthAPI.get(`/tenant/${currentTenant}`);
+				tenantData = response.data;
+			} catch (e) {
+				console.warn(`Tenant service can't retrieve data for ${currentTenant}`);
+				console.error(e);
+			}
+		}
+		return tenantData;
+	}
+
+	// getCurrentTenant() method is used for obtaining current tenant
 	getCurrentTenant() {
 		const state = this.App.Store.getState();
 		let currentTenant = state.tenant.current;
