@@ -3,11 +3,11 @@ import Service from '../abc/Service';
 export default class HeaderService extends Service {
 
 	/*
-	Header service expects `header-logo-full-light.svg` and `header-logo-minimized-light.svg` SVG images
+	Header service expects `header-logo-full.svg` and `header-logo-minimized.svg` SVG images
 	in `/public/media/logo/` directory:
 
-	 * `header-logo-full-light.svg` dimensions: 120 x 30 pixels
-	 * `header-logo-minimized-light.svg` dimensions: 30 x 30 pixels
+	 * `header-logo-full.svg` dimensions: 120 x 30 pixels
+	 * `header-logo-minimized.svg` dimensions: 30 x 30 pixels
 	*/
 
 	constructor(app, serviceName="HeaderService"){
@@ -19,8 +19,8 @@ export default class HeaderService extends Service {
 	initialize() {
 		this.App.ConfigService.addDefaults({
 			'defaultBrandImage': {
-				full: "media/logo/header-logo-full-light.svg",
-				minimized: "media/logo/header-logo-minimized-light.svg",
+				full: "media/logo/header-logo-full.svg",
+				minimized: "media/logo/header-logo-minimized.svg",
 				href: undefined,
 			}
 		}, true)
