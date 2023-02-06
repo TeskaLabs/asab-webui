@@ -18,8 +18,8 @@ export default class ConfigService extends Service {
 
 	initialize() {
 		// Initialization of dynamic configuration
-		const headerLogoFullLight = document.getElementsByName('header-logo-full-light')[0]?.content;
-		const headerLogoMiniLight = document.getElementsByName('header-logo-minimized-light')[0]?.content;
+		const headerLogoFullLight = document.getElementsByName('header-logo-full')[0]?.content;
+		const headerLogoMiniLight = document.getElementsByName('header-logo-minimized')[0]?.content;
 		const headerLogoFullDark = document.getElementsByName('header-logo-full-dark')[0]?.content;
 		const headerLogoMiniDark = document.getElementsByName('header-logo-minimized-dark')[0]?.content;
 		const title = document.getElementsByName('title')[0]?.content;
@@ -56,28 +56,6 @@ export default class ConfigService extends Service {
 			} else {
 				dynamicConfig.brandImage = {dark: {minimized: headerLogoMiniDark}}
 			}
-		}
-
-		// when we have defined both cases (full & minimized) for light mode, but no dark mode -> light versions for both cases
-		if ((dynamicConfig?.brandImage?.light?.full) && (dynamicConfig?.brandImage?.light?.minimized) && (dynamicConfig?.brandImage?.dark == undefined)) {
-			dynamicConfig.brandImage.dark = dynamicConfig.brandImage.light;
-		}
-		// when we have defined both cases (full & minimized) for dark mode, but no light mode -> light versions for both cases
-		if ((dynamicConfig?.brandImage?.dark?.full) && (dynamicConfig?.brandImage?.dark?.minimized) && (dynamicConfig?.brandImage?.light == undefined)) {
-			dynamicConfig.brandImage.light = dynamicConfig.brandImage.dark;
-		}
-
-		if ((!dynamicConfig?.brandImage?.light) && (dynamicConfig?.brandImage?.dark?.full == undefined) && (dynamicConfig?.brandImage?.dark?.minimized)) {
-			dynamicConfig.brandImage.light = dynamicConfig.brandImage.dark;
-		}
-		if ((!dynamicConfig?.brandImage?.light) && (dynamicConfig?.brandImage?.dark?.minimized == undefined) && (dynamicConfig?.brandImage?.dark?.full)) {
-			dynamicConfig.brandImage.light = dynamicConfig.brandImage.dark;
-		}
-		if ((!dynamicConfig?.brandImage?.dark) && (dynamicConfig?.brandImage?.light?.full == undefined) && (dynamicConfig?.brandImage?.light?.minimized)) {
-			dynamicConfig.brandImage.dark = dynamicConfig.brandImage.light;
-		}
-		if ((!dynamicConfig?.brandImage?.dark) && (dynamicConfig?.brandImage?.light?.minimized == undefined) && (dynamicConfig?.brandImage?.light?.full)) {
-			dynamicConfig.brandImage.dark = dynamicConfig.brandImage.light;
 		}
 
 		// Add custom title
