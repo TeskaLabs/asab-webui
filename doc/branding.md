@@ -10,8 +10,8 @@ let ConfigDefaults = {
 	title: "Page Title",
 	brandImage: {
 		light: {
-			full: "path/to/external-header-full-light.svg",
-			minimized: "path/to/external-header-minimized-light.svg"
+			full: "path/to/external-header-fullt.svg",
+			minimized: "path/to/external-header-minimizedt.svg"
 		},
 		dark: {
 			full: "path/to/external-header-full-dark.svg",
@@ -20,8 +20,8 @@ let ConfigDefaults = {
 	},
 	sidebarLogo: {
 		light: {
-			full: "media/logo/sidebar-full-light.svg",
-			minimized: "media/logo/sidebar-minimized-light.svg"
+			full: "media/logo/sidebar-full.svg",
+			minimized: "media/logo/sidebar-minimized.svg"
 		},
 		dark: {
 			full: "media/logo/sidebar-full-dark.svg",
@@ -45,7 +45,7 @@ There are 3 options for dynamic branding - header logo, title and custom CSS sty
 
 ### Header logo
 
-To replace default header logo, the nginx `sub_filter` configuration has to follow `<meta name="header-logo-full">`, `<meta name="header-logo-minimized">` (for light mode) and `<meta name="header-logo-full-dark">` and `<meta name="header-logo-minimized-dark">` (for dark mode) replacement rules with the particular `name`. The replacement must have a `content` prop, otherwise the content of the replacement will not be propagated. `content` has to include a string with path to the logo.
+To replace default header logo, the nginx `sub_filter` configuration has to follow `<meta name="header-logo-full">`, `<meta name="header-logo-minimized">` (for light variation) and `<meta name="header-logo-full-dark">` and `<meta name="header-logo-minimized-dark">` replacement rules with the particular `name`. The replacement must have a `content` prop, otherwise the content of the replacement will not be propagated. `content` has to include a string with path to the logo.
 
 Size of the branding images can be found [here](#branding-images)
 
@@ -133,8 +133,8 @@ Example of application's `index.html` setup (for **devs** only) - this is being 
 		...
 
 		<!-- Dynamic config start -->
-		<meta name="header-logo-full">
-		<meta name="header-logo-minimized">
+		<meta name="header-logo-fullß">
+		<meta name="header-logo-minimizedß">
 		<meta name="header-logo-full-dark">
 		<meta name="header-logo-minimized-dark">
 		<meta name="title">
