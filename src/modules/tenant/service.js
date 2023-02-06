@@ -6,6 +6,8 @@ export default class TenantService extends Service {
 
 	constructor(app, name = "TenantService") {
 		super(app, name);
+		// Tenant data cache
+		this.TenantDataCache = {};
 	}
 
 	async initialize() {
@@ -72,16 +74,23 @@ export default class TenantService extends Service {
 		It requires SeaCat Auth service
 	*/
 	async getTenantData() {
-		let tenantData = {};
 		let currentTenant = this.getCurrentTenant();
+		// If tenant data being cached already, then return the data
+		if (this.TenantDataCache[currentTenant]) {
+			return this.TenantDataCache[currentTenant];
+		}
+		let tenantData = {};
 		if (currentTenant) {
 			const SeaCatAuthAPI = this.App.axiosCreate('seacat_auth');
 			try {
 				let response = await SeaCatAuthAPI.get(`/tenant/${currentTenant}`);
 				tenantData = response.data;
+				this.TenantDataCache[currentTenant] = tenantData;
 			} catch (e) {
 				console.warn(`Tenant service can't retrieve data for ${currentTenant}`);
 				console.error(e);
+				// Remove data from the TenantDataCache eventually
+				delete this.TenantDataCache[currentTenant];
 			}
 		}
 		return tenantData;
