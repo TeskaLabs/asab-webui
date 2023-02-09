@@ -71,7 +71,7 @@
 export const validateConfiguration = (props, config) => {
 	// Check if Tenant module is present within the application
 	if (props.app.Services.TenantService) {
-		let currentTenant = props.app.Services.TenantService.get_current_tenant();
+		let currentTenant = props.app.Services.TenantService.getCurrentTenant();
 		// Get object with authorization setup (if defined in the configuration)
 		// TODO: Remove support of ":authorization" by the end of 2022
 		let authSection = Object.keys(config).filter(res => res.includes(`:authorization`) || res == "Authorization");

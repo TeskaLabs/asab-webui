@@ -37,7 +37,7 @@ export class SeaCatAuthApi {
 		*/
 		let currentTenant = null;
 		if (this.App.Services.TenantService) {
-			currentTenant = this.App.Services.TenantService.get_current_tenant();
+			currentTenant = this.App.Services.TenantService.getCurrentTenant();
 		}
 		let scopeArray = this.Scope.split(" ");
 		let tenantValue = scopeArray.find(str => str.includes("tenant"));

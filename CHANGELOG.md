@@ -2,6 +2,14 @@
 
 ## Release Candidate
 
+### Features
+
+- Implement `getTenantData` method to Tenant service (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
+
+### Refactoring
+
+- Refactor naming for `get_current_tenant`, `set_tenants` and `_extract_tenant_from_url` from snake_case to camelCase format (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
+
 ## v23.5
 
 ### Features
