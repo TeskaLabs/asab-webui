@@ -58,28 +58,6 @@ export default class ConfigService extends Service {
 			}
 		}
 
-		// when we have defined both cases (full & minimized) for light mode, but no dark mode -> light versions for both cases
-		if ((dynamicConfig?.brandImage?.light?.full) && (dynamicConfig?.brandImage?.light?.minimized) && (dynamicConfig?.brandImage?.dark == undefined)) {
-			dynamicConfig.brandImage.dark = dynamicConfig.brandImage.light;
-		}
-		// when we have defined both cases (full & minimized) for dark mode, but no light mode -> light versions for both cases
-		if ((dynamicConfig?.brandImage?.dark?.full) && (dynamicConfig?.brandImage?.dark?.minimized) && (dynamicConfig?.brandImage?.light == undefined)) {
-			dynamicConfig.brandImage.light = dynamicConfig.brandImage.dark;
-		}
-
-		if ((!dynamicConfig?.brandImage?.light) && (dynamicConfig?.brandImage?.dark?.full == undefined) && (dynamicConfig?.brandImage?.dark?.minimized)) {
-			dynamicConfig.brandImage.light = dynamicConfig.brandImage.dark;
-		}
-		if ((!dynamicConfig?.brandImage?.light) && (dynamicConfig?.brandImage?.dark?.minimized == undefined) && (dynamicConfig?.brandImage?.dark?.full)) {
-			dynamicConfig.brandImage.light = dynamicConfig.brandImage.dark;
-		}
-		if ((!dynamicConfig?.brandImage?.dark) && (dynamicConfig?.brandImage?.light?.full == undefined) && (dynamicConfig?.brandImage?.light?.minimized)) {
-			dynamicConfig.brandImage.dark = dynamicConfig.brandImage.light;
-		}
-		if ((!dynamicConfig?.brandImage?.dark) && (dynamicConfig?.brandImage?.light?.minimized == undefined) && (dynamicConfig?.brandImage?.light?.full)) {
-			dynamicConfig.brandImage.dark = dynamicConfig.brandImage.light;
-		}
-
 		// Add custom title
 		if ((title != undefined) && (title != "")) {
 			dynamicConfig["title"] = title;
