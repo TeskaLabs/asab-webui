@@ -1,7 +1,6 @@
 // imports
 const webpack = require('webpack');
 const path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -67,13 +66,6 @@ module.exports = {
 				// "publicUrl" -> "__PUBLIC_URL__"
 				// "apiUrl" -> "__API_URL__"
 			),
-			new UglifyJsPlugin({
-				uglifyOptions: {
-					output: {
-						comments: false
-					}
-				}
-			}),
 			// Extracts file styles.css
 			new MiniCssExtractPlugin({ filename: '[name].[contenthash:8].css'}),
 			// new MiniCssExtractPlugin({ filename: 'assets/css/[name].css' }),
@@ -144,6 +136,9 @@ module.exports = {
 					// `...` applies webpack's default minimizers which would otherwise be overwritten by our config
 					`...`,
 					new TerserPlugin({
+						test: /\.js(\?.*)?$/i,
+						parallel: true,
+						minify: TerserPlugin.terserMinify,
 						terserOptions: {
 							parse: {
 								ecma: 8,
@@ -161,8 +156,12 @@ module.exports = {
 								ecma: 5,
 								comments: false,
 								ascii_only: true
-							}
-						}
+							},
+							format: {
+								comments: false,
+							},
+						},
+						extractComments: false
 					}),
 					new CssMinimizerPlugin(),
 				],
