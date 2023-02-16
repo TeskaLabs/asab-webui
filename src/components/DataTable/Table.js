@@ -252,7 +252,7 @@ const TableRow = ({
 	)
 }
 
-const ASABTable = ({ 
+const ASABTable = ({
 	data, headers, advmode,
 	rowStyle, rowClassName, category
 }) => (
@@ -266,8 +266,7 @@ const ASABTable = ({
 	</Table>
 );
 
-const mapStateToProps = (state) => ({ 
-	advmode: state.advmode.enabled,
+const mapStateToProps = (state) => ({
 	theme: state.theme
 });
 

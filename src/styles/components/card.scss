@@ -52,6 +52,9 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 				padding: 0 0.5rem;
 			}
 		}
+		.btn:last-child {
+			border-radius: 0 8px 0 0;
+		}
 		.btn-group {
 			padding: 0;
 			margin-left: auto;
@@ -65,10 +68,6 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 				&:last-child {
 					border-radius: 0 7px 0 0;
 				}
-			}
-
-			.btn:last-child {
-				border-radius: 0 8px 0 0;
 			}
 			.btn:last-child {
 				border-radius: 0 8px 0 0;

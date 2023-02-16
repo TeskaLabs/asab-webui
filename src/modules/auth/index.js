@@ -165,7 +165,7 @@ export default class AuthModule extends Module {
 		/** Check for TenantService and pass tenants list obtained from userinfo */
 		let tenants_list = mockParams.tenants;
 		if (this.App.Services.TenantService) {
-			await this.App.Services.TenantService.set_tenants(tenants_list);
+			await this.App.Services.TenantService.setTenants(tenants_list);
 		}
 	}
 
@@ -193,7 +193,7 @@ export default class AuthModule extends Module {
 		let unauthorizedNavChildren = [];
 		let resources = [];
 		if (this.UserInfo !== null) {
-			let currentTenant = this.App.Services.TenantService.get_current_tenant();
+			let currentTenant = this.App.Services.TenantService.getCurrentTenant();
 			resources = this.UserInfo.resources ? this.UserInfo.resources[currentTenant] : [];
 			/*
 				When switching between tenants,
@@ -249,7 +249,7 @@ export default class AuthModule extends Module {
 	validateTenant() {
 		let resources = [];
 		let tenants = [];
-		let currentTenant = this.App.Services.TenantService.get_current_tenant();
+		let currentTenant = this.App.Services.TenantService.getCurrentTenant();
 		if (this.UserInfo !== null) {
 			resources = this.UserInfo.resources ? this.UserInfo.resources[currentTenant] : [];
 			tenants = this.UserInfo.tenants ? this.UserInfo.tenants : [];
@@ -323,7 +323,7 @@ export default class AuthModule extends Module {
 		/** Check for TenantService and pass tenants list obtained from userinfo */
 		let tenants_list = this.UserInfo.tenants;
 		if (this.App.Services.TenantService) {
-			await this.App.Services.TenantService.set_tenants(tenants_list);
+			await this.App.Services.TenantService.setTenants(tenants_list);
 		}
 
 		return true;

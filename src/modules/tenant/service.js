@@ -6,6 +6,8 @@ export default class TenantService extends Service {
 
 	constructor(app, name = "TenantService") {
 		super(app, name);
+		// Tenant data cache
+		this.TenantDataCache = {};
 	}
 
 	async initialize() {
@@ -18,17 +20,17 @@ export default class TenantService extends Service {
 			for (var i = 0; tenants[i] != undefined; i++) {
 				tenants_list.push(tenants[i]);
 			}
-			await this.set_tenants(tenants_list);
+			await this.setTenants(tenants_list);
 		}
 	}
 
 	/*
-		set_tenants(tenants_list) method is used for tenants obtained from userinfo
+		setTenants(tenants_list) method is used for tenants obtained from userinfo
 		It is used within auth module of ASAB WebUI to dispatch the tenants to the application store
 	*/
-	async set_tenants(tenants_list) {
+	async setTenants(tenants_list) {
 		// Extract a current tenant from URL params
-		var tenant_id = this._extract_tenant_from_url();
+		var tenant_id = this._extractTenantFromUrl();
 
 		// If tenant has not been provided in access URL, pick a first tenant from a list
 		if ((tenant_id == null) && (tenants_list) && (tenants_list.length > 0)) {
@@ -67,19 +69,46 @@ export default class TenantService extends Service {
 
 	}
 
-	// get_current_tenant() method is used for obtaining current tenant
-	get_current_tenant() {
+	/*
+		getTenantData() method is used for returning the tenant data
+		It requires SeaCat Auth service
+	*/
+	async getTenantData() {
+		let currentTenant = this.getCurrentTenant();
+		// If tenant data being cached already, then return the data
+		if (this.TenantDataCache[currentTenant]) {
+			return this.TenantDataCache[currentTenant];
+		}
+		let tenantData = {};
+		if (currentTenant) {
+			const SeaCatAuthAPI = this.App.axiosCreate('seacat_auth');
+			try {
+				let response = await SeaCatAuthAPI.get(`/tenant/${currentTenant}`);
+				tenantData = response.data;
+				this.TenantDataCache[currentTenant] = tenantData;
+			} catch (e) {
+				console.warn(`Tenant service can't retrieve data for ${currentTenant}`);
+				console.error(e);
+				// Remove data from the TenantDataCache eventually
+				delete this.TenantDataCache[currentTenant];
+			}
+		}
+		return tenantData;
+	}
+
+	// getCurrentTenant() method is used for obtaining current tenant
+	getCurrentTenant() {
 		const state = this.App.Store.getState();
 		let currentTenant = state.tenant.current;
 		// If current tenant is not in redux store yet, get it from the URL params
 		if (!currentTenant) {
-			currentTenant = this._extract_tenant_from_url();
+			currentTenant = this._extractTenantFromUrl();
 		}
 		return currentTenant;
 	}
 
 	// Extract tenant from URL params
-	_extract_tenant_from_url() {
+	_extractTenantFromUrl() {
 		const search = window.location.search;
 		const params = new URLSearchParams(search);
 		let tenant = params.get('tenant');
