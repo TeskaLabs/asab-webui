@@ -12,9 +12,6 @@ const Sidebar = (props) => {
 	const [modal, setModal] = useState(false);
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
 	const [windowDimensions, setWindowDimensions] = useState({width: window.innerWidth});
-	const [bigScreen, setBigScreen] = useState(false);
-	const [mediumScreen, setMediumScreen] = useState(false);
-	const [smallScreen, setSmallScreen] = useState(false);
 	const dispatch = useDispatch();
 
 	// Get dynamically hidden sidebar items from store
@@ -29,46 +26,17 @@ const Sidebar = (props) => {
 
 	useEffect(() => {
 		if (windowDimensions.width && (windowDimensions.width > 768) && (windowDimensions.width <= 1024)) {
-			setMediumScreen(true);
-			setSmallScreen(false);
-			setBigScreen(false);
-		} else if (windowDimensions.width && (windowDimensions.width <= 768)) {
-			setSmallScreen(true);
-			setMediumScreen(false);
-			setBigScreen(false);
-		} else {
-			setSmallScreen(false);
-			setMediumScreen(false);
-			setBigScreen(true);
-		}
-	}, [windowDimensions.width])
-
-	useEffect(() => {
-		if (mediumScreen) {
 			dispatch({
 				type: COLLAPSE_SIDEBAR,
 				isSidebarCollapsed: true
 			});
-		}
-	}, [mediumScreen]);
-
-	useEffect(() => {
-		if (smallScreen) {
+		} else {
 			dispatch({
 				type: COLLAPSE_SIDEBAR,
 				isSidebarCollapsed: false
 			});
 		}
-	}, [smallScreen]);
-
-	useEffect(() => {
-		if (bigScreen) {
-			dispatch({
-				type: COLLAPSE_SIDEBAR,
-				isSidebarCollapsed: false
-			});
-		}
-	}, [bigScreen]);
+	}, [windowDimensions.width])
 
 	// Filter out sidebar items which has been marked as hidden in ASAB Config module
 	if (sidebarHiddenItems) {
