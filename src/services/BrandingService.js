@@ -1,6 +1,7 @@
 import Service from '../abc/Service';
+import { connect } from 'react-redux';
 
-export default class BrandingService extends Service {
+class BrandingService extends Service {
 
 	/*
 	Branding service expects `header-logo-full.svg` and `header-logo-minimized.svg` SVG images
@@ -10,17 +11,22 @@ export default class BrandingService extends Service {
 	* `header-logo-minimized.svg` dimensions: 30 x 30 pixels
 	*/
 
-	constructor(app, serviceName="BrandingService"){
-		super(app, serviceName)
+	// constructor(app, serviceName="BrandingService"){
+	constructor(props, { app, serviceName="BrandingService"}){
+		super(props, app, serviceName)
+		this.state = props;
 	}
 
 	getLogo(config, theme, type="brandImage") {
 
+		console.log('tjos.state: ', this.state)
+
 		const defaultConfig = config._defaults;
+		return defaultConfig.defaultBrandImage;
 		let dynamicConfig = config._dynamic_config;
 
-		console.log('defaultConfig:', defaultConfig)
-		console.log('dynamicConfig:', dynamicConfig)
+		// console.log('defaultConfig:', defaultConfig)
+		// console.log('dynamicConfig:', dynamicConfig)
 
 		if ((type === 'sidebarLogo') && theme && defaultConfig?.sidebarLogo && defaultConfig?.sidebarLogo[theme]) {
 			return defaultConfig.sidebarLogo[theme];
@@ -94,3 +100,10 @@ export default class BrandingService extends Service {
 	}
 
 }
+
+function mapStateToProps(state) {
+	const { configuration } = state.config
+	return { configuration }
+}
+
+export default connect(mapStateToProps)(BrandingService)
