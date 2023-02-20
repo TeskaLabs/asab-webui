@@ -86,7 +86,7 @@ export const KnowledgeBase = ({ props, apiPath, entryPath }) => {
 				setTreeData(tree);
 		} catch(e) {
 			console.error(e);
-			props.app.addAlert("warning", t("KnowledgeBase|Something went wrong, failed to fetch Knowledge base folder content"));
+			props.app.addAlert("warning", t("KnowledgeBase|Something went wrong, failed to fetch Knowledge base folder content", {error: e?.response?.data?.message}), 30);
 		}
 	}
 
@@ -111,7 +111,7 @@ export const KnowledgeBase = ({ props, apiPath, entryPath }) => {
 			setText(response.data);
 		} catch(e) {
 			console.error("Failed to fetch article: ", e);
-			props.app.addAlert("warning", t("KnowledgeBase|Something went wrong, failed to get the article"));
+			props.app.addAlert("warning", t("KnowledgeBase|Something went wrong, failed to get the article", {error: e?.response?.data?.message}), 30);
 			setText(t("KnowledgeBase|There is no article of that name and path"));
 		}
 		// scroll to the beginning of div

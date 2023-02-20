@@ -87,7 +87,7 @@ function ConfigList(props) {
 		}
 		catch(e) {
 			console.error(e);
-			props.app.addAlert("warning", t(`ASABConfig|Unable to get configurations. Try to reload the page`, {config: configType}));
+			props.app.addAlert("warning", t(`ASABConfig|Unable to get configurations. Try to reload the page`, {config: configType}), 30);
 		}
 
 		try {
@@ -100,7 +100,7 @@ function ConfigList(props) {
 		}
 		catch(e) {
 			console.error(e);
-			props.app.addAlert("warning", t(`ASABConfig|Unable to get schema. Try to reload the page`, {type: configType}));
+			props.app.addAlert("warning", t(`ASABConfig|Unable to get schema. Try to reload the page`, {type: configType}), 30);
 		}
 
 		// Create an array of objects with name, schema title and schema description
@@ -147,7 +147,7 @@ function ConfigList(props) {
 			initialLoad();
 		} catch(e) {
 			console.error(e);
-			props.app.addAlert("warning", t('ASABConfig|Something went wrong, failed to remove configuration'));
+			props.app.addAlert("warning", t("ASABConfig|Something went wrong, failed to remove configuration", {error: e?.response?.data?.message}), 30);
 		}
 	}
 	
@@ -217,7 +217,7 @@ function CreateConfigCard(props) {
 		}
 		catch(e) {
 			console.error(e);
-			props.app.addAlert("warning", t('ASABConfig|Something went wrong, failed to create configuration'));
+			props.app.addAlert("warning", t("ASABConfig|Something went wrong, failed to create configuration", {error: e?.response?.data?.message}), 30);
 		}
 	}
 

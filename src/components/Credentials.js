@@ -27,7 +27,7 @@ export function Credentials({ ...props }) {
 			const usernamesToLS = saveUsernamesToLS(response.data.data, credentials_ids, cleanupTime);
 			setCredentials(usernamesToLS);
 		} catch (e) {
-			props.app.addAlert("warning", t("ASABCredentials|Something went wrong, failed to fetch assigned credentials"));
+			props.app.addAlert("warning", t("ASABCredentials|Something went wrong, failed to fetch assigned credentials", {error: e?.response?.data?.message}), 30);
 		}
 	}
 
