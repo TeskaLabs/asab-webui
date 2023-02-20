@@ -53,7 +53,7 @@ function AccessControlCard(props) {
 	let currentTenant;
 	// Check Tenant service availability
 	if (App.Services.TenantService) {
-		currentTenant = App.Services.TenantService.get_current_tenant();
+		currentTenant = App.Services.TenantService.getCurrentTenant();
 	}
 	const advmode = useSelector(state => state.advmode?.enabled);
 	const theme = useSelector(state => state.theme);
