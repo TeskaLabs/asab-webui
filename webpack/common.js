@@ -60,10 +60,17 @@ exports.getRules = function(config) {
 			],
 		},
 		{
-			test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)(\?.*)?$/,
+			test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
 			type: 'asset/resource',
 			generator: {
 				filename: 'assets/svg/[name][contenthash:8][ext]'
+			}
+		},
+		{
+			test: /\.(woff|woff2|ttf|eot|ico)(\?.*)?$/,
+			type: 'asset/resource',
+			generator: {
+				filename: 'assets/fonts/[name][contenthash:8][ext]'
 			}
 		},
 	]
