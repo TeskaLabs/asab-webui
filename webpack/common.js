@@ -34,8 +34,10 @@ exports.getRules = function(config) {
 							version: "3",
 							proposals: true
 						}
-					}
-				],['@babel/react']], plugins: ["transform-object-rest-spread"] }
+					}],['@babel/react']],
+					plugins: ["transform-object-rest-spread"],
+					generatorOpts: { compact: false }
+				}
 			}],
 			exclude: '/node_modules/' // we can exclude node_modules b/c they're already complied
 		},
