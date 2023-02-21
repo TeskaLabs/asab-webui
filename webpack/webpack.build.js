@@ -67,9 +67,7 @@ module.exports = {
 				// "apiUrl" -> "__API_URL__"
 			),
 			// Extracts file styles.css
-			new MiniCssExtractPlugin({ filename: '[name].[contenthash:8].css'}),
-			// new MiniCssExtractPlugin({ filename: 'assets/css/[name].css' }),
-			// new MiniCssExtractPlugin(),
+			new MiniCssExtractPlugin({ filename: 'assets/css/[name].[contenthash:8].css'}),
 			// Remove moment locales from bundle except those which are defined as second parameter
 			new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, defaultLocales),
 		];
@@ -91,7 +89,6 @@ module.exports = {
 				chunkFilename: 'assets/js/[name].[contenthash:8].chunk.js',
 				path: path.resolve(config["dirs"]["dist"]),
 				publicPath: '',
-				// assetModuleFilename: "images/[hash][ext][query]",
 				...extendedConfig.extraOutputs
 			},
 			resolve: config["webpack"]["resolve"],
