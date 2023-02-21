@@ -1,0 +1,18 @@
+@import "~asab-webui/styles/constants/index.scss";
+
+$toggle-text-color: var(--toggle-text-color);
+
+.help-button {
+	font-size: 1.1rem;
+	margin-right: 1.5rem;
+	padding-top: 0.4rem;
+	color: $toggle-text-color;
+}
+
+.help-modal-card {
+	& .modal-content {
+		border: 0;
+		border-radius: 8px;
+	}
+
+}
