@@ -80,7 +80,6 @@ module.exports = {
 			},
 			mode: 'development',
 			devtool: 'source-map',
-			watch: true,
 			output: {
 				filename: 'assets/js/[name].[contenthash:8].bundle.js',
 				chunkFilename: 'assets/js/[name].[contenthash:8].chunk.js',
