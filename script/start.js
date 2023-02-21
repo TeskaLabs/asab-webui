@@ -15,8 +15,11 @@ var config = common.loadConfig(args)
 // Compiler
 const webpackConf = require(path.resolve(__dirname, '..', 'webpack', 'webpack.dev.js')).build(config);
 const webpackDevServerConf = require(path.resolve(__dirname, '..', 'webpack', 'webpackDevServer.js')).build(config);
-const compiler = webpack(webpackConf)
+const compiler = webpack(webpackConf, undefined);
 
 // Dev server
-const devServer = new WebpackDevServer(compiler, webpackDevServerConf);
-devServer.listen(config.webpackDevServer.port)
+const devServer = new WebpackDevServer(webpackDevServerConf, compiler);
+(async () => {
+    await devServer.start();
+    console.log(`Dev server is listening on port ${config.webpackDevServer.port}`);
+  })()
