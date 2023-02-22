@@ -131,37 +131,32 @@ module.exports = {
 				},
 				minimize: true,
 				minimizer: [ // Minimizes output javascript
-					// `...` applies webpack's default minimizers which would otherwise be overwritten by our config
-					`...`,
-					new TerserPlugin({
-						test: /\.js(\?.*)?$/i,
-						parallel: true,
-						minify: TerserPlugin.terserMinify,
-						terserOptions: {
-							parse: {
-								ecma: 8,
-							},
-							compress: {
-								ecma: 5,
-								warnings: false,
-								comparisons: false,
-								inline: 2
-							},
-							mangle: {
-								safari10: true,
-							},
-							output: {
-								ecma: 5,
-								comments: false,
-								ascii_only: true
-							},
-							format: {
-								comments: false,
-							},
+				new TerserPlugin({
+					test: /\.js(\?.*)?$/i,
+					parallel: true,
+					minify: TerserPlugin.terserMinify,
+					terserOptions: {
+						parse: {
+							ecma: 8,
 						},
-						extractComments: false
-					}),
-					new CssMinimizerPlugin(),
+						compress: {
+							ecma: 5,
+							warnings: false,
+							comparisons: false,
+							inline: 2
+						},
+						mangle: {
+							safari10: true,
+						},
+						format: {
+							comments: false,
+						},
+					},
+					extractComments: false,
+				}),
+				new CssMinimizerPlugin(),
+				// `...` applies webpack's default minimizers which would otherwise be overwritten by our config
+				`...`
 				],
 				...extendedConfig.extraOptimization
 			},
