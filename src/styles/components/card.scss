@@ -148,8 +148,7 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 				border-radius: 0 0 0 7px;
 			}
 			& + div.actions-right .btn{
-				background-color: blue($color: #7b2e2e);
-				border-radius: 0 0 7px 0 !important;
+				border-radius: 0 0 7px 0;
 			}
 		}
 		.dropdown {
