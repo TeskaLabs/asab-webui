@@ -10,6 +10,8 @@
 
 - Refactor naming for `get_current_tenant`, `set_tenants` and `_extract_tenant_from_url` from snake_case to camelCase format (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
 
+- Webpack V4 to V5 migration. (INDIGO Sprint 230217, [!379](https://github.com/TeskaLabs/asab-webui/pull/379))
+
 ## v23.5
 
 ### Features
