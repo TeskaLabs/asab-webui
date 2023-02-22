@@ -149,6 +149,7 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 			}
 			& + div.actions-right {
 				display: flex;
+				flex-wrap: wrap;
 				& .btn {
 					border-radius: 0 0 0 0;
 				}
