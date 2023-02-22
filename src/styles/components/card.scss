@@ -147,6 +147,10 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 			.btn:first-child {
 				border-radius: 0 0 0 7px;
 			}
+			& + div.actions-right .btn{
+				background-color: blue($color: #7b2e2e);
+				border-radius: 0 0 7px 0 !important;
+			}
 		}
 		.dropdown {
 			.dropdown-toggle {
