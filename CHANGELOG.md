@@ -10,6 +10,8 @@
 
 - Refactor naming for `get_current_tenant`, `set_tenants` and `_extract_tenant_from_url` from snake_case to camelCase format (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
 
+- Refactor the collapse and uncollapse of the sidebar according to the screen width (INDIGO Sprint 230203, [!389](https://github.com/TeskaLabs/asab-webui/pull/389))
+
 - Remove Helmet module, update error alert messages (INDIGO Sprint 230217, [!392](https://github.com/TeskaLabs/asab-webui/pull/392))
 
 ## v23.5
