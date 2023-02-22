@@ -52,7 +52,7 @@ export default function ToolsDashboard(props){
 				configuration = response.data.data;
 			} catch(e) {
 				console.error(e);
-				props.app.addAlert("warning", t("ASABToolsModule|Something went wrong, unable to get config data from service", {error: e?.response?.data?.message}), 30);
+				props.app.addAlert("warning", `${t("ASABToolsModule|Something went wrong, unable to get config data from service")}. ${e?.response?.data?.message}`, 30);
 			}
 			// Parse configuration and drop config file names
 			let configArray = [];
