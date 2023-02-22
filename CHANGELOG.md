@@ -10,6 +10,8 @@
 
 - Refactor naming for `get_current_tenant`, `set_tenants` and `_extract_tenant_from_url` from snake_case to camelCase format (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
 
+- Refactor the collapse and uncollapse of the sidebar according to the screen width (INDIGO Sprint 230203, [!389](https://github.com/TeskaLabs/asab-webui/pull/389))
+
 - Refactor Card Footer styling to accommodate needs of actions in the right corner of card footer. (INDIGO Sprint 230217, [!394](https://github.com/TeskaLabs/asab-webui/pull/394))
 
 ## v23.5
