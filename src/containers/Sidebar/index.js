@@ -1,18 +1,20 @@
-import React, { useMemo, useEffect, useState } from 'react';
-import { connect, useSelector } from 'react-redux';
+import React, {useMemo, useEffect, useState} from 'react';
+import {connect, useDispatch, useSelector} from 'react-redux';
 
 import {Modal, Nav} from 'reactstrap';
 import SidebarItem from './SidebarItem';
 import NavbarBrand from './NavbarBrand';
 import SidebarBottomItem from './SidebarBottomItem';
+import {COLLAPSE_SIDEBAR} from "../../actions";
 
 
 const Sidebar = (props) => {
 	const [modal, setModal] = useState(false);
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
 	const [windowDimensions, setWindowDimensions] = useState({width: window.innerWidth});
+	const dispatch = useDispatch();
 
-	// Get dynamically hiddden sidebar items from store
+	// Get dynamically hidden sidebar items from store
 	let sidebarHiddenItems = props.sidebarHiddenItems;
 
 	let sidebarItems = props.navigation.getItems().items;
@@ -21,6 +23,20 @@ const Sidebar = (props) => {
 		window.addEventListener('resize', handleResize);
 		return () => window.removeEventListener('resize', handleResize);
 	}, [windowDimensions]);
+
+	useEffect(() => {
+		if (windowDimensions.width && (windowDimensions.width > 768) && (windowDimensions.width <= 1024)) {
+			dispatch({
+				type: COLLAPSE_SIDEBAR,
+				isSidebarCollapsed: true
+			});
+		} else {
+			dispatch({
+				type: COLLAPSE_SIDEBAR,
+				isSidebarCollapsed: false
+			});
+		}
+	}, [windowDimensions.width])
 
 	// Filter out sidebar items which has been marked as hidden in ASAB Config module
 	if (sidebarHiddenItems) {
@@ -87,7 +103,7 @@ const Sidebar = (props) => {
 								/>
 							))}
 						</Nav>
-						<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} screenWidth={windowDimensions.width}/>
+						<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo}/>
 					</div>
 				</div>
 			</Modal>
