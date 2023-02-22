@@ -11,7 +11,7 @@ import {Modal, NavLink, Card, CardHeader, CardBody, Button} from 'reactstrap';
 
 const HelpButton = () => {
     // if (!url) return null;
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const [modal, setModal] = useState(false);
 
     const toggle = () => setModal(!modal);
@@ -35,7 +35,7 @@ const HelpButton = () => {
                             Help Card
                         </div>
                         <Button color="danger" onClick={toggle}>
-                            <i className="cil-info"></i>
+                            <i className="cil-x"></i>
                         </Button>
                     </CardHeader>
                     <CardBody>
@@ -44,8 +44,7 @@ const HelpButton = () => {
                             width="100%"
                             height="100%"
                         >
-                            {
-                                "empty\nbooo\nmbmbmbmbhiii\n\n## Hello title\n"}
+                            {"empty\nbooo\nmbmbmbmbhiii\n\n## Hello title\n"}
                             {/*{description}*/}
                         </ReactMarkdown>
                     </CardBody>
