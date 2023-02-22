@@ -86,7 +86,7 @@ If you want to add two or more buttons inside CardFooter you can simply put it i
 </CardFooter>
 ```
 
-If you wish to split footer to two parts, putting a set of actions to the left and a action to the right, use this:
+If you wish to split footer to two parts, putting a set of actions to the left and one or multipe actions to the right, place them inside a ```<div className="actions-right">```:
 
 ```jsx
 <CardFooter className="border-top">
