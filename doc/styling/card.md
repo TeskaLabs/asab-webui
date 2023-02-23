@@ -64,7 +64,7 @@ If you want to use more buttons or add some input text then wrap all interactive
 `CardFooter` component now by default doesn't have border-top. But in case you want to add one, you can add a unique className `border-top` to your `CardFooter` component:
 
 ```jsx
-<CardFooter className="border-top">...</CardHeader>
+<CardFooter className="border-top">...</CardFooter>
 ```
 
 If you want to add one button inside CardFooter you can simply put it into it:
@@ -72,7 +72,7 @@ If you want to add one button inside CardFooter you can simply put it into it:
 ```jsx
 <CardFooter className="border-top">
 	<Button>Action</Button>
-</CardHeader>
+</CardFooter>
 ```
 
 If you want to add two or more buttons inside CardFooter you can simply put it into it:
@@ -83,5 +83,33 @@ If you want to add two or more buttons inside CardFooter you can simply put it i
 		<Button>Action</Button>
 		<Button>Action</Button>
 	</ButtonGroup>
-</CardHeader>
+</CardFooter>
+```
+
+If you wish to split footer to two parts, putting a set of actions to the left and one or multipe actions to the right, place them inside a ```<div className="actions-right">```:
+
+```jsx
+<CardFooter className="border-top">
+	<ButtonGroup>
+		<Button>Action</Button>
+		<Button>Action</Button>
+	</ButtonGroup>
+	<div className="actions-right">
+		<Button>Right Action</Button>
+	</div>
+</CardFooter>
+```
+
+If you wish to split footer to two parts, putting a set of actions to the left and a dropdown to the right, use this:
+
+```jsx
+<CardFooter className="border-top">
+	<ButtonGroup>
+		<Button>Action</Button>
+		<Button>Action</Button>
+	</ButtonGroup>
+	<Dropdown>
+		...
+	</Dropdown>
+</CardFooter>
 ```
