@@ -12,6 +12,10 @@
 
 - Refactor the collapse and uncollapse of the sidebar according to the screen width (INDIGO Sprint 230203, [!389](https://github.com/TeskaLabs/asab-webui/pull/389))
 
+- Refactor Card Footer styling to accommodate needs of actions in the right corner of card footer. (INDIGO Sprint 230217, [!394](https://github.com/TeskaLabs/asab-webui/pull/394))
+
+- Branding logo style guide update (INDIGO Sprint 230217, [!390](https://github.com/TeskaLabs/asab-webui/pull/390))
+
 - Webpack V4 to V5 migration. (INDIGO Sprint 230217, [!379](https://github.com/TeskaLabs/asab-webui/pull/379))
 
 ## v23.5
