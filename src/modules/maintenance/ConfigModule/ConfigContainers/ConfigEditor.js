@@ -93,14 +93,14 @@ function ConfigEditor(props) {
 		}
 		catch(e) {
 			console.error(e);
-			props.app.addAlert("warning", t(`ASABConfig|Unable to get schema. Try to reload the page`, {type: configType}));
+			props.app.addAlert("warning", `${t("ASABConfig|Unable to get schema. Try to reload the page", {type: configType})}. ${e?.response?.data?.message}`, 30);
 			return;
 		}
 
 		try {
 			let response = await ASABConfigAPI.get(`/config/${configType}/${configName}?format=json`);
 			if (response.data.result != "OK") {
-				props.app.addAlert("warning", t(`ASABConfig|Config file does not exist`));
+				props.app.addAlert("warning", `${t("ASABConfig|Config file does not exist")}. ${e?.response?.data?.message}`, 30);
 				setConfigNotExist(true);
 				return;
 			}
@@ -114,7 +114,7 @@ function ConfigEditor(props) {
 			setAdHocSections({});
 			setJsonValues({});
 			console.error(e);
-			props.app.addAlert("warning", t(`ASABConfig|Unable to get config data. Try to reload the page`, {config: configName}));
+			props.app.addAlert("warning", `${t("ASABConfig|Unable to get config data. Try to reload the page", {type: configName})}. ${e?.response?.data?.message}`, 30);
 			return;
 		}
 
@@ -286,7 +286,7 @@ function ConfigEditor(props) {
 		}
 		catch(e) {
 			console.error(e);
-			props.app.addAlert("warning", t('ASABConfig|Something went wrong, failed to update data'));
+			props.app.addAlert("warning", `${t("ASABConfig|Something went wrong, failed to update data")}. ${e?.response?.data?.message}`, 30);
 			initialLoad();
 			return;
 		}
@@ -376,7 +376,7 @@ function ConfigEditor(props) {
 		}
 		catch(e) {
 			console.error(e);
-			props.app.addAlert("warning", t('ASABConfig|Something went wrong, failed to update data'));
+			props.app.addAlert("warning", t("ASABConfig|Something went wrong, failed to update data", {error: e?.response?.data?.message}), 30);
 			initialLoad();
 			return;
 		}

@@ -74,7 +74,7 @@ const ConfigImport = (props) => {
 			props.app.addAlert("success", t("ASABConfig|Configuration has been successfully imported"));
 		} catch (e) {
 			console.error("Failed to import configuration\n", e);
-			props.app.addAlert("warning", t("ASABConfig|Failed to import configuration"));
+			props.app.addAlert("warning", `${t("ASABConfig|Failed to import configuration")}. ${e?.response?.data?.message}`, 30);
 		}
 	}
 

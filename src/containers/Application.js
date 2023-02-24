@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Axios from 'axios';
-import { Helmet } from "react-helmet";
 
 import { Fade } from 'reactstrap';
 
@@ -480,12 +479,6 @@ class Application extends Component {
 						<AccessDeniedCard app={this} />
 					</Suspense>
 					<SplashScreen app={this} />
-					{this.Config.get('title') != null && this.Config.get('title') != undefined ?
-						<Helmet>
-							<title>{this.Config.get('site_title') ? this.Config.get('site_title') + " | " + this.Config.get('title') : this.Config.get('title')}</title>
-						</Helmet>
-						: null
-					}
 				</div>
 			</Provider>
 		)
@@ -497,12 +490,6 @@ class Application extends Component {
 						<div className="networking-indicator progress-bar progress-bar-animated progress-bar-striped" ></div>
 					</Fade>
 					<Alerts app={this} />
-					{this.Config.get('title') != null && this.Config.get('title') != undefined ?
-						<Helmet>
-							<title>{this.Config.get('site_title') ? this.Config.get('site_title') + " | " + this.Config.get('title') : this.Config.get('title')}</title>
-						</Helmet>
-						: null
-					}
 					<ErrorHandler isParentError={true}>
 						<div className='d-flex w-100 header-sidebar-wrapper'>
 							{

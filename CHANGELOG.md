@@ -18,6 +18,8 @@
 
 - Branding logo style guide update (INDIGO Sprint 230217, [!390](https://github.com/TeskaLabs/asab-webui/pull/390))
 
+- Remove Helmet module, update error alert messages (INDIGO Sprint 230217, [!392](https://github.com/TeskaLabs/asab-webui/pull/392))
+
 ## v23.5
 
 ### Features
