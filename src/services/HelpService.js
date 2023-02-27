@@ -9,19 +9,14 @@ export default class HelpService extends Service {
 	}
 
 	async setData(screenName, screenType) {
-		console.log(this.HelpTextCache, "cache")
-		console.log(screenName)
-
-		if (this.HelpTextCache[screenName]) {
-			// Dispatch
-			this.App.Store.dispatch({
-				type: HELP_DESCRIPTION,
-				description: this.HelpTextCache[screenName]
-			});
-			return;
-			// this.App.addHelpButton(this.HelpTextCache[screenName]);
-			// return;
-		}
+		// if (this.HelpTextCache[screenName]) {
+		// 	// Dispatch
+		// 	this.App.Store.dispatch({
+		// 		type: HELP_DESCRIPTION,
+		// 		description: this.HelpTextCache[screenName]
+		// 	});
+		// 	return;
+		// }
 
 		try {
 			const ASABLibraryAPI = this.App.axiosCreate('asab_library');
@@ -31,8 +26,7 @@ export default class HelpService extends Service {
 				this.App.Store.dispatch({
 					type: HELP_DESCRIPTION,
 					description: response.data.description
-				})
-				// this.App.addHelpButton(response.data.description);
+				});
 			}
 		} catch (e) {
 			console.warn(`Help service can't retrieve data for ${screenName}`);
@@ -42,10 +36,7 @@ export default class HelpService extends Service {
 			this.App.Store.dispatch({
 				type: HELP_DESCRIPTION,
 				description: ""
-			})
-			// this.App.addHelpButton("");
+			});
 		}
-
-
 	}
 }

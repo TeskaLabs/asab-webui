@@ -444,10 +444,8 @@ class Application extends Component {
 	// Second screen type
 	addHelpButton(screenName, screenType) {
 		useEffect(() => {
-			console.log("load")
 			this.HelpService.setData(screenName, screenType);
 			return () => {
-				console.log("reload")
 				this.Store.dispatch({
 					type: HELP_DESCRIPTION,
 					description: ""
