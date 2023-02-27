@@ -1,16 +1,17 @@
-import { CHANGE_HELP_URL } from '../../actions';
+import { HELP_DESCRIPTION } from '../../actions';
 
 const initialState = {
-    url: "",
-    icon: "cil-info",
-    target: "_blank"
+    description: ""
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case CHANGE_HELP_URL:
-            const newState = { ...action.payload }
-            return { ...state, ...newState}
-        default: return state;
+        case HELP_DESCRIPTION:
+            return {
+                description: action.description
+            }
+
+        default:
+            return state
     }
 }
