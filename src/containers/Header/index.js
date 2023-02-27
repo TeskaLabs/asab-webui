@@ -1,15 +1,12 @@
 import React, { useState, Suspense, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import {
-	Nav,
-	NavItem
-} from 'reactstrap';
+import { Nav, NavItem } from 'reactstrap';
 
 import HelpButton from './HelpButton';
 import ThemeButton from '../../theme/ThemeButton';
 import Breadcrumbs from './BreadcrumbsRouter';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function Header(props) {
 	const HeaderService = props.app.locateService("HeaderService");
