@@ -1,18 +1,21 @@
 import React, {useState} from 'react';
-import { connect } from 'react-redux';
 import {useTranslation} from "react-i18next";
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
+import { useSelector } from 'react-redux';
 
 import './header.scss';
 
 import {Modal, NavLink, Card, CardHeader, CardBody, Button} from 'reactstrap';
 
 
-const HelpButton = () => {
-    // if (!url) return null;
+export default function HelpButton() {
     const { t } = useTranslation();
+
     const [modal, setModal] = useState(false);
+
+    const description = useSelector(state => state?.helpButton.description);
+    if ((description == undefined) || (description == "")) return null;
 
     const toggle = () => setModal(!modal);
 
@@ -24,7 +27,7 @@ const HelpButton = () => {
                 title={t("Show help info")}
                 href="#"
             >
-                <i className="cil-info"></i>
+                <i className="cil-info"/>
             </NavLink>
 
             <Modal isOpen={modal} toggle={toggle} className="center help-modal-card">
@@ -35,7 +38,7 @@ const HelpButton = () => {
                             Help Card
                         </div>
                         <Button color="danger" onClick={toggle}>
-                            <i className="cil-x"></i>
+                            <i className="cil-x"/>
                         </Button>
                     </CardHeader>
                     <CardBody>
@@ -44,8 +47,7 @@ const HelpButton = () => {
                             width="100%"
                             height="100%"
                         >
-                            {"empty\nbooo\nmbmbmbmbhiii\n\n## Hello title\n"}
-                            {/*{description}*/}
+                            {description}
                         </ReactMarkdown>
                     </CardBody>
                 </Card>
@@ -53,7 +55,3 @@ const HelpButton = () => {
         </>
     );
 }
-
-const mapStateToProps = state => ({ ...state.helpButton });
-
-export default connect(mapStateToProps)(HelpButton);
