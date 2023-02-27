@@ -1,57 +1,51 @@
 import Service from '../abc/Service';
-import {types} from "../modules/tenant/actions";
+import {HELP_DESCRIPTION} from "../actions";
 
 export default class HelpService extends Service {
 	constructor(app, serviceName="HeaderService"){
 		super(app, serviceName);
-		this.App = app.App;
+		this.App = app;
 		this.HelpTextCache = {};
 	}
 
+	async setData(screenName, screenType) {
+		console.log(this.HelpTextCache, "cache")
+		console.log(screenName)
 
-	async initialize() {
-		// this.App.ConfigService.addDefaults({
-		// 	'default_brand_image': {
-		// 		full: "media/logo/header-full.svg",
-		// 		minimized: "media/logo/header-minimized.svg",
-		// 		href: undefined,
-		// 	}
-		// }, true)
+		if (this.HelpTextCache[screenName]) {
+			// Dispatch
+			this.App.Store.dispatch({
+				type: HELP_DESCRIPTION,
+				description: this.HelpTextCache[screenName]
+			});
+			return;
+			// this.App.addHelpButton(this.HelpTextCache[screenName]);
+			// return;
+		}
 
-		// try {
-		// 	const ASABLibraryAPI = this.App.axiosCreate('asab_library');
-		// 	let response = await ASABLibraryAPI.get(``);
-		// 	this.HelpTextCache = response;
-		// } catch (e) {
-		// 	console.error(e);
-		// 	// Remove data from the TenantDataCache eventually
-		// 	delete this.HelpTextCache;
-		// }
+		try {
+			const ASABLibraryAPI = this.App.axiosCreate('asab_library');
+			let response = await ASABLibraryAPI.get(`/library/item/Help/${screenName}/${screenType}`);
+			if ((response.status == 200) && response.data) {
+				this.HelpTextCache[screenName] = response.data.description;
+				this.App.Store.dispatch({
+					type: HELP_DESCRIPTION,
+					description: response.data.description
+				})
+				// this.App.addHelpButton(response.data.description);
+			}
+		} catch (e) {
+			console.warn(`Help service can't retrieve data for ${screenName}`);
+			console.error(e, "error");
+			// Remove data from the TenantDataCache eventually
+			delete this.HelpTextCache[screenName];
+			this.App.Store.dispatch({
+				type: HELP_DESCRIPTION,
+				description: ""
+			})
+			// this.App.addHelpButton("");
+		}
+
+
 	}
-
-
-	setData(screen, screenType) {
-		// this.Items.push({
-		// 	'component': component,
-		// 	'componentProps':componentProps,
-		// })
-
-		// try {
-		// 	let response = await SeaCatAuthAPI.get(`/tenant/${currentTenant}`);
-		// 	this.TenantDataCache[currentTenant] = tenantData;
-		// } catch (e) {
-		// 	console.warn(`Tenant service can't retrieve data for ${currentTenant}`);
-		// 	console.error(e);
-		// 	// Remove data from the TenantDataCache eventually
-		// 	delete this.TenantDataCache[currentTenant];
-		// }
-
-		// Dispatch
-		this.App.Store.dispatch({
-			// type: types.TENANTS_CHANGED,
-			// tenants_list,
-			// current: current_tenant
-		});
-	}
-
 }
