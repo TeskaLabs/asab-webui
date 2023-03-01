@@ -9,6 +9,7 @@ export default class HelpService extends Service {
 	}
 
 	async setData(screenName, screenType) {
+		let withExtension;
 		// if (this.HelpTextCache[screenName]) {
 		// 	// Dispatch
 		// 	this.App.Store.dispatch({
@@ -18,9 +19,17 @@ export default class HelpService extends Service {
 		// 	return;
 		// }
 
+		if ((/\.[^/.]+$/.test(screenType))) {
+			withExtension = screenType;
+		} else {
+			withExtension = `${screenType}.json`
+		}
+		console.log(withExtension);
+
+
 		try {
 			const ASABLibraryAPI = this.App.axiosCreate('asab_library');
-			let response = await ASABLibraryAPI.get(`/library/item/Help/${screenName}/${screenType}`);
+			let response = await ASABLibraryAPI.get(`/library/item/Help/${screenName}/${withExtension}`);
 			if ((response.status == 200) && response.data) {
 				this.HelpTextCache[screenName] = response.data.description;
 				this.App.Store.dispatch({

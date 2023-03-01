@@ -1,43 +1,18 @@
-### Default
+# ASAB WebUI HelpButton component
 
-Help button may have default href. You can define this default href in configuration of your application:
+Display information info for the desired screen in the modal screen.
 
-```
-let ConfigDefaults = {
-    ...
-    default_help_url: "https://github.com/TeskaLabs/asab-webui",
-    ...
-}
-```
+If you wand to add this component, you need to call the `addHelpButton` method. This method will take 2 parameters:
+>- First parameter is `screenName`, for example (Exports, Dashboards, Discover, Lookups, Library)
+>- Second parameter is `screenType`, for example if it is a dashboard, pass the name of the selected dashboard (Office 365) or if it is an Exports, pass the param for which type of screen you want to display this (Detail, Create)
 
-### Dynamic href
+## Example code
 
-For changing href, icon or target of Help Button you can call function (`props.app.addHelpButton()`) that will automatically add Help Button with href, icon and target defined by you. On unmount of component where this function was called it will also change button's href to default one with default icon and target if default href is specified or it will remove button from the screen if default href isn't provided.
-
-This function (`props.app.addHelpButton(href)`) requires obligatory argument `href`, it is your custom href to another page.
-
-Example:
-```
-const YourContainer = (props) => {
-    props.app.addHelpButton("https://www.your-custom-href.com");
-    return (...);
+```javascript
+const ExportsContainerDetail = (props) => {
+	props.app.addHelpButton("Export", "Detail.json");
+	return (...);
 }
 
-export default YourContainer;
-```
-
-### Customizing icon and target of Help Button
-
-`addHelpButton()` also accepts two optional arguments: 
-
-1) You can provide classname of icon from coreui icons library and it will replace original info icon. Just pass icon classname as second argument:
-
-```
-props.app.addHelpButton("https://www.your-custom-href.com", "cil-plus");
-```
-
-2) You can specify target (default is "_blank") for Help Button if needed:
-
-```
-props.app.addHelpButton("https://www.your-custom-href.com", "cil-plus", "_self");
+export default ExportsContainerDetail;
 ```
