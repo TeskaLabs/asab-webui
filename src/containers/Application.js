@@ -440,11 +440,9 @@ class Application extends Component {
 		}
 	}
 
-	// First argument is screen name
-	// Second screen type
-	addHelpButton(screenName, screenType) {
+	addHelpButton(directory, item) {
 		useEffect(() => {
-			this.HelpService.setData(screenName, screenType);
+			this.HelpService.setData(directory, item);
 			return () => {
 				this.Store.dispatch({
 					type: HELP_DESCRIPTION,
