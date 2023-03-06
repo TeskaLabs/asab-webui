@@ -61,7 +61,7 @@ module.exports = {
 				// "apiUrl" -> "__API_URL__"
 			),
 			// Extracts file styles.css
-			new MiniCssExtractPlugin({ filename: 'assets/css/styles.css' }),
+			new MiniCssExtractPlugin({ filename: 'assets/css/[name].css' }),
 			
 			// Remove moment locales from bundle except those which are defined as second parameter
 			new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, defaultLocales),
@@ -79,10 +79,10 @@ module.exports = {
 				...extendedConfig.extraEntries
 			},
 			mode: 'development',
-			watch: true,
+			devtool: 'source-map',
 			output: {
-				filename: 'assets/js/[name].bundle.js',
-				chunkFilename: 'assets/js/[name].chunk.js',
+				filename: 'assets/js/[name].[contenthash:8].bundle.js',
+				chunkFilename: 'assets/js/[name].[contenthash:8].chunk.js',
 				path: config["dirs"]["dist"],
 				publicPath: '/',
 				// Point sourcemap entries to original disk location (format as URL on Windows)

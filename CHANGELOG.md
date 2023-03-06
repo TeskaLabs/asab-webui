@@ -20,6 +20,8 @@
 
 - Remove Helmet module, update error alert messages (INDIGO Sprint 230217, [!392](https://github.com/TeskaLabs/asab-webui/pull/392))
 
+- Webpack V4 to V5 migration. (INDIGO Sprint 230217, [!379](https://github.com/TeskaLabs/asab-webui/pull/379))
+
 ## v23.5
 
 ### Features

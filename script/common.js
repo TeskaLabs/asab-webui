@@ -12,31 +12,31 @@ var exports = module.exports = {}
 exports.getArgumentParser = function() {
 	const CWD = process.cwd()
 	var parser = new ArgumentParser();
-	parser.addArgument(['--conf-dir'], {
+	parser.add_argument('--conf-dir', {
 			help: 'A directory that contains defaults.js configuration file.'
 		}
 	);
-	parser.addArgument(['-c', '--conf-file'], {
+	parser.add_argument('-c', '--conf-file', {
 			help: 'Full or relative path to a config file that extends defaults. (Default: ./config/config.js)'
 		}
 	);
-	parser.addArgument(['-d', '--dist-dir'], {
+	parser.add_argument('-d', '--dist-dir', {
 			help: 'Directory where application will be built',
 		}
 	);
-	parser.addArgument(['-p', '--public-dir'], {
+	parser.add_argument('-p', '--public-dir', {
 			help: 'Directory with index.html and static files',
 		}
 	);
-	parser.addArgument(['-s', '--src-dir'], {
+	parser.add_argument('-s', '--src-dir', {
 			help: 'Sources directory',
 		}
 	);
-	parser.addArgument(['-u', '--public-url'], {
+	parser.add_argument('-u', '--public-url', {
 			help: 'URL where application will be deployed',
 		}
 	);
-	parser.addArgument(['--dev-listen'], {
+	parser.add_argument('--dev-listen', {
 			help: 'Host and port where webpack dev server listens at, such as "0.0.0.0:3000"',
 		}
 	);
