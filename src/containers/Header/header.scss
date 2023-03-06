@@ -10,9 +10,15 @@ $toggle-text-color: var(--toggle-text-color);
 }
 
 .help-modal-card {
+	&.modal-dialog {
+		max-width: 960px;
+	}
 	& .modal-content {
 		border: 0;
 		border-radius: 8px;
+		& .card {
+			min-height: 30vh;
+		}
 	}
 
 }
