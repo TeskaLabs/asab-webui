@@ -10,6 +10,7 @@ It is designed primarily for web-based user interfaces for ASAB microservices bu
 
  - https://getbootstrap.com - Bootstrap
  - https://reactstrap.github.io - ReactStrap
+ - https://atlasicons.vectopus.com - Atlas Icons
 
 
 ## Unified Features
