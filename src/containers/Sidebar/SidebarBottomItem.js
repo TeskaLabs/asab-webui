@@ -12,11 +12,8 @@ import { COLLAPSE_SIDEBAR } from "../../actions";
 
 import Icon from './SidebarIcon';
 
-import { SET_SMALL_SIDEBAR } from '../../actions';
-
 const SidebarBottomItem = ({ item, sidebarLogo }) => {
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
-	const isSmallSidebarOpen = useSelector(state => state.sidebar.isSmallSidebarOpen);
 
 	const location = useLocation();
 	const history = useHistory();
@@ -31,7 +28,6 @@ const SidebarBottomItem = ({ item, sidebarLogo }) => {
 		// or if item should always be uncollapsed
 		else if (item.children && !uncollapseAll) setOpen(prev => !prev);
 		// Close small sidebar on item click
-		if (isSmallSidebarOpen && window.innerWidth < 768) dispatch({ type: SET_SMALL_SIDEBAR });
 	}
 
 	const onCollapse = (event) => {
