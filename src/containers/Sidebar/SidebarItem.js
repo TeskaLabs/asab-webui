@@ -45,7 +45,6 @@ const SidebarItem = ({
 		// Preserve from collapsing when item doesn't have children
 		// or if item should always be uncollapsed
 		else if (item.children && !uncollapseAll) setOpen(prev => !prev);
-		// Close small sidebar on item click
 	}
 
 	return (
