@@ -37,7 +37,7 @@ export default function HelpButton() {
                             <i className="cil-info pr-2" />
                             Help Card
                         </div>
-                        <Button color="danger" onClick={toggle}>
+                        <Button outline color="primary" onClick={toggle}>
                             <i className="cil-x"/>
                         </Button>
                     </CardHeader>
