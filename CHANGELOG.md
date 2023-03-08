@@ -4,7 +4,31 @@
 
 ### Features
 
+- Implement `getTenantData` method to Tenant service (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
+
+- Implement default Renderer to `abc` (INDIGO Sprint 230217, [!391](https://github.com/TeskaLabs/asab-webui/pull/391))
+
+### Refactoring
+
+- Refactor naming for `get_current_tenant`, `set_tenants` and `_extract_tenant_from_url` from snake_case to camelCase format (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
+
+- Refactor the collapse and uncollapse of the sidebar according to the screen width (INDIGO Sprint 230203, [!389](https://github.com/TeskaLabs/asab-webui/pull/389))
+
+- Refactor Card Footer styling to accommodate needs of actions in the right corner of card footer. (INDIGO Sprint 230217, [!394](https://github.com/TeskaLabs/asab-webui/pull/394))
+
+- Branding logo style guide update (INDIGO Sprint 230217, [!390](https://github.com/TeskaLabs/asab-webui/pull/390))
+
+- Remove Helmet module, update error alert messages (INDIGO Sprint 230217, [!392](https://github.com/TeskaLabs/asab-webui/pull/392))
+
+- Webpack V4 to V5 migration. (INDIGO Sprint 230217, [!379](https://github.com/TeskaLabs/asab-webui/pull/379))
+
+## v23.5
+
+### Features
+
 - Implement a new option `dateTimeFormat` to change the time format for DateTime component (INDIGO Sprint 221209, [!376](https://github.com/TeskaLabs/asab-webui/pull/376))
+
+- Implement a new option `disabledAdvMode` to disable advanced mode in DataTable (INDIGO Sprint 230120, [!384](https://github.com/TeskaLabs/asab-webui/pull/384))
 
 ### Refactoring
 
@@ -17,6 +41,10 @@
 ### Bugfix
 
 - Bug fix for incorrect display of breadcrumbs if parts of the string were almost the same (INDIGO Sprint 221209, [!382](https://github.com/TeskaLabs/asab-webui/pull/382))
+
+- Bug fix in the styles for the button in CardHeader (INDIGO Sprint 230120, [!386](https://github.com/TeskaLabs/asab-webui/pull/386))
+
+- Fix pagination component which was causing app performance problems when the count of the pages was more than thousand. It used to generate all the items within pagination dropdown. The fix is that it displays only particular amount of pages with options to display more or less of the pages. (INDIGO Sprint 230120, [!387](https://github.com/TeskaLabs/asab-webui/pull/387))
 
 ## v22.48
 

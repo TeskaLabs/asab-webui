@@ -14,22 +14,22 @@ module.exports = {
 	build: function(config) {
 		return Object.assign(
 			{
-				// var disableHostCheck = !proxy || process.env.DANGEROUSLY_DISABLE_HOST_CHECK === 'true';
-				// disableHostCheck: disableHostCheck
 				compress: true,
-				clientLogLevel: 'none',
-				contentBase: config.dirs.public,
-				watchContentBase: true,
 				hot: true,
-				publicPath: '/',
-				quiet: true,
-				watchOptions: {
-					ignored: allButDir(config.dirs.src),
+				devMiddleware: {
+					publicPath: '/'
 				},
-				overlay: false,
 				historyApiFallback: {
 					disableDotRule: true,
 				},
+				client: {
+					overlay: false,
+					logging: 'none'
+				  },
+				static: {
+					directory: config.dirs.public,
+					watch: {ignored: allButDir(config.dirs.src)},
+				}
 			},
 			config.webpackDevServer
 		);

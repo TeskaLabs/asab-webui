@@ -1,12 +1,11 @@
 // imports
 const webpack = require('webpack');
 const path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const common = require("./common");
 
 // initial extended configuration
@@ -34,8 +33,8 @@ module.exports = {
 	build: function(config) {
 		// version and build date of the app
 		const version = common.getVersion();
-		const buildDate = new Date();
 		const repository = common.getRepository();
+		const buildDate = new Date();
 		// paths
 		const entry_path = path.resolve(config["dirs"]["src"], 'index.js');
 		const html_template_path = path.resolve(config["dirs"]["public"], 'index.html');
@@ -54,7 +53,12 @@ module.exports = {
 
 		const defaultPlugins = [
 			new HtmlWebpackPlugin({
-				template: html_template_path
+				template: html_template_path,
+				minify: {
+					removeAttributeQuotes: true,
+					collapseWhitespace: true,
+					removeComments: true
+				}
 			}),
 			new InterpolateHtmlPlugin(
 				common.convertKeysForHtml(config["app"])
@@ -62,16 +66,9 @@ module.exports = {
 				// "publicUrl" -> "__PUBLIC_URL__"
 				// "apiUrl" -> "__API_URL__"
 			),
-			new UglifyJsPlugin({
-				uglifyOptions: {
-					output: {
-						comments: false
-					}
-				}
-			}),
 			// Extracts file styles.css
-			new MiniCssExtractPlugin({ filename: 'assets/css/styles.css' }),
-			new OptimizeCssAssetsPlugin(),
+			// TODO: make CSS files generate to 'assets/css/' without causing path for fonts to be 'assets/css/assets/fonts/'
+			new MiniCssExtractPlugin({ filename: '[name].[contenthash:8].css'}),
 			// Remove moment locales from bundle except those which are defined as second parameter
 			new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, defaultLocales),
 		];
@@ -79,7 +76,7 @@ module.exports = {
 		const filteredExtendedConfig = {...extendedConfig};
 		listOfRenamedProps.forEach(prop => delete filteredExtendedConfig[prop]);
 
-		const newModule =  {...extendedConfig.extraModule};
+		const newModule = {...extendedConfig.extraModule};
 		delete newModule.extraRules;
 
 		return {
@@ -89,8 +86,8 @@ module.exports = {
 			},
 			mode: 'production',
 			output: {
-				filename: 'assets/js/[name].[contenthash].bundle.js',
-				chunkFilename: 'assets/js/[name].[contenthash].chunk.js',
+				filename: 'assets/js/[name].[contenthash:8].bundle.js',
+				chunkFilename: 'assets/js/[name].[contenthash:8].chunk.js',
 				path: path.resolve(config["dirs"]["dist"]),
 				publicPath: '',
 				...extendedConfig.extraOutputs
@@ -110,7 +107,7 @@ module.exports = {
 			],
 			optimization: {
 				splitChunks: {
-					chunks: "all",
+					chunks: 'all',
 					cacheGroups: {
 						vendor: {
 							name: 'vendors',
@@ -136,6 +133,9 @@ module.exports = {
 				minimizer: [
 					// Minimizes output javascript
 					new TerserPlugin({
+						test: /\.js(\?.*)?$/i,
+						parallel: true,
+						minify: TerserPlugin.terserMinify,
 						terserOptions: {
 							parse: {
 								ecma: 8,
@@ -149,13 +149,15 @@ module.exports = {
 							mangle: {
 								safari10: true,
 							},
-							output: {
-								ecma: 5,
+							format: {
 								comments: false,
-								ascii_only: true
-							}
-						}
-					})
+							},
+						},
+						extractComments: false,
+					}),
+					new CssMinimizerPlugin(),
+					// `...` applies webpack's default minimizers which would otherwise be completely overwritten by our config
+					`...`
 				],
 				...extendedConfig.extraOptimization
 			},

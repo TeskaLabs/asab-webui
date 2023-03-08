@@ -13,7 +13,7 @@ import Icon from './SidebarIcon';
 
 import { SET_SMALL_SIDEBAR } from '../../actions';
 
-const SidebarBottomItem = ({ item, sidebarLogo, screenWidth }) => {
+const SidebarBottomItem = ({ item, sidebarLogo }) => {
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
 	const isSmallSidebarOpen = useSelector(state => state.sidebar.isSmallSidebarOpen);
 
@@ -38,13 +38,6 @@ const SidebarBottomItem = ({ item, sidebarLogo, screenWidth }) => {
 		dispatch({
 			type: COLLAPSE_SIDEBAR,
 			isSidebarCollapsed: !isSidebarCollapsed
-		});
-	}
-
-	if (screenWidth && screenWidth <= 768) {
-		dispatch({
-			type: COLLAPSE_SIDEBAR,
-			isSidebarCollapsed: false
 		});
 	}
 

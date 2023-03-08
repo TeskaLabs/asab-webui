@@ -6,7 +6,6 @@ Example:
 
 ```
 let ConfigDefaults = {
-	site_title: "TeskaLabs",
 	title: "Page Title",
 	brandImage: {
 		light: {
@@ -154,14 +153,6 @@ Example of application's `index.html` setup (for **devs** only) - this is being 
 ```
 
 
-## Setting page title
-The page title (top of browser and on tab) is set as `site_title | title` if both are available.
-If title is available, but site_title is not, the page title will be displayed as `title`.
-If none of them is provided in configuration, the basic html title tag will be used.
-
-With the configuration set as above, the title will be: `TeskaLabs | Page Title`
-
-
 ## Styling guide
 
 Every image HAS TO be provided in SVG (vectorized).
@@ -184,7 +175,12 @@ minimized:
 
 **Branding** is located in `top-left` corner on large screens. `Fullsize` branding image is used when sidebar is uncollapsed and is substituted by `mimnimized` version upon collapsing. On smaller screens (<768px), branding in sidebar disappeares and only fullsized branding image appears in the `top-center` position of the page.
 
-Logo should be suitable for use in both light & dark mode. 
+
+**Best practices for *branding images***
+ * Logo should be suitable for use in both light & dark mode.
+ * Ideal brand image should be designed to *match format ratios* both on full screen and on minimized.
+ * If brand image consists of text, the text should be centered with font size at least 24px or bigger. Sizes smaller than 24px might cause branding to look disproportionate compared to the rest of the application's elements.
+ * If branding image consists of a logo and a text, they should be verticaly aligned to center. Font size should be at least 24px.
 
 
 **SidebarLogo** is always located at the `bottom` of sidebar. Minimized version appeares upon the sidebar's collapsion. It is advised to define two color variations of a sidebar logo. One for Light and the other for dark theme.
