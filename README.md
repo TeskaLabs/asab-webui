@@ -8,8 +8,9 @@ It is designed primarily for web-based user interfaces for ASAB microservices bu
 
 ## Quick links
 
- - https://getbootstrap.com - Bootstrap
- - https://reactstrap.github.io - ReactStrap
+ - [Bootstrap](https://getbootstrap.com)
+ - [ReactStrap](https://reactstrap.github.io)
+ - [Atlas Icons](https://atlasicons.vectopus.com)
 
 
 ## Unified Features
