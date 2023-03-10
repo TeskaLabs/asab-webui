@@ -42,14 +42,15 @@ export default function HelpButton() {
                         </Button>
                     </CardHeader>
                     <CardBody>
-                        {/*<ReactMarkdown*/}
-                        {/*    rehypePlugins={[rehypeRaw]}*/}
-                        {/*    width="100%"*/}
-                        {/*    height="100%"*/}
-                        {/*>*/}
-                        {/*    {description}*/}
-                        {/*</ReactMarkdown>*/}
-                        <iframe src="https://squidfunk.github.io/mkdocs-material/getting-started/" title="Docs"/>
+                        <ReactMarkdown
+                            rehypePlugins={[rehypeRaw]}
+                            width="100%"
+                            height="100%"
+                        >
+                            {description}
+                        </ReactMarkdown>
+                        {/*TODO: don't remove, comment on when the documentation is ready to be displayed in the iframe*/}
+                        {/*<iframe className="help-iframe" src="" title=""/>*/}
                     </CardBody>
                 </Card>
             </Modal>
