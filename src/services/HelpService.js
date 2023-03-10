@@ -5,43 +5,31 @@ export default class HelpService extends Service {
 	constructor(app, serviceName="HeaderService"){
 		super(app, serviceName);
 		this.App = app;
-		this.HelpTextCache = {};
 	}
 
-	async setData(screenName, screenType) {
+	async setData(path) {
 		let withExtension;
-		// if (this.HelpTextCache[screenName]) {
-		// 	// Dispatch
-		// 	this.App.Store.dispatch({
-		// 		type: HELP_DESCRIPTION,
-		// 		description: this.HelpTextCache[screenName]
-		// 	});
-		// 	return;
-		// }
 
-		if ((/\.[^/.]+$/.test(screenType))) {
-			withExtension = screenType;
+		if ((/\.[^/.]+$/.test(path))) {
+			withExtension = path;
 		} else {
-			withExtension = `${screenType}.json`
+			withExtension = `${path}.json`
 		}
-		console.log(withExtension);
 
 
 		try {
 			const ASABLibraryAPI = this.App.axiosCreate('asab_library');
-			let response = await ASABLibraryAPI.get(`/library/item/Help/${screenName}/${withExtension}`);
+			let response = await ASABLibraryAPI.get(`/library/item/Help/${withExtension}`);
 			if ((response.status == 200) && response.data) {
-				this.HelpTextCache[screenName] = response.data.description;
 				this.App.Store.dispatch({
 					type: HELP_DESCRIPTION,
 					description: response.data.description
 				});
 			}
 		} catch (e) {
-			console.warn(`Help service can't retrieve data for ${screenName}`);
+			console.warn(`Help service can't retrieve data for ${path}`);
 			console.error(e, "error");
 			// Remove data from the TenantDataCache eventually
-			delete this.HelpTextCache[screenName];
 			this.App.Store.dispatch({
 				type: HELP_DESCRIPTION,
 				description: ""

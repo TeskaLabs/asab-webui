@@ -42,13 +42,14 @@ export default function HelpButton() {
                         </Button>
                     </CardHeader>
                     <CardBody>
-                        <ReactMarkdown
-                            rehypePlugins={[rehypeRaw]}
-                            width="100%"
-                            height="100%"
-                        >
-                            {description}
-                        </ReactMarkdown>
+                        {/*<ReactMarkdown*/}
+                        {/*    rehypePlugins={[rehypeRaw]}*/}
+                        {/*    width="100%"*/}
+                        {/*    height="100%"*/}
+                        {/*>*/}
+                        {/*    {description}*/}
+                        {/*</ReactMarkdown>*/}
+                        <iframe src="https://squidfunk.github.io/mkdocs-material/getting-started/" title="Docs"/>
                     </CardBody>
                 </Card>
             </Modal>

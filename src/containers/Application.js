@@ -440,9 +440,9 @@ class Application extends Component {
 		}
 	}
 
-	addHelpButton(directory, item) {
+	addHelpButton(path) {
 		useEffect(() => {
-			this.HelpService.setData(directory, item);
+			this.HelpService.setData(path);
 			return () => {
 				this.Store.dispatch({
 					type: HELP_DESCRIPTION,
