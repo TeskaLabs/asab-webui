@@ -22,6 +22,8 @@
 
 - Webpack V4 to V5 migration. (INDIGO Sprint 230217, [!379](https://github.com/TeskaLabs/asab-webui/pull/379))
 
+- Remove unused code (action `SET_SMALL_SIDEBAR`, variable `isSmallSidebarOpen`) (INDIGO Sprint 230303, [!395](https://github.com/TeskaLabs/asab-webui/pull/395))
+
 ## v23.5
 
 ### Features
