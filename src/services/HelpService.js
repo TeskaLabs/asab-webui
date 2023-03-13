@@ -8,18 +8,18 @@ export default class HelpService extends Service {
 	}
 
 	async setData(path) {
-		let withExtension;
+		let pathWithExtension;
 
 		if ((/\.[^/.]+$/.test(path))) {
-			withExtension = path;
+			pathWithExtension = path;
 		} else {
-			withExtension = `${path}.json`
+			pathWithExtension = `${path}.json`
 		}
 
 
 		try {
 			const ASABLibraryAPI = this.App.axiosCreate('asab_library');
-			let response = await ASABLibraryAPI.get(`/library/item/Help/${withExtension}`);
+			let response = await ASABLibraryAPI.get(`/library/item/Help/${pathWithExtension}`);
 			if ((response.status == 200) && response.data) {
 				this.App.Store.dispatch({
 					type: HELP_CONTENT,
