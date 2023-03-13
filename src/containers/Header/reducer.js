@@ -1,14 +1,14 @@
 import { HELP_CONTENT } from '../../actions';
 
 const initialState = {
-    description: ""
+    content: ""
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
         case HELP_CONTENT:
             return {
-                description: action.description
+                content: action.content
             }
 
         default:

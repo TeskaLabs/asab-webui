@@ -23,7 +23,7 @@ export default class HelpService extends Service {
 			if ((response.status == 200) && response.data) {
 				this.App.Store.dispatch({
 					type: HELP_CONTENT,
-					description: response.data.description
+					content: response.data.content
 				});
 			}
 		} catch (e) {
@@ -31,7 +31,7 @@ export default class HelpService extends Service {
 			// Remove data from the TenantDataCache eventually
 			this.App.Store.dispatch({
 				type: HELP_CONTENT,
-				description: ""
+				content: ""
 			});
 		}
 	}
