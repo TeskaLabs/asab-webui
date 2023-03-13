@@ -36,3 +36,4 @@ export default class HelpService extends Service {
 		}
 	}
 }
+

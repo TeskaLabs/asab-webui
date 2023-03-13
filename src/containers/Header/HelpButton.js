@@ -12,8 +12,8 @@ export default function HelpButton() {
 
     const [modal, setModal] = useState(false);
 
-    const description = useSelector(state => state?.helpButton.description);
-    if ((description == undefined) || (description == "")) return null;
+    const content = useSelector(state => state?.helpButton.content);
+    if ((content == undefined) || (content == "")) return null;
 
     const toggle = () => setModal(!modal);
 
@@ -45,7 +45,7 @@ export default function HelpButton() {
                             width="100%"
                             height="100%"
                         >
-                            {description}
+                            {content}
                         </ReactMarkdown>
                         {/*TODO: don't remove, comment on when the documentation is ready to be displayed in the iframe*/}
                         {/*<iframe className="help-iframe" src="" title=""/>*/}
@@ -55,3 +55,4 @@ export default function HelpButton() {
         </>
     );
 }
+
