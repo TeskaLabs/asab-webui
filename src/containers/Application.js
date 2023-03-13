@@ -26,7 +26,7 @@ import HelpService from "../services/HelpService";
 
 import AccessDeniedCard from '../modules/tenant/access/AccessDeniedCard';
 
-import {ADD_ALERT, SET_ADVANCED_MODE, HELP_DESCRIPTION} from '../actions';
+import {ADD_ALERT, SET_ADVANCED_MODE, HELP_CONTENT} from '../actions';
 
 
 class Application extends Component {
@@ -445,7 +445,7 @@ class Application extends Component {
 			this.HelpService.setData(path);
 			return () => {
 				this.Store.dispatch({
-					type: HELP_DESCRIPTION,
+					type: HELP_CONTENT,
 					description: ""
 				})
 			}

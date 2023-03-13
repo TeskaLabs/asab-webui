@@ -4,8 +4,6 @@ import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import { useSelector } from 'react-redux';
 
-import './header.scss';
-
 import { Modal, NavLink, Card, CardHeader, CardBody, Button } from 'reactstrap';
 
 

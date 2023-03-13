@@ -7,6 +7,7 @@ import HelpButton from './HelpButton';
 import ThemeButton from '../../theme/ThemeButton';
 import Breadcrumbs from './BreadcrumbsRouter';
 import { Link } from "react-router-dom";
+import './header.scss';
 
 export function Header(props) {
 	const HeaderService = props.app.locateService("HeaderService");

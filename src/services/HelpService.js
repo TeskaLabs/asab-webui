@@ -1,5 +1,5 @@
 import Service from '../abc/Service';
-import {HELP_DESCRIPTION} from "../actions";
+import {HELP_CONTENT} from "../actions";
 
 export default class HelpService extends Service {
 	constructor(app, serviceName="HeaderService"){
@@ -22,16 +22,15 @@ export default class HelpService extends Service {
 			let response = await ASABLibraryAPI.get(`/library/item/Help/${withExtension}`);
 			if ((response.status == 200) && response.data) {
 				this.App.Store.dispatch({
-					type: HELP_DESCRIPTION,
+					type: HELP_CONTENT,
 					description: response.data.description
 				});
 			}
 		} catch (e) {
-			console.warn(`Help service can't retrieve data for ${path}`);
-			console.error(e, "error");
+			console.error(`Help service can't retrieve data for ${path}`, e);
 			// Remove data from the TenantDataCache eventually
 			this.App.Store.dispatch({
-				type: HELP_DESCRIPTION,
+				type: HELP_CONTENT,
 				description: ""
 			});
 		}
