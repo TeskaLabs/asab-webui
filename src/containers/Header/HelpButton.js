@@ -33,7 +33,7 @@ export default function HelpButton() {
                     <CardHeader className="border-bottom">
                         <div className="card-header-title">
                             <i className="cil-info pr-2" />
-                            {t("HelpButton|Page description")}
+                            {t("HelpButton|Help")}
                         </div>
                         <Button outline color="primary" onClick={toggle}>
                             <i className="cil-x"/>
