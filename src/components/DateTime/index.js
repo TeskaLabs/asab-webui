@@ -9,9 +9,6 @@ export function DateTime(props) {
 
 	if ((props.value === null) || (props.value === undefined)) {
 		switch(props.renderType) {
-			case "component": return (
-				<span className="datetime">{' '}</span>
-			);
 			case "string": return " ";
 			default: return (
 				<span className="datetime">{' '}</span>
@@ -21,12 +18,6 @@ export function DateTime(props) {
 
 	if (new Date(props.value).toString() === "Invalid Date") {
 		switch(props.renderType) {
-			case "component": return (
-				<span className='datetime'>
-					<i className="cil-clock pr-1"></i>
-					Invalid Date
-				</span>
-			);
 			case "string": return "Invalid Date";
 			default: return (
 				<span className='datetime'>
@@ -44,12 +35,6 @@ export function DateTime(props) {
 		formatDistanceToNow(props.value * 1000, { locale: locale });
 
 	switch(props.renderType) {
-		case "component": return (
-			<span className="datetime" title={dateFromNow}>
-				<i className="cil-clock pr-1"></i>
-				{date}
-			</span>
-		);
 		case "string": return date;
 		default: return (
 			<span className="datetime" title={dateFromNow}>
