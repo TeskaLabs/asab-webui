@@ -10,6 +10,6 @@ export class Renderer {
 	}
 
 	plain(key, value, schemaField)	{
-		return value?.toString();
+		return value;
 	}
 }
