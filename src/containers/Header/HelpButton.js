@@ -47,7 +47,7 @@ export default function HelpButton() {
                         >
                             {content}
                         </ReactMarkdown>
-                        {/*TODO: don't remove, comment on when the documentation is ready to be displayed in the iframe*/}
+                        {/*TODO: uncomment and use when the documentation is ready to be displayed in the iframe*/}
                         {/*<iframe className="help-iframe" src="" title=""/>*/}
                     </CardBody>
                 </Card>

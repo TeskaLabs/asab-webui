@@ -7,12 +7,16 @@ If you wand to add this component, you need to call the `addHelpButton` method. 
 ## Example code
 
 ```javascript
-const ExportsContainerDetail = (props) => {
-	props.app.addHelpButton("Dashboards/SomeDashboardName");
-	return (...);
+export function Container(props) {
+	props.app.addHelpButton("Path/to/help-content");
 }
 
-export default ExportsContainerDetail;
 ```
 
-In order for the description to be displayed, it must be added to the Library.
+In order for the help-content to be displayed, it must be added to the Library in the directory `Help`. File with help-content must have a file extension `json`.
+
+```json
+{
+    "content": "Help content"
+}
+```

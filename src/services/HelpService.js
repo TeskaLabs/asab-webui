@@ -16,7 +16,6 @@ export default class HelpService extends Service {
 			pathWithExtension = `${path}.json`
 		}
 
-
 		try {
 			const ASABLibraryAPI = this.App.axiosCreate('asab_library');
 			let response = await ASABLibraryAPI.get(`/library/item/Help/${pathWithExtension}`);
