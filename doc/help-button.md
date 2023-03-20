@@ -1,11 +1,11 @@
 # ASAB WebUI HelpButton component
 
-Display information info for the desired screen in the modal screen.
+Display information for your desired screen in modal.
 
-If you wand to add this component, you need to call the `addHelpButton` method. This method will take 1 parameter:
->- Parameter is `path`, for example (Exports/Detail, Dashboards/SomeDashboardName)
+If you want to add this component, you need to call the `addHelpButton` method. This method takes only 1 parameter:
+>- `path` (string) e.g.: `"Exports/Detail"` or `"Dashboards/SomeDashboardName"`, ...
 
-`Path/to/help-content` - is the path you set up in the Library without the main folder `Help`
+`Path/to/help-content` - is a path you set up in Library. **`Help` folder is excluded from this path.** Content file's extension can be omitted.
 
 #### Example code
 
@@ -13,25 +13,38 @@ If you wand to add this component, you need to call the `addHelpButton` method. 
 export function Container(props) {
 	props.app.addHelpButton("Path/to/help-content");
 }
-
 ```
 
-### Add help-content to the Library
 
-In the Library, create `Help` folder and inside of it, create a new subfolder which has a some section name (the section name can be found on the sidebar) `SectionName` and inside of it, create a file called (it as the name of the page where you want it to appear) `SomeHelpContent.json` for which you wish to add a help-button.
+### Add help-content to Library
+
+1. Create `Help` folder in Library.
+2. Inside, create a new subfolder (e.g. `Dashboards`, `Clients`, `Credentials`,..)
+	- Naming should match sidebar item's name (as in examples above)
+3. Inside newly created subfolder, create a _json_ file named after the page where you want the HelpButton component to appear (e.g. `DashboardsName.json`).
+4. This _json_ file carries the content which appears in modal (content supports markdown).
 
 #### Specific example
 
 ```
 - Library
-  - Help
-    - Dashboards
-	 - DashboardsName.json
+	- Help
+		- Dashboards
+			- DashboardsName.json
 ```
 
 #### `DashboardsName.json` content example
 ```json
 {
     "content": "Help content"
+}
+```
+
+#### Usage inside component
+```javascript
+export function DashboardsName(props) {
+...
+	props.app.addHelpButton("Dashboards/DashboardsName");
+...
 }
 ```
