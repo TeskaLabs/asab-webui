@@ -1,6 +1,9 @@
 import { format, parseISO, formatISO } from 'date-fns';
+import useDateFNSLocale from './useDateFNSLocale';
 
-const timeToString = (value, dateTimeFormat = "medium", locale = undefined) => {
+const timeToString = (value, dateTimeFormat = "medium") => {
+
+	const locale = useDateFNSLocale();
 
 	if ((value === null) || (value === undefined)) {
 		return ' ';
