@@ -6,6 +6,7 @@ const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 const common = require("./common");
 
 // initial extended configuration
@@ -69,6 +70,7 @@ module.exports = {
 			// Extracts file styles.css
 			// TODO: make CSS files generate to 'assets/css/' without causing path for fonts to be 'assets/css/assets/fonts/'
 			new MiniCssExtractPlugin({ filename: '[name].[contenthash:8].css'}),
+			new NodePolyfillPlugin(),
 			// Remove moment locales from bundle except those which are defined as second parameter
 			new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, defaultLocales),
 		];
