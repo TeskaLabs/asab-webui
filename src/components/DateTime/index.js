@@ -1,8 +1,8 @@
 import React from 'react';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 
-import useDateFNSLocale from './useDateFNSLocale';
 import timeToString from './timeToString';
+import useDateFNSLocale from './useDateFNSLocale';
 
 export function DateTime(props) {
 	const locale = useDateFNSLocale();
@@ -22,7 +22,7 @@ export function DateTime(props) {
 		);
 	}
 
-	const date = timeToString(props.value, props.dateTimeFormat, locale);
+	const date = timeToString(props.value, props.dateTimeFormat);
 
 	const dateFromNow = isNaN(props.value) ? formatDistanceToNow(parseISO(props.value), { locale: locale }) :
 		props.value > 9999999999 ? formatDistanceToNow(props.value, { locale: locale }) :
@@ -33,5 +33,5 @@ export function DateTime(props) {
 			<i className="cil-clock pr-1"></i>
 			{date}
 		</span>
-	)
+	);
 }
