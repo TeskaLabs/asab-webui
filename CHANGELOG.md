@@ -26,6 +26,8 @@
 
 - Refactor timeToString method returning the datetime string to be used without defining locales outside its own function. (INDIGO Sprint 230317, [!396](https://github.com/TeskaLabs/asab-webui/pull/396))
 
+- Refactor styles for the icon in the DataTable (INDIGO Sprint 230317, [!398](https://github.com/TeskaLabs/asab-webui/pull/398))
+
 ## v23.5
 
 ### Features
