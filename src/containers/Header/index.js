@@ -1,15 +1,13 @@
 import React, { useState, Suspense, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import {
-	Nav,
-	NavItem
-} from 'reactstrap';
+import { Nav, NavItem } from 'reactstrap';
 
 import HelpButton from './HelpButton';
 import ThemeButton from '../../theme/ThemeButton';
 import Breadcrumbs from './BreadcrumbsRouter';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import './header.scss';
 
 export function Header(props) {
 	const HeaderService = props.app.locateService("HeaderService");
@@ -45,8 +43,8 @@ export function Header(props) {
 					}
 					{windowDimensions.width > 768 && <Breadcrumbs app={props.app}/>}
 					<Nav className="ml-auto header-props" navbar>
-						<ThemeButton />
 						<HelpButton />
+						<ThemeButton />
 						{HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>
 								<item.component key={item} {...item.componentProps} app={props.app}/>
@@ -67,8 +65,8 @@ export function Header(props) {
 						</Link>
 					</div>
 					<Nav className="ml-auto header-props" navbar>
-						<ThemeButton />
 						<HelpButton />
+						<ThemeButton />
 						{HeaderService.Items.map((item, idx) => (
 							window.innerWidth < 1024 && item.componentProps.children !== undefined && item.componentProps.children === "LanguageDropdown" ?
 								<NavItem key={idx}>
@@ -110,8 +108,8 @@ export function Header(props) {
 						{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') &&
 							(
 								<Nav navbar>
-									<ThemeButton />
 									<HelpButton />
+									<ThemeButton />
 									{HeaderService.Items.map((item, idx) => (
 										window.innerWidth > 500 ?
 											item.componentProps?.children !== "LanguageDropdown" ?
@@ -137,8 +135,8 @@ export function Header(props) {
 					null
 				:
 					<Nav className="header-props-sm" navbar>
-						<ThemeButton/>
 						<HelpButton/>
+						<ThemeButton/>
 						{HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>
 								<item.component key={item} {...item.componentProps} app={props.app}/>
@@ -164,3 +162,4 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(Header);
+

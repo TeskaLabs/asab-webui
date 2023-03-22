@@ -235,7 +235,6 @@ export default function (props) {
 	};
 
 	const onDownload = () => initData.data;
-	props.app.addHelpButton("https://github.com/TeskaLabs/asab-webui/blob/master/demo/src/modules/home/containers/TableContainer.js");
 
 	const onSort = (value) => setSort(value);
 

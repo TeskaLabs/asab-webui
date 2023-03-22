@@ -8,6 +8,8 @@
 
 - Implement default Renderer to `abc` (INDIGO Sprint 230217, [!391](https://github.com/TeskaLabs/asab-webui/pull/391))
 
+- Implement HelpComponent which shows the page description (INDIGO Sprint 230317, [!393](https://github.com/TeskaLabs/asab-webui/pull/393))
+
 ### Refactoring
 
 - Refactor naming for `get_current_tenant`, `set_tenants` and `_extract_tenant_from_url` from snake_case to camelCase format (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))

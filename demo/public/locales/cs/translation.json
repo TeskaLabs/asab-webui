@@ -19,6 +19,9 @@
 		"Change a password": "Změna hesla",
 		"Logout": "Odhlásit"
 	},
+	"HelpButton": {
+		"Help": "Nápověda"
+	},
 	"ASABConfig": {
 		"Nothing has been selected": "Zatím nebylo nic vybráno",
 		"Please select the configuration from tree menu on the left side of the screen": "Prosím vyberte konfiguraci z nabídky na levé straně obrazovky",

@@ -1,43 +1,50 @@
-### Default
+# ASAB WebUI HelpButton component
 
-Help button may have default href. You can define this default href in configuration of your application:
+Display information for your desired screen in modal.
 
-```
-let ConfigDefaults = {
-    ...
-    default_help_url: "https://github.com/TeskaLabs/asab-webui",
-    ...
+If you want to add this component, you need to call the `addHelpButton` method. This method takes only 1 parameter:
+>- `path` (string) e.g.: `"Exports/Detail"` or `"Dashboards/SomeDashboardName"`, ...
+
+`Path/to/help-content` - is a path you set up in Library. **`Help` folder is excluded from this path.** Content file's extension can be omitted.
+
+#### Example code
+
+```javascript
+export function Container(props) {
+	props.app.addHelpButton("Path/to/help-content");
 }
 ```
 
-### Dynamic href
 
-For changing href, icon or target of Help Button you can call function (`props.app.addHelpButton()`) that will automatically add Help Button with href, icon and target defined by you. On unmount of component where this function was called it will also change button's href to default one with default icon and target if default href is specified or it will remove button from the screen if default href isn't provided.
+### Add help-content to Library
 
-This function (`props.app.addHelpButton(href)`) requires obligatory argument `href`, it is your custom href to another page.
+1. Create `Help` folder in Library.
+2. Inside, create a new subfolder (e.g. `Dashboards`, `Clients`, `Credentials`,..)
+	- Naming should match sidebar item's name (as in examples above)
+3. Inside newly created subfolder, create a _json_ file named after the page where you want the HelpButton component to appear (e.g. `DashboardsName.json`).
+4. This _json_ file carries the content which appears in modal (content supports markdown).
 
-Example:
+#### Specific example
+
 ```
-const YourContainer = (props) => {
-    props.app.addHelpButton("https://www.your-custom-href.com");
-    return (...);
+- Library
+	- Help
+		- Dashboards
+			- DashboardsName.json
+```
+
+#### `DashboardsName.json` content example
+```json
+{
+    "content": "Help content"
 }
-
-export default YourContainer;
 ```
 
-### Customizing icon and target of Help Button
-
-`addHelpButton()` also accepts two optional arguments: 
-
-1) You can provide classname of icon from coreui icons library and it will replace original info icon. Just pass icon classname as second argument:
-
-```
-props.app.addHelpButton("https://www.your-custom-href.com", "cil-plus");
-```
-
-2) You can specify target (default is "_blank") for Help Button if needed:
-
-```
-props.app.addHelpButton("https://www.your-custom-href.com", "cil-plus", "_self");
+#### Usage inside component
+```javascript
+export function DashboardsName(props) {
+...
+	props.app.addHelpButton("Dashboards/DashboardsName");
+...
+}
 ```
