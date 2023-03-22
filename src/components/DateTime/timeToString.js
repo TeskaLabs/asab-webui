@@ -3,11 +3,12 @@ import useDateFNSLocale from './useDateFNSLocale';
 
 const timeToString = (value, dateTimeFormat = "medium") => {
 
-	const locale = useDateFNSLocale();
-
 	if ((value === null) || (value === undefined)) {
 		return ' ';
 	}
+	
+	// Declaration of locale must be below empty string returned for `undefined` values to avoid bad react state handling in useDateFNSLocale
+	const locale = useDateFNSLocale();
 	
 	if (new Date(value).toString() === "Invalid Date") {
 		return 'Invalid Date';
