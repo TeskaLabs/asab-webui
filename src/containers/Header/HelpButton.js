@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useTranslation } from "react-i18next";
-import ReactMarkdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw';
 import { useSelector } from 'react-redux';
 
 import { Modal, NavLink, Card, CardHeader, CardBody, Button } from 'reactstrap';
@@ -40,13 +38,7 @@ export default function HelpButton() {
                         </Button>
                     </CardHeader>
                     <CardBody>
-                        <ReactMarkdown
-                            rehypePlugins={[rehypeRaw]}
-                            width="100%"
-                            height="100%"
-                        >
-                            {content}
-                        </ReactMarkdown>
+                        <div>{content}</div>
                         {/*TODO: uncomment and use when the documentation is ready to be displayed in the iframe*/}
                         {/*<iframe className="help-iframe" src="" title=""/>*/}
                     </CardBody>

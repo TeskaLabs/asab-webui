@@ -30,6 +30,8 @@
 
 - Refactor styles for the icon in the DataTable (INDIGO Sprint 230317, [!398](https://github.com/TeskaLabs/asab-webui/pull/398))
 
+- Remove `react-markdown` and `rehype-raw` libraries forn HelpButton, instead of this use usual `<div>` (INDIGO Sprint 230317, [!399](https://github.com/TeskaLabs/asab-webui/pull/399))
+
 ## v23.5
 
 ### Features
