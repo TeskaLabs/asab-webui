@@ -1,0 +1,67 @@
+.config-container {
+	height: 100%;
+
+	.card-editor-layout {
+		height: 100%;
+		width: 100%;
+
+		form {
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+		}
+	}
+
+	.card-editor-body {
+		height: 100% !important;
+		overflow: auto !important;
+		overflow-x: hidden !important;
+	}
+
+	/* ConfigList DataTable */
+	.config-list-dt {
+		height: 100% !important;
+		.row {
+			height: 100%;
+			.card, .col {
+				height: 100% !important;
+			}
+			.card-body {
+				overflow: auto !important;
+			}
+		}
+	}
+
+	/*Config Editor*/
+	.pattern-section-dropdown {
+		max-height: 400px;
+		overflow-y: auto;
+	}
+
+	.hidden-file-input {
+		display: none;
+	}
+
+	.file-input {
+		overflow: hidden;
+		display: flex;
+		flex-wrap: wrap;
+		flex: 1 5;
+		input {
+			cursor: pointer;
+			&:focus {
+				box-shadow: none;
+				border-color: #ced4da;
+			}
+		}
+		.input-group-text {
+			cursor: pointer;
+			border-radius: 5px 0 0 5px;
+			border-right: none;
+		}
+	}
+
+	.dropdown-export-item, .dropdown-export-item:hover {
+		text-decoration: none;
+	}
+}
