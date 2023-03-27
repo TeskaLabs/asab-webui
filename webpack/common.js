@@ -28,35 +28,23 @@ exports.getRules = function(config) {
 					{
 						useBuiltIns: "entry",
 						targets: {
-						esmodules: true,
+							esmodules: true,
 						},
 						corejs: {
 							version: "3",
 							proposals: true
 						}
-				 	}
-				],['@babel/react']], plugins: ["transform-object-rest-spread"] }
+					}],['@babel/react']],
+					plugins: ["transform-object-rest-spread"],
+					generatorOpts: { compact: false }
+				}
 			}],
 			exclude: '/node_modules/' // we can exclude node_modules b/c they're already complied
 		},
 		{
-			test: /\.(css)$/,
+			test: /\.(s[ac]|c)ss$/i,
 			use: [
-				MiniCssExtractPlugin.loader,
-				{
-					loader: 'css-loader',
-					options: { sourceMap: true }
-				},
-				{
-					loader: 'postcss-loader',
-					options: { sourceMap: true }
-				},
-			]
-		},
-		{
-			test: /\.(scss|sass)$/,
-			use: [
-				MiniCssExtractPlugin.loader,
+				MiniCssExtractPlugin.loader, //extracs CSS into files
 				{
 					loader: 'css-loader',
 					options: { sourceMap: true }
@@ -72,15 +60,18 @@ exports.getRules = function(config) {
 			],
 		},
 		{
-			test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)(\?.*)?$/,
-			use: [{
-					loader: 'file-loader',
-					options: {
-						name: '[name].[contenthash].[ext]',
-						publicPath: '../',
-						outputPath: 'assets/',
-					}
-			}]
+			test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+			type: 'asset/resource',
+			generator: {
+				filename: 'assets/svg/[name][contenthash:8][ext]'
+			}
+		},
+		{
+			test: /\.(woff|woff2|ttf|eot|ico)(\?.*)?$/,
+			type: 'asset/resource',
+			generator: {
+				filename: 'assets/fonts/[name][contenthash:8][ext]'
+			}
 		},
 	]
 }

@@ -303,11 +303,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 			props.app.addAlert("success", t("ServicesContainer|Service action accepted successfully"));
 		} catch(e) {
 			console.error(e);
-			if (e?.response?.data?.message) {
-				props.app.addAlert("warning", `${e?.response?.data?.message}`);
-			} else {
-				props.app.addAlert("warning", t("ServicesContainer|Service action has been rejected"));
-			}
+			props.app.addAlert("warning", `${t("ServicesContainer|Service action has been rejected")}. ${e?.response?.data?.message}`, 30);
 		}
 		setIsSubmitting(false);
 	}

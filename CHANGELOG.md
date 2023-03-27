@@ -6,9 +6,35 @@
 
 - Implement `getTenantData` method to Tenant service (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
 
+- Implement default Renderer to `abc` (INDIGO Sprint 230217, [!391](https://github.com/TeskaLabs/asab-webui/pull/391))
+
+- Implement HelpComponent which shows the page description (INDIGO Sprint 230317, [!393](https://github.com/TeskaLabs/asab-webui/pull/393))
+
 ### Refactoring
 
 - Refactor naming for `get_current_tenant`, `set_tenants` and `_extract_tenant_from_url` from snake_case to camelCase format (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
+
+- Refactor the collapse and uncollapse of the sidebar according to the screen width (INDIGO Sprint 230203, [!389](https://github.com/TeskaLabs/asab-webui/pull/389))
+
+- Refactor Card Footer styling to accommodate needs of actions in the right corner of card footer. (INDIGO Sprint 230217, [!394](https://github.com/TeskaLabs/asab-webui/pull/394))
+
+- Branding logo style guide update (INDIGO Sprint 230217, [!390](https://github.com/TeskaLabs/asab-webui/pull/390))
+
+- Remove Helmet module, update error alert messages (INDIGO Sprint 230217, [!392](https://github.com/TeskaLabs/asab-webui/pull/392))
+
+- Webpack V4 to V5 migration. (INDIGO Sprint 230217, [!379](https://github.com/TeskaLabs/asab-webui/pull/379))
+
+- Remove unused code (action `SET_SMALL_SIDEBAR`, variable `isSmallSidebarOpen`) (INDIGO Sprint 230303, [!395](https://github.com/TeskaLabs/asab-webui/pull/395))
+
+- Refactor timeToString method returning the datetime string to be used without defining locales outside its own function. (INDIGO Sprint 230317, [!396](https://github.com/TeskaLabs/asab-webui/pull/396))
+
+- Refactor styles for the icon in the DataTable (INDIGO Sprint 230317, [!398](https://github.com/TeskaLabs/asab-webui/pull/398))
+
+- Remove `react-markdown` and `rehype-raw` libraries forn HelpButton, instead of this use usual `<div>` (INDIGO Sprint 230317, [!399](https://github.com/TeskaLabs/asab-webui/pull/399))
+
+### Bugfix
+
+- Bug fix for HelpComponent, not display a Helpcomoponent when the user changing the page (INDIGO Sprint 230317, [!401](https://github.com/TeskaLabs/asab-webui/pull/401))
 
 ## v23.5
 

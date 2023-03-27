@@ -73,7 +73,7 @@ function ConfigContainer(props) {
 		}
 		catch(e) {
 			console.error(e);
-			props.app.addAlert("warning", t(`ASABConfig|Unable to get data for tree menu`));
+			props.app.addAlert("warning", `${t("ASABConfig|Unable to get data for tree menu")}. ${e?.response?.data?.message}`, 30);
 			return;
 		}
 	}
@@ -101,7 +101,7 @@ function ConfigContainer(props) {
 		}
 		catch(e) {
 			console.error(e);
-			props.app.addAlert("warning", t(`ASABConfig|Unable to get schema. Try to reload the page`, {type: typeId}));
+			props.app.addAlert("warning", `${t("ASABConfig|Unable to get schema. Try to reload the page", {type: typeId})}. ${e?.response?.data?.message}`, 30);
 			return;
 		}
 	}
