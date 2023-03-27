@@ -55,9 +55,16 @@ module.exports = {
 			new HtmlWebpackPlugin({
 				template: html_template_path,
 				minify: {
-					removeAttributeQuotes: true,
 					collapseWhitespace: true,
-					removeComments: true
+					removeComments: true,
+					minifyJS: true,
+					minifyCSS: true
+					// TODO: eventually uncomment for better performance of the page
+					// useShortDoctype: true,
+					// removeEmptyAttributes: true,
+					// removeStyleLinkTypeAttributes: true,
+					// keepClosingSlash: true,
+					// minifyURLs: true
 				}
 			}),
 			new InterpolateHtmlPlugin(
