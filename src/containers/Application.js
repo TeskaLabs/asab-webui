@@ -443,6 +443,12 @@ class Application extends Component {
 	addHelpButton(path) {
 		useEffect(() => {
 			this.HelpService.setData(path);
+			return () => {
+				this.Store.dispatch({
+					type: HELP_CONTENT,
+					content: ""
+				})
+			}
 		}, [])
 	}
 
