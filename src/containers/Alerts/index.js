@@ -50,7 +50,7 @@ function AlertsComponent(props) {
 						className="shadow alerts-style"
 						fade={true}
 						isOpen={!alert.acked}
-						toggle={!sessionExpiration ? () => store.dispatch({ type: ACK_ALERT, key: alert.key }) : null}
+						toggle={!sessionExpiration ? () => store.dispatch({ type: ACK_ALERT, key: alert.key }) : null} // remove the close button for alert with expiration
 					>
 						{alert.shouldBeTranslated ? t(alert.message) : alert.message}
 					</Alert>

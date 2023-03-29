@@ -8,7 +8,7 @@ import SidebarBottomItem from './SidebarBottomItem';
 import {COLLAPSE_SIDEBAR} from "../../actions";
 
 
-const Sidebar = (props) => {
+export default function Sidebar (props) {
 	const [modal, setModal] = useState(false);
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
 	const sidebarHiddenItems = useSelector(state => state.sidebar?.sidebarHiddenItems);
@@ -117,7 +117,6 @@ const Sidebar = (props) => {
 					</div>
 				}
 				<div className="sidebar-nav">
-
 					<Nav  vertical>
 						{memoizedItemsList.map((item, idx) => (
 							<SidebarItem
@@ -134,5 +133,3 @@ const Sidebar = (props) => {
 			</div>
 	)
 }
-
-export default Sidebar;
