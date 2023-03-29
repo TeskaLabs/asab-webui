@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {connect, useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Alert } from "reactstrap";
 
 import { ACK_ALERT, DEL_ALERT } from '../../actions';
@@ -11,6 +11,7 @@ function AlertsComponent(props) {
 	const [seconds, setSeconds] = useState(0);
 	let store = props.app.Store;
 	const sessionExpiration = useSelector(state => state.auth?.sessionExpiration);
+	const alerts = useSelector(state => state.alerts.alerts);
 	const { t } = useTranslation();
 
 	// Expire old alerts
@@ -23,8 +24,8 @@ function AlertsComponent(props) {
 			setSeconds(seconds => seconds + 1);
 
 			const now = new Date();
-			for (var i in props.alerts) {
-				let alert = props.alerts[i];
+			for (var i in alerts) {
+				let alert = alerts[i];
 
 				if (alert.expire < now) {
 					if (alert.acked) {
@@ -42,7 +43,7 @@ function AlertsComponent(props) {
 
 	return (
 		<div className="alerts" >
-			{props.alerts.map((alert) => {
+			{alerts.map((alert) => {
 				return (
 					<Alert
 						key={alert.key}
@@ -60,10 +61,4 @@ function AlertsComponent(props) {
 	);
 }
 
-const mapStateToProps = state => {
-	return {
-		alerts: state.alerts.alerts
-	};
-}
-
-export default connect(mapStateToProps)(AlertsComponent);
+export default AlertsComponent;
