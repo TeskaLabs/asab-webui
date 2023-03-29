@@ -5,6 +5,7 @@ const initialState = {
 	resources: [],
 	unauthorizedNavItem: [],
 	unauthorizedNavChildren: [],
+	sessionExpiration: false
 }
 
 export default function reducer(state = initialState, action) {
@@ -31,6 +32,12 @@ export default function reducer(state = initialState, action) {
 			return {
 				...state,
 				unauthorizedNavChildren: action.unauthorizedNavChildren
+			}
+
+		case types.AUTH_SESSION_EXPIRATION:
+			return {
+				...state,
+				sessionExpiration: action.sessionExpiration
 			}
 
 		default:
