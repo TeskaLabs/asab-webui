@@ -34,6 +34,8 @@
 
 - Remove `react-markdown` and `rehype-raw` libraries forn HelpButton, instead of this use usual `<div>` (INDIGO Sprint 230317, [!399](https://github.com/TeskaLabs/asab-webui/pull/399))
 
+- Refactor and update Apps session expiration (INDIGO Sprint 230317, [!403](https://github.com/TeskaLabs/asab-webui/pull/403))
+
 ### Bugfix
 
 - Bug fix for HelpComponent, not display a Helpcomoponent when the user changing the page (INDIGO Sprint 230317, [!401](https://github.com/TeskaLabs/asab-webui/pull/401))
