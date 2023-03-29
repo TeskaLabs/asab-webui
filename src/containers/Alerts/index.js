@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { connect } from 'react-redux'
+import {connect, useSelector} from 'react-redux'
 import { Alert } from "reactstrap";
 
 import { ACK_ALERT, DEL_ALERT } from '../../actions';
@@ -10,6 +10,7 @@ import './alerts.scss';
 function AlertsComponent(props) {
 	const [seconds, setSeconds] = useState(0);
 	let store = props.app.Store;
+	const sessionExpiration = useSelector(state => state.auth?.sessionExpiration);
 	const { t } = useTranslation();
 
 	// Expire old alerts
@@ -49,7 +50,7 @@ function AlertsComponent(props) {
 						className="shadow alerts-style"
 						fade={true}
 						isOpen={!alert.acked}
-						toggle={() => store.dispatch({ type: ACK_ALERT, key: alert.key })}
+						toggle={!sessionExpiration ? () => store.dispatch({ type: ACK_ALERT, key: alert.key }) : null}
 					>
 						{alert.shouldBeTranslated ? t(alert.message) : alert.message}
 					</Alert>

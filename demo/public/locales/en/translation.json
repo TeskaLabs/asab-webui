@@ -89,7 +89,7 @@
 	"ASABAuthModule": {
 		"You are not authorized to use this application": "You are not authorized to use this application",
 		"You are in DEV mode and using MOCK login parameters": "You are in DEV mode and using MOCK login parameters",
-		"Your session has expired": "Your session has expired",
+		"Your session has ended due to inactivity. Please log in again to continue.": "Your session has ended due to inactivity. Please log in again to continue.",
 		"Your session will expire soon": "Your session will expire soon"
 	},
 	"ASABTenantModule": {

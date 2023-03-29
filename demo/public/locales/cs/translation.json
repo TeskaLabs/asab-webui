@@ -91,7 +91,7 @@
 	"ASABAuthModule": {
 		"You are not authorized to use this application": "Nejste autorizováni k používání této aplikace",
 		"You are in DEV mode and using MOCK login parameters": "Jste v DEV režimu a používáte MOCK přihlašovací údaje",
-		"Your session has expired": "Vaše relace vypršela",
+		"Your session has ended due to inactivity. Please log in again to continue.": "Vaše relace byla ukončena z důvodu nečinnosti. Pro pokračování se prosím znovu přihlaste.",
 		"Your session will expire soon": "Vaše relace brzy vyprší"
 	},
 	"ASABTenantModule": {
