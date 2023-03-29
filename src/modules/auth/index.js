@@ -72,6 +72,9 @@ export default class AuthModule extends Module {
 			if (this.OAuthToken != null) {
 				// Update the user info
 				let result = await this.updateUserInfo();
+				// if (this.App.Store != null) {
+				// 	this.App.Store.dispatch({ type: types.AUTH_SESSION_EXPIRATION, sessionExpiration: false });
+				// }
 				if (!result) {
 					// User info not found - go to login
 					sessionStorage.removeItem('SeaCatOAuth2Token');
@@ -268,6 +271,9 @@ export default class AuthModule extends Module {
 		if (!isUserInfoUpdated && oldUserInfo) {
 			oldUserInfo = null;
 			that.App.addAlert("danger", "ASABAuthModule|Your session has expired", 3600 * 1000, true);
+			if (that.App.Store != null) {
+				that.App.Store.dispatch({ type: types.AUTH_SESSION_EXPIRATION, sessionExpiration: true });
+			}
 		}
 		else {
 			let exp = that.UserInfo.exp * 1000; // Expiration timestamp
