@@ -24,7 +24,7 @@ const SidebarBottomItem = ({ item, sidebarLogo }) => {
 		// or when current location pathname is the same as item.url
 		if (item.url && location.pathname !== item.url) history.push(item.url);
 	}
-
+SidebarBottomItem
 	const onCollapse = (event) => {
 		event.stopPropagation();
 		dispatch({

@@ -59,11 +59,10 @@ function ConfigEditor(props) {
 
 	// Branding
 	const BrandingService = props.app.Services.BrandingService;
-	const Config = props.app.ConfigService.Config;
 
 	let homeScreenImg;
-	if (Config !== undefined && theme) {
-		homeScreenImg = BrandingService.getLogo(Config, theme);
+	if (BrandingService && theme) {
+		homeScreenImg = BrandingService.getLogo(theme);
 	}
 
 	// The container will be re-rendered on configType or configName change

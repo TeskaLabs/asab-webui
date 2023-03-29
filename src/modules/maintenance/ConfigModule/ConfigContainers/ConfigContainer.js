@@ -26,7 +26,6 @@ function ConfigContainer(props) {
 	const theme = useSelector(state => state?.theme);
 	const homeScreenAlt = props.app.Config.get('title');
 	const BrandingService = props.app.Services.BrandingService;
-	const Config = props.app.ConfigService.Config;
 
 	const [ treeData, setTreeData ] = useState({}); // Set complete data for TreeViewComponent
 	const [ createConfig, setCreateConfig ] = useState(false); // Use for condition to render components
@@ -37,8 +36,8 @@ function ConfigContainer(props) {
 	const config_created = useSelector(state => state.asab_config.configCreated)
 
 	let homeScreenImg;
-	if (Config !== undefined && theme) {
-		homeScreenImg = BrandingService.getLogo(Config, theme);
+	if (BrandingService && theme) {
+		homeScreenImg = BrandingService.getLogo(theme);
 	}
 
 

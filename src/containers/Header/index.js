@@ -19,13 +19,12 @@ export function Header(props) {
 	const title = useSelector(state => state.config.title);
 
 	const BrandingService = props.app.Services.BrandingService;
-	const Config = props.app.ConfigService.Config;
 
 	let brandImage;
-	if (Config !== undefined && theme) {
-		brandImage = BrandingService.getLogo(Config, theme);
+	if (BrandingService && theme) {
+		brandImage = BrandingService.getLogo(theme);
 	}
-	const href = Config?._defaults?.brandImage?.href ?? "/";
+	const href = brandImage?.href ?? "/";
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
