@@ -269,7 +269,7 @@ export default class AuthModule extends Module {
 			oldUserInfo = null;
 			that.App.addAlert("danger", "ASABAuthModule|Your session has ended due to inactivity. Please log in again to continue.", 3600 * 1000, true);
 			if (that.App.Store != null) {
-				that.App.Store.dispatch({ type: types.AUTH_SESSION_EXPIRATION, sessionExpiration: true });
+				that.App.Store.dispatch({ type: types.AUTH_SESSION_EXPIRATION, sessionExpired: true });
 			}
 		}
 		else {

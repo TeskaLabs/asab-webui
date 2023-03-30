@@ -15,7 +15,7 @@ export default function Sidebar (props) {
 	const sidebarLogo = useSelector(state => state.config?.sidebarLogo);
 	const unauthorizedNavItem = useSelector(state => state.auth?.unauthorizedNavItem);
 	const unauthorizedNavChildren = useSelector(state => state.auth?.unauthorizedNavChildren);
-	const sessionExpiration = useSelector(state => state.auth?.sessionExpiration);
+	const sessionExpired = useSelector(state => state.auth?.sessionExpired);
 	const [windowDimensions, setWindowDimensions] = useState({width: window.innerWidth});
 	const dispatch = useDispatch();
 
@@ -98,7 +98,7 @@ export default function Sidebar (props) {
 									<SidebarItem
 										key={idx}
 										item={item}
-										disabled={sessionExpiration}
+										disabled={sessionExpired}
 										unauthorizedNavChildren={unauthorizedNavChildren}
 										uncollapseAll={memoizedItemsList.length <= 2}
 									/>
@@ -122,7 +122,7 @@ export default function Sidebar (props) {
 							<SidebarItem
 								key={idx}
 								item={item}
-								disabled={sessionExpiration}
+								disabled={sessionExpired}
 								unauthorizedNavChildren={unauthorizedNavChildren}
 								uncollapseAll={memoizedItemsList.length <= 2}
 							/>
