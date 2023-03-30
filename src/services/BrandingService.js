@@ -1,5 +1,4 @@
 import Service from '../abc/Service';
-import { connect } from 'react-redux';
 
 export default class BrandingService extends Service {
 
@@ -11,7 +10,6 @@ export default class BrandingService extends Service {
 	* `header-logo-minimized.svg` dimensions: 30 x 30 pixels
 	*/
 
-	// constructor(app, serviceName="BrandingService"){
 	constructor( app, serviceName="BrandingService" ){
 		super(app, serviceName)
 		this.state = [];
@@ -24,8 +22,6 @@ export default class BrandingService extends Service {
 
 	initialize() {
 		if (this.App.Services.ConfigService && this.App.Modules.some(obj => obj.Name == "ASABConfigModule")) {
-			console.log('Config:', this.App.Config);
-
 			this.brandImage = this.App.Config.get('brandImage');
 			this.defaultBrandImage = this.App.Config.get('defaultBrandImage');
 			this.sidebarLogo = this.App.Config.get('sidebarLogo');
@@ -58,6 +54,7 @@ export default class BrandingService extends Service {
 		}
 	}
 
+	// method getLogo returns correct brandImage object to be displayed on the front end based on theme and type (sidebbar logo or main logo)
 	getLogo(theme, type="brandImage") {
 		if((type === 'sidebarLogo') && theme && this.sidebarLogo) {
 			if (this.sidebarLogo[theme]) {
@@ -68,12 +65,7 @@ export default class BrandingService extends Service {
 		}
 
 		if (theme && this.brandImage) {
-			if (this.brandImage[theme] !== undefined) {
-				return this.determineSources(this.brandImage, theme)
-			}
-			 else {
 				return this.determineSources(this.brandImage, theme);
-			}
 		} else {
 			return this.defaultBrandImage;
 		}
