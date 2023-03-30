@@ -7,10 +7,10 @@ import { useTranslation } from 'react-i18next'
 
 import './alerts.scss';
 
-function AlertsComponent(props) {
+export default function AlertsComponent(props) {
 	const [seconds, setSeconds] = useState(0);
 	let store = props.app.Store;
-	const sessionExpiration = useSelector(state => state.auth?.sessionExpiration);
+	const sessionExpired = useSelector(state => state.auth?.sessionExpired);
 	const alerts = useSelector(state => state.alerts.alerts);
 	const { t } = useTranslation();
 
@@ -51,7 +51,7 @@ function AlertsComponent(props) {
 						className="shadow alerts-style"
 						fade={true}
 						isOpen={!alert.acked}
-						toggle={!sessionExpiration ? () => store.dispatch({ type: ACK_ALERT, key: alert.key }) : null} // remove the close button for alert with expiration
+						toggle={!sessionExpired ? () => store.dispatch({ type: ACK_ALERT, key: alert.key }) : null} // remove the close button for alert with expiration
 					>
 						{alert.shouldBeTranslated ? t(alert.message) : alert.message}
 					</Alert>
@@ -60,5 +60,3 @@ function AlertsComponent(props) {
 		</div>
 	);
 }
-
-export default AlertsComponent;
