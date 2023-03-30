@@ -1,5 +1,4 @@
 import Service from '../abc/Service';
-import Axios from 'axios';
 import ConfigReducer from './ConfigReducer';
 import { CHANGE_CONFIG, SET_DEV_CONFIG } from '../actions';
 
