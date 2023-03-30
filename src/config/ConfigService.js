@@ -25,35 +25,43 @@ export default class ConfigService extends Service {
 		const customCSS = document.getElementsByName('custom-css-file')[0]?.content;
 
 		let dynamicConfig = {};
-
+		let brandImage = {};
 		// Add custom header full light logo
 		if ((headerLogoFull != undefined) && (headerLogoFull != "")) {
-			dynamicConfig["brandImage"] = {"light": {"full": headerLogoFull}};
+			brandImage = {"brandImage": {"light": {"full": headerLogoFull}}};
+			Object.assign(dynamicConfig, brandImage);
 		}
 		// Add custom header minimized light logo
 		if ((headerLogoMini != undefined) && (headerLogoMini != "")) {
 			if (dynamicConfig?.brandImage?.light !== undefined) {
-				dynamicConfig["brandImage"]["light"]["minimized"] = headerLogoMini;
+				brandImage = {"minimized": headerLogoMini};
+				Object.assign(dynamicConfig['brandImage']['light'], brandImage);
 			} else {
-				dynamicConfig["brandImage"] = {"light": {"minimized": headerLogoMini}}
+				brandImage = {'brandImage': {"light" : {"minimized": headerLogoMini}}}
+				Object.assign(dynamicConfig, brandImage);
 			}
 		}
 		// Add custom header full dark logo
 		if ((headerLogoFullDark != undefined) && (headerLogoFullDark != "")) {
 			if (dynamicConfig?.brandImage !== undefined) {
-				dynamicConfig["brandImage"]["dark"] = {"full": headerLogoFullDark};
+				brandImage = {"dark" : {"full": headerLogoFullDark}};
+				Object.assign(dynamicConfig['brandImage'], brandImage);
 			} else {
-				dynamicConfig["brandImage"] = {"dark": {"full": headerLogoFullDark}}
+				brandImage = {"brandImage" : {"dark": {"full": headerLogoFullDark}}};
+				Object.assign(dynamicConfig, brandImage);
 			}
 		}
 		// Add custom header minimized dark logo
 		if ((headerLogoMiniDark != undefined) && (headerLogoMiniDark != "")) {
 			if (dynamicConfig?.brandImage?.dark !== undefined) {
-				dynamicConfig["brandImage"]["dark"]["minimized"] = headerLogoMiniDark;
+				brandImage = {"minimized": headerLogoMiniDark};
+				Object.assign(dynamicConfig["brandImage"]["dark"], brandImage);
 			} else if ((dynamicConfig?.brandImage?.light !== undefined)) {
-				dynamicConfig["brandImage"]["dark"] = {"minimized": headerLogoMiniDark}
+				brandImage = {"dark": {"minimized": headerLogoMiniDark}};
+				Object.assign(dynamicConfig["brandImage"], brandImage);
 			} else {
-				dynamicConfig["brandImage"] = {"dark": {"minimized": headerLogoMiniDark}}
+				brandImage = {"brandImage" : {"dark": {"minimized": headerLogoMiniDark}}};
+				Object.assign(dynamicConfig, brandImage);
 			}
 		}
 
