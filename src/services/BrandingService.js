@@ -50,6 +50,11 @@ export default class BrandingService extends Service {
 				minimized: this.defaultBrandImage.minimized,
 				href: imgObject?.href ?? '/'
 			}
+		} else {
+			return {
+				...this.defaultBrandImage,
+				href: imgObject.href ?? '/'
+			}
 		}
 	}
 
@@ -61,17 +66,14 @@ export default class BrandingService extends Service {
 				return this.sidebarLogo[theme === 'dark' ? 'light' : 'dark'];
 			}
 		}
-		console.log( 'theme', theme);
-		console.log( 'this.brandImage', this.brandImage);
-		console.log( 'this.brandImage[theme]', this.brandImage[theme]);
+
 		if (theme && this.brandImage) {
 			if (this.brandImage[theme] !== undefined) {
 				return this.determineSources(this.brandImage, theme)
 			}
-			//  else {
-			// 	console.log('tadyyyyy')
-			// 	return this.determineSources(this.brandImage, theme);
-			// }
+			 else {
+				return this.determineSources(this.brandImage, theme);
+			}
 		} else {
 			return this.defaultBrandImage;
 		}
