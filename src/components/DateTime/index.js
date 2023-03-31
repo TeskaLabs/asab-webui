@@ -1,17 +1,18 @@
 import React from 'react';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 
-import useDateFNSLocale from './useDateFNSLocale';
 import timeToString from './timeToString';
+import useDateFNSLocale from './useDateFNSLocale';
 
 export function DateTime(props) {
-	const locale = useDateFNSLocale();
-
 	if ((props.value === null) || (props.value === undefined)) {
 		return (
 			<span className="datetime">{' '}</span>
 		);
 	}
+
+	// Declaration of locale must be below span returned for `undefined` values to avoid bad react state handling in useDateFNSLocale
+	const locale = useDateFNSLocale();
 
 	if (new Date(props.value).toString() === "Invalid Date") {
 		return (
@@ -22,7 +23,7 @@ export function DateTime(props) {
 		);
 	}
 
-	const date = timeToString(props.value, props.dateTimeFormat, locale);
+	const date = timeToString(props.value, props.dateTimeFormat);
 
 	const dateFromNow = isNaN(props.value) ? formatDistanceToNow(parseISO(props.value), { locale: locale }) :
 		props.value > 9999999999 ? formatDistanceToNow(props.value, { locale: locale }) :
@@ -33,5 +34,5 @@ export function DateTime(props) {
 			<i className="cil-clock pr-1"></i>
 			{date}
 		</span>
-	)
+	);
 }

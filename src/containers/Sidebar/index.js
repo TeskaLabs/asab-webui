@@ -21,11 +21,10 @@ const Sidebar = (props) => {
 	let sidebarItems = props.navigation.getItems().items;
 
 	const BrandingService = props.app.Services.BrandingService;
-	const Config = props.app.ConfigService.Config;
 
 	let sidebarBottomBranding;
-	if (Config !== undefined && theme) {
-		sidebarBottomBranding = BrandingService.getLogo(Config, theme, 'sidebarLogo');
+	if (BrandingService && theme) {
+		sidebarBottomBranding = BrandingService.getLogo(theme, 'sidebarLogo');
 	}
 
 	useEffect(() => {
@@ -112,7 +111,7 @@ const Sidebar = (props) => {
 								/>
 							))}
 						</Nav>
-						<SidebarBottomItem item={aboutItem} sidebarLogo={sidebarBottomBranding} screenWidth={windowDimensions.width}/>
+						<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo}/>
 					</div>
 				</div>
 			</Modal>

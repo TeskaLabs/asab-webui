@@ -10,87 +10,64 @@ export default class BrandingService extends Service {
 	* `header-logo-minimized.svg` dimensions: 30 x 30 pixels
 	*/
 
-	constructor(app, serviceName="BrandingService"){
+	constructor( app, serviceName="BrandingService" ){
 		super(app, serviceName)
+		this.state = [];
+		this.App = app;
+
+		this.brandImage = undefined;
+		this.defaultBrandImage = undefined;
+		this.sidebarLogo = undefined
 	}
 
-	getLogo(config, theme, type="brandImage") {
+	initialize() {
+		if (this.App.Services.ConfigService && this.App.Modules.some(obj => obj.Name == "ASABConfigModule")) {
+			this.brandImage = this.App.Config.get('brandImage');
+			this.defaultBrandImage = this.App.Config.get('defaultBrandImage');
+			this.sidebarLogo = this.App.Config.get('sidebarLogo');
+		}
+	}
 
-		const defaultConfig = config._defaults;
-		let dynamicConfig = config._dynamic_config;
-
-		console.log('defaultConfig:', defaultConfig)
-		console.log('dynamicConfig:', dynamicConfig)
-
-		if ((type === 'sidebarLogo') && theme && defaultConfig?.sidebarLogo && defaultConfig?.sidebarLogo[theme]) {
-			return defaultConfig.sidebarLogo[theme];
-		} else if ((type === 'sidebarLogo') && theme && defaultConfig?.sidebarLogo && !defaultConfig?.sidebarLogo[theme]) {
-			return defaultConfig.defaultBrandImage
-		}
-
-		// when we have defined both cases (full & minimized) for light mode, but no dark mode -> light versions for both cases
-		if ((dynamicConfig?.brandImage?.light?.full) && (dynamicConfig?.brandImage?.light?.minimized) && (dynamicConfig?.brandImage?.dark == undefined)) {
-			console.log('we here ln 33')
-			dynamicConfig.brandImage.dark = dynamicConfig.brandImage.light;
-		}
-		// when we have defined both cases (full & minimized) for dark mode, but no light mode -> light versions for both cases
-		if ((dynamicConfig?.brandImage?.dark?.full) && (dynamicConfig?.brandImage?.dark?.minimized) && (dynamicConfig?.brandImage?.light == undefined)) {
-			console.log('we here ln 38')
-			dynamicConfig.brandImage.light = dynamicConfig.brandImage.dark;
-		}
-
-		if ((!dynamicConfig?.brandImage?.light) && (dynamicConfig?.brandImage?.dark?.full == undefined) && (dynamicConfig?.brandImage?.dark?.minimized)) {
-			console.log('we here ln 43')
-			dynamicConfig.brandImage.light = dynamicConfig.brandImage.dark;
-		}
-		if ((!dynamicConfig?.brandImage?.light) && (dynamicConfig?.brandImage?.dark?.minimized == undefined) && (dynamicConfig?.brandImage?.dark?.full)) {
-			console.log('we here ln 47')
-			dynamicConfig.brandImage.light = dynamicConfig.brandImage.dark;
-		}
-		if ((!dynamicConfig?.brandImage?.dark) && (dynamicConfig?.brandImage?.light?.full == undefined) && (dynamicConfig?.brandImage?.light?.minimized)) {
-			console.log('we here ln 51')
-			dynamicConfig.brandImage.dark = dynamicConfig.brandImage.light;
-		}
-		if ((!dynamicConfig?.brandImage?.dark) && (dynamicConfig?.brandImage?.light?.minimized == undefined) && (dynamicConfig?.brandImage?.light?.full)) {
-			console.log('we here ln 55')
-			dynamicConfig.brandImage.dark = dynamicConfig.brandImage.light;
-		}
-
-		if (theme && dynamicConfig?.brandImage) {
-			if (dynamicConfig.brandImage[theme].full == undefined) {
-				return {
-					full: dynamicConfig.brandImage[theme].minimized,
-					minimized: dynamicConfig.brandImage[theme].minimized
-				}
-			}
-			if (dynamicConfig.brandImage[theme].minimized == undefined) {
-				return {
-					full: dynamicConfig.brandImage[theme].full,
-					minimized: dynamicConfig.brandImage[theme].full
-				}
-			}
-			return dynamicConfig.brandImage[theme]
-		}
-
-		if (theme && defaultConfig?.brandImage && defaultConfig?.brandImage[theme]) {
-			if (defaultConfig?.brandImage[theme]?.minimized == undefined) {
-				return {
-					full: defaultConfig.brandImage[theme]?.full,
-					minimized: defaultConfig.defaultBrandImage.minimized,
-					href: defaultConfig.brandImage?.href
-				}
-			}
-			if (defaultConfig?.brandImage[theme]?.full == undefined) {
-				return {
-					full: defaultConfig.defaultBrandImage.full,
-					minimized: defaultConfig.brandImage[theme].minimized,
-					href: defaultConfig.brandImage?.href
+	determineSources(imgObject, theme) {
+		if (imgObject[theme]?.minimized && imgObject[theme]?.full) {
+			return {
+				...imgObject[theme],
+				href: imgObject.href ?? '/'
+			};
+		} else if (imgObject[theme]?.minimized) {
+			return {
+					full: this.defaultBrandImage.full,
+					minimized: imgObject[theme].minimized,
+					href: imgObject?.href ?? '/'
 				};
+		} else if (imgObject[theme]?.full) {
+			return {
+				full: imgObject[theme].full,
+				minimized: this.defaultBrandImage.minimized,
+				href: imgObject?.href ?? '/'
 			}
-			return defaultConfig.brandImage[theme]
 		} else {
-			return defaultConfig.defaultBrandImage;
+			return {
+				...this.defaultBrandImage,
+				href: imgObject.href ?? '/'
+			}
 		}
 	}
 
+	// method getLogo returns correct brandImage object to be displayed on the front end based on theme and type (sidebbar logo or main logo)
+	getLogo(theme, type="brandImage") {
+		if((type === 'sidebarLogo') && theme && this.sidebarLogo) {
+			if (this.sidebarLogo[theme]) {
+				return this.sidebarLogo[theme];
+			} else if (!this.sidebarLogo[theme]) {
+				return this.sidebarLogo[theme === 'dark' ? 'light' : 'dark'];
+			}
+		}
+
+		if (theme && this.brandImage) {
+				return this.determineSources(this.brandImage, theme);
+		} else {
+			return this.defaultBrandImage;
+		}
+	}
 }

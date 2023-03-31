@@ -1,0 +1,32 @@
+@import "~asab-webui/styles/constants/index.scss";
+
+$toggle-text-color: var(--toggle-text-color);
+
+.help-button {
+	font-size: 1.1rem;
+	margin-right: 1.5rem;
+	padding-top: 0.4rem;
+	color: $toggle-text-color;
+}
+
+.help-modal-card {
+	&.modal-dialog {
+		max-width: 960px;
+	}
+	& .modal-content {
+		border: 0;
+		border-radius: 8px;
+		& .card {
+			min-height: 30vh;
+		}
+	}
+	//TODO: uncomment and use when the documentation is ready to be displayed in the iframe
+	//& .help-iframe {
+	//	width: 100%;
+	//	height: 80vh;
+	//	overflow: hidden;
+	//	border: 0;
+	//}
+
+}
+

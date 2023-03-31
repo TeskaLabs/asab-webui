@@ -19,6 +19,9 @@
 		"Change a password": "Change a password",
 		"Logout": "Logout"
 	},
+	"HelpButton": {
+		"Help": "Help"
+	},
 	"ASABConfig": {
 		"Nothing has been selected": "Nothing has been selected",
 		"Please select the configuration from tree menu on the left side of the screen": "Please select the configuration from tree menu on the left side of the screen",

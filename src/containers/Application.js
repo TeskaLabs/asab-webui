@@ -23,10 +23,11 @@ import HeaderService from '../services/HeaderService';
 import SidebarService from './Sidebar/service';
 import ThemeService from '../theme/ThemeService';
 import BrandingService from '../services/BrandingService';
+import HelpService from "../services/HelpService";
 
 import AccessDeniedCard from '../modules/tenant/access/AccessDeniedCard';
 
-import { ADD_ALERT, SET_ADVANCED_MODE, CHANGE_HELP_URL } from '../actions';
+import {ADD_ALERT, SET_ADVANCED_MODE, HELP_CONTENT} from '../actions';
 
 
 class Application extends Component {
@@ -89,6 +90,7 @@ class Application extends Component {
 		this.SidebarService = new SidebarService(this, "SidebarService");
 		this.ThemeService = new ThemeService(this, "ThemeService");
 		this.BrandingService = new BrandingService(this, "BrandingService");
+		this.HelpService = new HelpService(this, "HelpService");
 
 		this.ReduxService.addReducer("alerts", alertsReducer);
 		this.ReduxService.addReducer("advmode", advancedModeReducer);
@@ -111,14 +113,6 @@ class Application extends Component {
 
 		this.Config.dispatch(this.Store);
 		this.DevConfig.dispatch(this.Store);
-
-		this.Store.dispatch({
-			type: CHANGE_HELP_URL,
-			payload: {
-				url: this.Config.get("default_help_url"),
-				icon: "cil-info"
-			}
-		})
 
 		this.addSplashScreenRequestor(this);
 		this.state.SplashscreenRequestors = this.SplashscreenRequestors.size;
@@ -448,23 +442,13 @@ class Application extends Component {
 		}
 	}
 
-	// First argument is href to page
-	// Second (optional) is string that is icon from core-ui icons
-	// Third (optional) is target for link
-	addHelpButton(url, icon = "cil-info", target) {
+	addHelpButton(path) {
 		useEffect(() => {
-			this.Store.dispatch({
-				type: CHANGE_HELP_URL,
-				payload: { url, icon, target }
-			})
+			this.HelpService.setData(path);
 			return () => {
 				this.Store.dispatch({
-					type: CHANGE_HELP_URL,
-					payload: {
-						url: this.Config.get('default_help_url'),
-						icon: "cil-info",
-						target: "_blank"
-					}
+					type: HELP_CONTENT,
+					content: ""
 				})
 			}
 		}, [])

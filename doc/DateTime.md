@@ -37,22 +37,22 @@ The prop `dateTimeFormat` specify length of the time.
 
 # ASAB WebUI timeToString method
 
-`timeToString` is a method returning date and time as a simple string in a format based on passed `lang` parameter. 
+`timeToString` is a method returning date and time as a simple string.
+
 Acccepts 2 paramaters
-    - timestamp - in seconds or miliseconds
-    - language object (coming from `useDateFNSLocale()`) of selected locale - default `undefined` shows `en` format (e.g. `'Apr 11, 2022, 1:16 PM'`)
+	- value - time in seconds or miliseconds
+	- dateTimeFormat - date time format of the result
 
 ## Example code
 
 ```javascript
-import { timeToString, useDateFNSLocale } from 'asab-webui';
+import { timeToString } from 'asab-webui';
 ...
 
-const myFunction = (time) => {
-    const lang = useDateFNSLocale();
-    let timestring = timeToString(time, lang);
-    
-    return timestring;
+const myFunction = (value) => {
+	const dateTimeFormat = "long";
+	let timestring = timeToString(value, dateTimeFormat);
+	return timestring;
 }
 
 ```
