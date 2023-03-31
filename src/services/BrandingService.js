@@ -21,7 +21,9 @@ export default class BrandingService extends Service {
 	}
 
 	initialize() {
-		if (this.App.Services.ConfigService && this.App.Modules.some(obj => obj.Name == "ASABConfigModule")) {
+		// which of the if statements is 'more' true?..
+		// if (this.App.Services.ConfigService && this.App.Modules.some(obj => obj.Name == "ASABConfigModule")) {
+		if (this.App.Services.ConfigService) {
 			this.brandImage = this.App.Config.get('brandImage');
 			this.defaultBrandImage = this.App.Config.get('defaultBrandImage');
 			this.sidebarLogo = this.App.Config.get('sidebarLogo');
@@ -36,10 +38,10 @@ export default class BrandingService extends Service {
 			};
 		} else if (imgObject[theme]?.minimized) {
 			return {
-					full: this.defaultBrandImage.full,
-					minimized: imgObject[theme].minimized,
-					href: imgObject?.href ?? '/'
-				};
+				full: this.defaultBrandImage.full,
+				minimized: imgObject[theme].minimized,
+				href: imgObject?.href ?? '/'
+			};
 		} else if (imgObject[theme]?.full) {
 			return {
 				full: imgObject[theme].full,
