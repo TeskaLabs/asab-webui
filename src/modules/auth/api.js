@@ -43,17 +43,17 @@ export class SeaCatAuthApi {
 		let tenantValue = scopeArray.find(str => str.includes("tenant"));
 		let loginScope = (currentTenant != null) && (tenantValue != undefined) ? this.Scope.replace(`${tenantValue}`, `tenant:${currentTenant}`) : this.Scope;
 
-		let redirect_uriNewUrl = new URL(redirect_uri)
-		let redirect_uriHash = redirect_uriNewUrl.hash;
-		redirect_uriNewUrl.hash = ""
-		let redirect_uriWithoutHash = redirect_uriNewUrl.href;
-		localStorage.setItem(this.state, redirect_uriHash);
+		let redirectUriNewUrl = new URL(redirect_uri);
+		let hash = redirectUriNewUrl.hash;
+		redirectUriNewUrl.hash = "";
+		let redirectUriWithoutHash = redirectUriNewUrl.href;
+		localStorage.setItem(this.state, hash);
 
 		const params = new URLSearchParams({
 			response_type: "code",
 			scope: loginScope,
 			client_id: this.ClientId,
-			redirect_uri: redirect_uriWithoutHash,
+			redirect_uri: redirectUriWithoutHash,
 			state: this.state
 		});
 		if (force_login_prompt === true) {
