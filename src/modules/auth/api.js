@@ -27,7 +27,7 @@ export class SeaCatAuthApi {
 		this.ClientSecret = "TODO";
 		this.SeaCatAuthAPI = this.App.axiosCreate('seacat_auth');
 		this.OidcAPI = this.App.axiosCreate('openidconnect');
-
+		this.state = (Math.random() + 1).toString(36).substring(7);
 	}
 
 	// This method will cause a navigation from the app to the OAuth2 login screen
@@ -43,11 +43,18 @@ export class SeaCatAuthApi {
 		let tenantValue = scopeArray.find(str => str.includes("tenant"));
 		let loginScope = (currentTenant != null) && (tenantValue != undefined) ? this.Scope.replace(`${tenantValue}`, `tenant:${currentTenant}`) : this.Scope;
 
+		let redirect_uriNewUrl = new URL(redirect_uri)
+		let redirect_uriHash = redirect_uriNewUrl.hash;
+		redirect_uriNewUrl.hash = ""
+		let redirect_uriWithoutHash = redirect_uriNewUrl.href;
+		localStorage.setItem(this.state, redirect_uriHash);
+
 		const params = new URLSearchParams({
 			response_type: "code",
 			scope: loginScope,
 			client_id: this.ClientId,
-			redirect_uri: redirect_uri
+			redirect_uri: redirect_uriWithoutHash,
+			state: this.state
 		});
 		if (force_login_prompt === true) {
 			params.append("prompt", "login");
