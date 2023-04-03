@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import {
 	Container, Row, Col,
-	Card, CardHeader, CardTitle, CardSubtitle, CardBody
+	Card, CardHeader, CardTitle, CardBody
 } from 'reactstrap';
 
 import "./unauthorizedaccess.scss";
