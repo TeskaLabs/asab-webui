@@ -25,6 +25,7 @@ import ThemeService from '../theme/ThemeService';
 import HelpService from "../services/HelpService";
 
 import AccessDeniedCard from '../modules/tenant/access/AccessDeniedCard';
+import UnauthorizedAccessScreen from '../modules/auth/components/UnauthorizedAccessScreen';
 
 import {ADD_ALERT, SET_ADVANCED_MODE, HELP_CONTENT} from '../actions';
 
@@ -504,7 +505,11 @@ class Application extends Component {
 														render={props => (
 															<>
 																<ErrorHandler>
-																	<route.component app={this} {...props} {...route.props} />
+																	{route.resource ?
+																		<UnauthorizedAccessScreen app={this} resource={route.resource} routeComponent={<route.component app={this} {...props} {...route.props} />} />
+																	:
+																		<route.component app={this} {...props} {...route.props} />
+																	}
 																</ErrorHandler>
 															</>
 														)}
