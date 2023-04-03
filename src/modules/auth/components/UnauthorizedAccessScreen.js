@@ -9,6 +9,15 @@ import {
 
 import "./unauthorizedaccess.scss";
 
+/*
+	Unauthorized Access screen can be displayed only when:
+	- AuthModule is present within the application
+	- user does not have a particular resource and user is not superuser
+
+	Unauthorized Access screen replace the content of the container by its own screen with
+	information about what resource is missing to enable the access to the desired (blocked)
+	screen.
+*/
 export default function UnauthorizedAccessScreen(props) {
 
 	const { t } = useTranslation();
@@ -19,7 +28,7 @@ export default function UnauthorizedAccessScreen(props) {
 		return <>{props.routeComponent}</>;
 	}
 
-	// Check for resource. If present or user is superuser, return the original component
+	// Check for desired resource. If present or user is superuser, return the original component
 	if ((resources.indexOf(props.resource) != -1) || (resources.indexOf("authz:superuser") != -1)) {
 		return <>{props.routeComponent}</>;
 	}
@@ -50,5 +59,5 @@ export default function UnauthorizedAccessScreen(props) {
 				</CardBody>
 			</Card>
 		</Container>
-		)
+	)
 }
