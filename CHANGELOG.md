@@ -40,6 +40,8 @@
 
 - Remove `removeAttributeQuotes` from HtmlWebPackPlugin setup in webpack.build to fix issue causing custom branding and CSS files are not being injected via nginx to the application. `removeAttributeQuotes` caused quotes removal in html tags which led to issue that tags has not been correctly injected. (INDIGO Sprint 230317, [!420](https://github.com/TeskaLabs/asab-webui/pull/420))
 
+- Fix `console.error` to `console.warn` (INDIGO Sprint 230331, [!406](https://github.com/TeskaLabs/asab-webui/pull/406))
+
 ## v23.5
 
 ### Features
