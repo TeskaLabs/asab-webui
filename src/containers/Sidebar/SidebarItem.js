@@ -10,7 +10,7 @@ import {
 import Icon from './SidebarIcon';
 
 const SidebarItem = ({ 
-	item, unauthorizedNavChildren, uncollapseAll, toggleSmallSidebar
+	item, unauthorizedNavChildren, uncollapseAll, toggleSidebar
 }) => {
 	const [isOpen, setOpen] = useState(false);
 
@@ -43,8 +43,8 @@ const SidebarItem = ({
 		if (item.url && location.pathname !== item.url) {
 			history.push(item.url);
 			// collapsing the sidebar after selecting an item
-			if (toggleSmallSidebar != undefined) {
-				toggleSmallSidebar()
+			if (toggleSidebar != undefined) {
+				toggleSidebar()
 			}
 
 		}
@@ -72,9 +72,9 @@ const SidebarItem = ({
 							<Nav className="nav-children">
 								{item.children.map((child, idx) => (
 									unauthorizedNavChildren == undefined || unauthorizedNavChildren.length == 0 ?
-										<SidebarItem key={idx} item={child} toggleSmallSidebar={toggleSmallSidebar} />
+										<SidebarItem key={idx} item={child} toggleSidebar={toggleSidebar} />
 									:
-										unauthorizedNavChildren.indexOf(child.name) == -1 && <SidebarItem key={idx} item={child} toggleSmallSidebar={toggleSmallSidebar} />
+										unauthorizedNavChildren.indexOf(child.name) == -1 && <SidebarItem key={idx} item={child} toggleSidebar={toggleSidebar} />
 								))}
 							</Nav>
 						</Collapse>

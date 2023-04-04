@@ -99,11 +99,11 @@ const Sidebar = (props) => {
 										item={item}
 										unauthorizedNavChildren={unauthorizedNavChildren}
 										uncollapseAll={memoizedItemsList.length <= 2}
-										toggleSmallSidebar={toggle}
+										toggleSidebar={toggle}
 									/>
 								))}
 							</Nav>
-							<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} toggleSmallSidebar={toggle}/>
+							<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} toggleSidebar={toggle}/>
 						</div>
 					</div>
 				</Modal>
