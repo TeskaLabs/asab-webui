@@ -10,13 +10,12 @@ import {
 import Icon from './SidebarIcon';
 
 const SidebarItem = ({ 
-	item, unauthorizedNavChildren, uncollapseAll
+	item, unauthorizedNavChildren, uncollapseAll, toggleSmallSidebar
 }) => {
 	const [isOpen, setOpen] = useState(false);
 
 	const location = useLocation();
 	const history = useHistory();
-	const dispatch = useDispatch();
 
 	const { t } = useTranslation();
 
@@ -41,7 +40,14 @@ const SidebarItem = ({
 	 const onNavLink = () => {
 		// Preserve from history pushing when item.url doesn't exist
 		// or when current location pathname is the same as item.url
-		if (item.url && location.pathname !== item.url) history.push(item.url);
+		if (item.url && location.pathname !== item.url) {
+			history.push(item.url);
+			// collapsing the sidebar after selecting an item
+			if (toggleSmallSidebar != undefined) {
+				toggleSmallSidebar()
+			}
+
+		}
 		// Preserve from collapsing when item doesn't have children
 		// or if item should always be uncollapsed
 		else if (item.children && !uncollapseAll) setOpen(prev => !prev);
@@ -66,9 +72,9 @@ const SidebarItem = ({
 							<Nav className="nav-children">
 								{item.children.map((child, idx) => (
 									unauthorizedNavChildren == undefined || unauthorizedNavChildren.length == 0 ?
-										<SidebarItem key={idx} item={child} />
+										<SidebarItem key={idx} item={child} toggleSmallSidebar={toggleSmallSidebar} />
 									:
-										unauthorizedNavChildren.indexOf(child.name) == -1 && <SidebarItem key={idx} item={child} />
+										unauthorizedNavChildren.indexOf(child.name) == -1 && <SidebarItem key={idx} item={child} toggleSmallSidebar={toggleSmallSidebar} />
 								))}
 							</Nav>
 						</Collapse>
