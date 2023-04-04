@@ -169,7 +169,7 @@
 	},
 	"UnauthorizedAccessScreen": {
 		"Unauthorized access": "Neoprávněný přístup",
-		"You are not authorized to access this part of the application. Please ask your application administrator for resource": "Nejste oprávněni k přístupu do této části aplikace. Prosím, kontaktujte administrátora aplikace. K oprávnění přístupu je potřeba tento zdroj"
+		"You are not authorized to access this part of the application. Please ask your application administrator for following resource": "Nejste oprávněni k přístupu do této části aplikace. Prosím, kontaktujte administrátora aplikace. K udělení přístupu je potřeba následující zdroj"
 	},
 	"UserInterfaceCard": {
 		"User interface": "Uživatelské rozhraní",

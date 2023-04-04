@@ -49,7 +49,7 @@ export default function UnauthorizedAccessScreen(props) {
 					<Row className="justify-content-center">
 						<Col>
 							<Row className="justify-content-center">
-								<p className="unauthorized-p">{t("UnauthorizedAccessScreen|You are not authorized to access this part of the application. Please ask your application administrator for resource")}</p>
+								<p className="unauthorized-p">{t("UnauthorizedAccessScreen|You are not authorized to access this part of the application. Please ask your application administrator for following resource")}:</p>
 							</Row>
 							<Row className="justify-content-center">
 								<p className="unauthorized-p bold">{props.resource}</p>
