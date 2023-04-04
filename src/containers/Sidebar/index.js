@@ -80,55 +80,55 @@ const Sidebar = (props) => {
 
 	return (
 		windowDimensions.width <= 768 ?
-			<>
-				<div className="mobile-sidebar-burger" onClick={toggle}>
-					<i className="cil-menu"></i>
-				</div>
-				<Modal isOpen={modal} toggle={toggle} className="left">
-					<div className="app-sidebar">
-						{windowDimensions.width >= 768 &&
-							<div style={{display: "inline-block"}}>
-								<NavbarBrand {...props}/>
-							</div>
-						}
-						<div className="sidebar-nav">
-							<Nav  vertical>
-								{memoizedItemsList.map((item, idx) => (
-									<SidebarItem
-										key={idx}
-										item={item}
-										unauthorizedNavChildren={unauthorizedNavChildren}
-										uncollapseAll={memoizedItemsList.length <= 2}
-										toggleSidebar={toggle}
-									/>
-								))}
-							</Nav>
-							<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} toggleSidebar={toggle}/>
-						</div>
-					</div>
-				</Modal>
-			</>
-		:
-			<div className={`app-sidebar${isSidebarCollapsed ? " collapsed" : ""}`}>
-				{windowDimensions.width > 768 &&
-					<div style={{display: "inline-block"}}>
-						<NavbarBrand {...props} isSidebarMinimized/>
-					</div>
-				}
-				<div className="sidebar-nav">
-					<Nav  vertical>
-						{memoizedItemsList.map((item, idx) => (
-							<SidebarItem
-								key={idx}
-								item={item}
-								unauthorizedNavChildren={unauthorizedNavChildren}
-								uncollapseAll={memoizedItemsList.length <= 2}
-							/>
-						))}
-					</Nav>
-					<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} />
-				</div>
+		<>
+			<div className="mobile-sidebar-burger" onClick={toggle}>
+				<i className="cil-menu"></i>
 			</div>
+			<Modal isOpen={modal} toggle={toggle} className="left">
+				<div className="app-sidebar">
+					{windowDimensions.width >= 768 &&
+						<div style={{display: "inline-block"}}>
+							<NavbarBrand {...props}/>
+						</div>
+					}
+					<div className="sidebar-nav">
+						<Nav  vertical>
+							{memoizedItemsList.map((item, idx) => (
+								<SidebarItem
+									key={idx}
+									item={item}
+									unauthorizedNavChildren={unauthorizedNavChildren}
+									uncollapseAll={memoizedItemsList.length <= 2}
+									toggleSidebar={toggle}
+								/>
+							))}
+						</Nav>
+						<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} toggleSidebar={toggle}/>
+					</div>
+				</div>
+			</Modal>
+		</>
+		:
+		<div className={`app-sidebar${isSidebarCollapsed ? " collapsed" : ""}`}>
+			{windowDimensions.width > 768 &&
+				<div style={{display: "inline-block"}}>
+					<NavbarBrand {...props} isSidebarMinimized/>
+				</div>
+			}
+			<div className="sidebar-nav">
+				<Nav  vertical>
+					{memoizedItemsList.map((item, idx) => (
+						<SidebarItem
+							key={idx}
+							item={item}
+							unauthorizedNavChildren={unauthorizedNavChildren}
+							uncollapseAll={memoizedItemsList.length <= 2}
+						/>
+					))}
+				</Nav>
+				<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} />
+			</div>
+		</div>
 	)
 }
 
