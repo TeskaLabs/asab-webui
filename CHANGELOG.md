@@ -14,6 +14,8 @@
 
 - Implement Unauthorized access screen which is displayed instead of application's containers when user does not have a particular resource defined within prop of the Route. (INDIGO Sprint 230331, [!405](https://github.com/TeskaLabs/asab-webui/pull/405))
 
+- Add resources for tools and maintenance modules. (INDIGO Sprint 230331, [!408](https://github.com/TeskaLabs/asab-webui/pull/408))
+
 ### Refactoring
 
 - Refactor naming for `get_current_tenant`, `set_tenants` and `_extract_tenant_from_url` from snake_case to camelCase format (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))

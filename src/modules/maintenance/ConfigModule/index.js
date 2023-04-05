@@ -17,6 +17,7 @@ export default class ConfigModule extends Module {
 			exact: true,
 			name: "Configuration",
 			component: ConfigContainer,
+			resource: "asab:config:access"
 		});
 
 		// Check presence of Maintenance item in sidebar
@@ -28,7 +29,8 @@ export default class ConfigModule extends Module {
 				itm.children.push({
 					name: "Configuration",
 					url: "/config/$/$",
-					icon: "cil-settings"
+					icon: "cil-settings",
+					resource: "asab:config:access"
 				});
 				isMaintenancePresent = true;
 			}
@@ -43,7 +45,8 @@ export default class ConfigModule extends Module {
 					{
 						name: "Configuration",
 						url: "/config/$/$",
-						icon: "cil-settings"
+						icon: "cil-settings",
+						resource: "asab:config:access"
 					}
 				]
 			});

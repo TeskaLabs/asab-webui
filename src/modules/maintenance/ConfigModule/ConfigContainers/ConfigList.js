@@ -23,7 +23,7 @@ function ConfigList(props) {
 	const [ configList, setConfigList ] = useState([]);
 	const [ description, setDescription ] = useState("");
 
-	const resourceManageConfig = "config:admin";
+	const resourceManageConfig = "asab:config:edit";
 	const resources = useSelector(state => state.auth?.resources);
 
 	const configType = props.configType;

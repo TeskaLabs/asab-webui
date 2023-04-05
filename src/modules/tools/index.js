@@ -13,13 +13,15 @@ export default class ToolsModule extends Module {
 			component: ToolsDashboard,
 			props: {
 				type: "Tools"
-			}
+			},
+			resource: "asab:tools:access"
 		});
 
 		app.Navigation.addItem({
 			name: "Tools",
 			url: "/tools",
-			icon: 'cil-puzzle'
+			icon: 'cil-puzzle',
+			resource: "asab:tools:access"
 		});
 	}
 }
