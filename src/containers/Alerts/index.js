@@ -54,17 +54,10 @@ export default function AlertsComponent(props) {
 						toggle={!sessionExpired ? () => store.dispatch({ type: ACK_ALERT, key: alert.key }) : null} // remove the close button for alert with expiration
 					>
 						{alert.shouldBeTranslated ? t(alert.message) : alert.message}
-						{" "}
 						{sessionExpired &&
-							<a
-								className="alert-link"
-								onClick={() => window.location.reload(false)} // refreshes the page
-								href="#"
-								rel="noreferrer"
-								target="_blank"
-							>
-								{t("Alerts|here")}
-							</a>
+							<span onClick={() => window.location.reload()} className="alert-span">
+								{` ${t("Alerts|here")}`}
+							</span>
 						}
 					</Alert>
 				)
