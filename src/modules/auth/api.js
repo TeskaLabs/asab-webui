@@ -27,11 +27,16 @@ export class SeaCatAuthApi {
 		this.ClientSecret = "TODO";
 		this.SeaCatAuthAPI = this.App.axiosCreate('seacat_auth');
 		this.OidcAPI = this.App.axiosCreate('openidconnect');
-		this.state = (Math.random() + 1).toString(36).substring(7);
+		this.state = undefined;
 	}
 
 	// This method will cause a navigation from the app to the OAuth2 login screen
 	async login(redirect_uri, force_login_prompt) {
+		// Generate random state
+		const typedArray = new Uint32Array(10);
+		crypto.getRandomValues(typedArray);
+		let randomIndex = Math.floor(Math.random() * typedArray.length);
+		this.state = typedArray[randomIndex];
 		/*
 			Adding tenant directly to scope (if available).
 		*/
