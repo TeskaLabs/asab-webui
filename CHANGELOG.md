@@ -16,6 +16,8 @@
 
 - Add resources for tools and maintenance modules. (INDIGO Sprint 230331, [!408](https://github.com/TeskaLabs/asab-webui/pull/408))
 
+- Add option to updateItem in Navigation. (INDIGO Sprint 230331, [!409](https://github.com/TeskaLabs/asab-webui/pull/409))
+
 ### Refactoring
 
 - Refactor naming for `get_current_tenant`, `set_tenants` and `_extract_tenant_from_url` from snake_case to camelCase format (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
@@ -39,6 +41,8 @@
 - Remove `react-markdown` and `rehype-raw` libraries forn HelpButton, instead of this use usual `<div>` (INDIGO Sprint 230317, [!399](https://github.com/TeskaLabs/asab-webui/pull/399))
 
 - Closing the sidebar after choosing item in small screen (INDIGO Sprint 230331, [!407](https://github.com/TeskaLabs/asab-webui/pull/407))
+
+- Remove legacy Navigation and Router from Services. (INDIGO Sprint 230331, [!409](https://github.com/TeskaLabs/asab-webui/pull/409))
 
 ### Bugfix
 
