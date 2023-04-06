@@ -25,44 +25,25 @@ export default class ConfigService extends Service {
 		const customCSS = document.getElementsByName('custom-css-file')[0]?.content;
 
 		let dynamicConfig = {};
-		let brandImage = {};
-		// Add custom header full light logo
+		// determine if any logos have been dynamically configured and assign brandImage property as an empty object
+		if (((headerLogoFull != undefined) && (headerLogoFull != "")) || ((headerLogoFullDark != undefined) && (headerLogoFullDark != "")) || ((headerLogoMini != undefined) && (headerLogoMini != "")) || ((headerLogoMiniDark != undefined) && (headerLogoMiniDark != ""))) {
+			dynamicConfig.brandImage = {};
+		}
+		// If header's full light logo has been configured, add it to dynamic config object
 		if ((headerLogoFull != undefined) && (headerLogoFull != "")) {
-			brandImage = {"brandImage": {"light": {"full": headerLogoFull}}};
-			Object.assign(dynamicConfig, brandImage);
+			Object.assign(dynamicConfig.brandImage, {"light": {"full": headerLogoFull}});
 		}
-		// Add custom header minimized light logo
-		if ((headerLogoMini != undefined) && (headerLogoMini != "")) {
-			if (dynamicConfig?.brandImage?.light !== undefined) {
-				brandImage = {"minimized": headerLogoMini};
-				Object.assign(dynamicConfig['brandImage']['light'], brandImage);
-			} else {
-				brandImage = {'brandImage': {"light" : {"minimized": headerLogoMini}}}
-				Object.assign(dynamicConfig, brandImage);
-			}
-		}
-		// Add custom header full dark logo
+		// If header's full dark logo has been configured, extend/add it to dynamic config's brandImage property
 		if ((headerLogoFullDark != undefined) && (headerLogoFullDark != "")) {
-			if (dynamicConfig?.brandImage !== undefined) {
-				brandImage = {"dark" : {"full": headerLogoFullDark}};
-				Object.assign(dynamicConfig['brandImage'], brandImage);
-			} else {
-				brandImage = {"brandImage" : {"dark": {"full": headerLogoFullDark}}};
-				Object.assign(dynamicConfig, brandImage);
-			}
+			dynamicConfig.brandImage = {...dynamicConfig.brandImage, "dark": {"full": headerLogoFullDark}};
 		}
-		// Add custom header minimized dark logo
+		// If header's minimized light logo has been configured, extend/add it to dynamic config brandImage property
+		if ((headerLogoMini != undefined) && (headerLogoMini != "")) {
+			Object.assign(dynamicConfig.brandImage, {...dynamicConfig.brandImage, "light" : {...dynamicConfig.brandImage?.light, "minimized": headerLogoMini}})
+		}
+		// If header's minimized dark logo has been configured, extend/add it to dynamic config brandImage property
 		if ((headerLogoMiniDark != undefined) && (headerLogoMiniDark != "")) {
-			if (dynamicConfig?.brandImage?.dark !== undefined) {
-				brandImage = {"minimized": headerLogoMiniDark};
-				Object.assign(dynamicConfig["brandImage"]["dark"], brandImage);
-			} else if ((dynamicConfig?.brandImage?.light !== undefined)) {
-				brandImage = {"dark": {"minimized": headerLogoMiniDark}};
-				Object.assign(dynamicConfig["brandImage"], brandImage);
-			} else {
-				brandImage = {"brandImage" : {"dark": {"minimized": headerLogoMiniDark}}};
-				Object.assign(dynamicConfig, brandImage);
-			}
+			Object.assign(dynamicConfig.brandImage, {...dynamicConfig.brandImage, "dark" : {...dynamicConfig.brandImage?.dark, "minimized": headerLogoMiniDark}})
 		}
 
 		// Add custom title
