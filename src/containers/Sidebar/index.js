@@ -76,15 +76,15 @@ const Sidebar = (props) => {
 		setWindowDimensions({width: window.innerWidth});
 	}
 
-	const toggle = () => setModal(!modal);
+	const toggleSidebarModal = () => setModal(!modal);
 
 	return (
 		windowDimensions.width <= 768 ?
 		<>
-			<div className="mobile-sidebar-burger" onClick={toggle}>
+			<div className="mobile-sidebar-burger" onClick={toggleSidebarModal}>
 				<i className="cil-menu"></i>
 			</div>
-			<Modal isOpen={modal} toggle={toggle} className="left">
+			<Modal isOpen={modal} toggle={toggleSidebarModal} className="left">
 				<div className="app-sidebar">
 					{windowDimensions.width >= 768 &&
 						<div style={{display: "inline-block"}}>
@@ -92,7 +92,6 @@ const Sidebar = (props) => {
 						</div>
 					}
 					<div className="sidebar-nav">
-
 						<Nav  vertical>
 							{memoizedItemsList.map((item, idx) => (
 								<SidebarItem
@@ -100,10 +99,11 @@ const Sidebar = (props) => {
 									item={item}
 									unauthorizedNavChildren={unauthorizedNavChildren}
 									uncollapseAll={memoizedItemsList.length <= 2}
+									toggleSidebarModal={toggleSidebarModal}
 								/>
 							))}
 						</Nav>
-						<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo}/>
+						<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} toggleSidebarModal={toggleSidebarModal}/>
 					</div>
 				</div>
 			</Modal>
@@ -116,7 +116,6 @@ const Sidebar = (props) => {
 				</div>
 			}
 			<div className="sidebar-nav">
-
 				<Nav  vertical>
 					{memoizedItemsList.map((item, idx) => (
 						<SidebarItem
