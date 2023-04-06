@@ -9,8 +9,8 @@ let ConfigDefaults = {
 	title: "Page Title",
 	brandImage: {
 		light: {
-			full: "path/to/external-header-fullt.svg",
-			minimized: "path/to/external-header-minimizedt.svg"
+			full: "path/to/external-header-full.svg",
+			minimized: "path/to/external-header-minimized.svg"
 		},
 		dark: {
 			full: "path/to/external-header-full-dark.svg",
@@ -132,8 +132,8 @@ Example of application's `index.html` setup (for **devs** only) - this is being 
 		...
 
 		<!-- Dynamic config start -->
-		<meta name="header-logo-fullß">
-		<meta name="header-logo-minimizedß">
+		<meta name="header-logo-full">
+		<meta name="header-logo-minimized">
 		<meta name="header-logo-full-dark">
 		<meta name="header-logo-minimized-dark">
 		<meta name="title">
