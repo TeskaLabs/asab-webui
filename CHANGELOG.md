@@ -10,7 +10,11 @@
 
 - Implement HelpComponent which shows the page description (INDIGO Sprint 230317, [!393](https://github.com/TeskaLabs/asab-webui/pull/393))
 
-- Add `minifyJS` and `minifyCSS` to webpack build HtmlWebPackPlugin to increase loading performance. (INDIGO Sprint 230317, [!420](https://github.com/TeskaLabs/asab-webui/pull/420))
+- Add `minifyJS` and `minifyCSS` to webpack build HtmlWebPackPlugin to increase loading performance. (INDIGO Sprint 230317, [!402](https://github.com/TeskaLabs/asab-webui/pull/402))
+
+- Implement Unauthorized access screen which is displayed instead of application's containers when user does not have a particular resource defined within prop of the Route. (INDIGO Sprint 230331, [!405](https://github.com/TeskaLabs/asab-webui/pull/405))
+
+- Add resources for tools and maintenance modules. (INDIGO Sprint 230331, [!408](https://github.com/TeskaLabs/asab-webui/pull/408))
 
 ### Refactoring
 
