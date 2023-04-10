@@ -54,18 +54,20 @@ export default class AuthModule extends Module {
 				// Remove 'code' from a query string
 				qs.delete('code');
 
+				let state = qs.get("state");
+				let urlPart = JSON.parse(localStorage.getItem("asab_webui_state"))[state];
+				localStorage.removeItem("asab_webui_state");
+				// Remove 'state' from a query string
+				qs.delete("state");
+
 				// Construct the new URL without `code` in the query string
 				// For this case, condition on empty qs string is sufficient and tested
 				let reloadUrl;
 				if (qs.toString() == '') {
 					// Remove `?` part from URL completely, if empty
-					reloadUrl = window.location.pathname + window.location.hash;
+					reloadUrl = window.location.pathname + urlPart; // other part form localstorage instead of hash
 				} else {
-					let state = qs.get("state")
-					let hash = localStorage.getItem(state);
-					localStorage.removeItem(state);
-					qs.delete("state")
-					reloadUrl = window.location.pathname + '?' + qs.toString() + hash;
+					reloadUrl = window.location.pathname + '?' + qs.toString() + urlPart; // other part form localstorage instead of hash
 				}
 
 				// Reload the app with `code` removed

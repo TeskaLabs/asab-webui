@@ -27,16 +27,10 @@ export class SeaCatAuthApi {
 		this.ClientSecret = "TODO";
 		this.SeaCatAuthAPI = this.App.axiosCreate('seacat_auth');
 		this.OidcAPI = this.App.axiosCreate('openidconnect');
-		this.state = undefined;
 	}
 
 	// This method will cause a navigation from the app to the OAuth2 login screen
 	async login(redirect_uri, force_login_prompt) {
-		// Generate random state
-		const typedArray = new Uint32Array(10);
-		crypto.getRandomValues(typedArray);
-		let randomIndex = Math.floor(Math.random() * typedArray.length);
-		this.state = typedArray[randomIndex];
 		/*
 			Adding tenant directly to scope (if available).
 		*/
@@ -48,18 +42,26 @@ export class SeaCatAuthApi {
 		let tenantValue = scopeArray.find(str => str.includes("tenant"));
 		let loginScope = (currentTenant != null) && (tenantValue != undefined) ? this.Scope.replace(`${tenantValue}`, `tenant:${currentTenant}`) : this.Scope;
 
+		// Generate random state
+		const typedArray = new Uint32Array(10);
+		crypto.getRandomValues(typedArray);
+		let randomIndex = Math.floor(Math.random() * typedArray.length);
+		let state = typedArray[randomIndex];
+
 		let redirectUriNewUrl = new URL(redirect_uri);
-		let hash = redirectUriNewUrl.hash;
-		redirectUriNewUrl.hash = "";
-		let redirectUriWithoutHash = redirectUriNewUrl.href;
-		localStorage.setItem(this.state, hash);
+		let urlPart = redirectUriNewUrl.search + redirectUriNewUrl.hash;
+		let updatedRedirectUri = redirectUriNewUrl.origin + redirectUriNewUrl.pathname;
+
+		localStorage.setItem("asab_webui_state", JSON.stringify({
+			[state]: urlPart
+		}))
 
 		const params = new URLSearchParams({
 			response_type: "code",
 			scope: loginScope,
 			client_id: this.ClientId,
-			redirect_uri: redirectUriWithoutHash,
-			state: this.state
+			redirect_uri: updatedRedirectUri,
+			state: state
 		});
 		if (force_login_prompt === true) {
 			params.append("prompt", "login");
