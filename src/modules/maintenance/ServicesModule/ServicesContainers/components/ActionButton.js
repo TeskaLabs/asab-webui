@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Tooltip } from 'reactstrap';
+import { useSelector } from 'react-redux';
+import { ButtonWithAuthz } from 'asab-webui';
 
 const ActionButton = ({
 	label,
@@ -12,6 +14,8 @@ const ActionButton = ({
 	outline=false
 }) => {
 	const [tooltipOpen, setTooltipOpen] = useState(false);
+	const resource = "asab:service:manage";
+	const resources = useSelector(state => state.auth?.resources);
 
 	const toggle = () => setTooltipOpen(!tooltipOpen);
 
@@ -19,7 +23,7 @@ const ActionButton = ({
 
 	return (
 		<React.Fragment>
-			<Button
+			<ButtonWithAuthz
 				aria-label={label}
 				id={id}
 				size="sm"
@@ -28,9 +32,11 @@ const ActionButton = ({
 				onClick={onClick}
 				disabled={disabled}
 				outline={outline}
+				resource={resource}
+				resources={resources}
 			>
 				<i className={icon}></i>
-			</Button>
+			</ButtonWithAuthz>
 			<Tooltip
 				placement="bottom"
 				isOpen={tooltipOpen}

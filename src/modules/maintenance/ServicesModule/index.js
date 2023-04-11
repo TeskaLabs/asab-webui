@@ -13,6 +13,7 @@ export default class ServicesModule extends Module {
 			exact: true,
 			name: "Services",
 			component: ServicesContainer,
+			resource: "asab:service:access"
 		});
 
 		// Check presence of Maintenance item in sidebar
@@ -24,7 +25,8 @@ export default class ServicesModule extends Module {
 				itm.children.push({
 					name: "Services",
 					url: "/services",
-					icon: "cil-list"
+					icon: "cil-list",
+					resource: "asab:service:access"
 				});
 				isMaintenancePresent = true;
 			}
@@ -39,7 +41,8 @@ export default class ServicesModule extends Module {
 					{
 						name: "Services",
 						url: "/services",
-						icon: "cil-list"
+						icon: "cil-list",
+						resource: "asab:service:access"
 					}
 				]
 			});

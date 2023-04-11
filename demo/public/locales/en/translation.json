@@ -165,6 +165,10 @@
 		"Detail": "Detail",
 		"Advertised data": "Advertised data"
 	},
+	"UnauthorizedAccessScreen": {
+		"Unauthorized access": "Unauthorized access",
+		"You are not authorized to access this part of the application. Please ask your application administrator for following resource": "You are not authorized to access this part of the application. Please ask your application administrator for following resource"
+	},
 	"UserInterfaceCard": {
 		"User interface": "User interface",
 		"Build date": "Build date",

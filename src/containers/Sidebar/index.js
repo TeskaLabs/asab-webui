@@ -76,60 +76,60 @@ export default function Sidebar (props) {
 		setWindowDimensions({width: window.innerWidth});
 	}
 
-	const toggle = () => setModal(!modal);
+	const toggleSidebarModal = () => setModal(!modal);
 
 	return (
 		windowDimensions.width <= 768 ?
-			<>
-				<div className="mobile-sidebar-burger" onClick={toggle}>
-					<i className="cil-menu"></i>
-				</div>
-				<Modal isOpen={modal} toggle={toggle} className="left">
-					<div className="app-sidebar">
-						{windowDimensions.width >= 768 &&
-							<div style={{display: "inline-block"}}>
-								<NavbarBrand {...props}/>
-							</div>
-						}
-						<div className="sidebar-nav">
-							{/*paste disabled prop*/}
-							<Nav vertical>
-								{memoizedItemsList.map((item, idx) => (
-									<SidebarItem
-										key={idx}
-										item={item}
-										disabled={sessionExpired}
-										unauthorizedNavChildren={unauthorizedNavChildren}
-										uncollapseAll={memoizedItemsList.length <= 2}
-									/>
-								))}
-							</Nav>
-							<SidebarBottomItem item={aboutItem} sidebarLogo={sidebarLogo}/>
-						</div>
-					</div>
-				</Modal>
-			</>
-		:
-			<div className={`app-sidebar${isSidebarCollapsed ? " collapsed" : ""}`}>
-				{windowDimensions.width > 768 &&
-					<div style={{display: "inline-block"}}>
-						<NavbarBrand {...props} isSidebarMinimized/>
-					</div>
-				}
-				<div className="sidebar-nav">
-					<Nav  vertical>
-						{memoizedItemsList.map((item, idx) => (
-							<SidebarItem
-								key={idx}
-								item={item}
-								disabled={sessionExpired}
-								unauthorizedNavChildren={unauthorizedNavChildren}
-								uncollapseAll={memoizedItemsList.length <= 2}
-							/>
-						))}
-					</Nav>
-					<SidebarBottomItem item={aboutItem} sidebarLogo={sidebarLogo} />
-				</div>
+		<>
+			<div className="mobile-sidebar-burger" onClick={toggleSidebarModal}>
+				<i className="cil-menu"></i>
 			</div>
+			<Modal isOpen={modal} toggle={toggleSidebarModal} className="left">
+				<div className="app-sidebar">
+					{windowDimensions.width >= 768 &&
+						<div style={{display: "inline-block"}}>
+							<NavbarBrand {...props}/>
+						</div>
+					}
+					<div className="sidebar-nav">
+						<Nav  vertical>
+							{memoizedItemsList.map((item, idx) => (
+								<SidebarItem
+									key={idx}
+									item={item}
+									disabled={sessionExpired}
+									unauthorizedNavChildren={unauthorizedNavChildren}
+									uncollapseAll={memoizedItemsList.length <= 2}
+									toggleSidebarModal={toggleSidebarModal}
+								/>
+							))}
+						</Nav>
+						<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} toggleSidebarModal={toggleSidebarModal}/>
+					</div>
+				</div>
+			</Modal>
+		</>
+		:
+		<div className={`app-sidebar${isSidebarCollapsed ? " collapsed" : ""}`}>
+			{windowDimensions.width > 768 &&
+				<div style={{display: "inline-block"}}>
+					<NavbarBrand {...props} isSidebarMinimized/>
+				</div>
+			}
+			<div className="sidebar-nav">
+				<Nav  vertical>
+					{memoizedItemsList.map((item, idx) => (
+						<SidebarItem
+							key={idx}
+							item={item}
+							disabled={sessionExpired}
+							unauthorizedNavChildren={unauthorizedNavChildren}
+							uncollapseAll={memoizedItemsList.length <= 2}
+						/>
+					))}
+				</Nav>
+				<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} />
+			</div>
+		</div>
 	)
 }

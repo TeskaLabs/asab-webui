@@ -26,7 +26,7 @@ export default class HelpService extends Service {
 				});
 			}
 		} catch (e) {
-			console.error(`Help service can't retrieve data for ${path}`, e);
+			console.warn(`Help service can't retrieve data for ${path}`, e);
 			// Remove data from the TenantDataCache eventually
 			this.App.Store.dispatch({
 				type: HELP_CONTENT,
