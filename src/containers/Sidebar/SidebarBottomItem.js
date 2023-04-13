@@ -12,7 +12,7 @@ import { COLLAPSE_SIDEBAR } from "../../actions";
 
 import Icon from './SidebarIcon';
 
-const SidebarBottomItem = ({ item, sidebarLogo, toggleSidebarModal }) => {
+const SidebarBottomItem = ({ item, sidebarLogo, disabled, toggleSidebarModal }) => {
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
 
 	const location = useLocation();
@@ -53,7 +53,7 @@ const SidebarBottomItem = ({ item, sidebarLogo, toggleSidebarModal }) => {
 		<div className="sidebar-bottom">
 			<Nav vertical>
 				<NavItem className="sidebar-item" >
-					<NavLink className="p-0" onClick={onNavLink}>
+					<NavLink disabled={disabled} className="p-0" onClick={onNavLink}>
 						{item && (
 							<button
 								title={t(`Sidebar|${item.name}`)}

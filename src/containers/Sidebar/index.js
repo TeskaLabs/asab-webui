@@ -104,7 +104,7 @@ export default function Sidebar (props) {
 								/>
 							))}
 						</Nav>
-						<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} toggleSidebarModal={toggleSidebarModal}/>
+						<SidebarBottomItem item={aboutItem}  sidebarLogo={props.sidebarLogo} disabled={sessionExpired} toggleSidebarModal={toggleSidebarModal}/>
 					</div>
 				</div>
 			</Modal>
@@ -128,7 +128,7 @@ export default function Sidebar (props) {
 						/>
 					))}
 				</Nav>
-				<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} />
+				<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} disabled={sessionExpired} />
 			</div>
 		</div>
 	)
