@@ -271,6 +271,10 @@ export default class AuthModule extends Module {
 			if (that.App.Store != null) {
 				that.App.Store.dispatch({ type: types.AUTH_SESSION_EXPIRATION, sessionExpired: true });
 			}
+			[...document.getElementsByClassName('btn')].forEach(i => {
+				i.classList.add("disabled");
+				i.setAttribute("disabled", "");
+			});
 		}
 		else {
 			let exp = that.UserInfo.exp * 1000; // Expiration timestamp
