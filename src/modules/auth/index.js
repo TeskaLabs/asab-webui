@@ -65,9 +65,9 @@ export default class AuthModule extends Module {
 				let reloadUrl;
 				if (qs.toString() == '') {
 					// Remove `?` part from URL completely, if empty
-					reloadUrl = window.location.pathname + urlPart; // other part form localstorage instead of hash
+					reloadUrl = window.location.pathname + urlPart; // part form localstorage instead of hash
 				} else {
-					reloadUrl = window.location.pathname + '?' + qs.toString() + urlPart; // other part form localstorage instead of hash
+					reloadUrl = window.location.pathname + '?' + qs.toString() + urlPart; // part form localstorage instead of hash
 				}
 
 				// Reload the app with `code` removed
