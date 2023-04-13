@@ -105,6 +105,9 @@
 	"ASABCredentials": {
 		"Something went wrong, failed to fetch assigned credentials": "Něco je špatně, nepodařilo se získat přiřazené uživatelské údaje"
 	},
+	"Alerts": {
+		"Please continue here": "Pokračujte prosím zde"
+	},
 	"ASABLibraryModule": {
 		"Search": "Search",
 		"Failed to load data": "Nepodařilo se načíst data",

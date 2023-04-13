@@ -103,6 +103,9 @@
 	"ASABCredentials": {
 		"Something went wrong, failed to fetch assigned credentials": "Something went wrong, failed to fetch assigned credentials"
 	},
+	"Alerts": {
+		"Please continue here": "Please continue here"
+	},
 	"ASABLibraryModule": {
 		"Search": "Search",
 		"Failed to load data": "Failed to load data",
