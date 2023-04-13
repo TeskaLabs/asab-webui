@@ -56,7 +56,7 @@ export default function AlertsComponent(props) {
 						{alert.shouldBeTranslated ? t(alert.message) : alert.message}
 						{sessionExpired &&
 							<span onClick={() => window.location.reload()} className="alert-span">
-								{` ${t("Alerts|here")}`}
+								{` ${t("Alerts|Please continue here")}`}
 							</span>
 						}
 					</Alert>
