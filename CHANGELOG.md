@@ -52,6 +52,8 @@
 
 - Fix `console.error` to `console.warn` (INDIGO Sprint 230331, [!406](https://github.com/TeskaLabs/asab-webui/pull/406))
 
+- Fix infinite loop bug on userinfo, when expiration time is set to small values (INDIGO Sprint 230414, [!410](https://github.com/TeskaLabs/asab-webui/pull/410))
+
 ## v23.5
 
 ### Features
