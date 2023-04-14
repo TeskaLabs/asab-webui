@@ -145,7 +145,7 @@ export default class AuthModule extends Module {
 			}
 
 		*/
-		this.App.addAlert("warning", "ASABAuthModule|You are in DEV mode and using MOCK login parameters", 3);
+		this.App.addAlert("warning", "ASABAuthModule|You are in DEV mode and using MOCK login parameters", 3, true);
 		let mockParams = mock_userinfo;
 		if (mockParams.resources) {
 			mockParams["resources"] = Object.values(mockParams.resources)
@@ -267,7 +267,7 @@ export default class AuthModule extends Module {
 		// if session has expired
 		if (!isUserInfoUpdated && oldUserInfo) {
 			oldUserInfo = null;
-			that.App.addAlert("danger", "ASABAuthModule|Your session has expired", 3600 * 1000);
+			that.App.addAlert("danger", "ASABAuthModule|Your session has expired", 3600 * 1000, true);
 		}
 		else {
 			let exp = that.UserInfo.exp * 1000; // Expiration timestamp
@@ -286,7 +286,7 @@ export default class AuthModule extends Module {
 			* then first message will be shown until expiration date will come
 			*/
 			if ((difference < 60000) && (exp > Date.now()) && !fAlert) {
-				that.App.addAlert("warning", "ASABAuthModule|Your session will expire soon", 30);
+				that.App.addAlert("warning", "ASABAuthModule|Your session will expire soon", 30, true);
 				fAlert = true;
 			}
 
@@ -300,7 +300,7 @@ export default class AuthModule extends Module {
 
 			// Prevent infinite userinfo request loop when timeout time is zero or negative
 			if (timeout <= 0) {
-				that.App.addAlert("warning", "ASABAuthModule|Your session will expire soon", 30);
+				that.App.addAlert("warning", "ASABAuthModule|Your session will expire soon", 30, true);
 				fAlert = true;
 				// Set timeout to 30s since SeaCat Auth service is updating userinfo 1x per minute
 				timeout = 30000;
