@@ -302,7 +302,7 @@ export default class AuthModule extends Module {
 			if (timeout <= 0) {
 				that.App.addAlert("warning", "ASABAuthModule|Your session will expire soon", 30, true);
 				fAlert = true;
-				// Set timeout to 30s since SeaCat Auth service is updating userinfo 1x per minute
+				// Set timeout to 30s since SeaCat Auth service is checking on deleted sessions 1x per minute
 				timeout = 30000;
 			}
 
