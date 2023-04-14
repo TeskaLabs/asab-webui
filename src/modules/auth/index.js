@@ -271,6 +271,7 @@ export default class AuthModule extends Module {
 			if (that.App.Store != null) {
 				that.App.Store.dispatch({ type: types.AUTH_SESSION_EXPIRATION, sessionExpired: true });
 			}
+			// Disable buttons in the whole screen
 			[...document.getElementsByClassName('btn')].forEach(i => {
 				i.classList.add("disabled");
 				i.setAttribute("disabled", "");
