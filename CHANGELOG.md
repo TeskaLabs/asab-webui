@@ -44,7 +44,7 @@
 
 - Remove legacy Navigation and Router from Services. (INDIGO Sprint 230331, [!409](https://github.com/TeskaLabs/asab-webui/pull/409))
 
-- Refactor and update Apps session expiration (INDIGO Sprint 230317, [!403](https://github.com/TeskaLabs/asab-webui/pull/403))
+- Refactor and update Apps session expiration (INDIGO Sprint 230414, [!403](https://github.com/TeskaLabs/asab-webui/pull/403))
 
 ### Bugfix
 
