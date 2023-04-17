@@ -146,10 +146,11 @@ const Headers = ({ headers, advmode, sublists }) => (
 
 const TableRow = ({
 	obj, advmode, headers,
-	rowStyle, rowClassName, category
+	rowStyle, rowClassName, category,
+	collapseChildren
 }) => {
 	const [isAdvUnwrapped, setAdvUnwrapped] = useState(false);
-	const [isSubUnwrapped, setSubUwrapped] = useState(true);
+	const [isSubUnwrapped, setSubUwrapped] = useState((collapseChildren == false) ? true : false);
 	const theme = useSelector(state => state?.theme);
 
 	const getStyle = (obj) => {
@@ -254,13 +255,14 @@ const TableRow = ({
 
 const ASABTable = ({
 	data, headers, advmode,
-	rowStyle, rowClassName, category
+	rowStyle, rowClassName, category,
+	collapseChildren
 }) => (
 	<Table size="sm" hover responsive>
 		<Headers sublists={!!category} headers={headers} advmode={advmode} className="data-table-header"/>
 		<tbody className="data-table-tbody">
 			{data && data.map((obj, idx) => (
-				<TableRow {...{ obj, advmode, headers, rowStyle, rowClassName, category }} key={idx} />
+				<TableRow {...{ obj, advmode, headers, rowStyle, rowClassName, category, collapseChildren }} key={idx} />
 			))}
 		</tbody>
 	</Table>

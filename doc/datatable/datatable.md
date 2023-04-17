@@ -564,7 +564,7 @@ const headers = [
 
 ...
 return (
-	<DataTable 
+	<DataTable
 		...
 		data={data}
 		category={{
@@ -575,6 +575,26 @@ return (
 	/>
 );
 ```
+
+Prop `collapseChildren` is a boolean value and together with usage of `category` prop can collapse children nodes of the parent if set to `true`. By default is set to `false` and thus parent node is by default open and all of their children visible.
+
+```js
+return (
+	<DataTable
+		...
+		data={data}
+		category={{
+			key: "parent_title",
+			sublistsKey:"children",
+			customComponent: (parentObj) => parentObj.name
+		}}
+		collapseChildren={true}
+		...
+	/>
+);
+```
+
+NOTE: If `category` prop is not defined, `collapseChildren` will have no impact on the datatable.
 
 Prop `onDownload` is a function that returns a list of items that needs to be downloaded. When such function is provided `DataTable` will automatically download csv with provided list.
 For downloading content which is displayed with custom components check section Custom Components.
