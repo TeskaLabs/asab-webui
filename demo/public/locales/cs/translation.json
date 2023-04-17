@@ -106,7 +106,7 @@
 		"Something went wrong, failed to fetch assigned credentials": "Něco je špatně, nepodařilo se získat přiřazené uživatelské údaje"
 	},
 	"Alerts": {
-		"Please continue here": "Pokračujte prosím zde"
+		"Please continue to login.": "Pokračujte prosím v přihlašování."
 	},
 	"ASABLibraryModule": {
 		"Search": "Search",
