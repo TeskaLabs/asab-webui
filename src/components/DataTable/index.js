@@ -33,7 +33,7 @@ export function DataTable ({
 	customCardBodyComponent,
 	limitValues = [5, 10, 15, 20, 25, 30, 50],
 	contentLoader = true, category, height, disableAdvMode,
-	collapseChildren = false
+	collapseChildren = false, toggleChildrenOnRowClick = false
    }) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isLimitOpen, setLimitDropdown] = useState(false);
@@ -138,6 +138,7 @@ export function DataTable ({
 								rowStyle={customRowStyle}
 								rowClassName={customRowClassName}
 								collapseChildren={collapseChildren}
+								toggleChildrenOnRowClick={toggleChildrenOnRowClick}
 								advmode={advModeState}
 							/>
 						}

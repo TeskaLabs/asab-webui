@@ -596,6 +596,26 @@ return (
 
 NOTE: If `category` prop is not defined, `collapseChildren` will have no impact on the datatable.
 
+Prop `toggleChildrenOnRowClick` is a boolean value and together with `category` prop can set cursor and onClick toggle to the whole table row, not just the toggle icon (button). So then the whole table row is clickable and collapse/uncollapse children of the parent.
+
+```js
+return (
+	<DataTable
+		...
+		data={data}
+		category={{
+			key: "parent_title",
+			sublistsKey:"children",
+			customComponent: (parentObj) => parentObj.name
+		}}
+		toggleChildrenOnRowClick={true}
+		...
+	/>
+);
+```
+
+NOTE: If `category` prop is not defined, `toggleChildrenOnRowClick` will have no impact on the datatable.
+
 Prop `onDownload` is a function that returns a list of items that needs to be downloaded. When such function is provided `DataTable` will automatically download csv with provided list.
 For downloading content which is displayed with custom components check section Custom Components.
 

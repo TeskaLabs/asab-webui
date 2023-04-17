@@ -54,6 +54,10 @@ thead .data-table-tr th {
             }
         }
     }
+
+    & .data-table-tr-cursor {
+        cursor: pointer;
+    }
 }
 
 table ~ .react-json-view {
