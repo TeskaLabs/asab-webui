@@ -91,7 +91,7 @@
 	"ASABAuthModule": {
 		"You are not authorized to use this application": "Nejste autorizováni k používání této aplikace",
 		"You are in DEV mode and using MOCK login parameters": "Jste v DEV režimu a používáte MOCK přihlašovací údaje",
-		"You have been logged out due to inactivity.": "Byl jste odhlašen z důvodu nečinnosti.",
+		"You have been logged out due to inactivity.": "Byli jste odhlášeni z důvodu nečinnosti.",
 		"Your session will expire soon": "Vaše relace brzy vyprší"
 	},
 	"ASABTenantModule": {
@@ -106,7 +106,7 @@
 		"Something went wrong, failed to fetch assigned credentials": "Něco je špatně, nepodařilo se získat přiřazené uživatelské údaje"
 	},
 	"Alerts": {
-		"Please continue to login.": "Pokračujte prosím v přihlašování."
+		"Please continue to login.": "Pokračujte prosím na přihlášení."
 	},
 	"ASABLibraryModule": {
 		"Search": "Search",
