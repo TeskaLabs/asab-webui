@@ -245,7 +245,7 @@ export default function (props) {
 		onClick() {alert("You've clicked button with authz")},
 		resource: "res:res",
 		resources: ["res:res"],
-		children: (<><i className="cil-trash mr-2"></i>ButtonWithAuthz</>)
+		children: (<><i className="at-trash mr-2"></i>ButtonWithAuthz</>)
 	}
 
 	const noItemsComponent = (
@@ -298,8 +298,8 @@ export default function (props) {
 				setLimit={setLimit}
 				currentPage={page}
 				setPage={setPage}
-				search={{ icon: 'cil-magnifying-glass', placeholder: "Search" }}
-				createButton={{ text: "Create", icon: 'cil-plus', pathname: '#' }}
+				search={{ icon: 'at-magnifying-glass', placeholder: "Search" }}
+				createButton={{ text: "Create", icon: 'at-plus-circle', pathname: '#' }}
 				onSearch={onSearch}
 				onDownload={onDownload}
 				sort={{

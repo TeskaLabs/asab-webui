@@ -193,11 +193,11 @@ const TableRow = ({
 					<>
 						{isSubUnwrapped ? (
 							<td className="data-table-arrow-btn" onClick={() => setSubUwrapped(false)}>
-								<i className="cil-chevron-circle-down-alt"></i>
+								<i className="at-arrow-down-circle"></i>
 							</td>
 						) : (
 							<td className="data-table-arrow-btn" onClick={() => setSubUwrapped(true)}>
-								<i className="cil-chevron-circle-right-alt"></i>
+								<i className="at-arrow-right-circle"></i>
 							</td>
 						)}
 					</>

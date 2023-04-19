@@ -167,7 +167,7 @@ export default function ServicesContainer(props) {
 						{t("ServicesContainer|Services")}
 					</div>
 					<Search
-						search={{ icon: 'cil-magnifying-glass', placeholder: t("ServicesContainer|Filter state") }}
+						search={{ icon: 'at-magnifying-glass', placeholder: t("ServicesContainer|Filter state") }}
 						filterValue={filter}
 						setFilterValue={setFilter}
 					/>
@@ -314,9 +314,9 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 				<td>
 					<div className="caret-status-div">
 					{collapseData ?
-						<span title={t("ServicesContainer|Un-collapse")} className="caret-icon cil-arrow-circle-right" onClick={() => {setCollapseData(false)}}></span>
+						<span title={t("ServicesContainer|Un-collapse")} className="caret-icon at-arrow-right-circle" onClick={() => {setCollapseData(false)}}></span>
 						:
-						<span title={t("ServicesContainer|Collapse")} className="caret-icon cil-arrow-circle-bottom" onClick={() => {setCollapseData(true)}}></span>
+						<span title={t("ServicesContainer|Collapse")} className="caret-icon at-arrow-down-circle" onClick={() => {setCollapseData(true)}}></span>
 					}
 					{generateStatus(data[objKey]?.state ? data[objKey].state : undefined)}
 					</div>
@@ -342,7 +342,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								className="action-button"
 								color="secondary"
 								outline
-								icon="cil-media-play"
+								icon="at-play"
 								onClick={() => {setAction("start", data[objKey]?.instance_id), setIsSubmitting(true)}}
 								disabled={isSubmitting == true}
 							/>

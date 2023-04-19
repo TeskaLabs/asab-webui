@@ -21,12 +21,12 @@ export default class HomeModule extends Module {
 		app.Navigation.addItem({
 			name: 'Table',
 			url: '/table',
-			icon: 'cil-chart',
+			icon: 'at-graph-chart',
 		});
 		app.Navigation.addItem({
 			name: 'Category Table',
 			url: '/category-table',
-			icon: 'cil-chart',
+			icon: 'at-graph-chart',
 		});
 		app.Navigation.addItem({
 			name: 'Error Example',

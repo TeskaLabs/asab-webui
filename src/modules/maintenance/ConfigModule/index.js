@@ -29,7 +29,7 @@ export default class ConfigModule extends Module {
 				itm.children.push({
 					name: "Configuration",
 					url: "/config/$/$",
-					icon: "cil-settings",
+					icon: "at-gear",
 					resource: "asab:config:access"
 				});
 				isMaintenancePresent = true;
@@ -40,12 +40,12 @@ export default class ConfigModule extends Module {
 		if (!isMaintenancePresent) {
 			app.Navigation.addItem({
 				name: 'Maintenance',
-				icon: "cil-apps-settings",
+				icon: "at-menu-square",
 				children: [
 					{
 						name: "Configuration",
 						url: "/config/$/$",
-						icon: "cil-settings",
+						icon: "at-gear",
 						resource: "asab:config:access"
 					}
 				]

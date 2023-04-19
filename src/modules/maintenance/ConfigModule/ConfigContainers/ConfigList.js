@@ -62,7 +62,7 @@ function ConfigList(props) {
 							resources={resources}
 							onClick={(e) => {removeConfigForm(obj.name), e.preventDefault()}}
 						>
-							<i className="cil-trash"></i>
+							<i className="at-trash"></i>
 						</ButtonWithAuthz>
 					</div>
 				)
@@ -159,7 +159,7 @@ function ConfigList(props) {
 		<div className="config-list-dt">
 			<DataTable
 				customCardBodyComponent={<div>{`${description}`}</div>}
-				title={{ text: t("ASABConfig|Type") + ` ${configType}`, icon: "cil-settings" }}
+				title={{ text: t("ASABConfig|Type") + ` ${configType}`, icon: "at-gear" }}
 				headers={headers}
 				data={configList}
 				limit={99999}
@@ -226,7 +226,7 @@ function CreateConfigCard(props) {
 			<Card className="w-75 offset-md-2">
 				<CardHeader className="border-bottom">
 					<div className="card-header-title">
-						<span className="cil-settings pr-2" />
+						<span className="at-gear pr-2" />
 						{t("ASABConfig|Type") + ` ${props.configType.toString()} / ` + t('ASABConfig|New configuration')}
 					</div>
 				</CardHeader>
