@@ -7,13 +7,13 @@ Currently in ASAB-WebUI based application we've arranged new design rules for bu
 Correct:
 ```jsx
 <Button> Text </Button>
-<Button> <i className="cil-list" /> </Button>
+<Button> <i className="at-list" /> </Button>
 ```
 
 Wrong: 
 ```jsx
 <Button>
-	<i className="cil-list" />
+	<i className="at-list" />
 	Text
 </Button>
 ```

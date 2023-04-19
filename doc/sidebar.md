@@ -33,7 +33,7 @@ The resource is set to the navigation `addItem` component.
 
 	app.Navigation.addItem({
 		name: 'Wrapped',
-		icon: 'cil-chart',
+		icon: 'at-graph-chart',
 		resource: 'wrapped:access'
 		children: [
 			{
@@ -44,7 +44,7 @@ The resource is set to the navigation `addItem` component.
 			{
 				name: 'Table',
 				url: '/Table',
-				icon: 'cil-chart',
+				icon: 'at-graph-chart',
 			}
 		]
 	});
@@ -79,7 +79,7 @@ The resource is set to the navigation `addItem` -> `children` component.
 ```
 	app.Navigation.addItem({
 		name: 'Wrapped',
-		icon: 'cil-chart',
+		icon: 'at-graph-chart',
 		resource: 'wrapped:access'
 		children: [
 			{
@@ -90,7 +90,7 @@ The resource is set to the navigation `addItem` -> `children` component.
 			{
 				name: 'Table',
 				url: '/Table',
-				icon: 'cil-chart',
+				icon: 'at-graph-chart',
 				resource: "table:access"
 			}
 		]

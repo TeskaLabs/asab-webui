@@ -32,7 +32,7 @@ export default class HomeModule extends Module {
 		app.Navigation.addItem({
 			name: 'Table',
 			url: '/Table',
-			icon: 'cil-chart',
+			icon: 'at-graph-chart',
 		})
 	}
 }
@@ -391,7 +391,7 @@ Example of `buttonWithAuthz`:
 		onClick() {alert("You've clicked button with authz")},
 		resource: "res:res",
 		resources: ["res:res"],
-		children: (<><i className="cil-trash mr-2"></i>ButtonWithAuthz</>)
+		children: (<><i className="at-trash mr-2"></i>ButtonWithAuthz</>)
 	}
 	...
 
