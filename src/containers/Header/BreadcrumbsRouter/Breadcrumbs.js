@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux'
 
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
@@ -10,7 +9,6 @@ const Breadcrumbs = ({
 	routes, match, app, disableContainerBreadcrumbs
 }) => {
 	const { t } = useTranslation();
-	const sessionExpired = useSelector(state => state.auth?.sessionExpired);
 	const crumbs = useMemo(() => {
 		return routes.filter(({ path }) => {
 			// Checking if the number of slash ('/') is the same and if it is included in the match.path
@@ -46,7 +44,7 @@ const Breadcrumbs = ({
 					return (
 						<BreadcrumbItem key={idx} active={idx === crumbs.length - 1}>
 							{idx !== crumbs.length - 1 ?
-								<Link className={sessionExpired ? "breadcrumbs-disabled" : "" } to={crumb.path}>{t(`Breadcrumbs|${crumb.name}`)}</Link>
+								<Link to={crumb.path}>{t(`Breadcrumbs|${crumb.name}`)}</Link>
 								: <span>{t(`Breadcrumbs|${crumb.name}`)}</span>
 							}
 						</BreadcrumbItem>

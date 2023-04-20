@@ -2,7 +2,6 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Breadcrumbs from './Breadcrumbs';
-import "./breadcrumbs.scss"
 
 const BreadcrumbsRouter = (props) => {
 	const app = props.app;
