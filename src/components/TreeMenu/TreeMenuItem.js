@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux'
 
 import './treemenu.scss';
 
@@ -8,9 +9,10 @@ const TreeMenuItem = ({
 	toggleNode, matchSearch, focused,
 	type, isDisabled, ...props
 }) => {
+	const sessionExpired = useSelector(state => state.auth?.sessionExpired);
 	const paddingLeft = 1.25 * level + 0.5;
 	const selected = focused ? " selected" : "";
-	const disabled = isDisabled ? " disabled" : "";
+	const disabled = (isDisabled || sessionExpired) ? " disabled" : "";
 
 	return (
 		<li
