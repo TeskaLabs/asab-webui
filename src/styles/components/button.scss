@@ -489,6 +489,13 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 	& a:hover {
 		text-decoration: none;
 	}
+	&.disabled, &:disabled, &-sm.disabled, &-sm:disabled {
+		pointer-events: none;
+		filter: opacity(60%);
+		.btn {
+			filter: opacity(100%);
+		}
+	}
 }
 
 .btn-group-sm .btn{

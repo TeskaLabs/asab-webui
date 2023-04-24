@@ -271,13 +271,13 @@ export default class AuthModule extends Module {
 			if (that.App.Store != null) {
 				that.App.Store.dispatch({ type: types.AUTH_SESSION_EXPIRATION, sessionExpired: true });
 			}
-			// Disable buttons in the whole screen
-			[...document.querySelectorAll('[class^="btn"],[class*=" btn"], .page-link')].forEach(i => {
+			// Disable buttons and pagination in the whole screen
+			[...document.querySelectorAll('[class^="btn"],[class*=" btn"], .page-item')].forEach(i => {
 				i.classList.add("disabled");
 				i.setAttribute("disabled", "");
 			});
-			// Disable link without class in the whole screen
-			[...document.querySelectorAll('a:not([class])')].forEach(i => {
+			// Disable link without class "nav-link" in the whole screen
+			[...document.querySelectorAll('a:not(.nav-link)')].forEach(i => {
 				i.classList.add("disabled-link");
 			});
 		}
