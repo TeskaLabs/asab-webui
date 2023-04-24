@@ -57,6 +57,17 @@ The resource is set to the navigation `addItem` component.
 
 ```
 
+It is **highly recommended** to combine this approach with validation on Route (main app containers) to display Unauthorized access card, when user is not authorized by resource.
+
+```
+	app.Router.addRoute({
+		name: "Nowhere",
+		path: "/nowhere",
+		component: NowhereContainer,
+		resource: 'nowhere:access'
+	});
+```
+
 ## Setting resource for sidebar item's children
 
 This option is handy when we want to limit the access to the item's children based on user's resources. The navigation item's children in sidebar is hidden for those, who does not have the appropriate rights.
@@ -83,6 +94,17 @@ The resource is set to the navigation `addItem` -> `children` component.
 				resource: "table:access"
 			}
 		]
+	});
+```
+
+It is **highly recommended** to combine this approach with validation on Route (main app containers) to display Unauthorized access card, when user is not authorized by resource.
+
+```
+	app.Router.addRoute({
+		name: "Nowhere",
+		path: "/nowhere",
+		component: NowhereContainer,
+		resource: 'nowhere:access'
 	});
 ```
 

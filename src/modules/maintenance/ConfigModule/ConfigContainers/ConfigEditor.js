@@ -49,7 +49,7 @@ function ConfigEditor(props) {
 	const [ configNotExist, setConfigNotExist ] = useState(false);
 	const [ activeTab, setActiveTab ] = useState('basic');
 
-	const resourceManageConfig = "config:admin";
+	const resourceManageConfig = "asab:config:edit";
 	const resources = useSelector(state => state.auth?.resources);
 	const theme = useSelector(state => state?.theme);
 

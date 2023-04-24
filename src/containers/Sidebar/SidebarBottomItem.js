@@ -11,7 +11,7 @@ import { COLLAPSE_SIDEBAR } from "../../actions";
 
 import Icon from './SidebarIcon';
 
-const SidebarBottomItem = ({ item, sidebarLogo }) => {
+const SidebarBottomItem = ({ item, sidebarLogo, toggleSidebarModal }) => {
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
 
 	const location = useLocation();
@@ -22,7 +22,13 @@ const SidebarBottomItem = ({ item, sidebarLogo }) => {
 	const onNavLink = () => {
 		// Preserve from history pushing when item.url doesn't exist
 		// or when current location pathname is the same as item.url
-		if (item.url && location.pathname !== item.url) history.push(item.url);
+		if (item.url && location.pathname !== item.url) {
+			history.push(item.url);
+			// collapsing the sidebar after selecting an item
+			if (toggleSidebarModal != undefined) {
+				toggleSidebarModal();
+			}
+		}
 	}
 SidebarBottomItem
 	const onCollapse = (event) => {

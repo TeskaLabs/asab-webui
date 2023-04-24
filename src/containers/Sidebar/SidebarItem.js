@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 
 import {
 	NavItem, NavLink, Collapse, Nav
@@ -10,13 +9,12 @@ import {
 import Icon from './SidebarIcon';
 
 const SidebarItem = ({ 
-	item, unauthorizedNavChildren, uncollapseAll
+	item, unauthorizedNavChildren, uncollapseAll, toggleSidebarModal
 }) => {
 	const [isOpen, setOpen] = useState(false);
 
 	const location = useLocation();
 	const history = useHistory();
-	const dispatch = useDispatch();
 
 	const { t } = useTranslation();
 
@@ -41,7 +39,14 @@ const SidebarItem = ({
 	 const onNavLink = () => {
 		// Preserve from history pushing when item.url doesn't exist
 		// or when current location pathname is the same as item.url
-		if (item.url && location.pathname !== item.url) history.push(item.url);
+		if (item.url && location.pathname !== item.url) {
+			history.push(item.url);
+			// collapsing the sidebar after selecting an item
+			if (toggleSidebarModal != undefined) {
+				toggleSidebarModal()
+			}
+
+		}
 		// Preserve from collapsing when item doesn't have children
 		// or if item should always be uncollapsed
 		else if (item.children && !uncollapseAll) setOpen(prev => !prev);
@@ -66,9 +71,9 @@ const SidebarItem = ({
 							<Nav className="nav-children">
 								{item.children.map((child, idx) => (
 									unauthorizedNavChildren == undefined || unauthorizedNavChildren.length == 0 ?
-										<SidebarItem key={idx} item={child} />
+										<SidebarItem key={idx} item={child} toggleSidebarModal={toggleSidebarModal} />
 									:
-										unauthorizedNavChildren.indexOf(child.name) == -1 && <SidebarItem key={idx} item={child} />
+										unauthorizedNavChildren.indexOf(child.name) == -1 && <SidebarItem key={idx} item={child} toggleSidebarModal={toggleSidebarModal} />
 								))}
 							</Nav>
 						</Collapse>

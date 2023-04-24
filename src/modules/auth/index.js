@@ -277,16 +277,16 @@ export default class AuthModule extends Module {
 			* If userinfo expiration date has been changed then first alert flag
 			* is set to false and first message about expiration will be shown
 			*/
-			if (oldUserInfo?.exp !== that.UserInfo.exp && difference < 60000) fAlert = false;
-
+			if ((oldUserInfo?.exp !== that.UserInfo.exp) && (difference < 60000)) {
+				fAlert = false;
+			}
 
 			/**
 			* If expiration date is coming (less than 60 seconds) and first message wasn't shown
 			* then first message will be shown until expiration date will come
 			*/
-			if (difference < 60000 && exp > Date.now() && !fAlert) {
-				const expire = exp > Date.now() ? difference / 1000 : 5;
-				that.App.addAlert("warning", "ASABAuthModule|Your session will expire soon", expire, true);
+			if ((difference < 60000) && (exp > Date.now()) && !fAlert) {
+				that.App.addAlert("warning", "ASABAuthModule|Your session will expire soon", 30, true);
 				fAlert = true;
 			}
 
@@ -296,7 +296,16 @@ export default class AuthModule extends Module {
 			* 3) If expiration date has come then timeout will be set on 30 seconds to check if user's session has been
 			*    deleted on server side
 			*/
-			const timeout = fAlert ? difference > 0 ? difference : 30000 : difference - 60000;
+			let timeout = fAlert ? (difference > 0) ? difference : 30000 : difference - 60000;
+
+			// Prevent infinite userinfo request loop when timeout time is zero or negative
+			if (timeout <= 0) {
+				that.App.addAlert("warning", "ASABAuthModule|Your session will expire soon", 30, true);
+				fAlert = true;
+				// Set timeout to 30s since SeaCat Auth service is checking on deleted sessions 1x per minute
+				timeout = 30000;
+			}
+
 			setTimeout(that._notifyOnExpiredSession, timeout, that, that.UserInfo, fAlert);
 		}
 	}

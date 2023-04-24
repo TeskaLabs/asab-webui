@@ -10,7 +10,13 @@
 
 - Implement HelpComponent which shows the page description (INDIGO Sprint 230317, [!393](https://github.com/TeskaLabs/asab-webui/pull/393))
 
-- Add `minifyJS` and `minifyCSS` to webpack build HtmlWebPackPlugin to increase loading performance. (INDIGO Sprint 230317, [!420](https://github.com/TeskaLabs/asab-webui/pull/420))
+- Add `minifyJS` and `minifyCSS` to webpack build HtmlWebPackPlugin to increase loading performance. (INDIGO Sprint 230317, [!402](https://github.com/TeskaLabs/asab-webui/pull/402))
+
+- Implement Unauthorized access screen which is displayed instead of application's containers when user does not have a particular resource defined within prop of the Route. (INDIGO Sprint 230331, [!405](https://github.com/TeskaLabs/asab-webui/pull/405))
+
+- Add resources for tools and maintenance modules. (INDIGO Sprint 230331, [!408](https://github.com/TeskaLabs/asab-webui/pull/408))
+
+- Add option to updateItem in Navigation. (INDIGO Sprint 230331, [!409](https://github.com/TeskaLabs/asab-webui/pull/409))
 
 ### Refactoring
 
@@ -34,11 +40,25 @@
 
 - Remove `react-markdown` and `rehype-raw` libraries forn HelpButton, instead of this use usual `<div>` (INDIGO Sprint 230317, [!399](https://github.com/TeskaLabs/asab-webui/pull/399))
 
+- Closing the sidebar after choosing item in small screen (INDIGO Sprint 230331, [!407](https://github.com/TeskaLabs/asab-webui/pull/407))
+
+- Remove legacy Navigation and Router from Services. (INDIGO Sprint 230331, [!409](https://github.com/TeskaLabs/asab-webui/pull/409))
+
+- Update DataTable component with `collapseChildren` prop which allows to define, if children of nested table should be by default collapsed or not. (INDIGO Sprint 230414, [!411](https://github.com/TeskaLabs/asab-webui/pull/411))
+
+- Update DataTable component with `toggleChildrenOnRowClick` prop which allows user to click on the whole row to uncollapse/collapse children of nested table. (INDIGO Sprint 230414, [!411](https://github.com/TeskaLabs/asab-webui/pull/411))
+
+- Update TreeMenu with option to click on the whole row (parent) to uncollapse the nested content. (INDIGO Sprint 230414, [!411](https://github.com/TeskaLabs/asab-webui/pull/411))
+
 ### Bugfix
 
 - Bug fix for HelpComponent, not display a Helpcomoponent when the user changing the page (INDIGO Sprint 230317, [!401](https://github.com/TeskaLabs/asab-webui/pull/401))
 
 - Remove `removeAttributeQuotes` from HtmlWebPackPlugin setup in webpack.build to fix issue causing custom branding and CSS files are not being injected via nginx to the application. `removeAttributeQuotes` caused quotes removal in html tags which led to issue that tags has not been correctly injected. (INDIGO Sprint 230317, [!420](https://github.com/TeskaLabs/asab-webui/pull/420))
+
+- Fix `console.error` to `console.warn` (INDIGO Sprint 230331, [!406](https://github.com/TeskaLabs/asab-webui/pull/406))
+
+- Fix infinite loop bug on userinfo, when expiration time is set to small values (INDIGO Sprint 230414, [!410](https://github.com/TeskaLabs/asab-webui/pull/410))
 
 ## v23.5
 
