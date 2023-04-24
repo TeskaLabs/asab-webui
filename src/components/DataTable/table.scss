@@ -47,11 +47,16 @@ thead .data-table-tr th {
     & .data-table-tr {
         height: 48px;
         & .data-table-arrow-btn {
+            padding-left: .75rem;
             [class^="cil-"], [class*=" cil-"] {
                 color: $primary;
                 cursor: pointer;
             }
         }
+    }
+
+    & .data-table-tr-cursor {
+        cursor: pointer;
     }
 }
 
