@@ -10,7 +10,6 @@ import './alerts.scss';
 export default function AlertsComponent(props) {
 	const [seconds, setSeconds] = useState(0);
 	let store = props.app.Store;
-	const sessionExpired = useSelector(state => state.auth?.sessionExpired);
 	const alerts = useSelector(state => state.alerts.alerts);
 	const { t } = useTranslation();
 
@@ -51,10 +50,10 @@ export default function AlertsComponent(props) {
 						className="shadow alerts-style"
 						fade={true}
 						isOpen={!alert.acked}
-						toggle={!sessionExpired ? () => store.dispatch({ type: ACK_ALERT, key: alert.key }) : null} // remove the close button for alert with expiration
+						toggle={(alert.message == "ASABAuthModule|You have been logged out due to inactivity.") ? null : () => store.dispatch({ type: ACK_ALERT, key: alert.key })} // remove the close button for alert with expiration
 					>
 						{alert.shouldBeTranslated ? t(alert.message) : alert.message}
-						{sessionExpired &&
+						{(alert.message == "ASABAuthModule|You have been logged out due to inactivity.") &&
 							<span onClick={() => window.location.reload()} className="alert-span">
 								{` ${t("Alerts|Please continue to login.")}`}
 							</span>
