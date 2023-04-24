@@ -44,6 +44,12 @@
 
 - Remove legacy Navigation and Router from Services. (INDIGO Sprint 230331, [!409](https://github.com/TeskaLabs/asab-webui/pull/409))
 
+- Update DataTable component with `collapseChildren` prop which allows to define, if children of nested table should be by default collapsed or not. (INDIGO Sprint 230414, [!411](https://github.com/TeskaLabs/asab-webui/pull/411))
+
+- Update DataTable component with `toggleChildrenOnRowClick` prop which allows user to click on the whole row to uncollapse/collapse children of nested table. (INDIGO Sprint 230414, [!411](https://github.com/TeskaLabs/asab-webui/pull/411))
+
+- Update TreeMenu with option to click on the whole row (parent) to uncollapse the nested content. (INDIGO Sprint 230414, [!411](https://github.com/TeskaLabs/asab-webui/pull/411))
+
 ### Bugfix
 
 - Bug fix for HelpComponent, not display a Helpcomoponent when the user changing the page (INDIGO Sprint 230317, [!401](https://github.com/TeskaLabs/asab-webui/pull/401))
