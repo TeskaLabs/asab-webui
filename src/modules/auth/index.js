@@ -270,16 +270,16 @@ export default class AuthModule extends Module {
 			that.App.addAlert("danger", "ASABAuthModule|You have been logged out due to inactivity.", 3600 * 1000, true);
 			if (that.App.Store != null) {
 				that.App.Store.dispatch({ type: types.AUTH_SESSION_EXPIRATION, sessionExpired: true });
+				// Disable buttons and pagination in the whole screen
+				[...document.querySelectorAll('[class^="btn"],[class*=" btn"], .page-item')].forEach(i => {
+					i.classList.add("disabled");
+					i.setAttribute("disabled", "");
+				});
+				// Disable link without class "nav-link" in the whole screen
+				[...document.querySelectorAll('a:not(.nav-link)')].forEach(i => {
+					i.classList.add("disabled-link");
+				});
 			}
-			// Disable buttons and pagination in the whole screen
-			[...document.querySelectorAll('[class^="btn"],[class*=" btn"], .page-item')].forEach(i => {
-				i.classList.add("disabled");
-				i.setAttribute("disabled", "");
-			});
-			// Disable link without class "nav-link" in the whole screen
-			[...document.querySelectorAll('a:not(.nav-link)')].forEach(i => {
-				i.classList.add("disabled-link");
-			});
 		}
 		else {
 			let exp = that.UserInfo.exp * 1000; // Expiration timestamp
