@@ -1,7 +1,7 @@
 import React, {useMemo, useEffect, useState} from 'react';
 import {connect, useDispatch, useSelector} from 'react-redux';
 
-import { Modal, Nav } from 'reactstrap';
+import {Modal, Nav} from 'reactstrap';
 import SidebarItem from './SidebarItem';
 import NavbarBrand from './NavbarBrand';
 import SidebarBottomItem from './SidebarBottomItem';
