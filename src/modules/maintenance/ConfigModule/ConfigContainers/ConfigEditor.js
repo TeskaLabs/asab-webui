@@ -500,7 +500,7 @@ function ConfigEditor(props) {
 	if (configNotExist) {
 		return (
 			<ConfigMessageCard
-				homeScreenImg={homeScreenImg.full}
+				homeScreenImg={homeScreenImg?.full}
 				homeScreenAlt={homeScreenAlt}
 				purposeTitle={t("ASABConfig|Config file does not exist")}
 				purposeSubtitle={t("ASABConfig|We are sorry, but the file cannot be found")}
