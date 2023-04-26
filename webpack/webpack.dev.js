@@ -127,6 +127,7 @@ module.exports = {
 						},
 					}
 				},
+				runtimeChunk: 'single',
 				...extendedConfig.extraOptimization
 			},
 			...filteredExtendedConfig
