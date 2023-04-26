@@ -146,10 +146,11 @@ const Headers = ({ headers, advmode, sublists }) => (
 
 const TableRow = ({
 	obj, advmode, headers,
-	rowStyle, rowClassName, category
+	rowStyle, rowClassName, category,
+	collapseChildren, toggleChildrenOnRowClick
 }) => {
 	const [isAdvUnwrapped, setAdvUnwrapped] = useState(false);
-	const [isSubUnwrapped, setSubUwrapped] = useState(true);
+	const [isSubUnwrapped, setSubUnwrapped] = useState((collapseChildren == false) ? true : false);
 	const theme = useSelector(state => state?.theme);
 
 	const getStyle = (obj) => {
@@ -187,20 +188,18 @@ const TableRow = ({
 
 	return (
 		<>
-			<tr className={`data-table-tr ${className}`} style={style}>
+			<tr
+				// Enable data-table-tr-cursor class only when category is present and toggleChildrenOnRowClick is set to true
+				className={`data-table-tr ${className} ${category && (toggleChildrenOnRowClick == true) && "data-table-tr-cursor"}`}
+				style={style}
+				// Enable onClick only when category is present and toggleChildrenOnRowClick is set to true
+				onClick={() => category && (toggleChildrenOnRowClick == true) && setSubUnwrapped(prev => !prev)}
+			>
 				{advmode && <TableCell obj={obj} showJson={() => setAdvUnwrapped(prev => !prev)}/>}
 				{category && (
-					<>
-						{isSubUnwrapped ? (
-							<td onClick={() => setSubUwrapped(false)}>
-								<i className="cil-chevron-circle-down-alt"></i>
-							</td>
-						) : (
-							<td onClick={() => setSubUwrapped(true)}>
-								<i className="cil-chevron-circle-right-alt"></i>
-							</td>
-						)}
-					</>
+					<td className="data-table-arrow-btn" onClick={() => (toggleChildrenOnRowClick == true) ? null : setSubUnwrapped(prev => !prev)}>
+						<i className={isSubUnwrapped ? "cil-chevron-circle-down-alt" : "cil-chevron-circle-right-alt"}></i>
+					</td>
 				)}
 				{
 					(headers.map((header, idx) => (
@@ -254,13 +253,14 @@ const TableRow = ({
 
 const ASABTable = ({
 	data, headers, advmode,
-	rowStyle, rowClassName, category
+	rowStyle, rowClassName, category,
+	collapseChildren, toggleChildrenOnRowClick
 }) => (
 	<Table size="sm" hover responsive>
 		<Headers sublists={!!category} headers={headers} advmode={advmode} className="data-table-header"/>
 		<tbody className="data-table-tbody">
 			{data && data.map((obj, idx) => (
-				<TableRow {...{ obj, advmode, headers, rowStyle, rowClassName, category }} key={idx} />
+				<TableRow {...{ obj, advmode, headers, rowStyle, rowClassName, category, collapseChildren, toggleChildrenOnRowClick }} key={idx} />
 			))}
 		</tbody>
 	</Table>
