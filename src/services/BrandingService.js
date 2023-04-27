@@ -6,8 +6,8 @@ export default class BrandingService extends Service {
 	Branding service expects `header-logo-full.svg` and `header-logo-minimized.svg` SVG images
 	in `/public/media/logo/` directory:
 
-	* `header-logo-full.svg` dimensions: 120 x 30 pixels
-	* `header-logo-minimized.svg` dimensions: 30 x 30 pixels
+	* `header-logo-full.svg` dimensions: 150 x 50 pixels
+	* `header-logo-minimized.svg` dimensions: 50 x 50 pixels
 	*/
 
 	constructor( app, serviceName="BrandingService" ){
@@ -21,8 +21,6 @@ export default class BrandingService extends Service {
 	}
 
 	initialize() {
-		// which of the if statements is 'more' true?..
-		// if (this.App.Services.ConfigService && this.App.Modules.some(obj => obj.Name == "ASABConfigModule")) {
 		if (this.App.Services.ConfigService) {
 			this.brandImage = this.App.Config.get('brandImage');
 			this.defaultBrandImage = this.App.Config.get('defaultBrandImage');
@@ -30,7 +28,9 @@ export default class BrandingService extends Service {
 		}
 	}
 
-	determineSources(imgObject, theme) {
+	/*  This method returns object containing paths to branding depending on theme. It also  takes care of filling in missing
+	values (e.g. when only minimized version was provided in the configuration, the method completes it with full version) */
+	_determineSources(imgObject, theme) {
 		if (imgObject[theme]?.minimized && imgObject[theme]?.full) {
 			return {
 				...imgObject[theme],
@@ -65,9 +65,11 @@ export default class BrandingService extends Service {
 				return this.sidebarLogo[theme === 'dark' ? 'light' : 'dark'];
 			}
 		}
-
+		/* if we have theme and we've managed to obtain appropriate branding from Config's get method. (this method checks if remote,
+		local or default configurations were set up (respectively) and returns the first one it comes across) Then, the `_determineSources`
+		method comes to play.  */
 		if (theme && this.brandImage) {
-				return this.determineSources(this.brandImage, theme);
+			return this._determineSources(this.brandImage, theme);
 		} else {
 			return this.defaultBrandImage;
 		}
