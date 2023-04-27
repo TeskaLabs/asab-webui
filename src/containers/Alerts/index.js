@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from 'react-redux'
-import { Alert } from "reactstrap";
+import { Alert, Button } from "reactstrap";
 
 import { ACK_ALERT, DEL_ALERT } from '../../actions';
 import { useTranslation } from 'react-i18next'
@@ -47,16 +47,16 @@ export default function AlertsComponent(props) {
 					<Alert
 						key={alert.key}
 						color={alert.level}
-						className="shadow alerts-style"
+						className={`shadow alerts-style ${(alert.message == "ASABAuthModule|You have been logged out due to inactivity.") ? "session-expiration-alert" : ""}`}
 						fade={true}
 						isOpen={!alert.acked}
 						toggle={(alert.message == "ASABAuthModule|You have been logged out due to inactivity.") ? null : () => store.dispatch({ type: ACK_ALERT, key: alert.key })} // remove the close button for alert with expiration
 					>
 						{alert.shouldBeTranslated ? t(alert.message) : alert.message}
 						{(alert.message == "ASABAuthModule|You have been logged out due to inactivity.") &&
-							<span onClick={() => window.location.reload()} className="alert-span">
-								{` ${t("Alerts|Please continue to login.")}`}
-							</span>
+							<Button size="sm" onClick={() => window.location.reload()} color="danger" className="alert-button">
+								{` ${t("Alerts|Continue to login")}`}
+							</Button>
 						}
 					</Alert>
 				)
