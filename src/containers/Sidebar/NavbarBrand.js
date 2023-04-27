@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 
 const NavbarBrand = ( props ) => {
 	const theme = useSelector(state => state.theme);
-	const title = useSelector(state => state.config.title);
-	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
+	const title = useSelector(state => state.config?.title);
+	const isSidebarCollapsed = useSelector(state => state.sidebar?.isSidebarCollapsed);
 
 	const BrandingService = props.app.Services.BrandingService;
 
