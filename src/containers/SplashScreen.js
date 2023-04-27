@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function SplashScreen(props) {
 	
