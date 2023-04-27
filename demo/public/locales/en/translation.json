@@ -104,7 +104,7 @@
 		"Something went wrong, failed to fetch assigned credentials": "Something went wrong, failed to fetch assigned credentials"
 	},
 	"Alerts": {
-		"Please continue to login.": "Please continue to login."
+		"Continue to login": "Continue to login"
 	},
 	"ASABLibraryModule": {
 		"Search": "Search",
