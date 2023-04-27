@@ -7,7 +7,6 @@
 	.alert-button {
 		font-weight: bold;
 		cursor: pointer;
-		pointer-events: visible !important;
 		margin-left: 20px;
 	}
 }
@@ -17,6 +16,5 @@
 	justify-content: space-between;
 	align-items: center;
 	padding: 0.5rem 1.25rem;
-	filter: opacity(100%);
 }
 
