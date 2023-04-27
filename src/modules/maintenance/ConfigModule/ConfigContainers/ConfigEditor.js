@@ -49,7 +49,7 @@ function ConfigEditor(props) {
 	const [ configNotExist, setConfigNotExist ] = useState(false);
 	const [ activeTab, setActiveTab ] = useState('basic');
 
-	const resourceManageConfig = "config:admin";
+	const resourceManageConfig = "asab:config:edit";
 	const resources = useSelector(state => state.auth?.resources);
 	const theme = useSelector(state => state?.theme);
 
@@ -500,7 +500,7 @@ function ConfigEditor(props) {
 	if (configNotExist) {
 		return (
 			<ConfigMessageCard
-				homeScreenImg={homeScreenImg.full}
+				homeScreenImg={homeScreenImg?.full}
 				homeScreenAlt={homeScreenAlt}
 				purposeTitle={t("ASABConfig|Config file does not exist")}
 				purposeSubtitle={t("ASABConfig|We are sorry, but the file cannot be found")}

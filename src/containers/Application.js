@@ -26,6 +26,7 @@ import BrandingService from '../services/BrandingService';
 import HelpService from "../services/HelpService";
 
 import AccessDeniedCard from '../modules/tenant/access/AccessDeniedCard';
+import UnauthorizedAccessScreen from '../modules/auth/components/UnauthorizedAccessScreen';
 
 import {ADD_ALERT, SET_ADVANCED_MODE, HELP_CONTENT} from '../actions';
 
@@ -506,7 +507,11 @@ class Application extends Component {
 														render={props => (
 															<>
 																<ErrorHandler>
-																	<route.component app={this} {...props} {...route.props} />
+																	{route.resource ?
+																		<UnauthorizedAccessScreen app={this} resource={route.resource} routeComponent={<route.component app={this} {...props} {...route.props} />} />
+																	:
+																		<route.component app={this} {...props} {...route.props} />
+																	}
 																</ErrorHandler>
 															</>
 														)}
@@ -557,9 +562,9 @@ class Navigation {
 	addItem(item) {
 		/* Example item:
 			{
-				path: '/some/path', // Url path
-				exact: true,        // Whether path must be matched exactly
-				name: 'Some Name',  // Route name
+				path: '/some/path',	// Url path
+				exact: true,		// Whether path must be matched exactly
+				name: 'Some Name',	// Route name
 				component: ReactComponent // Component to be rendered
 			}
 		*/
@@ -569,6 +574,26 @@ class Navigation {
 	getItems() {
 		return {
 			items: this.Items
+		}
+	}
+
+	updateItem(item){
+		/*
+			Update item in the navigation by `id` which should be
+			defined within the item. The same `id` should have the
+			item to be updated and item with updates.
+
+			{
+				id: "someId",			// Id of the item
+				path: '/some/path',		// Url path
+				exact: true,			// Whether path must be matched exactly
+				name: 'Some Name',		// Route name
+				component: ReactComponent	// Component to be rendered
+			}
+		*/
+		const index = this.Items.findIndex(i => i.id == item.id);
+		if (index != -1) {
+			this.Items[index] = item;
 		}
 	}
 

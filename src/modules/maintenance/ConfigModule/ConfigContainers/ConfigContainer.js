@@ -22,7 +22,6 @@ function ConfigContainer(props) {
 	const configType = props.match.params.configType;
 	const configName = props.match.params.configName;
 
-	const config = useSelector(state => state.config);
 	const theme = useSelector(state => state?.theme);
 	const homeScreenAlt = props.app.Config.get('title');
 	const BrandingService = props.app.Services.BrandingService;
@@ -33,7 +32,6 @@ function ConfigContainer(props) {
 	const [ typeList, setTypeList ] = useState([]); // Set data name of type for group configuration
 	const [ treeList, setTreeList ] = useState({}); // Set cleaned data for trigger UseEffect for updating TreeViewComponent, and for render the tree
 	const [ openNodes, setOpenNodes ] = useState([]); // Set open nodes in the TreeMenu
-	const config_created = useSelector(state => state.asab_config.configCreated)
 
 	let homeScreenImg;
 	if (BrandingService && theme) {
@@ -199,7 +197,7 @@ function ConfigContainer(props) {
 							<Card>
 								<CardBody className="text-center">
 									<img
-										src={homeScreenImg.full}
+										src={homeScreenImg?.full}
 										alt={homeScreenAlt}
 										style={{maxWidth: "38%"}}
 									/>
