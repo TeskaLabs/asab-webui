@@ -20,5 +20,6 @@ export { default as useDateFNSLocale } from './components/DateTime/useDateFNSLoc
 export { validateConfiguration } from './config/validateConfiguration';
 export { default as TreeMenu } from './components/TreeMenu';
 export { locationReplace } from './components/locationReplace';
+export { componentLoader } from './components/componentLoader';
 
 import "./styles/index.scss";
