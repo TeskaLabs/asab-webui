@@ -1,11 +1,15 @@
+import { lazy } from 'react';
 import Module from '../../abc/Module';
 
 import HeaderComponent from './header'
 import reducer from './reducer';
 import { types } from './actions'
 import { SeaCatAuthApi, GoogleOAuth2Api } from './api';
-import AccessControlScreen from './AccessControlScreen';
+const AccessControlScreen = lazy(() => import('./AccessControlScreen'));
 import { locationReplace } from 'asab-webui';
+
+import "./components/unauthorizedaccess.scss";
+import "./styles.scss";
 
 export default class AuthModule extends Module {
 
