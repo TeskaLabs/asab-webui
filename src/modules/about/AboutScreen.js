@@ -3,12 +3,9 @@ import React from 'react';
 import AboutCard from './AboutCard';
 import UserInterfaceCard from './UserInterfaceCard';
 
-
 import {
 	Container, Row, Col,
 } from 'reactstrap';
-
-import "./styles.scss";
 
 function AboutScreen(props) {
 	return (
