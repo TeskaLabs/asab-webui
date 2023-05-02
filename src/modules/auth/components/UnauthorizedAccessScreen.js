@@ -39,7 +39,7 @@ export default function UnauthorizedAccessScreen(props) {
 			<Card className="h-100 unauthorized-card">
 				<CardHeader className="text-center border-bottom">
 					<div className="card-header-title">
-						<i className="cil-warning pr-2 text-warning" title={t("UnauthorizedAccessScreen|Unauthorized access")}/>
+						<i className="at-triangle-exclamation pr-2 text-warning" title={t("UnauthorizedAccessScreen|Unauthorized access")}/>
 						<CardTitle className="text-primary mb-0">
 							{t('UnauthorizedAccessScreen|Unauthorized access')}
 						</CardTitle>

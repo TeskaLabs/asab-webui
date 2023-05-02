@@ -30,11 +30,11 @@ export default function HelpButton() {
                 <Card>
                     <CardHeader className="border-bottom">
                         <div className="card-header-title">
-                            <i className="cil-info pr-2" />
+                            <i className="at-info-circle pr-2" />
                             {t("HelpButton|Help")}
                         </div>
                         <Button outline color="primary" onClick={toggle}>
-                            <i className="cil-x"/>
+                            <i className="at-xmark-circle"/>
                         </Button>
                     </CardHeader>
                     <CardBody>

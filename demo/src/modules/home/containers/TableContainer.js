@@ -258,7 +258,7 @@ export default function (props) {
 
 	const customButton = {
 		text: "Custom button",
-		icon: "cil-warning",
+		icon: "at-triangle-exclamation",
 		props: {
 			color: "warning",
 			onClick: () => {
@@ -290,7 +290,7 @@ export default function (props) {
 		<Container>
 			<Button onClick={() => setLoading(prev => !prev)} className="mb-2">Set Loading</Button>
 			<DataTable
-				title={{text: "Table Demo", icon: 'cil-user'}}
+				title={{text: "Table Demo", icon: 'at-account'}}
 				data={data}
 				headers={headers}
 				count={count}
@@ -303,7 +303,7 @@ export default function (props) {
 				onSearch={onSearch}
 				onDownload={onDownload}
 				sort={{
-					icon: 'cil-sort-descending',
+					icon: 'at-align-down',
 					title: "Sort by",
 					onClick: onSort,
 					items: [
@@ -313,12 +313,12 @@ export default function (props) {
 						},
 						{
 							name: "By username",
-							icon: "cil-sort-alpha-down",
+							icon: "at-align-justify-down",
 							value: "username"
 						},
 						{
 							name: "By creation date",
-							icon: "cil-sort-numeric-down",
+							icon: "at-vertical-sliders-lines",
 							value: "creation"
 						}
 					]

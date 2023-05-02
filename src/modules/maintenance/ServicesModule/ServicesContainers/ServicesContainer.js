@@ -353,7 +353,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								color="secondary"
 								outline
 								onClick={() => {setAction("stop", data[objKey]?.instance_id), setIsSubmitting(true)}}
-								icon="cil-media-stop"
+								icon="at-stop"
 								disabled={isSubmitting == true}
 							/>
 							<ActionButton
@@ -363,7 +363,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								color="secondary"
 								outline
 								onClick={() => {setAction("restart", data[objKey]?.instance_id), setIsSubmitting(true)}}
-								icon="cil-reload"
+								icon="at-rotate-arrow-right"
 								disabled={isSubmitting == true}
 							/>
 							<ActionButton
@@ -372,7 +372,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								color="secondary"
 								outline
 								onClick={() => {setAction("up", data[objKey]?.instance_id), setIsSubmitting(true)}}
-								icon="cil-media-eject"
+								icon="at-double-arrow-up-circle"
 								disabled={isSubmitting == true}
 							/>
 						</ButtonGroup>

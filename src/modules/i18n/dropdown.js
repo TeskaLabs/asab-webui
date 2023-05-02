@@ -62,8 +62,8 @@ export default LanguageDropdown;
 let LanguageToFlag = {
 	cs: 'cif-cz',
 	en: 'cif-gb',
-	dev: 'cil-bug',
-	cimode: 'cil-bug',
+	dev: 'at-bug-insect',
+	cimode: 'at-bug-insect',
 }
 
 function LanguageFlag(props) {
