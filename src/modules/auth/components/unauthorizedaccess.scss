@@ -1,0 +1,30 @@
+@import "~asab-webui/styles/constants/index.scss";
+
+.unauthorized-container {
+	overflow: hidden;
+	background-color: $bg-color;
+	height: 100%;
+}
+
+.unauthorized-cardbody {
+	display: grid;
+	align-items: center;
+	justify-content: center;
+}
+
+.unauthorized-card {
+	background-color: transparent;
+	border: none;
+	box-shadow: none;
+}
+
+.unauthorized-p {
+	font-size: 16px;
+	&.bold {
+		font-weight: 800;
+	}
+}
+
+.unauthorized-icon {
+	font-size: 36px;
+}

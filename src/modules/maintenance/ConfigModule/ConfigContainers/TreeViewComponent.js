@@ -23,7 +23,7 @@ export function TreeViewComponent(props) {
 
 	// Obtain resources from state (if available)
 	const resources = useSelector(state => state.auth?.resources);
-	const resource = "config:admin";
+	const resource = "asab:config:edit";
 
 	useEffect(() => {
 		if (props.configCreated || props.configRemoved) {
