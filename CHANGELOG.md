@@ -18,6 +18,8 @@
 
 - Add option to updateItem in Navigation. (INDIGO Sprint 230331, [!409](https://github.com/TeskaLabs/asab-webui/pull/409))
 
+- Add componentLoader component as a helper for lazy loading to troubleshoot situations, when the lazy chunk will not be loaded due to browser cache. (INDIGO Sprint 230428, [!413](https://github.com/TeskaLabs/asab-webui/pull/413))
+
 ### Refactoring
 
 - Refactor naming for `get_current_tenant`, `set_tenants` and `_extract_tenant_from_url` from snake_case to camelCase format (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
