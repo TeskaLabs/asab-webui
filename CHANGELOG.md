@@ -18,6 +18,8 @@
 
 - Add option to updateItem in Navigation. (INDIGO Sprint 230331, [!409](https://github.com/TeskaLabs/asab-webui/pull/409))
 
+- Add componentLoader component as a helper for lazy loading to troubleshoot situations, when the lazy chunk will not be loaded due to browser cache. (INDIGO Sprint 230428, [!413](https://github.com/TeskaLabs/asab-webui/pull/413))
+
 ### Refactoring
 
 - Refactor naming for `get_current_tenant`, `set_tenants` and `_extract_tenant_from_url` from snake_case to camelCase format (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
@@ -50,7 +52,9 @@
 
 - Update TreeMenu with option to click on the whole row (parent) to uncollapse the nested content. (INDIGO Sprint 230414, [!411](https://github.com/TeskaLabs/asab-webui/pull/411))
 
-- Refactor and update Apps session expiration (INDIGO Sprint 230414, [!403](https://github.com/TeskaLabs/asab-webui/pull/403))
+- Update Unauthorized access screen visual. (INDIGO Sprint 230428, [!413](https://github.com/TeskaLabs/asab-webui/pull/413))
+
+- Refactor and update Apps session expiration (INDIGO Sprint 230428, [!403](https://github.com/TeskaLabs/asab-webui/pull/403))
 
 ### Bugfix
 
