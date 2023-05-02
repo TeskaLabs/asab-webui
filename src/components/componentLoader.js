@@ -13,6 +13,11 @@
 
 	```
 */
+
+/*
+	TODO: Review componentLoader if it is needed after containerisation to microfrontends
+	and eventually remove
+*/
 export const componentLoader = (lazyComponent, attempts = 3, interval = 1500) => {
 	// Cover unwanted lazyComponent error in console
 	if (typeof lazyComponent !== 'function') {
