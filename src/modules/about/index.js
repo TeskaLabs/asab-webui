@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import Module from 'asab-webui/abc/Module';
-const AboutScreen = lazy(() => import('./AboutScreen'));
+import { componentLoader } from 'asab-webui';
+const AboutScreen = lazy(() => componentLoader(() => import('./AboutScreen')));
 
 import "./styles.scss";
 

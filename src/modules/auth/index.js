@@ -5,8 +5,8 @@ import HeaderComponent from './header'
 import reducer from './reducer';
 import { types } from './actions'
 import { SeaCatAuthApi } from './api';
-const AccessControlScreen = lazy(() => import('./AccessControlScreen'));
-import { locationReplace } from 'asab-webui';
+import { locationReplace, componentLoader } from 'asab-webui';
+const AccessControlScreen = lazy(() => componentLoader(() => import('./AccessControlScreen')));
 
 import "./components/unauthorizedaccess.scss";
 import "./styles.scss";
