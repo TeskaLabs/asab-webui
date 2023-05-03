@@ -16,7 +16,7 @@ export function Header(props) {
 	const [windowDimensions, setWindowDimensions] = useState({width: window.innerWidth,});
 
 	const theme = useSelector(state => state.theme);
-	const title = useSelector(state => state.config.title);
+	const title = useSelector(state => state.config?.title);
 
 	const BrandingService = props.app.Services.BrandingService;
 

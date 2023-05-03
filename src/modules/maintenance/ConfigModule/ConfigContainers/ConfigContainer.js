@@ -22,7 +22,7 @@ function ConfigContainer(props) {
 	const configType = props.match.params.configType;
 	const configName = props.match.params.configName;
 
-	const theme = useSelector(state => state?.theme);
+	const theme = useSelector(state => state.theme);
 	const homeScreenAlt = props.app.Config.get('title');
 	const BrandingService = props.app.Services.BrandingService;
 

@@ -35,7 +35,7 @@ export default class ConfigService extends Service {
 		}
 		// If header's full dark logo has been configured, extend/add it to dynamic config's brandImage property
 		if ((headerLogoFullDark != undefined) && (headerLogoFullDark != "")) {
-			dynamicConfig.brandImage = {...dynamicConfig.brandImage, "dark": {"full": headerLogoFullDark}};
+			Object.assign(dynamicConfig.brandImage, {"dark": {"full": headerLogoFullDark}});
 		}
 		// If header's minimized light logo has been configured, extend/add it to dynamic config brandImage property
 		if ((headerLogoMini != undefined) && (headerLogoMini != "")) {

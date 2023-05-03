@@ -1,15 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function SplashScreen(props) {
 	
+	const title = useSelector(state => state.config?.title);
+	const brandImage = useSelector(state => state.config.brandImage?.light?.full ? state.config.brandImage.light : state.config.defaultBrandImage);
+
 	return (
 		<div className="text-center animated fadeIn w-100">
-			{props.brandImage != null ?
+			{brandImage != null ?
 			<img
 				className="splash-screen-img"
-				src={props.brandImage.full}
-				alt={props.title}
+				src={brandImage?.full}
+				alt={title}
 			/>
 			:
 			<h1 className="splash-screen-title">Loading ...</h1>
@@ -23,11 +26,4 @@ function SplashScreen(props) {
 	);
 }
 
-function mapStateToProps(state) {
-	return {
-		brandImage: state.config.brandImage?.light?.full ? state.config.brandImage.light : state.config.defaultBrandImage,
-		title: state.config.title,
-	}
-}
-
-export default connect(mapStateToProps)(SplashScreen);
+export default SplashScreen;
