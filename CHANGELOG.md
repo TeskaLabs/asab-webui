@@ -54,6 +54,8 @@
 
 - Update Unauthorized access screen visual. (INDIGO Sprint 230428, [!413](https://github.com/TeskaLabs/asab-webui/pull/413))
 
+- Refactor search in TreeMenu. (INDIGO Sprint 230428, [!416](https://github.com/TeskaLabs/asab-webui/pull/416))
+
 - Applying lazy loading in About, Auth, Tools and Maintenance modules. (INDIGO Sprint 230428, [!415](https://github.com/TeskaLabs/asab-webui/pull/415))
 
 ### Bugfix
