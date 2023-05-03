@@ -9,6 +9,8 @@ import Breadcrumbs from './BreadcrumbsRouter';
 import { Link } from "react-router-dom";
 import './header.scss';
 
+import { getBrandImage } from '../../components/BrandImage';
+
 export function Header(props) {
 	const HeaderService = props.app.locateService("HeaderService");
 
@@ -20,11 +22,10 @@ export function Header(props) {
 
 	const BrandingService = props.app.Services.BrandingService;
 
-	let brandImage;
-	if (BrandingService && theme) {
-		brandImage = BrandingService.getLogo(theme);
-	}
-	const href = brandImage?.href ?? "/";
+	let brandImage = getBrandImage(props);
+	// if (BrandingService && theme) {
+	// 	brandImage = BrandingService.getLogo(theme);
+	// }
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
@@ -41,7 +42,7 @@ export function Header(props) {
 				<>
 					{windowDimensions.width <= 768 &&
 						<div className="mobile-logo-position">
-							<Link to={href}>
+							<Link to={brandImage?.href}>
 								<img
 									src={brandImage?.full}
 									alt={title}
@@ -65,7 +66,7 @@ export function Header(props) {
 			:
 				<>
 					<div className="mobile-logo-position">
-						<Link to={href}>
+						<Link to={brandImage?.href}>
 							<img
 								src={brandImage?.full}
 								alt={title}
