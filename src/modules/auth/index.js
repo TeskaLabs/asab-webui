@@ -4,7 +4,7 @@ import Module from '../../abc/Module';
 import HeaderComponent from './header'
 import reducer from './reducer';
 import { types } from './actions'
-import { SeaCatAuthApi, GoogleOAuth2Api } from './api';
+import { SeaCatAuthApi } from './api';
 const AccessControlScreen = lazy(() => import('./AccessControlScreen'));
 import { locationReplace } from 'asab-webui';
 
