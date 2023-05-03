@@ -18,12 +18,12 @@ let ConfigDefaults = {
     },
 	sidebarLogo: {
 		light: {
-			full: "media/logo/header-logo-full.svg",
-			minimized: "media/logo/header-logo-minimized.svg"
+			full: "media/logo/sidebar-logo-full.svg",
+			minimized: "media/logo/sidebar-logo-minimized.svg"
 		},
 		dark: {
-			full: "media/logo/header-logo-full-dark.svg",
-			minimized: "media/logo/header-logo-minimized-dark.svg"
+			full: "media/logo/sidebar-logo-full-dark.svg",
+			minimized: "media/logo/sidebar-logo-minimized-dark.svg"
 		}
 	},
 	default_help_url: "https://github.com/TeskaLabs/asab-webui",
