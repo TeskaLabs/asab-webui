@@ -54,6 +54,8 @@
 
 - Update Unauthorized access screen visual. (INDIGO Sprint 230428, [!413](https://github.com/TeskaLabs/asab-webui/pull/413))
 
+- Refactor search in TreeMenu. (INDIGO Sprint 230428, [!416](https://github.com/TeskaLabs/asab-webui/pull/416))
+
 ### Bugfix
 
 - Bug fix for HelpComponent, not display a Helpcomoponent when the user changing the page (INDIGO Sprint 230317, [!401](https://github.com/TeskaLabs/asab-webui/pull/401))
