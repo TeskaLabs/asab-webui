@@ -21,26 +21,26 @@ const TreeMenu = ({
 			>
 				{({ search, items }) => (
 					<>
-						{ props.hasSearch && (
-							<InputGroup>
-								<InputGroupText className="p-0 border-0">
-									{searchOptions?.dropdown && (
-										<ButtonDropdown
-											size="sm"
-											isOpen={isDropdownMenuOpen}
-											toggle={() => setDropdownMenu(prev => !prev)}
-										>
-											<DropdownToggle caret>{searchOptions.dropdown.title}</DropdownToggle>
-											{searchOptions.dropdown.children}
-										</ButtonDropdown>
-									)}
-								</InputGroupText>
-								<Input
-									onChange={e => search(e.target.value)}
-									placeholder={searchOptions?.placeholder}
-								/>
-							</InputGroup>
-						)}
+						<InputGroup>
+							<InputGroupText className={props.hasSearch ? "p-0 border-0" : "p-0 border-0 w-100"}>
+								{searchOptions?.dropdown && (
+									<ButtonDropdown
+										className={props.hasSearch ? "" : "w-100"}
+										size="sm"
+										isOpen={isDropdownMenuOpen}
+										toggle={() => setDropdownMenu(prev => !prev)}
+									>
+										<DropdownToggle className={props.hasSearch ? "" : "w-100"} caret>{searchOptions.dropdown.title}</DropdownToggle>
+										{searchOptions.dropdown.children}
+									</ButtonDropdown>
+								)}
+							</InputGroupText>
+							{props.hasSearch &&
+							<Input
+								onChange={e => search(e.target.value)}
+								placeholder={searchOptions?.placeholder}
+							/>}
+						</InputGroup>
 						<ListGroup>
 							{items.map(({ reset, ...props }) => (
 								<TreeMenuItem
