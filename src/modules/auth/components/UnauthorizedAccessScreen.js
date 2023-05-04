@@ -7,6 +7,8 @@ import {
 	Card, CardHeader, CardTitle, CardBody
 } from 'reactstrap';
 
+import "./unauthorizedaccess.scss";
+
 /*
 	Unauthorized Access screen can be displayed only when:
 	- AuthModule is present within the application
