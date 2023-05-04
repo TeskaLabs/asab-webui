@@ -12,6 +12,7 @@ import { TreeViewComponent } from "./TreeViewComponent";
 import ConfigEditor from "./ConfigEditor";
 import ConfigList from "./ConfigList";
 import ConfigImport from "./ConfigImport";
+import { getBrandImage } from "../../../../components/BrandImage";
 
 function ConfigContainer(props) {
 
@@ -24,7 +25,6 @@ function ConfigContainer(props) {
 
 	const theme = useSelector(state => state.theme);
 	const homeScreenAlt = props.app.Config.get('title');
-	const BrandingService = props.app.Services.BrandingService;
 
 	const [ treeData, setTreeData ] = useState({}); // Set complete data for TreeViewComponent
 	const [ createConfig, setCreateConfig ] = useState(false); // Use for condition to render components
@@ -32,12 +32,11 @@ function ConfigContainer(props) {
 	const [ typeList, setTypeList ] = useState([]); // Set data name of type for group configuration
 	const [ treeList, setTreeList ] = useState({}); // Set cleaned data for trigger UseEffect for updating TreeViewComponent, and for render the tree
 	const [ openNodes, setOpenNodes ] = useState([]); // Set open nodes in the TreeMenu
+	const [ homeScreenImg, setHomeScreenImg ] = useState({}); // Set open nodes in the TreeMenu
 
-	let homeScreenImg;
-	if (BrandingService && theme) {
-		homeScreenImg = BrandingService.getLogo(theme);
-	}
-
+	useEffect(() => {
+		setHomeScreenImg(getBrandImage(props, theme));
+	}, [theme]);
 
 	// To get the full overview on schemas and configs it is needed to update the tree list and data state
 	useEffect(() => {

@@ -14,18 +14,16 @@ import { getBrandImage } from '../../components/BrandImage';
 export function Header(props) {
 	const HeaderService = props.app.locateService("HeaderService");
 
+	const [brandImage, setBrandImage] = useState({});
 	const [headerProperties, setHeaderProperties] = useState(false);
 	const [windowDimensions, setWindowDimensions] = useState({width: window.innerWidth,});
 
-	const theme = useSelector(state => state.theme);
 	const title = useSelector(state => state.config?.title);
+	const theme = useSelector(state => state.theme);
 
-	const BrandingService = props.app.Services.BrandingService;
-
-	let brandImage = getBrandImage(props);
-	// if (BrandingService && theme) {
-	// 	brandImage = BrandingService.getLogo(theme);
-	// }
+	useEffect(() => {
+		setBrandImage(getBrandImage(props, theme));
+	}, [theme]);
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);

@@ -7,7 +7,6 @@ import { useHistory } from "react-router-dom";
 import { useSelector } from 'react-redux';
 
 import {
-	Button,
 	Card, CardBody, CardHeader, CardFooter,
 	Form, FormGroup, FormText, Input, Label,
 	TabContent, TabPane, Nav, NavItem, NavLink,
@@ -22,9 +21,8 @@ import {
 	StringItems
 } from './ConfigFormatItems';
 
-import {types} from './actions/actions';
-
-import { Spinner, ButtonWithAuthz } from 'asab-webui';
+import { ButtonWithAuthz } from 'asab-webui';
+import { getBrandImage } from "../../../../components/BrandImage";
 
 function ConfigEditor(props) {
 	const { register, handleSubmit, setValue, getValues, formState: { errors, isSubmitting }, reset, resetField } = useForm();
@@ -58,12 +56,11 @@ function ConfigEditor(props) {
 	const toggleDropDown = () => setDropdownOpen(!dropdownOpen);
 
 	// Branding
-	const BrandingService = props.app.Services.BrandingService;
+	const [ homeScreenImg, setHomeScreenImg ] = useState({});
 
-	let homeScreenImg;
-	if (BrandingService && theme) {
-		homeScreenImg = BrandingService.getLogo(theme);
-	}
+	useEffect(() => {
+		setHomeScreenImg(getBrandImage(props, theme))
+	}, [theme]);
 
 	// The container will be re-rendered on configType or configName change
 	useEffect(() => {
