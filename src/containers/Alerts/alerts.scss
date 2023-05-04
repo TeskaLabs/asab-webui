@@ -1,3 +1,5 @@
+@import "~asab-webui/styles/constants/index.scss";
+
 .alerts-style {
 	button {
 		span {
@@ -8,6 +10,7 @@
 		font-weight: bold;
 		cursor: pointer;
 		margin-left: 20px;
+		color: $white !important;
 	}
 }
 
