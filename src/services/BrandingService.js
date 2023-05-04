@@ -57,7 +57,7 @@ export default class BrandingService extends Service {
 	}
 
 	// method getLogo returns correct brandImage object to be displayed on the front end based on theme and type (sidebbar logo or main logo)
-	getLogo(theme, type="brandImage") {
+	getLogo(theme, type) {
 		if((type === 'sidebarLogo') && theme && this.sidebarLogo) {
 			if (this.sidebarLogo[theme]) {
 				return this.sidebarLogo[theme];
