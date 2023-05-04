@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
-import { getBrandImage } from '../../components/BrandImage';
+import { getBrandImage } from 'asab-webui';
 
 const NavbarBrand = ( props ) => {
 	const [ brandImage, setBrandImage ] = useState({});

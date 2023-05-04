@@ -12,7 +12,7 @@ import { TreeViewComponent } from "./TreeViewComponent";
 import ConfigEditor from "./ConfigEditor";
 import ConfigList from "./ConfigList";
 import ConfigImport from "./ConfigImport";
-import { getBrandImage } from "../../../../components/BrandImage";
+import { getBrandImage } from "asab-webui";
 
 function ConfigContainer(props) {
 

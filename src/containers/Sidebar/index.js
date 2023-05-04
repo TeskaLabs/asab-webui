@@ -6,7 +6,7 @@ import SidebarItem from './SidebarItem';
 import NavbarBrand from './NavbarBrand';
 import SidebarBottomItem from './SidebarBottomItem';
 import {COLLAPSE_SIDEBAR} from "../../actions";
-import { getBrandImage } from '../../components/BrandImage';
+import { getBrandImage } from 'asab-webui';
 
 
 const Sidebar = (props) => {
