@@ -1,19 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
+import { getBrandImage } from '../../components/BrandImage';
 
 const NavbarBrand = ( props ) => {
+	const [ brandImage, setBrandImage ] = useState({});
 	const theme = useSelector(state => state.theme);
 	const title = useSelector(state => state.config?.title);
 	const isSidebarCollapsed = useSelector(state => state.sidebar?.isSidebarCollapsed);
 
-	const BrandingService = props.app.Services.BrandingService;
-
-	let brandImage;
-	if (BrandingService && theme) {
-		brandImage = BrandingService.getLogo(theme);
-	}
+	useEffect(() => {
+		setBrandImage(getBrandImage( props, theme ))
+	}, [theme])
 
 	const href = brandImage?.href ?? "/";
 
