@@ -54,6 +54,8 @@
 
 - Update Unauthorized access screen visual. (INDIGO Sprint 230428, [!413](https://github.com/TeskaLabs/asab-webui/pull/413))
 
+- Refactor search in TreeMenu. (INDIGO Sprint 230428, [!416](https://github.com/TeskaLabs/asab-webui/pull/416))
+
 - Refactor and update Apps session expiration (INDIGO Sprint 230428, [!403](https://github.com/TeskaLabs/asab-webui/pull/403))
 
 ### Bugfix
