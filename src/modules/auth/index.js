@@ -8,7 +8,6 @@ import { SeaCatAuthApi } from './api';
 import { locationReplace, componentLoader } from 'asab-webui';
 const AccessControlScreen = lazy(() => componentLoader(() => import('./AccessControlScreen')));
 
-import "./components/unauthorizedaccess.scss";
 import "./styles.scss";
 
 export default class AuthModule extends Module {
