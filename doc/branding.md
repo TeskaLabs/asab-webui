@@ -44,13 +44,15 @@ There are 3 options for dynamic branding - header logo, title and custom CSS sty
 
 ### Header logo
 
-To replace default header logo, the nginx `sub_filter` configuration has to follow `<meta name="header-logo-full">`, `<meta name="header-logo-minimized">` (for light variation) and `<meta name="header-logo-full-dark">` and `<meta name="header-logo-minimized-dark">` replacement rules with the particular `name`. The replacement must have a `content` prop, otherwise the content of the replacement will not be propagated. `content` has to include a string with path to the logo.
+To replace default header logo, the nginx `sub_filter` configuration has to follow `<meta name="header-logo-full">`, `<meta name="header-logo-minimized">` (for light variation) and `<meta name="header-logo-full-dark">` and `<meta name="header-logo-minimized-dark">` (for logo suitable to be used in dark mode) replacement rules with the particular `name`. The replacement must have a `content` prop, otherwise the content of the replacement will not be propagated. `content` has to include a string with path to the logo. *If you are using nginx's `sub_filter` for branding images, please configure **both** dark and light mode. Each with minimized and full versions.*
+
+For the best
 
 Size of the branding images can be found [here](#branding-images)
 
 #### Light
 
-Example of importing light logo variation (when is visible in the light themed version of the application)
+Example of importing light logo variation (which is visible in the light themed version of the application)
 
 ```
 sub_filter '<meta name="header-logo-full">' '<meta name="header-logo-full" content="/<location>/<path>/<to>/<custom_branding>/<logo-full>.svg">';
@@ -59,7 +61,7 @@ sub_filter '<meta name="header-logo-minimized">' '<meta name="header-logo-minimi
 
 #### Dark
 
-Example of importing dark variations of a logo (when is visible in the dark themed version of the application)
+Example of importing dark variations of a logo (which is visible in the dark themed version of the application)
 
 ```
 sub_filter '<meta name="header-logo-full-dark">' '<meta name="header-logo-full-dark" content="/<location>/<path>/<to>/<custom_branding>/<logo-full-dark>.svg">';
