@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import { lazy } from 'react';
 import Module from 'asab-webui/abc/Module';
-import ServicesContainer from "./ServicesContainers/ServicesContainer";
+import { componentLoader } from 'asab-webui';
+const ServicesContainer =  lazy(() => componentLoader(() => import("./ServicesContainers/ServicesContainer")));
 
 import "./ServicesContainers/services.scss";
 
