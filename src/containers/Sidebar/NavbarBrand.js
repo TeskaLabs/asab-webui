@@ -11,7 +11,7 @@ const NavbarBrand = ( props ) => {
 	const isSidebarCollapsed = useSelector(state => state.sidebar?.isSidebarCollapsed);
 
 	useEffect(() => {
-		setBrandImage(getBrandImage( props, theme ))
+		setBrandImage(getBrandImage(props, theme))
 	}, [theme])
 
 	const href = brandImage?.href ?? "/";
