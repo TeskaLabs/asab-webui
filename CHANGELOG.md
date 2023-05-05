@@ -56,6 +56,8 @@
 
 - Refactor search in TreeMenu. (INDIGO Sprint 230428, [!416](https://github.com/TeskaLabs/asab-webui/pull/416))
 
+- Applying lazy loading in About, Auth, Tools and Maintenance modules. (INDIGO Sprint 230428, [!415](https://github.com/TeskaLabs/asab-webui/pull/415))
+
 ### Bugfix
 
 - Bug fix for HelpComponent, not display a Helpcomoponent when the user changing the page (INDIGO Sprint 230317, [!401](https://github.com/TeskaLabs/asab-webui/pull/401))

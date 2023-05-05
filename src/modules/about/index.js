@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
+import { lazy } from 'react';
 import Module from 'asab-webui/abc/Module';
-import AboutScreen from './AboutScreen';
+import { componentLoader } from 'asab-webui';
+const AboutScreen = lazy(() => componentLoader(() => import('./AboutScreen')));
+
+import "./styles.scss";
 
 export default class AboutModule extends Module {
 	constructor(app, name) {
