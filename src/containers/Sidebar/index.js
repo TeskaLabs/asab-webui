@@ -82,7 +82,7 @@ const Sidebar = (props) => {
 		windowDimensions.width <= 768 ?
 		<>
 			<div className="mobile-sidebar-burger" onClick={toggleSidebarModal}>
-				<i className="cil-menu"></i>
+				<i className="at-justify"></i>
 			</div>
 			<Modal isOpen={modal} toggle={toggleSidebarModal} className="left">
 				<div className="app-sidebar">

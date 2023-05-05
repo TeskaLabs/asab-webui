@@ -507,7 +507,7 @@ function ConfigEditor(props) {
 				<Form onSubmit={handleSubmit(onSubmit)}>
 					<CardHeader className="border-bottom">
 						<div className="card-header-title">
-							<span className="cil-settings pr-2" />
+							<span className="at-gear pr-2" />
 							{configName ? configType.toString() + ' / ' + configName.toString() : ""}
 						</div>
 						{/* TODO: Replace div.float-right with ButtonGroup */}
@@ -653,7 +653,7 @@ function ConfigSection(props) {
 								resource={props.resourceManageConfig}
 								resources={props.resources}
 							>
-								<i className="cil-trash"></i>
+								<i className="at-trash"></i>
 							</ButtonWithAuthz>
 						}
 					</div>
