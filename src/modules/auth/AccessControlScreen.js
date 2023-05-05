@@ -4,12 +4,11 @@ import {connect, useSelector} from 'react-redux';
 
 import {
 	Container, Row, Col,
-	Card, CardHeader, CardTitle, CardSubtitle, CardBody
+	Card, CardHeader, CardTitle,
+	CardSubtitle, CardBody
 } from 'reactstrap';
 
 import ReactJson from "react-json-view";
-
-import "./styles.scss";
 
 /*
 

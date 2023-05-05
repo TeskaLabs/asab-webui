@@ -6,8 +6,6 @@ import {
 
 import { validateConfiguration } from 'asab-webui';
 
-import "./tools.scss"
-
 /*
 	For informations about Tools module, refer to asab-webui/doc/tools.md
 */
