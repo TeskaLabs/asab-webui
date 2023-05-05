@@ -21,8 +21,7 @@ import {
 	StringItems
 } from './ConfigFormatItems';
 
-import { ButtonWithAuthz } from 'asab-webui';
-import { getBrandImage } from "asab-webui";
+import { ButtonWithAuthz, getBrandImage } from 'asab-webui';
 
 function ConfigEditor(props) {
 	const { register, handleSubmit, setValue, getValues, formState: { errors, isSubmitting }, reset, resetField } = useForm();

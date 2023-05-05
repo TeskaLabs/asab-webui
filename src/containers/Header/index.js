@@ -9,7 +9,7 @@ import Breadcrumbs from './BreadcrumbsRouter';
 import { Link } from "react-router-dom";
 import './header.scss';
 
-import { getBrandImage } from '../../components/BrandImage';
+import { getBrandImage } from 'asab-webui';
 
 export function Header(props) {
 	const HeaderService = props.app.locateService("HeaderService");
