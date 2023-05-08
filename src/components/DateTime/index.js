@@ -27,7 +27,7 @@ export function DateTime(props) {
 
 	const dateFromNow = isNaN(props.value) ? formatDistanceToNow(parseISO(props.value), { locale: locale }) :
 		props.value > 9999999999 ? formatDistanceToNow(props.value, { locale: locale }) :
-		formatDistanceToNow(props.value * 1000, { locale: locale });
+		formatDistanceToNow(props.value * 1000, { addSuffix: true, locale: locale });
 
 	return (
 		<span className="datetime" title={dateFromNow}>
