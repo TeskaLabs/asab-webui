@@ -6,8 +6,8 @@ export default class HeaderService extends Service {
 	Header service expects `header-logo-full.svg` and `header-logo-minimized.svg` SVG images
 	in `/public/media/logo/` directory:
 
-	 * `header-logo-full.svg` dimensions: 120 x 30 pixels
-	 * `header-logo-minimized.svg` dimensions: 30 x 30 pixels
+	 * `header-logo-full.svg` dimensions: 150 x 50 pixels
+	 * `header-logo-minimized.svg` dimensions: 50 x 50 pixels
 	*/
 
 	constructor(app, serviceName="HeaderService"){
