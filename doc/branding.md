@@ -50,6 +50,57 @@ To replace default header logo, the nginx `sub_filter` configuration has to foll
 
 Size of the branding images can be found [here](#branding-images)
 
+#### Using getBrandImage
+
+GetBrandImage function returns a brandImage object based on theme.
+
+`getBrandImage(props, theme, type);`
+	params:
+		* props
+		* theme ('light' || 'dark')
+		* type (optional, default is 'brandImage') - determines content - either for brand Image (in header) or for company branding in the bottom of the sidebar
+
+	return example
+	`{
+		full: 'path/to/logo-light-full',
+		minimized: 'path/to/logo-light-minimized',
+		href: '/subpath'
+	}`
+
+	Example:
+
+	```javascript
+		import { useState, useEffect } from 'react';
+		import { getBrandImage } from 'asab-webui';
+		import { useSelector } from 'react-redux';
+
+		const YourCode = (props) => {
+			const [ brandImage, setBrandImage ] = useState({});
+			const theme = useSelector(state => state.theme);
+
+			useEffect(() => {
+				setBrandImage(getBrandImage(props, theme));
+			}, [theme]);
+
+			...
+
+			return (
+				<>
+
+				...
+
+					<img src={brandImage?.full}/>
+
+				...
+
+				</>
+			)
+		};
+
+		export default YourCode
+
+	```
+
 #### Light
 
 Example of importing light logo variation (which is visible in the light themed version of the application)
