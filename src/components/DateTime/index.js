@@ -25,8 +25,8 @@ export function DateTime(props) {
 
 	const date = timeToString(props.value, props.dateTimeFormat);
 
-	const dateFromNow = isNaN(props.value) ? formatDistanceToNow(parseISO(props.value), { locale: locale }) :
-		props.value > 9999999999 ? formatDistanceToNow(props.value, { locale: locale }) :
+	const dateFromNow = isNaN(props.value) ? formatDistanceToNow(parseISO(props.value), { addSuffix: true, locale: locale }) :
+		props.value > 9999999999 ? formatDistanceToNow(props.value, { addSuffix: true, locale: locale }) :
 		formatDistanceToNow(props.value * 1000, { addSuffix: true, locale: locale });
 
 	return (
