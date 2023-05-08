@@ -30,7 +30,7 @@ const SidebarBottomItem = ({ item, sidebarLogo, toggleSidebarModal }) => {
 			}
 		}
 	}
-SidebarBottomItem
+
 	const onCollapse = (event) => {
 		event.stopPropagation();
 		dispatch({
