@@ -20,6 +20,8 @@
 
 - Add componentLoader component as a helper for lazy loading to troubleshoot situations, when the lazy chunk will not be loaded due to browser cache. (INDIGO Sprint 230428, [!413](https://github.com/TeskaLabs/asab-webui/pull/413))
 
+- Added option to show suffix to indicate 'relative time' in DateTime component (INDIGO 230428, [!417](https://github.com/TeskaLabs/asab-webui/pull/417))
+
 ### Refactoring
 
 - Refactor naming for `get_current_tenant`, `set_tenants` and `_extract_tenant_from_url` from snake_case to camelCase format (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
