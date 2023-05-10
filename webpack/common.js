@@ -63,16 +63,14 @@ exports.getRules = function(config) {
 			test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
 			type: 'asset/resource',
 			generator: {
-				filename: 'svg/[name][contenthash:8][ext]',
-				outputPath: 'assets/'
+				filename: 'assets/svg/[name][contenthash:8][ext]',
 			}
 		},
 		{
 			test: /\.(woff|woff2|ttf|eot|ico)(\?.*)?$/,
 			type: 'asset/resource',
 			generator: {
-				filename: 'fonts/[name][contenthash:8][ext]',
-				outputPath: 'assets/'
+				filename: 'assets/fonts/[name][contenthash:8][ext]',
 			}
 		},
 	]
