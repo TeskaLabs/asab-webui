@@ -60,6 +60,8 @@
 
 - Applying lazy loading in About, Auth, Tools and Maintenance modules. (INDIGO Sprint 230428, [!415](https://github.com/TeskaLabs/asab-webui/pull/415))
 
+- Changed icons from coreui.io icons to atlasicons. (INDIGO Sprint 230428, [!412](https://github.com/TeskaLabs/asab-webui/pull/412))
+
 ### Bugfix
 
 - Bug fix for HelpComponent, not display a Helpcomoponent when the user changing the page (INDIGO Sprint 230317, [!401](https://github.com/TeskaLabs/asab-webui/pull/401))
