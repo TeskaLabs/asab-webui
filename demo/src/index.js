@@ -23,8 +23,14 @@ let ConfigDefaults = {
 	sidebarItemsOrder: ["Table", "Home"]
 };
 
+
 // Modules
 const modules = [];
+
+// The load event is fired when the whole page has loaded. Adds a class with which to set the colour from the variable
+window.addEventListener('load', (event) => {
+	document.body.classList.add('loaded')
+})
 
 // Load custom modules
 import HomeModule from './modules/home';
