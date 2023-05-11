@@ -311,6 +311,7 @@ export default class AuthModule extends Module {
 
 			// Prevent infinite userinfo request loop when timeout is larger than 2^31
 			if (timeout >= Math.pow(2, 31)) {
+				// Set timeout to maximum allowed value
 				timeout = Math.pow(2, 31) - 1;
 			}
 
