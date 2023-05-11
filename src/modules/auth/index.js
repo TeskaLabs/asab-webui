@@ -309,6 +309,11 @@ export default class AuthModule extends Module {
 				timeout = 30000;
 			}
 
+			// Prevent infinite userinfo request loop when timeout is larger than 2^31
+			if (timeout >= Math.pow(2, 31)) {
+				timeout = Math.pow(2, 31) - 1;
+			}
+
 			setTimeout(that._notifyOnExpiredSession, timeout, that, that.UserInfo, fAlert);
 		}
 	}
