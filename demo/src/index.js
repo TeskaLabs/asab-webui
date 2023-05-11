@@ -23,7 +23,6 @@ let ConfigDefaults = {
 	sidebarItemsOrder: ["Table", "Home"]
 };
 
-
 // Modules
 const modules = [];
 
