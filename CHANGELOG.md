@@ -70,6 +70,8 @@
 
 - Fix infinite loop bug on userinfo, when expiration time is set to small values (INDIGO Sprint 230414, [!410](https://github.com/TeskaLabs/asab-webui/pull/410))
 
+- Add HelpCache for HelpComponent (INDIGO Sprint 230414, [!418](https://github.com/TeskaLabs/asab-webui/pull/418))
+
 ## v23.5
 
 ### Features
