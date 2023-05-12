@@ -6,18 +6,25 @@ import SidebarItem from './SidebarItem';
 import NavbarBrand from './NavbarBrand';
 import SidebarBottomItem from './SidebarBottomItem';
 import {COLLAPSE_SIDEBAR} from "../../actions";
+import { getBrandImage } from 'asab-webui';
 
 
 const Sidebar = (props) => {
 	const [modal, setModal] = useState(false);
-	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
+	const [sidebarBottomBranding, setSidebarBottomBranding] = useState({});
 	const [windowDimensions, setWindowDimensions] = useState({width: window.innerWidth});
+	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
+	const theme = useSelector(state => state.theme);
 	const dispatch = useDispatch();
 
 	// Get dynamically hidden sidebar items from store
 	let sidebarHiddenItems = props.sidebarHiddenItems;
 
 	let sidebarItems = props.navigation.getItems().items;
+
+	useEffect(() => {
+		setSidebarBottomBranding(getBrandImage(props, theme, 'sidebarLogo'));
+	}, [theme]);
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
@@ -126,7 +133,7 @@ const Sidebar = (props) => {
 						/>
 					))}
 				</Nav>
-				<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} />
+				<SidebarBottomItem item={aboutItem} sidebarLogo={sidebarBottomBranding} />
 			</div>
 		</div>
 	)
