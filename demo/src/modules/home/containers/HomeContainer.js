@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from 'reactstrap';
+import {Container} from 'reactstrap';
 
 function HomeContainer(props) {
 	return (
@@ -10,3 +10,4 @@ function HomeContainer(props) {
 }
 
 export default HomeContainer;
+
