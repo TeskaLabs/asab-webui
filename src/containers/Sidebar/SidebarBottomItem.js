@@ -9,7 +9,6 @@ import {
 
 import { COLLAPSE_SIDEBAR } from "../../actions";
 
-
 import Icon from './SidebarIcon';
 
 const SidebarBottomItem = ({ item, sidebarLogo, disabled, toggleSidebarModal }) => {
@@ -19,7 +18,7 @@ const SidebarBottomItem = ({ item, sidebarLogo, disabled, toggleSidebarModal }) 
 	const history = useHistory();
 	const { t } = useTranslation();
 	const dispatch = useDispatch();
-	
+
 	const onNavLink = () => {
 		// Preserve from history pushing when item.url doesn't exist
 		// or when current location pathname is the same as item.url
@@ -57,9 +56,9 @@ const SidebarBottomItem = ({ item, sidebarLogo, disabled, toggleSidebarModal }) 
 						{item && (
 							<button
 								title={t(`Sidebar|${item.name}`)}
-								className={`sidebar-item-button${location.pathname === item.url ? " active " : " "}btn left ${!isSidebarCollapsed && "mobile-full-btn"}`}
+								className={`sidebar-item-button${location.pathname === item.url ? " active " : " "}btn left ${!isSidebarCollapsed && "mobile-full-btn"} logo-item`}
 							>
-								{sidebarLogo ? 
+								{sidebarLogo ?
 									isSidebarCollapsed ?
 										sidebarLogo.minimized ?
 											<img

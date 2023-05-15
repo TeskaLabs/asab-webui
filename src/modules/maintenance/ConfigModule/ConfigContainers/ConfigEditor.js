@@ -7,7 +7,6 @@ import { useHistory } from "react-router-dom";
 import { useSelector } from 'react-redux';
 
 import {
-	Button,
 	Card, CardBody, CardHeader, CardFooter,
 	Form, FormGroup, FormText, Input, Label,
 	TabContent, TabPane, Nav, NavItem, NavLink,
@@ -22,9 +21,7 @@ import {
 	StringItems
 } from './ConfigFormatItems';
 
-import {types} from './actions/actions';
-
-import { Spinner, ButtonWithAuthz } from 'asab-webui';
+import { ButtonWithAuthz, getBrandImage } from 'asab-webui';
 
 function ConfigEditor(props) {
 	const { register, handleSubmit, setValue, getValues, formState: { errors, isSubmitting }, reset, resetField } = useForm();
@@ -42,7 +39,6 @@ function ConfigEditor(props) {
 	const [ patternPropsSchema, setPatternPropsSchema ] = useState({});
 
 	// Retrieve the asab config url from config file
-	const homeScreenImg = props.app.Config.get('brand_image').full;
 	const homeScreenAlt = props.app.Config.get('title');
 	const configType = props.configType;
 	const configName = props.configName;
@@ -57,6 +53,13 @@ function ConfigEditor(props) {
 	// Pattern props dropdown
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const toggleDropDown = () => setDropdownOpen(!dropdownOpen);
+
+	// Branding
+	const [ homeScreenImg, setHomeScreenImg ] = useState({});
+
+	useEffect(() => {
+		setHomeScreenImg(getBrandImage(props, theme))
+	}, [theme]);
 
 	// The container will be re-rendered on configType or configName change
 	useEffect(() => {
@@ -493,7 +496,7 @@ function ConfigEditor(props) {
 	if (configNotExist) {
 		return (
 			<ConfigMessageCard
-				homeScreenImg={homeScreenImg}
+				homeScreenImg={homeScreenImg?.full}
 				homeScreenAlt={homeScreenAlt}
 				purposeTitle={t("ASABConfig|Config file does not exist")}
 				purposeSubtitle={t("ASABConfig|We are sorry, but the file cannot be found")}

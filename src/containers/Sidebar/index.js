@@ -6,20 +6,26 @@ import SidebarItem from './SidebarItem';
 import NavbarBrand from './NavbarBrand';
 import SidebarBottomItem from './SidebarBottomItem';
 import {COLLAPSE_SIDEBAR} from "../../actions";
+import { getBrandImage } from 'asab-webui';
 
 
 export default function Sidebar (props) {
 	const [modal, setModal] = useState(false);
 	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
 	const sidebarHiddenItems = useSelector(state => state.sidebar?.sidebarHiddenItems);
-	const sidebarLogo = useSelector(state => state.config?.sidebarLogo);
 	const unauthorizedNavItem = useSelector(state => state.auth?.unauthorizedNavItem);
 	const unauthorizedNavChildren = useSelector(state => state.auth?.unauthorizedNavChildren);
 	const sessionExpired = useSelector(state => state.auth?.sessionExpired);
+	const theme = useSelector(state => state.theme);
+	const [sidebarBottomBranding, setSidebarBottomBranding] = useState({});
 	const [windowDimensions, setWindowDimensions] = useState({width: window.innerWidth});
 	const dispatch = useDispatch();
 
 	let sidebarItems = props.navigation.getItems().items;
+
+	useEffect(() => {
+		setSidebarBottomBranding(getBrandImage(props, theme, 'sidebarLogo'));
+	}, [theme]);
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
@@ -128,7 +134,7 @@ export default function Sidebar (props) {
 						/>
 					))}
 				</Nav>
-				<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} disabled={sessionExpired} />
+				<SidebarBottomItem item={aboutItem} sidebarLogo={sidebarBottomBranding} disabled={sessionExpired} />
 			</div>
 		</div>
 	)

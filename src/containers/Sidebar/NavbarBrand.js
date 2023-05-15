@@ -1,10 +1,20 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
+import { getBrandImage } from 'asab-webui';
 
-const NavbarBrand = ({ title, brand_image, isSidebarCollapsed }) => {
-	const href = brand_image.href ?? "/";
+const NavbarBrand = ( props ) => {
+	const [ brandImage, setBrandImage ] = useState({});
+	const theme = useSelector(state => state.theme);
+	const title = useSelector(state => state.config?.title);
+	const isSidebarCollapsed = useSelector(state => state.sidebar?.isSidebarCollapsed);
+
+	useEffect(() => {
+		setBrandImage(getBrandImage(props, theme));
+	}, [theme]);
+
+	const href = brandImage?.href ?? "/";
 
 	if (href.includes("http")) {
 		return (
@@ -15,9 +25,9 @@ const NavbarBrand = ({ title, brand_image, isSidebarCollapsed }) => {
 					rel="noopener noreferrer"
 				>
 					<img
-						src={isSidebarCollapsed ? brand_image.minimized : brand_image.full}
+						src={isSidebarCollapsed ? brandImage?.minimized : brandImage?.full}
 						alt={title}
-						width="50"
+						width={isSidebarCollapsed ? "50" : "150"}
 						height="50"
 						className="minimized-image"
 					/>
@@ -29,7 +39,7 @@ const NavbarBrand = ({ title, brand_image, isSidebarCollapsed }) => {
 		<div className={`sidebar-brand-image`}>
 			<Link to={href}>
 				<img
-					src={isSidebarCollapsed ? brand_image.minimized : brand_image.full}
+					src={isSidebarCollapsed ? brandImage?.minimized : brandImage?.full}
 					alt={title}
 					width={isSidebarCollapsed ? "50" : "150"}
 					height="50"
@@ -40,15 +50,4 @@ const NavbarBrand = ({ title, brand_image, isSidebarCollapsed }) => {
 	)
 };
 
-const mapStateToProps = state => {
-	const headerImage = state.config.brand_image?.full ?
-		state.config.brand_image : state.config.default_brand_image;
-
-	return {
-		brand_image: headerImage,
-		title: state.config.title,
-		isSidebarCollapsed: state.sidebar.isSidebarCollapsed
-	}
-}
-
-export default connect(mapStateToProps)(NavbarBrand);
+export default NavbarBrand;
