@@ -60,7 +60,7 @@
 
 - Applying lazy loading in About, Auth, Tools and Maintenance modules. (INDIGO Sprint 230428, [!415](https://github.com/TeskaLabs/asab-webui/pull/415))
 
-- Refactor and update Apps session expiration (INDIGO Sprint 230428, [!403](https://github.com/TeskaLabs/asab-webui/pull/403))
+- Refactor and update Apps session expiration (INDIGO Sprint 230512, [!403](https://github.com/TeskaLabs/asab-webui/pull/403))
 
 ### Bugfix
 
