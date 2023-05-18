@@ -93,7 +93,7 @@ module.exports = {
 			resolve: config["webpack"]["resolve"],
 			module: {
 				rules: [
-					...common.getRules(config),
+					...common.getRules(config, 'dev'),
 					...extendedConfig.extraModule.extraRules
 				],
 				...newModule

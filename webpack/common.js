@@ -17,7 +17,7 @@ exports.JSONStringifyValues = function(obj) {
 	return ret;
 }
 
-exports.getRules = function(config) {
+exports.getRules = function(config, mode) {
 	return [
 		{
 			test: /\.(js)$/,
@@ -64,7 +64,7 @@ exports.getRules = function(config) {
 			type: 'asset/resource',
 			generator: {
 				filename: 'svg/[name][contenthash:8][ext]',
-				outputPath: 'assets/'
+				outputPath: mode === 'dev' ? '' : 'assets/'
 			}
 		},
 		{
@@ -72,7 +72,7 @@ exports.getRules = function(config) {
 			type: 'asset/resource',
 			generator: {
 				filename: 'fonts/[name][contenthash:8][ext]',
-				outputPath: 'assets/'
+				outputPath: mode === 'dev' ? '' : 'assets/'
 			}
 		},
 	]
