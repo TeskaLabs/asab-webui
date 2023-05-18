@@ -18,6 +18,7 @@ export default class TitleService extends Service {
 
 
 	setTitle = () => {
+		console.log("setTitle");
 		// this.setState({
 		// 	subtitle: "Arina"
 		// })
@@ -31,7 +32,7 @@ export default class TitleService extends Service {
 		// });
 
 		// console.log(this.state.pageSubtitle)
-		const subtitle = this.App.Store.getState().crumbs.mainCrumbs;
+		// const subtitle = this.App.Store.getState().crumbs.mainCrumbs;
 
 
 
@@ -43,8 +44,8 @@ export default class TitleService extends Service {
 		// const { subtitle } = this.props;
 		// console.log(subtitle, "subtitle")
 
-		this.title = this.App.props.configdefaults?.title;
-		console.log(this.title, subtitle, "lalalala")
+		// this.title = this.App.props.configdefaults?.title;
+		// console.log(this.title, subtitle, "lalalala")
 		// const { title, subtitle } = this.props;
 		// document.title = subtitle ? `${this.title} | ${subtitle}` : title;
 	}
