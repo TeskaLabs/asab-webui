@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import {MAIN_BREADCRUMBS} from "../../../actions";
 
 
 const Breadcrumbs = ({
@@ -32,6 +33,11 @@ const Breadcrumbs = ({
 	},[routes]);
 
 	if (crumbs.length == 0) return null;
+
+	app.Store.dispatch({
+		type: MAIN_BREADCRUMBS,
+		crumbs: crumbs[crumbs.length-1].name
+	})
 
 
 	// TODO: Add disabling breadcrumbs

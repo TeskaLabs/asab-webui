@@ -16,6 +16,7 @@ import Alerts from './Alerts';
 import alertsReducer from './Alerts/reducer';
 import sidebarReducer from './Sidebar/reducer';
 import headerHelpButtonReducer from './Header/reducer';
+import crumbsReducer from './Header/BreadcrumbsRouter/reducer';
 
 import ReduxService from '../services/ReduxService';
 import ConfigService from '../config/ConfigService';
@@ -23,6 +24,7 @@ import HeaderService from '../services/HeaderService';
 import SidebarService from './Sidebar/service';
 import ThemeService from '../theme/ThemeService';
 import HelpService from "../services/HelpService";
+import TitleService from "../services/TitleService";
 
 import AccessDeniedCard from '../modules/tenant/access/AccessDeniedCard';
 import UnauthorizedAccessScreen from '../modules/auth/components/UnauthorizedAccessScreen';
@@ -90,10 +92,12 @@ class Application extends Component {
 		this.SidebarService = new SidebarService(this, "SidebarService");
 		this.ThemeService = new ThemeService(this, "ThemeService");
 		this.HelpService = new HelpService(this, "HelpService");
+		this.TitleService = new TitleService(this, "TitleService");
 
 		this.ReduxService.addReducer("alerts", alertsReducer);
 		this.ReduxService.addReducer("advmode", advancedModeReducer);
 		this.ReduxService.addReducer("helpButton", headerHelpButtonReducer);
+		this.ReduxService.addReducer("crumbs", crumbsReducer);
 		this.ReduxService.addReducer("sidebar", sidebarReducer);
 
 		this.DefaultPath = props.defaultpath;
@@ -371,6 +375,7 @@ class Application extends Component {
 
 	componentDidMount() {
 		document.addEventListener("keyup", this._handleKeyUp, false);
+		this.TitleService.setTitle();
 	}
 
 	componentWillUnmount() {
