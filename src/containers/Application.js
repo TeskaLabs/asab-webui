@@ -23,6 +23,7 @@ import ConfigService from '../config/ConfigService';
 import HeaderService from '../services/HeaderService';
 import SidebarService from './Sidebar/service';
 import ThemeService from '../theme/ThemeService';
+import BrandingService from '../services/BrandingService';
 import HelpService from "../services/HelpService";
 import TitleService from "../services/TitleService";
 
@@ -91,6 +92,7 @@ class Application extends Component {
 		this.HeaderService = new HeaderService(this, "HeaderService");
 		this.SidebarService = new SidebarService(this, "SidebarService");
 		this.ThemeService = new ThemeService(this, "ThemeService");
+		this.BrandingService = new BrandingService(this, "BrandingService");
 		this.HelpService = new HelpService(this, "HelpService");
 		this.TitleService = new TitleService(this, "TitleService");
 
