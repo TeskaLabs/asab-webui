@@ -7,7 +7,7 @@ import {MAIN_BREADCRUMBS} from "../../../actions";
 
 
 const Breadcrumbs = ({
-	routes, match, app, disableContainerBreadcrumbs, TitleService
+	routes, match, app, disableContainerBreadcrumbs
 }) => {
 	const { t } = useTranslation();
 	const crumbs = useMemo(() => {
@@ -42,9 +42,7 @@ const Breadcrumbs = ({
 				type: MAIN_BREADCRUMBS,
 				mainCrumbs: crumbs[crumbs.length-1].name
 			});
-			// remove it
-			TitleService?.setTitle();
-			console.log(TitleService, 'service')
+			app.Services?.TitleService.setTitle();
 		}
 
 	}, [crumbs]);

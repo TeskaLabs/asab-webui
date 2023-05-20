@@ -383,13 +383,6 @@ class Application extends Component {
 		document.removeEventListener("keyup", this._handleKeyUp, false);
 	}
 
-	componentDidUpdate(prevProps) {
-		// console.log(prevProps, this.props)
-		// if (this.props.mainCrumb !== prevProps.mainCrumb) {
-		// 	this.TitleService.setTitle();
-		// }
-	}
-
 
 	// Splash screen
 
@@ -410,7 +403,6 @@ class Application extends Component {
 			});
 		}
 	}
-
 
 	// Alerts
 	/*
