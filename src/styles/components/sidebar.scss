@@ -155,6 +155,9 @@ $sidebar-item-font-size: 14px;
 					border-radius: 0 $sidebar-item-radius $sidebar-item-radius 0;
 				}
 			}
+			&.disabled {
+				opacity: .65;
+			}
 		}
 	}
 

@@ -8,8 +8,9 @@ import {
 
 import Icon from './SidebarIcon';
 
-const SidebarItem = ({ 
-	item, unauthorizedNavChildren, uncollapseAll, toggleSidebarModal
+const SidebarItem = ({
+	item, unauthorizedNavChildren, disabled, uncollapseAll, toggleSidebarModal
+
 }) => {
 	const [isOpen, setOpen] = useState(false);
 
@@ -55,8 +56,8 @@ const SidebarItem = ({
 	return (
 		<>
 			<NavItem className="sidebar-item"  title={t(`Sidebar|${item.name}`)}>
-				<NavLink onClick={onNavLink}>
-					<button className={`sidebar-item-button${location.pathname === item.url ? " active " : " "}btn`}>
+				<NavLink disabled={disabled} onClick={onNavLink}>
+					<button disabled={disabled} className={`sidebar-item-button${location.pathname === item.url ? " active " : " "}btn`}>
 						<Icon icon={item.icon} />
 						<div className="sidebar-item-name ml-2">{t(`Sidebar|${item.name}`)}</div>
 						{item.children && item.children.length > 0 && (
@@ -71,9 +72,9 @@ const SidebarItem = ({
 							<Nav className="nav-children">
 								{item.children.map((child, idx) => (
 									unauthorizedNavChildren == undefined || unauthorizedNavChildren.length == 0 ?
-										<SidebarItem key={idx} item={child} toggleSidebarModal={toggleSidebarModal} />
+										<SidebarItem key={idx} item={child} disabled={disabled} toggleSidebarModal={toggleSidebarModal} />
 									:
-										unauthorizedNavChildren.indexOf(child.name) == -1 && <SidebarItem key={idx} item={child} toggleSidebarModal={toggleSidebarModal} />
+										unauthorizedNavChildren.indexOf(child.name) == -1 && <SidebarItem key={idx} item={child} disabled={disabled} toggleSidebarModal={toggleSidebarModal} />
 								))}
 							</Nav>
 						</Collapse>
