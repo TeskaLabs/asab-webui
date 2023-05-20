@@ -94,7 +94,7 @@ class Application extends Component {
 		this.ThemeService = new ThemeService(this, "ThemeService");
 		this.BrandingService = new BrandingService(this, "BrandingService");
 		this.HelpService = new HelpService(this, "HelpService");
-		this.TitleService = new TitleService(this, "TitleService");
+		this.TitleService = new TitleService(this, "TitleService")
 
 		this.ReduxService.addReducer("alerts", alertsReducer);
 		this.ReduxService.addReducer("advmode", advancedModeReducer);
@@ -377,11 +377,17 @@ class Application extends Component {
 
 	componentDidMount() {
 		document.addEventListener("keyup", this._handleKeyUp, false);
-		this.TitleService.setTitle();
 	}
 
 	componentWillUnmount() {
 		document.removeEventListener("keyup", this._handleKeyUp, false);
+	}
+
+	componentDidUpdate(prevProps) {
+		// console.log(prevProps, this.props)
+		// if (this.props.mainCrumb !== prevProps.mainCrumb) {
+		// 	this.TitleService.setTitle();
+		// }
 	}
 
 

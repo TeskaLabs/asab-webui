@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Link } from 'react-router-dom';
@@ -7,7 +7,7 @@ import {MAIN_BREADCRUMBS} from "../../../actions";
 
 
 const Breadcrumbs = ({
-	routes, match, app, disableContainerBreadcrumbs
+	routes, match, app, disableContainerBreadcrumbs, TitleService
 }) => {
 	const { t } = useTranslation();
 	const crumbs = useMemo(() => {
@@ -34,10 +34,21 @@ const Breadcrumbs = ({
 
 	if (crumbs.length == 0) return null;
 
-	app.Store.dispatch({
-		type: MAIN_BREADCRUMBS,
-		crumbs: crumbs[crumbs.length-1].name
-	})
+	useEffect(() => {
+		// remove it
+		console.log(crumbs[crumbs.length-1].name, "crumbs")
+		if (app.Store != null) {
+			app.Store.dispatch({
+				type: MAIN_BREADCRUMBS,
+				mainCrumbs: crumbs[crumbs.length-1].name
+			});
+			// remove it
+			TitleService?.setTitle();
+			console.log(TitleService, 'service')
+		}
+
+	}, [crumbs]);
+
 
 
 	// TODO: Add disabling breadcrumbs
