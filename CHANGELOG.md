@@ -60,6 +60,8 @@
 
 - Applying lazy loading in About, Auth, Tools and Maintenance modules. (INDIGO Sprint 230428, [!415](https://github.com/TeskaLabs/asab-webui/pull/415))
 
+- Refactor and update Apps session expiration (INDIGO Sprint 230512, [!403](https://github.com/TeskaLabs/asab-webui/pull/403))
+
 ### Bugfix
 
 - Bug fix for HelpComponent, not display a Helpcomoponent when the user changing the page (INDIGO Sprint 230317, [!401](https://github.com/TeskaLabs/asab-webui/pull/401))
@@ -69,6 +71,8 @@
 - Fix `console.error` to `console.warn` (INDIGO Sprint 230331, [!406](https://github.com/TeskaLabs/asab-webui/pull/406))
 
 - Fix infinite loop bug on userinfo, when expiration time is set to small values (INDIGO Sprint 230414, [!410](https://github.com/TeskaLabs/asab-webui/pull/410))
+
+- Fix infinite loop bug on userinfo, when expiration time is set to large values (INDIGO Sprint 230428, [!419](https://github.com/TeskaLabs/asab-webui/pull/419))
 
 - Add HelpCache for HelpComponent (INDIGO Sprint 230414, [!418](https://github.com/TeskaLabs/asab-webui/pull/418))
 

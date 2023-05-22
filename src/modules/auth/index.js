@@ -270,7 +270,19 @@ export default class AuthModule extends Module {
 		// if session has expired
 		if (!isUserInfoUpdated && oldUserInfo) {
 			oldUserInfo = null;
-			that.App.addAlert("danger", "ASABAuthModule|Your session has expired", 3600 * 1000, true);
+			that.App.addAlert("danger", "ASABAuthModule|You have been logged out due to inactivity.", 3600 * 1000, true);
+			if (that.App.Store != null) {
+				that.App.Store.dispatch({ type: types.AUTH_SESSION_EXPIRATION, sessionExpired: true });
+				// Disable buttons and pagination in the whole screen
+				[...document.querySelectorAll('[class^="btn"]:not(.alert-button), [class*=" btn"]:not(.alert-button), .page-item')].forEach(i => {
+					i.classList.add("disabled");
+					i.setAttribute("disabled", "");
+				});
+				// Disable link without class "nav-link" in the whole screen
+				[...document.querySelectorAll('a:not(.nav-link)')].forEach(i => {
+					i.classList.add("disabled-link");
+				});
+			}
 		}
 		else {
 			let exp = that.UserInfo.exp * 1000; // Expiration timestamp
@@ -307,6 +319,12 @@ export default class AuthModule extends Module {
 				fAlert = true;
 				// Set timeout to 30s since SeaCat Auth service is checking on deleted sessions 1x per minute
 				timeout = 30000;
+			}
+
+			// Prevent infinite userinfo request loop when timeout is larger than 2^31
+			if (timeout >= Math.pow(2, 31)) {
+				// Set timeout to maximum allowed value
+				timeout = Math.pow(2, 31) - 1;
 			}
 
 			setTimeout(that._notifyOnExpiredSession, timeout, that, that.UserInfo, fAlert);
