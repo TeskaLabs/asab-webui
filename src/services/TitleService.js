@@ -14,3 +14,4 @@ export default class TitleService extends Service {
 		return null;
 	}
 }
+
