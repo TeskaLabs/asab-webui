@@ -6,9 +6,9 @@ export default class TitleService extends Service {
 		this.title = this.App.props.configdefaults?.title;
 	}
 
-	setTitle = () => {
+	setTitle = (subTitle) => {
 		console.log("call")
-		const subTitle = this.App.Store.getState().crumbs.mainCrumbs;
+		// const subTitle = this.App.Store.getState().crumbs.mainCrumbs;
 		document.title = this.title ? `${this.title} | ${subTitle}` : this.title;
 	}
 

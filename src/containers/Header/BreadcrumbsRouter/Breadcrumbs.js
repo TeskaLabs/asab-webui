@@ -35,14 +35,13 @@ const Breadcrumbs = ({
 	if (crumbs.length == 0) return null;
 
 	useEffect(() => {
-		// remove it
-		console.log(crumbs[crumbs.length-1].name, "crumbs")
-		if (app.Store != null) {
-			app.Store.dispatch({
-				type: MAIN_BREADCRUMBS,
-				mainCrumbs: crumbs[crumbs.length-1].name
-			});
-			app.Services?.TitleService.setTitle();
+		// remove itr
+		if (app.Services != null) {
+			// app.Store.dispatch({
+			// 	type: MAIN_BREADCRUMBS,
+			// 	mainCrumbs: crumbs[0].name
+			// });
+			app.Services.TitleService.setTitle(crumbs[0].name);
 		}
 
 	}, [crumbs]);
