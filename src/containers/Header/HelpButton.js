@@ -10,8 +10,9 @@ export default function HelpButton() {
 
     const [modal, setModal] = useState(false);
 
-    const content = useSelector(state => state?.helpButton.content);
-    if ((content == undefined) || (content == "")) return null;
+    const path = useSelector(state => state?.helpButton.path);
+
+    if ((path == undefined) || (path == "")) return null;
 
     const toggle = () => setModal(!modal);
 
@@ -38,9 +39,9 @@ export default function HelpButton() {
                         </Button>
                     </CardHeader>
                     <CardBody>
-                        <div>{content}</div>
+                        {/*<div>{content}</div>*/}
                         {/*TODO: uncomment and use when the documentation is ready to be displayed in the iframe*/}
-                        {/*<iframe className="help-iframe" src="" title=""/>*/}
+                        <iframe className="help-iframe" src={`https://ru.legacy.reactjs.org/${path}`} title=""/>
                     </CardBody>
                 </Card>
             </Modal>

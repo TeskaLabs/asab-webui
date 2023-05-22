@@ -449,7 +449,7 @@ class Application extends Component {
 			return () => {
 				this.Store.dispatch({
 					type: HELP_CONTENT,
-					content: ""
+					path: ""
 				})
 			}
 		}, [])
