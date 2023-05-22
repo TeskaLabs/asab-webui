@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
+import { lazy } from 'react';
 import Module from 'asab-webui/abc/Module';
-import ToolsDashboard from "./ToolsDashboard";
+import { componentLoader } from 'asab-webui';
+const ToolsDashboard = lazy(() => componentLoader(() => import("./ToolsDashboard")));
+
+import "./tools.scss"
 
 export default class ToolsModule extends Module {
 	constructor(app, name) {

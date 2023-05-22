@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { locationReplace } from 'asab-webui';
-import { connect } from 'react-redux';
 
 import {
-	Card, CardHeader, CardBody, CardTitle,
-	Button, Input, Label
+	Card, CardHeader, CardBody,
+	CardTitle,Button,
 } from 'reactstrap';
 
 import "./access.scss";
