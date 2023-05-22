@@ -34,13 +34,11 @@ const Breadcrumbs = ({
 	if (crumbs.length == 0) return null;
 
 	useEffect(() => {
-		// remove itr
+		// Adding subtitle to the title of the application
 		if (app.Services != null) {
 			app.Services.TitleService.setTitle(crumbs[0].name);
 		}
-
 	}, [crumbs]);
-
 
 
 	// TODO: Add disabling breadcrumbs
