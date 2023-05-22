@@ -16,7 +16,6 @@ import Alerts from './Alerts';
 import alertsReducer from './Alerts/reducer';
 import sidebarReducer from './Sidebar/reducer';
 import headerHelpButtonReducer from './Header/reducer';
-import crumbsReducer from './Header/BreadcrumbsRouter/reducer';
 
 import ReduxService from '../services/ReduxService';
 import ConfigService from '../config/ConfigService';
@@ -99,7 +98,6 @@ class Application extends Component {
 		this.ReduxService.addReducer("alerts", alertsReducer);
 		this.ReduxService.addReducer("advmode", advancedModeReducer);
 		this.ReduxService.addReducer("helpButton", headerHelpButtonReducer);
-		this.ReduxService.addReducer("crumbs", crumbsReducer);
 		this.ReduxService.addReducer("sidebar", sidebarReducer);
 
 		this.DefaultPath = props.defaultpath;

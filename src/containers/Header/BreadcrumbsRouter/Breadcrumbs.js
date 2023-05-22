@@ -3,8 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
-import {MAIN_BREADCRUMBS} from "../../../actions";
-
 
 const Breadcrumbs = ({
 	routes, match, app, disableContainerBreadcrumbs
@@ -37,10 +35,6 @@ const Breadcrumbs = ({
 	useEffect(() => {
 		// remove itr
 		if (app.Services != null) {
-			// app.Store.dispatch({
-			// 	type: MAIN_BREADCRUMBS,
-			// 	mainCrumbs: crumbs[0].name
-			// });
 			app.Services.TitleService.setTitle(crumbs[0].name);
 		}
 
