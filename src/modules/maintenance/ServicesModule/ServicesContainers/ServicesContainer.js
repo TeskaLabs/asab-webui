@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 import { Container, Card, CardBody, CardHeader, Table,
 	InputGroup, InputGroupText, Input, InputGroupAddon,
-	ButtonGroup, Button
+	ButtonGroup
 } from 'reactstrap';
 
 import { CellContentLoader } from 'asab-webui';
