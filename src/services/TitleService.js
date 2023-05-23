@@ -9,9 +9,5 @@ export default class TitleService extends Service {
 	setTitle = (subTitle) => {
 		document.title = (this.title && subTitle) ? `${this.title} | ${subTitle}` : this.title;
 	}
-
-	render() {
-		return null;
-	}
 }
 
