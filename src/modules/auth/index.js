@@ -54,8 +54,8 @@ export default class AuthModule extends Module {
 				// Remove 'code' from a query string
 				qs.delete('code');
 
-				let state = qs.get("state");
-				let urlPart = JSON.parse(localStorage.getItem("asab_webui_state"))[state];
+				const stateIndex = qs.get("state");
+				const state = JSON.parse(localStorage.getItem("asab_webui_state"))[stateIndex];
 				localStorage.removeItem("asab_webui_state");
 				// Remove 'state' from a query string
 				qs.delete("state");
@@ -65,9 +65,9 @@ export default class AuthModule extends Module {
 				let reloadUrl;
 				if (qs.toString() == '') {
 					// Remove `?` part from URL completely, if empty
-					reloadUrl = window.location.pathname + urlPart; // part form localstorage instead of hash
+					reloadUrl = window.location.pathname + state; // part form localstorage instead of hash
 				} else {
-					reloadUrl = window.location.pathname + '?' + qs.toString() + urlPart; // part form localstorage instead of hash
+					reloadUrl = window.location.pathname + '?' + qs.toString() + state; // part form localstorage instead of hash
 				}
 
 				// Reload the app with `code` removed

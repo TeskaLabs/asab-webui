@@ -46,14 +46,14 @@ export class SeaCatAuthApi {
 		const typedArray = new Uint32Array(10);
 		crypto.getRandomValues(typedArray);
 		let randomIndex = Math.floor(Math.random() * typedArray.length);
-		let state = typedArray[randomIndex];
+		const stateIndex = typedArray[randomIndex];
 
-		let redirectUriNewUrl = new URL(redirect_uri);
-		let urlPart = redirectUriNewUrl.search + redirectUriNewUrl.hash;
-		let updatedRedirectUri = redirectUriNewUrl.origin + redirectUriNewUrl.pathname;
+		let redirectUri = new URL(redirect_uri);
+		const state = redirectUri.search + redirectUri.hash;
+		let updatedRedirectUri = redirectUri.origin + redirectUri.pathname;
 
 		localStorage.setItem("asab_webui_state", JSON.stringify({
-			[state]: urlPart
+			[stateIndex]: state
 		}))
 
 		const params = new URLSearchParams({
@@ -61,7 +61,7 @@ export class SeaCatAuthApi {
 			scope: loginScope,
 			client_id: this.ClientId,
 			redirect_uri: updatedRedirectUri,
-			state: state
+			state: stateIndex
 		});
 		if (force_login_prompt === true) {
 			params.append("prompt", "login");
