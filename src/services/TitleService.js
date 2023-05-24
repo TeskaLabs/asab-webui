@@ -3,11 +3,11 @@ export default class TitleService extends Service {
 	constructor(app, serviceName="TitleService"){
 		super(app, serviceName);
 		this.App = app;
-		this.title = this.App.props.configdefaults?.title;
 	}
 
 	setTitle = (subTitle) => {
-		document.title = (this.title && subTitle) ? `${this.title} | ${subTitle}` : this.title;
+		let title = this.App.Config.get("title");
+		document.title = (title && subTitle) ? `${title} | ${subTitle}` : title;
 	}
 }
 
