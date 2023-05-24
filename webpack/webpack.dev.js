@@ -93,7 +93,23 @@ module.exports = {
 			resolve: config["webpack"]["resolve"],
 			module: {
 				rules: [
-					...common.getRules(config, 'dev'),
+					{
+						test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+						type: 'asset/resource',
+						generator: {
+							filename: 'svg/[name][contenthash:8][ext]',
+							outputPath: ''
+						}
+					},
+					{
+						test: /\.(woff|woff2|ttf|eot|ico)(\?.*)?$/,
+						type: 'asset/resource',
+						generator: {
+							filename: 'fonts/[name][contenthash:8][ext]',
+							outputPath: ''
+						}
+					},
+					...common.getRules(config),
 					...extendedConfig.extraModule.extraRules
 				],
 				...newModule
