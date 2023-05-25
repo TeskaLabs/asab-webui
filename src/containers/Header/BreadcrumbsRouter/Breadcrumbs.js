@@ -35,7 +35,7 @@ const Breadcrumbs = ({
 
 	useEffect(() => {
 		// Adding subtitle to the title of the application
-		if (app.Services.TitleService != null) {
+		if (app.Services.TitleService != undefined) {
 			app.Services.TitleService.setTitle(crumbs[0].name);
 		}
 	}, [crumbs]);

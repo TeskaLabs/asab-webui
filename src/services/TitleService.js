@@ -5,9 +5,12 @@ export default class TitleService extends Service {
 		this.App = app;
 	}
 
+	initialize() {
+		this.title = this.App.Config.get("title");
+	}
+
 	setTitle = (subTitle) => {
-		let title = this.App.Config.get("title");
-		document.title = (title && subTitle) ? `${title} | ${subTitle}` : title;
+		document.title = (this.title && subTitle) ? `${this.title} | ${subTitle}` : this.title;
 	}
 }
 
