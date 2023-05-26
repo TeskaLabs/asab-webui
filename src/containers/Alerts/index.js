@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { connect } from 'react-redux'
-import { Alert } from "reactstrap";
+import { useSelector } from 'react-redux'
+import { Alert, Button } from "reactstrap";
 
 import { ACK_ALERT, DEL_ALERT } from '../../actions';
 import { useTranslation } from 'react-i18next'
 
 import './alerts.scss';
 
-function AlertsComponent(props) {
+export default function AlertsComponent(props) {
 	const [seconds, setSeconds] = useState(0);
 	let store = props.app.Store;
+	const alerts = useSelector(state => state.alerts.alerts);
 	const { t } = useTranslation();
 
 	// Expire old alerts
@@ -22,8 +23,8 @@ function AlertsComponent(props) {
 			setSeconds(seconds => seconds + 1);
 
 			const now = new Date();
-			for (var i in props.alerts) {
-				let alert = props.alerts[i];
+			for (var i in alerts) {
+				let alert = alerts[i];
 
 				if (alert.expire < now) {
 					if (alert.acked) {
@@ -41,28 +42,25 @@ function AlertsComponent(props) {
 
 	return (
 		<div className="alerts" >
-			{props.alerts.map((alert) => {
+			{alerts.map((alert) => {
 				return (
 					<Alert
 						key={alert.key}
 						color={alert.level}
-						className="shadow alerts-style"
+						className={`shadow alerts-style ${(alert.message == "ASABAuthModule|You have been logged out due to inactivity.") ? "session-expiration-alert" : ""}`}
 						fade={true}
 						isOpen={!alert.acked}
-						toggle={() => store.dispatch({ type: ACK_ALERT, key: alert.key })}
+						toggle={(alert.message == "ASABAuthModule|You have been logged out due to inactivity.") ? null : () => store.dispatch({ type: ACK_ALERT, key: alert.key })} // remove the close button for alert with expiration
 					>
 						{alert.shouldBeTranslated ? t(alert.message) : alert.message}
+						{(alert.message == "ASABAuthModule|You have been logged out due to inactivity.") &&
+							<Button size="sm" onClick={() => window.location.reload()} color="danger" className="alert-button">
+								{` ${t("Alerts|Continue to login")}`}
+							</Button>
+						}
 					</Alert>
 				)
 			})}
 		</div>
 	);
 }
-
-const mapStateToProps = state => {
-	return {
-		alerts: state.alerts.alerts
-	};
-}
-
-export default connect(mapStateToProps)(AlertsComponent);
