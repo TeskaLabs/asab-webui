@@ -104,6 +104,7 @@ module.exports = {
 			resolve: config["webpack"]["resolve"],
 			module: {
 				rules: [
+					// TODO: rules for image assests and fonts should be moved to commons with just the outputPath specified here, in webpack.build.js
 					{
 						test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
 						type: 'asset/resource',
