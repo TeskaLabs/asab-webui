@@ -3,6 +3,7 @@ export default class TitleService extends Service {
 	constructor(app, serviceName="TitleService"){
 		super(app, serviceName);
 		this.App = app;
+		this.title = "";
 	}
 
 	initialize() {
