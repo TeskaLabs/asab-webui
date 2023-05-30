@@ -64,6 +64,8 @@
 
 - Refactor and update Apps session expiration (INDIGO Sprint 230512, [!403](https://github.com/TeskaLabs/asab-webui/pull/403))
 
+- Webpack update to eliminate build errors and build data structure update. (INDIGO Sprint 230512, [!414](https://github.com/TeskaLabs/asab-webui/pull/414))
+
 ### Bugfix
 
 - Bug fix for HelpComponent, not display a Helpcomoponent when the user changing the page (INDIGO Sprint 230317, [!401](https://github.com/TeskaLabs/asab-webui/pull/401))
