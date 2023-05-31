@@ -7,8 +7,7 @@ export default class HelpService extends Service {
 		this.App = app;
 	}
 
-	async setData(path) {
-
+	setPath(path) {
 		this.App.Store.dispatch({
 			type: HELP_CONTENT,
 			path: path

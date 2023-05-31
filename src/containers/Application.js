@@ -445,14 +445,14 @@ class Application extends Component {
 
 	addHelpButton(path) {
 		useEffect(() => {
-			this.HelpService.setData(path);
+			this.HelpService.setPath(path);
 			return () => {
 				this.Store.dispatch({
 					type: HELP_CONTENT,
 					path: ""
 				})
 			}
-		}, [])
+		}, []);
 	}
 
 	render() {
