@@ -23,6 +23,7 @@ import HeaderService from '../services/HeaderService';
 import SidebarService from './Sidebar/service';
 import ThemeService from '../theme/ThemeService';
 import BrandingService from '../services/BrandingService';
+import TitleService from "../services/TitleService";
 
 import AccessDeniedCard from '../modules/tenant/access/AccessDeniedCard';
 import UnauthorizedAccessScreen from '../modules/auth/components/UnauthorizedAccessScreen';
@@ -90,6 +91,7 @@ class Application extends Component {
 		this.SidebarService = new SidebarService(this, "SidebarService");
 		this.ThemeService = new ThemeService(this, "ThemeService");
 		this.BrandingService = new BrandingService(this, "BrandingService");
+		this.TitleService = new TitleService(this, "TitleService");
 
 		this.ReduxService.addReducer("alerts", alertsReducer);
 		this.ReduxService.addReducer("advmode", advancedModeReducer);
