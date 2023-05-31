@@ -22,7 +22,9 @@
 
 - Added option to show suffix to indicate 'relative time' in DateTime component (INDIGO Sprint 230428, [!417](https://github.com/TeskaLabs/asab-webui/pull/417))
 
-- Implement TitleService (INDIGO Sprint 230512, [!421](https://github.com/TeskaLabs/asab-webui/pull/421))
+- Update redirection url param to be stored in localstorage (INDIGO Sprint 230512, [!404](https://github.com/TeskaLabs/asab-webui/pull/404))
+
+- Implement TitleService (INDIGO Sprint 230526, [!421](https://github.com/TeskaLabs/asab-webui/pull/421))
 
 ### Refactoring
 
@@ -63,6 +65,8 @@
 - Applying lazy loading in About, Auth, Tools and Maintenance modules. (INDIGO Sprint 230428, [!415](https://github.com/TeskaLabs/asab-webui/pull/415))
 
 - Refactor and update Apps session expiration (INDIGO Sprint 230512, [!403](https://github.com/TeskaLabs/asab-webui/pull/403))
+
+- Webpack update to eliminate build errors and build data structure update. (INDIGO Sprint 230512, [!414](https://github.com/TeskaLabs/asab-webui/pull/414))
 
 ### Bugfix
 
