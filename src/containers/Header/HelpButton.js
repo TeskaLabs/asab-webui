@@ -39,9 +39,7 @@ export default function HelpButton() {
                         </Button>
                     </CardHeader>
                     <CardBody>
-                        {/*<div>{content}</div>*/}
-                        {/*TODO: uncomment and use when the documentation is ready to be displayed in the iframe*/}
-                        <iframe className="help-iframe" src={`https://ru.legacy.reactjs.org/${path}`} title=""/>
+                        <iframe className="help-iframe" src={`https://ndocs.teskalabs.com/logman.io/user/${path}`} title=""/>
                     </CardBody>
                 </Card>
             </Modal>
