@@ -593,26 +593,6 @@ class Navigation {
 		}
 	}
 
-	updateItem(item){
-		/*
-			Update item in the navigation by `id` which should be
-			defined within the item. The same `id` should have the
-			item to be updated and item with updates.
-
-			{
-				id: "someId",			// Id of the item
-				path: '/some/path',		// Url path
-				exact: true,			// Whether path must be matched exactly
-				name: 'Some Name',		// Route name
-				component: ReactComponent	// Component to be rendered
-			}
-		*/
-		const index = this.Items.findIndex(i => i.id == item.id);
-		if (index != -1) {
-			this.Items[index] = item;
-		}
-	}
-
 }
 
 
