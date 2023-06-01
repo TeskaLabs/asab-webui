@@ -73,9 +73,11 @@ module.exports = {
 				// "publicUrl" -> "__PUBLIC_URL__"
 				// "apiUrl" -> "__API_URL__"
 			),
-			// Extracts file styles.css
-			// TODO: make CSS files generate to 'assets/css/' without causing path for fonts to be 'assets/css/assets/fonts/'
-			new MiniCssExtractPlugin({ filename: '[name].[contenthash:8].css'}),
+			/*
+				Extracts `.css` files.
+				CSS files are generated to folder `'build/assets/'` on purpose. Generating them to `'build/assets/css/'` causes issues with fonts, icons and images (defined in `webpack/common.js`). Webpack then creates path for such files as a combination of folders configured under 'filename' here in MiniCssExtractPlugin and in Asset Module's generator. E.g. svg files paths end up as a combination of `'assets/css/'` and `'svg/'` resulting in invalid path `'build/assets/css/svg'`.
+			*/
+			new MiniCssExtractPlugin({ filename: 'assets/[name].[contenthash:8].css' }),
 			// Remove moment locales from bundle except those which are defined as second parameter
 			new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, defaultLocales),
 		];
@@ -102,6 +104,23 @@ module.exports = {
 			resolve: config["webpack"]["resolve"],
 			module: {
 				rules: [
+					// TODO: rules for image assests and fonts should be moved to commons with just the outputPath specified here, in webpack.build.js
+					{
+						test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+						type: 'asset/resource',
+						generator: {
+							filename: 'svg/[name][contenthash:8][ext]',
+							outputPath: 'assets/'
+						}
+					},
+					{
+						test: /\.(woff|woff2|ttf|eot|ico)(\?.*)?$/,
+						type: 'asset/resource',
+						generator: {
+							filename: 'fonts/[name][contenthash:8][ext]',
+							outputPath: 'assets/'
+						}
+					},
 					...common.getRules(config),
 					...extendedConfig.extraModule.extraRules
 				],

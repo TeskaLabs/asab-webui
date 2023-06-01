@@ -7,13 +7,25 @@ Example:
 ```
 let ConfigDefaults = {
 	title: "Page Title",
-	brand_image: {
-		full: "media/logo/header-full.svg",
-		minimized: "media/logo/header-minimized.svg",
+	brandImage: {
+		light: {
+			full: "path/to/external-header-full.svg",
+			minimized: "path/to/external-header-minimized.svg"
+		},
+		dark: {
+			full: "path/to/external-header-full-dark.svg",
+			minimized: "path/to/external-header-minimized-dark.svg"
+		},
 	},
 	sidebarLogo: {
-		full: "media/logo/sidebarlogo-full.svg",
-		minimized: "media/logo/sidebarlogo-minimized.svg"
+		light: {
+			full: "media/logo/sidebar-full.svg",
+			minimized: "media/logo/sidebar-minimized.svg"
+		},
+		dark: {
+			full: "media/logo/sidebar-full-dark.svg",
+			minimized: "media/logo/sidebar-minimized-dark.svg"
+		},
 	}
 };
 
@@ -32,24 +44,28 @@ There are 3 options for dynamic branding - header logo, title and custom CSS sty
 
 ### Header logo
 
-To replace default header logo, the nginx `sub_filter` configuration has to follow `<meta name="header-logo-full">` and `<meta name="header-logo-minimized">` replacement rules with the particular `name`. The replacement must have a `content` prop, otherwise the content of the replacement will not be propagated. `content` has to include a string with path to the logo.
+To replace default header logo, the nginx `sub_filter` configuration has to follow `<meta name="header-logo-full">`, `<meta name="header-logo-minimized">` (for light variation) and `<meta name="header-logo-full-dark">` and `<meta name="header-logo-minimized-dark">` (for logo suitable to be used in dark mode) replacement rules with the particular `name`. The replacement must have a `content` prop, otherwise the content of the replacement will not be propagated. `content` has to include a string with path to the logo.
+
+*If you are using nginx's `sub_filter` for branding images, please configure **both** dark and light mode. Each with minimized and full versions.* If this recommendation is not followed, missing vairants will be substituted. In case, when only light (or only dark) mode logo is configured via nginx's `sub_filter`, the other (non-configured) color variant will be substituted with default brand image. Simmilarly, if only full (or only minimized) variant of a logo is configured, the other, missing variant, will be substituted with appropriate variant taken from default brand image.
 
 Size of the branding images can be found [here](#branding-images)
 
-#### Full
+#### Light
 
-Example of importing full size logo (when sidebar of the application is not collapsed)
+Example of importing light logo variation (which is visible in the light themed version of the application)
 
 ```
 sub_filter '<meta name="header-logo-full">' '<meta name="header-logo-full" content="/<location>/<path>/<to>/<custom_branding>/<logo-full>.svg">';
-```
-
-#### Minimized
-
-Example of importing minimized size logo (when sidebar of the application is collapsed)
-
-```
 sub_filter '<meta name="header-logo-minimized">' '<meta name="header-logo-minimized" content="/<location>/<path>/<to>/<custom_branding>/<logo-minimized>.svg">';
+```
+
+#### Dark
+
+Example of importing dark variations of a logo (which is visible in the dark themed version of the application)
+
+```
+sub_filter '<meta name="header-logo-full-dark">' '<meta name="header-logo-full-dark" content="/<location>/<path>/<to>/<custom_branding>/<logo-full-dark>.svg">';
+sub_filter '<meta name="header-logo-minimized-dark">' '<meta name="header-logo-minimized-dark" content="/<location>/<path>/<to>/<custom_branding>/<logo-minimized-dark>.svg">';
 ```
 
 ### Title
@@ -92,6 +108,8 @@ location /<location> {
 	index index.html;
 	sub_filter '<meta name="header-logo-full">' '<meta name="header-logo-full" content="/<location>/<path>/<to>/<custom_branding>/<logo-full>.svg">';
 	sub_filter '<meta name="header-logo-minimized">' '<meta name="header-logo-minimized" content="/<location>/<path>/<to>/<custom_branding>/<logo-minimized>.svg">';
+	sub_filter '<meta name="header-logo-full-dark">' '<meta name="header-logo-full-dark" content="/<location>/<path>/<to>/<custom_branding>/<logo-full-dark>.svg">';
+	sub_filter '<meta name="header-logo-minimized-dark">' '<meta name="header-logo-minimized-dark" content="/<location>/<path>/<to>/<custom_branding>/<logo-minimized-dark>.svg">';
 	sub_filter '<meta name="title">' '<meta name="title" content="Custom app title">';
 	sub_filter '<meta name="custom-css-file">' '<meta name="custom-css-file" content="/<location>/<path>/<to>/<custom_branding>/<custom-file>.css">';
 	sub_filter_once on;
@@ -118,6 +136,8 @@ Example of application's `index.html` setup (for **devs** only) - this is being 
 		<!-- Dynamic config start -->
 		<meta name="header-logo-full">
 		<meta name="header-logo-minimized">
+		<meta name="header-logo-full-dark">
+		<meta name="header-logo-minimized-dark">
 		<meta name="title">
 		<meta name="custom-css-file">
 		<!-- Dynamic config end -->
@@ -165,7 +185,7 @@ minimized:
  * If branding image consists of a logo and a text, they should be verticaly aligned to center. Font size should be at least 24px.
 
 
-**SidebarLogo** is always located at the `bottom` of sidebar. Minimized version appeares upon the sidebar's collapsion.
+**SidebarLogo** is always located at the `bottom` of sidebar. Minimized version appeares upon the sidebar's collapsion. It is advised to define two color variations of a sidebar logo. One for Light and the other for dark theme.
 
 full:
  * rendered size: `90x30 px`

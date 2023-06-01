@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Link } from 'react-router-dom';
@@ -32,6 +32,13 @@ const Breadcrumbs = ({
 	},[routes]);
 
 	if (crumbs.length == 0) return null;
+
+	useEffect(() => {
+		// Adding subtitle to the title of the application
+		if (app.Services.TitleService != undefined) {
+			app.Services.TitleService.setTitle(crumbs[0].name);
+		}
+	}, [crumbs]);
 
 
 	// TODO: Add disabling breadcrumbs
