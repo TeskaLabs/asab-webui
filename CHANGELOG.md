@@ -24,6 +24,8 @@
 
 - Update redirection url param to be stored in localstorage (INDIGO Sprint 230512, [!404](https://github.com/TeskaLabs/asab-webui/pull/404))
 
+- Implement TitleService (INDIGO Sprint 230526, [!421](https://github.com/TeskaLabs/asab-webui/pull/421))
+
 ### Refactoring
 
 - Refactor naming for `get_current_tenant`, `set_tenants` and `_extract_tenant_from_url` from snake_case to camelCase format (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
