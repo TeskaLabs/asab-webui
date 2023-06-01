@@ -7,7 +7,6 @@ function HomeContainer(props) {
 			<p>Hello world</p>
 		</Container>
 	);
-}
+};
 
 export default HomeContainer;
-
