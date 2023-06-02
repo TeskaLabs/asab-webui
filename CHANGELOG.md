@@ -70,6 +70,8 @@
 
 - Webpack update to eliminate build errors and build data structure update. (INDIGO Sprint 230512, [!414](https://github.com/TeskaLabs/asab-webui/pull/414))
 
+- Demo app maintenance. Demo's HomeContainer refactorization to a functional component. (INDIGO Sprint 230526, [!420](https://github.com/TeskaLabs/asab-webui/pull/420))
+
 - Visual updates of Configuration screen (INDIGO Sprint 230526, [!422](https://github.com/TeskaLabs/asab-webui/pull/422))
 
 ### Bugfix
