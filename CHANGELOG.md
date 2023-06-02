@@ -68,6 +68,8 @@
 
 - Webpack update to eliminate build errors and build data structure update. (INDIGO Sprint 230512, [!414](https://github.com/TeskaLabs/asab-webui/pull/414))
 
+- Add locales for TitleService (INDIGO Sprint 230526, [!423](https://github.com/TeskaLabs/asab-webui/pull/423))
+
 ### Bugfix
 
 - Bug fix for HelpComponent, not display a Helpcomoponent when the user changing the page (INDIGO Sprint 230317, [!401](https://github.com/TeskaLabs/asab-webui/pull/401))
