@@ -222,13 +222,20 @@ function CreateConfigCard(props) {
 	}
 
 	return(
-		<Form onSubmit={handleSubmit(onSubmit)}>
-			<Card className="w-75 offset-md-2">
+		<Form className="h-100" onSubmit={handleSubmit(onSubmit)}>
+			<Card className="w-100 h-100">
 				<CardHeader className="border-bottom">
 					<div className="card-header-title">
 						<span className="cil-settings pr-2" />
 						{t("ASABConfig|Type") + ` ${props.configType.toString()} / ` + t('ASABConfig|New configuration')}
 					</div>
+					<Button
+						color="primary"
+						type="submit"
+						disabled={isSubmitting}
+					>
+						{t('ASABConfig|Save')}
+					</Button>
 				</CardHeader>
 				<CardBody>
 					<FormGroup tag="fieldset" disabled={isSubmitting}>
@@ -249,15 +256,6 @@ function CreateConfigCard(props) {
 						</FormText>
 					</FormGroup>
 				</CardBody>
-				<CardFooter>
-					<Button
-						color="primary"
-						type="submit"
-						disabled={isSubmitting}
-					>
-						{t('ASABConfig|Create')}
-					</Button>
-				</CardFooter>
 			</Card>
 		</Form>
 		)
