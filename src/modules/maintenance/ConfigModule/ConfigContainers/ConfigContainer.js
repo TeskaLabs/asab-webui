@@ -34,7 +34,7 @@ function ConfigContainer(props) {
 	const [ openNodes, setOpenNodes ] = useState([]); // Set open nodes in the TreeMenu
 	const [ homeScreenImg, setHomeScreenImg ] = useState({}); // Set open nodes in the TreeMenu
 
-	useEffect(() => {
+	useEffect(() => {
 		setHomeScreenImg(getBrandImage(props, theme));
 	}, [theme]);
 
@@ -176,7 +176,7 @@ function ConfigContainer(props) {
 						getTree={getTree}
 					/>
 				</Col>
-				<Col xs="8" sm="8" className="h-100">
+				<Col xs="9" sm="9" className="h-100">
 					{chosenPanel != 'import' ?
 						configType != '$' && configName != '$' ?
 							configName != '!manage' && createConfig == false ?
