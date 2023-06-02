@@ -67,4 +67,10 @@
 	.dropdown-export-item, .dropdown-export-item:hover {
 		text-decoration: none;
 	}
+
+	.config-editor-cardbody {
+		display: grid;
+		align-items: center;
+		justify-content: center;
+	}
 }
