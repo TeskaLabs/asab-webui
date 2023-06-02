@@ -26,6 +26,8 @@
 
 - Implement TitleService (INDIGO Sprint 230526, [!421](https://github.com/TeskaLabs/asab-webui/pull/421))
 
+- Implement method, which overload the breadcrumb name with custom name (INDIGO Sprint 230526, [!422](https://github.com/TeskaLabs/asab-webui/pull/422))
+
 ### Refactoring
 
 - Refactor naming for `get_current_tenant`, `set_tenants` and `_extract_tenant_from_url` from snake_case to camelCase format (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
@@ -69,6 +71,8 @@
 - Webpack update to eliminate build errors and build data structure update. (INDIGO Sprint 230512, [!414](https://github.com/TeskaLabs/asab-webui/pull/414))
 
 - Demo app maintenance. Demo's HomeContainer refactorization to a functional component. (INDIGO Sprint 230526, [!420](https://github.com/TeskaLabs/asab-webui/pull/420))
+
+- Visual updates of Configuration screen (INDIGO Sprint 230526, [!422](https://github.com/TeskaLabs/asab-webui/pull/422))
 
 ### Bugfix
 

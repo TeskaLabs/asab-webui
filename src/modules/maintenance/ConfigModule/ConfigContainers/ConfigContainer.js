@@ -34,7 +34,7 @@ function ConfigContainer(props) {
 	const [ openNodes, setOpenNodes ] = useState([]); // Set open nodes in the TreeMenu
 	const [ homeScreenImg, setHomeScreenImg ] = useState({}); // Set open nodes in the TreeMenu
 
-	useEffect(() => {
+	useEffect(() => {
 		setHomeScreenImg(getBrandImage(props, theme));
 	}, [theme]);
 
@@ -176,7 +176,7 @@ function ConfigContainer(props) {
 						getTree={getTree}
 					/>
 				</Col>
-				<Col xs="8" sm="8" className="h-100">
+				<Col xs="9" sm="9" className="h-100">
 					{chosenPanel != 'import' ?
 						configType != '$' && configName != '$' ?
 							configName != '!manage' && createConfig == false ?
@@ -193,15 +193,25 @@ function ConfigContainer(props) {
 									setCreateConfig={setCreateConfig}
 								/>
 						:
-							<Card>
-								<CardBody className="text-center">
-									<img
-										src={homeScreenImg?.full}
-										alt={homeScreenAlt}
-										style={{maxWidth: "38%"}}
-									/>
-									<h4>{t('ASABConfig|Nothing has been selected')}</h4>
-									<h6>{t('ASABConfig|Please select the configuration from tree menu on the left side of the screen')}</h6>
+							<Card className="h-100">
+								<CardBody className="config-editor-cardbody">
+									<Row className="justify-content-center">
+									<Col>
+										<Row className="justify-content-center">
+											<img
+												src={homeScreenImg?.full}
+												alt={homeScreenAlt}
+												style={{maxWidth: "250px"}}
+											/>
+										</Row>
+										<Row className="justify-content-center">
+											<h3>{t('ASABConfig|Nothing has been selected')}</h3>
+										</Row>
+										<Row className="justify-content-center">
+											<h6>{t('ASABConfig|Please select the configuration from tree menu on the left side of the screen')}</h6>
+										</Row>
+									</Col>
+									</Row>
 								</CardBody>
 							</Card>
 					:
