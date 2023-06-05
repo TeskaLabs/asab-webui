@@ -40,7 +40,7 @@ const Breadcrumbs = ({
 		if (app.Services.TitleService != undefined) {
 			app.Services.TitleService.setTitle(t(`Breadcrumbs|${crumbs[0].name}`));
 		}
-	}, [crumbs]);
+	}, [crumbs, t]);
 
 	// TODO: Add disabling breadcrumbs
 	return (

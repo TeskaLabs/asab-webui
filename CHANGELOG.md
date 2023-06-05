@@ -74,6 +74,8 @@
 
 - Visual updates of Configuration screen (INDIGO Sprint 230526, [!422](https://github.com/TeskaLabs/asab-webui/pull/422))
 
+- Add locales for TitleService (INDIGO Sprint 230526, [!423](https://github.com/TeskaLabs/asab-webui/pull/423))
+
 ### Bugfix
 
 - Bug fix for HelpComponent, not display a Helpcomoponent when the user changing the page (INDIGO Sprint 230317, [!401](https://github.com/TeskaLabs/asab-webui/pull/401))
