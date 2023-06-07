@@ -280,7 +280,7 @@ export default class AuthModule extends Module {
 			if (that.App.Store != null) {
 				that.App.Store.dispatch({ type: types.AUTH_SESSION_EXPIRATION, sessionExpired: true });
 				// Disable buttons and pagination in the whole screen
-				[...document.querySelectorAll('[class^="btn"]:not(.alert-button), [class*=" btn"]:not(.alert-button), .page-item')].forEach(i => {
+				[...document.querySelectorAll('[class^="btn"]:not(.alert-button), [class*=" btn"]:not(.alert-button), .page-item, input')].forEach(i => {
 					i.classList.add("disabled");
 					i.setAttribute("disabled", "");
 				});
@@ -288,6 +288,18 @@ export default class AuthModule extends Module {
 				[...document.querySelectorAll('a:not(.nav-link)')].forEach(i => {
 					i.classList.add("disabled-link");
 				});
+				const currentLocation = window.location.href;
+				const confirmReload = () => {
+					const confirmation = confirm("your session has ended, reload the page?");
+					if (confirmation) {
+						window.location.reload();
+					} else {
+						console.log(window.location.href)
+						// history.pushState(null, null, document.URL);
+						history.pushState(null, null, currentLocation);
+					}
+				}
+				window.addEventListener('popstate', confirmReload);
 			}
 		}
 		else {

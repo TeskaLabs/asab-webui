@@ -493,6 +493,9 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 		text-decoration: none;
 	}
 	&.disabled, &:disabled, &-sm.disabled, &-sm:disabled {
+		//button {
+		//	pointer-events: none;
+		//}
 		//pointer-events: none;
 		filter: opacity(60%);
 		.btn {
