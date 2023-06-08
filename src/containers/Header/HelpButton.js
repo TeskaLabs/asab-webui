@@ -10,9 +10,8 @@ export default function HelpButton() {
 
     const [modal, setModal] = useState(false);
 
-    const path = useSelector(state => state?.helpButton.path);
-
-    if ((path == undefined) || (path == "")) return null;
+    const content = useSelector(state => state?.header.content);
+    if ((content == undefined) || (content == "")) return null;
 
     const toggle = () => setModal(!modal);
 
@@ -39,7 +38,7 @@ export default function HelpButton() {
                         </Button>
                     </CardHeader>
                     <CardBody>
-                        <iframe className="help-iframe" src={`https://ndocs.teskalabs.com/logman.io/user/${path}`} title=""/>
+                        <iframe className="help-iframe" src={`https://docs.teskalabs.com/logman.io/user/${content}`} title=""/>
                     </CardBody>
                 </Card>
             </Modal>
