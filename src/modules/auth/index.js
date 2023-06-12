@@ -292,17 +292,18 @@ export default class AuthModule extends Module {
 				[...document.querySelectorAll('.recharts-surface')].forEach(i => {
 					i.style.pointerEvents = "none"
 				});
-				//
+				// Disabling the ability to click on item in the Library
+				[...document.querySelectorAll('.tree-menu-item')].forEach(i => {
+					i.style.pointerEvents = "none"
+				});
+
 				const currentLocation = window.location.href;
-				const confirmReload = () => {
-					const confirmation = confirm("You have been logged out due to inactivity. Reload the page?");
-					if (confirmation) {
-						window.location.reload();
-					} else {
-						history.pushState(null, null, currentLocation);
-					}
-				}
-				window.addEventListener('popstate', confirmReload);
+
+				window.addEventListener('popstate', (e) => {
+					e.preventDefault();
+					// window.history.pushState(null, null, currentLocation);
+					window.location.reload();
+				});
 			}
 		}
 		else {
