@@ -90,6 +90,8 @@
 
 - Fix infinite loop bug on userinfo, when expiration time is set to large values (INDIGO Sprint 230428, [!419](https://github.com/TeskaLabs/asab-webui/pull/419))
 
+- Remove pointer-events style for tree-menu-item (INDIGO Sprint 230609, [!427](https://github.com/TeskaLabs/asab-webui/pull/427))
+
 ## v23.5
 
 ### Features
