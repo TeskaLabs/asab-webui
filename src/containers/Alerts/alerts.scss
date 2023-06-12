@@ -1,7 +1,20 @@
+@import "~asab-webui/styles/constants/index.scss";
+
 .alerts-style {
 	button {
 		span {
 			color: inherit !important;
 		}
 	}
+	.alert-button {
+		color: $white !important;
+	}
 }
+
+.session-expiration-alert {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.5rem 1.25rem;
+}
+

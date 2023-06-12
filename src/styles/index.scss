@@ -53,6 +53,12 @@ html {
 				color: inherit;
 			}
 		}
+
+		.disabled-link {
+			pointer-events: none;
+			cursor: default;
+			opacity: .65;
+		}
 	}
 }
 

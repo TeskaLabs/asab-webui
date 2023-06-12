@@ -93,6 +93,23 @@ module.exports = {
 			resolve: config["webpack"]["resolve"],
 			module: {
 				rules: [
+					// TODO: rules for image assests and fonts should be moved to commons with just the outputPath specified here, in webpack.dev.js
+					{
+						test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+						type: 'asset/resource',
+						generator: {
+							filename: 'svg/[name][contenthash:8][ext]',
+							outputPath: ''
+						}
+					},
+					{
+						test: /\.(woff|woff2|ttf|eot|ico)(\?.*)?$/,
+						type: 'asset/resource',
+						generator: {
+							filename: 'fonts/[name][contenthash:8][ext]',
+							outputPath: ''
+						}
+					},
 					...common.getRules(config),
 					...extendedConfig.extraModule.extraRules
 				],
@@ -127,6 +144,7 @@ module.exports = {
 						},
 					}
 				},
+				runtimeChunk: 'single',
 				...extendedConfig.extraOptimization
 			},
 			...filteredExtendedConfig

@@ -15,11 +15,16 @@ const ErrorHandlerExample = () => {
 	return (
 		<Container>
 			<Card>
-				<CardHeader>Click on number to increment. When it'll reach 5 this container will throw error and ErrorHandler will be rendered</CardHeader>
+				<CardHeader className="border-bottom">
+				<div className="card-header-title">
+					<i className="cil-error" />
+					Click on number to increment. When it'll reach 5 this container will throw error and ErrorHandler will be rendered
+				</div>
+				</CardHeader>
 				<CardBody><span onClick={() => setCount(prev => prev+1)}>{count}</span></CardBody>
 			</Card>
 		</Container>
 	)
-}
+};
 
 export default ErrorHandlerExample;

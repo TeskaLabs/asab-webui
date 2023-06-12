@@ -1,23 +1,31 @@
 import React, {useMemo, useEffect, useState} from 'react';
-import {connect, useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {Modal, Nav} from 'reactstrap';
 import SidebarItem from './SidebarItem';
 import NavbarBrand from './NavbarBrand';
 import SidebarBottomItem from './SidebarBottomItem';
 import {COLLAPSE_SIDEBAR} from "../../actions";
+import { getBrandImage } from 'asab-webui';
 
 
-const Sidebar = (props) => {
+export default function Sidebar (props) {
 	const [modal, setModal] = useState(false);
-	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
+	const [sidebarBottomBranding, setSidebarBottomBranding] = useState({});
 	const [windowDimensions, setWindowDimensions] = useState({width: window.innerWidth});
+	const isSidebarCollapsed = useSelector(state => state.sidebar.isSidebarCollapsed);
+	const sidebarHiddenItems = useSelector(state => state.sidebar?.sidebarHiddenItems);
+	const unauthorizedNavItem = useSelector(state => state.auth?.unauthorizedNavItem);
+	const unauthorizedNavChildren = useSelector(state => state.auth?.unauthorizedNavChildren);
+	const sessionExpired = useSelector(state => state.auth?.sessionExpired);
+	const theme = useSelector(state => state.theme);
 	const dispatch = useDispatch();
 
-	// Get dynamically hidden sidebar items from store
-	let sidebarHiddenItems = props.sidebarHiddenItems;
-
 	let sidebarItems = props.navigation.getItems().items;
+
+	useEffect(() => {
+		setSidebarBottomBranding(getBrandImage(props, theme, 'sidebarLogo'));
+	}, [theme]);
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
@@ -50,8 +58,6 @@ const Sidebar = (props) => {
 	}
 
 	const navConfig = sidebarItems.filter(item => item.name !== "About"),
-		unauthorizedNavItems = props.unauthorizedNavItem,
-		unauthorizedNavChildren = props.unauthorizedNavChildren,
 		aboutItem = props.navigation.getItems().items.filter(item => item.name === "About")[0];
 
 	// Sort items based on config
@@ -65,8 +71,8 @@ const Sidebar = (props) => {
 			});
 		}
 
-		if (unauthorizedNavItems != undefined && unauthorizedNavItems.length != 0) {
-			itemsList = itemsList.filter((item) => unauthorizedNavItems.indexOf(item.name) == -1);
+		if (unauthorizedNavItem != undefined && unauthorizedNavItem.length != 0) {
+			itemsList = itemsList.filter((item) => unauthorizedNavItem.indexOf(item.name) == -1);
 		}
 
 		return itemsList;
@@ -97,13 +103,14 @@ const Sidebar = (props) => {
 								<SidebarItem
 									key={idx}
 									item={item}
+									disabled={sessionExpired}
 									unauthorizedNavChildren={unauthorizedNavChildren}
 									uncollapseAll={memoizedItemsList.length <= 2}
 									toggleSidebarModal={toggleSidebarModal}
 								/>
 							))}
 						</Nav>
-						<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} toggleSidebarModal={toggleSidebarModal}/>
+						<SidebarBottomItem item={aboutItem}  sidebarLogo={props.sidebarLogo} disabled={sessionExpired} toggleSidebarModal={toggleSidebarModal}/>
 					</div>
 				</div>
 			</Modal>
@@ -121,24 +128,14 @@ const Sidebar = (props) => {
 						<SidebarItem
 							key={idx}
 							item={item}
+							disabled={sessionExpired}
 							unauthorizedNavChildren={unauthorizedNavChildren}
 							uncollapseAll={memoizedItemsList.length <= 2}
 						/>
 					))}
 				</Nav>
-				<SidebarBottomItem item={aboutItem} sidebarLogo={props.sidebarLogo} />
+				<SidebarBottomItem item={aboutItem} sidebarLogo={sidebarBottomBranding} disabled={sessionExpired} />
 			</div>
 		</div>
 	)
 }
-
-function mapStateToProps(state) {
-	return {
-		unauthorizedNavItem: state.auth?.unauthorizedNavItem,
-		unauthorizedNavChildren: state.auth?.unauthorizedNavChildren,
-		sidebarHiddenItems: state.sidebar?.sidebarHiddenItems,
-		sidebarLogo: state.config?.sidebarLogo
-	};
-}
-
-export default connect(mapStateToProps)(Sidebar);

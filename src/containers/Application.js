@@ -15,19 +15,21 @@ import Alerts from './Alerts';
 
 import alertsReducer from './Alerts/reducer';
 import sidebarReducer from './Sidebar/reducer';
-import headerHelpButtonReducer from './Header/reducer';
+import headerReducer from './Header/reducer';
 
 import ReduxService from '../services/ReduxService';
 import ConfigService from '../config/ConfigService';
 import HeaderService from '../services/HeaderService';
 import SidebarService from './Sidebar/service';
 import ThemeService from '../theme/ThemeService';
+import BrandingService from '../services/BrandingService';
 import HelpService from "../services/HelpService";
+import TitleService from "../services/TitleService";
 
 import AccessDeniedCard from '../modules/tenant/access/AccessDeniedCard';
 import UnauthorizedAccessScreen from '../modules/auth/components/UnauthorizedAccessScreen';
 
-import {ADD_ALERT, SET_ADVANCED_MODE, HELP_CONTENT} from '../actions';
+import {ADD_ALERT, SET_ADVANCED_MODE, HELP_CONTENT, SET_BREADCRUMB_NAME} from '../actions';
 
 
 class Application extends Component {
@@ -89,11 +91,13 @@ class Application extends Component {
 		this.HeaderService = new HeaderService(this, "HeaderService");
 		this.SidebarService = new SidebarService(this, "SidebarService");
 		this.ThemeService = new ThemeService(this, "ThemeService");
+		this.BrandingService = new BrandingService(this, "BrandingService");
 		this.HelpService = new HelpService(this, "HelpService");
+		this.TitleService = new TitleService(this, "TitleService")
 
 		this.ReduxService.addReducer("alerts", alertsReducer);
 		this.ReduxService.addReducer("advmode", advancedModeReducer);
-		this.ReduxService.addReducer("helpButton", headerHelpButtonReducer);
+		this.ReduxService.addReducer("header", headerReducer);
 		this.ReduxService.addReducer("sidebar", sidebarReducer);
 
 		this.DefaultPath = props.defaultpath;
@@ -453,6 +457,22 @@ class Application extends Component {
 		}, [])
 	}
 
+	// Method for overloading breadcrumb name
+	setBreadcrumbName(name) {
+		useEffect(() => {
+			this.Store.dispatch({
+				type: SET_BREADCRUMB_NAME,
+				breadcrumbName: name
+			});
+			return () => {
+				this.Store.dispatch({
+					type: SET_BREADCRUMB_NAME,
+					breadcrumbName: undefined
+				});
+			}
+		}, [name])
+	}
+
 	render() {
 		// Render the splash screen if needed
 		if (this.state.SplashscreenRequestors > 0) return (
@@ -572,26 +592,6 @@ class Navigation {
 	getItems() {
 		return {
 			items: this.Items
-		}
-	}
-
-	updateItem(item){
-		/*
-			Update item in the navigation by `id` which should be
-			defined within the item. The same `id` should have the
-			item to be updated and item with updates.
-
-			{
-				id: "someId",			// Id of the item
-				path: '/some/path',		// Url path
-				exact: true,			// Whether path must be matched exactly
-				name: 'Some Name',		// Route name
-				component: ReactComponent	// Component to be rendered
-			}
-		*/
-		const index = this.Items.findIndex(i => i.id == item.id);
-		if (index != -1) {
-			this.Items[index] = item;
 		}
 	}
 

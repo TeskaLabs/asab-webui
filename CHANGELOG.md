@@ -22,6 +22,14 @@
 
 - Added option to show suffix to indicate 'relative time' in DateTime component (INDIGO Sprint 230428, [!417](https://github.com/TeskaLabs/asab-webui/pull/417))
 
+- Update redirection url param to be stored in localstorage (INDIGO Sprint 230512, [!404](https://github.com/TeskaLabs/asab-webui/pull/404))
+
+- Implement TitleService (INDIGO Sprint 230526, [!421](https://github.com/TeskaLabs/asab-webui/pull/421))
+
+- Implement method, which overload the breadcrumb name with custom name (INDIGO Sprint 230526, [!422](https://github.com/TeskaLabs/asab-webui/pull/422))
+
+- New color variable for disabled text (INDIGO Sprint 230526, [!424](https://github.com/TeskaLabs/asab-webui/pull/424))
+
 ### Refactoring
 
 - Refactor naming for `get_current_tenant`, `set_tenants` and `_extract_tenant_from_url` from snake_case to camelCase format (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
@@ -60,6 +68,16 @@
 
 - Applying lazy loading in About, Auth, Tools and Maintenance modules. (INDIGO Sprint 230428, [!415](https://github.com/TeskaLabs/asab-webui/pull/415))
 
+- Refactor and update Apps session expiration (INDIGO Sprint 230512, [!403](https://github.com/TeskaLabs/asab-webui/pull/403))
+
+- Webpack update to eliminate build errors and build data structure update. (INDIGO Sprint 230512, [!414](https://github.com/TeskaLabs/asab-webui/pull/414))
+
+- Demo app maintenance. Demo's HomeContainer refactorization to a functional component. (INDIGO Sprint 230526, [!420](https://github.com/TeskaLabs/asab-webui/pull/420))
+
+- Visual updates of Configuration screen (INDIGO Sprint 230526, [!422](https://github.com/TeskaLabs/asab-webui/pull/422))
+
+- Add locales for TitleService (INDIGO Sprint 230526, [!423](https://github.com/TeskaLabs/asab-webui/pull/423))
+
 - Changed icons from coreui.io icons to atlasicons. (INDIGO Sprint 230428, [!412](https://github.com/TeskaLabs/asab-webui/pull/412))
 
 ### Bugfix
@@ -71,6 +89,8 @@
 - Fix `console.error` to `console.warn` (INDIGO Sprint 230331, [!406](https://github.com/TeskaLabs/asab-webui/pull/406))
 
 - Fix infinite loop bug on userinfo, when expiration time is set to small values (INDIGO Sprint 230414, [!410](https://github.com/TeskaLabs/asab-webui/pull/410))
+
+- Fix infinite loop bug on userinfo, when expiration time is set to large values (INDIGO Sprint 230428, [!419](https://github.com/TeskaLabs/asab-webui/pull/419))
 
 ## v23.5
 

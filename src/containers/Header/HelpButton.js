@@ -10,7 +10,7 @@ export default function HelpButton() {
 
     const [modal, setModal] = useState(false);
 
-    const content = useSelector(state => state?.helpButton.content);
+    const content = useSelector(state => state?.header.content);
     if ((content == undefined) || (content == "")) return null;
 
     const toggle = () => setModal(!modal);

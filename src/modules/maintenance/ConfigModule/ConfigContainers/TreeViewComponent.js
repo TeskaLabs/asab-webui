@@ -116,6 +116,8 @@ export function TreeViewComponent(props) {
 			hasSearch={true}
 			openNodes={props.openNodes}
 			onClickItem={onClickItem}
+			activeKey={props.configName != "!manage" ? `${props.configType}/${props.configName}` : `${props.configType}`}
+			focusKey={props.configName != "!manage" ? `${props.configType}/${props.configName}` : `${props.configType}`}
 			initialActiveKey={props.configName != "!manage" ? `${props.configType}/${props.configName}` : `${props.configType}`}
 			initialFocusKey={props.configName != "!manage" ? `${props.configType}/${props.configName}` : `${props.configType}`}
 			hasNodes={false}

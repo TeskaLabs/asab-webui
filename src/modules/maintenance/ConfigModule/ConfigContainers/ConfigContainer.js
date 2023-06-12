@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, connect } from "react-redux";
 
 import {
 	Container, Col, Row,
 	Card, CardBody
 } from "reactstrap";
-
-import { connect } from 'react-redux';
 
 import { useTranslation } from 'react-i18next';
 
@@ -13,6 +12,7 @@ import { TreeViewComponent } from "./TreeViewComponent";
 import ConfigEditor from "./ConfigEditor";
 import ConfigList from "./ConfigList";
 import ConfigImport from "./ConfigImport";
+import { getBrandImage } from "asab-webui";
 
 function ConfigContainer(props) {
 
@@ -23,7 +23,7 @@ function ConfigContainer(props) {
 	const configType = props.match.params.configType;
 	const configName = props.match.params.configName;
 
-	const homeScreenImg = props.app.Config.get('brand_image').full;
+	const theme = useSelector(state => state.theme);
 	const homeScreenAlt = props.app.Config.get('title');
 
 	const [ treeData, setTreeData ] = useState({}); // Set complete data for TreeViewComponent
@@ -32,7 +32,11 @@ function ConfigContainer(props) {
 	const [ typeList, setTypeList ] = useState([]); // Set data name of type for group configuration
 	const [ treeList, setTreeList ] = useState({}); // Set cleaned data for trigger UseEffect for updating TreeViewComponent, and for render the tree
 	const [ openNodes, setOpenNodes ] = useState([]); // Set open nodes in the TreeMenu
+	const [ homeScreenImg, setHomeScreenImg ] = useState({}); // Set open nodes in the TreeMenu
 
+	useEffect(() => {
+		setHomeScreenImg(getBrandImage(props, theme));
+	}, [theme]);
 
 	// To get the full overview on schemas and configs it is needed to update the tree list and data state
 	useEffect(() => {
@@ -48,7 +52,6 @@ function ConfigContainer(props) {
 	useEffect(() => {
 		getChart();
 	}, [treeList]);
-
 
 	// Obtain list of types
 	// TODO: add Error Card screen when no types are fetched
@@ -173,7 +176,7 @@ function ConfigContainer(props) {
 						getTree={getTree}
 					/>
 				</Col>
-				<Col xs="8" sm="8" className="h-100">
+				<Col xs="9" sm="9" className="h-100">
 					{chosenPanel != 'import' ?
 						configType != '$' && configName != '$' ?
 							configName != '!manage' && createConfig == false ?
@@ -190,15 +193,25 @@ function ConfigContainer(props) {
 									setCreateConfig={setCreateConfig}
 								/>
 						:
-							<Card>
-								<CardBody className="text-center">
-									<img
-										src={homeScreenImg}
-										alt={homeScreenAlt}
-										style={{maxWidth: "38%"}}
-									/>
-									<h4>{t('ASABConfig|Nothing has been selected')}</h4>
-									<h6>{t('ASABConfig|Please select the configuration from tree menu on the left side of the screen')}</h6>
+							<Card className="h-100">
+								<CardBody className="config-editor-cardbody">
+									<Row className="justify-content-center">
+									<Col>
+										<Row className="justify-content-center">
+											<img
+												src={homeScreenImg?.full}
+												alt={homeScreenAlt}
+												style={{maxWidth: "250px"}}
+											/>
+										</Row>
+										<Row className="justify-content-center">
+											<h3>{t('ASABConfig|Nothing has been selected')}</h3>
+										</Row>
+										<Row className="justify-content-center">
+											<h6>{t('ASABConfig|Please select the configuration from tree menu on the left side of the screen')}</h6>
+										</Row>
+									</Col>
+									</Row>
 								</CardBody>
 							</Card>
 					:
