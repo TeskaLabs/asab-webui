@@ -280,7 +280,7 @@ export default class AuthModule extends Module {
 			if (that.App.Store != null) {
 				that.App.Store.dispatch({ type: types.AUTH_SESSION_EXPIRATION, sessionExpired: true });
 				// Disable buttons and pagination in the whole screen
-				[...document.querySelectorAll('[class^="btn"]:not(.alert-button), [class*=" btn"]:not(.alert-button), .btn-group a, .page-item, input')].forEach(i => {
+				[...document.querySelectorAll('[class^="btn"]:not(.alert-button), [class*=" btn"]:not(.alert-button), .btn-group a, .page-item, input, select')].forEach(i => {
 					i.classList.add("disabled");
 					i.setAttribute("disabled", "");
 				});
