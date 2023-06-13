@@ -288,14 +288,6 @@ export default class AuthModule extends Module {
 				[...document.querySelectorAll('a:not(.nav-link)')].forEach(i => {
 					i.classList.add("disabled-link");
 				});
-				// Disabling the ability to click on parts of widgets
-				[...document.querySelectorAll('.recharts-surface')].forEach(i => {
-					i.style.pointerEvents = "none"
-				});
-				// Disabling the ability to click on item in the Library
-				[...document.querySelectorAll('.tree-menu-item')].forEach(i => {
-					i.style.pointerEvents = "none"
-				});
 				// Tracks Forward and Backward clicks in the browser and reloads the page
 				window.addEventListener('popstate', () => {
 					window.location.reload();
