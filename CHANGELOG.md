@@ -90,6 +90,8 @@
 
 - Fix infinite loop bug on userinfo, when expiration time is set to large values (INDIGO Sprint 230428, [!419](https://github.com/TeskaLabs/asab-webui/pull/419))
 
+- Fixed title display for buttons after a session has ended. Added disabling inputs, Pie chart clickable parts, disabling `tree-menu-item` and reloading the page after clicking the Forward or Backward buttons in the browser (INDIGO Sprint 230609, [!426](https://github.com/TeskaLabs/asab-webui/pull/426))
+
 ## v23.5
 
 ### Features
