@@ -296,13 +296,10 @@ export default class AuthModule extends Module {
 				[...document.querySelectorAll('.tree-menu-item')].forEach(i => {
 					i.style.pointerEvents = "none"
 				});
-
-				const currentLocation = window.location.href;
-
-				window.addEventListener('popstate', (e) => {
-					e.preventDefault();
-					// window.history.pushState(null, null, currentLocation);
+				// Tracks Forward and Backward clicks in the browser and reloads the page
+				window.addEventListener('popstate', () => {
 					window.location.reload();
+
 				});
 			}
 		}
