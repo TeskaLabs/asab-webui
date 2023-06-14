@@ -83,7 +83,7 @@ $disabled-dropdown-item: var(--disabled-dropdown-item);
 		}
 	}
 	& .dropdown-item {
-		span, a, [class^="cil-"] {
+		span, a, [class^="at-"] {
 			color: $text-dropdown-color;
 		}
 	}
@@ -112,7 +112,7 @@ $disabled-dropdown-item: var(--disabled-dropdown-item);
 		border: none;
 		box-shadow: none;
 	}
-	[class^="cil-"] {
+	[class^="at-"] {
 		color: inherit;
 	}
 }
@@ -120,11 +120,11 @@ $disabled-dropdown-item: var(--disabled-dropdown-item);
 .show > .btn-outline-secondary.dropdown-toggle {
 	color: $btn-secondary-bg-color;
 	background-color: $btn-secondary-outline-hover-bg-color;
-	[class^="cil-"] {
+	[class^="at-"] {
 		color: $text-dropdown-button-color;
 	}
 	&:focus, &:active {
-		[class^="cil-"] {
+		[class^="at-"] {
 			color: $btn-secondary-bg-color;
 		}
 	}
@@ -134,7 +134,7 @@ $disabled-dropdown-item: var(--disabled-dropdown-item);
 	& .btn-secondary {
 		background-color: inherit;
 		color: $text-dropdown-button-color;
-		& [class^="cil-"] {
+		& [class^="at-"] {
 			color: $text-dropdown-button-color;
 		}
 		&:hover {
@@ -143,7 +143,7 @@ $disabled-dropdown-item: var(--disabled-dropdown-item);
 			}
 		}
 		&:active {
-			& [class^="cil-"] {
+			& [class^="at-"] {
 				color: $btn-txt;
 			}
 		}
@@ -157,20 +157,20 @@ $disabled-dropdown-item: var(--disabled-dropdown-item);
 			background-color: inherit;
 			color: $text-dropdown-button-color;
 			box-shadow: 0 2px 3px -1px $box-shadow-input-card;
-			& [class^="cil-"] {
+			& [class^="at-"] {
 				color: $text-dropdown-button-color !important;
 			}
 			&:hover {
 				background-color: $hover-bg;
 				filter: brightness(90%);
-				& [class^="cil-"] {
+				& [class^="at-"] {
 					color: $text-dropdown-button-color;
 				}
 			}
 			&:active {
 				background-color: $btn-secondary-bg-color;
 				color: $btn-txt;
-				& [class^="cil-"] {
+				& [class^="at-"] {
 					color: $btn-txt;
 				}
 			}
@@ -191,7 +191,7 @@ $disabled-dropdown-item: var(--disabled-dropdown-item);
 			border: 1px solid $border-color;
 			&:active {
 				background-color: $btn-secondary-bg-color !important;
-				& [class^="cil-"] {
+				& [class^="at-"] {
 					color: $btn-txt !important;
 				}
 			}
@@ -202,7 +202,7 @@ $disabled-dropdown-item: var(--disabled-dropdown-item);
 // Primary outline style
 .btn-outline-primary.dropdown-toggle {
 	color: $primary-outline-text;
-	& [class^="cil-"] {
+	& [class^="at-"] {
 		color: $primary-outline-text;
 	}
 }
@@ -210,7 +210,7 @@ $disabled-dropdown-item: var(--disabled-dropdown-item);
 .show > .btn-outline-primary.dropdown-toggle {
 	background-color: $primary-outline-bg;
 	color: $primary-outline-text;
-	& [class^="cil-"] {
+	& [class^="at-"] {
 		color: $primary-outline-text;
 	}
 }
