@@ -108,7 +108,9 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 		color: $btn-txt;
 	}
 	&.disabled, &:disabled {
-		pointer-events: none;
+		 & [class^="cil-"] {
+			 pointer-events: none;
+		 }
 	}
 }
 
@@ -490,7 +492,6 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 		text-decoration: none;
 	}
 	&.disabled, &:disabled, &-sm.disabled, &-sm:disabled {
-		pointer-events: none;
 		filter: opacity(60%);
 		.btn {
 			filter: opacity(100%);
