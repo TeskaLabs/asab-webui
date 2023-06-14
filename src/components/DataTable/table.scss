@@ -48,7 +48,7 @@ thead .data-table-tr th {
         height: 48px;
         & .data-table-arrow-btn {
             padding-left: .75rem;
-            [class^="cil-"], [class*=" cil-"] {
+            [class^="at-"], [class*=" at-"] {
                 color: $primary;
                 cursor: pointer;
             }
