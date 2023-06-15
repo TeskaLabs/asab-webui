@@ -164,6 +164,7 @@ export default function ServicesContainer(props) {
 			<Card className="h-100">
 				<CardHeader className="border-bottom">
 					<div className="card-header-title">
+						<i className="at-list mr-2"/>
 						{t("ServicesContainer|Services")}
 					</div>
 					<Search
