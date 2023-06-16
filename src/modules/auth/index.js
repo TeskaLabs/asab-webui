@@ -280,13 +280,18 @@ export default class AuthModule extends Module {
 			if (that.App.Store != null) {
 				that.App.Store.dispatch({ type: types.AUTH_SESSION_EXPIRATION, sessionExpired: true });
 				// Disable buttons and pagination in the whole screen
-				[...document.querySelectorAll('[class^="btn"]:not(.alert-button), [class*=" btn"]:not(.alert-button), .page-item')].forEach(i => {
+				[...document.querySelectorAll('[class^="btn"]:not(.alert-button), [class*=" btn"]:not(.alert-button), .btn-group a, .page-item, input, select')].forEach(i => {
 					i.classList.add("disabled");
 					i.setAttribute("disabled", "");
 				});
 				// Disable link without class "nav-link" in the whole screen
 				[...document.querySelectorAll('a:not(.nav-link)')].forEach(i => {
 					i.classList.add("disabled-link");
+				});
+				// Tracks Forward and Backward clicks in the browser and reloads the page
+				window.addEventListener('popstate', () => {
+					window.location.reload();
+
 				});
 			}
 		}
