@@ -35,7 +35,7 @@ function LanguageDropdown(props) {
 
 	return (
 		<UncontrolledDropdown direction="down" className="pr-4">
-			<DropdownToggle nav caret>
+			<DropdownToggle nav caret className="d-flex align-items-center">
 				<LanguageFlag language={i18n.language}/>
 			</DropdownToggle>
 			<DropdownMenu right>
@@ -60,13 +60,13 @@ function LanguageDropdown(props) {
 export default LanguageDropdown;
 
 let LanguageToFlag = {
-	cs: 'cif-cz',
-	en: 'cif-gb',
-	dev: 'at-bug-insect',
-	cimode: 'at-bug-insect',
+	cs: 'cz',
+	en: 'gb',
+	dev: 'placeholder-flag',
+	cimode: 'placeholder-flag',
 }
 
 function LanguageFlag(props) {
 	let lcls = LanguageToFlag[props.language]
-	return (<i className={lcls +' pr-2'} style={{height: '1em', width: '1.6em'}}></i>)
+	return (<img className={'pr-2'} src={`media/flags/${lcls}.svg`} style={{height: '1.2rem', width: '1.8rem'}}/>)
 }
