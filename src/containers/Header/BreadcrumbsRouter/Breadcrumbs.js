@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 
-
 const Breadcrumbs = ({
 	routes, match, app, disableContainerBreadcrumbs
 }) => {
