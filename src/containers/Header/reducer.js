@@ -1,7 +1,7 @@
 import { SET_HELP_PATH, SET_BREADCRUMB_NAME } from '../../actions';
 
 const initialState = {
-	content: "",
+	path: "",
 	breadcrumbName: undefined
 }
 
@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
 		case SET_HELP_PATH:
 			return {
 				...state,
-				content: action.content
+				path: action.path
 			}
 
 		case SET_BREADCRUMB_NAME:
