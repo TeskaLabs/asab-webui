@@ -3,7 +3,7 @@ import { HELP_CONTENT, SET_BREADCRUMB_NAME, SET_FLAG } from '../../actions';
 const initialState = {
 	content: "",
 	breadcrumbName: undefined, 
-	flag: "Preview"
+	flag: undefined
 }
 
 export default (state = initialState, action) => {
