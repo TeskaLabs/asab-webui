@@ -28,7 +28,7 @@ import TitleService from "../services/TitleService";
 import AccessDeniedCard from '../modules/tenant/access/AccessDeniedCard';
 import UnauthorizedAccessScreen from '../modules/auth/components/UnauthorizedAccessScreen';
 
-import {ADD_ALERT, SET_ADVANCED_MODE, HELP_CONTENT, SET_BREADCRUMB_NAME} from '../actions';
+import {ADD_ALERT, SET_ADVANCED_MODE, SET_HELP_PATH, SET_BREADCRUMB_NAME} from '../actions';
 
 
 class Application extends Component {
@@ -446,12 +446,12 @@ class Application extends Component {
 	addHelpButton(path) {
 		useEffect(() => {
 			this.Store.dispatch({
-				type: HELP_CONTENT,
+				type: SET_HELP_PATH,
 				content: path
 			});
 			return () => {
 				this.Store.dispatch({
-					type: HELP_CONTENT,
+					type: SET_HELP_PATH,
 					content: ""
 				})
 			}
