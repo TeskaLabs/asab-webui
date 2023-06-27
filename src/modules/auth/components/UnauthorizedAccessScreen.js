@@ -39,7 +39,6 @@ export default function UnauthorizedAccessScreen(props) {
 			<Card className="h-100 unauthorized-card">
 				<CardHeader className="text-center border-bottom">
 					<div className="card-header-title">
-						<i className="cil-warning pr-2 text-warning" title={t("UnauthorizedAccessScreen|Unauthorized access")}/>
 						<CardTitle className="text-primary mb-0">
 							{t('UnauthorizedAccessScreen|Unauthorized access')}
 						</CardTitle>
@@ -48,6 +47,9 @@ export default function UnauthorizedAccessScreen(props) {
 				<CardBody className="text-center unauthorized-cardbody">
 					<Row className="justify-content-center">
 						<Col>
+							<Row className="justify-content-center">
+								<p><i className="unauthorized-icon cil-warning text-danger" title={t("UnauthorizedAccessScreen|Unauthorized access")}/></p>
+							</Row>
 							<Row className="justify-content-center">
 								<p className="unauthorized-p">{t("UnauthorizedAccessScreen|You are not authorized to access this part of the application. Please ask your application administrator for following resource")}:</p>
 							</Row>

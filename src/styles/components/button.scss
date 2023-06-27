@@ -107,6 +107,11 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 		box-shadow: none;
 		color: $btn-txt;
 	}
+	&.disabled, &:disabled {
+		 & [class^="cil-"] {
+			 pointer-events: none;
+		 }
+	}
 }
 
 .btn-outline, .btn-outline-primary, .btn-outline-secondary, .btn-outline-success, .btn-outline-danger, .btn-outline-warning, .btn-outline-info {
@@ -485,6 +490,12 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 	}
 	& a:hover {
 		text-decoration: none;
+	}
+	&.disabled, &:disabled, &-sm.disabled, &-sm:disabled {
+		filter: opacity(60%);
+		.btn {
+			filter: opacity(100%);
+		}
 	}
 }
 

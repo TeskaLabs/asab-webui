@@ -1,5 +1,5 @@
-import React, { useState, Suspense, useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 import { Nav, NavItem } from 'reactstrap';
 
@@ -9,12 +9,22 @@ import Breadcrumbs from './BreadcrumbsRouter';
 import { Link } from "react-router-dom";
 import './header.scss';
 
+import { getBrandImage } from 'asab-webui';
+
 export function Header(props) {
 	const HeaderService = props.app.locateService("HeaderService");
-	const href = props.brand_image.href ?? "/";
 
+	const [brandImage, setBrandImage] = useState({});
 	const [headerProperties, setHeaderProperties] = useState(false);
 	const [windowDimensions, setWindowDimensions] = useState({width: window.innerWidth,});
+
+	const title = useSelector(state => state.config?.title);
+	const theme = useSelector(state => state.theme);
+
+	// getBrandImage returns brandImage object (using BrandingService under the hood) based on theme
+	useEffect(() => {
+		setBrandImage(getBrandImage(props, theme));
+	}, [theme]);
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
@@ -31,10 +41,10 @@ export function Header(props) {
 				<>
 					{windowDimensions.width <= 768 &&
 						<div className="mobile-logo-position">
-							<Link to={href}>
+							<Link to={brandImage?.href}>
 								<img
-									src={props.brand_image.full}
-									alt={props.title}
+									src={brandImage?.full}
+									alt={title}
 									width="150"
 									height="50"
 								/>
@@ -55,10 +65,10 @@ export function Header(props) {
 			:
 				<>
 					<div className="mobile-logo-position">
-						<Link to={href}>
+						<Link to={brandImage?.href}>
 							<img
-								src={props.brand_image.full}
-								alt={props.title}
+								src={brandImage?.full}
+								alt={title}
 								width="150"
 								height="50"
 							/>
@@ -150,16 +160,4 @@ export function Header(props) {
 	);
 }
 
-
-function mapStateToProps(state) {
-	const headerImage = state.config.brand_image?.full ?
-		state.config.brand_image : state.config.default_brand_image;
-
-	return {
-		brand_image: headerImage,
-		title: state.config.title,
-	}
-}
-
-export default connect(mapStateToProps)(Header);
-
+export default Header;

@@ -45,7 +45,13 @@ $disabled-dropdown-item: var(--disabled-dropdown-item);
 		border: none;
 	}
 }
-
+.dropdown {
+	&.action-button-dropdown {
+		&.disabled, &:disabled {
+			pointer-events: none;
+		}
+	}
+}
 .dropdown-toggle {
 	padding: 8px;
 	color: $toggle-text-color;

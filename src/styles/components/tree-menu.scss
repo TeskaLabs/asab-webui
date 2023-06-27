@@ -15,14 +15,14 @@
 		position: relative;
 		padding: .5rem;
 		border-bottom: 1px solid $border-color;
-		margin-bottom: 0px !important;
+		margin-bottom: 0 !important;
 		overflow-wrap: break-word;
 		border-color: rgba(0, 0, 0, 0.125) !important;
 
 		&.selected {
 			background-color: $highlighted-bg-color;
 			color: $reversed-text-color;
-			box-shadow:  0px 0px 5px 0px #222;
+			box-shadow:  0 0 5px 0 #222;
 			font-weight: 500;
 			z-index: 999;
 		}

@@ -1,5 +1,4 @@
 import Service from '../abc/Service';
-import Axios from 'axios';
 import ConfigReducer from './ConfigReducer';
 import { CHANGE_CONFIG, SET_DEV_CONFIG } from '../actions';
 
@@ -20,21 +19,33 @@ export default class ConfigService extends Service {
 		// Initialization of dynamic configuration
 		const headerLogoFull = document.getElementsByName('header-logo-full')[0]?.content;
 		const headerLogoMini = document.getElementsByName('header-logo-minimized')[0]?.content;
+		const headerLogoFullDark = document.getElementsByName('header-logo-full-dark')[0]?.content;
+		const headerLogoMiniDark = document.getElementsByName('header-logo-minimized-dark')[0]?.content;
 		const title = document.getElementsByName('title')[0]?.content;
 		const customCSS = document.getElementsByName('custom-css-file')[0]?.content;
 
 		let dynamicConfig = {};
-		let brandImage = {};
-		// Add custom header full logo
+		// determine if any logos have been dynamically configured and assign brandImage property as an empty object
+		if (((headerLogoFull != undefined) && (headerLogoFull != "")) || ((headerLogoFullDark != undefined) && (headerLogoFullDark != "")) || ((headerLogoMini != undefined) && (headerLogoMini != "")) || ((headerLogoMiniDark != undefined) && (headerLogoMiniDark != ""))) {
+			dynamicConfig.brandImage = {};
+		}
+		// If header's full light logo has been configured, add it to dynamic config object
 		if ((headerLogoFull != undefined) && (headerLogoFull != "")) {
-			brandImage["full"] = headerLogoFull;
-			dynamicConfig["brand_image"] = brandImage;
+			Object.assign(dynamicConfig.brandImage, {"light": {"full": headerLogoFull}});
 		}
-		// Add custom header minimized logo
+		// If header's full dark logo has been configured, extend/add it to dynamic config's brandImage property
+		if ((headerLogoFullDark != undefined) && (headerLogoFullDark != "")) {
+			Object.assign(dynamicConfig.brandImage, {"dark": {"full": headerLogoFullDark}});
+		}
+		// If header's minimized light logo has been configured, extend/add it to dynamic config brandImage property
 		if ((headerLogoMini != undefined) && (headerLogoMini != "")) {
-			brandImage["minimized"] = headerLogoMini;
-			dynamicConfig["brand_image"] = brandImage;
+			Object.assign(dynamicConfig.brandImage, {...dynamicConfig.brandImage, "light" : {...dynamicConfig.brandImage?.light, "minimized": headerLogoMini}})
 		}
+		// If header's minimized dark logo has been configured, extend/add it to dynamic config brandImage property
+		if ((headerLogoMiniDark != undefined) && (headerLogoMiniDark != "")) {
+			Object.assign(dynamicConfig.brandImage, {...dynamicConfig.brandImage, "dark" : {...dynamicConfig.brandImage?.dark, "minimized": headerLogoMiniDark}})
+		}
+
 		// Add custom title
 		if ((title != undefined) && (title != "")) {
 			dynamicConfig["title"] = title;
