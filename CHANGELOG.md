@@ -78,6 +78,8 @@
 
 - Add locales for TitleService (INDIGO Sprint 230526, [!423](https://github.com/TeskaLabs/asab-webui/pull/423))
 
+- Favicon media assets update with new TeskaLabs logo. (INDIGO 230623, [!429](https://github.com/TeskaLabs/asab-webui/pull/429))
+
 ### Bugfix
 
 - Bug fix for HelpComponent, not display a Helpcomoponent when the user changing the page (INDIGO Sprint 230317, [!401](https://github.com/TeskaLabs/asab-webui/pull/401))
