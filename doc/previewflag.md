@@ -4,15 +4,16 @@
 It is used to display a customizable (preview) flag. 
 
 # Setup
-
-To use the preview flag, pass the `name` prop to the component.
+For adding a custom flag, call the method `setFlag` and set the custom flag `name` (string) for the particular container.
 
 # Usage
 
 ```
-import { PreviewFlag } from 'asab-webui';
+function SomeContainer(props){
+	...
 
-ReactDOM.render(
-	<PreviewFlag name={name}/>
-)
+	props.app.setFlag(t("Preview"));
+	
+	...
+}
 ```
