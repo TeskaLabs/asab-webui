@@ -111,6 +111,13 @@ code {
 	margin-right: 10%;
 }
 
+a {
+	text-decoration: none;
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
 // Progress Bar
 .fade {
 	transition: opacity 0.15s linear;
@@ -179,6 +186,66 @@ code {
 	.main.padding-small-screens {
 		margin-right: 0;
 	}
+}
+
+.p-2 {
+	padding: 0.5rem!important;
+}
+.pr-2, .px-2 {
+	padding-right: 0.5rem!important;
+}
+.pl-2, .px-2 {
+    padding-left: 0.5rem!important;
+}
+.pb-2, .py-2 {
+    padding-bottom: 0.5rem!important;
+}
+.pt-2, .py-2 {
+    padding-bottom: 0.5rem!important;
+}
+.pl-auto {
+	padding-left: auto!important;
+}
+
+.m-1 {
+	margin: 0.25rem!important;
+}
+.mr-1, .mx-1 {
+	margin-right: 0.25rem!important;
+}
+.ml-1, .mx-1 {
+    margin-left: 0.25rem!important;
+}
+.mb-1, .my-1 {
+    margin-bottom: 0.25rem!important;
+}
+.mt-1, .my-1 {
+    margin-bottom: 0.25rem!important;
+}
+.ml-auto {
+	margin-left: auto!important;
+}
+.m-2 {
+	margin: 0.5rem!important;
+}
+.mr-2, .mx-2 {
+	margin-right: 0.5rem!important;
+}
+.ml-2, .mx-2 {
+    margin-left: 0.5rem!important;
+}
+.mb-2, .my-2 {
+    margin-bottom: 0.5rem!important;
+}
+.mt-2, .my-2 {
+    margin-bottom: 0.5rem!important;
+}
+.ml-auto {
+	margin-left: auto!important;
+}
+
+.mb-3 {
+	margin-bottom: 1rem;
 }
 
 @media screen and (max-width: 768px) {
