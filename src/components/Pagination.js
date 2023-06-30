@@ -162,7 +162,8 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 			</Dropdown>
 
 			<div className="mr-2">
-				{pages && (pages.length > 1) ? t('Pages', {pages: (lastPage == 0) ? 1 : lastPage}) : t('Page', {pages: (lastPage == 0) ? 1 : lastPage})}
+				{pages && (pages.length > 1) ? (`${t("of")} ${pages.length} ${t("Pages")}`) :
+				(`${t("of")} ${pages.length} ${t("Page")}`)}
 			</div>
 
 			<Pagination>
