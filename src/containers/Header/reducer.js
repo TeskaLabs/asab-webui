@@ -1,8 +1,9 @@
-import { HELP_CONTENT, SET_BREADCRUMB_NAME } from '../../actions';
+import { HELP_CONTENT, SET_BREADCRUMB_NAME, SET_FLAG } from '../../actions';
 
 const initialState = {
 	content: "",
-	breadcrumbName: undefined
+	breadcrumbName: undefined, 
+	flag: undefined
 }
 
 export default (state = initialState, action) => {
@@ -18,6 +19,12 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				breadcrumbName: action.breadcrumbName
+			}
+		
+		case SET_FLAG:
+			return {
+				...state, 
+				flag: action.flag
 			}
 
 		default:

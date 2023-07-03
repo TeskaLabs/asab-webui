@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { Nav, NavItem } from 'reactstrap';
 
+import PreviewFlag from './PreviewFlag';
 import HelpButton from './HelpButton';
 import ThemeButton from '../../theme/ThemeButton';
 import Breadcrumbs from './BreadcrumbsRouter';
@@ -20,6 +21,7 @@ export function Header(props) {
 
 	const title = useSelector(state => state.config?.title);
 	const theme = useSelector(state => state.theme);
+	const flag = useSelector(state => state.header.flag)
 
 	// getBrandImage returns brandImage object (using BrandingService under the hood) based on theme
 	useEffect(() => {
@@ -53,6 +55,7 @@ export function Header(props) {
 					}
 					{windowDimensions.width > 768 && <Breadcrumbs app={props.app}/>}
 					<Nav className="ml-auto header-props" navbar>
+						<PreviewFlag name={flag} />
 						<HelpButton />
 						<ThemeButton />
 						{HeaderService.Items.map((item, idx) => (
@@ -75,6 +78,7 @@ export function Header(props) {
 						</Link>
 					</div>
 					<Nav className="ml-auto header-props" navbar>
+						<PreviewFlag name={flag} />
 						<HelpButton />
 						<ThemeButton />
 						{HeaderService.Items.map((item, idx) => (
@@ -118,6 +122,7 @@ export function Header(props) {
 						{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') &&
 							(
 								<Nav navbar>
+									<PreviewFlag name={flag} />
 									<HelpButton />
 									<ThemeButton />
 									{HeaderService.Items.map((item, idx) => (
@@ -145,6 +150,7 @@ export function Header(props) {
 					null
 				:
 					<Nav className="header-props-sm" navbar>
+						<PreviewFlag name={flag} />
 						<HelpButton/>
 						<ThemeButton/>
 						{HeaderService.Items.map((item, idx) => (
