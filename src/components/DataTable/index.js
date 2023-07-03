@@ -35,7 +35,7 @@ export function DataTable ({
 	limitValues = [5, 10, 15, 20, 25, 30, 50],
 	contentLoader = true, category, height, disableAdvMode,
 	collapseChildren = false, toggleChildrenOnRowClick = false,
-	checkbox
+	checkbox, onCheckbox
    }) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isLimitOpen, setLimitDropdown] = useState(false);
@@ -103,7 +103,7 @@ export function DataTable ({
 						</div>				
 
 						<ButtonGroup>
-							{checkbox && <Checkbox />}
+							{checkbox && <Checkbox checkbox={checkbox} onCheckbox={onCheckbox}/>}
 
 							{search && 
 									<Search 
