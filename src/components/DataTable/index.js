@@ -14,6 +14,7 @@ import LimitDropdown from './LimitDropdown';
 import { DownloadButton, CreateButton, CustomButton } from './Buttons';
 import Search from './Search';
 import Sort from './Sort';
+import Checkbox from './Checkbox';
 // import CustomDropdownButton from './CustomDropdownButton'; DON'T REMOVE YET. IT MAY BE USEFUL ON REFACTORING DATATABLE
 
 import './table.scss';
@@ -33,7 +34,8 @@ export function DataTable ({
 	customCardBodyComponent,
 	limitValues = [5, 10, 15, 20, 25, 30, 50],
 	contentLoader = true, category, height, disableAdvMode,
-	collapseChildren = false, toggleChildrenOnRowClick = false
+	collapseChildren = false, toggleChildrenOnRowClick = false,
+	checkbox
    }) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isLimitOpen, setLimitDropdown] = useState(false);
@@ -101,6 +103,8 @@ export function DataTable ({
 						</div>				
 
 						<ButtonGroup>
+							{checkbox && <Checkbox />}
+
 							{search && 
 									<Search 
 										search={search}
@@ -112,6 +116,7 @@ export function DataTable ({
 							{sort && <Sort sort={sort} />}
 
 							<div className="data-table-create-button data-table-button">{customComponent}</div>
+
 
 							{customButton && <CustomButton customButton={CustomButton} />}
 
