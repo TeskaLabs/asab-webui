@@ -8,7 +8,7 @@
 	--text-dropdown-button: var(--text-color);
 	--text-dropdown-button-color: var(--dark-black);
 	--toggle-text-color: var(--off-white);
-	--primary-txt: var(--white);
+	--reversed-text-dropdown-color: var(--white);
 	--primary-outline-text: var(--dark-blue);
 	--primary-outline-bg: var(--light-violet);
 	--hover-bg: var(--white);
@@ -22,7 +22,7 @@
 	--text-dropdown-color: var(--btn-txt);
 	--text-dropdown-button-color: var(--light-dream-blue);
 	--toggle-text-color: var(--night-blue);
-	--primary-txt: var(--light-black);
+	--reversed-text-dropdown-color: var(--light-black);
 	--primary-outline-text: var(--night-blue);
 	--primary-outline-bg: var(--storm-blue);
 	--hover-bg: var(--dream-blue);
@@ -40,7 +40,7 @@ $primary-outline-text: var(--primary-outline-text);
 $primary-outline-bg: var(--primary-outline-bg);
 $hover-bg: var(--hover-bg);
 $disabled-dropdown-item: var(--disabled-dropdown-item);
-$primary-txt: var(--primary-txt);
+$reversed-text-dropdown-color: var(--reversed-text-dropdown-color);
 
 
 .dropdown, .dropdown .btn {
@@ -211,9 +211,9 @@ $primary-txt: var(--primary-txt);
 
 // Primary style
 .btn-primary.dropdown-toggle {
-	color: $primary-txt;
+	color: $reversed-text-dropdown-color;
 	& [class^="cil-"] {
-		color: $primary-txt;
+		color: $reversed-text-dropdown-color;
 	}
 }
 
