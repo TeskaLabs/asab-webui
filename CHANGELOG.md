@@ -78,7 +78,9 @@
 
 - Add locales for TitleService (INDIGO Sprint 230526, [!423](https://github.com/TeskaLabs/asab-webui/pull/423))
 
-- Add styles for primary dropdown-toggle (INDIGO Sprint 230609, [!428](https://github.com/TeskaLabs/asab-webui/pull/428))
+- Favicon media assets update with new TeskaLabs logo. (INDIGO 230623, [!429](https://github.com/TeskaLabs/asab-webui/pull/429))
+
+- Add styles for primary dropdown-toggle (INDIGO Sprint 230623, [!428](https://github.com/TeskaLabs/asab-webui/pull/428))
 
 ### Bugfix
 
@@ -93,6 +95,8 @@
 - Fix infinite loop bug on userinfo, when expiration time is set to large values (INDIGO Sprint 230428, [!419](https://github.com/TeskaLabs/asab-webui/pull/419))
 
 - Remove pointer-events style for tree-menu-item (INDIGO Sprint 230609, [!427](https://github.com/TeskaLabs/asab-webui/pull/427))
+
+- Fixed title display for buttons after a session has ended. Added disabling inputs, Pie chart clickable parts, disabling `tree-menu-item` and reloading the page after clicking the Forward or Backward buttons in the browser (INDIGO Sprint 230609, [!426](https://github.com/TeskaLabs/asab-webui/pull/426))
 
 ## v23.5
 
