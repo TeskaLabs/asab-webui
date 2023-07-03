@@ -3,7 +3,7 @@
 $toggle-text-color: var(--toggle-text-color);
 
 .help-button {
-	font-size: 1.1rem;
+	font-size: 1.0rem;
 	margin-right: 1.5rem;
 	padding-top: 0.4rem;
 	color: $toggle-text-color;
@@ -28,5 +28,11 @@ $toggle-text-color: var(--toggle-text-color);
 	//	border: 0;
 	//}
 
+}
+
+.preview-flag {
+	font-size: 1rem;
+	color: $toggle-text-color;
+	margin-right: 1.5rem;	
 }
 
