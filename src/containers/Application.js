@@ -447,12 +447,12 @@ class Application extends Component {
 		useEffect(() => {
 			this.Store.dispatch({
 				type: SET_HELP_PATH,
-				path: path
+				helpPath: path
 			});
 			return () => {
 				this.Store.dispatch({
 					type: SET_HELP_PATH,
-					path: ""
+					helpPath: ""
 				})
 			}
 		}, []);
