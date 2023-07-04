@@ -1,8 +1,7 @@
+import  React from "react";
 import { Input } from "reactstrap";
-import  React, { useEffect } from "react";
 
 const Checkbox = (props) => {
-	// console.log('renderd checkbox')
 	return (
 		<div
 			style={{display: 'flex', alignItems: 'center' }}
@@ -12,7 +11,7 @@ const Checkbox = (props) => {
 				className="ml-1"
 				onChange={props.onCheckbox}
 				type="checkbox"
-                checked={props?.checkbox?.selectAll}
+                checked={props?.checkbox?.active}
             />
 
 			<span style={{marginLeft: '0.5rem'}}>{props?.checkbox?.title}</span>
