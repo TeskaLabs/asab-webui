@@ -1,6 +1,6 @@
-# ASAB WebUI PreviewFlag component
+# ASAB WebUI setFlag method
 
-`PreviewFlag` is a react reusable component.
+The setFlag method renders a reusable `PreviewFlag` component in the application's header.
 It is used to display a customizable (preview) flag. 
 
 # Setup
