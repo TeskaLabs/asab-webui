@@ -5,24 +5,13 @@ import {useSelector} from 'react-redux';
 import {Modal, NavLink, Card, CardHeader, CardBody, Button} from 'reactstrap';
 
 
-export default function HelpButton({location}) {
+export default function HelpButton() {
 	const {t} = useTranslation();
 
 	const [modal, setModal] = useState(false);
-	const [docsPart, setDocsPart] = useState("logman.io");
 
 	const path = useSelector(state => state?.header.path);
-	const title = useSelector(state => state.config?.title);
-
-	useEffect(() => {
-		if (location.pathname.includes("auth") || (title == "SeaCat Admin")) {
-			setDocsPart("seacat-auth");
-		} else {
-			setDocsPart("logman.io");
-		}
-	}, [location]);
-
-	if (path == undefined) return null;
+	if ((path == undefined) || (path == "")) return null;
 
 	const toggle = () => setModal(!modal);
 
@@ -49,7 +38,7 @@ export default function HelpButton({location}) {
 						</Button>
 					</CardHeader>
 					<CardBody>
-						<iframe className="help-iframe" src={`https://docs.teskalabs.com/${docsPart}/${path}`} title=""/>
+						<iframe className="help-iframe" src={`https://docs.teskalabs.com/logman.io/user/${path}`} title=""/>
 					</CardBody>
 				</Card>
 			</Modal>
