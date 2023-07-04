@@ -11,6 +11,6 @@ It will be sufficient to indicate the **correct** part of the documentation (par
 
 ```javascript
 export function Container(props) {
-	props.app.addHelpButton("Path/part/to/documentation");
+	props.app.addHelpButton("https://docs.teskalabs.com/path/to/documentation");
 }
 ```
