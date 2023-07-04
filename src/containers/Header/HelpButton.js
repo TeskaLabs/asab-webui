@@ -12,9 +12,10 @@ export default function HelpButton({location}) {
 	const [docsPart, setDocsPart] = useState("logman.io");
 
 	const path = useSelector(state => state?.header.path);
+	const title = useSelector(state => state.config?.title);
 
 	useEffect(() => {
-		if (location.pathname.includes("auth")) {
+		if (location.pathname.includes("auth") || (title == "SeaCat Admin")) {
 			setDocsPart("seacat-auth");
 		} else {
 			setDocsPart("logman.io");
