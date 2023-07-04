@@ -38,7 +38,7 @@ export default function HelpButton() {
 						</Button>
 					</CardHeader>
 					<CardBody>
-						<iframe className="help-iframe" src={`https://docs.teskalabs.com/logman.io/user/${path}`} title=""/>
+						<iframe className="help-iframe" src={path} />
 					</CardBody>
 				</Card>
 			</Modal>
