@@ -80,6 +80,8 @@
 
 - Favicon media assets update with new TeskaLabs logo. (INDIGO 230623, [!429](https://github.com/TeskaLabs/asab-webui/pull/429))
 
+- Add styles for primary dropdown-toggle (INDIGO Sprint 230623, [!428](https://github.com/TeskaLabs/asab-webui/pull/428))
+
 ### Bugfix
 
 - Bug fix for HelpComponent, not display a Helpcomoponent when the user changing the page (INDIGO Sprint 230317, [!401](https://github.com/TeskaLabs/asab-webui/pull/401))
