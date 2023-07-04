@@ -53,7 +53,7 @@ export function Header(props) {
 					}
 					{windowDimensions.width > 768 && <Breadcrumbs app={props.app}/>}
 					<Nav className="ml-auto header-props" navbar>
-						<HelpButton />
+						<HelpButton location={props.app.props.history.location} />
 						<ThemeButton />
 						{HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>
@@ -75,7 +75,7 @@ export function Header(props) {
 						</Link>
 					</div>
 					<Nav className="ml-auto header-props" navbar>
-						<HelpButton />
+						<HelpButton location={props.app.props.history.location} />
 						<ThemeButton />
 						{HeaderService.Items.map((item, idx) => (
 							window.innerWidth < 1024 && item.componentProps.children !== undefined && item.componentProps.children === "LanguageDropdown" ?
@@ -118,7 +118,7 @@ export function Header(props) {
 						{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') &&
 							(
 								<Nav navbar>
-									<HelpButton />
+									<HelpButton location={props.app.props.history.location} />
 									<ThemeButton />
 									{HeaderService.Items.map((item, idx) => (
 										window.innerWidth > 500 ?
@@ -145,7 +145,7 @@ export function Header(props) {
 					null
 				:
 					<Nav className="header-props-sm" navbar>
-						<HelpButton/>
+						<HelpButton location={props.app.props.history.location} />
 						<ThemeButton/>
 						{HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>

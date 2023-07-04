@@ -1,16 +1,26 @@
-import React, { useState } from 'react';
-import { useTranslation } from "react-i18next";
-import { useSelector } from 'react-redux';
+import React, {useState, useEffect} from 'react';
+import {useTranslation} from "react-i18next";
+import {useSelector} from 'react-redux';
 
-import { Modal, NavLink, Card, CardHeader, CardBody, Button } from 'reactstrap';
+import {Modal, NavLink, Card, CardHeader, CardBody, Button} from 'reactstrap';
 
 
-export default function HelpButton() {
-	const { t } = useTranslation();
+export default function HelpButton({location}) {
+	const {t} = useTranslation();
 
 	const [modal, setModal] = useState(false);
+	const [docsPart, setDocsPart] = useState("logman.io");
 
 	const path = useSelector(state => state?.header.path);
+
+	useEffect(() => {
+		if (location.pathname.includes("auth")) {
+			setDocsPart("seacat-auth");
+		} else {
+			setDocsPart("logman.io");
+		}
+	}, [location]);
+
 	if (path == undefined) return null;
 
 	const toggle = () => setModal(!modal);
@@ -38,7 +48,7 @@ export default function HelpButton() {
 						</Button>
 					</CardHeader>
 					<CardBody>
-						<iframe className="help-iframe" src={`https://docs.teskalabs.com/logman.io/${path}`} title=""/>
+						<iframe className="help-iframe" src={`https://docs.teskalabs.com/${docsPart}/${path}`} title=""/>
 					</CardBody>
 				</Card>
 			</Modal>
