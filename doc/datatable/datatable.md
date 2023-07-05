@@ -699,8 +699,7 @@ import { DataTable } from 'asab-webui';
 
 ```
 
-Props `checkbox` and `onCheckbox` are used to render a input type checkbox to the datatable's header. `checkbox` is an object containing properties `title`(string) and `active`(boolean). `active` is a state representing whether the checkbox is active(checked) or not. Property
-`onCheckbox` is a function executed when user engages with the cvheckbox input.(example below).
+Props `checkbox` and `onCheckbox` are used to render an input, type checkbox, to the datatable's header. `checkbox` is an object containing properties `title`(string) and `active`(boolean). `active` is a state representing whether the checkbox is active(checked) or not. Property `onCheckbox` is a function executed when user engages with the checkbox input.
 
 Example:
 ```js
@@ -720,7 +719,7 @@ const handleCheckbox = () => {
 	return (
 		<DataTable
 			...
-			checkbox={{title: 'Select all', active: selectAll }}
+			checkbox={{ title: 'Select all', active: selectAll }}
 			onCheckbox={handleCheckbox}
 		/>
 	);
