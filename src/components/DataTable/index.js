@@ -117,7 +117,6 @@ export function DataTable ({
 
 							<div className="data-table-create-button data-table-button">{customComponent}</div>
 
-
 							{customButton && <CustomButton customButton={CustomButton} />}
 
 							{buttonWithAuthz && <ButtonWithAuthz {...buttonWithAuthz} className="data-table-button-with-authz data-table-button"/>}

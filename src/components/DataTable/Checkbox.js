@@ -7,11 +7,11 @@ const Checkbox = (props) => {
 			style={{display: 'flex', alignItems: 'center' }}
 		>
 			<Input
-				style={{marginLeft: 'unset', marginTop: 'unset', position: 'inherit'}}
-				className="ml-1"
-				onChange={props.onCheckbox}
+				// style={{marginLeft: 'unset', marginTop: 'unset', position: 'inherit'}}
 				type="checkbox"
-                checked={props?.checkbox?.active}
+				className="data-table-checkbox"
+                checked={props.checkbox?.active}
+				onChange={props?.onCheckbox}
             />
 
 			<span style={{marginLeft: '0.5rem'}}>{props?.checkbox?.title}</span>
