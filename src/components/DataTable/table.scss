@@ -108,9 +108,16 @@ table ~ .react-json-view {
         justify-self: flex-start;
     }
     &-checkbox {
-        margin-left: 0.25rem;
-        margin-top: unset;
-        position: inherit;
+		display: flex;
+        align-items: center;
+        &-input {
+            margin-left: 0.25rem;
+            margin-top: unset;
+            position: inherit;
+        }
+        &-text {
+            color: $text-secondary-color;
+        }
     }
 
     &-card-footer-left {

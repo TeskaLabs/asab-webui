@@ -3,18 +3,16 @@ import { Input } from "reactstrap";
 
 const Checkbox = (props) => {
 	return (
-		<div
-			style={{display: 'flex', alignItems: 'center' }}
-		>
+		<div className="data-table-checkbox">
 			<Input
-				// style={{marginLeft: 'unset', marginTop: 'unset', position: 'inherit'}}
 				type="checkbox"
-				className="data-table-checkbox"
+				className="data-table-checkbox-input"
                 checked={props.checkbox?.active}
 				onChange={props?.onCheckbox}
+                title={props?.checkbox?.title}
             />
 
-			<span style={{marginLeft: '0.5rem'}}>{props?.checkbox?.title}</span>
+			<span className="ml-2 data-table-checkbox-text">{props?.checkbox?.title}</span>
 		</div>
 	)
 }
