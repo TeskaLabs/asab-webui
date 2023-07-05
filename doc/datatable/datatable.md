@@ -296,7 +296,7 @@ Example of fetched data:
 
 # Optional
 
-`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `customButton`, `customComponent`, `search`, `onSearch`, `isLoading`, `noItemsComponent`, `customCardBodyComponent`, `sublistsKey`, `onDownload`, `height`, `disableAdvMode`.
+`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `customButton`, `customComponent`, `search`, `onSearch`, `isLoading`, `noItemsComponent`, `customCardBodyComponent`, `sublistsKey`, `onDownload`, `height`, `disableAdvMode`, `checkbox` & `onCheckbox`.
 
 Example of `DataTable` with all props:
 
@@ -321,6 +321,8 @@ Example of `DataTable` with all props:
 	noItemsComponent={noItemsComponent}
 	height={height}
 	disableAdvMode={true}
+	checkbox={{title: "Select all", active: selectAll }}
+	onCheckbox={handleCheckbox}
 />
 ```
 
@@ -697,6 +699,34 @@ import { DataTable } from 'asab-webui';
 
 ```
 
+Props `checkbox` and `onCheckbox` are used to render a input type checkbox to the datatable's header. `checkbox` is an object containing properties `title`(string) and `active`(boolean). `active` is a state representing whether the checkbox is active(checked) or not. Property
+`onCheckbox` is a function executed when user engages with the cvheckbox input.(example below).
+
+Example:
+```js
+...
+import { useState } from 'react';
+import { DataTable } from 'asab-webui';
+
+...
+const [selectAll, setSelectAll] = useState(false);
+
+const handleCheckbox = () => {
+		...
+		setSelectAll(prev => !prev);
+	}
+
+...
+	return (
+		<DataTable
+			...
+			checkbox={{title: 'Select all', active: selectAll }}
+			onCheckbox={handleCheckbox}
+		/>
+	);
+```
+
+
 ### Custom Components
 
 In some cases you may understand that in `DataTable` you need to have some external component instead of regular cells. Or you may just want to somehow style your cells. Then `customComponent` property of header may help you.
@@ -847,6 +877,11 @@ props: {
   isLoading?: boolean, // indicator for DataTable for showing spinner,
   disableAdvMode?: boolean, // prop to turn off the advanced mode,
   noItemsComponent?: string | React.component // custom component for displaying message when there are no items
+  checkbox?: {
+	title: string, // checkbox title
+	active: boolean // represents checkbox's state (checked/unchecked)
+  },
+  onCheckbox?: function // function called upon user's engagement with input
 }
 
 ```
