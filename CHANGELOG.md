@@ -30,7 +30,7 @@
 
 - New color variable for disabled text (INDIGO Sprint 230526, [!424](https://github.com/TeskaLabs/asab-webui/pull/424))
 
-- Enriching DataTable finctionality. Option to render a checkbox in DataTable's header. (INDIGO Sprint 230623, [!434](https://github.com/TeskaLabs/asab-webui/pull/434))
+- Enriching DataTable functionality. Option to render a checkbox in DataTable's header. (INDIGO Sprint 230623, [!434](https://github.com/TeskaLabs/asab-webui/pull/434))
 
 ### Refactoring
 
