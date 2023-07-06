@@ -1,17 +1,9 @@
-<<<<<<< HEAD
-import { HELP_CONTENT, SET_BREADCRUMB_NAME, SET_FLAG } from '../../actions';
-
-const initialState = {
-	content: "",
-	breadcrumbName: undefined, 
-	flag: undefined
-=======
-import { SET_HELP_PATH, SET_BREADCRUMB_NAME } from '../../actions';
+import { SET_HELP_PATH, SET_BREADCRUMB_NAME, SET_FLAG } from '../../actions';
 
 const initialState = {
 	helpPath: "",
-	breadcrumbName: undefined
->>>>>>> master
+	breadcrumbName: undefined, 
+	flag: undefined
 }
 
 export default (state = initialState, action) => {

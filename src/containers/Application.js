@@ -28,12 +28,7 @@ import TitleService from "../services/TitleService";
 import AccessDeniedCard from '../modules/tenant/access/AccessDeniedCard';
 import UnauthorizedAccessScreen from '../modules/auth/components/UnauthorizedAccessScreen';
 
-<<<<<<< HEAD
-import {ADD_ALERT, SET_ADVANCED_MODE, HELP_CONTENT, SET_BREADCRUMB_NAME, SET_FLAG} from '../actions';
-=======
-import {ADD_ALERT, SET_ADVANCED_MODE, SET_HELP_PATH, SET_BREADCRUMB_NAME} from '../actions';
->>>>>>> master
-
+import {ADD_ALERT, SET_ADVANCED_MODE, SET_HELP_PATH, SET_BREADCRUMB_NAME, SET_FLAG} from '../actions';
 
 class Application extends Component {
 
