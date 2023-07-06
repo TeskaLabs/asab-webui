@@ -34,6 +34,8 @@
 
 ### Refactoring
 
+- Replace dynamic valus in locales in asab-webui (INDIGO Sprint 230623, [!432](https://github.com/TeskaLabs/asab-webui/pull/432))
+
 - Refactor naming for `get_current_tenant`, `set_tenants` and `_extract_tenant_from_url` from snake_case to camelCase format (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
 
 - Refactor the collapse and uncollapse of the sidebar according to the screen width (INDIGO Sprint 230203, [!389](https://github.com/TeskaLabs/asab-webui/pull/389))
@@ -80,6 +82,10 @@
 
 - Add locales for TitleService (INDIGO Sprint 230526, [!423](https://github.com/TeskaLabs/asab-webui/pull/423))
 
+- Favicon media assets update with new TeskaLabs logo. (INDIGO 230623, [!429](https://github.com/TeskaLabs/asab-webui/pull/429))
+
+- Add styles for primary dropdown-toggle (INDIGO Sprint 230623, [!428](https://github.com/TeskaLabs/asab-webui/pull/428))
+
 ### Bugfix
 
 - Bug fix for HelpComponent, not display a Helpcomoponent when the user changing the page (INDIGO Sprint 230317, [!401](https://github.com/TeskaLabs/asab-webui/pull/401))
@@ -95,6 +101,8 @@
 - Remove pointer-events style for tree-menu-item (INDIGO Sprint 230609, [!427](https://github.com/TeskaLabs/asab-webui/pull/427))
 
 - Fixed title display for buttons after a session has ended. Added disabling inputs, Pie chart clickable parts, disabling `tree-menu-item` and reloading the page after clicking the Forward or Backward buttons in the browser (INDIGO Sprint 230609, [!426](https://github.com/TeskaLabs/asab-webui/pull/426))
+
+- Refactor HelpComponent, remove HelpService (INDIGO Sprint 230609, [!418](https://github.com/TeskaLabs/asab-webui/pull/418))
 
 ## v23.5
 

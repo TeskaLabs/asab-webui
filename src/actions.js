@@ -2,7 +2,7 @@ export const ADD_ALERT = "asab/addAlert";
 export const ACK_ALERT = "asab/ackAlert";
 export const DEL_ALERT = "asab/delAlert";
 
-export const HELP_CONTENT = "asab/setHelpContent";
+export const SET_HELP_PATH = "asab/setHelpContent";
 export const SET_BREADCRUMB_NAME = "asab/setBreadcrumbName";
 export const SET_FLAG = "asab/setFlag";
 

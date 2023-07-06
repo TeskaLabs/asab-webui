@@ -20,13 +20,13 @@ $toggle-text-color: var(--toggle-text-color);
 			min-height: 30vh;
 		}
 	}
-	//TODO: uncomment and use when the documentation is ready to be displayed in the iframe
-	//& .help-iframe {
-	//	width: 100%;
-	//	height: 80vh;
-	//	overflow: hidden;
-	//	border: 0;
-	//}
+
+	& .help-iframe {
+		width: 100%;
+		height: 80vh;
+		overflow: hidden;
+		border: 0;
+	}
 
 }
 
