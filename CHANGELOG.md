@@ -98,6 +98,8 @@
 
 - Fixed title display for buttons after a session has ended. Added disabling inputs, Pie chart clickable parts, disabling `tree-menu-item` and reloading the page after clicking the Forward or Backward buttons in the browser (INDIGO Sprint 230609, [!426](https://github.com/TeskaLabs/asab-webui/pull/426))
 
+- Refactor HelpComponent, remove HelpService (INDIGO Sprint 230609, [!418](https://github.com/TeskaLabs/asab-webui/pull/418))
+
 ## v23.5
 
 ### Features

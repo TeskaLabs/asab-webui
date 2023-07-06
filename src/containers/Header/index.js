@@ -145,7 +145,7 @@ export function Header(props) {
 					null
 				:
 					<Nav className="header-props-sm" navbar>
-						<HelpButton/>
+						<HelpButton />
 						<ThemeButton/>
 						{HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>
