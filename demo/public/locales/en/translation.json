@@ -178,9 +178,10 @@
 		"Version": "Version",
 		"Repository": "Repository"
 	},
-	"Showing item(s)": "{{ from }} - {{ to }} of {{ total }} item(s)",
+	"of": "of",
+	"item(s)": "item(s)",
 	"You do not have access rights to perform this action": "You do not have access rights to perform this action",
 	"Items per page": "Items per page",
-	"Page": "of {{pages}} page",
-	"Pages": "of {{pages}} pages"
+	"Page": "page",
+	"Pages": "pages"
 }
