@@ -21,7 +21,7 @@ export function Header(props) {
 
 	const title = useSelector(state => state.config?.title);
 	const theme = useSelector(state => state.theme);
-	const flag = useSelector(state => state.header.flag)
+	const flag = useSelector(state => state?.header?.flag)
 
 	// getBrandImage returns brandImage object (using BrandingService under the hood) based on theme
 	useEffect(() => {
