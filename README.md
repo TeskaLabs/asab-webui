@@ -102,7 +102,7 @@ module.exports = {
 		SERVICES: {
 			openidconnect: 'openidconnect',
 			asab-config: 'asab-config',
-			seacat_auth_webui: 'http://localhost:3000/auth'
+			seacat-auth-webui: 'http://localhost:3000/auth'
 			}
 		},
 	devConfig: {
@@ -159,7 +159,7 @@ module.exports = {
 		SERVICES: {
 			openidconnect: 'openidconnect',
 			asab-config: 'asab-config',
-			seacat_auth_webui: 'https://example.com/auth'
+			seacat-auth-webui: 'https://example.com/auth'
 			}
 		}
 }

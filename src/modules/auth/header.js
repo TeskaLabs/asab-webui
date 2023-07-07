@@ -38,7 +38,7 @@ function HeaderComponent(props) {
 	let user_auth_url = `${window.location.protocol}//${window.location.host}/auth`;
 	// If SeaCat Auth WebUI URL is defined in SERVICES, use it
 	if (App.Config.get('SERVICES')?.seacat_auth_webui) {
-		user_auth_url = App.getServiceURL('seacat_auth_webui');
+		user_auth_url = App.getServiceURL('seacat-auth-webui');
 	}
 
 	const logout = () => {
