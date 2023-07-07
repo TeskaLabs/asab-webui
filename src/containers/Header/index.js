@@ -151,8 +151,8 @@ export function Header(props) {
 				:
 					<Nav className="header-props-sm" navbar>
 						<PreviewFlag name={flag} />
-						<HelpButton/>
-						<ThemeButton/>
+						<HelpButton />
+						<ThemeButton />
 						{HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>
 								<item.component key={item} {...item.componentProps} app={props.app}/>
