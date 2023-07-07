@@ -29,7 +29,7 @@ function AccessDeniedCard(props) {
 		since we dont have a oauth token here (access denied)
 	*/
 	const continueToLogin = async () => {
-		const SeaCatAuthAPI = props.app.axiosCreate('seacat_auth');
+		const SeaCatAuthAPI = props.app.axiosCreate('seacat-auth');
 		let response;
 		try {
 			// Use public logout

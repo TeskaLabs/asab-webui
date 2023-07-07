@@ -25,7 +25,7 @@ export class SeaCatAuthApi {
 		
 		this.ClientId = "asab-webui-auth";
 		this.ClientSecret = "TODO";
-		this.SeaCatAuthAPI = this.App.axiosCreate('seacat_auth');
+		this.SeaCatAuthAPI = this.App.axiosCreate('seacat-auth');
 		this.OidcAPI = this.App.axiosCreate('openidconnect');
 	}
 
