@@ -32,6 +32,8 @@
 
 ### Refactoring
 
+- Replace all underscores in names/api's with dashes (INDIGO Sprint 230623, [!435](https://github.com/TeskaLabs/asab-webui/pull/435))
+
 - Replace dynamic valus in locales in asab-webui (INDIGO Sprint 230623, [!432](https://github.com/TeskaLabs/asab-webui/pull/432))
 
 - Refactor naming for `get_current_tenant`, `set_tenants` and `_extract_tenant_from_url` from snake_case to camelCase format (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
