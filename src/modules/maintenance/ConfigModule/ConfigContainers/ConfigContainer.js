@@ -16,8 +16,8 @@ import { getBrandImage } from "asab-webui";
 
 function ConfigContainer(props) {
 
-	const ASABConfigAPI = props.app.axiosCreate('asab_config');
-	const serviceURL = props.app.getServiceURL('asab_config');
+	const ASABConfigAPI = props.app.axiosCreate('asab-config');
+	const serviceURL = props.app.getServiceURL('asab-config');
 	const { t } = useTranslation();
 
 	const configType = props.match.params.configType;

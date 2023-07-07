@@ -101,7 +101,7 @@ module.exports = {
 		API_PATH: 'api',
 		SERVICES: {
 			openidconnect: 'openidconnect',
-			asab_config: 'asab_config',
+			asab-config: 'asab-config',
 			seacat_auth_webui: 'http://localhost:3000/auth'
 			}
 		},
@@ -119,9 +119,9 @@ module.exports = {
 	webPackDevServer: {
 		port: 3000,
 		proxy: {
-			'/api/asab_config': {
+			'/api/asab-config': {
 				target: "http://localhost:8080",
-				pathRewrite: { '^/api/asab_config': ''}
+				pathRewrite: { '^/api/asab-config': ''}
 			},
 		}
 	}
@@ -158,7 +158,7 @@ module.exports = {
 		API_PATH: 'api',
 		SERVICES: {
 			openidconnect: 'openidconnect',
-			asab_config: 'asab_config',
+			asab-config: 'asab-config',
 			seacat_auth_webui: 'https://example.com/auth'
 			}
 		}

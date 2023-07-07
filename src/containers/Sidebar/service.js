@@ -25,7 +25,7 @@ export default class SidebarService extends Service {
 	async getSidebarHiddenItems(configName) {
 		let hiddenItems = undefined;
 		try {
-			const ASABConfigAPI = this.App.axiosCreate('asab_config');
+			const ASABConfigAPI = this.App.axiosCreate('asab-config');
 			let response = await ASABConfigAPI.get(`/config/Sidebar/${configName}.json?format=json`);
 			if (response.data.result != "OK") {
 				throw new Error("Config file to get data for Sidebar can't be found in Zookeeper")
