@@ -698,7 +698,7 @@ import { DataTable } from 'asab-webui';
 
 ```
 
-Prop `checkbox` is used to render an input, type checkbox, to the datatable's header. `checkbox` is an object containing properties `title`(string) and `checked`(array of 'checked data' (e.g. an array of 'selected items')) and `setChecked`(fuction managing state of 'selected items')
+Prop `checkbox` is used to render an input, type checkbox, to the datatable's header. `checkbox` is an object containing properties `title`(string), `checked`(array of 'checked data' (e.g. an array of 'selected items')) and `setChecked`(fuction managing state of 'selected items')
 
 Example:
 ```js
