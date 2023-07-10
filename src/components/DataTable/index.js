@@ -84,7 +84,7 @@ export function DataTable ({
 				break;
 			}
 		}
-		return allSelected
+		return allSelected;
 	}, [data]);
 
 	// rounding page number divisible by 5
@@ -109,7 +109,7 @@ export function DataTable ({
 					items.push(item);
 				}
 			})
-			checkbox.setChecked([...checkbox.checked, ...items])
+			checkbox.setChecked([...checkbox.checked, ...items]);
 		}
 		else {
 			data.map((item) => {
