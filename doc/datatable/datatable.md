@@ -296,7 +296,7 @@ Example of fetched data:
 
 # Optional
 
-`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `customButton`, `customComponent`, `search`, `onSearch`, `isLoading`, `noItemsComponent`, `customCardBodyComponent`, `sublistsKey`, `onDownload`, `height`, `disableAdvMode`, `checkbox` & `onCheckbox`.
+`DataTable` can also accept optional props `limit`, `setLimit`, `createButton`, `buttonWithAuthz`, `customButton`, `customComponent`, `search`, `onSearch`, `isLoading`, `noItemsComponent`, `customCardBodyComponent`, `sublistsKey`, `onDownload`, `height`, `disableAdvMode` & `checkbox`.
 
 Example of `DataTable` with all props:
 
@@ -321,8 +321,7 @@ Example of `DataTable` with all props:
 	noItemsComponent={noItemsComponent}
 	height={height}
 	disableAdvMode={true}
-	checkbox={{title: "Select all", active: selectAll }}
-	onCheckbox={handleCheckbox}
+	checkbox={{title: "Select displayed", checked: selectedData, setchecked: setSelectedData }}
 />
 ```
 
@@ -699,7 +698,7 @@ import { DataTable } from 'asab-webui';
 
 ```
 
-Props `checkbox` and `onCheckbox` are used to render an input, type checkbox, to the datatable's header. `checkbox` is an object containing properties `title`(string) and `active`(boolean). `active` is a state representing whether the checkbox is active(checked) or not. Property `onCheckbox` is a function executed when user engages with the checkbox input.
+Prop `checkbox` is used to render an input, type checkbox, to the datatable's header. `checkbox` is an object containing properties `title`(string) and `checked`(array of 'checked data' (e.g. an array of 'selected items')) and `setChecked`(fuction managing state of 'selected items')
 
 Example:
 ```js
@@ -708,19 +707,14 @@ import { useState } from 'react';
 import { DataTable } from 'asab-webui';
 
 ...
-const [selectAll, setSelectAll] = useState(false);
-
-const handleCheckbox = () => {
-		...
-		setSelectAll(prev => !prev);
-	}
+const [selectedItems, setSelectedItems] = useState([]);
 
 ...
 	return (
 		<DataTable
+			data={data}
 			...
-			checkbox={{ title: 'Select all', active: selectAll }}
-			onCheckbox={handleCheckbox}
+			checkbox={{ title: 'Select displayed', checked: selectedItems, setChecked: setSelectedItems }}
 		/>
 	);
 ```
@@ -877,10 +871,10 @@ props: {
   disableAdvMode?: boolean, // prop to turn off the advanced mode,
   noItemsComponent?: string | React.component // custom component for displaying message when there are no items
   checkbox?: {
-	title: string, // checkbox title
-	active: boolean // represents checkbox's state (checked/unchecked)
-  },
-  onCheckbox?: function // function called upon user's engagement with input
+	title?: string, // checkbox label
+	checked: array // represents a list of 'selected(checked) items'
+  	setChecked: function // function managing state of 'selected items'
+  }
 }
 
 ```
