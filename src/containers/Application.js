@@ -28,8 +28,7 @@ import TitleService from "../services/TitleService";
 import AccessDeniedCard from '../modules/tenant/access/AccessDeniedCard';
 import UnauthorizedAccessScreen from '../modules/auth/components/UnauthorizedAccessScreen';
 
-import {ADD_ALERT, SET_ADVANCED_MODE, SET_HELP_PATH, SET_BREADCRUMB_NAME} from '../actions';
-
+import {ADD_ALERT, SET_ADVANCED_MODE, SET_HELP_PATH, SET_BREADCRUMB_NAME, SET_FLAG} from '../actions';
 
 class Application extends Component {
 
@@ -469,6 +468,21 @@ class Application extends Component {
 				this.Store.dispatch({
 					type: SET_BREADCRUMB_NAME,
 					breadcrumbName: undefined
+				});
+			}
+		}, [name])
+	}
+
+	setFlag(name) {
+		useEffect(() => {
+			this.Store.dispatch({
+				type: SET_FLAG,
+				flag: name
+			});
+			return () => {
+				this.Store.dispatch({
+					type: SET_FLAG,
+					flag: undefined
 				});
 			}
 		}, [name])
