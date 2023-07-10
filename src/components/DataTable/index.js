@@ -35,7 +35,7 @@ export function DataTable ({
 	limitValues = [5, 10, 15, 20, 25, 30, 50],
 	contentLoader = true, category, height, disableAdvMode,
 	collapseChildren = false, toggleChildrenOnRowClick = false,
-	checkbox, onCheckbox
+	checkbox
    }) {
 	const [filterValue, setFilterValue] = useState('');
 	const [isLimitOpen, setLimitDropdown] = useState(false);
@@ -76,6 +76,17 @@ export function DataTable ({
 		return advMode;
 	},[advMode])
 
+	const check = useMemo(() => {
+		let allSelected = true;
+		for (let i = 0; i < data.length; i++) {
+			if (data[i].assigned === false) {
+				allSelected = false;
+				break;
+			}
+		}
+		return allSelected
+	}, [data]);
+
 	// rounding page number divisible by 5
 	function roundedNumRows(x) {
 		if (isNaN(x) == false) {
@@ -90,6 +101,29 @@ export function DataTable ({
 		}
 	}
 
+	const handleCheckbox = () => {
+		let items = [];
+		if(!check) {
+			data.map((item) => {
+				if (item['assigned'] !== true) {
+					items.push(item);
+				}
+			})
+			checkbox.setChecked([...checkbox.checked, ...items])
+		}
+		else {
+			data.map((item) => {
+				let matchedIdx = checkbox.checked.findIndex(obj => obj._id === item._id);
+				if (matchedIdx > -1) {
+					// removes items from selection
+					let selectedData = checkbox.checked;
+					selectedData.splice(matchedIdx, 1);
+					checkbox.setChecked([...selectedData]);
+				}
+			})
+		}
+	};
+
 	return (
 		<Row className="h-100">
 			<Col>
@@ -103,7 +137,12 @@ export function DataTable ({
 						</div>				
 
 						<ButtonGroup>
-							{checkbox && <Checkbox checkbox={checkbox} onCheckbox={onCheckbox}/>}
+							{checkbox &&
+								<Checkbox
+									title={checkbox.title}
+									checkbox={check}
+									onCheckbox={handleCheckbox}
+								/>}
 
 							{search && 
 									<Search 
