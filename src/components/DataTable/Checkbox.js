@@ -6,13 +6,12 @@ const Checkbox = (props) => {
 		<div className="data-table-checkbox">
 			<Input
 				type="checkbox"
-				className="data-table-checkbox-input"
-				checked={props.checkbox?.active}
-				onChange={props?.onCheckbox}
-				title={props?.checkbox?.title}
+				className="data-table-checkbox-input ml-2"
+				checked={props.checkbox}
+				onChange={props.onCheckbox}
+				title={props.title}
 			/>
-
-			<span className="ml-2 data-table-checkbox-text">{props?.checkbox?.title}</span>
+			<span className="ml-2 data-table-checkbox-text">{props.title}</span>
 		</div>
 	)
 }
