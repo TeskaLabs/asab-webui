@@ -20,7 +20,7 @@ export default function HelpButton() {
 			<NavLink
 				className="help-button"
 				onClick={toggle}
-				title={t("Show help info")}
+				title={t("HelpButton|Show help info")}
 				href="#"
 			>
 				<i>?</i>
