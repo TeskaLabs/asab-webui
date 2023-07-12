@@ -104,6 +104,8 @@
 
 - Refactor HelpComponent, remove HelpService (INDIGO Sprint 230609, [!418](https://github.com/TeskaLabs/asab-webui/pull/418))
 
+- Add missing locales for HelpButton (INDIGO Sprint 230623, [!436](https://github.com/TeskaLabs/asab-webui/pull/436))
+
 ## v23.5
 
 ### Features
