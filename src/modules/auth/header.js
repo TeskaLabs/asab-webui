@@ -37,9 +37,11 @@ function HeaderComponent(props) {
 	// SeaCat Auth WebUI is usually build on /auth subpath
 	let user_auth_url = `${window.location.protocol}//${window.location.host}/auth`;
 	// If SeaCat Auth WebUI URL is defined in SERVICES, use it
-	if (App.Config.get('SERVICES')?.seacat_auth_webui) {
-		user_auth_url = App.getServiceURL('seacat_auth_webui');
+	if (App.Config.get('SERVICES')?.seacat-auth-webui) {
+		user_auth_url = App.getServiceURL('seacat-auth-webui');
 	}
+
+	console.log(App)
 
 	const logout = () => {
 		props.AuthModule.logout()
