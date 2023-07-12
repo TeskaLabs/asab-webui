@@ -25,7 +25,6 @@ const TreeMenuItem = ({
 		props.onClick && props.onClick();
 	}
 
-	console.log(label, isDisabled, resources, resources?.indexOf(resource) == -1, resources.indexOf("authz:superuser") == -1)
 
 	return (
 		isDisabled && (resources?.indexOf(resource) == -1) && (resources?.indexOf("authz:superuser") == -1) ?
