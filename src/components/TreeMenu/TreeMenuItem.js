@@ -7,9 +7,10 @@ const TreeMenuItem = ({
 	level = 0, hasNodes, isOpen,
 	label, searchTerm, openNodes,
 	toggleNode, matchSearch, focused,
-	type, isDisabled, ...props
+	type, isDisabled, resource, ...props
 }) => {
 	const sessionExpired = useSelector(state => state.auth?.sessionExpired);
+	const resources = useSelector(state => state.auth?.resources);
 	const paddingLeft = 1.25 * level + 0.5;
 	const selected = focused ? " selected" : "";
 	const disabled = (isDisabled || sessionExpired) ? " disabled" : "";
@@ -24,28 +25,33 @@ const TreeMenuItem = ({
 		props.onClick && props.onClick();
 	}
 
+	console.log(label, isDisabled, resources, resources?.indexOf(resource) == -1, resources.indexOf("authz:superuser") == -1)
+
 	return (
-		<li
-			{...props}
-			active="false"
-			className={`tree-menu-item${selected}${disabled}`}
-			style={{ paddingLeft: `${paddingLeft}rem` }}
-			onClick={e => {handleClick(e)}}
-		>
-			{(type == "folder") && (
-				<div
-					style={{ display: 'inline-block' }}
-					// Clickable toggle icon, not restricted as handleClick method
-					onClick={e => {
-						e.stopPropagation();
-						hasNodes && toggleNode && toggleNode();
-					}}
-				>
-					<ToggleIcon on={isOpen} selected={selected} />
-				</div>
-			)}
-			{label}
-		</li>
+		isDisabled && (resources?.indexOf(resource) == -1) && (resources?.indexOf("authz:superuser") == -1) ?
+			null
+		:
+			<li
+				{...props}
+				active="false"
+				className={`tree-menu-item${selected}${disabled}`}
+				style={{ paddingLeft: `${paddingLeft}rem` }}
+				onClick={e => {handleClick(e)}}
+			>
+				{(type == "folder") && (
+					<div
+						style={{ display: 'inline-block' }}
+						// Clickable toggle icon, not restricted as handleClick method
+						onClick={e => {
+							e.stopPropagation();
+							hasNodes && toggleNode && toggleNode();
+						}}
+					>
+						<ToggleIcon on={isOpen} selected={selected} />
+					</div>
+				)}
+				{label}
+			</li>
 	)
 };
 
