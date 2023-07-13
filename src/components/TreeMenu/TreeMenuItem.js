@@ -27,7 +27,7 @@ const TreeMenuItem = ({
 
 
 	return (
-		isDisabled && (resources?.indexOf(resource) == -1) && (resources?.indexOf("authz:superuser") == -1) ?
+		isDisabled && (resources.indexOf(resource) == -1) && (resources.indexOf("authz:superuser") == -1) ?
 			null
 		:
 			<li
