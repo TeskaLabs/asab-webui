@@ -42,3 +42,4 @@ import { TreeMenu } from 'asab-webui';
 
 #### Optional:
 	- `searchOptions`: object, conducts placeholder and the dropdown component
+
