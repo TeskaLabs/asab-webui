@@ -698,7 +698,7 @@ import { DataTable } from 'asab-webui';
 
 ```
 
-Prop `checkbox` is used to render an input, type checkbox, to the datatable's header. `checkbox` is an object containing properties `title`(string), `checked`(array of 'checked data' (e.g. an array of 'selected items')) and `setChecked`(fuction managing state of 'selected items')
+Prop `checkbox` is used to render an input, type checkbox, to the datatable's header. `checkbox` is an object containing properties `title`(string), `checked`(array of 'checked data' (e.g. an array of 'selected items')) and `setChecked`(fuction managing state of 'selected items'). Selected items have to have an `assigned: true` property. (Items with `assigned: true` form selectedData state.)
 
 Example:
 ```js
@@ -707,14 +707,22 @@ import { useState } from 'react';
 import { DataTable } from 'asab-webui';
 
 ...
-const [selectedItems, setSelectedItems] = useState([]);
+const [data, setData] = useState([
+	{id: 'Dave', assigned: true},
+	{id: 'Arnold'},
+	{id: 'Pete', assigned: false},
+	{id: 'Christie', assigned: true}]);
+const [selectedData, setSelectedData] = useState([
+	{id: 'Dave', assigned: true},
+	{id: 'Christie', assigned: true}
+]);
 
 ...
 	return (
 		<DataTable
 			data={data}
 			...
-			checkbox={{ title: 'Select displayed', checked: selectedItems, setChecked: setSelectedItems }}
+			checkbox={{ title: 'Select displayed', checked: selectedData, setChecked: setselectedData }}
 		/>
 	);
 ```
