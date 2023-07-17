@@ -9,7 +9,7 @@ import SimpleTreeMenu from 'react-simple-tree-menu';
 import TreeMenuItem from "./TreeMenuItem";
 
 const TreeMenu = ({
-	data, searchOptions, ...props
+	data, searchOptions, hasSearch, ...props
 }) => {
 	const [isDropdownMenuOpen, setDropdownMenu] = useState(false);
 
@@ -22,20 +22,20 @@ const TreeMenu = ({
 				{({ search, items }) => (
 					<>
 						<InputGroup>
-							<InputGroupText className={props.hasSearch ? "p-0 border-0" : "p-0 border-0 w-100"}>
+							<InputGroupText className={hasSearch ? "p-0 border-0" : "p-0 border-0 w-100"}>
 								{searchOptions?.dropdown && (
 									<ButtonDropdown
-										className={props.hasSearch ? "" : "w-100"}
+										className={hasSearch ? "" : "w-100"}
 										size="sm"
 										isOpen={isDropdownMenuOpen}
 										toggle={() => setDropdownMenu(prev => !prev)}
 									>
-										<DropdownToggle className={props.hasSearch ? "" : "w-100"} caret>{searchOptions.dropdown.title}</DropdownToggle>
+										<DropdownToggle className={hasSearch ? "" : "w-100"} caret>{searchOptions.dropdown.title}</DropdownToggle>
 										{searchOptions.dropdown.children}
 									</ButtonDropdown>
 								)}
 							</InputGroupText>
-							{props.hasSearch &&
+							{hasSearch &&
 							<Input
 								onChange={e => search(e.target.value)}
 								placeholder={searchOptions?.placeholder}
