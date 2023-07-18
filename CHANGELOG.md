@@ -86,7 +86,9 @@
 
 - Add styles for primary dropdown-toggle (INDIGO Sprint 230623, [!428](https://github.com/TeskaLabs/asab-webui/pull/428))
 
-- Add a condition that will allow users with the right resource to see hidden tree-menu-items (INDIGO Sprint 230623, [!437](https://github.com/TeskaLabs/asab-webui/pull/437))
+- Add default value for HelpButton (INDIGO Sprint 230713, [!438](https://github.com/TeskaLabs/asab-webui/pull/438))
+
+- Add a condition that will allow users with the right resource to see hidden tree-menu-items, add docs for TreeMenu (INDIGO Sprint 230623, [!437](https://github.com/TeskaLabs/asab-webui/pull/437))
 
 ### Bugfix
 
