@@ -34,10 +34,10 @@ More parameters can be found [here](https://github.com/iannbing/react-simple-tre
 
 	- `data`: object or array, data in a special structure. The detailed data structure is described in the library documentation react-simple-tree-menu.
 
-	- `resource`: string, resource granting display disabled tree-menu-item elements
-
 
 #### Optional:
 
 	- `searchOptions`: object, conducts placeholder and the dropdown component
+
+	- `resource`: string, resource granting display disabled tree-menu-item elements
 
