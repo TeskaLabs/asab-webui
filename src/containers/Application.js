@@ -451,7 +451,7 @@ class Application extends Component {
 			return () => {
 				this.Store.dispatch({
 					type: SET_HELP_PATH,
-					helpPath: ""
+					helpPath: "https://docs.teskalabs.com/logman.io/"
 				})
 			}
 		}, []);

@@ -86,6 +86,8 @@
 
 - Add styles for primary dropdown-toggle (INDIGO Sprint 230623, [!428](https://github.com/TeskaLabs/asab-webui/pull/428))
 
+- Add default value for HelpButton (INDIGO Sprint 230713, [!438](https://github.com/TeskaLabs/asab-webui/pull/438))
+
 ### Bugfix
 
 - Bug fix for HelpComponent, not display a Helpcomoponent when the user changing the page (INDIGO Sprint 230317, [!401](https://github.com/TeskaLabs/asab-webui/pull/401))

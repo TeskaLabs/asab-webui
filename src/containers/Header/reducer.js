@@ -1,7 +1,7 @@
 import { SET_HELP_PATH, SET_BREADCRUMB_NAME, SET_FLAG } from '../../actions';
 
 const initialState = {
-	helpPath: "",
+	helpPath: "https://docs.teskalabs.com/logman.io/",
 	breadcrumbName: undefined, 
 	flag: undefined
 }
