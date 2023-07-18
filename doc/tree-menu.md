@@ -28,20 +28,18 @@ import { TreeMenu } from 'asab-webui';
 
 
 ## Props:
+More parameters can be found [here](https://github.com/iannbing/react-simple-tree-menu#api).
 
 #### Required:
 
 	- `data`: object or array, data in a special structure. The detailed data structure is described in the library documentation react-simple-tree-menu.
 
-	- `hasSearch`: boolean, changes the styles for the search input and affects the display of placeholder
-
-	- `hasNodes`: boolean, if a `TreeNode` is the last node of its branch	
+	- `hasSearch`: boolean, render the `Search` for the `TreeMenu`
 
 	- `resource`: string, resource granting display disabled tree-menu-item elements
 
 
 #### Optional:
-More additional parameters can be found [here](https://github.com/iannbing/react-simple-tree-menu#api).
 
 	- `searchOptions`: object, conducts placeholder and the dropdown component
 
