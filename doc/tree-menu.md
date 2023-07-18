@@ -34,8 +34,6 @@ More parameters can be found [here](https://github.com/iannbing/react-simple-tre
 
 	- `data`: object or array, data in a special structure. The detailed data structure is described in the library documentation react-simple-tree-menu.
 
-	- `hasSearch`: boolean, render the `Search` for the `TreeMenu`
-
 	- `resource`: string, resource granting display disabled tree-menu-item elements
 
 
