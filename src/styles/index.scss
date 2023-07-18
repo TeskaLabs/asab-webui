@@ -191,6 +191,21 @@ a {
 .pl-auto {
 	padding-left: auto!important;
 }
+.p-1 {
+	padding: 0.25rem!important;
+}
+.pr-1, .px-1 {
+	padding-right: 0.25rem!important;
+}
+.pl-1, .px-1 {
+    padding-left: 0.25rem!important;
+}
+.pb-1, .py-1 {
+    padding-bottom: 0.25rem!important;
+}
+.pt-1, .py-1 {
+    padding-top: 0.25rem!important;
+}
 .p-2 {
 	padding: 0.5rem!important;
 }
