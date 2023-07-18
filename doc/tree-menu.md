@@ -41,5 +41,7 @@ import { TreeMenu } from 'asab-webui';
 
 
 #### Optional:
+More additional parameters can be found [here](https://github.com/iannbing/react-simple-tree-menu#api).
+
 	- `searchOptions`: object, conducts placeholder and the dropdown component
 
