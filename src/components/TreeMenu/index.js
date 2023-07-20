@@ -9,7 +9,7 @@ import SimpleTreeMenu from 'react-simple-tree-menu';
 import TreeMenuItem from "./TreeMenuItem";
 
 const TreeMenu = ({
-	data, searchOptions, ...props
+	data, searchOptions, resources, ...props
 }) => {
 	const [isDropdownMenuOpen, setDropdownMenu] = useState(false);
 
@@ -45,6 +45,7 @@ const TreeMenu = ({
 							{items.map(({ reset, ...props }) => (
 								<TreeMenuItem
 									active="false"
+									resources={resources}
 									{...props}
 								/>
 							))}

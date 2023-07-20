@@ -14,7 +14,6 @@ const TreeMenuItem = ({
 	const paddingLeft = 1.25 * level + 0.5;
 	const selected = focused ? " selected" : "";
 	const disabled = (isDisabled || sessionExpired) ? " disabled" : "";
-
 	// const showDisabledItems = isDisabled && resources && resource &&
 
 	// Method to manage clicks on whole rows of the Tree item
