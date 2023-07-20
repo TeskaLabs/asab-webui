@@ -2,6 +2,10 @@
 
 ## Release Candidate
 
+### Breaking change
+
+- All service names need to be updaded in nginx configuration according following example: `asab_config` -> `asab-config`
+
 ### Features
 
 - Implement `getTenantData` method to Tenant service (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
