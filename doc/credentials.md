@@ -11,10 +11,10 @@ yarn add react-i18next
 yarn add react-router-dom
 ```
 
-At the moment works ONLY with `apiPath='seacat_auth'`
+At the moment works ONLY with `apiPath='seacat-auth'`
 
 `credentials_ids` (required, array of strings) - credential ids to be converted
-`apiPath` - default (and only working so far) `'seacat_auth'`
+`apiPath` - default (and only working so far) `'seacat-auth'`
 `cleanupTime` - in milisecondes, default set to 24 hours `{1000 * 60 * 60 * 24}`
 `...props` - pass props on the `<Link>` such as a `title, id, className, etc`
 
@@ -36,7 +36,7 @@ import { Credentials } from 'asab-webui';
                 <Credentials 
                     app={props.app} 
                     credentials_ids={['mongodb:ext:618bd4baa2548da08bdcb2e3', 'mongodb:ext:618ced0fe6f6e38ab6a9c8b8']} 
-                    apiPath='seacat_auth' 
+                    apiPath='seacat-auth' 
                     cleanupTime={1000 * 60 * 60 * 24 * 14}
                 />
             </>

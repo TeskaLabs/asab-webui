@@ -16,8 +16,8 @@ import { getBrandImage } from "asab-webui";
 
 function ConfigContainer(props) {
 
-	const ASABConfigAPI = props.app.axiosCreate('asab_config');
-	const serviceURL = props.app.getServiceURL('asab_config');
+	const ASABConfigAPI = props.app.axiosCreate('asab-config');
+	const serviceURL = props.app.getServiceURL('asab-config');
 	const { t } = useTranslation();
 
 	const configType = props.match.params.configType;
@@ -230,9 +230,9 @@ function ConfigContainer(props) {
 
 function mapStateToProps(state) {
 	return {
-		config_created: state.asab_config.config_created,
-		config_removed: state.asab_config.config_removed,
-		config_imported: state.asab_config.config_imported
+		config_created: state.asabConfig.config_created,
+		config_removed: state.asabConfig.config_removed,
+		config_imported: state.asabConfig.config_imported
 	}
 }
 

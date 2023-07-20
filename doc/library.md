@@ -45,9 +45,9 @@ module.exports = {
 	app: {
 		modules: ["LibraryModule"]
 	},
-	'/api/lmio_library': {
+	'/api/lmio-library': {
 		target: "http://127.0.0.1:8089", // Note that target adress may differ base on address where microservice is running
-		pathRewrite: { '^/api/lmio_library': '' }
+		pathRewrite: { '^/api/lmio-library': '' }
 	},
 }
 ```

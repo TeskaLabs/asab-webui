@@ -2,6 +2,10 @@
 
 ## Release Candidate
 
+### Breaking change
+
+- All service names need to be updaded in nginx configuration according following example: `asab_config` -> `asab-config`
+
 ### Features
 
 - Added reusable component which will display a flag with custom defined name in the header of the app (INDIGO Spring 230623, [!433](https://github.com/TeskaLabs/asab-webui/pull/433))
@@ -33,6 +37,8 @@
 - New color variable for disabled text (INDIGO Sprint 230526, [!424](https://github.com/TeskaLabs/asab-webui/pull/424))
 
 ### Refactoring
+
+- Replace all underscores in names/api's with dashes (INDIGO Sprint 230623, [!435](https://github.com/TeskaLabs/asab-webui/pull/435))
 
 - Replace dynamic valus in locales in asab-webui (INDIGO Sprint 230623, [!432](https://github.com/TeskaLabs/asab-webui/pull/432))
 
