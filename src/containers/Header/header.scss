@@ -32,7 +32,10 @@ $toggle-text-color: var(--toggle-text-color);
 
 .preview-flag {
 	font-size: 1rem;
-	color: $toggle-text-color;
+	color: var(--warning);
 	margin-right: 1.5rem;	
+	// color: $toggle-text-color;
+	// color: var(--info);
+	// color: var(--danger);
 }
 
