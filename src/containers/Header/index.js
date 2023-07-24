@@ -122,7 +122,7 @@ export function Header(props) {
 						{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') &&
 							(
 								<Nav navbar>
-									<PreviewFlag />
+									<PreviewFlag name={flag} />
 									<HelpButton />
 									<ThemeButton />
 									{HeaderService.Items.map((item, idx) => (
