@@ -157,12 +157,12 @@ const initData = {
 				default:
 					break;
 			}
-			
+
 		}
 		return { data: filteredData.slice((page-1)*limit, limit*page), count: filteredData.length };
 	},
-	headers: [ 
-		{ 
+	headers: [
+		{
 			name: 'Link',
 			key: 'username',
 			link: {
@@ -175,9 +175,9 @@ const initData = {
 			key: '_c',
 			datetime: { format: 'lll' }
 		},
-		{ 
-			name: 'Text', 
-			key: '_provider_id' 
+		{
+			name: 'Text',
+			key: '_provider_id'
 		},
 		{
 			name: 'Custom',
@@ -245,7 +245,7 @@ export default function (props) {
 		onClick() {alert("You've clicked button with authz")},
 		resource: "res:res",
 		resources: ["res:res"],
-		children: (<><i className="cil-trash mr-2"></i>ButtonWithAuthz</>)
+		children: (<><i className="cil-trash me-2"></i>ButtonWithAuthz</>)
 	}
 
 	const noItemsComponent = (
