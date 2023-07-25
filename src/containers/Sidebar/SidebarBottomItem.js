@@ -43,7 +43,7 @@ const SidebarBottomItem = ({ item, sidebarLogo, disabled, toggleSidebarModal }) 
 		return (
 			<>
 				<Icon icon={item.icon} />
-				<div className="sidebar-item-name ml-2">{t(`Sidebar|${item.name}`)}</div>
+				<div className="sidebar-item-name ms-2">{t(`Sidebar|${item.name}`)}</div>
 			</>
 		)
 	}
@@ -84,7 +84,7 @@ const SidebarBottomItem = ({ item, sidebarLogo, disabled, toggleSidebarModal }) 
 								:
 									<AboutButton />
 								}
-								
+
 							</button>
 						)}
 						<button
@@ -92,7 +92,7 @@ const SidebarBottomItem = ({ item, sidebarLogo, disabled, toggleSidebarModal }) 
 							className={`sidebar-item-button btn mobile-collapsed${item ? " right" : ""}`}
 							onClick={onCollapse}
 						>
-							<i className='cil-chevron-left ml-auto'></i>
+							<i className='cil-chevron-left ms-auto'></i>
 						</button>
 					</NavLink>
 				</NavItem>
