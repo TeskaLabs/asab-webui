@@ -30,8 +30,11 @@ $toggle-text-color: var(--toggle-text-color);
 
 }
 
-.preview-flag {
-	font-size: 1rem;
-	color: var(--warning);
-	margin-right: 1.5rem;	
+.preview-flag-dark {
+	color: $toggle-text-color;
 }
+
+.preview-flag-light {
+	color: $text-color;
+}
+
