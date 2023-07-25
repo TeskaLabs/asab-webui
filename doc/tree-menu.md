@@ -12,6 +12,7 @@ import { TreeMenu } from 'asab-webui';
 
 <TreeMenu
 	resource={resource}
+	resources={resources}
 	data={treeData}
 	hasSearch={true}
 	hasNodes={true} // default: false
@@ -40,4 +41,6 @@ More parameters can be found [here](https://github.com/iannbing/react-simple-tre
 	- `searchOptions`: object, conducts placeholder and the dropdown component
 
 	- `resource`: string, resource granting display disabled tree-menu-item elements
+
+	- `resources`: array, list of resources that the user has
 
