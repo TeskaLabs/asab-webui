@@ -120,7 +120,7 @@ export const KnowledgeBase = ({ props, apiPath, entryPath }) => {
 
 	return (
 		<Container fluid className="h-100 knowledge-container">
-			<Row className="ml-0 mr-3 h-100">
+			<Row className="ms-0 me-3 h-100">
 				<Col xs="3" sm="3" className="h-100">
 					<TreeMenu
 						data={treeData}

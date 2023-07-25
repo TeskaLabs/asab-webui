@@ -92,7 +92,7 @@ function Tool(props) {
 		props.config.map((configObject, idx) => {
 			return (
 				<React.Fragment key={configObject.name}>
-					<Col className="text-center pt-5 pb-5 pl-5 pr-5">
+					<Col className="text-center pt-5 pb-5 ps-5 pe-5">
 						<Row className="justify-content-center">
 							<a href={configObject.url} target="_blank" style={{textDecoration: "none"}} rel="noopener noreferrer">
 								<Button className="tools-btn" title={configObject.url}>
