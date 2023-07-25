@@ -10,12 +10,9 @@ const TreeMenuItem = ({
 	type, isDisabled, resource, resources, ...props
 }) => {
 	const sessionExpired = useSelector(state => state.auth?.sessionExpired);
-	// const resources = useSelector(state => state.auth?.resources);
 	const paddingLeft = 1.25 * level + 0.5;
 	const selected = focused ? " selected" : "";
 	const disabled = (isDisabled || sessionExpired) ? " disabled" : "";
-	// const showDisabledItems = isDisabled && resources && resource &&
-
 	// Method to manage clicks on whole rows of the Tree item
 	const handleClick = (e) => {
 		// If type is folder and node is closed, make whole line clickable for toggling nodes
@@ -25,7 +22,6 @@ const TreeMenuItem = ({
 		}
 		props.onClick && props.onClick();
 	}
-
 
 	return (
 		isDisabled && resources && (resources.indexOf(resource) == -1) && (resources.indexOf("authz:superuser") == -1) ?
