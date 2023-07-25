@@ -8,11 +8,11 @@ import {
 export const CreateButton = ({ createButton }) => {
 
 	return (
-		<div className="float-right ml-3 data-table-create-button">
+		<div className="float-end ms-3 data-table-create-button">
 			<Link to={{ pathname: createButton.pathname }}>
 				<Button tag="span">
-					{createButton.icon && 
-						<span className="pr-1">
+					{createButton.icon &&
+						<span className="pe-1">
 							{typeof createButton.icon === 'string' ? <i className={createButton.icon}></i> : createButton.icon}
 						</span>
 					}
@@ -27,7 +27,7 @@ export const DownloadButton = ({ onDownload, headers, title }) => {
 
 	const downloadHandler = () => {
 		const list = onDownload();
-		let csv = headers.map(header => header.name).join(',') + "\n" + 
+		let csv = headers.map(header => header.name).join(',') + "\n" +
 			list.map(item => headers.map(header => {
 				if (header.customComponent) {
 					if (header.customComponent.onDownload)
@@ -42,7 +42,7 @@ export const DownloadButton = ({ onDownload, headers, title }) => {
 	}
 
 	return (
-		<div className="float-right ml-3 data-table-download-button">
+		<div className="float-end ms-3 data-table-download-button">
 			<Button tag="span" onClick={downloadHandler} >
 				<i className="cil-arrow-bottom"></i>
 				Download
@@ -53,15 +53,15 @@ export const DownloadButton = ({ onDownload, headers, title }) => {
 
 export const ActionButton = ({ actionButton, row, header }) => {
 	const [isOpen, setOpen] = useState(false);
-	
+
 	return (
 		<Dropdown
-			className="action-button-dropdown float-right mr-2"
+			className="action-button-dropdown float-end me-2"
 			isOpen={isOpen}
 			toggle={() => setOpen(prev => !prev)}
 			size="sm"
 		>
-			<DropdownToggle 
+			<DropdownToggle
 				className="action-button-dropdown-toggle text-primary"
 				tag="span"
 				style={{ textDecoration: "none", cursor: "pointer" }}
@@ -71,7 +71,7 @@ export const ActionButton = ({ actionButton, row, header }) => {
 			<DropdownMenu>
 				{actionButton.title && (
 					<DropdownItem
-						header 
+						header
 						className="action-button-dropdown-header"
 					>
 						<span style={{ fontWeight: 700 }}>{actionButton.title}</span>
@@ -100,9 +100,9 @@ export const CustomButton = ({ customButton }) => {
 				tag="span"
 				{...customButton?.props}
 			>
-				{customButton.icon && 
-					<span className="pr-1">
-						{typeof customButton.icon === 'string' ? 
+				{customButton.icon &&
+					<span className="pe-1">
+						{typeof customButton.icon === 'string' ?
 							<i className={customButton.icon}></i> : customButton.icon
 						}
 					</span>

@@ -17,7 +17,7 @@ export function DateTime(props) {
 	if (new Date(props.value).toString() === "Invalid Date") {
 		return (
 			<span className='datetime'>
-				<i className="cil-clock pr-1"></i>
+				<i className="cil-clock pe-1"></i>
 				Invalid Date
 			</span>
 		);
@@ -31,7 +31,7 @@ export function DateTime(props) {
 
 	return (
 		<span className="datetime" title={dateFromNow}>
-			<i className="cil-clock pr-1"></i>
+			<i className="cil-clock pe-1"></i>
 			{date}
 		</span>
 	);

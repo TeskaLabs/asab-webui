@@ -7,9 +7,9 @@ import {
 const Search = ({ search, filterValue, setFilterValue }) => {
 
 	return (
-        <div className="float-right ml-3 data-table-search">
+        <div className="float-end ms-3 data-table-search">
             <InputGroup>
-                {search.icon && 
+                {search.icon &&
                     <InputGroupAddon addonType="prepend">
                     <InputGroupText><i className={search.icon}></i></InputGroupText>
                     </InputGroupAddon>

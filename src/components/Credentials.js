@@ -60,7 +60,7 @@ export function Credentials({ ...props }) {
 				credentials.map((credentialObj) => {
 					return (
 						<div title={credentialObj.id}>
-							<i className="cil-user pr-1"></i>
+							<i className="cil-user pe-1"></i>
 							<Link {...props} to={{ pathname: `/auth/credentials/${credentialObj.id}` }}>
 								{credentialObj.username}
 							</Link>
@@ -71,7 +71,7 @@ export function Credentials({ ...props }) {
 				credentials_ids.map((credentials_id) => {
 					return (
 						<div>
-							<i className="cil-user pr-1"></i>
+							<i className="cil-user pe-1"></i>
 							<Link {...props} to={{ pathname: `/auth/credentials/${credentials_id}` }}>
 								{credentials_id}
 							</Link>
