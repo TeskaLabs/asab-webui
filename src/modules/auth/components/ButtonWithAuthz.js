@@ -47,7 +47,7 @@ import { authz } from './authz';
 				resources={resources}
 				hideOnUnauthorizedAccess={true}
 				>
-				<span className="cil-trash pr-2" />
+				<span className="cil-trash pe-2" />
 				{t('MyApp|Delete')}
 			</ButtonWithAuthz>
 		...

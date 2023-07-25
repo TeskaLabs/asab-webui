@@ -105,7 +105,7 @@ function AccessControlCard(props) {
 				<Card className="shadow animated fadeIn mt-4">
 					<CardHeader className="border-bottom">
 						<div className="card-header-title">
-							<i className="cil-code pr-2"></i>
+							<i className="cil-code pe-2"></i>
 							JSON
 						</div>
 					</CardHeader>
