@@ -159,7 +159,7 @@ function ConfigContainer(props) {
 	// Render function
 	return (
 		<Container fluid className="config-container animated fadeIn">
-			<Row className="ml-0 h-100">
+			<Row className="ms-0 h-100">
 				<Col xs="3" sm="3" className="h-100">
 					<TreeViewComponent
 						serviceURL={serviceURL}

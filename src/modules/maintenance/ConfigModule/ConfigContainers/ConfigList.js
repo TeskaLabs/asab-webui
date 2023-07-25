@@ -150,7 +150,7 @@ function ConfigList(props) {
 			props.app.addAlert("warning", `${t("ASABConfig|Something went wrong, failed to remove configuration")}. ${e?.response?.data?.message}`, 30);
 		}
 	}
-	
+
 	if (props.createConfig) {
 		return <CreateConfigCard app={props.app} configType={configType} setCreateConfig={props.setCreateConfig} />
 	}
@@ -226,7 +226,7 @@ function CreateConfigCard(props) {
 			<Card className="w-100 h-100">
 				<CardHeader className="border-bottom">
 					<div className="card-header-title">
-						<span className="cil-settings pr-2" />
+						<span className="cil-settings pe-2" />
 						{t("ASABConfig|Type") + ` ${props.configType.toString()} / ` + t('ASABConfig|New configuration')}
 					</div>
 					<Button

@@ -87,7 +87,7 @@ const ConfigImport = (props) => {
 			>
 				<CardHeader className="border-bottom">
 					<div className="card-header-title">
-						<i className="cil-cloud-upload mr-2" />
+						<i className="cil-cloud-upload me-2" />
 						{t("ASABConfig|Import configuration")}
 					</div>
 				</CardHeader>
@@ -112,7 +112,7 @@ const ConfigImport = (props) => {
 
 						<Col>
 							<Row>
-								<FormGroup check className="mr-2">
+								<FormGroup check className="me-2">
 									<Input
 										type="radio"
 										value="merge"

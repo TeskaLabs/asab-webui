@@ -510,10 +510,10 @@ function ConfigEditor(props) {
 				<Form onSubmit={handleSubmit(onSubmit)}>
 					<CardHeader className="border-bottom">
 						<div className="card-header-title">
-							<span className="cil-settings pr-2" />
+							<span className="cil-settings pe-2" />
 							{configName ? configType.toString() + ' / ' + configName.toString() : ""}
 						</div>
-						{/* TODO: Replace div.float-right with ButtonGroup */}
+						{/* TODO: Replace div.float-end with ButtonGroup */}
 						<ButtonGroup className="p-1">
 							<Nav tabs>
 								<NavItem>
@@ -594,7 +594,7 @@ function ConfigEditor(props) {
 							</ButtonWithAuthz>
 						</ButtonGroup>
 						{selectPatternSections.length > 0 &&
-							<span className="float-right">
+							<span className="float-end">
 							<Dropdown
 								direction="up"
 								isOpen={dropdownOpen}
@@ -643,7 +643,7 @@ function ConfigSection(props) {
 					</h5>
 				</Col>
 				<Col>
-					<div className="float-right">
+					<div className="float-end">
 						{props.selectPatternSections.length > 0 &&
 							<ButtonWithAuthz
 								title={t('ASABConfig|Remove')}
