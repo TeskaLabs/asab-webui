@@ -42,5 +42,5 @@ More parameters can be found [here](https://github.com/iannbing/react-simple-tre
 
 	- `resource`: string, resource granting display disabled tree-menu-item elements
 
-	- `resources`: array, list of resources that the user has
+	- `resources`: resources: array, list of resources that the user has assigned
 
