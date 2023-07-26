@@ -13,6 +13,7 @@ $toggle-text-color: var(--toggle-text-color);
 	&.modal-dialog {
 		max-width: 960px;
 	}
+	
 	& .modal-content {
 		border: 0;
 		border-radius: 8px;
@@ -27,7 +28,6 @@ $toggle-text-color: var(--toggle-text-color);
 		overflow: hidden;
 		border: 0;
 	}
-
 }
 
 .preview-flag-dark {

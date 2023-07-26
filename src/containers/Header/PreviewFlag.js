@@ -6,14 +6,6 @@ export default function PreviewFlag({ name }) {
     const flagName = name?.toLowerCase();
     const { t } = useTranslation();
     const theme = useSelector(state=>state?.theme);
-
-    useEffect(() => {
-        const element = document.querySelector('.preview-flag');
-        if (element) {
-          element.classList.toggle('preview-flag-dark', theme === 'dark');
-          element.classList.toggle('preview-flag-light', theme === 'light');
-        }
-    }, [theme]);
  
     if(flagName === "preview") {
         name = t("AnalysisContainer|Preview")
@@ -27,7 +19,7 @@ export default function PreviewFlag({ name }) {
 
     return (
         <>
-            <span className="badge badge-warning mr-4 preview-flag">
+            <span className={`badge badge-warning mr-4 preview-flag ${theme == "light" ? "preview-flag-light" : "preview-flag-dark"}`}>
                 { name }
             </span>
         </>
