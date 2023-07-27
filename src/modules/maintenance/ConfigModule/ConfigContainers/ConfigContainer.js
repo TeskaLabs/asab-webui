@@ -205,7 +205,7 @@ function ConfigContainer(props) {
 											/>
 										</Row>
 										<Row className="justify-content-center">
-											<h3>{t('ASABConfig|Nothing has been selected')}</h3>
+											<h3 className="w-auto">{t('ASABConfig|Nothing has been selected')}</h3>
 										</Row>
 										<Row className="justify-content-center">
 											<h6>{t('ASABConfig|Please select the configuration from tree menu on the left side of the screen')}</h6>
