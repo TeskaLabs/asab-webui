@@ -45,6 +45,7 @@ const TreeMenu = ({
 								<TreeMenuItem
 									active="false"
 									resource={props.resource}
+
 									resources={props.resources}
 									{...params}
 								/>
