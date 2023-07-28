@@ -8,7 +8,7 @@ export function Credentials({ ...props }) {
 
 	const { t } = useTranslation();
 
-	const apiPath = props.apiPath ?? 'seacat_auth';
+	const apiPath = props.apiPath ?? 'seacat-auth';
 	let API = props.app.axiosCreate(apiPath);
 
 	const credentials_ids = Array.isArray(props.credentials_ids) ? props.credentials_ids : [props.credentials_ids] ;

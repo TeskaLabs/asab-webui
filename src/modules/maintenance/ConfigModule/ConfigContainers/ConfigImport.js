@@ -12,7 +12,7 @@ import {types} from "./actions/actions";
 
 const ConfigImport = (props) => {
 
-	const ASABConfigAPI = props.app.axiosCreate('asab_config');
+	const ASABConfigAPI = props.app.axiosCreate('asab-config');
 	const { t } = useTranslation();
 	const [chosenFilename, setChosenFilename] = useState("No file chosen");
 	const [type, setType] = useState("merge");

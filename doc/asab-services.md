@@ -16,10 +16,10 @@ module.exports = {
 	webpackDevServer: {
 		port: 3000,
 		proxy: {
-			'/api/lmio_remote_control': {
+			'/api/lmio-remote-control': {
 				target: 'http://localhost:8086',
 				ws: true,
-				pathRewrite: {'^/api/lmio_remote_control' : ''}
+				pathRewrite: {'^/api/lmio-remote-control' : ''}
 			},
 		}
 	}
