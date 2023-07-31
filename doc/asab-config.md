@@ -21,9 +21,9 @@ module.exports = {
 	webpackDevServer: {
 		port: 3000,
 		proxy: {
-			'/api/asab_config': {
+			'/api/asab-config': {
 				target: 'http://localhost:8082',
-				pathRewrite: {'^/api/asab_config' : ''},
+				pathRewrite: {'^/api/asab-config' : ''},
 				ws: true
 			},
 		}

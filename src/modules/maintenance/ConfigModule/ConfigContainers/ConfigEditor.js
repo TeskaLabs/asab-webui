@@ -26,7 +26,7 @@ import { ButtonWithAuthz, getBrandImage } from 'asab-webui';
 function ConfigEditor(props) {
 	const { register, handleSubmit, setValue, getValues, formState: { errors, isSubmitting }, reset, resetField } = useForm();
 	const { t, i18n } = useTranslation();
-	const ASABConfigAPI = props.app.axiosCreate('asab_config');
+	const ASABConfigAPI = props.app.axiosCreate('asab-config');
 	let history = useHistory();
 
 	const [ adHocValues, setAdHocValues ] = useState({});

@@ -17,7 +17,7 @@ import { DataTable, ButtonWithAuthz } from 'asab-webui';
 function ConfigList(props) {
 	const { register, handleSubmit, getValues, formState: { errors, isSubmitting }, reset } = useForm();
 	const { t, i18n } = useTranslation();
-	const ASABConfigAPI = props.app.axiosCreate('asab_config');
+	const ASABConfigAPI = props.app.axiosCreate('asab-config');
 	let history = useHistory();
 
 	const [ configList, setConfigList ] = useState([]);
@@ -175,7 +175,7 @@ export default ConfigList;
 function CreateConfigCard(props) {
 	const { register, handleSubmit, getValues, formState: { errors, isSubmitting }, reset } = useForm();
 	const { t, i18n } = useTranslation();
-	const ASABConfigAPI = props.app.axiosCreate('asab_config');
+	const ASABConfigAPI = props.app.axiosCreate('asab-config');
 	let history = useHistory();
 
 	const regConfigName = register("configName",

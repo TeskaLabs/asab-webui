@@ -162,14 +162,9 @@ export function DataTable ({
 									limitValues={limitValues}
 								/>
 							}
-
 							{count ? (
 								<div className="data-table-count">
-									{t(translationRoute ?
-										`${translationRoute}|Showing item(s)`
-										: "Showing item(s)",
-										{ from: (currentPage - 1) * limit + 1, to: count > currentPage * limit ? currentPage * limit : count, total: count }
-									)}
+									{`${(currentPage -1) * limit + 1} - ${count > currentPage * limit ? currentPage * limit: count} ${t("of")} ${count} ${t("item(s)")}`}
 								</div>
 								) : null
 							}

@@ -23,14 +23,12 @@ import HeaderService from '../services/HeaderService';
 import SidebarService from './Sidebar/service';
 import ThemeService from '../theme/ThemeService';
 import BrandingService from '../services/BrandingService';
-import HelpService from "../services/HelpService";
 import TitleService from "../services/TitleService";
 
 import AccessDeniedCard from '../modules/tenant/access/AccessDeniedCard';
 import UnauthorizedAccessScreen from '../modules/auth/components/UnauthorizedAccessScreen';
 
-import {ADD_ALERT, SET_ADVANCED_MODE, HELP_CONTENT, SET_BREADCRUMB_NAME} from '../actions';
-
+import {ADD_ALERT, SET_ADVANCED_MODE, SET_HELP_PATH, SET_BREADCRUMB_NAME, SET_FLAG} from '../actions';
 
 class Application extends Component {
 
@@ -92,8 +90,7 @@ class Application extends Component {
 		this.SidebarService = new SidebarService(this, "SidebarService");
 		this.ThemeService = new ThemeService(this, "ThemeService");
 		this.BrandingService = new BrandingService(this, "BrandingService");
-		this.HelpService = new HelpService(this, "HelpService");
-		this.TitleService = new TitleService(this, "TitleService")
+		this.TitleService = new TitleService(this, "TitleService");
 
 		this.ReduxService.addReducer("alerts", alertsReducer);
 		this.ReduxService.addReducer("advmode", advancedModeReducer);
@@ -447,14 +444,17 @@ class Application extends Component {
 
 	addHelpButton(path) {
 		useEffect(() => {
-			this.HelpService.setData(path);
+			this.Store.dispatch({
+				type: SET_HELP_PATH,
+				helpPath: path
+			});
 			return () => {
 				this.Store.dispatch({
-					type: HELP_CONTENT,
-					content: ""
+					type: SET_HELP_PATH,
+					helpPath: "https://docs.teskalabs.com/logman.io/"
 				})
 			}
-		}, [])
+		}, []);
 	}
 
 	// Method for overloading breadcrumb name
@@ -468,6 +468,21 @@ class Application extends Component {
 				this.Store.dispatch({
 					type: SET_BREADCRUMB_NAME,
 					breadcrumbName: undefined
+				});
+			}
+		}, [name])
+	}
+
+	setFlag(name) {
+		useEffect(() => {
+			this.Store.dispatch({
+				type: SET_FLAG,
+				flag: name
+			});
+			return () => {
+				this.Store.dispatch({
+					type: SET_FLAG,
+					flag: undefined
 				});
 			}
 		}, [name])
