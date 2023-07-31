@@ -23,7 +23,7 @@ export default function HelpButton() {
 				title={t("HelpButton|Show help info")}
 				href="#"
 			>
-				<i>?</i>
+				<i className='at-question-message'/>
 			</NavLink>
 
 			<Modal isOpen={modal} toggle={toggle} className="center help-modal-card">
