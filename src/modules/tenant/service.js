@@ -81,7 +81,7 @@ export default class TenantService extends Service {
 		}
 		let tenantData = {};
 		if (currentTenant) {
-			const SeaCatAuthAPI = this.App.axiosCreate('seacat_auth');
+			const SeaCatAuthAPI = this.App.axiosCreate('seacat-auth');
 			try {
 				let response = await SeaCatAuthAPI.get(`/tenant/${currentTenant}`);
 				tenantData = response.data;

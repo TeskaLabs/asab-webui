@@ -2,7 +2,13 @@
 
 ## Release Candidate
 
+### Breaking change
+
+- All service names need to be updaded in nginx configuration according following example: `asab_config` -> `asab-config`
+
 ### Features
+
+- Added reusable component which will display a flag with custom defined name in the header of the app (INDIGO Spring 230623, [!433](https://github.com/TeskaLabs/asab-webui/pull/433))
 
 - Implement `getTenantData` method to Tenant service (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
 
@@ -31,6 +37,10 @@
 - New color variable for disabled text (INDIGO Sprint 230526, [!424](https://github.com/TeskaLabs/asab-webui/pull/424))
 
 ### Refactoring
+
+- Replace all underscores in names/api's with dashes (INDIGO Sprint 230623, [!435](https://github.com/TeskaLabs/asab-webui/pull/435))
+
+- Replace dynamic valus in locales in asab-webui (INDIGO Sprint 230623, [!432](https://github.com/TeskaLabs/asab-webui/pull/432))
 
 - Refactor naming for `get_current_tenant`, `set_tenants` and `_extract_tenant_from_url` from snake_case to camelCase format (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
 
@@ -78,6 +88,12 @@
 
 - Add locales for TitleService (INDIGO Sprint 230526, [!423](https://github.com/TeskaLabs/asab-webui/pull/423))
 
+- Favicon media assets update with new TeskaLabs logo. (INDIGO 230623, [!429](https://github.com/TeskaLabs/asab-webui/pull/429))
+
+- Add styles for primary dropdown-toggle (INDIGO Sprint 230623, [!428](https://github.com/TeskaLabs/asab-webui/pull/428))
+
+- Add default value for HelpButton (INDIGO Sprint 230713, [!438](https://github.com/TeskaLabs/asab-webui/pull/438))
+
 - Changed icons from coreui.io icons to atlasicons. (INDIGO Sprint 230428, [!412](https://github.com/TeskaLabs/asab-webui/pull/412))
 
 ### Bugfix
@@ -95,6 +111,10 @@
 - Remove pointer-events style for tree-menu-item (INDIGO Sprint 230609, [!427](https://github.com/TeskaLabs/asab-webui/pull/427))
 
 - Fixed title display for buttons after a session has ended. Added disabling inputs, Pie chart clickable parts, disabling `tree-menu-item` and reloading the page after clicking the Forward or Backward buttons in the browser (INDIGO Sprint 230609, [!426](https://github.com/TeskaLabs/asab-webui/pull/426))
+
+- Refactor HelpComponent, remove HelpService (INDIGO Sprint 230609, [!418](https://github.com/TeskaLabs/asab-webui/pull/418))
+
+- Add missing locales for HelpButton (INDIGO Sprint 230623, [!436](https://github.com/TeskaLabs/asab-webui/pull/436))
 
 ## v23.5
 

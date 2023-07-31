@@ -28,7 +28,7 @@ export default function ServicesContainer(props) {
 
 	// Set up websocket connection
 	let wsSubPath = '/ws';
-	const serviceName = 'lmio_remote_control';
+	const serviceName = 'lmio-remote-control';
 	let WSUrl = props.app.getWebSocketURL(serviceName, wsSubPath);
 	let WSClient = null;
 
@@ -295,7 +295,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 	const setAction = async(action, id) => {
 		let body = {};
 		body["command"] = action;
-		const LMIORemoteControlAPI = props.app.axiosCreate('lmio_remote_control');
+		const LMIORemoteControlAPI = props.app.axiosCreate('lmio-remote-control');
 		try {
 			let response = await LMIORemoteControlAPI.post(`/instance/${id}`, body);
 			if (response.data.result != "Accepted") {
