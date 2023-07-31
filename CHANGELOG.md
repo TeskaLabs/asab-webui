@@ -8,7 +8,9 @@
 
 ### Features
 
-- Added reusable component which will display a flag with custom defined name in the header of the app (INDIGO Spring 230623, [!433](https://github.com/TeskaLabs/asab-webui/pull/433))
+- Add different flag names and new color to previewFlag component (INDIGO Spring 230721, [!440](https://github.com/TeskaLabs/asab-webui/pull/440))
+
+- Add reusable component which will display a flag with custom defined name in the header of the app (INDIGO Spring 230623, [!433](https://github.com/TeskaLabs/asab-webui/pull/433))
 
 - Implement `getTenantData` method to Tenant service (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
 
