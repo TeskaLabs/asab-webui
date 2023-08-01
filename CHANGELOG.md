@@ -8,7 +8,9 @@
 
 ### Features
 
-- Added reusable component which will display a flag with custom defined name in the header of the app (INDIGO Spring 230623, [!433](https://github.com/TeskaLabs/asab-webui/pull/433))
+- Add different flag names and new color to previewFlag component (INDIGO Spring 230721, [!440](https://github.com/TeskaLabs/asab-webui/pull/440))
+
+- Add reusable component which will display a flag with custom defined name in the header of the app (INDIGO Spring 230623, [!433](https://github.com/TeskaLabs/asab-webui/pull/433))
 
 - Implement `getTenantData` method to Tenant service (INDIGO Sprint 230203, [!388](https://github.com/TeskaLabs/asab-webui/pull/388))
 
@@ -93,6 +95,8 @@
 - Add styles for primary dropdown-toggle (INDIGO Sprint 230623, [!428](https://github.com/TeskaLabs/asab-webui/pull/428))
 
 - Add default value for HelpButton (INDIGO Sprint 230713, [!438](https://github.com/TeskaLabs/asab-webui/pull/438))
+
+- Change "?" in HelpButton to word "Help" (INDIGO Sprint 230721, [!439](https://github.com/TeskaLabs/asab-webui/pull/439))
 
 - Add a condition that will allow users with the right resource to see hidden tree-menu-items, add docs for TreeMenu (INDIGO Sprint 230721, [!437](https://github.com/TeskaLabs/asab-webui/pull/437))
 
