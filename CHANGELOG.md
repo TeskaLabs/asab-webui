@@ -102,6 +102,8 @@
 
 ### Bugfix
 
+- Change key for locales to be reusable (INDIGO Sprint 230721, [!442](https://github.com/TeskaLabs/asab-webui/pull/442))
+
 - Bug fix for HelpComponent, not display a Helpcomoponent when the user changing the page (INDIGO Sprint 230317, [!401](https://github.com/TeskaLabs/asab-webui/pull/401))
 
 - Remove `removeAttributeQuotes` from HtmlWebPackPlugin setup in webpack.build to fix issue causing custom branding and CSS files are not being injected via nginx to the application. `removeAttributeQuotes` caused quotes removal in html tags which led to issue that tags has not been correctly injected. (INDIGO Sprint 230317, [!420](https://github.com/TeskaLabs/asab-webui/pull/420))
