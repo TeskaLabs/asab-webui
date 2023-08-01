@@ -98,6 +98,8 @@
 
 - Change "?" in HelpButton to word "Help" (INDIGO Sprint 230721, [!439](https://github.com/TeskaLabs/asab-webui/pull/439))
 
+- Add a condition that will allow users with the right resource to see hidden tree-menu-items, add docs for TreeMenu (INDIGO Sprint 230721, [!437](https://github.com/TeskaLabs/asab-webui/pull/437))
+
 ### Bugfix
 
 - Bug fix for HelpComponent, not display a Helpcomoponent when the user changing the page (INDIGO Sprint 230317, [!401](https://github.com/TeskaLabs/asab-webui/pull/401))
