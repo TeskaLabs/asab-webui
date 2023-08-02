@@ -212,7 +212,7 @@ $reversed-text-dropdown-color: var(--reversed-text-dropdown-color);
 // Primary style
 .btn-primary.dropdown-toggle {
 	color: $reversed-text-dropdown-color;
-	& [class^="cil-"] {
+	& [class^="at-"] {
 		color: $reversed-text-dropdown-color;
 	}
 }

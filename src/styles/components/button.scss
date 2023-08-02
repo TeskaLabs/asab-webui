@@ -108,7 +108,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 		color: $btn-txt;
 	}
 	&.disabled, &:disabled {
-		 & [class^="cil-"] {
+		 & [class^="at-"] {
 			 pointer-events: none;
 		 }
 	}
