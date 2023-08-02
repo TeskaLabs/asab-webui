@@ -1,13 +1,25 @@
 import React from 'react';
+import { useTranslation } from "react-i18next";
+import { useSelector } from 'react-redux';
 
 export default function PreviewFlag({ name }) {
-    if(!name) {
-        return null
+    const flagName = name?.toLowerCase();
+    const { t } = useTranslation();
+    const theme = useSelector(state=>state?.theme);
+ 
+    if(flagName === "preview") {
+        name = t("Preview")
+    } else if(flagName === "alpha") {
+        name = "Alpha";
+    } else if(flagName === "beta") {
+        name = "Beta";
+    } else {
+        return null;
     }
 
     return (
         <>
-            <span className="preview-flag">
+            <span className={`badge badge-warning mr-4 preview-flag ${theme == "light" ? "preview-flag-light" : "preview-flag-dark"}`}>
                 { name }
             </span>
         </>
