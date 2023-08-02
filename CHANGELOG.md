@@ -100,7 +100,7 @@
 
 - Add a condition that will allow users with the right resource to see hidden tree-menu-items, add docs for TreeMenu (INDIGO Sprint 230721, [!437](https://github.com/TeskaLabs/asab-webui/pull/437))
 
-- Changed icons from coreui.io icons to atlasicons. (INDIGO Sprint 230428, [!412](https://github.com/TeskaLabs/asab-webui/pull/412))
+- Changed icons from coreui.io icons to atlasicons. (INDIGO Sprint 230721, [!412](https://github.com/TeskaLabs/asab-webui/pull/412))
 
 ### Bugfix
 
