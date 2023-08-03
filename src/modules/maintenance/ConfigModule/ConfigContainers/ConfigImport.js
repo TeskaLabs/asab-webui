@@ -119,7 +119,7 @@ const ConfigImport = (props) => {
 										checked={type === "merge"}
 										onChange={onTypeChange}
 									/>
-									<Label check>
+									<Label className='form-label' check>
 										{t("ASABConfig|Merge")}
 									</Label>
 								</FormGroup>
@@ -131,7 +131,7 @@ const ConfigImport = (props) => {
 										checked={type === "override"}
 										onChange={onTypeChange}
 									/>
-									<Label check>
+									<Label className='form-label' check>
 										{t("ASABConfig|Override")}
 									</Label>
 								</FormGroup>

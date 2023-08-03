@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 import {
 	Card, CardBody, CardHeader, CardFooter,
-	Form, FormGroup, FormText, Input, Label,
+	Form, FormText, Input, Label,
 	TabContent, TabPane, Nav, NavItem, NavLink,
 	Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
 	Row, Col, ButtonGroup
@@ -662,7 +662,7 @@ function ConfigSection(props) {
 					</div>
 				</Col>
 			</Row>
-			<FormGroup tag="fieldset" disabled={props.isSubmitting}>
+			<fieldset className="mb-2" tag="fieldset" disabled={props.isSubmitting}>
 				{Object.keys(props.section.properties).map((item_name, idx) =>
 					// Decide what type of config item to render based on format
 					// TODO: Update also other RADIO and SELECT types
@@ -708,7 +708,7 @@ function ConfigSection(props) {
 										/>)
 					}}
 				)}
-			</FormGroup>
+			</fieldset>
 			{/* List all remaining key/values (aka AdHocValues) from a config as simple Config Item  */}
 			{Object.keys(props.adhocvalues).length > 0 && Object.keys(props.adhocvalues).map((value_name, idx) =>
 				{return(props.sectionname == value_name ?
@@ -738,8 +738,8 @@ function ConfigAdHocSection(props) {
 			{Object.keys(props.values).length > 0 && Object.keys(props.values).map((key, idx) =>
 				{
 				return (
-					<FormGroup key={idx}>
-						<Label for={myid}>
+					<div className="mb-2" key={idx}>
+						<Label className='form-label' for={myid}>
 							{key}
 						</Label>
 						<Input
@@ -752,7 +752,7 @@ function ConfigAdHocSection(props) {
 						<FormText color="muted">
 							{t('ASABConfig|Read only')}
 						</FormText>
-					</FormGroup>
+					</div>
 				)}
 			)}
 		</React.Fragment>

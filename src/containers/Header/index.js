@@ -54,7 +54,7 @@ export function Header(props) {
 						</div>
 					}
 					{windowDimensions.width > 768 && <Breadcrumbs app={props.app}/>}
-					<Nav className="ml-auto header-props" navbar>
+					<Nav className="ms-auto header-props" navbar>
 						<PreviewFlag name={flag} />
 						<HelpButton />
 						<ThemeButton />
@@ -77,7 +77,7 @@ export function Header(props) {
 							/>
 						</Link>
 					</div>
-					<Nav className="ml-auto header-props" navbar>
+					<Nav className="ms-auto header-props" navbar>
 						<PreviewFlag name={flag} />
 						<HelpButton />
 						<ThemeButton />

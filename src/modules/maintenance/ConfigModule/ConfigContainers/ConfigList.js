@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import {
 	Button,
 	Card, CardBody, CardHeader, CardFooter,
-	Form, FormGroup, FormText, Input, Label
+	Form, FormText, Input, Label
 } from "reactstrap";
 
 import {types} from './actions/actions';
@@ -238,8 +238,8 @@ function CreateConfigCard(props) {
 					</Button>
 				</CardHeader>
 				<CardBody>
-					<FormGroup tag="fieldset" disabled={isSubmitting}>
-						<Label for="configName">
+					<fieldset className="mb-2" disabled={isSubmitting}>
+						<Label className='form-label' for="configName">
 							{t('ASABConfig|Configuration name')}
 						</Label>
 						<Input
@@ -254,7 +254,7 @@ function CreateConfigCard(props) {
 						<FormText color={errors.configName ? "danger" : "muted"}>
 							{errors.configName ? errors.configName.message : t('ASABConfig|Fill out configuration name')}
 						</FormText>
-					</FormGroup>
+					</fieldset>
 				</CardBody>
 			</Card>
 		</Form>
