@@ -4,7 +4,7 @@ import ReactJson from 'react-json-view';
 import { useSelector } from 'react-redux';
 
 import { Container, Card, CardBody, CardHeader, Table,
-	InputGroup, InputGroupText, Input, InputGroupAddon,
+	InputGroup, InputGroupText, Input,
 	ButtonGroup
 } from 'reactstrap';
 
@@ -522,9 +522,7 @@ const Search = ({ search, filterValue, setFilterValue }) => {
 		<div className="float-end ms-3 data-table-search">
 			<InputGroup>
 				{search.icon &&
-					<InputGroupAddon addonType="prepend">
 					<InputGroupText><i className={search.icon}></i></InputGroupText>
-					</InputGroupAddon>
 				}
 				<Input
 					value={filterValue}

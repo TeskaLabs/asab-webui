@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-	InputGroup, InputGroupText, Input, InputGroupAddon
+	InputGroup, InputGroupText, Input
 } from 'reactstrap';
 
 const Search = ({ search, filterValue, setFilterValue }) => {
@@ -9,10 +9,13 @@ const Search = ({ search, filterValue, setFilterValue }) => {
 	return (
         <div className="float-end ms-3 data-table-search">
             <InputGroup>
+<<<<<<< Updated upstream
                 {search.icon &&
                     <InputGroupAddon addonType="prepend">
+=======
+                {search.icon && 
+>>>>>>> Stashed changes
                     <InputGroupText><i className={search.icon}></i></InputGroupText>
-                    </InputGroupAddon>
                 }
                 <Input
                     value={filterValue}
