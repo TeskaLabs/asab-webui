@@ -9,7 +9,6 @@ const timeToString = (value, dateTimeFormat = "medium") => {
 	
 	// Declaration of locale must be below empty string returned for `undefined` values to avoid bad react state handling in useDateFNSLocale
 	const locale = useDateFNSLocale();
-	
 	if (new Date(value).toString() === "Invalid Date") {
 		return 'Invalid Date';
 	}
@@ -17,6 +16,10 @@ const timeToString = (value, dateTimeFormat = "medium") => {
 	let date;
 
 	if (isNaN(value) == true) {
+		// Checking dates for parsing
+		if (parseISO(value) == "Invalid Date") {
+			return "Invalid Date";
+		}
 		if (dateTimeFormat === "medium") {
 			date = format(parseISO(value), 'PPp', { locale });
 		} else if (dateTimeFormat === "long") {

@@ -13,18 +13,19 @@ export function DateTime(props) {
 
 	// Declaration of locale must be below span returned for `undefined` values to avoid bad react state handling in useDateFNSLocale
 	const locale = useDateFNSLocale();
-
 	if (new Date(props.value).toString() === "Invalid Date") {
 		return (
-			<span className='datetime'>
-				<i className="cil-clock pr-1"></i>
-				Invalid Date
-			</span>
+			<InvalidDate />
 		);
 	}
 
 	const date = timeToString(props.value, props.dateTimeFormat);
-
+	// Check for invalid date from timeToString method
+	if (date === "Invalid Date") {
+		return (
+			<InvalidDate />
+		);
+	}
 	const dateFromNow = isNaN(props.value) ? formatDistanceToNow(parseISO(props.value), { addSuffix: true, locale: locale }) :
 		props.value > 9999999999 ? formatDistanceToNow(props.value, { addSuffix: true, locale: locale }) :
 		formatDistanceToNow(props.value * 1000, { addSuffix: true, locale: locale });
@@ -33,6 +34,16 @@ export function DateTime(props) {
 		<span className="datetime" title={dateFromNow}>
 			<i className="cil-clock pr-1"></i>
 			{date}
+		</span>
+	);
+}
+
+// Mehod for rendering invalid date component
+function InvalidDate(props) {
+	return (
+		<span className='datetime'>
+			<i className="cil-clock pr-1"></i>
+			Invalid Date
 		</span>
 	);
 }
