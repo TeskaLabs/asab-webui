@@ -124,6 +124,11 @@
 
 - Add missing locales for HelpButton (INDIGO Sprint 230623, [!436](https://github.com/TeskaLabs/asab-webui/pull/436))
 
+### Hotfix
+
+- Hotfix on DateTime component - Invalid date in timeToString formatting, preventing app failure (INDIGO Sprint 230804, [!443](https://github.com/TeskaLabs/asab-webui/pull/443))
+
+
 ## v23.5
 
 ### Features
