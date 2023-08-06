@@ -5,12 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { TreeMenu } from 'asab-webui';
 import { types } from './actions/actions';
-import {
-	Input,
-	InputGroup, InputGroupText,
-	ButtonDropdown, DropdownToggle,
-	DropdownMenu, DropdownItem
-} from "reactstrap";
+import { DropdownMenu, DropdownItem } from "reactstrap";
 
 
 export function TreeViewComponent(props) {

@@ -12,7 +12,6 @@ const TreeMenu = ({
 	data, searchOptions, ...props
 }) => {
 	const [isDropdownMenuOpen, setDropdownMenu] = useState(false);
-
 	return (
 		<div className="tree-menu">
 			<SimpleTreeMenu
@@ -42,9 +41,10 @@ const TreeMenu = ({
 							/>}
 						</InputGroup>
 						<ListGroup>
-							{items.map(({ reset, ...props }) => (
+							{items.map(({ reset, ...params }) => (
 								<TreeMenuItem
 									active="false"
+									{...params}
 									{...props}
 								/>
 							))}

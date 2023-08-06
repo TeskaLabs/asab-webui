@@ -96,7 +96,13 @@
 
 - Add default value for HelpButton (INDIGO Sprint 230713, [!438](https://github.com/TeskaLabs/asab-webui/pull/438))
 
+- Change "?" in HelpButton to word "Help" (INDIGO Sprint 230721, [!439](https://github.com/TeskaLabs/asab-webui/pull/439))
+
+- Add a condition that will allow users with the right resource to see hidden tree-menu-items, add docs for TreeMenu (INDIGO Sprint 230721, [!437](https://github.com/TeskaLabs/asab-webui/pull/437))
+
 ### Bugfix
+
+- Change key for locales to be reusable (INDIGO Sprint 230721, [!442](https://github.com/TeskaLabs/asab-webui/pull/442))
 
 - Bug fix for HelpComponent, not display a Helpcomoponent when the user changing the page (INDIGO Sprint 230317, [!401](https://github.com/TeskaLabs/asab-webui/pull/401))
 
@@ -115,6 +121,11 @@
 - Refactor HelpComponent, remove HelpService (INDIGO Sprint 230609, [!418](https://github.com/TeskaLabs/asab-webui/pull/418))
 
 - Add missing locales for HelpButton (INDIGO Sprint 230623, [!436](https://github.com/TeskaLabs/asab-webui/pull/436))
+
+### Hotfix
+
+- Hotfix on DateTime component - Invalid date in timeToString formatting, preventing app failure (INDIGO Sprint 230804, [!443](https://github.com/TeskaLabs/asab-webui/pull/443))
+
 
 ## v23.5
 

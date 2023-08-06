@@ -8,7 +8,7 @@ export default function PreviewFlag({ name }) {
     const theme = useSelector(state=>state?.theme);
  
     if(flagName === "preview") {
-        name = t("AnalysisContainer|Preview")
+        name = t("Preview")
     } else if(flagName === "alpha") {
         name = "Alpha";
     } else if(flagName === "beta") {
