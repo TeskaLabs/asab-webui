@@ -17,7 +17,7 @@ const ErrorHandlerExample = () => {
 			<Card>
 				<CardHeader className="border-bottom">
 				<div className="card-header-title">
-					<i className="cil-error" />
+					<i className="at-triangle-exclamation" />
 					Click on number to increment. When it'll reach 5 this container will throw error and ErrorHandler will be rendered
 				</div>
 				</CardHeader>

@@ -50,7 +50,7 @@ function HeaderComponent(props) {
 			<DropdownToggle title={props.sub} nav caret>
 				{(props.picture)
 					? <img src={props.picture} className="img-avatar" alt={props.username} style={{ fontSize: "1.1rem"}}/>
-					: <i alt={props.username} className="cil-user" style={{fontSize: "1.1rem"}}></i>
+					: <i alt={props.username} className="at-account" style={{fontSize: "1.1rem"}}></i>
 				}
 				<span className="pl-2" style={{fontSize: "1rem"}} title={props.sub}>{props.username}</span>
 			</DropdownToggle>

@@ -35,7 +35,7 @@ It is **highly recommended** to combine this approach with validation on Navigat
 	app.Navigation.addItem({
 		name: "Some screen",
 		url: "/somescreen",
-		icon: 'cil-some',
+		icon: 'at-some',
 		resource: 'asab:some:access'
 	});
 ```

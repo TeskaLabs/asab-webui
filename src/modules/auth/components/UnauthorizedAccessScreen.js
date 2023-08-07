@@ -48,7 +48,7 @@ export default function UnauthorizedAccessScreen(props) {
 					<Row className="justify-content-center">
 						<Col>
 							<Row className="justify-content-center">
-								<p><i className="unauthorized-icon cil-warning text-danger" title={t("UnauthorizedAccessScreen|Unauthorized access")}/></p>
+								<p><i className="unauthorized-icon at-triangle-exclamation text-danger" title={t("UnauthorizedAccessScreen|Unauthorized access")}/></p>
 							</Row>
 							<Row className="justify-content-center">
 								<p className="unauthorized-p">{t("UnauthorizedAccessScreen|You are not authorized to access this part of the application. Please ask your application administrator for following resource")}:</p>

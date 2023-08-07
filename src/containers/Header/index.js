@@ -102,7 +102,7 @@ export function Header(props) {
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') &&
 				<>
 					<div className={`header-props-toggler mr-3 p-0 ${headerProperties ? 'header-props-open' : '' }`} onClick={() => setHeaderProperties(!headerProperties)}>
-						<i className="cil-chevron-bottom"></i>
+						<i className="at-double-arrow-down-circle"></i>
 					</div>
 					<div className="header-props-language">
 						{HeaderService.Items.map((item, idx) => (

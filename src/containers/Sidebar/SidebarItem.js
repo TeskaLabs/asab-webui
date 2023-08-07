@@ -61,7 +61,7 @@ const SidebarItem = ({
 						<Icon icon={item.icon} />
 						<div className="sidebar-item-name ml-2">{t(`Sidebar|${item.name}`)}</div>
 						{item.children && item.children.length > 0 && (
-							<Icon icon={isOpen ? "cil-arrow-circle-bottom" : "cil-arrow-circle-left"} />
+							<Icon icon={isOpen ? "at-arrow-down-circle" : "at-arrow-left-circle"} />
 						)}
 					</button>
 				</NavLink>
