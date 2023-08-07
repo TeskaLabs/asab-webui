@@ -1,4 +1,7 @@
-/* TODO: Icon packs are imported individualy. Atlas Icon's readMe file suggests using `@import '~@vectopus/atlas-icons/style.css';` for import, however `~@vectopus/atlas-icons/index.css` file includes import of business-finance icon pack, which is not present in the packs and therefore throws an import error. Importing the packs individualy prevents this error. Change to recommended import way when this issue is resolved */
+/*
+TODO: Icon packs are imported individualy. Atlas Icon's readMe file suggests using `@import '~@vectopus/atlas-icons/style.css';` for import, however `~@vectopus/atlas-icons/index.css` file includes import of business-finance icon pack, which is not present in the packs and therefore throws an import error. Importing the packs individualy prevents this error. Change to recommended import way when this issue is resolved.
+Issue raised here: https://github.com/Vectopus/Atlas-icons-font/issues/10
+*/
 
 @import "~@vectopus/atlas-icons/packs/achievement/style.css";
 @import "~@vectopus/atlas-icons/packs/arrow/style.css";
