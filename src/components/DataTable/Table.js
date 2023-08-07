@@ -42,7 +42,7 @@ const TableCell = ({
 					className="data-table-button text-primary"
 					style={{ cursor: "pointer" }}
 				>
-					<i className="at-u-turn-arrow-down"></i>
+					<i className="at-align-down"></i>
 				</span>
 			</td>
 		);
