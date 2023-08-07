@@ -62,8 +62,8 @@ export default LanguageDropdown;
 let LanguageToFlag = {
 	cs: 'cz',
 	en: 'gb',
-	dev: 'placeholder-flag',
-	cimode: 'placeholder-flag',
+	dev: 'placeholder',
+	cimode: 'placeholder',
 }
 
 function LanguageFlag(props) {

@@ -43,7 +43,7 @@
 		"window": "^4.2.7"
 	},
 	"dependencies": {
-		"@coreui/icons": "^1.0.1",
+		"@vectopus/atlas-icons": "^0.0.5",
 		"axios": "^0.21.1",
 		"core-js": "3",
 		"date-fns": "^2.28.0",
