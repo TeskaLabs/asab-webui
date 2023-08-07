@@ -34,7 +34,7 @@ export default function HelpButton() {
 							{t("HelpButton|Help")}
 						</div>
 						<Button outline color="primary" onClick={toggle}>
-							<i className="at-xmark-circl"/>
+							<i className="at-xmark-circle"/>
 						</Button>
 					</CardHeader>
 					<CardBody>
