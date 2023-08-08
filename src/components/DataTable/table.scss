@@ -48,20 +48,30 @@ thead .data-table-tr th {
 		text-decoration: none;
 	}
 
-	& .data-table-tr {
-		height: 48px;
-		& .data-table-arrow-btn {
-			padding-left: .75rem;
-			[class^="cil-"], [class*=" cil-"] {
-				color: $primary;
-				cursor: pointer;
-			}
-		}
-	}
+    background-color: $bg-color-dark;
+    & td, th {
+        font-weight: 400;
+        vertical-align: middle;
+    }
 
-	& .data-table-tr-cursor {
-		cursor: pointer;
-	}
+    & a {
+        color: $primary;
+    }
+
+    & .data-table-tr {
+        height: 48px;
+        & .data-table-arrow-btn {
+            padding-left: .75rem;
+            [class^="at-"], [class*=" at-"] {
+                color: $primary;
+                cursor: pointer;
+            }
+        }
+    }
+
+    & .data-table-tr-cursor {
+        cursor: pointer;
+    }
 }
 
 table ~ .react-json-view {

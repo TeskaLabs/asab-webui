@@ -12,7 +12,7 @@ const ErrorContainer = props => {
 		<Container fluid>
 			<Card>
 				<CardHeader>
-					<h3>{t("Ooops. We're sorry. Something went wrong.")} <i className="cil-sad ms-1"></i> </h3>
+					<h3>{t("Ooops. We're sorry. Something went wrong.")} <i className="at-wrench ms-1"></i> </h3>
 				</CardHeader>
 				<CardBody>
 					<DateTime value={props.datetime}/>

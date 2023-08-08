@@ -51,6 +51,6 @@ const TreeMenuItem = ({
 	)
 };
 
-const ToggleIcon = ({ on, selected }) => <span className="menu-span"><i className={`menu-toggle-icon ${selected} ${on ? "cil-arrow-circle-bottom" : "cil-arrow-circle-right"}`}/></span>;
+const ToggleIcon = ({ on, selected }) => <span className="menu-span"><i className={`menu-toggle-icon ${selected} ${on ? "at-arrow-down-circle" : "at-arrow-right-circle"}`}/></span>;
 
 export default TreeMenuItem;

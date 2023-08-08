@@ -68,7 +68,7 @@ export function TreeViewComponent(props) {
 					}}
 					disabled={true}
 				>
-					<i className="cil-cloud-download me-2" />
+					<i className="at-arrow-down-cloud me-2" />
 					{t("ASABConfig|Export")}
 				</DropdownItem>
 			:
@@ -79,7 +79,7 @@ export function TreeViewComponent(props) {
 							borderRadius: 0
 						}}
 					>
-						<i className="cil-cloud-download me-2" />
+						<i className="at-arrow-down-cloud me-2" />
 						{t("ASABConfig|Export")}
 					</DropdownItem>
 				</a>
@@ -91,7 +91,7 @@ export function TreeViewComponent(props) {
 					}}
 					disabled={true}
 				>
-					<i className="cil-cloud-download me-2" />
+					<i className="at-arrow-down-cloud me-2" />
 					{t("ASABConfig|Export")}
 				</DropdownItem>
 			}
@@ -99,7 +99,7 @@ export function TreeViewComponent(props) {
 				disabled={resources ? resources.indexOf(resource) == -1 && resources.indexOf("authz:superuser") == -1 : true}
 				onClick={() => setChosenPanel("import")}
 			>
-				<i className="cil-cloud-upload me-2" />
+				<i className="at-arrow-up-cloud me-2" />
 				{t("ASABConfig|Import")}
 			</DropdownItem>
 		</DropdownMenu>

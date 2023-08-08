@@ -27,12 +27,12 @@ export default class HomeModule extends Module {
 		app.Navigation.addItem({
 			name: 'Home',
 			url: '/',
-			icon: 'cil-home',
+			icon: 'at-home',
 		})
 		app.Navigation.addItem({
 			name: 'Table',
 			url: '/Table',
-			icon: 'cil-chart',
+			icon: 'at-graph-chart',
 		})
 	}
 }
@@ -45,7 +45,7 @@ Example of `DataTable` with obligatory props:
 
 ```js
 <DataTable
-	title={{text: "Table Demo", icon: 'cil-user'}}
+	title={{text: "Table Demo", icon: 'at-account'}}
 	data={data}
 	headers={headers}
 	count={count}
@@ -62,7 +62,7 @@ Example of configuration for `DataTable`:
 let ConfigDefaults = {
 	...
 	table: {
-		title: { text: "Table Demo", icon: "cil-user" },
+		title: { text: "Table Demo", icon: "at-account" },
 		headers: [
 			{ name: 'Name', key: 'username' },
 			{ name: 'Provider', key: '_provider_id' },
@@ -117,7 +117,7 @@ Example:
 ```
 title: {
 	text: "Table Demo",
-	icon: "cil-user"
+	icon: "at-account"
 }
 ```
 
@@ -302,7 +302,7 @@ Example of `DataTable` with all props:
 
 ```js
 <DataTable
-	title={{text: "Table Demo", icon: 'cil-user'}}
+	title={{text: "Table Demo", icon: 'at-account'}}
 	data={data}
 	headers={headers}
 	count={count}
@@ -391,7 +391,7 @@ Example of `buttonWithAuthz`:
 		onClick() {alert("You've clicked button with authz")},
 		resource: "res:res",
 		resources: ["res:res"],
-		children: (<><i className="cil-trash me-2"></i>ButtonWithAuthz</>)
+		children: (<><i className="at-trash me-2"></i>ButtonWithAuthz</>)
 	}
 	...
 
@@ -417,7 +417,7 @@ Example of `customButton`:
 ...
 	const customButton = {
 		text: "Custom button",
-		icon: "cil-warning",
+		icon: "at-triangle-exclamation",
 		props: {
 			color: "primary",
 			onClick: () => {

@@ -32,7 +32,7 @@ export function DateTime(props) {
 
 	return (
 		<span className="datetime" title={dateFromNow}>
-			<i className="cil-clock pe-1"></i>
+			<i className="at-clock pe-1"></i>
 			{date}
 		</span>
 	);
@@ -42,7 +42,7 @@ export function DateTime(props) {
 function InvalidDate(props) {
 	return (
 		<span className='datetime'>
-			<i className="cil-clock pe-1"></i>
+			<i className="at-clock pe-1"></i>
 			Invalid Date
 		</span>
 	);

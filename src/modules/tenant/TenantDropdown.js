@@ -21,7 +21,7 @@ class TenantDropdown extends Component {
 		return (
 			<UncontrolledDropdown direction="down" className="pe-4">
 				<DropdownToggle nav caret>
-					<i className="cil-apps pe-2" style={{ fontSize: "1.1rem"}}></i>
+					<i className="at-house-key pe-2" style={{ fontSize: "1.1rem"}}></i>
 					<TenantLabel tenant={this.current}/>
 				</DropdownToggle>
 				{ (this.tenants && this.tenants.length > 0) ?

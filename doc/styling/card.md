@@ -18,7 +18,7 @@ Usually in ASAB-WebUI cards we add title and icon to it in `CardHeader` componen
 <Card>
 	<CardHeader>
 		<div className="card-header-title">
-			<i className="cil-list" />
+			<i className="at-list" />
 			Title
 		</div>
 	</CardHeader>
@@ -34,7 +34,7 @@ In order to use default ASAB-WebUI card header button styles just simply add the
 <Card>
 	<CardHeader>
 		<div className="card-header-title">
-			<i className="cil-list" />
+			<i className="at-list" />
 			Title
 		</div>
 		<Button>Click</Button>
@@ -48,7 +48,7 @@ If you want to use more buttons or add some input text then wrap all interactive
 <Card>
 	<CardHeader>
 		<div className="card-header-title">
-			<i className="cil-list" />
+			<i className="at-list" />
 			Title
 		</div>
 		<ButtonGroup>

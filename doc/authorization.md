@@ -61,13 +61,13 @@ The application resource has to be set in the application's Module, e.g.
 
 			app.Navigation.addItem({
 				name: 'My Sidebar Item',
-				icon: 'cil-address-book',
+				icon: 'at-phonebook-contacts',
 				resource: 'myitem:access', // Here the resource property has to be implemented
 				children: [
 					{
 						name: 'Credentials',
 						url: '/myitem/credentials',
-						icon: 'cil-people'
+						icon: 'at-users'
 					}
 				]
 			});

@@ -87,7 +87,7 @@ const ConfigImport = (props) => {
 			>
 				<CardHeader className="border-bottom">
 					<div className="card-header-title">
-						<i className="cil-cloud-upload me-2" />
+						<i className="at-arrow-up-cloud me-2" />
 						{t("ASABConfig|Import configuration")}
 					</div>
 				</CardHeader>

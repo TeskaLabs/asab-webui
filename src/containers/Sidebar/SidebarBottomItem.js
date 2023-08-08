@@ -92,7 +92,7 @@ const SidebarBottomItem = ({ item, sidebarLogo, disabled, toggleSidebarModal }) 
 							className={`sidebar-item-button btn mobile-collapsed${item ? " right" : ""}`}
 							onClick={onCollapse}
 						>
-							<i className='cil-chevron-left ms-auto'></i>
+							<i className='at-arrow-left ms-auto'></i>
 						</button>
 					</NavLink>
 				</NavItem>

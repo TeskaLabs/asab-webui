@@ -60,13 +60,13 @@ function LanguageDropdown(props) {
 export default LanguageDropdown;
 
 let LanguageToFlag = {
-	cs: 'cif-cz',
-	en: 'cif-gb',
-	dev: 'cil-bug',
-	cimode: 'cil-bug',
+	cs: 'cz',
+	en: 'gb',
+	dev: 'placeholder',
+	cimode: 'placeholder',
 }
 
 function LanguageFlag(props) {
-	let lcls = LanguageToFlag[props.language]
-	return (<i className={lcls +' pe-2'} style={{height: '1em', width: '1.6em'}}></i>)
+	let lcls = LanguageToFlag[props.language];
+	return (<img className={'pe-2'} src={`media/flags/${lcls}.svg`} style={{height: '1.2rem', width: '1.8rem'}}/>)
 }

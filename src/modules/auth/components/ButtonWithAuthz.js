@@ -46,8 +46,8 @@ import { authz } from './authz';
 				resource="myapp:mylist:write"
 				resources={resources}
 				hideOnUnauthorizedAccess={true}
-				>
-				<span className="cil-trash pe-2" />
+			>
+				<span className="at-trash pe-2" />
 				{t('MyApp|Delete')}
 			</ButtonWithAuthz>
 		...
@@ -69,7 +69,7 @@ export function ButtonWithAuthz(props) {
 			{...childProps}
 			title={title}
 			disabled={disabled}
-			>
+		>
 			{childProps.children}
 		</Button>
 	)
