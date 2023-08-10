@@ -1,7 +1,7 @@
 import React from "react";
 
 import {
-	Form, FormGroup, FormText, Input, Label
+	Form, FormText, Input, Label
 } from "reactstrap";
 
 import { useTranslation } from 'react-i18next';
@@ -77,8 +77,8 @@ export function ConfigItem(props) {
 	let myid = `${props.sectionname} ${props.itemname}`;
 	const reg = props.register(myid);
 	return (
-		<FormGroup>
-			<Label for={myid}>
+		<div className="mb-2">
+			<Label className='form-label' for={myid}>
 				{props.item['title']}
 			</Label>
 			<Input
@@ -93,7 +93,7 @@ export function ConfigItem(props) {
 			<FormText color="muted">
 				{props.item['description']}
 			</FormText>
-		</FormGroup>
+		</div>
 	);
 }
 
@@ -111,8 +111,8 @@ export function NumberConfigItem(props) {
 		let myid = `${props.sectionname} ${props.itemname}`;
 		const reg = props.register(myid);
 		return (
-			<FormGroup>
-				<Label for={myid}>
+			<div className="mb-2">
+				<Label className='form-label' for={myid}>
 					{props.item['title']}
 				</Label>
 				<Input
@@ -128,7 +128,7 @@ export function NumberConfigItem(props) {
 				<FormText color="muted">
 					{props.item['description']}
 				</FormText>
-			</FormGroup>
+			</div>
 		);
 	}
 }
@@ -138,8 +138,8 @@ export function UrlConfigItem(props) {
 	let myid = `${props.sectionname} ${props.itemname}`;
 	const reg = props.register(myid);
 	return (
-		<FormGroup>
-			<Label for={myid}>
+		<div className="mb-2">
+			<Label className='form-label' for={myid}>
 				{props.item['title']}
 			</Label>
 			<Input
@@ -154,7 +154,7 @@ export function UrlConfigItem(props) {
 			<FormText color="muted">
 				{props.item['description']}
 			</FormText>
-		</FormGroup>
+		</div>
 	);
 }
 
@@ -163,8 +163,8 @@ export function EmailConfigItem(props) {
 	let myid = `${props.sectionname} ${props.itemname}`;
 	const reg = props.register(myid);
 	return (
-		<FormGroup>
-			<Label for={myid}>
+		<div className="mb-2">
+			<Label className='form-label' for={myid}>
 				{props.item['title']}
 			</Label>
 			<Input
@@ -179,7 +179,7 @@ export function EmailConfigItem(props) {
 			<FormText color="muted">
 				{props.item['description']}
 			</FormText>
-		</FormGroup>
+		</div>
 	);
 }
 
@@ -188,8 +188,8 @@ export function PasswordConfigItem(props) {
 	let myid = `${props.sectionname} ${props.itemname}`;
 	const reg = props.register(myid);
 	return (
-		<FormGroup>
-			<Label for={myid}>
+		<div className="mb-2">
+			<Label className='form-label' for={myid}>
 				{props.item['title']}
 			</Label>
 			<Input
@@ -204,7 +204,7 @@ export function PasswordConfigItem(props) {
 			<FormText color="muted">
 				{props.item['description']}
 			</FormText>
-		</FormGroup>
+		</div>
 	);
 }
 
@@ -213,8 +213,8 @@ export function CheckBoxConfigItem(props) {
 	let myid = `${props.sectionname} ${props.itemname}`;
 	const reg = props.register(myid);
 	return (
-		<FormGroup>
-			<Label for={myid}>
+		<div className="mb-2">
+			<Label className='form-label' for={myid}>
 				{props.item['title']}
 			</Label>
 			<br />
@@ -231,7 +231,7 @@ export function CheckBoxConfigItem(props) {
 			<FormText color="muted">
 				{props.item['description']}
 			</FormText>
-		</FormGroup>
+		</div>
 	);
 }
 
@@ -241,12 +241,12 @@ export function RadioButtonConfigItem(props) {
 	const reg = props.register(myid);
 	return (
 		<React.Fragment>
-			<FormGroup check>
-				<Label for={myid}>
+			<div className="mb-2" check>
+				<Label className='form-label' for={myid}>
 					{props.item['title']}
 				</Label>
 				<br />
-				<Label for={myid} style={{marginLeft: 20}} check>
+				<Label className='form-label' for={myid} style={{marginLeft: 20}} check>
 					<Input
 						type="radio"
 						name={myid}
@@ -258,9 +258,9 @@ export function RadioButtonConfigItem(props) {
 					/>{' '}
 					True
 				</Label>
-			</FormGroup>
-			<FormGroup check>
-				<Label for={myid} style={{marginLeft: 20}} check>
+			</div>
+			<div className="mb-2" check>
+				<Label className='form-label' for={myid} style={{marginLeft: 20}} check>
 					<Input
 						type="radio"
 						name={myid}
@@ -275,7 +275,7 @@ export function RadioButtonConfigItem(props) {
 				<FormText color="muted">
 					{props.item['description']}
 				</FormText>
-			</FormGroup>
+			</div>
 		</React.Fragment>
 	);
 }
@@ -285,8 +285,8 @@ export function SelectConfigItem(props) {
 	let myid = `${props.sectionname} ${props.itemname}`;
 	const reg = props.register(myid);
 	return (
-		<FormGroup>
-			<Label for={myid}>
+		<div className="mb-2">
+			<Label className='form-label' for={myid}>
 				{props.item['title']}
 			</Label>
 			<Input
@@ -304,7 +304,7 @@ export function SelectConfigItem(props) {
 			<FormText color="muted">
 				{props.item['description']}
 			</FormText>
-		</FormGroup>
+		</div>
 	);
 }
 
@@ -313,8 +313,8 @@ export function TextAreaConfigItem(props) {
 	let myid = `${props.sectionname} ${props.itemname}`;
 	const reg = props.register(myid);
 	return (
-		<FormGroup>
-			<Label for={myid}>
+		<div className="mb-2">
+			<Label className='form-label' for={myid}>
 				{props.item['title']}
 			</Label>
 			<Input
@@ -328,7 +328,7 @@ export function TextAreaConfigItem(props) {
 			<FormText color="muted">
 				{props.item['description']}
 			</FormText>
-		</FormGroup>
+		</div>
 	);
 }
 
@@ -339,8 +339,8 @@ export function ConfigAdHocItem(props) {
 		props.values.length > 1 ?
 			props.values.map(obj => {
 				return(
-					<FormGroup key={Object.keys(obj)}>
-						<Label for={myid}>
+					<div className="mb-2" key={Object.keys(obj)}>
+						<Label className='form-label' for={myid}>
 							{Object.keys(obj)}
 						</Label>
 						<Input
@@ -353,13 +353,13 @@ export function ConfigAdHocItem(props) {
 						<FormText color="muted">
 							{t('ASABConfig|Read only')}
 						</FormText>
-					</FormGroup>
+					</div>
 					)
 			})
 		:
 			<React.Fragment>
-				<FormGroup>
-					<Label for={myid}>
+				<div className="mb-2">
+					<Label className='form-label' for={myid}>
 						{Object.keys(props.values[0])}
 					</Label>
 					<Input
@@ -372,7 +372,7 @@ export function ConfigAdHocItem(props) {
 					<FormText color="muted">
 						{t('ASABConfig|Read only')}
 					</FormText>
-				</FormGroup>
+				</div>
 			</React.Fragment>
 	);
 }

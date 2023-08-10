@@ -138,8 +138,8 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 
 
 	return (
-		<div className="data-table-pagination" style={style}>	
-			<Dropdown 
+		<div className="data-table-pagination" style={style}>
+			<Dropdown
 				isOpen={open}
 				toggle={() => setOpen(prev => !prev)}
 				direction="down"
@@ -156,12 +156,12 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 						>
 							{((page == "more") || (page == "less")) ? "..." : page}
 						</DropdownItem>
-					)} 
+					)}
 
 				</DropdownMenu>
 			</Dropdown>
 
-			<div className="mr-2">
+			<div className="me-2">
 				{pages && (pages.length > 1) ? (`${t("of")} ${(lastPage == 0) ? 1 : lastPage} ${t("Pages")}`) : (`${t("of")} ${(lastPage == 0) ? 1 : lastPage} ${t("Page")}`)}
 			</div>
 

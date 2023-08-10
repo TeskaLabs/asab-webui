@@ -4,15 +4,15 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap
 
 const ActionButton = ({ actionButton, row, header }) => {
 	const [isOpen, setOpen] = useState(false);
-	
+
 	return (
 		<Dropdown
-			className="action-button-dropdown float-right mr-2"
+			className="action-button-dropdown float-end me-2"
 			isOpen={isOpen}
 			toggle={() => setOpen(prev => !prev)}
 			size="sm"
 		>
-				<DropdownToggle 
+				<DropdownToggle
 					className="action-button-dropdown-toggle text-primary"
 					tag="span"
 					style={{ textDecoration: "none", cursor: "pointer" }}
@@ -22,7 +22,7 @@ const ActionButton = ({ actionButton, row, header }) => {
 				<DropdownMenu>
 					{actionButton.title && (
 						<DropdownItem
-							header 
+							header
 							className="action-button-dropdown-header"
 						>
 							<span style={{ fontWeight: 700 }}>{actionButton.title}</span>
@@ -39,7 +39,7 @@ const ActionButton = ({ actionButton, row, header }) => {
 						</DropdownItem>
 					))}
 				</DropdownMenu>
-				
+
 		</Dropdown>
 	)
 }

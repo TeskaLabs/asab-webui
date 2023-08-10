@@ -41,7 +41,7 @@ export function DataTable ({
 	const [countDigit, setCountDigit] = useState(1);
 
 	const advMode = useSelector(state => state.advmode.enabled);
-	
+
 	const { t } = useTranslation();
 
 	useEffect(() => {
@@ -94,21 +94,21 @@ export function DataTable ({
 				<Card className="h-auto data-table-card">
 					<CardHeader className="data-table-card-header border-bottom">
 						<div className="data-table-title card-header-title">
-							{title.icon && typeof title.icon === 'string' ? 
-								<i className={`${title.icon} mr-2`}></i> : title.icon
+							{title.icon && typeof title.icon === 'string' ?
+								<i className={`${title.icon} me-2`}></i> : title.icon
 							}
 							{title.text}
-						</div>				
+						</div>
 
 						<ButtonGroup>
-							{search && 
-									<Search 
+							{search &&
+									<Search
 										search={search}
 										filterValue={filterValue}
 										setFilterValue={setFilterValue}
 									/>
 							}
-							
+
 							{sort && <Sort sort={sort} />}
 
 							<div className="data-table-create-button data-table-button">{customComponent}</div>
@@ -116,7 +116,7 @@ export function DataTable ({
 							{customButton && <CustomButton customButton={CustomButton} />}
 
 							{buttonWithAuthz && <ButtonWithAuthz {...buttonWithAuthz} className="data-table-button-with-authz data-table-button"/>}
-							
+
 							{createButton && <CreateButton createButton={createButton} />}
 
 							{onDownload &&
@@ -154,7 +154,7 @@ export function DataTable ({
 					<CardFooter className="data-table-card-footer  border-top">
 						<div className="data-table-card-footer-left">
 							{setLimit &&
-								<LimitDropdown 
+								<LimitDropdown
 									translationRoute={translationRoute}
 									limit={limit}
 									setLimit={setLimit}
@@ -171,7 +171,7 @@ export function DataTable ({
 						</div>
 
 						{setPage && data && (data.length > 0) &&
-							<Pagination 
+							<Pagination
 								currentPage={currentPage}
 								setPage={setPage}
 								lastPage={Math.ceil(count/limit)}

@@ -19,7 +19,7 @@ export default function PreviewFlag({ name }) {
 
     return (
         <>
-            <span className={`badge badge-warning mr-4 preview-flag ${theme == "light" ? "preview-flag-light" : "preview-flag-dark"}`}>
+            <span className={`badge badge-warning me-4 preview-flag ${theme == "light" ? "preview-flag-light" : "preview-flag-dark"}`}>
                 { name }
             </span>
         </>

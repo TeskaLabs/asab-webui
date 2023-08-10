@@ -13,7 +13,7 @@ const TableCell = ({
 	obj, header, idx,
 	showJson, jsonTheme, isSublist
 }) => {
-	if (!obj) return <td className="pl-3" style={{ whiteSpace: "nowrap" }}>-</td>
+	if (!obj) return <td className="ps-3" style={{ whiteSpace: "nowrap" }}>-</td>
 
 	let cell, icon, customCellStyle;
 	let textLinkStyle = {
@@ -28,7 +28,7 @@ const TableCell = ({
 
 	if (header?.icon) {
 		icon =  typeof header.icon === 'string'
-			? (<i className={`${header.icon} pr-1`}></i>)
+			? (<i className={`${header.icon} pe-1`}></i>)
 			: (header.icon);
 	} else {
 		icon = null;
@@ -36,7 +36,7 @@ const TableCell = ({
 
 	if (showJson) {
 		return (
-			<td className="pr-3 data-table-td" style={{ padding: "auto" }}>
+			<td className="pe-3 data-table-td" style={{ padding: "auto" }}>
 				<span
 					onClick={showJson}
 					className="data-table-button text-primary"
@@ -113,7 +113,7 @@ const TableCell = ({
 				{cell}
 			</th>
 		) : (
-			<td className="pl-3 data-table-td" style={{ whiteSpace: "nowrap", ...customCellStyle }}>
+			<td className="ps-3 data-table-td" style={{ whiteSpace: "nowrap", ...customCellStyle }}>
 				{cell}
 			</td>
 		);
@@ -136,9 +136,9 @@ const Headers = ({ headers, advmode, sublists }) => (
 		{/* <thead className={`thead-${theme === "theme-dark" || !theme ? "light" : "dark"} data-table-thead`}> */}
 		<thead className="data-table-thead">
 			<tr className="data-table-tr">
-				{advmode && <th className="pl-3 data-table-adv-header-th">{" "}</th>}
-				{sublists && <th className="pl-3 data-table-sub-header-th">{" "}</th>}
-				{headers.map((header, idx) => <th key={idx} className={`data-table-header-th${idx !== 0 ? " pl-3" : ""}`}>{header.name}</th>)}
+				{advmode && <th className="ps-3 data-table-adv-header-th">{" "}</th>}
+				{sublists && <th className="ps-3 data-table-sub-header-th">{" "}</th>}
+				{headers.map((header, idx) => <th key={idx} className={`data-table-header-th${idx !== 0 ? " ps-3" : ""}`}>{header.name}</th>)}
 			</tr>
 		</thead>
 	</>
@@ -176,7 +176,7 @@ const TableRow = ({
 		}
 		else if (theme !== "light") {
 			return "chalk";
-		} 
+		}
 		else {
 			return "rjv-default";
 		}
@@ -230,8 +230,8 @@ const TableRow = ({
 						))}
 					</tr>
 			))}
-			
-			
+
+
 			{advmode && isAdvUnwrapped && (
 				<tr className="data-table-adv-tr" style={{ backgroundColor: "rgba(0, 0, 0, 0.025)"}}>
 					<td
@@ -246,7 +246,7 @@ const TableRow = ({
 					</td>
 				</tr>
 			)}
-			
+
 		</>
 	)
 }

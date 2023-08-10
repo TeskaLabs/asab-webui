@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 import {
 	UncontrolledDropdown,
 	DropdownItem,
-	DropdownMenu, 
+	DropdownMenu,
 	DropdownToggle,
 } from 'reactstrap';
 
@@ -34,8 +34,8 @@ function LanguageDropdown(props) {
 	}
 
 	return (
-		<UncontrolledDropdown direction="down" className="pr-4">
-			<DropdownToggle nav caret className="d-flex align-items-center">
+		<UncontrolledDropdown direction="down" className="pe-4">
+			<DropdownToggle nav caret>
 				<LanguageFlag language={i18n.language}/>
 			</DropdownToggle>
 			<DropdownMenu right>
@@ -67,6 +67,6 @@ let LanguageToFlag = {
 }
 
 function LanguageFlag(props) {
-	let lcls = LanguageToFlag[props.language]
-	return (<img className={'pr-2'} src={`media/flags/${lcls}.svg`} style={{height: '1.2rem', width: '1.8rem'}}/>)
+	let lcls = LanguageToFlag[props.language];
+	return (<img className={'pe-2'} src={`media/flags/${lcls}.svg`} style={{height: '1.2rem', width: '1.8rem'}}/>)
 }

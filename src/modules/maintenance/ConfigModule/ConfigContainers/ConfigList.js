@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import {
 	Button,
 	Card, CardBody, CardHeader, CardFooter,
-	Form, FormGroup, FormText, Input, Label
+	Form, FormText, Input, Label
 } from "reactstrap";
 
 import {types} from './actions/actions';
@@ -150,7 +150,7 @@ function ConfigList(props) {
 			props.app.addAlert("warning", `${t("ASABConfig|Something went wrong, failed to remove configuration")}. ${e?.response?.data?.message}`, 30);
 		}
 	}
-	
+
 	if (props.createConfig) {
 		return <CreateConfigCard app={props.app} configType={configType} setCreateConfig={props.setCreateConfig} />
 	}
@@ -226,7 +226,7 @@ function CreateConfigCard(props) {
 			<Card className="w-100 h-100">
 				<CardHeader className="border-bottom">
 					<div className="card-header-title">
-						<span className="at-gear pr-2" />
+						<span className="at-gear pe-2" />
 						{t("ASABConfig|Type") + ` ${props.configType.toString()} / ` + t('ASABConfig|New configuration')}
 					</div>
 					<Button
@@ -238,8 +238,8 @@ function CreateConfigCard(props) {
 					</Button>
 				</CardHeader>
 				<CardBody>
-					<FormGroup tag="fieldset" disabled={isSubmitting}>
-						<Label for="configName">
+					<fieldset className="mb-2" disabled={isSubmitting}>
+						<Label className='form-label' for="configName">
 							{t('ASABConfig|Configuration name')}
 						</Label>
 						<Input
@@ -254,7 +254,7 @@ function CreateConfigCard(props) {
 						<FormText color={errors.configName ? "danger" : "muted"}>
 							{errors.configName ? errors.configName.message : t('ASABConfig|Fill out configuration name')}
 						</FormText>
-					</FormGroup>
+					</fieldset>
 				</CardBody>
 			</Card>
 		</Form>

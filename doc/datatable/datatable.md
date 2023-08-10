@@ -1,7 +1,7 @@
 # ASAB WebUI DataTable component
 
 `DataTable` is react reusable component.
-It is used to display common data like numbers and strings. 
+It is used to display common data like numbers and strings.
 
 Also `DataTable` supports `advmode`. When `advmode` is enabled, `DataTable` displays extra column which is json for data passed in as `data` prop. More info about `advmode` can be found in `doc/advmode.md`.
 
@@ -9,7 +9,7 @@ Demo app's path: `asab-webui/demo/src/modules/home/containers/TableContainer.js`
 
 # Implementation
 
-DataTable can be mounted in its own container as it is implemented in demo app or as a widget in another app's container. In first case you must create container for `DataTable` and connect it to any module of your application by adding it's route and navigation item. 
+DataTable can be mounted in its own container as it is implemented in demo app or as a widget in another app's container. In first case you must create container for `DataTable` and connect it to any module of your application by adding it's route and navigation item.
 
 Example from demo:
 
@@ -66,7 +66,7 @@ let ConfigDefaults = {
 		headers: [
 			{ name: 'Name', key: 'username' },
 			{ name: 'Provider', key: '_provider_id' },
-			{ name: 'Type', key: '_type' } 
+			{ name: 'Type', key: '_type' }
 		],
 		limit: 10
 	},
@@ -89,14 +89,14 @@ Prop `title` is an object that has obligatory property `text` which is string an
 Example:
 
 ```js
-headers: [ 
-		{ 
+headers: [
+		{
 			name: 'Name',
 			key: 'username',
 			customHeaderStyle: { minWidth: '100px' },
-			customCellStyle: { textOverflow: "ellipsis", 
-							overflow: "hidden", 
-							whiteSpace: "nowrap", 
+			customCellStyle: { textOverflow: "ellipsis",
+							overflow: "hidden",
+							whiteSpace: "nowrap",
 							maxWidth: "15ch"
 						}
 		},
@@ -121,7 +121,7 @@ title: {
 }
 ```
 
-Optional property `link` is either an object or a function. 
+Optional property `link` is either an object or a function.
 Object contains properties `pathname` and `key`, where `pathname` is a string which is representing pathname for <Link> component and `key` is a key name for getting id for pathname.
 Output for link cell would look like:
 
@@ -142,7 +142,7 @@ const headers = [
 ```
 
 
-If `pathname` is "/user/", `key` is "_id" and data for that cell is 
+If `pathname` is "/user/", `key` is "_id" and data for that cell is
 {
 	...
 	_id: 1,
@@ -213,7 +213,7 @@ headers: [
 	{ name: 'Actions', actionButton: {
 		title: 'Actions',
 		actions: [
-			{ 
+			{
 				name: "Action 1",
 				onClick(row, header) { alert(row._id); },
 				icon: "cib-jenkins"
@@ -258,9 +258,9 @@ function (props) {
 	const [data, setData] = useState([]);
 	const [page, setPage] = useState(1);
 	const [count, setCount] = useState(0);
-	
+
 	...
-	const fetchData = (page) => {...}  
+	const fetchData = (page) => {...}
 	...
 
 	useEffect(() => {
@@ -391,7 +391,7 @@ Example of `buttonWithAuthz`:
 		onClick() {alert("You've clicked button with authz")},
 		resource: "res:res",
 		resources: ["res:res"],
-		children: (<><i className="at-trash mr-2"></i>ButtonWithAuthz</>)
+		children: (<><i className="at-trash me-2"></i>ButtonWithAuthz</>)
 	}
 	...
 
@@ -482,9 +482,9 @@ function (props) {
 	const [page, setPage] = useState(1);
 	const [count, setCount] = useState(0);
 	const [str, setStr] = useState('');
-	
+
 	...
-	const fetchData = (page, str="") => {...}  
+	const fetchData = (page, str="") => {...}
 	...
 
 	useEffect(() => {
@@ -525,14 +525,14 @@ let ConfigDefaults = {
 ```
 
 Prop `category` is an object which contains a key `sublistKey` for children object from list of data and `key` which will be taken to render td for target parent object. Also you can path some type prop like `link` or `customComponent` to generate cell component for parent.
-`sublistKey` value of parent object also should an object with such structure: 
+`sublistKey` value of parent object also should an object with such structure:
 ```js
 "children": {
 	"data": [...],
 	"count": 10
 }
 ```
-NOTE: If `sublistKey` is not present in target parent object then sublist for this object will not be generated 
+NOTE: If `sublistKey` is not present in target parent object then sublist for this object will not be generated
 
 ```js
 const data = [
@@ -648,7 +648,7 @@ return (
 )
 ```
 
-Prop `noItemsComponent` is used if you want to define custom component or string for displaying message when number of items in data passed into `DataTable` is zero. As string just write message you want to display. 
+Prop `noItemsComponent` is used if you want to define custom component or string for displaying message when number of items in data passed into `DataTable` is zero. As string just write message you want to display.
 
 Example of using `noItemsComponent` as string:
 ```js
@@ -743,10 +743,10 @@ Property `onDownload` of `customComponent` is needed if you want to use custom c
 Property `height` is needed if you want the item of elements in the table to adjust to the height of the web page when it first loads.
 NOTE: `height` should be used in conjunction with the `limit` and `setLimit`.
 > You will need two `useEffect`:
-> 
-> - The first will calculate the height of the container when it is first loaded. 
+>
+> - The first will calculate the height of the container when it is first loaded.
 > - The second you need to have the number of rows displayed dynamically, you need to add a condition (`limit > 0`), where you call the function that gets the data for the table. It will be in the same `useEffect` in which you called the function before.
-> 
+>
 You also need to add `useRef`. You will need to place it on the wrapper tag. It can only be `<div>`.Be sure to style this tag to 100% height.
 The number of items displayed per page will be a multiple of 5.
 ```js
@@ -826,21 +826,21 @@ props: {
   setPage: function, // function for setting page number
   title: {
     text: string, // name of a table
-    icon?: string | React.Component // Icon that will be displayed alongside the text as component or 
-                                    // as <i className={icon}></i> in case icon is string. 
-  }, 
+    icon?: string | React.Component // Icon that will be displayed alongside the text as component or
+                                    // as <i className={icon}></i> in case icon is string.
+  },
   limit?: number, // limit of items per page. Default is 10
   setLimit?: function, // function for setting limit
   height?: number, // table height
   createButton?: {
     text: string, // text inside button
     pathname: string, // URL for redirecting to create page
-    icon?: string|React.component, // Icon that will be displayed alongside the text as component or 
-                                  // as <i className={icon}></i> in case icon is string. 
+    icon?: string|React.component, // Icon that will be displayed alongside the text as component or
+                                  // as <i className={icon}></i> in case icon is string.
   },
   search?: boolean | {
     placeholder?: string, // placeholder for search input box
-    icon?: string | React.Component // Icon that will be displayed alongside the text as component or 
+    icon?: string | React.Component // Icon that will be displayed alongside the text as component or
                                     // as <i className={icon}></i> in case icon is string.
   },
   onSearch?: function, // function that is called in 500ms after changes has been made in search input box

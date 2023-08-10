@@ -54,7 +54,7 @@ export function Header(props) {
 						</div>
 					}
 					{windowDimensions.width > 768 && <Breadcrumbs app={props.app}/>}
-					<Nav className="ml-auto header-props" navbar>
+					<Nav className="ms-auto header-props" navbar>
 						<PreviewFlag name={flag} />
 						<HelpButton />
 						<ThemeButton />
@@ -77,7 +77,7 @@ export function Header(props) {
 							/>
 						</Link>
 					</div>
-					<Nav className="ml-auto header-props" navbar>
+					<Nav className="ms-auto header-props" navbar>
 						<PreviewFlag name={flag} />
 						<HelpButton />
 						<ThemeButton />
@@ -101,7 +101,7 @@ export function Header(props) {
 			{/* toggler has sidebar */}
 			{(props.app.props.hasSidebar || typeof props.app.props.hasSidebar === 'undefined') &&
 				<>
-					<div className={`header-props-toggler mr-3 p-0 ${headerProperties ? 'header-props-open' : '' }`} onClick={() => setHeaderProperties(!headerProperties)}>
+					<div className={`header-props-toggler me-3 p-0 ${headerProperties ? 'header-props-open' : '' }`} onClick={() => setHeaderProperties(!headerProperties)}>
 						<i className="at-double-arrow-down-circle"></i>
 					</div>
 					<div className="header-props-language">

@@ -87,7 +87,7 @@ const ConfigImport = (props) => {
 			>
 				<CardHeader className="border-bottom">
 					<div className="card-header-title">
-						<i className="at-arrow-up-cloud mr-2" />
+						<i className="at-arrow-up-cloud me-2" />
 						{t("ASABConfig|Import configuration")}
 					</div>
 				</CardHeader>
@@ -112,14 +112,14 @@ const ConfigImport = (props) => {
 
 						<Col>
 							<Row>
-								<FormGroup check className="mr-2">
+								<FormGroup check className="me-2">
 									<Input
 										type="radio"
 										value="merge"
 										checked={type === "merge"}
 										onChange={onTypeChange}
 									/>
-									<Label check>
+									<Label className='form-label' check>
 										{t("ASABConfig|Merge")}
 									</Label>
 								</FormGroup>
@@ -131,7 +131,7 @@ const ConfigImport = (props) => {
 										checked={type === "override"}
 										onChange={onTypeChange}
 									/>
-									<Label check>
+									<Label className='form-label' check>
 										{t("ASABConfig|Override")}
 									</Label>
 								</FormGroup>

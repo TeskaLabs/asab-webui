@@ -159,7 +159,7 @@ function ConfigContainer(props) {
 	// Render function
 	return (
 		<Container fluid className="config-container animated fadeIn">
-			<Row className="ml-0 h-100">
+			<Row className="ms-0 h-100">
 				<Col xs="3" sm="3" className="h-100">
 					<TreeViewComponent
 						serviceURL={serviceURL}
@@ -205,7 +205,7 @@ function ConfigContainer(props) {
 											/>
 										</Row>
 										<Row className="justify-content-center">
-											<h3>{t('ASABConfig|Nothing has been selected')}</h3>
+											<h3 className="w-auto">{t('ASABConfig|Nothing has been selected')}</h3>
 										</Row>
 										<Row className="justify-content-center">
 											<h6>{t('ASABConfig|Please select the configuration from tree menu on the left side of the screen')}</h6>

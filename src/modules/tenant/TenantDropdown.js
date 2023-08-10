@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
 	UncontrolledDropdown,
 	DropdownItem,
-	DropdownMenu, 
+	DropdownMenu,
 	DropdownToggle,
 } from 'reactstrap';
 
@@ -19,9 +19,9 @@ class TenantDropdown extends Component {
 
 	render() {
 		return (
-			<UncontrolledDropdown direction="down" className="pr-4">
+			<UncontrolledDropdown direction="down" className="pe-4">
 				<DropdownToggle nav caret>
-					<i className="at-house-key pr-2" style={{ fontSize: "1.1rem"}}></i>
+					<i className="at-house-key pe-2" style={{ fontSize: "1.1rem"}}></i>
 					<TenantLabel tenant={this.current}/>
 				</DropdownToggle>
 				{ (this.tenants && this.tenants.length > 0) ?

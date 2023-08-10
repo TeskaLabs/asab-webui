@@ -111,6 +111,13 @@ code {
 	margin-right: 10%;
 }
 
+a {
+	text-decoration: none !important;
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
 // Progress Bar
 .fade {
 	transition: opacity 0.15s linear;

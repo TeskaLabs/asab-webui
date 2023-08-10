@@ -22,9 +22,10 @@ $disabled-input-background-color: var(--disabled-input-background-color);
 
 .form-control {
     //box-shadow: 0px 2px 3px -1px $light;
+    appearance: auto !important;
     box-shadow: 0 2px 3px -1px $beige-gray;
     border: 1px solid $border-color;
-    border-radius: 2px;
+    border-radius: 4px;
     background-color: $input-bg;
     color: $input-text;
     transition: none;
@@ -69,6 +70,10 @@ $disabled-input-background-color: var(--disabled-input-background-color);
         border: 1px solid $border-color;
         box-shadow: 0 2px 3px -1px $light;
         color: $input-text;
+        border-right: unset;
+        border-radius: 4px 0px 0px 4px;
+        min-height: unset;
+        padding: 6.5px 8px;
     }
     &-addon {
         display: flex;
