@@ -100,6 +100,8 @@
 
 - Add a condition that will allow users with the right resource to see hidden tree-menu-items, add docs for TreeMenu (INDIGO Sprint 230721, [!437](https://github.com/TeskaLabs/asab-webui/pull/437))
 
+- Revert atlas icons back to coreui icons (INDIGO Sprint 230804, [!437](https://github.com/TeskaLabs/asab-webui/pull/437))
+
 ### Bugfix
 
 - Change key for locales to be reusable (INDIGO Sprint 230721, [!442](https://github.com/TeskaLabs/asab-webui/pull/442))
