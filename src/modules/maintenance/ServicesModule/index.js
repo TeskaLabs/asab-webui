@@ -26,7 +26,7 @@ export default class ServicesModule extends Module {
 				itm.children.push({
 					name: "Services",
 					url: "/services",
-					icon: "at-list",
+					icon: "cil-list",
 					resource: "asab:service:access"
 				});
 				isMaintenancePresent = true;
@@ -37,12 +37,12 @@ export default class ServicesModule extends Module {
 		if (!isMaintenancePresent) {
 			app.Navigation.addItem({
 				name: 'Maintenance',
-				icon: "at-menu-square",
+				icon: "cil-apps-settings",
 				children: [
 					{
 						name: "Services",
 						url: "/services",
-						icon: "at-list",
+						icon: "cil-list",
 						resource: "asab:service:access"
 					}
 				]

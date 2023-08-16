@@ -160,7 +160,7 @@ export default function (props) {
 					link: (obj) => `category/${obj}`,
 					sublistKey: "children"
 				}}
-				title={{text: "Table Demo", icon: 'at-account'}}
+				title={{text: "Table Demo", icon: 'cil-user'}}
 				data={data}
 				headers={headers}
 				count={count}

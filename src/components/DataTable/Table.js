@@ -42,7 +42,7 @@ const TableCell = ({
 					className="data-table-button text-primary"
 					style={{ cursor: "pointer" }}
 				>
-					<i className="at-align-down"></i>
+					<i className="cil-list-low-priority"></i>
 				</span>
 			</td>
 		);
@@ -198,7 +198,7 @@ const TableRow = ({
 				{advmode && <TableCell obj={obj} showJson={() => setAdvUnwrapped(prev => !prev)}/>}
 				{category && (
 					<td className="data-table-arrow-btn" onClick={() => (toggleChildrenOnRowClick == true) ? null : setSubUnwrapped(prev => !prev)}>
-						<i className={isSubUnwrapped ? "at-arrow-down-circle" : "at-arrow-right-circle"}></i>
+						<i className={isSubUnwrapped ? "cil-chevron-circle-down-alt" : "cil-chevron-circle-right-alt"}></i>
 					</td>
 				)}
 				{

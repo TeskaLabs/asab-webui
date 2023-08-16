@@ -164,11 +164,10 @@ export default function ServicesContainer(props) {
 			<Card className="h-100">
 				<CardHeader className="border-bottom">
 					<div className="card-header-title">
-						<i className="at-list mr-2"/>
 						{t("ServicesContainer|Services")}
 					</div>
 					<Search
-						search={{ icon: 'at-magnifying-glass', placeholder: t("ServicesContainer|Filter state") }}
+						search={{ icon: 'cil-magnifying-glass', placeholder: t("ServicesContainer|Filter state") }}
 						filterValue={filter}
 						setFilterValue={setFilter}
 					/>
@@ -315,9 +314,9 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 				<td>
 					<div className="caret-status-div">
 					{collapseData ?
-						<span title={t("ServicesContainer|Un-collapse")} className="caret-icon at-arrow-right-circle" onClick={() => {setCollapseData(false)}}></span>
+						<span title={t("ServicesContainer|Un-collapse")} className="caret-icon cil-arrow-circle-right" onClick={() => {setCollapseData(false)}}></span>
 						:
-						<span title={t("ServicesContainer|Collapse")} className="caret-icon at-arrow-down-circle" onClick={() => {setCollapseData(true)}}></span>
+						<span title={t("ServicesContainer|Collapse")} className="caret-icon cil-arrow-circle-bottom" onClick={() => {setCollapseData(true)}}></span>
 					}
 					{generateStatus(data[objKey]?.state ? data[objKey].state : undefined)}
 					</div>
@@ -343,7 +342,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								className="action-button"
 								color="secondary"
 								outline
-								icon="at-play"
+								icon="cil-media-play"
 								onClick={() => {setAction("start", data[objKey]?.instance_id), setIsSubmitting(true)}}
 								disabled={isSubmitting == true}
 							/>
@@ -354,7 +353,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								color="secondary"
 								outline
 								onClick={() => {setAction("stop", data[objKey]?.instance_id), setIsSubmitting(true)}}
-								icon="at-stop"
+								icon="cil-media-stop"
 								disabled={isSubmitting == true}
 							/>
 							<ActionButton
@@ -364,7 +363,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								color="secondary"
 								outline
 								onClick={() => {setAction("restart", data[objKey]?.instance_id), setIsSubmitting(true)}}
-								icon="at-rotate-arrow-right"
+								icon="cil-reload"
 								disabled={isSubmitting == true}
 							/>
 							<ActionButton
@@ -373,7 +372,7 @@ const RowContent = ({props, objKey, data, generateStatus}) => {
 								color="secondary"
 								outline
 								onClick={() => {setAction("up", data[objKey]?.instance_id), setIsSubmitting(true)}}
-								icon="at-double-arrow-up-circle"
+								icon="cil-media-eject"
 								disabled={isSubmitting == true}
 							/>
 						</ButtonGroup>

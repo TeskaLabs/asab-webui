@@ -27,7 +27,7 @@ export default class KnowledgeBaseModule extends Module {
 		app.Navigation.addItem({
 			name: 'Knowledge Base',
 			url: '/knowledge',
-			icon: 'at-star-lightbulb'
+			icon: 'cil-lightbulb'
 		});
 	}
 }

@@ -245,7 +245,7 @@ export default function (props) {
 		onClick() {alert("You've clicked button with authz")},
 		resource: "res:res",
 		resources: ["res:res"],
-		children: (<><i className="at-trash mr-2"></i>ButtonWithAuthz</>)
+		children: (<><i className="cil-trash mr-2"></i>ButtonWithAuthz</>)
 	}
 
 	const noItemsComponent = (
@@ -258,7 +258,7 @@ export default function (props) {
 
 	const customButton = {
 		text: "Custom button",
-		icon: "at-triangle-exclamation",
+		icon: "cil-warning",
 		props: {
 			color: "warning",
 			onClick: () => {
@@ -290,7 +290,7 @@ export default function (props) {
 		<Container>
 			<Button onClick={() => setLoading(prev => !prev)} className="mb-2">Set Loading</Button>
 			<DataTable
-				title={{text: "Table Demo", icon: 'at-account'}}
+				title={{text: "Table Demo", icon: 'cil-user'}}
 				data={data}
 				headers={headers}
 				count={count}
@@ -298,12 +298,12 @@ export default function (props) {
 				setLimit={setLimit}
 				currentPage={page}
 				setPage={setPage}
-				search={{ icon: 'at-magnifying-glass', placeholder: "Search" }}
-				createButton={{ text: "Create", icon: 'at-plus-circle', pathname: '#' }}
+				search={{ icon: 'cil-magnifying-glass', placeholder: "Search" }}
+				createButton={{ text: "Create", icon: 'cil-plus', pathname: '#' }}
 				onSearch={onSearch}
 				onDownload={onDownload}
 				sort={{
-					icon: 'at-align-down',
+					icon: 'cil-sort-descending',
 					title: "Sort by",
 					onClick: onSort,
 					items: [
@@ -313,12 +313,12 @@ export default function (props) {
 						},
 						{
 							name: "By username",
-							icon: "at-align-justify-down",
+							icon: "cil-sort-alpha-down",
 							value: "username"
 						},
 						{
 							name: "By creation date",
-							icon: "at-vertical-sliders-lines",
+							icon: "cil-sort-numeric-down",
 							value: "creation"
 						}
 					]

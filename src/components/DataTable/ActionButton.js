@@ -17,7 +17,7 @@ const ActionButton = ({ actionButton, row, header }) => {
 					tag="span"
 					style={{ textDecoration: "none", cursor: "pointer" }}
 				>
-					<i className="at-dots-horizontal" style={{ fontSize: "1.25rem" }}></i>
+					<i className="cil-ellipsis" style={{ fontSize: "1.25rem" }}></i>
 				</DropdownToggle>
 				<DropdownMenu>
 					{actionButton.title && (

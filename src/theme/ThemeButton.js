@@ -27,7 +27,7 @@ const ThemeButton = ({theme}) => {
 			title={t("Change theme")}
 			href="#"
 		>
-			<i className="at-lighting"></i>
+			<i className="cil-contrast"></i>
 		</NavLink>
 	);
 }

@@ -16,22 +16,22 @@ export default class HomeModule extends Module {
 		app.Navigation.addItem({
 			name: 'Home',
 			url: '/home',
-			icon: 'at-home',
+			icon: 'cil-home',
 		});
 		app.Navigation.addItem({
 			name: 'Table',
 			url: '/table',
-			icon: 'at-graph-chart',
+			icon: 'cil-chart',
 		});
 		app.Navigation.addItem({
 			name: 'Category Table',
 			url: '/category-table',
-			icon: 'at-graph-chart',
+			icon: 'cil-chart',
 		});
 		app.Navigation.addItem({
 			name: 'Error Example',
 			url: '/error-example',
-			icon: 'at-triangle-exclamation',
+			icon: 'cil-warning',
 		});
 	}
 }
