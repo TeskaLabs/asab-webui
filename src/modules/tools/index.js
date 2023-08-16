@@ -23,7 +23,7 @@ export default class ToolsModule extends Module {
 		app.Navigation.addItem({
 			name: "Tools",
 			url: "/tools",
-			icon: 'at-plugin',
+			icon: 'cil-puzzle',
 			resource: "asab:tools:access"
 		});
 	}

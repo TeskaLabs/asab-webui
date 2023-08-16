@@ -131,7 +131,7 @@ $nav-bar-link: var(--nav-bar-link);
 		align-self: center;
 		font-size: 1.5rem;
 		margin-left: auto !important;
-		& [class^="at-"] {
+		& [class^="cil-"] {
 			position: absolute;
 			right: 32px;
 			top: 19px;
@@ -139,7 +139,7 @@ $nav-bar-link: var(--nav-bar-link);
 			transition: transform .25s ease;
 		}
 		&.header-props-open {
-			& [class^="at-"] {
+			& [class^="cil-"] {
 				transform: rotate(180deg);
 				transition: transform 0.25s ease;
 			}

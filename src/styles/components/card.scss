@@ -39,7 +39,7 @@ $box-shadow-card-color: var(--box-shadow-card-color);
 			margin: auto 1.25rem;
 			padding: 13px 0;
 			min-height:  50px;
-			[class^="at-"], [class*=" at-"] {
+			[class^="cil-"], [class*=" cil-"] {
 				color: $primary;
 				font-weight: 700;
 			}

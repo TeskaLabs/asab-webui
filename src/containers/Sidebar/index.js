@@ -88,7 +88,7 @@ export default function Sidebar (props) {
 		windowDimensions.width <= 768 ?
 		<>
 			<div className="mobile-sidebar-burger" onClick={toggleSidebarModal}>
-				<i className="at-justify"></i>
+				<i className="cil-menu"></i>
 			</div>
 			<Modal isOpen={modal} toggle={toggleSidebarModal} className="left">
 				<div className="app-sidebar">

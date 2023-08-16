@@ -21,7 +21,7 @@
 	--btn-outline-info-shadow-color: #31b6e380;
 	--btn-outline-light-shadow-color: #f3f4fac0;
 	--btn-outline-dark-shadow-color: #0e142680;
-
+	
 	--btn-secondary-outline-hover-bg-color: #75757526;
 	--btn-success-outline-hover-bg-color: #e1ffe9;
 	--btn-danger-outline-hover-bg-color: #ffdadc;
@@ -31,7 +31,7 @@
 	--btn-dark-outline-hover-bg-color: #828eb0;
 
 
-}
+}	
 :root[data-theme="dark"] {
 	--btn-secondary-bg-color: var(--light-blue);
 	--btn-primary-bg-color: var(--night-blue);
@@ -108,7 +108,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 		color: $btn-txt;
 	}
 	&.disabled, &:disabled {
-		 & [class^="at-"] {
+		 & [class^="cil-"] {
 			 pointer-events: none;
 		 }
 	}
@@ -119,7 +119,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 		color: $btn-txt;
 		filter: none;
 		box-shadow: none;
-		// & [class^="at-"] {
+		// & [class^="cil-"] {
 		// 	color: $btn-txt !important;
 		// }
 	}
@@ -167,11 +167,11 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 		&:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
 			background-color: $btn-primary-outline-bg-color;
 			color: $btn-primary-bg-color;
-			& [class^="at-"] {
+			& [class^="cil-"] {
 				color: $btn-primary-bg-color !important;
 			}
 		}
-		& [class^="at-"] {
+		& [class^="cil-"] {
 			color: $btn-primary-bg-color !important;
 		}
 		&.disabled, &:disabled {
@@ -204,11 +204,11 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 		&:hover, &:active, &:not(:disabled):not(.disabled):active, &.disabled, &:disabled {
 			background-color: $btn-secondary-outline-hover-bg-color;
 			color: $btn-secondary-bg-color;
-			& [class^="at-"] {
+			& [class^="cil-"] {
 				color: $btn-secondary-bg-color !important;
 			}
 		}
-		& [class^="at-"] {
+		& [class^="cil-"] {
 			color: $btn-secondary-bg-color !important;
 		}
 		&.disabled, &:disabled {
@@ -242,7 +242,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 			background-color: $btn-success-outline-hover-bg-color;
 			color: $success;
 		}
-		& [class^="at-"] {
+		& [class^="cil-"] {
 			color: $success !important;
 		}
 		&.disabled, &:disabled {
@@ -276,7 +276,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 			background-color: $btn-danger-outline-hover-bg-color;
 			color: $danger;
 		}
-		& [class^="at-"] {
+		& [class^="cil-"] {
 			color: $danger !important;
 		}
 		&.disabled, &:disabled {
@@ -310,7 +310,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 			background-color: $btn-warning-outline-hover-bg-color;
 			color: $warning;
 		}
-		& [class^="at-"] {
+		& [class^="cil-"] {
 			color: $warning !important;
         }
 		&.disabled, &:disabled {
@@ -344,7 +344,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 			background-color: $btn-info-outline-hover-bg-color;
 			color: $info;
 		}
-		& [class^="at-"] {
+		& [class^="cil-"] {
 			color: $info !important;
         }
 		&.disabled, &:disabled {
@@ -378,7 +378,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 			background-color: $btn-light-outline-hover-bg-color;
 			color: $light;
 		}
-		& [class^="at-"] {
+		& [class^="cil-"] {
 			color: $light !important;
         }
 		&.disabled, &:disabled {
@@ -412,7 +412,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 			background-color: $btn-dark-outline-hover-bg-color;
 			color: $dark;
 		}
-		& [class^="at-"] {
+		& [class^="cil-"] {
 			color: $btn-secondary-bg-color !important;
 		}
 		&.disabled, &:disabled {
@@ -447,7 +447,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 		}
 	}
 
-// SMALL
+// SMALL 
 	&-sm {
 		padding: 0.25rem 0.875rem;
 		border: 0;
@@ -455,7 +455,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 		font-size: 0.75rem;
 	}
 
-// LARGE
+// LARGE 
 	&-lg {
 		border: 0;
 		min-height: 60px;
@@ -464,7 +464,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 		padding: 0.5rem 1rem;
 	}
 
-// BLOCK
+// BLOCK 
 	&-block {
 		display: block;
 		width: 100%;
@@ -474,7 +474,7 @@ $btn-dark-outline-hover-bg-color: var(--btn-dark-outline-hover-bg-color);
 }
 
 // ICONS INSIDE BUTTONS
-.card .btn [class^="at-"], .card .btn [class*=" at-"] {
+.card .btn [class^="cil-"], .card .btn [class*=" cil-"] {
 	color: $btn-txt;
 }
 

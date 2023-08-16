@@ -27,24 +27,24 @@ The resource is set to the navigation `addItem` component.
 	app.Navigation.addItem({
 		name: 'Nowhere',
 		url: '/nowhere',
-		icon: 'at-gamepad',
+		icon: 'cil-casino',
 		resource: 'nowhere:access'
 	});
 
 	app.Navigation.addItem({
 		name: 'Wrapped',
-		icon: 'at-graph-chart',
+		icon: 'cil-chart',
 		resource: 'wrapped:access'
 		children: [
 			{
 				name: 'Home',
 				url: '/',
-				icon: 'at-home',
+				icon: 'cil-home',
 			},
 			{
 				name: 'Table',
 				url: '/Table',
-				icon: 'at-graph-chart',
+				icon: 'cil-chart',
 			}
 		]
 	});
@@ -52,7 +52,7 @@ The resource is set to the navigation `addItem` component.
 	app.Navigation.addItem({
 		name: 'Fancy',
 		url: '/fancy',
-		icon: 'at-documents'
+		icon: 'cil-copy'
 	})
 
 ```
@@ -79,18 +79,18 @@ The resource is set to the navigation `addItem` -> `children` component.
 ```
 	app.Navigation.addItem({
 		name: 'Wrapped',
-		icon: 'at-graph-chart',
+		icon: 'cil-chart',
 		resource: 'wrapped:access'
 		children: [
 			{
 				name: 'Home',
 				url: '/',
-				icon: 'at-home'
+				icon: 'cil-home'
 			},
 			{
 				name: 'Table',
 				url: '/Table',
-				icon: 'at-graph-chart',
+				icon: 'cil-chart',
 				resource: "table:access"
 			}
 		]

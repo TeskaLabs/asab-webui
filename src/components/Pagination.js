@@ -171,7 +171,7 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 						previous
 						onClick={() => setPage(Math.max(1, currentPage - 1))}
 						>
-						<i className="at-arrow-left" />
+						<i className="cil-media-skip-backward" />
 					</PaginationLink>
 				</PaginationItem>
 
@@ -180,7 +180,7 @@ export default function ({ currentPage, setPage, lastPage, style }) {
 						next
 						onClick={() => setPage(currentPage + 1)}
 						>
-						<i className="at-arrow-right" />
+						<i className="cil-media-skip-forward" />
 					</PaginationLink>
 				</PaginationItem>
 			</Pagination>

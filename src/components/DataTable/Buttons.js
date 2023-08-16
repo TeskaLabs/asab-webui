@@ -44,7 +44,7 @@ export const DownloadButton = ({ onDownload, headers, title }) => {
 	return (
 		<div className="float-right ml-3 data-table-download-button">
 			<Button tag="span" onClick={downloadHandler} >
-				<i className="at-arrow-down"></i>
+				<i className="cil-arrow-bottom"></i>
 				Download
 			</Button>
 		</div>
@@ -66,7 +66,7 @@ export const ActionButton = ({ actionButton, row, header }) => {
 				tag="span"
 				style={{ textDecoration: "none", cursor: "pointer" }}
 			>
-				<i className="at-dots-horizontal" style={{ fontSize: "1.25rem" }}></i>
+				<i className="cil-ellipsis" style={{ fontSize: "1.25rem" }}></i>
 			</DropdownToggle>
 			<DropdownMenu>
 				{actionButton.title && (
