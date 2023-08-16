@@ -102,6 +102,9 @@
 
 - Changed icons from Coreui.io icons to Atlas icons. (INDIGO Sprint 230721, [!412](https://github.com/TeskaLabs/asab-webui/pull/412))
 
+- Revert atlas icons back to coreui icons (INDIGO Sprint 230804, [!444](https://github.com/TeskaLabs/asab-webui/pull/444))
+
+
 ### Bugfix
 
 - Change key for locales to be reusable (INDIGO Sprint 230721, [!442](https://github.com/TeskaLabs/asab-webui/pull/442))
