@@ -44,8 +44,9 @@ const TreeMenu = ({
 							{items.map(({ reset, ...params }) => (
 								<TreeMenuItem
 									active="false"
+									resource={props.resource}
+									resources={props.resources}
 									{...params}
-									{...props}
 								/>
 							))}
 						</ListGroup>
