@@ -122,7 +122,7 @@
 
 - Add missing locales for HelpButton (INDIGO Sprint 230623, [!436](https://github.com/TeskaLabs/asab-webui/pull/436))
 
-- Fixed passing of props to the TreeMenuItem component (INDIGO Sprint 230804, [!446](https://github.com/TeskaLabs/asab-webui/pull/446))
+- Fixed passing of props to the TreeMenuItem component (INDIGO Sprint 230818, [!446](https://github.com/TeskaLabs/asab-webui/pull/446))
 
 ### Hotfix
 
