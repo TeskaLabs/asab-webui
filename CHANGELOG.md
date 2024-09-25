@@ -1,6 +1,10 @@
 # CHANGELOG
 
-## Release Candidate
+## v24.39
+
+### Releases
+
+- v24.39-alpha
 
 ### Breaking change
 
@@ -101,6 +105,8 @@
 - Add a condition that will allow users with the right resource to see hidden tree-menu-items, add docs for TreeMenu (INDIGO Sprint 230721, [!437](https://github.com/TeskaLabs/asab-webui/pull/437))
 
 ### Bugfix
+
+- Fix dynamic page title (#447, PLUM Sprint 240906, v24.39-alpha)
 
 - Change key for locales to be reusable (INDIGO Sprint 230721, [!442](https://github.com/TeskaLabs/asab-webui/pull/442))
 
