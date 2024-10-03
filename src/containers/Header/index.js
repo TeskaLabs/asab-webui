@@ -31,7 +31,16 @@ export function Header(props) {
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
 		return () => window.removeEventListener('resize', handleResize);
-	}, [windowDimensions])
+	}, [windowDimensions]);
+
+	// Avoid rendering Help button for SeaCatAuthModule
+	const HelpButtonComponent = React.memo(function HelpButtonComponent(props) {
+		if (props.app?.Modules?.some(obj => obj?.Name === 'SeaCatAuthModule')) {
+			return null;
+		} else {
+			return <HelpButton />;
+		}
+	});
 
 	function handleResize () {
 		setWindowDimensions({width: window.innerWidth});
@@ -56,7 +65,7 @@ export function Header(props) {
 					{windowDimensions.width > 768 && <Breadcrumbs app={props.app}/>}
 					<Nav className="ml-auto header-props" navbar>
 						<PreviewFlag name={flag} />
-						<HelpButton />
+						<HelpButtonComponent app={props.app}/>
 						<ThemeButton />
 						{HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>
@@ -79,7 +88,7 @@ export function Header(props) {
 					</div>
 					<Nav className="ml-auto header-props" navbar>
 						<PreviewFlag name={flag} />
-						<HelpButton />
+						<HelpButtonComponent app={props.app}/>
 						<ThemeButton />
 						{HeaderService.Items.map((item, idx) => (
 							window.innerWidth < 1024 && item.componentProps.children !== undefined && item.componentProps.children === "LanguageDropdown" ?
@@ -123,7 +132,7 @@ export function Header(props) {
 							(
 								<Nav navbar>
 									<PreviewFlag name={flag} />
-									<HelpButton />
+									<HelpButtonComponent app={props.app}/>
 									<ThemeButton />
 									{HeaderService.Items.map((item, idx) => (
 										window.innerWidth > 500 ?
@@ -151,7 +160,7 @@ export function Header(props) {
 				:
 					<Nav className="header-props-sm" navbar>
 						<PreviewFlag name={flag} />
-						<HelpButton />
+						<HelpButtonComponent app={props.app}/>
 						<ThemeButton />
 						{HeaderService.Items.map((item, idx) => (
 							<NavItem key={idx}>

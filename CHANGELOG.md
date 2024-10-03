@@ -4,6 +4,7 @@
 
 ### Releases
 
+- v24.39-alpha2
 - v24.39-alpha
 
 ### Breaking change
@@ -132,6 +133,7 @@
 
 ### Hotfix
 
+- Hotfix on displaying the Help button (INDIGO Sprint 240913, [!448](https://github.com/TeskaLabs/asab-webui/pull/448))
 - Hotfix on DateTime component - Invalid date in timeToString formatting, preventing app failure (INDIGO Sprint 230804, [!443](https://github.com/TeskaLabs/asab-webui/pull/443))
 
 
